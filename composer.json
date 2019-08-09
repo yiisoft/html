@@ -1,31 +1,33 @@
 {
-    "name": "yiisoft/_____",
+    "name": "yiisoft/html",
     "type": "library",
-    "description": "_____",
-    "keywords": ["_____"],
+    "description": "html",
+    "keywords": ["html"],
     "homepage": "http://www.yiiframework.com/",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/yiisoft/_____/issues?state=open",
+        "issues": "https://github.com/yiisoft/html/issues?state=open",
         "forum": "http://www.yiiframework.com/forum/",
         "wiki": "http://www.yiiframework.com/wiki/",
         "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/_____"
+        "source": "https://github.com/yiisoft/html"
     },
     "require": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "yiisoft/arrays": "^3.0@dev",
+        "yiisoft/json": "^3.0@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.2"
     },
     "autoload": {
         "psr-4": {
-            "Yiisoft\\_____\\": "src"
+            "Yiisoft\\Html\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Yiisoft\\_____\\Tests\\": "tests"
+            "Yiisoft\\Html\\Tests\\": "tests"
         }
     },
     "extra": {
