@@ -2,8 +2,9 @@
 
 namespace Yiisoft\Html\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
+use Yiisoft\Html\Tests\TestCase;
+use Yiisoft\Json\Json;
 
 final class HtmlTest extends TestCase
 {
@@ -62,7 +63,7 @@ final class HtmlTest extends TestCase
     public function testCssFile(): void
     {
         $this->assertSame('<link href="http://example.com" rel="stylesheet">', Html::cssFile('http://example.com'));
-        $this->assertSame('<link href="/test" rel="stylesheet">', Html::cssFile(''));
+        $this->assertSame('<link href="" rel="stylesheet">', Html::cssFile(''));
         $this->assertSame("<!--[if IE 9]>\n" . '<link href="http://example.com" rel="stylesheet">' . "\n<![endif]-->", Html::cssFile('http://example.com', ['condition' => 'IE 9']));
         $this->assertSame("<!--[if (gte IE 9)|(!IE)]><!-->\n" . '<link href="http://example.com" rel="stylesheet">' . "\n<!--<![endif]-->", Html::cssFile('http://example.com', ['condition' => '(gte IE 9)|(!IE)']));
         $this->assertSame('<noscript><link href="http://example.com" rel="stylesheet"></noscript>', Html::cssFile('http://example.com', ['noscript' => true]));
@@ -71,21 +72,9 @@ final class HtmlTest extends TestCase
     public function testJsFile(): void
     {
         $this->assertSame('<script src="http://example.com"></script>', Html::jsFile('http://example.com'));
-        $this->assertSame('<script src="/test"></script>', Html::jsFile(''));
+        $this->assertSame('<script src=""></script>', Html::jsFile(''));
         $this->assertSame("<!--[if IE 9]>\n" . '<script src="http://example.com"></script>' . "\n<![endif]-->", Html::jsFile('http://example.com', ['condition' => 'IE 9']));
         $this->assertSame("<!--[if (gte IE 9)|(!IE)]><!-->\n" . '<script src="http://example.com"></script>' . "\n<!--<![endif]-->", Html::jsFile('http://example.com', ['condition' => '(gte IE 9)|(!IE)']));
-    }
-
-    /**
-     * @dataProvider dataProviderBeginFormSimulateViaPost
-     *
-     * @param string $expected
-     * @param string $method
-     */
-    public function testBeginFormSimulateViaPost($expected, $method): void
-    {
-        $actual = Html::beginForm('/foo', $method);
-        $this->assertStringMatchesFormat($expected, $actual);
     }
 
     /**
@@ -104,33 +93,13 @@ final class HtmlTest extends TestCase
         ];
     }
 
-    public function testBeginForm(): void
-    {
-        $this->assertSame('<form action="/test" method="post">', Html::beginForm());
-        $this->assertSame('<form action="/example" method="get">', Html::beginForm('/example', 'get'));
-        $hiddens = [
-            '<input type="hidden" name="id" value="1">',
-            '<input type="hidden" name="title" value="&lt;">',
-        ];
-        $this->assertSame('<form action="/example" method="get">' . "\n" . implode("\n", $hiddens), Html::beginForm('/example?id=1&title=%3C', 'get'));
-
-        $expected = '<form action="/foo" method="GET">%A<input type="hidden" name="p" value="">';
-        $actual = Html::beginForm('/foo?p', 'GET');
-        $this->assertStringMatchesFormat($expected, $actual);
-    }
-
-    public function testEndForm(): void
-    {
-        $this->assertSame('</form>', Html::endForm());
-    }
-
     public function testA(): void
     {
         $this->assertSame('<a>something<></a>', Html::a('something<>'));
         $this->assertSame('<a href="/example">something</a>', Html::a('something', '/example'));
-        $this->assertSame('<a href="/test">something</a>', Html::a('something', ''));
+        $this->assertSame('<a href="">something</a>', Html::a('something', ''));
         $this->assertSame('<a href="http://www.быстроном.рф">http://www.быстроном.рф</a>', Html::a('http://www.быстроном.рф', 'http://www.быстроном.рф'));
-        $this->assertSame('<a href="https://www.example.com/index.php?r=site%2Ftest">Test page</a>', Html::a('Test page', Url::to(['/site/test'], 'https')));
+        $this->assertSame('<a href="/site/test">Test page</a>', Html::a('Test page', '/site/test'));
     }
 
     public function testMailto(): void
@@ -151,7 +120,7 @@ final class HtmlTest extends TestCase
                 [],
             ],
             [
-                '<img src="/test" alt="">',
+                '<img src="" alt="">',
                 '',
                 [],
             ],
@@ -1128,20 +1097,6 @@ EOD;
     }
 
     /**
-     * @dataProvider dataProviderActiveTextInput
-     *
-     * @param string $value
-     * @param array $options
-     * @param string $expectedHtml
-     */
-    public function testActiveTextInput($value, array $options, $expectedHtml): void
-    {
-        $model = new HtmlTestModel();
-        $model->name = $value;
-        $this->assertSame($expectedHtml, Html::activeTextInput($model, 'name', $options));
-    }
-
-    /**
      * Data provider for {@see testActivePasswordInput()}.
      * @return array test data
      */
@@ -1168,20 +1123,6 @@ EOD;
                 '<input type="password" id="htmltestmodel-name" name="HtmlTestModel[name]" value="" maxlength="99">',
             ],
         ];
-    }
-
-    /**
-     * @dataProvider dataProviderActivePasswordInput
-     *
-     * @param string $value
-     * @param array $options
-     * @param string $expectedHtml
-     */
-    public function testActivePasswordInput($value, array $options, $expectedHtml): void
-    {
-        $model = new HtmlTestModel();
-        $model->name = $value;
-        $this->assertSame($expectedHtml, Html::activePasswordInput($model, 'name', $options));
     }
 
     public function errorSummaryDataProvider(): array
@@ -1244,69 +1185,6 @@ EOD;
     }
 
     /**
-     * @dataProvider errorSummaryDataProvider
-     *
-     * @param string $value
-     * @param array $options
-     * @param string $expectedHtml
-     * @param \Closure $beforeValidate
-     */
-    public function testErrorSummary($value, array $options, $expectedHtml, $beforeValidate = null): void
-    {
-        $model = new HtmlTestModel();
-        $model->name = $value;
-        if ($beforeValidate !== null) {
-            $beforeValidate($model);
-        }
-        $model->validate(null, false);
-
-        $this->assertSameWithoutLE($expectedHtml, Html::errorSummary($model, $options));
-    }
-
-    public function testError(): void
-    {
-        $model = new HtmlTestModel();
-        $model->validate();
-        $this->assertSame(
-            '<div>Name cannot be blank.</div>',
-            Html::error($model, 'name'),
-            'Default error message after calling $model->getFirstError()'
-        );
-
-        $this->assertSame(
-            '<div>this is custom error message</div>',
-            Html::error($model, 'name', ['errorSource' => [$model, 'customError']]),
-            'Custom error message generated by callback'
-        );
-        $this->assertSame(
-            '<div>Error in yii\tests\framework\helpers\HtmlTestModel - name</div>',
-            Html::error($model, 'name', ['errorSource' => static function ($model, $attribute) {
-                return 'Error in ' . get_class($model) . ' - ' . $attribute;
-            }]),
-            'Custom error message generated by closure'
-        );
-    }
-
-    /**
-     * Test that attributes that output same errors, return unique message error
-     * @see https://github.com/yiisoft/yii2/pull/15859
-     */
-    public function testCollectError(): void
-    {
-        $model = new DynamicModel(['attr1' => 'attr1', 'attr2' => 'attr2']);
-
-        $model->addError('attr1', 'error1');
-        $model->addError('attr1', 'error2');
-        $model->addError('attr2', 'error1');
-
-        $this->assertSameWithoutLE(
-            '<div><p>Please fix the following errors:</p><ul><li>error1</li>
-<li>error2</li></ul></div>',
-            Html::errorSummary($model, ['showAllErrors' => true])
-        );
-    }
-
-    /**
      * Data provider for {@see testActiveTextArea()}.
      * @return array test data
      */
@@ -1343,39 +1221,6 @@ EOD;
     }
 
     /**
-     * @dataProvider dataProviderActiveTextArea
-     *
-     * @param string $value
-     * @param array $options
-     * @param string $expectedHtml
-     */
-    public function testActiveTextArea($value, array $options, $expectedHtml): void
-    {
-        $model = new HtmlTestModel();
-        $model->description = $value;
-        $this->assertSame($expectedHtml, Html::activeTextarea($model, 'description', $options));
-    }
-
-    /**
-     * @see https://github.com/yiisoft/yii2/issues/10078
-     */
-    public function testCsrfDisable(): void
-    {
-        Yii::getApp()->request->enableCsrfValidation = true;
-        Yii::getApp()->request->cookieValidationKey = 'foobar';
-
-        $csrfForm = Html::beginForm('/index.php', 'post', ['id' => 'mycsrfform']);
-        $this->assertSame(
-            '<form id="mycsrfform" action="/index.php" method="post">'
-            . "\n" . '<input type="hidden" name="_csrf" value="' . Yii::getApp()->request->getCsrfToken() . '">',
-            $csrfForm
-        );
-
-        $noCsrfForm = Html::beginForm('/index.php', 'post', ['csrf' => false, 'id' => 'myform']);
-        $this->assertSame('<form id="myform" action="/index.php" method="post">', $noCsrfForm);
-    }
-
-    /**
      * Data provider for {@see testActiveRadio()}.
      * @return array test data
      */
@@ -1406,20 +1251,6 @@ EOD;
     }
 
     /**
-     * @dataProvider dataProviderActiveRadio
-     *
-     * @param string $value
-     * @param array $options
-     * @param string $expectedHtml
-     */
-    public function testActiveRadio($value, array $options, $expectedHtml): void
-    {
-        $model = new HtmlTestModel();
-        $model->radio = $value;
-        $this->assertSame($expectedHtml, Html::activeRadio($model, 'radio', $options));
-    }
-
-    /**
      * Data provider for {@see testActiveCheckbox()}.
      * @return array test data
      */
@@ -1447,20 +1278,6 @@ EOD;
                 '<input type="checkbox" id="htmltestmodel-checkbox" name="HtmlTestModel[checkbox]" value="1" checked>',
             ],
         ];
-    }
-
-    /**
-     * @dataProvider dataProviderActiveCheckbox
-     *
-     * @param string $value
-     * @param array $options
-     * @param string $expectedHtml
-     */
-    public function testActiveCheckbox($value, array $options, $expectedHtml): void
-    {
-        $model = new HtmlTestModel();
-        $model->checkbox = $value;
-        $this->assertSame($expectedHtml, Html::activeCheckbox($model, 'checkbox', $options));
     }
 
     /**
@@ -1500,132 +1317,6 @@ EOD;
         ];
     }
 
-    /**
-     * @dataProvider validAttributeNamesProvider
-     *
-     * @param string $name
-     * @param string $expected
-     */
-    public function testAttributeNameValidation($name, $expected): void
-    {
-        if (!isset($expected)) {
-            $this->expectException('yii\exceptions\InvalidArgumentException');
-            Html::getAttributeName($name);
-        } else {
-            $this->assertSame($expected, Html::getAttributeName($name));
-        }
-    }
-
-    /**
-     * @dataProvider invalidAttributeNamesProvider
-     *
-     * @param string $name
-     */
-    public function testAttributeNameException($name): void
-    {
-        $this->expectException('yii\exceptions\InvalidArgumentException');
-        Html::getAttributeName($name);
-    }
-
-    public function testActiveFileInput(): void
-    {
-        $expected = '<input type="hidden" name="foo" value=""><input type="file" id="htmltestmodel-types" name="foo">';
-        $model = new HtmlTestModel();
-        $actual = Html::activeFileInput($model, 'types', ['name' => 'foo']);
-        $this->assertSameWithoutLE($expected, $actual);
-
-        $expected = '<input type="hidden" name="foo" value="" disabled><input type="file" id="htmltestmodel-types" name="foo" disabled>';
-        $model = new HtmlTestModel();
-        $actual = Html::activeFileInput($model, 'types', ['name' => 'foo', 'disabled' => true]);
-        $this->assertSameWithoutLE($expected, $actual);
-
-        $expected = '<input type="hidden" id="specific-id" name="foo" value=""><input type="file" id="htmltestmodel-types" name="foo">';
-        $model = new HtmlTestModel();
-        $actual = Html::activeFileInput($model, 'types', ['name' => 'foo', 'hiddenOptions' => ['id' => 'specific-id']]);
-        $this->assertSameWithoutLE($expected, $actual);
-
-        $expected = '<input type="hidden" id="specific-id" name="HtmlTestModel[types]" value=""><input type="file" id="htmltestmodel-types" name="HtmlTestModel[types]">';
-        $model = new HtmlTestModel();
-        $actual = Html::activeFileInput($model, 'types', ['hiddenOptions' => ['id' => 'specific-id']]);
-        $this->assertSameWithoutLE($expected, $actual);
-
-        $expected = '<input type="hidden" name="HtmlTestModel[types]" value=""><input type="file" id="htmltestmodel-types" name="HtmlTestModel[types]">';
-        $model = new HtmlTestModel();
-        $actual = Html::activeFileInput($model, 'types', ['hiddenOptions' => []]);
-        $this->assertSameWithoutLE($expected, $actual);
-
-        $expected = '<input type="hidden" name="foo" value=""><input type="file" id="htmltestmodel-types" name="foo">';
-        $model = new HtmlTestModel();
-        $actual = Html::activeFileInput($model, 'types', ['name' => 'foo', 'hiddenOptions' => []]);
-        $this->assertSameWithoutLE($expected, $actual);
-    }
-
-    /**
-     * @expectedException \yii\exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Attribute name must contain word characters only.
-     */
-    public function testGetAttributeValueInvalidArgumentException(): void
-    {
-        $model = new HtmlTestModel();
-        Html::getAttributeValue($model, '-');
-    }
-
-    public function testGetAttributeValue(): void
-    {
-        $model = new HtmlTestModel();
-
-        $expected = null;
-        $actual = Html::getAttributeValue($model, 'types');
-        $this->assertSame($expected, $actual);
-
-        $activeRecord = $this->createMock(\Yiisoft\ActiveRecord\ActiveRecordInterface::class);
-        $activeRecord->method('getPrimaryKey')->willReturn(1);
-        $model->types = $activeRecord;
-
-        $expected = 1;
-        $actual = Html::getAttributeValue($model, 'types');
-        $this->assertSame($expected, $actual);
-
-        $model->types = [
-            $activeRecord,
-        ];
-
-        $expected = [1];
-        $actual = Html::getAttributeValue($model, 'types');
-        $this->assertSame($expected, $actual);
-    }
-
-    /**
-     * @expectedException \yii\exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Attribute name must contain word characters only.
-     */
-    public function testGetInputNameInvalidArgumentExceptionAttribute(): void
-    {
-        $model = new HtmlTestModel();
-        Html::getInputName($model, '-');
-    }
-
-    /**
-     * @expectedException \yii\exceptions\InvalidArgumentException
-     * @expectedExceptionMessageRegExp /(.*)formName\(\) cannot be empty for tabular inputs.$/
-     */
-    public function testGetInputNameInvalidArgumentExceptionFormName(): void
-    {
-        $model = $this->createMock(\yii\base\Model::class);
-        $model->method('formName')->willReturn('');
-        Html::getInputName($model, '[foo]bar');
-    }
-
-    public function testGetInputName(): void
-    {
-        $model = $this->createMock(\yii\base\Model::class);
-        $model->method('formName')->willReturn('');
-        $expected = 'types';
-        $actual = Html::getInputName($model, 'types');
-        $this->assertSame($expected, $actual);
-    }
-
-
     public function testEscapeJsRegularExpression(): void
     {
         $expected = '/[a-z0-9-]+/';
@@ -1635,66 +1326,5 @@ EOD;
         $expected = '/([a-z0-9-]+)/gim';
         $actual = Html::escapeJsRegularExpression('/([a-z0-9-]+)/Ugimex');
         $this->assertSame($expected, $actual);
-    }
-
-    public function testActiveDropDownList(): void
-    {
-        $expected = <<<'HTML'
-<input type="hidden" name="HtmlTestModel[types]" value=""><select id="htmltestmodel-types" name="HtmlTestModel[types][]" multiple="true" size="4">
-
-</select>
-HTML;
-        $model = new HtmlTestModel();
-        $actual = Html::activeDropDownList($model, 'types', [], ['multiple' => 'true']);
-        $this->assertSameWithoutLE($expected, $actual);
-    }
-
-    public function testActiveCheckboxList(): void
-    {
-        $model = new HtmlTestModel();
-
-        $expected = <<<'HTML'
-<input type="hidden" name="HtmlTestModel[types]" value=""><div id="htmltestmodel-types"><label><input type="radio" name="HtmlTestModel[types]" value="0"> foo</label></div>
-HTML;
-        $actual = Html::activeRadioList($model, 'types', ['foo']);
-        $this->assertSameWithoutLE($expected, $actual);
-    }
-
-    public function testActiveRadioList(): void
-    {
-        $model = new HtmlTestModel();
-
-        $expected = <<<'HTML'
-<input type="hidden" name="HtmlTestModel[types]" value=""><div id="htmltestmodel-types"><label><input type="checkbox" name="HtmlTestModel[types][]" value="0"> foo</label></div>
-HTML;
-        $actual = Html::activeCheckboxList($model, 'types', ['foo']);
-        $this->assertSameWithoutLE($expected, $actual);
-    }
-
-    public function testActiveTextInput_placeholderFillFromModel(): void
-    {
-        $model = new HtmlTestModel();
-
-        $html = Html::activeTextInput($model, 'name', ['placeholder' => true]);
-
-        $this->assertContains('placeholder="Name"', $html);
-    }
-
-    public function testActiveTextInput_customPlaceholder(): void
-    {
-        $model = new HtmlTestModel();
-
-        $html = Html::activeTextInput($model, 'name', ['placeholder' => 'Custom placeholder']);
-
-        $this->assertContains('placeholder="Custom placeholder"', $html);
-    }
-
-    public function testActiveTextInput_placeholderFillFromModelTabular(): void
-    {
-        $model = new HtmlTestModel();
-
-        $html = Html::activeTextInput($model, '[0]name', ['placeholder' => true]);
-
-        $this->assertContains('placeholder="Name"', $html);
     }
 }
