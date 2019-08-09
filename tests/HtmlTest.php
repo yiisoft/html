@@ -10,7 +10,7 @@ final class HtmlTest extends TestCase
 {
     public function testEncode(): void
     {
-        $this->assertSame('a&lt;&gt;&amp;&quot;&#039;�', Html::encode("a<>&\"'\x80"));
+        $this->assertSame('a&lt;&gt;&amp;&quot;&apos;�', Html::encode("a<>&\"'\x80"));
         $this->assertSame('Sam &amp; Dark', Html::encode('Sam & Dark'));
     }
 
