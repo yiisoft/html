@@ -7,8 +7,8 @@ use Yiisoft\Json\Json;
 /**
  * Html provides a set of static methods for generating commonly used HTML tags.
  *
- * Nearly all of the methods in this class allow setting additional html attributes for the html  tags  they  generate.
- * You can specify, for example, `class`, `style` or `id`  for an  html element using the `$options` parameter. See the
+ * Nearly all of the methods in this class allow setting additional html attributes for the html tags they generate.
+ * You can specify, for example, `class`, `style` or `id` for an  html element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
  *
  * For more details and usage information on Html.
@@ -44,7 +44,7 @@ final class Html
     ];
 
     /**
-     * @var array the preferred order of attributes in a tag. This mainly affects the order of the attributes  that are
+     * @var array the preferred order of attributes in a tag. This mainly affects the order of the attributes that are
      * rendered by {@see renderTagAttributes()}.
      */
     public static $attributeOrder = [
@@ -81,24 +81,24 @@ final class Html
     ];
 
     /**
-     * @var array list of tag attributes that should be  specially  handled  when  their  values  are  of  array  type.
-     * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will  be
+     * @var array list of tag attributes that should be specially handled when their values are of array type.
+     * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will be
      * generated instead of one: `data-name="xyz" data-age="13"`.
      */
     public static $dataAttributes = ['data', 'data-ng', 'ng'];
 
 
     /**
-     * Encodes special characters into HTML entities. The will be used for encoding.
+     * Encodes special characters into HTML entities.
      *
      * @param string|null $content the content to be encoded
-     * @param bool $doubleEncode whether to encode HTML entities in `$content`. If false, HTML  entities  in  `$content`
+     * @param bool $doubleEncode whether to encode HTML entities in `$content`. If false, HTML entities in `$content`
      * will not be further encoded.
      * @return string the encoded content
      * @see decode()
      * @see http://www.php.net/manual/en/function.htmlspecialchars.php
      */
-    public static function encode($content, bool $doubleEncode = true): string
+    public static function encode(?string $content, bool $doubleEncode = true): string
     {
         return htmlspecialchars(
             $content,
@@ -124,15 +124,15 @@ final class Html
     /**
      * Generates a complete HTML tag.
      *
-     * @param string|bool|null $name the tag name. If $name is `null` or `false`, the  corresponding  content  will  be
+     * @param string|bool|null $name the tag name. If $name is `null` or `false`, the corresponding content will be
      * rendered without any tag.
-     * @param string $content the content to be enclosed between the start and end tags. It will not  be  HTML-encoded.
+     * @param string $content the content to be enclosed between the start and end tags. It will not be HTML-encoded.
      * If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
-     * @param array $options the HTML tag attributes  (HTML options)  in  terms  of  name-value  pairs. These  will  be
-     * rendered  as the attributes of the resulting tag. The values will be HTML-encoded  using {@see encode()}.  If  a
+     * @param array $options the HTML tag attributes (HTML options) in terms of name-value pairs. These will be
+     * rendered as the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}. If a
      * value is null, the corresponding attribute will not be rendered.
      *
-     * For example when using `['class' => 'my-class', 'target' => '_blank', 'value' => null]` it will  result  in  the
+     * For example when using `['class' => 'my-class', 'target' => '_blank', 'value' => null]` it will result in the
      * html attributes rendered like this: `class="my-class" target="_blank"`.
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
@@ -153,9 +153,9 @@ final class Html
     /**
      * Generates a start tag.
      *
-     * @param string|bool|null $name the tag name. If $name is `null` or `false`, the  corresponding  content  will  be
+     * @param string|bool|null $name the tag name. If $name is `null` or `false`, the corresponding content will be
      * rendered without any tag.
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes  of
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the  corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
@@ -175,7 +175,7 @@ final class Html
     /**
      * Generates an end tag.
      *
-     * @param string|bool|null $name the tag name. If $name is `null` or `false`, the  corresponding  content  will  be
+     * @param string|bool|null $name the tag name. If $name is `null` or `false`, the corresponding content will be
      * rendered without any tag.
      * @return string the generated end tag
      * @see beginTag()
@@ -194,13 +194,13 @@ final class Html
      * Generates a style tag.
      *
      * @param string $content the style content
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as  the attributes of
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is  null, the corresponding
-     * attribute will not  be  rendered. See {@see renderTagAttributes()} for  details  on  how  attributes  are  being
+     * attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes are being
      * rendered.
      * @return string the generated style tag
      */
-    public static function style(string $content, array $options = [])
+    public static function style(string $content, array $options = []): string
     {
         return static::tag('style', $content, $options);
     }
@@ -209,13 +209,13 @@ final class Html
      * Generates a script tag.
      *
      * @param string $content the script content
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes  of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null,  the corresponding
-     * attribute will not be  rendered. See {@see renderTagAttributes()}  for  details  on  how  attributes  are  being
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
+     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
+     * attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes are being
      * rendered.
      * @return string the generated script tag
      */
-    public static function script(string $content, array $options = [])
+    public static function script(string $content, array $options = []): string
     {
         return static::tag('script', $content, $options);
     }
@@ -226,12 +226,12 @@ final class Html
      * @param string $url the URL of the external CSS file. This parameter will be processed.
      * @param array $options the tag options in terms of name-value pairs. The following options are specially handled:
      *
-     * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this is  specified, the  generated
+     * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this is specified, the generated
      *   `link` tag will be enclosed within the conditional comments. This is mainly useful for supporting old versions
      *   of IE browsers.
      * - noscript: if set to true, `link` tag will be wrapped into `<noscript>` tags.
      *
-     * The rest of the options will be rendered as the  attributes  of  the  resulting  link  tag. The values  will  be
+     * The rest of the options will be rendered as the attributes of the resulting link tag. The values will be
      * HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated link tag.
@@ -261,11 +261,11 @@ final class Html
      * @param string $url the URL of the external JavaScript file. This parameter will be processed.
      * @param array $options the tag options in terms of name-value pairs. The following option is specially handled:
      *
-     * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this  is  specified, the generated
-     *   `script` tag will be enclosed within the  conditional  comments. This  is  mainly  useful  for  supporting old
+     * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this is specified, the generated
+     *   `script` tag will be enclosed within the conditional comments. This is mainly useful for supporting old
      *   versions of IE browsers.
      *
-     * The rest of the options will be rendered as the attributes of the  resulting  script  tag. The  values  will  be
+     * The rest of the options will be rendered as the attributes of the resulting script tag. The values will be
      * HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated script tag.
@@ -315,8 +315,8 @@ final class Html
      *
      * @param string $text link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
      * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
-     * @param array|string|null $url the URL for the hyperlink tag. This parameter will be processed and will  be  used
-     * for the "href" attribute of the tag. If this parameter is null, the "href" attribute  will  not
+     * @param array|string|null $url the URL for the hyperlink tag. This parameter will be processed and will be used
+     * for the "href" attribute of the tag. If this parameter is null, the "href" attribute will not
      * be generated.
      *
      * If you want to use an absolute url you can call yourself, before passing the URL  to  this method, like this:
@@ -347,13 +347,13 @@ final class Html
      * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
      * @param string $email email address. If this is null, the first parameter (link body) will be treated
      * as the email address and used.
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes  of
-     * the resulting tag. The values will be  HTML-encoded using {@see encode()}. If a value is null, the corresponding
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
+     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated mailto link
      */
-    public static function mailto(string $text, string $email = null, array $options = [])
+    public static function mailto(string $text, string $email = null, array $options = []): string
     {
         $options['href'] = 'mailto:' . ($email === null ? $text : $email);
         return static::tag('a', $text, $options);
@@ -363,12 +363,12 @@ final class Html
      * Generates an image tag.
      *
      * @param array|string $src the image URL. This parameter will be processed.
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes  of
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
-     * Since version 2.0.12 It is possible to pass the `srcset` option as an  array  which  keys  are  descriptors  and
+     * It is possible to pass the `srcset` option as an array which keys are descriptors and
      * values are URLs. All URLs will be processed.
      * @return string the generated image tag.
      */
@@ -394,12 +394,12 @@ final class Html
     /**
      * Generates a label tag.
      *
-     * @param string $content label text. It will NOT be HTML-encoded. Therefore you can pass in HTML code  such  as an
+     * @param string $content label text. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an
      * image tag. If this is is coming from end users, you should {@see encode()} it to prevent XSS attacks.
      * @param string $for the ID of the HTML element that this label is associated with.
      * If this is null, the "for" attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes  of
-     * the  resulting  tag. The  values  will  be  HTML-encoded   using  {@see encode()}. If   a  value  is   null, the
+     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the
      * corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated label tag.
@@ -413,11 +413,11 @@ final class Html
     /**
      * Generates a button tag.
      *
-     * @param string $content the content enclosed within the button tag. It will  NOT  be  HTML-encoded. Therefore you
-     * can pass in HTML code such as an image tag. If this is is coming from end users, you should  consider [encode()]
-     * it to prevent XSS attacks.
-     * @param array $options  the  tag  options in terms of name-value pairs. These will be rendered as the  attributes
-     * the resulting   tag.  The  values  will  be  HTML-encoded  using {@see encode()}. If  a  value is  null, the  of
+     * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
+     * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
+     * {@see encode()} it to prevent XSS attacks.
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes
+     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the of
      * corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated button tag.
@@ -434,14 +434,14 @@ final class Html
     /**
      * Generates a submit button tag.
      *
-     * Be  careful  when  naming  form  elements  such  as  submit  buttons. According  to  the  [jQuery documentation]
+     * Be careful when naming form elements such as submit buttons. According to the [jQuery documentation]
      * (https://api.jquery.com/submit/) there are some reserved names that can cause conflicts, e.g. `submit`, `length`
      * or `method`.
      *
-     * @param string $content the content enclosed within the button tag. It will  NOT  be  HTML-encoded. Therefore you
-     * can pass in HTML code such as an image tag. If this is is coming from end users, you should  consider [encode()]
-     * it to prevent XSS attacks.
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes  of
+     * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
+     * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
+     * {@see encode()} it to prevent XSS attacks.
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values  will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
@@ -456,10 +456,10 @@ final class Html
     /**
      * Generates a reset button tag.
      *
-     * @param string $content the content enclosed within the button tag. It will NOT  be  HTML-encoded. Therefore  you
-     * can pass in HTML code such as an image tag. If this is is coming from end users, you should  consider [encode()]
-     * it to prevent XSS attacks.
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes  of
+     * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
+     * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
+     * {@see encode()} it to prevent XSS attacks.
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values  will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
@@ -478,7 +478,7 @@ final class Html
      * @param string $name the name attribute. If it is null, the name attribute will not be generated.
      * @param string $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes  of
-     * the resulting tag. The values will be HTML-encoded using [encode()].
+     * the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated input tag
@@ -497,7 +497,7 @@ final class Html
      * Generates an input button.
      *
      * @param string $label the value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes  of
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is  null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
@@ -513,8 +513,8 @@ final class Html
     /**
      * Generates a submit input button.
      *
-     * Be  careful  when  naming  form  elements  such  as  submit  buttons. According  to  the  [jQuery documentation]
-     * https://api.jquery.com/submit/) there are some reserved names that can cause conflicts,  e.g. `submit`, `length`
+     * Be careful when naming form elements such as submit buttons. According to the [jQuery documentation]
+     * https://api.jquery.com/submit/) there are some reserved names that can cause conflicts, e.g. `submit`, `length`
      * or `method`.
      *
      * @param string $label the value attribute. If it is null, the value attribute will not be generated.
@@ -598,9 +598,9 @@ final class Html
     /**
      * Generates a file input field.
      *
-     * To use a file input field, you should set the enclosing form's "enctype" attribute to be  "multipart/form-data".
-     * After the form  is  submitted, the  uploaded  file  information  can  be  obtained  via  $_FILES[$name] (see PHP
-     * documentation).
+     * To use a file input field, you should set the enclosing form's "enctype" attribute to be "multipart/form-data".
+     * After the form is submitted, the uploaded file information can be obtained via $_FILES[$name]
+     * (see PHP documentation).
      * @param string $name the name attribute.
      * @param string $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
@@ -675,17 +675,17 @@ final class Html
      * @param bool $checked whether the checkbox should be checked.
      * @param array $options the tag options in terms of name-value pairs. The following options are specially handled:
      *
-     * - uncheck: string, the value associated with the uncheck state of the checkbox. When this attribute is  present,
-     *   a hidden input will be generated so that if the checkbox is not checked and is submitted, the  value  of  this
+     * - uncheck: string, the value associated with the uncheck state of the checkbox. When this attribute is present,
+     *   a hidden input will be generated so that if the checkbox is not checked and is submitted, the value of this
      *   attribute will still be submitted to the server via the hidden input.
-     * - label: string, a label displayed next to the checkbox.  It will NOT be HTML-encoded. Therefore you can pass in
-     *   HTML code such as an image tag. If this is is coming from end users, you should {@see encode()} it to  prevent
+     * - label: string, a label displayed next to the checkbox. It will NOT be HTML-encoded. Therefore you can pass in
+     *   HTML code such as an image tag. If this is is coming from end users, you should {@see encode()} it to prevent
      *   XSS attacks.
      *   When this option is specified, the checkbox will be enclosed by a label tag.
-     * - labelOptions: array, the HTML attributes for the label tag. Do not set this option unless you set the  "label"
+     * - labelOptions: array, the HTML attributes for the label tag. Do not set this option unless you set the "label"
      *   option.
      *
-     * The rest of the options will be rendered as the attributes of the resulting checkbox  tag. The  values  will  be
+     * The rest of the options will be rendered as the attributes of the resulting checkbox tag. The values will be
      * HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -730,17 +730,18 @@ final class Html
      *
      * @param string $name the input name
      * @param string|array|null $selection the selected value(s). String for single or array for multiple selection(s).
-     * @param array $items the option data items. The array keys are  option  values, and  the  array  values  are  the
-     * corresponding option labels. The array can also be nested (i.e. some array  values  are  arrays  too). For  each
+     * @param array $items the option data items. The array keys are option values, and the array values are the
+     * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
      * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
-     * list of data  models, you   may  convert  them  into  the  format  described  above  using [ArrayHelper::map()].
+     * list of data  models, you may convert them into the format described above using
+     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
      *
-     * Note, the values and labels will be automatically HTML-encoded by this method,  and  the  blank  spaces  in  the
+     * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in the
      * labels will also be HTML-encoded.
      * @param array $options the tag options in terms of name-value pairs. The following options are specially handled:
      *
-     * - prompt: string, a prompt text to be displayed as the first option. Since version 2.0.11 you can use  an  array
-     *   to override the value and to set other tag attributes:
+     * - prompt: string, a prompt text to be displayed as the first option. You can use an array to override the value
+     *   and to set other tag attributes:
      *
      *   ```php
      *   ['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
@@ -756,14 +757,14 @@ final class Html
      *   ];
      *   ```
      *
-     * - groups: array, the attributes for the optgroup tags. The structure of this is  similar  to  that of 'options',
+     * - groups: array, the attributes for the optgroup tags. The structure of this is similar to that of 'options',
      *   except that the array keys represent the optgroup labels specified in $items.
      * - encodeSpaces: bool, whether to encode spaces in option prompt and option value with `&nbsp;` character.
      *   Defaults to false.
      * - encode: bool, whether to encode option prompt and option value characters. Defaults to `true`. This option  is
-     *   available since 2.0.3.
+     *   available.
      *
-     * The rest of the options will be rendered as the attributes of the resulting tag. The values will be  HTML-encoded
+     * The rest of the options will be rendered as the attributes of the resulting tag. The values will be HTML-encoded
      * using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -789,17 +790,18 @@ final class Html
      *
      * @param string $name the input name
      * @param string|array|null $selection the selected value(s). String for single or array for multiple selection(s).
-     * @param array $items the option data items. The array keys  are  option  values, and  the  array  values  are the
-     * corresponding option labels. The array can also be nested (i.e. some array  values  are  arrays  too). For  each
+     * @param array $items the option data items. The array keys are option values, and the array values are the
+     * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
      * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
-     * list of data models, you may convert them into the format described above using [ArrayHelper::map()].
+     * list of data models, you may convert them into the format described above using
+     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
      *
-     * Note, the values and labels will be automatically HTML-encoded by this  method, and  the  blank  spaces  in  the
+     * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in the
      * labels will also be HTML-encoded.
      * @param array $options the tag options in terms of name-value pairs. The following options are specially handled:
      *
-     * - prompt: string, a prompt text to be displayed as the first option. Since version 2.0.11 you can use  an  array
-     *   to override the value and to set other tag attributes:
+     * - prompt: string, a prompt text to be displayed as the first option. You can use an array to override the value
+     *   and to set other tag attributes:
      *
      *   ```php
      *   ['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
@@ -815,10 +817,10 @@ final class Html
      *   ];
      *   ```
      *
-     * - groups: array, the attributes for the optgroup tags. The structure of this is similar to  that  of  'options',
+     * - groups: array, the attributes for the optgroup tags. The structure of this is similar to that of 'options',
      *   except that the array keys represent the optgroup labels specified in $items.
      * - unselect: string, the value that will be submitted when no option is selected.
-     *   When this attribute is set, a hidden field will be  generated  so  that  if no option is selected in  multiple
+     *   When this attribute is set, a hidden field will be generated so that if no option is selected in multiple
      *   mode, we can still obtain the posted unselect value.
      * - encodeSpaces: bool, whether to encode spaces in option prompt and option value with `&nbsp;` character.
      *   Defaults to false.
@@ -871,26 +873,26 @@ final class Html
      * @param string|array|null $selection the selected value(s). String for single or array for multiple selection(s).
      * @param array $items the data item used to generate the checkboxes. The array keys are the checkbox values, while
      * the array values are the corresponding labels.
-     * @param array $options options (name => config) for the checkbox list container  tag. The following  options  are
+     * @param array $options options (name => config) for the checkbox list container tag. The following options are
      * specially handled:
      *
      * - tag: string|false, the tag name of the container element. False to render checkbox without container.
      *   See also {@see tag()}.
-     * - unselect: string, the value that should be submitted when none of the checkboxes is selected. By setting  this
+     * - unselect: string, the value that should be submitted when none of the checkboxes is selected. By setting this
      *   option, a hidden input will be generated.
      * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true. This option is ignored if `item`
      *   option is set.
      * - separator: string, the HTML code that separates items.
      * - itemOptions: array, the options for generating the checkbox tag using {@see checkbox()}.
-     * - item: callable, a callback that can be used to customize the generation of the HTML code  corresponding  to  a
+     * - item: callable, a callback that can be used to customize the generation of the HTML code  corresponding to a
      *   single item in $items. The signature of this callback must be:
      *
      *   ```php
      *   function ($index, $label, $name, $checked, $value)
      *   ```
      *
-     *   where $index is the zero-based index of the checkbox in the whole list; $label is the label for  the  checkbox;
-     *   and $name, $value and $checked represent the  name, value  and  the  checked  status  of  the  checkbox  input,
+     *   where $index is the zero-based index of the checkbox in the whole list; $label is the label for the checkbox;
+     *   and $name, $value and $checked represent the name, value and the checked status of the checkbox input,
      *   respectively.
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
@@ -958,27 +960,27 @@ final class Html
      * A radio button list is like a checkbox list, except that it only allows single selection.
      * @param string $name the name attribute of each radio button.
      * @param string|array|null $selection the selected value(s). String for single or array for multiple selection(s).
-     * @param array $items the data item used to generate the radio  buttons. The  array  keys  are  the  radio  button
+     * @param array $items the data item used to generate the radio buttons. The array keys are the radio button
      * values, while the array values are the corresponding labels.
-     * @param array $options options (name => config) for the radio button list container  tag. The  following  options
+     * @param array $options options (name => config) for the radio button list container tag. The following options
      * are specially handled:
      *
      * - tag: string|false, the tag name of the container element. False to render radio buttons without container.
      *   See also {@see tag()}.
-     * - unselect: string, the value that should be submitted when none of the radio buttons  is  selected. By  setting
+     * - unselect: string, the value that should be submitted when none of the radio buttons is selected. By setting
      *   this option, a hidden input will be generated.
      * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true. This option is ignored if `item`
      *   option is set.
      * - separator: string, the HTML code that separates items.
      * - itemOptions: array, the options for generating the radio button tag using {@see radio()}.
-     * - item: callable, a callback that can be used to customize the generation of the HTML code  corresponding  to  a
+     * - item: callable, a callback that can be used to customize the generation of the HTML code corresponding to a
      *   single item in $items. The signature of this callback must be:
      *
      *   ```php
      *   function ($index, $label, $name, $checked, $value)
      *   ```
      *
-     *   where $index is the zero-based index of the radio button in  the whole list; $label is the label for the radio
+     *   where $index is the zero-based index of the radio button in the whole list; $label is the label for the radio
      *   button; and $name, $value and $checked represent the name, value and the checked status of  the  radio  button
      *   input, respectively.
      *
@@ -986,7 +988,7 @@ final class Html
      *
      * @return string the generated radio button list
      */
-    public static function radioList(string $name, $selection = null, array $items = [], array $options = [])
+    public static function radioList(string $name, $selection = null, array $items = [], array $options = []): string
     {
         if (ArrayHelper::isTraversable($selection)) {
             $selection = array_map('strval', (array)$selection);
@@ -1042,20 +1044,20 @@ final class Html
      * that items will be automatically HTML encoded if `$options['encode']` is not set or true.
      * @param array $options options (name => config) for the radio button list. The following options are supported:
      *
-     * - encode: boolean,  whether  to  HTML-encode  the  items. Defaults to true. This option is ignored if the `item`
+     * - encode: boolean, whether to HTML-encode the items. Defaults to true. This option is ignored if the `item`
      *   option is specified.
-     * - separator: string, the HTML code that separates items. Defaults to a simple newline  (`"\n"`). This  option is
+     * - separator: string, the HTML code that separates items. Defaults to a simple newline (`"\n"`). This option is
      *   available since version 2.0.7.
-     * - itemOptions: array, the HTML attributes for the `li` tags. This option is  ignored  if  the  `item`  option is
+     * - itemOptions: array, the HTML attributes for the `li` tags. This option is ignored if the `item` option is
      *   specified.
-     * - item: callable, a callback that is used to generate each individual list item. The signature of  this callback
+     * - item: callable, a callback that is used to generate each individual list item. The signature of this callback
      *   must be:
      *
      *   ```php
      *   function ($item, $index)
      *   ```
      *
-     *   where $index is the array key corresponding to `$item` in `$items`. The callback should return the  whole list
+     *   where $index is the array key corresponding to `$item` in `$items`. The callback should return the whole list
      *   item tag.
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
@@ -1097,18 +1099,18 @@ final class Html
      * that items will be automatically HTML encoded if `$options['encode']` is not set or true.
      * @param array $options options (name => config) for the radio button list. The following options are supported:
      *
-     * - encode: boolean, whether to HTML-encode the items. Defaults to true. This  option  is  ignored  if  the `item`
+     * - encode: boolean, whether to HTML-encode the items. Defaults to true. This option is ignored if the `item`
      *   option is specified.
-     * - itemOptions: array, the HTML attributes for the `li` tags. This option is ignored  if  the  `item`  option  is
+     * - itemOptions: array, the HTML attributes for the `li` tags. This option is ignored if the `item` option is
      *   specified.
-     * - item: callable, a callback that is used to generate each individual list item. The signature of this  callback
+     * - item: callable, a callback that is used to generate each individual list item. The signature of this callback
      *   must be:
      *
      *   ```php
      *   function ($item, $index)
      *   ```
      *
-     *   where $index is the array key corresponding to `$item` in `$items`. The callback should return the  whole list
+     *   where $index is the array key corresponding to `$item` in `$items`. The callback should return the whole list
      *   item tag.
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
@@ -1125,13 +1127,13 @@ final class Html
      * Renders the option tags that can be used by {@see dropDownList()} and {@see listBox()}.
      *
      * @param string|array|null $selection the selected value(s). String for single or array for multiple selection(s).
-     * @param array $items the option data items. The array keys are  option  values, and  the  array  values  are  the
-     * corresponding option labels. The array can also be nested (i.e. some  array  values  are  arrays  too). For each
+     * @param array $items the option data items. The array keys are option values, and the array values are the
+     * corresponding option labels. The array can also be nested (i.e. some array  values are arrays  too). For each
      * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
      * list of data models, you may convert them into the format described above using
      * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
      *
-     * Note, the values and labels will be automatically HTML-encoded by this  method, and  the  blank  spaces  in  the
+     * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in the
      * labels will also be HTML-encoded.
      * @param array $tagOptions the $options parameter that is passed to the {@see dropDownList()} or  {@see listBox()}
      * call. This method will take out these  elements, if  any: "prompt", "options" and "groups". See more details  in
@@ -1208,7 +1210,7 @@ final class Html
      * Attributes whose values are of boolean type will be treated as:
      * [boolean attributes](http://www.w3.org/TR/html5/infrastructure.html#boolean-attributes).
      *
-     * Attributes whose values are null will not be rendered. The values  of  attributes  will  be  HTML-encoded  using
+     * Attributes whose values are null will not be rendered. The values of attributes will be HTML-encoded using
      * {@see encode()}.
      *
      * The "data" attribute is specially handled when it is receiving an array value. In this case, the array  will  be
@@ -1220,10 +1222,10 @@ final class Html
      * Additionally `'data' => ['params' => ['id' => 1, 'name' => 'yii'], 'status' => 'ok']` will be rendered as:
      * `data-params='{"id":1,"name":"yii"}' data-status="ok"`.
      *
-     * @param array $attributes  attributes  to  be  rendered. The  attribute  values   will  be   HTML-encoded   using
+     * @param array $attributes attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encode()}.
-     * @return string the rendering  result. If  the  attributes  are  not empty, they  will  be rendered into a string
-     * with a leading white space (so that it can be directly appended to the  tag  name  in  a  tag. If  there  is  no
+     * @return string the rendering result. If the attributes are not empty, they will be rendered into a string
+     * with a leading white space (so that it can be directly appended to the tag name in a tag. If there is no
      * attribute, an empty string will be returned.
      * @see addCssClass()
      */
@@ -1278,8 +1280,8 @@ final class Html
     /**
      * Adds a CSS class (or several classes) to the specified options.
      *
-     * If the CSS class is already in the options, it will not be added again. If class specification at given  options
-     * is an array, and some class placed there with the named (string) key,  overriding  of  such  key  will  have  no
+     * If the CSS class is already in the options, it will not be added again. If class specification at given options
+     * is an array, and some class placed there with the named (string) key, overriding of such key will have no
      * effect. For example:
      *
      * ```php
@@ -1409,7 +1411,7 @@ final class Html
      * ```
      *
      * @param array $options the HTML options to be modified.
-     * @param string|array $properties the CSS properties to be removed. You may use a string  if you  are  removing  a
+     * @param string|array $properties the CSS properties to be removed. You may use a string if you are removing a
      * single property.
      * @see addCssStyle()
      */
@@ -1438,7 +1440,7 @@ final class Html
      * corresponding CSS property values.
      * @return string|null the CSS style string. If the CSS style is empty, a null will be returned.
      */
-    public static function cssStyleFromArray(array $style)
+    public static function cssStyleFromArray(array $style):?string
     {
         $result = '';
         foreach ($style as $name => $value) {
@@ -1480,13 +1482,13 @@ final class Html
     /**
      * Returns the real attribute name from the given attribute expression.
      *
-     * An attribute expression is an attribute name prefixed and/or suffixed with array indexes. It is mainly  used  in
+     * An attribute expression is an attribute name prefixed and/or suffixed with array indexes. It is mainly used in
      * tabular data input and/or input of array type. Below are some examples:
      *
      * - `[0]content` is used in tabular data input to represent the "content" attribute for the first model in tabular
      *    input;
      * - `dates[0]` represents the first array element of the "dates" attribute;
-     * - `[0]dates[0]` represents the first array element of the "dates" attribute  for  the  first  model  in  tabular
+     * - `[0]dates[0]` represents the first array element of the "dates" attribute for the first model in tabular
      *    input.
      *
      * If `$attribute` has neither prefix nor suffix, it will be returned back without change.
@@ -1494,7 +1496,7 @@ final class Html
      * @return string the attribute name without prefix and suffix.
      * @throws \InvalidArgumentException if the attribute name contains non-word characters.
      */
-    public static function getAttributeName(string $attribute)
+    public static function getAttributeName(string $attribute):?string
     {
         if (preg_match(static::$attributeRegex, $attribute, $matches)) {
             return $matches[2];
