@@ -355,7 +355,7 @@ final class Html
      */
     public static function mailto(string $text, string $email = null, array $options = []): string
     {
-        $options['href'] = 'mailto:' . ($email === null ? $text : $email);
+        $options['href'] = 'mailto:' . ($email ?? $text);
         return static::tag('a', $text, $options);
     }
 
@@ -524,7 +524,7 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated button tag
      */
-    public static function submitInput($label = 'Submit', $options = [])
+    public static function submitInput($label = 'Submit', $options = []): string
     {
         $options['type'] = 'submit';
         $options['value'] = $label;
@@ -630,7 +630,7 @@ final class Html
      *
      * @return string the generated text area tag
      */
-    public static function textarea(string $name, $value = '', array $options = []): string
+    public static function textarea(string $name, ?string $value = '', array $options = []): string
     {
         $options['name'] = $name;
         $doubleEncode = ArrayHelper::remove($options, 'doubleEncode', true);
