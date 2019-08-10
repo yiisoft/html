@@ -133,7 +133,7 @@ final class Html
      * value is null, the corresponding attribute will not be rendered.
      *
      * For example when using `['class' => 'my-class', 'target' => '_blank', 'value' => null]` it will result in the
-     * html attributes rendered like this: `class="my-class" target="_blank"`.
+     * HTML attributes rendered like this: `class="my-class" target="_blank"`.
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -1376,7 +1376,6 @@ final class Html
      * @param array $options the HTML options to be modified.
      * @param string|array $style the new style string (e.g. `'width: 100px; height: 200px'`) or array
      * (e.g. `['width' => '100px', 'height' => '200px']`).
-     *
      * @param bool $overwrite whether to overwrite existing CSS properties if the new style
      * contain them too.
      * @see removeCssStyle()
