@@ -691,12 +691,8 @@ final class Html
      *
      * @return string the generated checkbox tag
      */
-    protected static function booleanInput(
-        string $type,
-        string $name,
-        bool $checked = false,
-        array $options = []
-    ): string {
+    protected static function booleanInput(string $type, string $name, bool $checked = false, array $options = []): string
+    {
         $options['checked'] = (bool) $checked;
         $value = array_key_exists('value', $options) ? $options['value'] : '1';
         if (isset($options['uncheck'])) {
@@ -761,8 +757,7 @@ final class Html
      *   except that the array keys represent the optgroup labels specified in $items.
      * - encodeSpaces: bool, whether to encode spaces in option prompt and option value with `&nbsp;` character.
      *   Defaults to false.
-     * - encode: bool, whether to encode option prompt and option value characters. Defaults to `true`. This option is
-     *   available.
+     * - encode: bool, whether to encode option prompt and option value characters. Defaults to `true`.
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will be HTML-encoded
      * using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
@@ -770,12 +765,8 @@ final class Html
      *
      * @return string the generated drop-down list tag
      */
-    public static function dropDownList(
-        string $name,
-        $selection = null,
-        array $items = [],
-        array $options = []
-    ): string {
+    public static function dropDownList(string $name, $selection = null, array $items = [], array $options = []): string
+    {
         if (!empty($options['multiple'])) {
             return static::listBox($name, $selection, $items, $options);
         }
@@ -832,12 +823,8 @@ final class Html
      *
      * @return string the generated list box tag.
      */
-    public static function listBox(
-        string $name,
-        $selection = null,
-        array $items = [],
-        array $options = []
-    ): string {
+    public static function listBox(string $name, $selection = null, array $items = [], array $options = []): string
+    {
         if (!array_key_exists('size', $options)) {
             $options['size'] = 4;
         }
