@@ -1375,9 +1375,7 @@ final class Html
      *
      * @param array $options the HTML options to be modified.
      * @param string|array $style the new style string (e.g. `'width: 100px; height: 200px'`) or array
-     * (e.g. `['width' => '100px', 'height' => '200px']`)
-     *
-     * (e.g. `'width: 100px; height: 200px'`) or array (e.g. `['width' => '100px', 'height' => '200px']`).
+     * (e.g. `['width' => '100px', 'height' => '200px']`).
      *
      * @param bool $overwrite whether to overwrite existing CSS properties if the new style
      * contain them too.
