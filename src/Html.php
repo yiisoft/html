@@ -7,8 +7,8 @@ use Yiisoft\Json\Json;
 /**
  * Html provides a set of static methods for generating commonly used HTML tags.
  *
- * Nearly all of the methods in this class allow setting additional html attributes for the html tags they generate.
- * You can specify, for example, `class`, `style` or `id` for an html element using the `$options` parameter. See the
+ * Nearly all of the methods in this class allow setting additional HTML attributes for the HTML tags they generate.
+ * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
  *
  * For more details and usage information on Html.
@@ -626,7 +626,7 @@ final class Html
      * The following special options are recognized:
      *
      * - `doubleEncode`: whether to double encode HTML entities in `$value`. If `false`, HTML entities in `$value` will
-     *   not be further encoded. This option is available since version 2.0.11.
+     *   not be further encoded. This option is available.
      *
      * @return string the generated text area tag
      */
@@ -1019,7 +1019,7 @@ final class Html
                 (!ArrayHelper::isTraversable($selection) && !strcmp($value, $selection)
                     || ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$value, $selection));
             if ($formatter !== null) {
-                $lines[] = call_user_func($formatter, $index, $label, $name, $checked, $value);
+                $lines[] = $formatter($index, $label, $name, $checked, $value);
             } else {
                 $lines[] = static::radio($name, $checked, array_merge($itemOptions, [
                     'value' => $value,
@@ -1047,7 +1047,7 @@ final class Html
      * - encode: boolean, whether to HTML-encode the items. Defaults to true. This option is ignored if the `item`
      *   option is specified.
      * - separator: string, the HTML code that separates items. Defaults to a simple newline (`"\n"`). This option is
-     *   available since version 2.0.7.
+     *   available.
      * - itemOptions: array, the HTML attributes for the `li` tags. This option is ignored if the `item` option is
      *   specified.
      * - item: callable, a callback that is used to generate each individual list item. The signature of this callback
@@ -1079,7 +1079,7 @@ final class Html
         $results = [];
         foreach ($items as $index => $item) {
             if ($formatter !== null) {
-                $results[] = call_user_func($formatter, $item, $index);
+                $results[] = $formatter($item, $index);
             } else {
                 $results[] = static::tag('li', $encode ? static::encode($item) : $item, $itemOptions);
             }
@@ -1207,7 +1207,7 @@ final class Html
     /**
      * Renders the HTML tag attributes.
      *
-     * Attributes whose values are of boolean type will be treated as:
+     * Attributes whose values are of boolean type will be treated as
      * [boolean attributes](http://www.w3.org/TR/html5/infrastructure.html#boolean-attributes).
      *
      * Attributes whose values are null will not be rendered. The values of attributes will be HTML-encoded using
@@ -1374,7 +1374,8 @@ final class Html
      * ```
      *
      * @param array $options the HTML options to be modified.
-     * @param string|array $style the new style string:
+     * @param string|array $style the new style string (e.g. `'width: 100px; height: 200px'`) or array
+     * (e.g. `['width' => '100px', 'height' => '200px']`)
      *
      * (e.g. `'width: 100px; height: 200px'`) or array (e.g. `['width' => '100px', 'height' => '200px']`).
      *
