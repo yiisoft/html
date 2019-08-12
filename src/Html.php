@@ -140,7 +140,7 @@ final class Html
      */
     public static function tag($name, string $content = '', array $options = []): string
     {
-        if ($name === null || $name === false) {
+        if ($name === null || is_bool($name)) {
             return $content;
         }
         $html = '<' .$name . static::renderTagAttributes($options) . '>';
@@ -162,7 +162,7 @@ final class Html
      */
     public static function beginTag($name, array $options = []): string
     {
-        if ($name === null || $name === false) {
+        if ($name === null || is_bool($name)) {
             return '';
         }
 
@@ -180,7 +180,7 @@ final class Html
      */
     public static function endTag($name): string
     {
-        if ($name === null || $name === false) {
+        if ($name === null || is_bool($name)) {
             return '';
         }
 
