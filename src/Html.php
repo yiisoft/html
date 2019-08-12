@@ -90,17 +90,18 @@ final class Html
      * Encodes special characters into HTML entities.
      *
      * @param string|null $content the content to be encoded
+     * @param bool $doubleEncode if already encoded entities should be encoded
      * @return string the encoded content
      * @see decode()
      * @see http://www.php.net/manual/en/function.htmlspecialchars.php
      */
-    public static function encode(?string $content): string
+    public static function encode(?string $content, $doubleEncode = true): string
     {
         return htmlspecialchars(
             $content,
             ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             ini_get('default_charset'),
-            false
+            $doubleEncode
         );
     }
 
@@ -607,12 +608,18 @@ final class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * The following special options are recognized:
+     *
+     * - `doubleEncode`: whether to double encode HTML entities in `$value`. If `false`, HTML entities in `$value` will
+     *   not be further encoded.
+     *
      * @return string the generated text area tag
      */
     public static function textarea(string $name, ?string $value = '', array $options = []): string
     {
         $options['name'] = $name;
-        return static::tag('textarea', static::encode($value), $options);
+        $doubleEncode = ArrayHelper::remove($options, 'doubleEncode', true);
+        return static::tag('textarea', static::encode($value, $doubleEncode), $options);
     }
 
     /**
