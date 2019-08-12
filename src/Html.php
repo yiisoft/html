@@ -607,18 +607,12 @@ final class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     * The following special options are recognized:
-     *
-     * - `doubleEncode`: whether to double encode HTML entities in `$value`. If `false`, HTML entities in `$value` will
-     *   not be further encoded.
-     *
      * @return string the generated text area tag
      */
     public static function textarea(string $name, ?string $value = '', array $options = []): string
     {
         $options['name'] = $name;
-        $doubleEncode = ArrayHelper::remove($options, 'doubleEncode', true);
-        return static::tag('textarea', static::encode($value, $doubleEncode), $options);
+        return static::tag('textarea', static::encode($value), $options);
     }
 
     /**
@@ -889,10 +883,10 @@ final class Html
         $index = 0;
         foreach ($items as $value => $label) {
             $checked = $selection !== null &&
-                (!ArrayHelper::isTraversable($selection) && !strcmp($value, $selection)
-                    || ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$value, $selection));
+                ((!ArrayHelper::isTraversable($selection) && !strcmp($value, $selection))
+                    || (ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$value, $selection)));
             if ($formatter !== null) {
-                $lines[] = call_user_func($formatter, $index, $label, $name, $checked, $value);
+                $lines[] = $formatter($index, $label, $name, $checked, $value);
             } else {
                 $lines[] = static::checkbox($name, $checked, array_merge($itemOptions, [
                     'value' => $value,
@@ -987,8 +981,8 @@ final class Html
         $index = 0;
         foreach ($items as $value => $label) {
             $checked = $selection !== null &&
-                (!ArrayHelper::isTraversable($selection) && !strcmp($value, $selection)
-                    || ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$value, $selection));
+                ((!ArrayHelper::isTraversable($selection) && !strcmp($value, $selection))
+                    || (ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$value, $selection)));
             if ($formatter !== null) {
                 $lines[] = $formatter($index, $label, $name, $checked, $value);
             } else {
@@ -1161,8 +1155,8 @@ final class Html
                 $attrs['value'] = (string) $key;
                 if (!array_key_exists('selected', $attrs)) {
                     $attrs['selected'] = $selection !== null &&
-                        (!ArrayHelper::isTraversable($selection) && !strcmp($key, $selection)
-                        || ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$key, $selection));
+                        ((!ArrayHelper::isTraversable($selection) && !strcmp($key, $selection))
+                        || (ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$key, $selection)));
                 }
                 $text = $encode ? static::encode($value) : $value;
                 if ($encodeSpaces) {
