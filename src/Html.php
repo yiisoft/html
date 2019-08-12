@@ -1,4 +1,5 @@
 <?php
+
 namespace Yiisoft\Html;
 
 use Yiisoft\Arrays\ArrayHelper;
@@ -143,7 +144,7 @@ final class Html
         if ($name === null || is_bool($name)) {
             return $content;
         }
-        $html = '<' .$name . static::renderTagAttributes($options) . '>';
+        $html = '<' . $name . static::renderTagAttributes($options) . '>';
         return isset(static::$voidElements[strtolower($name)]) ? $html : "$html$content</$name>";
     }
 
@@ -474,7 +475,7 @@ final class Html
             $options['type'] = $type;
         }
         $options['name'] = $name;
-        $options['value'] = $value === null ? null : (string) $value;
+        $options['value'] = $value === null ? null : (string)$value;
         return static::tag('input', '', $options);
     }
 
@@ -678,7 +679,7 @@ final class Html
      */
     protected static function booleanInput(string $type, string $name, bool $checked = false, array $options = []): string
     {
-        $options['checked'] = (bool) $checked;
+        $options['checked'] = (bool)$checked;
         $value = array_key_exists('value', $options) ? $options['value'] : '1';
         if (isset($options['uncheck'])) {
             // add a hidden field so that if the checkbox is not selected, it still submits a value
@@ -1159,11 +1160,11 @@ final class Html
                 $lines[] = static::tag('optgroup', "\n" . $content . "\n", $groupAttrs);
             } else {
                 $attrs = $options[$key] ?? [];
-                $attrs['value'] = (string) $key;
+                $attrs['value'] = (string)$key;
                 if (!array_key_exists('selected', $attrs)) {
                     $attrs['selected'] = $selection !== null &&
                         ((!ArrayHelper::isTraversable($selection) && !strcmp($key, $selection))
-                        || (ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$key, $selection)));
+                            || (ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$key, $selection)));
                 }
                 $text = $encode ? static::encode($value) : $value;
                 if ($encodeSpaces) {
@@ -1271,10 +1272,10 @@ final class Html
     {
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
-                $options['class'] = self::mergeCssClasses($options['class'], (array) $class);
+                $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
-                $options['class'] = implode(' ', self::mergeCssClasses($classes, (array) $class));
+                $options['class'] = implode(' ', self::mergeCssClasses($classes, (array)$class));
             }
         } else {
             $options['class'] = $class;
@@ -1314,7 +1315,7 @@ final class Html
     {
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
-                $classes = array_diff($options['class'], (array) $class);
+                $classes = array_diff($options['class'], (array)$class);
                 if (empty($classes)) {
                     unset($options['class']);
                 } else {
@@ -1322,7 +1323,7 @@ final class Html
                 }
             } else {
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
-                $classes = array_diff($classes, (array) $class);
+                $classes = array_diff($classes, (array)$class);
                 if (empty($classes)) {
                     unset($options['class']);
                 } else {
@@ -1389,7 +1390,7 @@ final class Html
     {
         if (!empty($options['style'])) {
             $style = is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
-            foreach ((array) $properties as $property) {
+            foreach ((array)$properties as $property) {
                 unset($style[$property]);
             }
             $options['style'] = static::cssStyleFromArray($style);
@@ -1410,7 +1411,7 @@ final class Html
      * corresponding CSS property values.
      * @return string|null the CSS style string. If the CSS style is empty, a null will be returned.
      */
-    public static function cssStyleFromArray(array $style):?string
+    public static function cssStyleFromArray(array $style): ?string
     {
         $result = '';
         foreach ($style as $name => $value) {
@@ -1466,7 +1467,7 @@ final class Html
      * @return string the attribute name without prefix and suffix.
      * @throws \InvalidArgumentException if the attribute name contains non-word characters.
      */
-    public static function getAttributeName(string $attribute):?string
+    public static function getAttributeName(string $attribute): ?string
     {
         if (preg_match(static::$attributeRegex, $attribute, $matches)) {
             return $matches[2];
