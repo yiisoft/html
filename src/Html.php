@@ -1213,7 +1213,7 @@ final class Html
                     $html .= " $name";
                 }
             } elseif (is_array($value)) {
-                if (in_array($name, static::$dataAttributes)) {
+                if (in_array($name, static::$dataAttributes, true)) {
                     foreach ($value as $n => $v) {
                         if (is_array($v)) {
                             $html .= " $name-$n='" . Json::htmlEncode($v) . "'";
@@ -1476,7 +1476,7 @@ final class Html
      */
     public static function escapeJsRegularExpression(string $regexp): string
     {
-        $pattern = preg_replace('/\\\\x\{?([0-9a-fA-F]+)\}?/', '\u$1', $regexp);
+        $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
         $deliminator = substr($pattern, 0, 1);
         $pos = strrpos($pattern, $deliminator, 1);
         $flag = substr($pattern, $pos + 1);
