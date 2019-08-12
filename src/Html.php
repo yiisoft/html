@@ -10,8 +10,6 @@ use Yiisoft\Json\Json;
  * Nearly all of the methods in this class allow setting additional HTML attributes for the HTML tags they generate.
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
- *
- * For more details and usage information on Html.
  */
 final class Html
 {
@@ -92,19 +90,17 @@ final class Html
      * Encodes special characters into HTML entities.
      *
      * @param string|null $content the content to be encoded
-     * @param bool $doubleEncode whether to encode HTML entities in `$content`. If false, HTML entities in `$content`
-     * will not be further encoded.
      * @return string the encoded content
      * @see decode()
      * @see http://www.php.net/manual/en/function.htmlspecialchars.php
      */
-    public static function encode(?string $content, bool $doubleEncode = true): string
+    public static function encode(?string $content): string
     {
         return htmlspecialchars(
             $content,
             ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             ini_get('default_charset'),
-            $doubleEncode
+            false
         );
     }
 
@@ -299,18 +295,6 @@ final class Html
     }
 
     /**
-     * Generates the meta tags containing CSRF token information.
-     *
-     * @return string the generated meta tags
-     * @see Request::enableCsrfValidation
-     */
-    public static function csrfMetaTags(): string
-    {
-        return static::tag('meta', '', ['name' => 'csrf-param', 'content' => '_csrf']) . "\n" .
-               static::tag('meta', '', ['name' => 'csrf-token', 'content' => "{{csrf_token}}"]) . "\n";
-    }
-
-    /**
      * Generates a hyperlink tag.
      *
      * @param string $text link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
@@ -417,7 +401,7 @@ final class Html
      * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
      * {@see encode()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the of
+     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the
      * corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated button tag.
@@ -626,7 +610,7 @@ final class Html
      * The following special options are recognized:
      *
      * - `doubleEncode`: whether to double encode HTML entities in `$value`. If `false`, HTML entities in `$value` will
-     *   not be further encoded. This option is available.
+     *   not be further encoded.
      *
      * @return string the generated text area tag
      */
