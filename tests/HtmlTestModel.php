@@ -8,7 +8,6 @@ namespace Yiisoft\Html\Tests;
  */
 class HtmlTestModel
 {
-    // TODO: should be constructor now?
     public function init(): void
     {
         foreach (['name', 'types', 'description', 'radio', 'checkbox'] as $attribute) {
@@ -29,18 +28,5 @@ class HtmlTestModel
     public function customError(): string
     {
         return 'this is custom error message';
-    }
-
-    /**
-     * Asserting two strings equality ignoring line endings.
-     * @param string $expected
-     * @param string $actual
-     * @param string $message
-     */
-    private function assertSameWithoutLE(string $expected, string $actual, string $message = ''): void
-    {
-        $expected = str_replace("\r\n", "\n", $expected);
-        $actual = str_replace("\r\n", "\n", $actual);
-        $this->assertSame($expected, $actual, $message);
     }
 }
