@@ -1263,12 +1263,13 @@ class Html
      * var_dump($options['class']); // outputs: array('persistent' => 'initial');
      * ```
      *
-     * @param array $options the options to be modified.
+     * @param array|null $options the options to be modified.
      * @param string|array $class the CSS class(es) to be added
-     * @see mergeCssClasses()
-     * @see removeCssClass()
+     * 
+     * {@see mergeCssClasses()}
+     * {@see removeCssClass()}
      */
-    public static function addCssClass(array &$options, $class): void
+    public static function addCssClass(?array &$options, $class): void
     {
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
