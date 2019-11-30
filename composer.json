@@ -2,7 +2,9 @@
     "name": "yiisoft/html",
     "type": "library",
     "description": "html",
-    "keywords": ["html"],
+    "keywords": [
+        "html"
+    ],
     "homepage": "http://www.yiiframework.com/",
     "license": "BSD-3-Clause",
     "support": {
@@ -35,5 +37,8 @@
         "branch-alias": {
             "dev-master": "3.0.x-dev"
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
