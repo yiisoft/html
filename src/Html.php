@@ -1265,7 +1265,7 @@ class Html
      *
      * @param array|null $options the options to be modified.
      * @param string|array $class the CSS class(es) to be added
-     * 
+     *
      * {@see mergeCssClasses()}
      * {@see removeCssClass()}
      */
