@@ -17,13 +17,13 @@ class Html
     /**
      * @var string Regular expression used for attribute name validation.
      */
-    public static $attributeRegex = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
+    public static string $attributeRegex = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
 
     /**
      * @var array list of void elements (element name => 1)
-     * @see http://www.w3.org/TR/html-markup/syntax.html#void-element
+     * {@see http://www.w3.org/TR/html-markup/syntax.html#void-element}
      */
-    public static $voidElements = [
+    public static array $voidElements = [
         'area' => 1,
         'base' => 1,
         'br' => 1,
@@ -46,7 +46,7 @@ class Html
      * @var array the preferred order of attributes in a tag. This mainly affects the order of the attributes that are
      * rendered by {@see renderTagAttributes()}.
      */
-    public static $attributeOrder = [
+    public static array $attributeOrder = [
         'type',
         'id',
         'class',
@@ -84,7 +84,7 @@ class Html
      * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will be
      * generated instead of one: `data-name="xyz" data-age="13"`.
      */
-    public static $dataAttributes = ['data', 'data-ng', 'ng'];
+    public static array $dataAttributes = ['data', 'data-ng', 'ng'];
 
 
     /**
@@ -92,9 +92,11 @@ class Html
      *
      * @param string|null $content the content to be encoded
      * @param bool $doubleEncode if already encoded entities should be encoded
+     *
      * @return string the encoded content
-     * @see decode()
-     * @see http://www.php.net/manual/en/function.htmlspecialchars.php
+     *
+     * {@see decode()}
+     * {@see http://www.php.net/manual/en/function.htmlspecialchars.php}
      */
     public static function encode(?string $content, $doubleEncode = true): string
     {
@@ -110,9 +112,11 @@ class Html
      * Decodes special HTML entities back to the corresponding characters. This is the opposite of {@see encode()}.
      *
      * @param string $content the content to be decoded
+     *
      * @return string the decoded content
-     * @see encode()
-     * @see http://www.php.net/manual/en/function.htmlspecialchars-decode.php
+     *
+     * {@see encode()}
+     * {@see http://www.php.net/manual/en/function.htmlspecialchars-decode.php}
      */
     public static function decode(string $content): string
     {
@@ -136,15 +140,18 @@ class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated HTML tag
-     * @see beginTag()
-     * @see endTag()
+     *
+     * {@see beginTag()}
+     * {@see endTag()}
      */
     public static function tag($name, string $content = '', array $options = []): string
     {
         if ($name === null || is_bool($name)) {
             return $content;
         }
+
         $html = '<' . $name . static::renderTagAttributes($options) . '>';
+
         return isset(static::$voidElements[strtolower($name)]) ? $html : "$html$content</$name>";
     }
 
@@ -156,14 +163,17 @@ class Html
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
+     *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated start tag
-     * @see endTag()
-     * @see tag()
+     *
+     * {@see endTag()}
+     * {@see tag()}
      */
     public static function beginTag($name, array $options = []): string
     {
-        if ($name === null || is_bool($name)) {
+        if ($name === null || \is_bool($name)) {
             return '';
         }
 
@@ -175,13 +185,15 @@ class Html
      *
      * @param string|bool|null $name the tag name. If $name is `null` or `false`, the corresponding content will be
      * rendered without any tag.
+     *
      * @return string the generated end tag
-     * @see beginTag()
-     * @see tag()
+     *
+     * {@see beginTag()}
+     * {@see tag()}
      */
     public static function endTag($name): string
     {
-        if ($name === null || is_bool($name)) {
+        if ($name === null || \is_bool($name)) {
             return '';
         }
 
@@ -196,6 +208,7 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes are being
      * rendered.
+     *
      * @return string the generated style tag
      */
     public static function style(string $content, array $options = []): string
@@ -211,6 +224,7 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes are being
      * rendered.
+     *
      * @return string the generated script tag
      */
     public static function script(string $content, array $options = []): string
@@ -232,6 +246,7 @@ class Html
      * The rest of the options will be rendered as the attributes of the resulting link tag. The values will be
      * HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated link tag.
      */
     public static function cssFile(string $url, array $options = []): string
@@ -245,7 +260,9 @@ class Html
             $condition = $options['condition'];
             unset($options['condition']);
             return self::wrapIntoCondition(static::tag('link', '', $options), $condition);
-        } elseif (isset($options['noscript']) && $options['noscript'] === true) {
+        }
+
+        if (isset($options['noscript']) && $options['noscript'] === true) {
             unset($options['noscript']);
             return '<noscript>' . static::tag('link', '', $options) . '</noscript>';
         }
@@ -266,6 +283,7 @@ class Html
      * The rest of the options will be rendered as the attributes of the resulting script tag. The values will be
      * HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated script tag.
      */
     public static function jsFile(string $url, array $options = []): string
@@ -285,6 +303,7 @@ class Html
      *
      * @param string $content raw HTML content.
      * @param string $condition condition string.
+     *
      * @return string generated HTML.
      */
     private static function wrapIntoCondition(string $content, string $condition): string
@@ -315,6 +334,7 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated hyperlink.
      */
     public static function a(string $text, $url = null, array $options = []): string
@@ -337,6 +357,7 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated mailto link
      */
     public static function mailto(string $text, string $email = null, array $options = []): string
@@ -356,13 +377,14 @@ class Html
      *
      * It is possible to pass the `srcset` option as an array which keys are descriptors and
      * values are URLs. All URLs will be processed.
+     *
      * @return string the generated image tag.
      */
     public static function img(string $src, array $options = []): string
     {
         $options['src'] = $src;
 
-        if (isset($options['srcset']) && is_array($options['srcset'])) {
+        if (isset($options['srcset']) && \is_array($options['srcset'])) {
             $srcset = [];
             foreach ($options['srcset'] as $descriptor => $url) {
                 $srcset[] = $url . ' ' . $descriptor;
@@ -388,6 +410,7 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the
      * corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated label tag.
      */
     public static function label(string $content, string $for = null, array $options = []): string
@@ -406,6 +429,7 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the
      * corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated button tag.
      */
     public static function button(string $content = 'Button', array $options = []): string
@@ -431,11 +455,13 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated submit button tag
      */
     public static function submitButton(string $content = 'Submit', array $options = []): string
     {
         $options['type'] = 'submit';
+
         return static::button($content, $options);
     }
 
@@ -449,11 +475,13 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated reset button tag
      */
     public static function resetButton(string $content = 'Reset', array $options = []): string
     {
         $options['type'] = 'reset';
+
         return static::button($content, $options);
     }
 
@@ -467,6 +495,7 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated input tag
      */
     public static function input(string $type, string $name = null, string $value = null, array $options = []): string
@@ -474,8 +503,10 @@ class Html
         if (!isset($options['type'])) {
             $options['type'] = $type;
         }
+
         $options['name'] = $name;
         $options['value'] = $value === null ? null : (string)$value;
+
         return static::tag('input', '', $options);
     }
 
@@ -487,19 +518,21 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated button tag
      */
     public static function buttonInput(string $label = 'Button', array $options = []): string
     {
         $options['type'] = 'button';
         $options['value'] = $label;
+
         return static::tag('input', '', $options);
     }
 
     /**
      * Generates a submit input button.
      *
-     * Be careful when naming form elements such as submit buttons. According to the [jQuery documentation]
+     * Be careful when naming form elements such as submit buttons. According to the {@see jQuery documentation}
      * https://api.jquery.com/submit/) there are some reserved names that can cause conflicts, e.g. `submit`, `length`
      * or `method`.
      *
@@ -508,12 +541,14 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated button tag
      */
     public static function submitInput($label = 'Submit', $options = []): string
     {
         $options['type'] = 'submit';
         $options['value'] = $label;
+
         return static::tag('input', '', $options);
     }
 
@@ -524,12 +559,14 @@ class Html
      * @param array $options the attributes of the button tag. The values will be HTML-encoded using {@see encode()}.
      * Attributes whose value is null will be ignored and not put in the tag returned.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated button tag
      */
     public static function resetInput(string $label = 'Reset', array $options = []): string
     {
         $options['type'] = 'reset';
         $options['value'] = $label;
+
         return static::tag('input', '', $options);
     }
 
@@ -542,6 +579,7 @@ class Html
      * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null,
      * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated text input tag
      */
     public static function textInput(string $name, string $value = null, array $options = []): string
@@ -558,6 +596,7 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated hidden input tag
      */
     public static function hiddenInput(string $name, string $value = null, array $options = []): string
@@ -574,6 +613,7 @@ class Html
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated password input tag
      */
     public static function passwordInput(string $name, string $value = null, array $options = []): string
@@ -593,6 +633,7 @@ class Html
      * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null,
      * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
      * @return string the generated file input tag
      */
     public static function fileInput(string $name, string $value = null, array $options = []): string
@@ -620,6 +661,7 @@ class Html
     {
         $options['name'] = $name;
         $doubleEncode = ArrayHelper::remove($options, 'doubleEncode', true);
+
         return static::tag('textarea', static::encode($value, $doubleEncode), $options);
     }
 
@@ -680,7 +722,8 @@ class Html
     protected static function booleanInput(string $type, string $name, bool $checked = false, array $options = []): string
     {
         $options['checked'] = (bool)$checked;
-        $value = array_key_exists('value', $options) ? $options['value'] : '1';
+        $value = \array_key_exists('value', $options) ? $options['value'] : '1';
+
         if (isset($options['uncheck'])) {
             // add a hidden field so that if the checkbox is not selected, it still submits a value
             $hiddenOptions = [];
@@ -696,6 +739,7 @@ class Html
         } else {
             $hidden = '';
         }
+
         if (isset($options['label'])) {
             $label = $options['label'];
             $labelOptions = $options['labelOptions'] ?? [];
@@ -756,9 +800,13 @@ class Html
         if (!empty($options['multiple'])) {
             return static::listBox($name, $selection, $items, $options);
         }
+
         $options['name'] = $name;
+
         unset($options['unselect']);
+
         $selectOptions = static::renderSelectOptions($selection, $items, $options);
+
         return static::tag('select', "\n" . $selectOptions . "\n", $options);
     }
 
@@ -814,10 +862,13 @@ class Html
         if (!array_key_exists('size', $options)) {
             $options['size'] = 4;
         }
+
         if (!empty($options['multiple']) && !empty($name) && substr_compare($name, '[]', -2, 2)) {
             $name .= '[]';
         }
+
         $options['name'] = $name;
+
         if (isset($options['unselect'])) {
             // add a hidden field so that if the list box has no option being selected, it still submits a value
             if (!empty($name) && substr_compare($name, '[]', -2, 2) === 0) {
@@ -833,7 +884,9 @@ class Html
         } else {
             $hidden = '';
         }
+
         $selectOptions = static::renderSelectOptions($selection, $items, $options);
+
         return $hidden . static::tag('select', "\n" . $selectOptions . "\n", $options);
     }
 
@@ -877,6 +930,7 @@ class Html
         if (substr($name, -2) !== '[]') {
             $name .= '[]';
         }
+
         if (ArrayHelper::isTraversable($selection)) {
             $selection = array_map('strval', (array)$selection);
         }
@@ -964,7 +1018,7 @@ class Html
     public static function radioList(string $name, $selection = null, array $items = [], array $options = []): string
     {
         if (ArrayHelper::isTraversable($selection)) {
-            $selection = array_map('strval', (array)$selection);
+            $selection = \array_map('strval', (array)$selection);
         }
 
         $formatter = ArrayHelper::remove($options, 'item');
@@ -994,7 +1048,7 @@ class Html
             if ($formatter !== null) {
                 $lines[] = $formatter($index, $label, $name, $checked, $value);
             } else {
-                $lines[] = static::radio($name, $checked, array_merge($itemOptions, [
+                $lines[] = static::radio($name, $checked, \array_merge($itemOptions, [
                     'value' => $value,
                     'label' => $encode ? static::encode($label) : $label,
                 ]));
@@ -1093,6 +1147,7 @@ class Html
     public static function ol(array $items, array $options = []): string
     {
         $options['tag'] = 'ol';
+
         return static::ul($items, $options);
     }
 
@@ -1117,7 +1172,7 @@ class Html
     public static function renderSelectOptions($selection, array $items, array &$tagOptions = []): string
     {
         if (ArrayHelper::isTraversable($selection)) {
-            $selection = array_map('strval', (array)$selection);
+            $selection = \array_map('strval', (array)$selection);
         }
 
         $lines = [];
@@ -1129,7 +1184,7 @@ class Html
                 $promptText = $tagOptions['prompt'];
             } else {
                 $promptText = $tagOptions['prompt']['text'];
-                $promptOptions = array_merge($promptOptions, $tagOptions['prompt']['options']);
+                $promptOptions = \array_merge($promptOptions, $tagOptions['prompt']['options']);
             }
             $promptText = $encode ? static::encode($promptText) : $promptText;
             if ($encodeSpaces) {
@@ -1145,7 +1200,7 @@ class Html
         $options['encode'] = ArrayHelper::getValue($options, 'encode', $encode);
 
         foreach ($items as $key => $value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 $groupAttrs = $groups[$key] ?? [];
                 if (!isset($groupAttrs['label'])) {
                     $groupAttrs['label'] = $key;
@@ -1161,7 +1216,7 @@ class Html
             } else {
                 $attrs = $options[$key] ?? [];
                 $attrs['value'] = (string)$key;
-                if (!array_key_exists('selected', $attrs)) {
+                if (!\array_key_exists('selected', $attrs)) {
                     $attrs['selected'] = $selection !== null &&
                         ((!ArrayHelper::isTraversable($selection) && !strcmp($key, $selection))
                             || (ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$key, $selection)));
@@ -1197,10 +1252,14 @@ class Html
      *
      * @param array $attributes attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encode()}.
+     *
      * @return string the rendering result. If the attributes are not empty, they will be rendered into a string
      * with a leading white space (so that it can be directly appended to the tag name in a tag. If there is no
      * attribute, an empty string will be returned.
-     * @see addCssClass()
+     *
+     * @throws \JsonException
+     *
+     * {@see addCssClass()}
      */
     public static function renderTagAttributes(array $attributes): string
     {
@@ -1211,19 +1270,19 @@ class Html
                     $sorted[$name] = $attributes[$name];
                 }
             }
-            $attributes = array_merge($sorted, $attributes);
+            $attributes = \array_merge($sorted, $attributes);
         }
 
         $html = '';
         foreach ($attributes as $name => $value) {
-            if (is_bool($value)) {
+            if (\is_bool($value)) {
                 if ($value) {
                     $html .= " $name";
                 }
-            } elseif (is_array($value)) {
-                if (in_array($name, static::$dataAttributes, true)) {
+            } elseif (\is_array($value)) {
+                if (\in_array($name, static::$dataAttributes, true)) {
                     foreach ($value as $n => $v) {
-                        if (is_array($v)) {
+                        if (\is_array($v)) {
                             $html .= " $name-$n='" . Json::htmlEncode($v) . "'";
                         } else {
                             $html .= " $name-$n=\"" . static::encode($v) . '"';
@@ -1272,7 +1331,7 @@ class Html
     public static function addCssClass(?array &$options, $class): void
     {
         if (isset($options['class'])) {
-            if (is_array($options['class'])) {
+            if (\is_array($options['class'])) {
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
@@ -1289,13 +1348,15 @@ class Html
      * This method provides the priority for named existing classes over additional.
      * @param array $existingClasses already existing CSS classes.
      * @param array $additionalClasses CSS classes to be added.
+     *
      * @return array merge result.
-     * @see addCssClass()
+     *
+     * {@see addCssClass()}
      */
     private static function mergeCssClasses(array $existingClasses, array $additionalClasses): array
     {
         foreach ($additionalClasses as $key => $class) {
-            if (is_int($key) && !in_array($class, $existingClasses)) {
+            if (\is_int($key) && !\in_array($class, $existingClasses, true)) {
                 $existingClasses[] = $class;
             } elseif (!isset($existingClasses[$key])) {
                 $existingClasses[$key] = $class;
@@ -1310,13 +1371,14 @@ class Html
      *
      * @param array $options the options to be modified.
      * @param string|array $class the CSS class(es) to be removed
-     * @see addCssClass()
+     *
+     * {@see addCssClass()}
      */
     public static function removeCssClass(array &$options, $class): void
     {
         if (isset($options['class'])) {
-            if (is_array($options['class'])) {
-                $classes = array_diff($options['class'], (array)$class);
+            if (\is_array($options['class'])) {
+                $classes = \array_diff($options['class'], (array)$class);
                 if (empty($classes)) {
                     unset($options['class']);
                 } else {
@@ -1324,7 +1386,7 @@ class Html
                 }
             } else {
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
-                $classes = array_diff($classes, (array)$class);
+                $classes = \array_diff($classes, (array)$class);
                 if (empty($classes)) {
                     unset($options['class']);
                 } else {
@@ -1352,15 +1414,16 @@ class Html
      * (e.g. `['width' => '100px', 'height' => '200px']`).
      * @param bool $overwrite whether to overwrite existing CSS properties if the new style
      * contain them too.
-     * @see removeCssStyle()
-     * @see cssStyleFromArray()
-     * @see cssStyleToArray()
+     *
+     * {@see removeCssStyle()}
+     * {@see cssStyleFromArray()}
+     * {@see cssStyleToArray()}
      */
     public static function addCssStyle(array &$options, $style, bool $overwrite = true): void
     {
         if (!empty($options['style'])) {
-            $oldStyle = is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
-            $newStyle = is_array($style) ? $style : static::cssStyleToArray($style);
+            $oldStyle = \is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
+            $newStyle = \is_array($style) ? $style : static::cssStyleToArray($style);
             if (!$overwrite) {
                 foreach ($newStyle as $property => $value) {
                     if (isset($oldStyle[$property])) {
@@ -1370,7 +1433,7 @@ class Html
             }
             $style = array_merge($oldStyle, $newStyle);
         }
-        $options['style'] = is_array($style) ? static::cssStyleFromArray($style) : $style;
+        $options['style'] = \is_array($style) ? static::cssStyleFromArray($style) : $style;
     }
 
     /**
@@ -1385,12 +1448,13 @@ class Html
      * @param array $options the HTML options to be modified.
      * @param string|array $properties the CSS properties to be removed. You may use a string if you are removing a
      * single property.
-     * @see addCssStyle()
+     *
+     * {@see addCssStyle()}
      */
     public static function removeCssStyle(array &$options, $properties): void
     {
         if (!empty($options['style'])) {
-            $style = is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
+            $style = \is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
             foreach ((array)$properties as $property) {
                 unset($style[$property]);
             }
@@ -1410,6 +1474,7 @@ class Html
      *
      * @param array $style the CSS style array. The array keys are the CSS property names, and the array values are the
      * corresponding CSS property values.
+     *
      * @return string|null the CSS style string. If the CSS style is empty, a null will be returned.
      */
     public static function cssStyleFromArray(array $style): ?string
@@ -1436,6 +1501,7 @@ class Html
      * ```
      *
      * @param string $style the CSS style string
+     *
      * @return array the array representation of the CSS style
      */
     public static function cssStyleToArray(string $style): array
@@ -1465,7 +1531,9 @@ class Html
      *
      * If `$attribute` has neither prefix nor suffix, it will be returned back without change.
      * @param string $attribute the attribute name or expression
+     *
      * @return string the attribute name without prefix and suffix.
+     *
      * @throws \InvalidArgumentException if the attribute name contains non-word characters.
      */
     public static function getAttributeName(string $attribute): ?string
@@ -1481,6 +1549,7 @@ class Html
      * Escapes regular expression to use in JavaScript.
      *
      * @param string $regexp the regular expression to be escaped.
+     *
      * @return string the escaped result.
      */
     public static function escapeJsRegularExpression(string $regexp): string
