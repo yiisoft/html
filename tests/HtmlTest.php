@@ -3,8 +3,6 @@
 namespace Yiisoft\Html\Tests;
 
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Tests\TestCase;
-use Yiisoft\Json\Json;
 
 final class HtmlTest extends TestCase
 {
