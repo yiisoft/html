@@ -490,7 +490,7 @@ class Html
      *
      * @param string $type the type attribute.
      * @param string $name the name attribute. If it is null, the name attribute will not be generated.
-     * @param string $value the value attribute. If it is null, the value attribute will not be generated.
+     * @param mixed $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
@@ -498,7 +498,7 @@ class Html
      *
      * @return string the generated input tag
      */
-    public static function input(string $type, string $name = null, string $value = null, array $options = []): string
+    public static function input(string $type, string $name = null, $value = null, array $options = []): string
     {
         if (!isset($options['type'])) {
             $options['type'] = $type;
@@ -735,6 +735,7 @@ class Html
                 $hiddenOptions['disabled'] = $options['disabled'];
             }
             $hidden = static::hiddenInput($name, $options['uncheck'], $hiddenOptions);
+
             unset($options['uncheck']);
         } else {
             $hidden = '';
@@ -950,10 +951,10 @@ class Html
             if ($formatter !== null) {
                 $lines[] = $formatter($index, $label, $name, $checked, $value);
             } else {
-                $lines[] = static::checkbox($name, $checked, array_merge($itemOptions, [
+                $lines[] = static::checkbox($name, $checked, array_merge([
                     'value' => $value,
                     'label' => $encode ? static::encode($label) : $label,
-                ]));
+                ], $itemOptions));
             }
             $index++;
         }
@@ -1536,7 +1537,7 @@ class Html
      *
      * @throws \InvalidArgumentException if the attribute name contains non-word characters.
      */
-    public static function getAttributeName(string $attribute): ?string
+    public static function getAttributeName(string $attribute): string
     {
         if (preg_match(static::$attributeRegex, $attribute, $matches)) {
             return $matches[2];
