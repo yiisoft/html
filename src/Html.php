@@ -490,7 +490,8 @@ class Html
      *
      * @param string $type the type attribute.
      * @param string $name the name attribute. If it is null, the name attribute will not be generated.
-     * @param mixed $value the value attribute. If it is null, the value attribute will not be generated.
+     * @param string|bool|int|float|null|callable $value the value attribute. If it is null, the value attribute will
+     * not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
