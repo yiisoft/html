@@ -506,7 +506,7 @@ class Html
         }
 
         $options['name'] = $name;
-        $options['value'] = $value === null ? null : (string)$value;
+        $options['value'] = $value === null ? null : $value;
 
         return static::tag('input', '', $options);
     }
