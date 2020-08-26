@@ -17,7 +17,7 @@
     "require": {
         "php": "^7.4|^8.0",
         "yiisoft/arrays": "^3.0@dev",
-        "yiisoft/json": "^3.0@dev",
+        "yiisoft/json": "^1.0",
         "yiisoft/strings": "^3.0@dev"
     },
     "require-dev": {
