@@ -557,6 +557,20 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::listBox('test', ['1', 'value3'], $this->getDataItems3()));
         $this->assertSameWithoutLE($expected, Html::listBox('test', new \ArrayObject(['1', 'value3']), $this->getDataItems3()));
+
+        $expected = <<<'EOD'
+<input type="hidden" name="test" value="none"><select name="test[]" size="4">
+<option value="0">zero</option>
+<option value="1" selected>one</option>
+<option value="value3" selected>text3</option>
+</select>
+EOD;
+        $this->assertSameWithoutLE($expected, Html::listBox(
+            'test[]',
+            ['1', 'value3'],
+            $this->getDataItems3(),
+            ['unselect' => 'none'],
+        ));
     }
 
     public function testCheckboxList(): void
@@ -1313,6 +1327,16 @@ EOD;
             ['a +b'],
             ['a,b'],
         ];
+    }
+
+    public function testGetAttributeName(): void
+    {
+        $this->assertSame('content', Html::getAttributeName('[0]content'));
+        $this->assertSame('dates', Html::getAttributeName('dates[0]'));
+        $this->assertSame('dates', Html::getAttributeName('[0]dates[0]'));
+
+        $this->expectExceptionMessage('Attribute name must contain word characters only.');
+        Html::getAttributeName('content body');
     }
 
     public function testEscapeJsRegularExpression(): void
