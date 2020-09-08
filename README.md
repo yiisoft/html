@@ -33,7 +33,7 @@ composer require yiisoft/html
 
 ## General usage
 
-```
+```php
 use Yiisoft\Html\Html;
 
 <?= Html::tag('meta', '', ['http-equiv' => 'X-UA-Compatible', 'content' => 'IE=edge']) ?>
