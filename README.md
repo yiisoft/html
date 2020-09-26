@@ -10,9 +10,11 @@ The package provides `Html` helper that has static methods to generate HTML.
 
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/html/v/stable.png)](https://packagist.org/packages/yiisoft/html)
 [![Total Downloads](https://poser.pugx.org/yiisoft/html/downloads.png)](https://packagist.org/packages/yiisoft/html)
-[![Build Status](https://travis-ci.com/yiisoft/html.svg?branch=master)](https://travis-ci.com/yiisoft/html)
+[![Build Status](https://github.com/yiisoft/html/workflows/build/badge.svg)](https://github.com/yiisoft/html/actions)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yiisoft/html/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yiisoft/html/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/yiisoft/html/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/yiisoft/html/?branch=master)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fyiisoft%html%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/yiisoft/html/master)
+[![static analysis](https://github.com/yiisoft/html/workflows/static%20analysis/badge.svg)](https://github.com/yiisoft/html/actions?query=workflow%3A%22static+analysis%22)
 
 ## Requirements
 
