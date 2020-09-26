@@ -12,6 +12,8 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('a&lt;&gt;&amp;&quot;&apos;�', Html::encode("a<>&\"'\x80"));
         $this->assertSame('Sam &amp; Dark', Html::encode('Sam & Dark'));
+        $this->assertSame('Test &amp;amp;', Html::encode('Test &amp;'));
+        $this->assertSame('Test &amp;', Html::encode('Test &amp;', false));
     }
 
     public function testDecode(): void
@@ -22,9 +24,13 @@ final class HtmlTest extends TestCase
     public function testTag(): void
     {
         $this->assertSame('<br>', Html::tag('br'));
+        $this->assertSame('<BR>', Html::tag('BR'));
         $this->assertSame('<span></span>', Html::tag('span'));
         $this->assertSame('<div>content</div>', Html::tag('div', 'content'));
-        $this->assertSame('<input type="text" name="test" value="&lt;&gt;">', Html::tag('input', '', ['type' => 'text', 'name' => 'test', 'value' => '<>']));
+        $this->assertSame(
+            '<input type="text" name="test" value="&lt;&gt;">',
+            Html::tag('input', '', ['type' => 'text', 'name' => 'test', 'value' => '<>'])
+        );
         $this->assertSame('<span disabled></span>', Html::tag('span', '', ['disabled' => true]));
         $this->assertSame('test', Html::tag(false, 'test'));
         $this->assertSame('test', Html::tag(null, 'test'));
@@ -33,7 +39,10 @@ final class HtmlTest extends TestCase
     public function testBeginTag(): void
     {
         $this->assertSame('<br>', Html::beginTag('br'));
-        $this->assertSame('<span id="test" class="title">', Html::beginTag('span', ['id' => 'test', 'class' => 'title']));
+        $this->assertSame(
+            '<span id="test" class="title">',
+            Html::beginTag('span', ['id' => 'test', 'class' => 'title'])
+        );
         $this->assertSame('', Html::beginTag(null));
         $this->assertSame('', Html::beginTag(false));
     }
@@ -569,6 +578,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems()));
         $this->assertSameWithoutLE($expected, Html::checkboxList('test[]', ['value2'], $this->getDataItems()));
+        $this->assertSameWithoutLE($expected, Html::checkboxList('test', 'value2', $this->getDataItems()));
 
         $expected = <<<'EOD'
 <div><label><input type="checkbox" name="test[]" value="value1&lt;&gt;"> text1&lt;&gt;</label>
@@ -639,11 +649,28 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['1', 'value3'], $this->getDataItems3()));
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', new \ArrayObject(['1', 'value3']), $this->getDataItems3()));
+
+        $expected = <<<'EOD'
+<div><label><input type="checkbox" name="test[]" value="0" any="42"> zero</label>
+<label><input type="checkbox" name="test[]" value="1" checked any="42"> one</label>
+<label><input type="checkbox" name="test[]" value="value3" any="42"> text3</label></div>
+EOD;
+        $this->assertSameWithoutLE($expected, Html::checkboxList(
+            'test',
+            1,
+            $this->getDataItems3(),
+            ['itemOptions' => ['any' => 42]]
+        ));
     }
 
     public function testRadioList(): void
     {
         $this->assertSame('<div></div>', Html::radioList('test'));
+
+        $this->assertSame(
+            '<input type="hidden" name="test" value="1"><label><input type="radio" name="test" value="1"> a</label>',
+            Html::radioList('test', null, [1 => 'a'], ['unselect' => 1, 'tag' => false])
+        );
 
         $expected = <<<'EOD'
 <div><label><input type="radio" name="test" value="value1"> text1</label>
@@ -723,9 +750,7 @@ EOD;
 
     public function testUl(): void
     {
-        $data = [
-            1, 'abc', '<>',
-        ];
+        $data = [1, 'abc', '<>'];
         $expected = <<<'EOD'
 <ul>
 <li>1</li>
@@ -755,9 +780,7 @@ EOD;
 
     public function testOl(): void
     {
-        $data = [
-            1, 'abc', '<>',
-        ];
+        $data = [1, 'abc', '<>'];
         $expected = <<<'EOD'
 <ol>
 <li class="ti">1</li>
@@ -852,7 +875,8 @@ EOD;
 EOD;
         $attributes = [
             'prompt' => [
-                'text' => 'Please select', 'options' => ['class' => 'prompt', 'value' => '-1', 'label' => 'None'],
+                'text' => 'Please select',
+                'options' => ['class' => 'prompt', 'value' => '-1', 'label' => 'None'],
             ],
         ];
         $this->assertSameWithoutLE($expected, Html::renderSelectOptions(['value1'], $data, $attributes));
@@ -867,6 +891,22 @@ EOD;
         $this->assertSame('', Html::renderTagAttributes(['class' => []]));
         $this->assertSame(' style="width: 100px; height: 200px;"', Html::renderTagAttributes(['style' => ['width' => '100px', 'height' => '200px']]));
         $this->assertSame('', Html::renderTagAttributes(['style' => []]));
+        $this->assertSame(
+            ' id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'',
+            Html::renderTagAttributes([
+                'id' => 'x',
+                'class' => ['a', 'b'],
+                'data' => ['a' => 1, 'b' => 2],
+                'style' => ['width' => '100px'],
+                'any' => [1, 2],
+            ])
+        );
+        $this->assertSame(' data-a="0" data-b=\'[1,2]\' any="42"', Html::renderTagAttributes([
+            'class' => [],
+            'style' => [],
+            'data' => ['a' => 0, 'b' => [1, 2]],
+            'any' => 42,
+        ]));
 
         $attributes = [
             'data' => [
@@ -909,6 +949,12 @@ EOD;
         ];
         Html::addCssClass($options, ['test1', 'test2']);
         $this->assertSame(['class' => 'test test1 test2'], $options);
+
+        $options = [
+            'class' => 'test test',
+        ];
+        Html::addCssClass($options, 'test2');
+        $this->assertSame(['class' => 'test test2'], $options);
     }
 
     /**
@@ -1083,6 +1129,10 @@ EOD;
 
         $expected = '/([a-z0-9-]+)/gim';
         $actual = Html::escapeJsRegularExpression('/([a-z0-9-]+)/Ugimex');
+        $this->assertSame($expected, $actual);
+
+        $expected = '/[a-z0-9-\\/]+/';
+        $actual = Html::escapeJsRegularExpression('([a-z0-9-/]+)');
         $this->assertSame($expected, $actual);
     }
 }
