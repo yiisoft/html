@@ -12,18 +12,18 @@ use Yiisoft\Json\Json;
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
  */
-class Html
+final class Html
 {
     /**
-     * @var string Regular expression used for attribute name validation.
+     * Regular expression used for attribute name validation.
      */
-    public static string $attributeRegex = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
+    private const ATTRIBUTE_REGEX = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
 
     /**
-     * @var array list of void elements (element name => 1)
+     * List of void elements (element name => 1)
      * {@see http://www.w3.org/TR/html-markup/syntax.html#void-element}
      */
-    public static array $voidElements = [
+    private const VOID_ELEMENTS = [
         'area' => 1,
         'base' => 1,
         'br' => 1,
@@ -43,10 +43,10 @@ class Html
     ];
 
     /**
-     * @var array the preferred order of attributes in a tag. This mainly affects the order of the attributes that are
+     * The preferred order of attributes in a tag. This mainly affects the order of the attributes that are
      * rendered by {@see renderTagAttributes()}.
      */
-    public static array $attributeOrder = [
+    private const ATTRIBUTE_ORDER = [
         'type',
         'id',
         'class',
@@ -80,12 +80,11 @@ class Html
     ];
 
     /**
-     * @var array list of tag attributes that should be specially handled when their values are of array type.
+     * List of tag attributes that should be specially handled when their values are of array type.
      * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will be
      * generated instead of one: `data-name="xyz" data-age="13"`.
      */
-    public static array $dataAttributes = ['data', 'data-ng', 'ng'];
-
+    private const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng'];
 
     /**
      * Encodes special characters into HTML entities.
@@ -152,7 +151,7 @@ class Html
 
         $html = '<' . $name . static::renderTagAttributes($options) . '>';
 
-        return isset(static::$voidElements[strtolower($name)]) ? $html : "$html$content</$name>";
+        return isset(static::VOID_ELEMENTS[strtolower($name)]) ? $html : "$html$content</$name>";
     }
 
     /**
@@ -933,7 +932,7 @@ class Html
             $name .= '[]';
         }
 
-        if (ArrayHelper::isTraversable($selection)) {
+        if (is_iterable($selection)) {
             $selection = array_map('strval', (array)$selection);
         }
 
@@ -947,8 +946,8 @@ class Html
         $index = 0;
         foreach ($items as $value => $label) {
             $checked = $selection !== null &&
-                ((!ArrayHelper::isTraversable($selection) && !strcmp($value, $selection))
-                    || (ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$value, $selection)));
+                ((!is_iterable($selection) && !strcmp($value, $selection))
+                    || (is_iterable($selection) && ArrayHelper::isIn((string)$value, $selection)));
             if ($formatter !== null) {
                 $lines[] = $formatter($index, $label, $name, $checked, $value);
             } else {
@@ -1019,7 +1018,7 @@ class Html
      */
     public static function radioList(string $name, $selection = null, array $items = [], array $options = []): string
     {
-        if (ArrayHelper::isTraversable($selection)) {
+        if (is_iterable($selection)) {
             $selection = \array_map('strval', (array)$selection);
         }
 
@@ -1045,8 +1044,8 @@ class Html
         $index = 0;
         foreach ($items as $value => $label) {
             $checked = $selection !== null &&
-                ((!ArrayHelper::isTraversable($selection) && !strcmp($value, $selection))
-                    || (ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$value, $selection)));
+                ((!is_iterable($selection) && !strcmp($value, $selection))
+                    || (is_iterable($selection) && ArrayHelper::isIn((string)$value, $selection)));
             if ($formatter !== null) {
                 $lines[] = $formatter($index, $label, $name, $checked, $value);
             } else {
@@ -1173,7 +1172,7 @@ class Html
      */
     public static function renderSelectOptions($selection, array $items, array &$tagOptions = []): string
     {
-        if (ArrayHelper::isTraversable($selection)) {
+        if (is_iterable($selection)) {
             $selection = \array_map('strval', (array)$selection);
         }
 
@@ -1220,8 +1219,8 @@ class Html
                 $attrs['value'] = (string)$key;
                 if (!\array_key_exists('selected', $attrs)) {
                     $attrs['selected'] = $selection !== null &&
-                        ((!ArrayHelper::isTraversable($selection) && !strcmp($key, $selection))
-                            || (ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$key, $selection)));
+                        ((!is_iterable($selection) && !strcmp($key, $selection))
+                            || (is_iterable($selection) && ArrayHelper::isIn((string)$key, $selection)));
                 }
                 $text = $encode ? static::encode($value) : $value;
                 if ($encodeSpaces) {
@@ -1267,7 +1266,7 @@ class Html
     {
         if (count($attributes) > 1) {
             $sorted = [];
-            foreach (static::$attributeOrder as $name) {
+            foreach (static::ATTRIBUTE_ORDER as $name) {
                 if (isset($attributes[$name])) {
                     $sorted[$name] = $attributes[$name];
                 }
@@ -1282,7 +1281,7 @@ class Html
                     $html .= " $name";
                 }
             } elseif (\is_array($value)) {
-                if (\in_array($name, static::$dataAttributes, true)) {
+                if (\in_array($name, static::DATA_ATTRIBUTES, true)) {
                     foreach ($value as $n => $v) {
                         if (\is_array($v)) {
                             $html .= " $name-$n='" . Json::htmlEncode($v) . "'";
@@ -1540,7 +1539,7 @@ class Html
      */
     public static function getAttributeName(string $attribute): string
     {
-        if (preg_match(static::$attributeRegex, $attribute, $matches)) {
+        if (preg_match(static::ATTRIBUTE_REGEX, $attribute, $matches)) {
             return $matches[2];
         }
 
