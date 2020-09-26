@@ -154,4 +154,4 @@ The package is tested with [PHPUnit](https://phpunit.de/). To run tests:
 The Yii HTML is free software. It is released under the terms of the BSD License.
 Please see [`LICENSE`](./LICENSE.md) for more information.
 
-Maintained by [Yii Software LLC](https://www.yiiframework.com/).
+Maintained by [Yii Software](https://www.yiiframework.com/).
