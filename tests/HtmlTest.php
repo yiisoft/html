@@ -1164,18 +1164,28 @@ EOD;
         Html::getAttributeName('content body');
     }
 
-    public function testEscapeJsRegularExpression(): void
+    public function escapeJsRegularExpressionData(): array
     {
-        $expected = '/[a-z0-9-]+/';
-        $actual = Html::escapeJsRegularExpression('([a-z0-9-]+)');
-        $this->assertSame($expected, $actual);
+        return [
+            ['/[a-z0-9-]+/', '([a-z0-9-]+)'],
+            ['/[igm]+/', '([igm]+)'],
+            ['/([a-z0-9-]+)/gim', '/([a-z0-9-]+)/Ugimex'],
+            ['/mag/img', '/mag/imgx'],
+            ['/[a-z0-9-\\/]+/', '([a-z0-9-/]+)'],
+        ];
+    }
 
-        $expected = '/([a-z0-9-]+)/gim';
-        $actual = Html::escapeJsRegularExpression('/([a-z0-9-]+)/Ugimex');
-        $this->assertSame($expected, $actual);
-
-        $expected = '/[a-z0-9-\\/]+/';
-        $actual = Html::escapeJsRegularExpression('([a-z0-9-/]+)');
-        $this->assertSame($expected, $actual);
+    /**
+     * @dataProvider escapeJsRegularExpressionData
+     *
+     * @param string $expected
+     * @param string $regexp
+     */
+    public function testEscapeJsRegularExpression(string $expected, string $regexp): void
+    {
+        $this->assertSame(
+            $expected,
+            Html::escapeJsRegularExpression($regexp)
+        );
     }
 }

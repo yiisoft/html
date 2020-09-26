@@ -1628,8 +1628,8 @@ final class Html
     {
         $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
         $deliminator = substr($pattern, 0, 1);
-        $pos = strrpos($pattern, $deliminator, 1);
-        $flag = substr($pattern, $pos + 1);
+        $pos = (int)strrpos($pattern, $deliminator, 1);
+        $flag = $pos > 0 ? substr($pattern, $pos + 1) : '';
         if ($deliminator !== '/') {
             $pattern = '/' . str_replace('/', '\\/', substr($pattern, 1, $pos - 1)) . '/';
         } else {
