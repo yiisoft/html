@@ -149,7 +149,7 @@ Overall the helper has the following method groups.
 
 The package is tested with [PHPUnit](https://phpunit.de/). To run tests:
 
-```php
+```
 ./vendor/bin/phpunit
 ```
 
@@ -157,7 +157,7 @@ The package is tested with [PHPUnit](https://phpunit.de/). To run tests:
 
 The package tests are checked with [Infection](https://infection.github.io/) mutation framework. To run it:
 
-```php
+```
 ./vendor/bin/infection
 ```
 
@@ -165,7 +165,7 @@ The package tests are checked with [Infection](https://infection.github.io/) mut
 
 The code is statically analyzed with [Psalm](https://psalm.dev/). To run static analysis:
 
-```php
+```
 ./vendor/bin/psalm
 ```
 
