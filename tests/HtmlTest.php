@@ -1075,16 +1075,6 @@ EOD;
         Html::getAttributeName('content body');
     }
 
-    public function testGetAttributeName(): void
-    {
-        $this->assertSame('content', Html::getAttributeName('[0]content'));
-        $this->assertSame('dates', Html::getAttributeName('dates[0]'));
-        $this->assertSame('dates', Html::getAttributeName('[0]dates[0]'));
-
-        $this->expectExceptionMessage('Attribute name must contain word characters only.');
-        Html::getAttributeName('content body');
-    }
-
     public function testEscapeJsRegularExpression(): void
     {
         $expected = '/[a-z0-9-]+/';
