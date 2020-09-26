@@ -746,6 +746,17 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', ['value3'], $this->getDataItems3()));
         $this->assertSameWithoutLE($expected, Html::radioList('test', new \ArrayObject(['value3']), $this->getDataItems3()));
+
+        $expected = <<<'EOD'
+<div><label><input type="radio" name="test" value="1" checked any="42"> One</label>
+<label><input type="radio" name="test" value="2" any="42"> Two</label></div>
+EOD;
+        $this->assertSameWithoutLE($expected, Html::radioList(
+            'test',
+            1,
+            [1 => 'One', 2 => 'Two'],
+            ['itemOptions' => ['any' => 42]]
+        ));
     }
 
     public function testUl(): void
@@ -826,7 +837,7 @@ EOD;
         $this->assertSameWithoutLE($expected, Html::ol(new ArrayAccessObject()));
     }
 
-    public function testRenderOptions(): void
+    public function testRenderSelectOptions(): void
     {
         $data = [
             'value1' => 'label1',
@@ -898,6 +909,20 @@ EOD;
             ],
         ];
         $this->assertSameWithoutLE($expected, Html::renderSelectOptions(['value1'], $data, $attributes));
+
+        $data = [1 => 'One', 2 => 'Two'];
+        $expected = <<<'EOD'
+<option class="prompt" value="" label="None">Please select</option>
+<option value="1" selected>One</option>
+<option value="2">Two</option>
+EOD;
+        $attributes = [
+            'prompt' => [
+                'text' => 'Please select',
+                'options' => ['class' => 'prompt', 'label' => 'None'],
+            ],
+        ];
+        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(1, $data, $attributes));
     }
 
     public function testRenderAttributes(): void

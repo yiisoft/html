@@ -4,9 +4,16 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
+use InvalidArgumentException;
+use JsonException;
 use Traversable;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Json\Json;
+
+use function in_array;
+use function is_array;
+use function is_bool;
+use function is_int;
 
 /**
  * Html provides a set of static methods for generating commonly used HTML tags.
@@ -143,7 +150,7 @@ final class Html
      *
      * @return string the generated HTML tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      *
      * {@see beginTag()}
      * {@see endTag()}
@@ -172,14 +179,14 @@ final class Html
      *
      * @return string the generated start tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      *
      * {@see endTag()}
      * {@see tag()}
      */
     public static function beginTag($name, array $options = []): string
     {
-        if ($name === null || \is_bool($name)) {
+        if ($name === null || is_bool($name)) {
             return '';
         }
 
@@ -199,7 +206,7 @@ final class Html
      */
     public static function endTag($name): string
     {
-        if ($name === null || \is_bool($name)) {
+        if ($name === null || is_bool($name)) {
             return '';
         }
 
@@ -217,7 +224,7 @@ final class Html
      *
      * @return string the generated style tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function style(string $content, array $options = []): string
     {
@@ -235,7 +242,7 @@ final class Html
      *
      * @return string the generated script tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function script(string $content, array $options = []): string
     {
@@ -259,7 +266,7 @@ final class Html
      *
      * @return string the generated link tag.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function cssFile(string $url, array $options = []): string
     {
@@ -298,7 +305,7 @@ final class Html
      *
      * @return string the generated script tag.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function jsFile(string $url, array $options = []): string
     {
@@ -351,7 +358,7 @@ final class Html
      *
      * @return string the generated hyperlink.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function a(string $text, $url = null, array $options = []): string
     {
@@ -376,7 +383,7 @@ final class Html
      *
      * @return string the generated mailto link
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function mailto(string $text, ?string $email = null, array $options = []): string
     {
@@ -398,13 +405,13 @@ final class Html
      *
      * @return string the generated image tag.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function img(string $src, array $options = []): string
     {
         $options['src'] = $src;
 
-        if (isset($options['srcset']) && \is_array($options['srcset'])) {
+        if (isset($options['srcset']) && is_array($options['srcset'])) {
             $srcset = [];
             foreach ($options['srcset'] as $descriptor => $url) {
                 $srcset[] = $url . ' ' . $descriptor;
@@ -433,7 +440,7 @@ final class Html
      *
      * @return string the generated label tag.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function label(string $content, ?string $for = null, array $options = []): string
     {
@@ -454,7 +461,7 @@ final class Html
      *
      * @return string the generated button tag.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function button(string $content = 'Button', array $options = []): string
     {
@@ -482,7 +489,7 @@ final class Html
      *
      * @return string the generated submit button tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function submitButton(string $content = 'Submit', array $options = []): string
     {
@@ -504,7 +511,7 @@ final class Html
      *
      * @return string the generated reset button tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function resetButton(string $content = 'Reset', array $options = []): string
     {
@@ -527,7 +534,7 @@ final class Html
      *
      * @return string the generated input tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function input(string $type, ?string $name = null, $value = null, array $options = []): string
     {
@@ -552,7 +559,7 @@ final class Html
      *
      * @return string the generated button tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function buttonInput(string $label = 'Button', array $options = []): string
     {
@@ -577,7 +584,7 @@ final class Html
      *
      * @return string the generated button tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function submitInput($label = 'Submit', $options = []): string
     {
@@ -597,7 +604,7 @@ final class Html
      *
      * @return string the generated button tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function resetInput(string $label = 'Reset', array $options = []): string
     {
@@ -619,7 +626,7 @@ final class Html
      *
      * @return string the generated text input tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function textInput(string $name, ?string $value = null, array $options = []): string
     {
@@ -639,7 +646,7 @@ final class Html
      *
      * @return string the generated hidden input tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function hiddenInput(string $name, $value = null, array $options = []): string
     {
@@ -658,7 +665,7 @@ final class Html
      *
      * @return string the generated password input tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function passwordInput(string $name, ?string $value = null, array $options = []): string
     {
@@ -680,7 +687,7 @@ final class Html
      *
      * @return string the generated file input tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function fileInput(string $name, ?string $value = null, array $options = []): string
     {
@@ -703,7 +710,7 @@ final class Html
      *
      * @return string the generated text area tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function textarea(string $name, ?string $value = '', array $options = []): string
     {
@@ -723,7 +730,7 @@ final class Html
      *
      * @return string the generated radio button tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function radio(string $name, bool $checked = false, array $options = []): string
     {
@@ -740,7 +747,7 @@ final class Html
      *
      * @return string the generated checkbox tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function checkbox(string $name, bool $checked = false, array $options = []): string
     {
@@ -771,12 +778,12 @@ final class Html
      *
      * @return string the generated checkbox tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     private static function booleanInput(string $type, string $name, bool $checked, array $options): string
     {
         $options['checked'] = $checked;
-        $value = \array_key_exists('value', $options) ? $options['value'] : '1';
+        $value = array_key_exists('value', $options) ? $options['value'] : '1';
 
         if (isset($options['uncheck'])) {
             // add a hidden field so that if the checkbox is not selected, it still submits a value
@@ -850,7 +857,7 @@ final class Html
      *
      * @return string the generated drop-down list tag
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function dropDownList(string $name, $selection = null, array $items = [], array $options = []): string
     {
@@ -914,7 +921,7 @@ final class Html
      *
      * @return string the generated list box tag.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function listBox(string $name, $selection = null, array $items = [], array $options = []): string
     {
@@ -984,7 +991,7 @@ final class Html
      *
      * @return string the generated checkbox list
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function checkboxList(string $name, $selection = null, array $items = [], array $options = []): string
     {
@@ -1035,13 +1042,7 @@ final class Html
             $hidden = '';
         }
 
-        $visibleContent = implode($separator, $lines);
-
-        if ($tag === false) {
-            return $hidden . $visibleContent;
-        }
-
-        return $hidden . static::tag($tag, $visibleContent, $options);
+        return $hidden . static::tag($tag, implode($separator, $lines), $options);
     }
 
     /**
@@ -1078,12 +1079,14 @@ final class Html
      *
      * @return string the generated radio button list
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function radioList(string $name, $selection = null, array $items = [], array $options = []): string
     {
         if (is_iterable($selection)) {
-            $selection = \array_map('strval', (array)$selection);
+            $selection = array_map('strval', (array)$selection);
+        } elseif ($selection !== null) {
+            $selection = (string)$selection;
         }
 
         $formatter = ArrayHelper::remove($options, 'item');
@@ -1108,7 +1111,7 @@ final class Html
         $index = 0;
         foreach ($items as $value => $label) {
             $checked = $selection !== null &&
-                ((!is_iterable($selection) && !strcmp($value, $selection))
+                ((!is_iterable($selection) && !strcmp((string)$value, $selection))
                     || (is_iterable($selection) && ArrayHelper::isIn((string)$value, $selection)));
             if ($formatter !== null) {
                 $lines[] = $formatter($index, $label, $name, $checked, $value);
@@ -1152,7 +1155,7 @@ final class Html
      *
      * @return string the generated unordered list. An empty list tag will be returned if `$items` is empty.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function ul($items, array $options = []): string
     {
@@ -1207,7 +1210,7 @@ final class Html
      *
      * @return string the generated ordered list. An empty string is returned if `$items` is empty.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function ol($items, array $options = []): string
     {
@@ -1234,12 +1237,14 @@ final class Html
      *
      * @return string the generated list options
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function renderSelectOptions($selection, array $items, array &$tagOptions = []): string
     {
         if (is_iterable($selection)) {
-            $selection = \array_map('strval', (array)$selection);
+            $selection = array_map('strval', (array)$selection);
+        } elseif ($selection !== null) {
+            $selection = (string)$selection;
         }
 
         $lines = [];
@@ -1251,7 +1256,7 @@ final class Html
                 $promptText = $tagOptions['prompt'];
             } else {
                 $promptText = $tagOptions['prompt']['text'];
-                $promptOptions = \array_merge($promptOptions, $tagOptions['prompt']['options']);
+                $promptOptions = array_merge($promptOptions, $tagOptions['prompt']['options']);
             }
             $promptText = $encode ? static::encode($promptText) : $promptText;
             if ($encodeSpaces) {
@@ -1267,7 +1272,7 @@ final class Html
         $options['encode'] = ArrayHelper::getValue($options, 'encode', $encode);
 
         foreach ($items as $key => $value) {
-            if (\is_array($value)) {
+            if (is_array($value)) {
                 $groupAttrs = $groups[$key] ?? [];
                 if (!isset($groupAttrs['label'])) {
                     $groupAttrs['label'] = $key;
@@ -1282,10 +1287,10 @@ final class Html
                 $lines[] = static::tag('optgroup', "\n" . $content . "\n", $groupAttrs);
             } else {
                 $attrs = $options[$key] ?? [];
-                $attrs['value'] = (string)$key;
+                $attrs['value'] = $key;
                 if (!\array_key_exists('selected', $attrs)) {
                     $attrs['selected'] = $selection !== null &&
-                        ((!is_iterable($selection) && !strcmp($key, $selection))
+                        ((!is_iterable($selection) && !strcmp((string)$key, $selection))
                             || (is_iterable($selection) && ArrayHelper::isIn((string)$key, $selection)));
                 }
                 $text = $encode ? static::encode($value) : $value;
@@ -1324,7 +1329,7 @@ final class Html
      * with a leading white space (so that it can be directly appended to the tag name in a tag. If there is no
      * attribute, an empty string will be returned.
      *
-     * @throws \JsonException
+     * @throws JsonException
      *
      * {@see addCssClass()}
      */
@@ -1337,19 +1342,19 @@ final class Html
                     $sorted[$name] = $attributes[$name];
                 }
             }
-            $attributes = \array_merge($sorted, $attributes);
+            $attributes = array_merge($sorted, $attributes);
         }
 
         $html = '';
         foreach ($attributes as $name => $value) {
-            if (\is_bool($value)) {
+            if (is_bool($value)) {
                 if ($value) {
                     $html .= " $name";
                 }
-            } elseif (\is_array($value)) {
-                if (\in_array($name, static::DATA_ATTRIBUTES, true)) {
+            } elseif (is_array($value)) {
+                if (in_array($name, static::DATA_ATTRIBUTES, true)) {
                     foreach ($value as $n => $v) {
-                        if (\is_array($v)) {
+                        if (is_array($v)) {
                             $html .= " $name-$n='" . Json::htmlEncode($v) . "'";
                         } else {
                             $html .= " $name-$n=\"" . static::encode($v) . '"';
@@ -1398,7 +1403,7 @@ final class Html
     public static function addCssClass(?array &$options, $class): void
     {
         if (isset($options['class'])) {
-            if (\is_array($options['class'])) {
+            if (is_array($options['class'])) {
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
@@ -1423,7 +1428,7 @@ final class Html
     private static function mergeCssClasses(array $existingClasses, array $additionalClasses): array
     {
         foreach ($additionalClasses as $key => $class) {
-            if (\is_int($key) && !\in_array($class, $existingClasses, true)) {
+            if (is_int($key) && !in_array($class, $existingClasses, true)) {
                 $existingClasses[] = $class;
             } elseif (!isset($existingClasses[$key])) {
                 $existingClasses[$key] = $class;
@@ -1444,8 +1449,8 @@ final class Html
     public static function removeCssClass(array &$options, $class): void
     {
         if (isset($options['class'])) {
-            if (\is_array($options['class'])) {
-                $classes = \array_diff($options['class'], (array)$class);
+            if (is_array($options['class'])) {
+                $classes = array_diff($options['class'], (array)$class);
                 if (empty($classes)) {
                     unset($options['class']);
                 } else {
@@ -1453,7 +1458,7 @@ final class Html
                 }
             } else {
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
-                $classes = \array_diff($classes, (array)$class);
+                $classes = array_diff($classes, (array)$class);
                 if (empty($classes)) {
                     unset($options['class']);
                 } else {
@@ -1489,8 +1494,8 @@ final class Html
     public static function addCssStyle(array &$options, $style, bool $overwrite = true): void
     {
         if (!empty($options['style'])) {
-            $oldStyle = \is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
-            $newStyle = \is_array($style) ? $style : static::cssStyleToArray($style);
+            $oldStyle = is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
+            $newStyle = is_array($style) ? $style : static::cssStyleToArray($style);
             if (!$overwrite) {
                 foreach ($newStyle as $property => $value) {
                     if (isset($oldStyle[$property])) {
@@ -1500,7 +1505,7 @@ final class Html
             }
             $style = array_merge($oldStyle, $newStyle);
         }
-        $options['style'] = \is_array($style) ? static::cssStyleFromArray($style) : $style;
+        $options['style'] = is_array($style) ? static::cssStyleFromArray($style) : $style;
     }
 
     /**
@@ -1521,7 +1526,7 @@ final class Html
     public static function removeCssStyle(array &$options, $properties): void
     {
         if (!empty($options['style'])) {
-            $style = \is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
+            $style = is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
             foreach ((array)$properties as $property) {
                 unset($style[$property]);
             }
@@ -1601,7 +1606,7 @@ final class Html
      *
      * @return string the attribute name without prefix and suffix.
      *
-     * @throws \InvalidArgumentException if the attribute name contains non-word characters.
+     * @throws InvalidArgumentException if the attribute name contains non-word characters.
      */
     public static function getAttributeName(string $attribute): string
     {
@@ -1609,7 +1614,7 @@ final class Html
             return $matches[2];
         }
 
-        throw new \InvalidArgumentException('Attribute name must contain word characters only.');
+        throw new InvalidArgumentException('Attribute name must contain word characters only.');
     }
 
     /**
