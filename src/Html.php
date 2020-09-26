@@ -629,7 +629,8 @@ final class Html
      * Generates a hidden input field.
      *
      * @param string $name the name attribute.
-     * @param string|null $value the value attribute. If it is null, the value attribute will not be generated.
+     * @param string|bool|int|float|null|callable $value the value attribute.
+     * If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
@@ -639,7 +640,7 @@ final class Html
      *
      * @throws \JsonException
      */
-    public static function hiddenInput(string $name, ?string $value = null, array $options = []): string
+    public static function hiddenInput(string $name, $value = null, array $options = []): string
     {
         return static::input('hidden', $name, $value, $options);
     }
@@ -771,13 +772,9 @@ final class Html
      *
      * @throws \JsonException
      */
-    protected static function booleanInput(
-        string $type,
-        string $name,
-        bool $checked = false,
-        array $options = []
-    ): string {
-        $options['checked'] = (bool)$checked;
+    private static function booleanInput(string $type, string $name, bool $checked, array $options): string
+    {
+        $options['checked'] = $checked;
         $value = \array_key_exists('value', $options) ? $options['value'] : '1';
 
         if (isset($options['uncheck'])) {
@@ -996,6 +993,8 @@ final class Html
 
         if (is_iterable($selection)) {
             $selection = array_map('strval', (array)$selection);
+        } else {
+            $selection = (string)$selection;
         }
 
         $formatter = ArrayHelper::remove($options, 'item');
@@ -1008,7 +1007,7 @@ final class Html
         $index = 0;
         foreach ($items as $value => $label) {
             $checked = $selection !== null &&
-                ((!is_iterable($selection) && !strcmp($value, $selection))
+                ((!is_iterable($selection) && !strcmp((string)$value, $selection))
                     || (is_iterable($selection) && ArrayHelper::isIn((string)$value, $selection)));
             if ($formatter !== null) {
                 $lines[] = $formatter($index, $label, $name, $checked, $value);
@@ -1121,10 +1120,6 @@ final class Html
             $index++;
         }
         $visibleContent = implode($separator, $lines);
-
-        if ($tag === false) {
-            return $hidden . $visibleContent;
-        }
 
         return $hidden . static::tag($tag, $visibleContent, $options);
     }
