@@ -776,6 +776,15 @@ EOD;
         $this->assertSame('<ul class="test"></ul>', Html::ul([], ['class' => 'test']));
 
         $this->assertStringMatchesFormat('<foo>%A</foo>', Html::ul([], ['tag' => 'foo']));
+
+        $expected = <<<EOD
+<ul>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+</ul>
+EOD;
+        $this->assertSameWithoutLE($expected, Html::ul(new ArrayAccessObject()));
     }
 
     public function testOl(): void
@@ -806,6 +815,15 @@ EOD;
         ]));
 
         $this->assertSame('<ol class="test"></ol>', Html::ol([], ['class' => 'test']));
+
+        $expected = <<<EOD
+<ol>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+</ol>
+EOD;
+        $this->assertSameWithoutLE($expected, Html::ol(new ArrayAccessObject()));
     }
 
     public function testRenderOptions(): void

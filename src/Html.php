@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
+use Traversable;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Json\Json;
 
@@ -1127,7 +1128,7 @@ final class Html
     /**
      * Generates an unordered list.
      *
-     * @param array|\Traversable $items the items for generating the list. Each item generates a single list item. Note
+     * @param array|Traversable $items the items for generating the list. Each item generates a single list item. Note
      * that items will be automatically HTML encoded if `$options['encode']` is not set or true.
      * @param array $options options (name => config) for the radio button list. The following options are supported:
      *
@@ -1153,7 +1154,7 @@ final class Html
      *
      * @throws \JsonException
      */
-    public static function ul(array $items, array $options = []): string
+    public static function ul($items, array $options = []): string
     {
         $tag = ArrayHelper::remove($options, 'tag', 'ul');
         $encode = ArrayHelper::remove($options, 'encode', true);
@@ -1184,7 +1185,7 @@ final class Html
     /**
      * Generates an ordered list.
      *
-     * @param array|\Traversable $items the items for generating the list. Each item generates a single list item. Note
+     * @param array|Traversable $items the items for generating the list. Each item generates a single list item. Note
      * that items will be automatically HTML encoded if `$options['encode']` is not set or true.
      * @param array $options options (name => config) for the radio button list. The following options are supported:
      *
@@ -1208,7 +1209,7 @@ final class Html
      *
      * @throws \JsonException
      */
-    public static function ol(array $items, array $options = []): string
+    public static function ol($items, array $options = []): string
     {
         $options['tag'] = 'ol';
 
