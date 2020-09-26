@@ -386,7 +386,7 @@ final class Html
     /**
      * Generates an image tag.
      *
-     * @param array|string $src the image URL. This parameter will be processed.
+     * @param string $src the image URL. This parameter will be processed.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
@@ -993,7 +993,7 @@ final class Html
 
         if (is_iterable($selection)) {
             $selection = array_map('strval', (array)$selection);
-        } else {
+        } elseif ($selection !== null) {
             $selection = (string)$selection;
         }
 
