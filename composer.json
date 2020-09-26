@@ -1,7 +1,7 @@
 {
     "name": "yiisoft/html",
     "type": "library",
-    "description": "html",
+    "description": "Handy library to generate HTML",
     "keywords": [
         "html"
     ],
@@ -9,7 +9,7 @@
     "license": "BSD-3-Clause",
     "support": {
         "issues": "https://github.com/yiisoft/html/issues?state=open",
-        "forum": "https://www.yiiframework.com/forum/",
+        "forum": "https://forum.yiiframework.com/",
         "wiki": "https://www.yiiframework.com/wiki/",
         "irc": "irc://irc.freenode.net/yii",
         "source": "https://github.com/yiisoft/html"
