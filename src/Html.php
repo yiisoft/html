@@ -140,6 +140,8 @@ final class Html
      *
      * @return string the generated HTML tag
      *
+     * @throws \JsonException
+     *
      * {@see beginTag()}
      * {@see endTag()}
      */
@@ -166,6 +168,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated start tag
+     *
+     * @throws \JsonException
      *
      * {@see endTag()}
      * {@see tag()}
@@ -209,6 +213,8 @@ final class Html
      * rendered.
      *
      * @return string the generated style tag
+     *
+     * @throws \JsonException
      */
     public static function style(string $content, array $options = []): string
     {
@@ -225,6 +231,8 @@ final class Html
      * rendered.
      *
      * @return string the generated script tag
+     *
+     * @throws \JsonException
      */
     public static function script(string $content, array $options = []): string
     {
@@ -247,6 +255,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated link tag.
+     *
+     * @throws \JsonException
      */
     public static function cssFile(string $url, array $options = []): string
     {
@@ -284,6 +294,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated script tag.
+     *
+     * @throws \JsonException
      */
     public static function jsFile(string $url, array $options = []): string
     {
@@ -335,6 +347,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated hyperlink.
+     *
+     * @throws \JsonException
      */
     public static function a(string $text, $url = null, array $options = []): string
     {
@@ -350,7 +364,7 @@ final class Html
      *
      * @param string $text link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
      * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
-     * @param string $email email address. If this is null, the first parameter (link body) will be treated
+     * @param string|null $email email address. If this is null, the first parameter (link body) will be treated
      * as the email address and used.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
@@ -358,8 +372,10 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated mailto link
+     *
+     * @throws \JsonException
      */
-    public static function mailto(string $text, string $email = null, array $options = []): string
+    public static function mailto(string $text, ?string $email = null, array $options = []): string
     {
         $options['href'] = 'mailto:' . ($email ?? $text);
         return static::tag('a', $text, $options);
@@ -378,6 +394,8 @@ final class Html
      * values are URLs. All URLs will be processed.
      *
      * @return string the generated image tag.
+     *
+     * @throws \JsonException
      */
     public static function img(string $src, array $options = []): string
     {
@@ -403,7 +421,7 @@ final class Html
      *
      * @param string $content label text. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an
      * image tag. If this is is coming from end users, you should {@see encode()} it to prevent XSS attacks.
-     * @param string $for the ID of the HTML element that this label is associated with.
+     * @param string|null $for the ID of the HTML element that this label is associated with.
      * If this is null, the "for" attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the
@@ -411,8 +429,10 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated label tag.
+     *
+     * @throws \JsonException
      */
-    public static function label(string $content, string $for = null, array $options = []): string
+    public static function label(string $content, ?string $for = null, array $options = []): string
     {
         $options['for'] = $for;
         return static::tag('label', $content, $options);
@@ -430,6 +450,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated button tag.
+     *
+     * @throws \JsonException
      */
     public static function button(string $content = 'Button', array $options = []): string
     {
@@ -456,6 +478,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated submit button tag
+     *
+     * @throws \JsonException
      */
     public static function submitButton(string $content = 'Submit', array $options = []): string
     {
@@ -476,6 +500,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated reset button tag
+     *
+     * @throws \JsonException
      */
     public static function resetButton(string $content = 'Reset', array $options = []): string
     {
@@ -488,7 +514,7 @@ final class Html
      * Generates an input type of the given type.
      *
      * @param string $type the type attribute.
-     * @param string $name the name attribute. If it is null, the name attribute will not be generated.
+     * @param string|null $name the name attribute. If it is null, the name attribute will not be generated.
      * @param string|bool|int|float|null|callable $value the value attribute. If it is null, the value attribute will
      * not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
@@ -497,8 +523,10 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated input tag
+     *
+     * @throws \JsonException
      */
-    public static function input(string $type, string $name = null, $value = null, array $options = []): string
+    public static function input(string $type, ?string $name = null, $value = null, array $options = []): string
     {
         if (!isset($options['type'])) {
             $options['type'] = $type;
@@ -520,6 +548,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated button tag
+     *
+     * @throws \JsonException
      */
     public static function buttonInput(string $label = 'Button', array $options = []): string
     {
@@ -543,6 +573,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated button tag
+     *
+     * @throws \JsonException
      */
     public static function submitInput($label = 'Submit', $options = []): string
     {
@@ -561,6 +593,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated button tag
+     *
+     * @throws \JsonException
      */
     public static function resetInput(string $label = 'Reset', array $options = []): string
     {
@@ -574,15 +608,17 @@ final class Html
      * Generates a text input field.
      *
      * @param string $name the name attribute.
-     * @param string $value the value attribute. If it is null, the value attribute will not be generated.
+     * @param string|null $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null,
      * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated text input tag
+     *
+     * @throws \JsonException
      */
-    public static function textInput(string $name, string $value = null, array $options = []): string
+    public static function textInput(string $name, ?string $value = null, array $options = []): string
     {
         return static::input('text', $name, $value, $options);
     }
@@ -591,15 +627,17 @@ final class Html
      * Generates a hidden input field.
      *
      * @param string $name the name attribute.
-     * @param string $value the value attribute. If it is null, the value attribute will not be generated.
+     * @param string|null $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated hidden input tag
+     *
+     * @throws \JsonException
      */
-    public static function hiddenInput(string $name, string $value = null, array $options = []): string
+    public static function hiddenInput(string $name, ?string $value = null, array $options = []): string
     {
         return static::input('hidden', $name, $value, $options);
     }
@@ -608,15 +646,17 @@ final class Html
      * Generates a password input field.
      *
      * @param string $name the name attribute.
-     * @param string $value the value attribute. If it is null, the value attribute will not be generated.
+     * @param string|null $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated password input tag
+     *
+     * @throws \JsonException
      */
-    public static function passwordInput(string $name, string $value = null, array $options = []): string
+    public static function passwordInput(string $name, ?string $value = null, array $options = []): string
     {
         return static::input('password', $name, $value, $options);
     }
@@ -628,15 +668,17 @@ final class Html
      * After the form is submitted, the uploaded file information can be obtained via $_FILES[$name]
      * (see PHP documentation).
      * @param string $name the name attribute.
-     * @param string $value the value attribute. If it is null, the value attribute will not be generated.
+     * @param string|null $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null,
      * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated file input tag
+     *
+     * @throws \JsonException
      */
-    public static function fileInput(string $name, string $value = null, array $options = []): string
+    public static function fileInput(string $name, ?string $value = null, array $options = []): string
     {
         return static::input('file', $name, $value, $options);
     }
@@ -656,6 +698,8 @@ final class Html
      *   not be further encoded.
      *
      * @return string the generated text area tag
+     *
+     * @throws \JsonException
      */
     public static function textarea(string $name, ?string $value = '', array $options = []): string
     {
@@ -674,6 +718,8 @@ final class Html
      * See {@see booleanInput()} for details about accepted attributes.
      *
      * @return string the generated radio button tag
+     *
+     * @throws \JsonException
      */
     public static function radio(string $name, bool $checked = false, array $options = []): string
     {
@@ -689,6 +735,8 @@ final class Html
      * See {@see booleanInput()} for details about accepted attributes.
      *
      * @return string the generated checkbox tag
+     *
+     * @throws \JsonException
      */
     public static function checkbox(string $name, bool $checked = false, array $options = []): string
     {
@@ -718,9 +766,15 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated checkbox tag
+     *
+     * @throws \JsonException
      */
-    protected static function booleanInput(string $type, string $name, bool $checked = false, array $options = []): string
-    {
+    protected static function booleanInput(
+        string $type,
+        string $name,
+        bool $checked = false,
+        array $options = []
+    ): string {
         $options['checked'] = (bool)$checked;
         $value = \array_key_exists('value', $options) ? $options['value'] : '1';
 
@@ -795,6 +849,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated drop-down list tag
+     *
+     * @throws \JsonException
      */
     public static function dropDownList(string $name, $selection = null, array $items = [], array $options = []): string
     {
@@ -857,6 +913,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated list box tag.
+     *
+     * @throws \JsonException
      */
     public static function listBox(string $name, $selection = null, array $items = [], array $options = []): string
     {
@@ -925,6 +983,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated checkbox list
+     *
+     * @throws \JsonException
      */
     public static function checkboxList(string $name, $selection = null, array $items = [], array $options = []): string
     {
@@ -1015,6 +1075,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated radio button list
+     *
+     * @throws \JsonException
      */
     public static function radioList(string $name, $selection = null, array $items = [], array $options = []): string
     {
@@ -1091,6 +1153,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated unordered list. An empty list tag will be returned if `$items` is empty.
+     *
+     * @throws \JsonException
      */
     public static function ul(array $items, array $options = []): string
     {
@@ -1144,6 +1208,8 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated ordered list. An empty string is returned if `$items` is empty.
+     *
+     * @throws \JsonException
      */
     public static function ol(array $items, array $options = []): string
     {
@@ -1169,6 +1235,8 @@ final class Html
      * {@see dropDownList()} for the explanation of these elements.
      *
      * @return string the generated list options
+     *
+     * @throws \JsonException
      */
     public static function renderSelectOptions($selection, array $items, array &$tagOptions = []): string
     {
