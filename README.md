@@ -143,12 +143,30 @@ Overall the helper has the following method groups.
 - getAttributeName
 - escapeJsRegularExpression
 
-## Unit testing
+## Testing
+
+### Unit testing
 
 The package is tested with [PHPUnit](https://phpunit.de/). To run tests:
 
 ```php
 ./vendor/bin/phpunit
+```
+
+### Mutation testing
+
+The package tests are checked with [Infection](https://infection.github.io/) mutation framework. To run it:
+
+```php
+./vendor/bin/infection
+```
+
+## Static analysis
+
+The code is statically analyzed with [Psalm](https://psalm.dev/). To run static analysis:
+
+```php
+./vendor/bin/psalm
 ```
 
 ## License
