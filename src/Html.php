@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Html;
 
 use Yiisoft\Arrays\ArrayHelper;
@@ -89,7 +91,7 @@ final class Html
     /**
      * Encodes special characters into HTML entities.
      *
-     * @param string|null $content the content to be encoded
+     * @param mixed $content the content to be encoded
      * @param bool $doubleEncode if already encoded entities should be encoded
      *
      * @return string the encoded content
@@ -97,10 +99,10 @@ final class Html
      * {@see decode()}
      * {@see http://www.php.net/manual/en/function.htmlspecialchars.php}
      */
-    public static function encode(?string $content, $doubleEncode = true): string
+    public static function encode($content, $doubleEncode = true): string
     {
         return htmlspecialchars(
-            $content,
+            (string)$content,
             ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             ini_get('default_charset'),
             $doubleEncode

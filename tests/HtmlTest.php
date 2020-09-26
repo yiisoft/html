@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Html\Tests;
 
 use Yiisoft\Html\Html;
@@ -198,7 +200,7 @@ final class HtmlTest extends TestCase
      * @param string $src
      * @param array $options
      */
-    public function testImg($expected, $src, $options): void
+    public function testImg(string $expected, string $src, array $options): void
     {
         $this->assertSame($expected, Html::img($src, $options));
     }

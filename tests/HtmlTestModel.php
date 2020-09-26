@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Html\Tests;
 
 /**
@@ -7,7 +9,7 @@ namespace Yiisoft\Html\Tests;
  * @property array types
  * @property string description
  */
-class HtmlTestModel
+final class HtmlTestModel
 {
     public function init(): void
     {
