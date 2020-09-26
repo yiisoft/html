@@ -6,7 +6,7 @@
     <br>
 </p>
 
-The package ...
+The package provides `Html` helper that has static methods to generate HTML.  
 
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/html/v/stable.png)](https://packagist.org/packages/yiisoft/html)
 [![Total Downloads](https://poser.pugx.org/yiisoft/html/downloads.png)](https://packagist.org/packages/yiisoft/html)
@@ -14,27 +14,24 @@ The package ...
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yiisoft/html/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yiisoft/html/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/yiisoft/html/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/yiisoft/html/?branch=master)
 
-### **REQUIREMENTS:**
+## Requirements
 
-- The minimum requirement by this project template that your Web server supports:
-    - PHP 7.4 or higher.
+- PHP 7.4 or higher.
 
-### **INSTALLATION:**
+## Installation
 
-<p align="justify">
-If you do not have <a href="http://getcomposer.org/" title="Composer" target="_blank">Composer</a>, you may install it by following the instructions at <a href="http://getcomposer.org/doc/00-intro.md#installation-nix" title="getcomposer.org" target="_blank">getcomposer.org</a>.
-</p>
-
-You can then install this project template using the following command:
-
-~~~
+```
 composer require yiisoft/html
-~~~
+```
 
 ## General usage
 
-```
+```php
+<?php
+
 use Yiisoft\Html\Html;
+
+?>
 
 <?= Html::tag('meta', '', ['http-equiv' => 'X-UA-Compatible', 'content' => 'IE=edge']) ?>
 <?= Html::tag('meta', '', ['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1']) ?>
@@ -58,10 +55,103 @@ use Yiisoft\Html\Html;
             <?= 'Powered by' ?>
             <?= Html::a(
                 'Yii Framework',
-                'http://www.yiiframework.com/',
+                'https://www.yiiframework.com/',
                 ['rel' => 'external']
             ) ?>
         <?= Html::endTag('p') ?>
     <?= Html::endTag('div') ?>
 <?= Html::endTag('footer') ?>
 ```
+
+## Html helper usage
+
+Html helper methods are static so usage is like the following:
+
+```php
+echo \Yiisoft\Html\Html::a('Yii Framework', 'https://www.yiiframework.com/') ?>
+```
+
+Overall the helper has the following method groups.
+
+### Generating any tags
+
+- beginTag
+- endTag
+- tag
+- renderTagAttributes
+
+### Generating base tags
+
+- ul
+- ol
+- img
+- style
+- script
+
+### Generating hyperlink tags
+
+- a
+- mailto
+
+### Generating form tags
+
+- booleanInput
+- button
+- buttonInput
+- checkbox
+- checkboxList
+- dropDownList
+- fileInput
+- hiddenInput
+- input
+- label
+- listBox
+- passwordInput
+- radio
+- radioList
+- renderSelectOptions
+- resetButton
+- resetInput
+- submitButton
+- submitInput
+- textInput
+- textarea
+
+### Generating link tags
+
+- cssFile
+- jsFile
+
+### Working with CSS styles and classes
+
+- addCssStyle
+- removeCssStyle
+- addCssClass
+- removeCssClass
+- cssStyleFromArray
+- cssStyleToArray
+
+### Encode and decode special characters
+
+- encode
+- decode
+
+### Other
+
+- getAttributeName
+- escapeJsRegularExpression
+
+## Unit testing
+
+The package is tested with [PHPUnit](https://phpunit.de/). To run tests:
+
+```php
+./vendor/bin/phpunit
+```
+
+## License
+
+The Yii HTML is free software. It is released under the terms of the BSD License.
+Please see [`LICENSE`](./LICENSE.md) for more information.
+
+Maintained by [Yii Software LLC](https://www.yiiframework.com/).
