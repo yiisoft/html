@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Html\Tests;
 
 use Yiisoft\Html\Html;
@@ -10,6 +12,8 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('a&lt;&gt;&amp;&quot;&apos;�', Html::encode("a<>&\"'\x80"));
         $this->assertSame('Sam &amp; Dark', Html::encode('Sam & Dark'));
+        $this->assertSame('Test &amp;amp;', Html::encode('Test &amp;'));
+        $this->assertSame('Test &amp;', Html::encode('Test &amp;', false));
     }
 
     public function testDecode(): void
@@ -20,9 +24,13 @@ final class HtmlTest extends TestCase
     public function testTag(): void
     {
         $this->assertSame('<br>', Html::tag('br'));
+        $this->assertSame('<BR>', Html::tag('BR'));
         $this->assertSame('<span></span>', Html::tag('span'));
         $this->assertSame('<div>content</div>', Html::tag('div', 'content'));
-        $this->assertSame('<input type="text" name="test" value="&lt;&gt;">', Html::tag('input', '', ['type' => 'text', 'name' => 'test', 'value' => '<>']));
+        $this->assertSame(
+            '<input type="text" name="test" value="&lt;&gt;">',
+            Html::tag('input', '', ['type' => 'text', 'name' => 'test', 'value' => '<>'])
+        );
         $this->assertSame('<span disabled></span>', Html::tag('span', '', ['disabled' => true]));
         $this->assertSame('test', Html::tag(false, 'test'));
         $this->assertSame('test', Html::tag(null, 'test'));
@@ -31,7 +39,10 @@ final class HtmlTest extends TestCase
     public function testBeginTag(): void
     {
         $this->assertSame('<br>', Html::beginTag('br'));
-        $this->assertSame('<span id="test" class="title">', Html::beginTag('span', ['id' => 'test', 'class' => 'title']));
+        $this->assertSame(
+            '<span id="test" class="title">',
+            Html::beginTag('span', ['id' => 'test', 'class' => 'title'])
+        );
         $this->assertSame('', Html::beginTag(null));
         $this->assertSame('', Html::beginTag(false));
     }
@@ -73,22 +84,6 @@ final class HtmlTest extends TestCase
         $this->assertSame('<script src=""></script>', Html::jsFile(''));
         $this->assertSame("<!--[if IE 9]>\n" . '<script src="http://example.com"></script>' . "\n<![endif]-->", Html::jsFile('http://example.com', ['condition' => 'IE 9']));
         $this->assertSame("<!--[if (gte IE 9)|(!IE)]><!-->\n" . '<script src="http://example.com"></script>' . "\n<!--<![endif]-->", Html::jsFile('http://example.com', ['condition' => '(gte IE 9)|(!IE)']));
-    }
-
-    /**
-     * Data provider for {@see testBeginFormSimulateViaPost()}.
-     * @return array test data
-     */
-    public function dataProviderBeginFormSimulateViaPost(): array
-    {
-        return [
-            ['<form action="/foo" method="GET">', 'GET'],
-            ['<form action="/foo" method="POST">', 'POST'],
-            ['<form action="/foo" method="post">%A<input type="hidden" name="_method" value="DELETE">', 'DELETE'],
-            ['<form action="/foo" method="post">%A<input type="hidden" name="_method" value="GETFOO">', 'GETFOO'],
-            ['<form action="/foo" method="post">%A<input type="hidden" name="_method" value="POSTFOO">', 'POSTFOO'],
-            ['<form action="/foo" method="post">%A<input type="hidden" name="_method" value="POSTFOOPOST">', 'POSTFOOPOST'],
-        ];
     }
 
     public function testA(): void
@@ -198,7 +193,7 @@ final class HtmlTest extends TestCase
      * @param string $src
      * @param array $options
      */
-    public function testImg($expected, $src, $options): void
+    public function testImg(string $expected, string $src, array $options): void
     {
         $this->assertSame($expected, Html::img($src, $options));
     }
@@ -583,6 +578,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems()));
         $this->assertSameWithoutLE($expected, Html::checkboxList('test[]', ['value2'], $this->getDataItems()));
+        $this->assertSameWithoutLE($expected, Html::checkboxList('test', 'value2', $this->getDataItems()));
 
         $expected = <<<'EOD'
 <div><label><input type="checkbox" name="test[]" value="value1&lt;&gt;"> text1&lt;&gt;</label>
@@ -653,11 +649,28 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['1', 'value3'], $this->getDataItems3()));
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', new \ArrayObject(['1', 'value3']), $this->getDataItems3()));
+
+        $expected = <<<'EOD'
+<div><label><input type="checkbox" name="test[]" value="0" any="42"> zero</label>
+<label><input type="checkbox" name="test[]" value="1" checked any="42"> one</label>
+<label><input type="checkbox" name="test[]" value="value3" any="42"> text3</label></div>
+EOD;
+        $this->assertSameWithoutLE($expected, Html::checkboxList(
+            'test',
+            1,
+            $this->getDataItems3(),
+            ['itemOptions' => ['any' => 42]]
+        ));
     }
 
     public function testRadioList(): void
     {
         $this->assertSame('<div></div>', Html::radioList('test'));
+
+        $this->assertSame(
+            '<input type="hidden" name="test" value="1"><label><input type="radio" name="test" value="1"> a</label>',
+            Html::radioList('test', null, [1 => 'a'], ['unselect' => 1, 'tag' => false])
+        );
 
         $expected = <<<'EOD'
 <div><label><input type="radio" name="test" value="value1"> text1</label>
@@ -733,13 +746,22 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', ['value3'], $this->getDataItems3()));
         $this->assertSameWithoutLE($expected, Html::radioList('test', new \ArrayObject(['value3']), $this->getDataItems3()));
+
+        $expected = <<<'EOD'
+<div><label><input type="radio" name="test" value="1" checked any="42"> One</label>
+<label><input type="radio" name="test" value="2" any="42"> Two</label></div>
+EOD;
+        $this->assertSameWithoutLE($expected, Html::radioList(
+            'test',
+            1,
+            [1 => 'One', 2 => 'Two'],
+            ['itemOptions' => ['any' => 42]]
+        ));
     }
 
     public function testUl(): void
     {
-        $data = [
-            1, 'abc', '<>',
-        ];
+        $data = [1, 'abc', '<>'];
         $expected = <<<'EOD'
 <ul>
 <li>1</li>
@@ -765,13 +787,20 @@ EOD;
         $this->assertSame('<ul class="test"></ul>', Html::ul([], ['class' => 'test']));
 
         $this->assertStringMatchesFormat('<foo>%A</foo>', Html::ul([], ['tag' => 'foo']));
+
+        $expected = <<<EOD
+<ul>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+</ul>
+EOD;
+        $this->assertSameWithoutLE($expected, Html::ul(new ArrayAccessObject()));
     }
 
     public function testOl(): void
     {
-        $data = [
-            1, 'abc', '<>',
-        ];
+        $data = [1, 'abc', '<>'];
         $expected = <<<'EOD'
 <ol>
 <li class="ti">1</li>
@@ -797,9 +826,18 @@ EOD;
         ]));
 
         $this->assertSame('<ol class="test"></ol>', Html::ol([], ['class' => 'test']));
+
+        $expected = <<<EOD
+<ol>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+</ol>
+EOD;
+        $this->assertSameWithoutLE($expected, Html::ol(new ArrayAccessObject()));
     }
 
-    public function testRenderOptions(): void
+    public function testRenderSelectOptions(): void
     {
         $data = [
             'value1' => 'label1',
@@ -866,10 +904,25 @@ EOD;
 EOD;
         $attributes = [
             'prompt' => [
-                'text' => 'Please select', 'options' => ['class' => 'prompt', 'value' => '-1', 'label' => 'None'],
+                'text' => 'Please select',
+                'options' => ['class' => 'prompt', 'value' => '-1', 'label' => 'None'],
             ],
         ];
         $this->assertSameWithoutLE($expected, Html::renderSelectOptions(['value1'], $data, $attributes));
+
+        $data = [1 => 'One', 2 => 'Two'];
+        $expected = <<<'EOD'
+<option class="prompt" value="" label="None">Please select</option>
+<option value="1" selected>One</option>
+<option value="2">Two</option>
+EOD;
+        $attributes = [
+            'prompt' => [
+                'text' => 'Please select',
+                'options' => ['class' => 'prompt', 'label' => 'None'],
+            ],
+        ];
+        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(1, $data, $attributes));
     }
 
     public function testRenderAttributes(): void
@@ -881,6 +934,22 @@ EOD;
         $this->assertSame('', Html::renderTagAttributes(['class' => []]));
         $this->assertSame(' style="width: 100px; height: 200px;"', Html::renderTagAttributes(['style' => ['width' => '100px', 'height' => '200px']]));
         $this->assertSame('', Html::renderTagAttributes(['style' => []]));
+        $this->assertSame(
+            ' id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'',
+            Html::renderTagAttributes([
+                'id' => 'x',
+                'class' => ['a', 'b'],
+                'data' => ['a' => 1, 'b' => 2],
+                'style' => ['width' => '100px'],
+                'any' => [1, 2],
+            ])
+        );
+        $this->assertSame(' data-a="0" data-b=\'[1,2]\' any="42"', Html::renderTagAttributes([
+            'class' => [],
+            'style' => [],
+            'data' => ['a' => 0, 'b' => [1, 2]],
+            'any' => 42,
+        ]));
 
         $attributes = [
             'data' => [
@@ -923,6 +992,12 @@ EOD;
         ];
         Html::addCssClass($options, ['test1', 'test2']);
         $this->assertSame(['class' => 'test test1 test2'], $options);
+
+        $options = [
+            'class' => 'test test',
+        ];
+        Html::addCssClass($options, 'test2');
+        $this->assertSame(['class' => 'test test2'], $options);
     }
 
     /**
@@ -1079,256 +1154,6 @@ EOD;
         ];
     }
 
-    /**
-     * Data provider for {@see testActiveTextInput()}.
-     * @return array test data
-     */
-    public function dataProviderActiveTextInput(): array
-    {
-        return [
-            [
-                'some text',
-                [],
-                '<input type="text" id="htmltestmodel-name" name="HtmlTestModel[name]" value="some text">',
-            ],
-            [
-                '',
-                [
-                    'maxlength' => true,
-                ],
-                '<input type="text" id="htmltestmodel-name" name="HtmlTestModel[name]" value="" maxlength="100">',
-            ],
-            [
-                '',
-                [
-                    'maxlength' => 99,
-                ],
-                '<input type="text" id="htmltestmodel-name" name="HtmlTestModel[name]" value="" maxlength="99">',
-            ],
-        ];
-    }
-
-    /**
-     * Data provider for {@see testActivePasswordInput()}.
-     * @return array test data
-     */
-    public function dataProviderActivePasswordInput(): array
-    {
-        return [
-            [
-                'some text',
-                [],
-                '<input type="password" id="htmltestmodel-name" name="HtmlTestModel[name]" value="some text">',
-            ],
-            [
-                '',
-                [
-                    'maxlength' => true,
-                ],
-                '<input type="password" id="htmltestmodel-name" name="HtmlTestModel[name]" value="" maxlength="100">',
-            ],
-            [
-                '',
-                [
-                    'maxlength' => 99,
-                ],
-                '<input type="password" id="htmltestmodel-name" name="HtmlTestModel[name]" value="" maxlength="99">',
-            ],
-        ];
-    }
-
-    public function errorSummaryDataProvider(): array
-    {
-        return [
-            [
-                'ok',
-                [],
-                '<div style="display:none"><p>Please fix the following errors:</p><ul></ul></div>',
-            ],
-            [
-                'ok',
-                ['header' => 'Custom header', 'footer' => 'Custom footer', 'style' => 'color: red'],
-                '<div style="color: red; display:none">Custom header<ul></ul>Custom footer</div>',
-            ],
-            [
-                str_repeat('long_string', 60),
-                [],
-                '<div><p>Please fix the following errors:</p><ul><li>Name should contain at most 100 characters.</li></ul></div>',
-            ],
-            [
-                'not_an_integer',
-                [],
-                '<div><p>Please fix the following errors:</p><ul><li>Error message. Here are some chars: &lt; &gt;</li></ul></div>',
-                static function ($model) {
-                    /* @var DynamicModel $model */
-                    $model->addError('name', 'Error message. Here are some chars: < >');
-                },
-            ],
-            [
-                'not_an_integer',
-                ['encode' => false],
-                '<div><p>Please fix the following errors:</p><ul><li>Error message. Here are some chars: < ></li></ul></div>',
-                static function ($model) {
-                    /* @var DynamicModel $model */
-                    $model->addError('name', 'Error message. Here are some chars: < >');
-                },
-            ],
-            [
-                str_repeat('long_string', 60),
-                [],
-                '<div><p>Please fix the following errors:</p><ul><li>Error message. Here are some chars: &lt; &gt;</li></ul></div>',
-                static function ($model) {
-                    /* @var DynamicModel $model */
-                    $model->addError('name', 'Error message. Here are some chars: < >');
-                },
-            ],
-            [
-                'not_an_integer',
-                ['showAllErrors' => true],
-                '<div><p>Please fix the following errors:</p><ul><li>Error message. Here are some chars: &lt; &gt;</li>
-<li>Error message. Here are even more chars: &quot;&quot;</li></ul></div>',
-                static function ($model) {
-                    /* @var DynamicModel $model */
-                    $model->addError('name', 'Error message. Here are some chars: < >');
-                    $model->addError('name', 'Error message. Here are even more chars: ""');
-                },
-            ],
-        ];
-    }
-
-    /**
-     * Data provider for {@see testActiveTextArea()}.
-     * @return array test data
-     */
-    public function dataProviderActiveTextArea(): array
-    {
-        return [
-            [
-                'some text',
-                [],
-                '<textarea id="htmltestmodel-description" name="HtmlTestModel[description]">some text</textarea>',
-            ],
-            [
-                'some text',
-                [
-                    'maxlength' => true,
-                ],
-                '<textarea id="htmltestmodel-description" name="HtmlTestModel[description]" maxlength="500">some text</textarea>',
-            ],
-            [
-                'some text',
-                [
-                    'maxlength' => 99,
-                ],
-                '<textarea id="htmltestmodel-description" name="HtmlTestModel[description]" maxlength="99">some text</textarea>',
-            ],
-            [
-                'some text',
-                [
-                    'value' => 'override text',
-                ],
-                '<textarea id="htmltestmodel-description" name="HtmlTestModel[description]">override text</textarea>',
-            ],
-        ];
-    }
-
-    /**
-     * Data provider for {@see testActiveRadio()}.
-     * @return array test data
-     */
-    public function dataProviderActiveRadio(): array
-    {
-        return [
-            [
-                true,
-                [],
-                '<input type="hidden" name="HtmlTestModel[radio]" value="0"><label><input type="radio" id="htmltestmodel-radio" name="HtmlTestModel[radio]" value="1" checked> Radio</label>',
-            ],
-            [
-                true,
-                ['uncheck' => false],
-                '<label><input type="radio" id="htmltestmodel-radio" name="HtmlTestModel[radio]" value="1" checked> Radio</label>',
-            ],
-            [
-                true,
-                ['label' => false],
-                '<input type="hidden" name="HtmlTestModel[radio]" value="0"><input type="radio" id="htmltestmodel-radio" name="HtmlTestModel[radio]" value="1" checked>',
-            ],
-            [
-                true,
-                ['uncheck' => false, 'label' => false],
-                '<input type="radio" id="htmltestmodel-radio" name="HtmlTestModel[radio]" value="1" checked>',
-            ],
-        ];
-    }
-
-    /**
-     * Data provider for {@see testActiveCheckbox()}.
-     * @return array test data
-     */
-    public function dataProviderActiveCheckbox(): array
-    {
-        return [
-            [
-                true,
-                [],
-                '<input type="hidden" name="HtmlTestModel[checkbox]" value="0"><label><input type="checkbox" id="htmltestmodel-checkbox" name="HtmlTestModel[checkbox]" value="1" checked> Checkbox</label>',
-            ],
-            [
-                true,
-                ['uncheck' => false],
-                '<label><input type="checkbox" id="htmltestmodel-checkbox" name="HtmlTestModel[checkbox]" value="1" checked> Checkbox</label>',
-            ],
-            [
-                true,
-                ['label' => false],
-                '<input type="hidden" name="HtmlTestModel[checkbox]" value="0"><input type="checkbox" id="htmltestmodel-checkbox" name="HtmlTestModel[checkbox]" value="1" checked>',
-            ],
-            [
-                true,
-                ['uncheck' => false, 'label' => false],
-                '<input type="checkbox" id="htmltestmodel-checkbox" name="HtmlTestModel[checkbox]" value="1" checked>',
-            ],
-        ];
-    }
-
-    /**
-     * Data provider for {@see testAttributeNameValidation()}.
-     * @return array test data
-     */
-    public function validAttributeNamesProvider(): array
-    {
-        $data = [
-            ['asd]asdf.asdfa[asdfa', 'asdf.asdfa'],
-            ['a', 'a'],
-            ['[0]a', 'a'],
-            ['a[0]', 'a'],
-            ['[0]a[0]', 'a'],
-            ['[0]a.[0]', 'a.'],
-        ];
-
-        if (getenv('TRAVIS_PHP_VERSION') !== 'nightly') {
-            array_push($data, ['ä', 'ä'], ['ä', 'ä'], ['asdf]öáöio..[asdfasdf', 'öáöio..'], ['öáöio', 'öáöio'], ['[0]test.ööößß.d', 'test.ööößß.d'], ['ИІК', 'ИІК'], [']ИІК[', 'ИІК'], ['[0]ИІК[0]', 'ИІК']);
-        } else {
-            $this->markTestIncomplete("Unicode characters check skipped for 'nightly' PHP version because \w does not work with these as expected. Check later with stable version.");
-        }
-
-        return $data;
-    }
-
-    /**
-     * Data provider for {@see testAttributeNameValidation()}.
-     * @return array test data
-     */
-    public function invalidAttributeNamesProvider(): array
-    {
-        return [
-            ['. ..'],
-            ['a +b'],
-            ['a,b'],
-        ];
-    }
-
     public function testGetAttributeName(): void
     {
         $this->assertSame('content', Html::getAttributeName('[0]content'));
@@ -1339,14 +1164,28 @@ EOD;
         Html::getAttributeName('content body');
     }
 
-    public function testEscapeJsRegularExpression(): void
+    public function escapeJsRegularExpressionData(): array
     {
-        $expected = '/[a-z0-9-]+/';
-        $actual = Html::escapeJsRegularExpression('([a-z0-9-]+)');
-        $this->assertSame($expected, $actual);
+        return [
+            ['/[a-z0-9-]+/', '([a-z0-9-]+)'],
+            ['/[igm]+/', '([igm]+)'],
+            ['/([a-z0-9-]+)/gim', '/([a-z0-9-]+)/Ugimex'],
+            ['/mag/img', '/mag/imgx'],
+            ['/[a-z0-9-\\/]+/', '([a-z0-9-/]+)'],
+        ];
+    }
 
-        $expected = '/([a-z0-9-]+)/gim';
-        $actual = Html::escapeJsRegularExpression('/([a-z0-9-]+)/Ugimex');
-        $this->assertSame($expected, $actual);
+    /**
+     * @dataProvider escapeJsRegularExpressionData
+     *
+     * @param string $expected
+     * @param string $regexp
+     */
+    public function testEscapeJsRegularExpression(string $expected, string $regexp): void
+    {
+        $this->assertSame(
+            $expected,
+            Html::escapeJsRegularExpression($regexp)
+        );
     }
 }
