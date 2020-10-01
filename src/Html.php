@@ -22,7 +22,7 @@ use function is_int;
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
  */
-final class Html
+class Html
 {
     /**
      * Regular expression used for attribute name validation.
