@@ -27,7 +27,7 @@ class Html
     /**
      * Regular expression used for attribute name validation.
      */
-    protected const ATTRIBUTE_REGEX = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
+    public const ATTRIBUTE_REGEX = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
 
     /**
      * List of void elements (element name => 1)
