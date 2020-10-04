@@ -140,6 +140,7 @@ Overall the helper has the following method groups.
 
 ### Other
 
+- generateId
 - getAttributeName
 - escapeJsRegularExpression
 
