@@ -1126,6 +1126,7 @@ EOD;
         $this->assertSame('<link src="xyz" data-a="1" data-b="c">', Html::tag('link', '', ['src' => 'xyz', 'data' => ['a' => 1, 'b' => 'c']]));
         $this->assertSame('<link src="xyz" ng-a="1" ng-b="c">', Html::tag('link', '', ['src' => 'xyz', 'ng' => ['a' => 1, 'b' => 'c']]));
         $this->assertSame('<link src="xyz" data-ng-a="1" data-ng-b="c">', Html::tag('link', '', ['src' => 'xyz', 'data-ng' => ['a' => 1, 'b' => 'c']]));
+        $this->assertSame('<link src="xyz" aria-a="1" aria-b="c">', Html::tag('link', '', ['src' => 'xyz', 'aria' => ['a' => 1, 'b' => 'c']]));
         $this->assertSame('<link src=\'{"a":1,"b":"It\\u0027s"}\'>', Html::tag('link', '', ['src' => ['a' => 1, 'b' => "It's"]]));
     }
 
