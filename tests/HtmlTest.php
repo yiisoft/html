@@ -8,6 +8,12 @@ use Yiisoft\Html\Html;
 
 final class HtmlTest extends TestCase
 {
+    public function testGenerateId(): void
+    {
+        $this->assertMatchesRegularExpression('/i\d+/', Html::generateId());
+        $this->assertMatchesRegularExpression('/test\d+/', Html::generateId('test'));
+    }
+
     public function testEncode(): void
     {
         $this->assertSame('a&lt;&gt;&amp;&quot;&apos;�', Html::encode("a<>&\"'\x80"));
