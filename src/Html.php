@@ -94,7 +94,7 @@ class Html
      * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will be
      * generated instead of one: `data-name="xyz" data-age="13"`.
      */
-    protected const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng'];
+    protected const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng', 'aria'];
 
     /**
      * Encodes special characters into HTML entities.
