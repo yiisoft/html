@@ -8,10 +8,24 @@ use Yiisoft\Html\Html;
 
 final class HtmlTest extends TestCase
 {
+    public static $hrtimeResult;
+
+    protected function setUp(): void
+    {
+        static::$hrtimeResult = null;
+        parent::setUp();
+    }
+
     public function testGenerateId(): void
     {
         $this->assertMatchesRegularExpression('/i\d+/', Html::generateId());
         $this->assertMatchesRegularExpression('/test\d+/', Html::generateId('test'));
+
+        static::$hrtimeResult = '123';
+        $this->assertSame('i1231', Html::generateId());
+        $this->assertSame('i1232', Html::generateId());
+        static::$hrtimeResult = '124';
+        $this->assertSame('i1241', Html::generateId());
     }
 
     public function testEncode(): void
@@ -1195,4 +1209,13 @@ EOD;
             Html::escapeJsRegularExpression($regexp)
         );
     }
+}
+
+namespace Yiisoft\Html;
+
+use Yiisoft\Html\Tests\HtmlTest;
+
+function hrtime(bool $getAsNumber = false)
+{
+    return HtmlTest::$hrtimeResult ?? \hrtime($getAsNumber);
 }

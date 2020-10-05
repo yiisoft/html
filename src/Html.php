@@ -103,9 +103,7 @@ class Html
             $counter = ++static::$generateIdCounter[$prefix];
         } else {
             $counter = 1;
-            static::$generateIdCounter = [
-                $prefix => $counter,
-            ];
+            static::$generateIdCounter = [$prefix => $counter];
         }
         return $prefix . $counter;
     }
