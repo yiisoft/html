@@ -790,6 +790,9 @@ class Html
      *   When this option is specified, the checkbox will be enclosed by a label tag.
      * - labelOptions: array, the HTML attributes for the label tag. Do not set this option unless you set the "label"
      *   option.
+     * - wrapOptions: bool, use when has label.
+     *   if `wrapOptions` is true result will be `<label><input> Label</label>`,
+     *   else `<input> <label>Label</label>`
      *
      * The rest of the options will be rendered as the attributes of the resulting checkbox tag. The values will be
      * HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
@@ -821,15 +824,27 @@ class Html
             $hidden = '';
         }
 
-        if (isset($options['label'])) {
-            $label = $options['label'];
-            $labelOptions = $options['labelOptions'] ?? [];
-            unset($options['label'], $options['labelOptions']);
-            $content = static::label(static::input($type, $name, $value, $options) . ' ' . $label, null, $labelOptions);
-            return $hidden . $content;
+        $label = $options['label'] ?? null;
+        $labelOptions = $options['labelOptions'] ?? [];
+        $wrapInput = $options['wrapInput'] ?? true;
+        unset($options['label'], $options['labelOptions'], $options['wrapInput']);
+
+        if (empty($label)) {
+            return $hidden . static::input($type, $name, $value, $options);
         }
 
-        return $hidden . static::input($type, $name, $value, $options);
+        if ($wrapInput) {
+            $input = static::input($type, $name, $value, $options);
+            return $hidden . static::label($input . ' ' . $label, null, $labelOptions);
+        }
+
+        if (!isset($options['id'])) {
+            $options['id'] = static::generateId();
+        }
+        return $hidden .
+            static::input($type, $name, $value, $options) .
+            ' ' .
+            static::label($label, $options['id'], $labelOptions);
     }
 
     /**
