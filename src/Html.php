@@ -790,8 +790,8 @@ class Html
      *   When this option is specified, the checkbox will be enclosed by a label tag.
      * - labelOptions: array, the HTML attributes for the label tag. Do not set this option unless you set the "label"
      *   option.
-     * - wrapOptions: bool, use when has label.
-     *   if `wrapOptions` is true result will be `<label><input> Label</label>`,
+     * - wrapInput: bool, use when has label.
+     *   if `wrapInput` is true result will be `<label><input> Label</label>`,
      *   else `<input> <label>Label</label>`
      *
      * The rest of the options will be rendered as the attributes of the resulting checkbox tag. The values will be
