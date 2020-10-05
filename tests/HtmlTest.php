@@ -8,10 +8,28 @@ use Yiisoft\Html\Html;
 
 final class HtmlTest extends TestCase
 {
+    /**
+     * Use different values in different tests
+     * @var mixed
+     */
+    public static $hrtimeResult;
+
+    protected function setUp(): void
+    {
+        static::$hrtimeResult = null;
+        parent::setUp();
+    }
+
     public function testGenerateId(): void
     {
         $this->assertMatchesRegularExpression('/i\d+/', Html::generateId());
         $this->assertMatchesRegularExpression('/test\d+/', Html::generateId('test'));
+
+        static::$hrtimeResult = 123;
+        $this->assertSame('i1231', Html::generateId());
+        $this->assertSame('i1232', Html::generateId());
+        static::$hrtimeResult = 124;
+        $this->assertSame('i1241', Html::generateId());
     }
 
     public function testEncode(): void
@@ -350,6 +368,26 @@ final class HtmlTest extends TestCase
             'label' => 'ccc',
             'value' => 2,
         ]));
+
+        $this->assertSame(
+            '<input type="radio" id="UseThis" name="test" checked> <label for="UseThis">Use this</label>',
+            Html::radio('test', true, [
+                'id' => 'UseThis',
+                'label' => 'Use this',
+                'value' => null,
+                'wrapInput' => false,
+            ])
+        );
+
+        static::$hrtimeResult = 42;
+        $this->assertSame(
+            '<input type="radio" id="i421" name="test" checked> <label for="i421">Use this</label>',
+            Html::radio('test', true, [
+                'label' => 'Use this',
+                'value' => null,
+                'wrapInput' => false,
+            ])
+        );
     }
 
     public function testCheckbox(): void
@@ -386,6 +424,26 @@ final class HtmlTest extends TestCase
             'value' => 2,
             'form' => 'test-form',
         ]));
+
+        $this->assertSame(
+            '<input type="checkbox" id="UseThis" name="test"> <label for="UseThis">Use this</label>',
+            Html::checkbox('test', false, [
+                'id' => 'UseThis',
+                'label' => 'Use this',
+                'value' => null,
+                'wrapInput' => false,
+            ])
+        );
+
+        static::$hrtimeResult = 49;
+        $this->assertSame(
+            '<input type="checkbox" id="i491" name="test"> <label for="i491">Use this</label>',
+            Html::checkbox('test', false, [
+                'label' => 'Use this',
+                'value' => null,
+                'wrapInput' => false,
+            ])
+        );
     }
 
     public function testDropDownList(): void
@@ -1195,4 +1253,13 @@ EOD;
             Html::escapeJsRegularExpression($regexp)
         );
     }
+}
+
+namespace Yiisoft\Html;
+
+use Yiisoft\Html\Tests\HtmlTest;
+
+function hrtime(bool $getAsNumber = false)
+{
+    return HtmlTest::$hrtimeResult ?? \hrtime($getAsNumber);
 }
