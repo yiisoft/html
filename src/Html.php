@@ -1625,6 +1625,21 @@ final class Html
 
     /**
      * Returns the real attribute name from the given attribute expression.
+     * If `$attribute` has neither prefix nor suffix, it will be returned back without change.
+     * @param string $attribute the attribute name or expression
+     * @return string the attribute name without prefix and suffix.
+     * @throws InvalidArgumentException if the attribute name contains non-word characters.
+     * @see Html::parseAttribute()
+     */
+    public static function getAttributeName(string $attribute): string
+    {
+        return static::parseAttribute($attribute)['name'];
+    }
+
+    /**
+     * This method parses an attribute expression and returns an associative array containing
+     * real attribute name, prefix and suffix.
+     * For example: `['name' => 'content', 'prefix' => '', 'suffix' => '[0]']`
      *
      * An attribute expression is an attribute name prefixed and/or suffixed with array indexes. It is mainly used in
      * tabular data input and/or input of array type. Below are some examples:
@@ -1635,20 +1650,20 @@ final class Html
      * - `[0]dates[0]` represents the first array element of the "dates" attribute for the first model in tabular
      *    input.
      *
-     * If `$attribute` has neither prefix nor suffix, it will be returned back without change.
      * @param string $attribute the attribute name or expression
-     *
-     * @return string the attribute name without prefix and suffix.
-     *
+     * @return array
      * @throws InvalidArgumentException if the attribute name contains non-word characters.
      */
-    public static function getAttributeName(string $attribute): string
+    public static function parseAttribute(string $attribute)
     {
-        if (preg_match(static::ATTRIBUTE_REGEX, $attribute, $matches)) {
-            return $matches[2];
+        if (!preg_match(static::ATTRIBUTE_REGEX, $attribute, $matches)) {
+            throw new InvalidArgumentException('Attribute name must contain word characters only.');
         }
-
-        throw new InvalidArgumentException('Attribute name must contain word characters only.');
+        return [
+            'name' => $matches[2],
+            'prefix' => $matches[1],
+            'suffix' => $matches[3],
+        ];
     }
 
     /**

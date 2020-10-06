@@ -138,10 +138,14 @@ Overall the helper has the following method groups.
 - encode
 - decode
 
+## Parsing attribute 
+
+- getAttributeName
+- parseAttribute
+
 ### Other
 
 - generateId
-- getAttributeName
 - escapeJsRegularExpression
 
 ## Testing

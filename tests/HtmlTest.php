@@ -1229,6 +1229,45 @@ EOD;
         Html::getAttributeName('content body');
     }
 
+    public function parseAttributeData(): array
+    {
+        return [
+            [
+                '[0]content',
+                ['name' => 'content', 'prefix' => '[0]', 'suffix' => ''],
+            ],
+            [
+                'dates[0]',
+                ['name' => 'dates', 'prefix' => '', 'suffix' => '[0]'],
+            ],
+            [
+                '[0]dates[0]',
+                ['name' => 'dates', 'prefix' => '[0]', 'suffix' => '[0]'],
+            ],
+            [
+                'age',
+                ['name' => 'age', 'prefix' => '', 'suffix' => ''],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider parseAttributeData
+     *
+     * @param string $attribute
+     * @param array $expected
+     */
+    public function testParseAttribute(string $attribute, array $expected): void
+    {
+        $this->assertSame($expected, Html::parseAttribute($attribute));
+    }
+
+    public function testParseAttributeInvalid(): void
+    {
+        $this->expectExceptionMessage('Attribute name must contain word characters only.');
+        Html::getAttributeName('content body');
+    }
+
     public function escapeJsRegularExpressionData(): array
     {
         return [
