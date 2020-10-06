@@ -22,18 +22,18 @@ use function is_int;
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
  */
-class Html
+final class Html
 {
     /**
      * Regular expression used for attribute name validation.
      */
-    public const ATTRIBUTE_REGEX = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
+    private const ATTRIBUTE_REGEX = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
 
     /**
      * List of void elements (element name => 1)
      * {@see http://www.w3.org/TR/html-markup/syntax.html#void-element}
      */
-    protected const VOID_ELEMENTS = [
+    private const VOID_ELEMENTS = [
         'area' => 1,
         'base' => 1,
         'br' => 1,
@@ -56,7 +56,7 @@ class Html
      * The preferred order of attributes in a tag. This mainly affects the order of the attributes that are
      * rendered by {@see renderTagAttributes()}.
      */
-    protected const ATTRIBUTE_ORDER = [
+    private const ATTRIBUTE_ORDER = [
         'type',
         'id',
         'class',
@@ -89,6 +89,13 @@ class Html
         'media',
     ];
 
+    /**
+     * List of tag attributes that should be specially handled when their values are of array type.
+     * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will be
+     * generated instead of one: `data-name="xyz" data-age="13"`.
+     */
+    private const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng', 'aria'];
+
     private static array $generateIdCounter = [];
 
     /**
@@ -107,13 +114,6 @@ class Html
         }
         return $prefix . $counter;
     }
-
-    /**
-     * List of tag attributes that should be specially handled when their values are of array type.
-     * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will be
-     * generated instead of one: `data-name="xyz" data-age="13"`.
-     */
-    protected const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng', 'aria'];
 
     /**
      * Encodes special characters into HTML entities.
