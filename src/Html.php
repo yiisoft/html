@@ -99,7 +99,7 @@ final class Html
      */
     public static function generateId(string $prefix = 'i'): string
     {
-        $prefix = $prefix . (string)hrtime(true);
+        $prefix = $prefix . hrtime(true);
         if (isset(static::$generateIdCounter[$prefix])) {
             $counter = ++static::$generateIdCounter[$prefix];
         } else {
