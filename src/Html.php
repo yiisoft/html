@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
-use InvalidArgumentException;
 use JsonException;
 use Traversable;
 use Yiisoft\Arrays\ArrayHelper;
@@ -22,18 +21,13 @@ use function is_int;
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
  */
-class Html
+final class Html
 {
-    /**
-     * Regular expression used for attribute name validation.
-     */
-    public const ATTRIBUTE_REGEX = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
-
     /**
      * List of void elements (element name => 1)
      * {@see http://www.w3.org/TR/html-markup/syntax.html#void-element}
      */
-    protected const VOID_ELEMENTS = [
+    private const VOID_ELEMENTS = [
         'area' => 1,
         'base' => 1,
         'br' => 1,
@@ -56,7 +50,7 @@ class Html
      * The preferred order of attributes in a tag. This mainly affects the order of the attributes that are
      * rendered by {@see renderTagAttributes()}.
      */
-    protected const ATTRIBUTE_ORDER = [
+    private const ATTRIBUTE_ORDER = [
         'type',
         'id',
         'class',
@@ -89,6 +83,13 @@ class Html
         'media',
     ];
 
+    /**
+     * List of tag attributes that should be specially handled when their values are of array type.
+     * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will be
+     * generated instead of one: `data-name="xyz" data-age="13"`.
+     */
+    private const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng', 'aria'];
+
     private static array $generateIdCounter = [];
 
     /**
@@ -98,7 +99,7 @@ class Html
      */
     public static function generateId(string $prefix = 'i'): string
     {
-        $prefix = $prefix . (string)hrtime(true);
+        $prefix = $prefix . hrtime(true);
         if (isset(static::$generateIdCounter[$prefix])) {
             $counter = ++static::$generateIdCounter[$prefix];
         } else {
@@ -107,13 +108,6 @@ class Html
         }
         return $prefix . $counter;
     }
-
-    /**
-     * List of tag attributes that should be specially handled when their values are of array type.
-     * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will be
-     * generated instead of one: `data-name="xyz" data-age="13"`.
-     */
-    protected const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng', 'aria'];
 
     /**
      * Encodes special characters into HTML entities.
@@ -1621,34 +1615,6 @@ class Html
         }
 
         return $result;
-    }
-
-    /**
-     * Returns the real attribute name from the given attribute expression.
-     *
-     * An attribute expression is an attribute name prefixed and/or suffixed with array indexes. It is mainly used in
-     * tabular data input and/or input of array type. Below are some examples:
-     *
-     * - `[0]content` is used in tabular data input to represent the "content" attribute for the first model in tabular
-     *    input;
-     * - `dates[0]` represents the first array element of the "dates" attribute;
-     * - `[0]dates[0]` represents the first array element of the "dates" attribute for the first model in tabular
-     *    input.
-     *
-     * If `$attribute` has neither prefix nor suffix, it will be returned back without change.
-     * @param string $attribute the attribute name or expression
-     *
-     * @return string the attribute name without prefix and suffix.
-     *
-     * @throws InvalidArgumentException if the attribute name contains non-word characters.
-     */
-    public static function getAttributeName(string $attribute): string
-    {
-        if (preg_match(static::ATTRIBUTE_REGEX, $attribute, $matches)) {
-            return $matches[2];
-        }
-
-        throw new InvalidArgumentException('Attribute name must contain word characters only.');
     }
 
     /**

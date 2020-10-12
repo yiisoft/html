@@ -1219,16 +1219,6 @@ EOD;
         ];
     }
 
-    public function testGetAttributeName(): void
-    {
-        $this->assertSame('content', Html::getAttributeName('[0]content'));
-        $this->assertSame('dates', Html::getAttributeName('dates[0]'));
-        $this->assertSame('dates', Html::getAttributeName('[0]dates[0]'));
-
-        $this->expectExceptionMessage('Attribute name must contain word characters only.');
-        Html::getAttributeName('content body');
-    }
-
     public function escapeJsRegularExpressionData(): array
     {
         return [
@@ -1237,6 +1227,7 @@ EOD;
             ['/([a-z0-9-]+)/gim', '/([a-z0-9-]+)/Ugimex'],
             ['/mag/img', '/mag/imgx'],
             ['/[a-z0-9-\\/]+/', '([a-z0-9-/]+)'],
+            ['/(.*)/m', 'g(.*)gm'],
         ];
     }
 
