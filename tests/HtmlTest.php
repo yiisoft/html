@@ -1220,54 +1220,6 @@ EOD;
         ];
     }
 
-    public function testGetAttributeName(): void
-    {
-        $this->assertSame('content', Html::getAttributeName('[0]content'));
-        $this->assertSame('dates', Html::getAttributeName('dates[0]'));
-        $this->assertSame('dates', Html::getAttributeName('[0]dates[0]'));
-
-        $this->expectExceptionMessage('Attribute name must contain word characters only.');
-        Html::getAttributeName('content body');
-    }
-
-    public function wrapAttributeNameData(): array
-    {
-        return [
-            ['form', '[0]content', 'form[0][content]'],
-            ['form', 'dates[0]', 'form[dates][0]'],
-            ['form', '[0]dates[0]', 'form[0][dates][0]'],
-            ['form', 'age', 'form[age]'],
-            ['', 'dates[0]', 'dates[0]'],
-            ['', 'age', 'age'],
-        ];
-    }
-
-    /**
-     * @dataProvider wrapAttributeNameData
-     *
-     * @param string $wrapName
-     * @param string $attributeName
-     * @param string $expected
-     */
-    public function testWrapAttributeName(string $wrapName, string $attributeName, string $expected): void
-    {
-        $this->assertSame($expected, Html::wrapAttributeName($wrapName, $attributeName));
-    }
-
-    public function testWrapAttributeNameInvalid(): void
-    {
-        $this->expectExceptionMessage('Attribute name must contain word characters only.');
-        Html::wrapAttributeName('form', 'content body');
-    }
-
-
-    public function testWrapAttributeNameEmptyWrapName(): void
-    {
-        $this->expectException(EmptyWrapNameException::class);
-        $this->expectExceptionMessage('Wrap name cannot be empty for tabluar attribute names.');
-        Html::wrapAttributeName('', '[0]content');
-    }
-
     public function escapeJsRegularExpressionData(): array
     {
         return [

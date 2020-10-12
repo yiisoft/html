@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
-use InvalidArgumentException;
 use JsonException;
 use Traversable;
 use Yiisoft\Arrays\ArrayHelper;
@@ -24,11 +23,6 @@ use function is_int;
  */
 final class Html
 {
-    /**
-     * Regular expression used for attribute name validation.
-     */
-    private const ATTRIBUTE_REGEX = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
-
     /**
      * List of void elements (element name => 1)
      * {@see http://www.w3.org/TR/html-markup/syntax.html#void-element}
@@ -1621,71 +1615,6 @@ final class Html
         }
 
         return $result;
-    }
-
-    /**
-     * Returns the real attribute name from the given attribute expression.
-     * If `$attribute` has neither prefix nor suffix, it will be returned back without change.
-     * @param string $attribute the attribute name or expression
-     * @return string the attribute name without prefix and suffix.
-     * @throws InvalidArgumentException if the attribute name contains non-word characters.
-     * @see Html::parseAttribute()
-     */
-    public static function getAttributeName(string $attribute): string
-    {
-        return static::parseAttribute($attribute)['name'];
-    }
-
-    /**
-     * @param string $wrapName
-     * @param string $attributeName
-     * @return string
-     * @throws InvalidArgumentException if the attribute name contains non-word characters.
-     * @throws EmptyWrapNameException if wrap name is empty and attribute name is tabular.
-     */
-    public static function wrapAttributeName(string $wrapName, string $attributeName): string
-    {
-        $data = static::parseAttribute($attributeName);
-
-        if ($wrapName === '' && $data['prefix'] === '') {
-            return $attributeName;
-        }
-
-        if ($wrapName !== '') {
-            return $wrapName . $data['prefix'] . '[' . $data['name'] . ']' . $data['suffix'];
-        }
-
-        throw new EmptyWrapNameException();
-    }
-
-    /**
-     * This method parses an attribute expression and returns an associative array containing
-     * real attribute name, prefix and suffix.
-     * For example: `['name' => 'content', 'prefix' => '', 'suffix' => '[0]']`
-     *
-     * An attribute expression is an attribute name prefixed and/or suffixed with array indexes. It is mainly used in
-     * tabular data input and/or input of array type. Below are some examples:
-     *
-     * - `[0]content` is used in tabular data input to represent the "content" attribute for the first model in tabular
-     *    input;
-     * - `dates[0]` represents the first array element of the "dates" attribute;
-     * - `[0]dates[0]` represents the first array element of the "dates" attribute for the first model in tabular
-     *    input.
-     *
-     * @param string $attribute the attribute name or expression
-     * @return array
-     * @throws InvalidArgumentException if the attribute name contains non-word characters.
-     */
-    private static function parseAttribute(string $attribute)
-    {
-        if (!preg_match(static::ATTRIBUTE_REGEX, $attribute, $matches)) {
-            throw new InvalidArgumentException('Attribute name must contain word characters only.');
-        }
-        return [
-            'name' => $matches[2],
-            'prefix' => $matches[1],
-            'suffix' => $matches[3],
-        ];
     }
 
     /**
