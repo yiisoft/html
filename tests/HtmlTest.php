@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests;
 
 use Yiisoft\Html\Html;
-use Yiisoft\Html\EmptyWrapNameException;
 
 final class HtmlTest extends TestCase
 {
