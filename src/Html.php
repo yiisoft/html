@@ -1637,6 +1637,28 @@ final class Html
     }
 
     /**
+     * @param string $wrapName
+     * @param string $attributeName
+     * @return string
+     * @throws InvalidArgumentException if the attribute name contains non-word characters.
+     * @throws EmptyWrapNameException if wrap name is empty and attribute name is tabular.
+     */
+    public static function wrapAttributeName(string $wrapName, string $attributeName): string
+    {
+        $data = static::parseAttribute($attributeName);
+
+        if ($wrapName === '' && $data['prefix'] === '') {
+            return $attributeName;
+        }
+
+        if ($wrapName !== '') {
+            return $wrapName . $data['prefix'] . '[' . $data['name'] . ']' . $data['suffix'];
+        }
+
+        throw new EmptyWrapNameException();
+    }
+
+    /**
      * This method parses an attribute expression and returns an associative array containing
      * real attribute name, prefix and suffix.
      * For example: `['name' => 'content', 'prefix' => '', 'suffix' => '[0]']`
@@ -1654,7 +1676,7 @@ final class Html
      * @return array
      * @throws InvalidArgumentException if the attribute name contains non-word characters.
      */
-    public static function parseAttribute(string $attribute)
+    private static function parseAttribute(string $attribute)
     {
         if (!preg_match(static::ATTRIBUTE_REGEX, $attribute, $matches)) {
             throw new InvalidArgumentException('Attribute name must contain word characters only.');

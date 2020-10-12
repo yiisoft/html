@@ -138,10 +138,10 @@ Overall the helper has the following method groups.
 - encode
 - decode
 
-## Parsing attribute 
+## Working with attribute name 
 
 - getAttributeName
-- parseAttribute
+- wrapAttributeName
 
 ### Other
 

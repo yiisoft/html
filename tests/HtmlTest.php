@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests;
 
 use Yiisoft\Html\Html;
+use Yiisoft\Html\EmptyWrapNameException;
 
 final class HtmlTest extends TestCase
 {
@@ -1229,43 +1230,42 @@ EOD;
         Html::getAttributeName('content body');
     }
 
-    public function parseAttributeData(): array
+    public function wrapAttributeNameData(): array
     {
         return [
-            [
-                '[0]content',
-                ['name' => 'content', 'prefix' => '[0]', 'suffix' => ''],
-            ],
-            [
-                'dates[0]',
-                ['name' => 'dates', 'prefix' => '', 'suffix' => '[0]'],
-            ],
-            [
-                '[0]dates[0]',
-                ['name' => 'dates', 'prefix' => '[0]', 'suffix' => '[0]'],
-            ],
-            [
-                'age',
-                ['name' => 'age', 'prefix' => '', 'suffix' => ''],
-            ],
+            ['form', '[0]content', 'form[0][content]'],
+            ['form', 'dates[0]', 'form[dates][0]'],
+            ['form', '[0]dates[0]', 'form[0][dates][0]'],
+            ['form', 'age', 'form[age]'],
+            ['', 'dates[0]', 'dates[0]'],
+            ['', 'age', 'age'],
         ];
     }
 
     /**
-     * @dataProvider parseAttributeData
+     * @dataProvider wrapAttributeNameData
      *
-     * @param string $attribute
-     * @param array $expected
+     * @param string $wrapName
+     * @param string $attributeName
+     * @param string $expected
      */
-    public function testParseAttribute(string $attribute, array $expected): void
+    public function testWrapAttributeName(string $wrapName, string $attributeName, string $expected): void
     {
-        $this->assertSame($expected, Html::parseAttribute($attribute));
+        $this->assertSame($expected, Html::wrapAttributeName($wrapName, $attributeName));
     }
 
-    public function testParseAttributeInvalid(): void
+    public function testWrapAttributeNameInvalid(): void
     {
         $this->expectExceptionMessage('Attribute name must contain word characters only.');
-        Html::getAttributeName('content body');
+        Html::wrapAttributeName('form', 'content body');
+    }
+
+
+    public function testWrapAttributeNameEmptyWrapName(): void
+    {
+        $this->expectException(EmptyWrapNameException::class);
+        $this->expectExceptionMessage('Wrap name cannot be empty for tabluar attribute names.');
+        Html::wrapAttributeName('', '[0]content');
     }
 
     public function escapeJsRegularExpressionData(): array
