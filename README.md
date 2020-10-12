@@ -138,11 +138,6 @@ Overall the helper has the following method groups.
 - encode
 - decode
 
-## Working with attribute name 
-
-- getAttributeName
-- wrapAttributeName
-
 ### Other
 
 - generateId
