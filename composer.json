@@ -20,9 +20,9 @@
         "yiisoft/json": "^1.0"
     },
     "require-dev": {
-        "infection/infection": "^0.16.3 || ^0.17.0",
-        "phpunit/phpunit": "^9.3",
-        "vimeo/psalm": "^3.16"
+        "infection/infection": "^0.18.0",
+        "phpunit/phpunit": "^9.4",
+        "vimeo/psalm": "^3.17"
     },
     "autoload": {
         "psr-4": {
