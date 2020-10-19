@@ -1637,6 +1637,10 @@ final class Html
      */
     public static function normalizeRegexpPattern(string $regexp, ?string $delimiter = null): string
     {
+        if (strlen($regexp) < 2) {
+            throw new InvalidArgumentException('Incorrect regular expression.');
+        }
+
         $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
 
         if ($delimiter === null) {
@@ -1645,7 +1649,11 @@ final class Html
             throw new InvalidArgumentException('Incorrect delimiter.');
         }
 
-        $endPosition = strrpos($pattern, $delimiter, 1);
+        try {
+            $endPosition = strrpos($pattern, $delimiter, 1);
+        } catch (\ValueError $e) { // For PHP 8
+            $endPosition = false;
+        }
         if ($endPosition === false) {
             throw new InvalidArgumentException('Incorrect regular expression.');
         }
