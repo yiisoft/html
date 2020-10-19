@@ -1619,31 +1619,6 @@ final class Html
     }
 
     /**
-     * Escapes regular expression to use in JavaScript.
-     *
-     * @param string $regexp the regular expression to be escaped.
-     *
-     * @return string the escaped result.
-     */
-    public static function escapeJsRegularExpression(string $regexp): string
-    {
-        $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
-        $deliminator = substr($pattern, 0, 1);
-        $pos = (int)strrpos($pattern, $deliminator, 1);
-        $flag = $pos > 0 ? substr($pattern, $pos + 1) : '';
-        if ($deliminator !== '/') {
-            $pattern = '/' . str_replace('/', '\\/', substr($pattern, 1, $pos - 1)) . '/';
-        } else {
-            $pattern = substr($pattern, 0, $pos + 1);
-        }
-        if (!empty($flag)) {
-            $pattern .= preg_replace('/[^igm]/', '', $flag);
-        }
-
-        return $pattern;
-    }
-
-    /**
      * Normalize PCRE regular expression to use in the "pattern" HTML attribute:
      *  - convert \x{FFFF} to \uFFFF;
      *  - remove flags and delimiters.

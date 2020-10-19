@@ -1220,32 +1220,6 @@ EOD;
         ];
     }
 
-    public function escapeJsRegularExpressionData(): array
-    {
-        return [
-            ['/[a-z0-9-]+/', '([a-z0-9-]+)'],
-            ['/[igm]+/', '([igm]+)'],
-            ['/([a-z0-9-]+)/gim', '/([a-z0-9-]+)/Ugimex'],
-            ['/mag/img', '/mag/imgx'],
-            ['/[a-z0-9-\\/]+/', '([a-z0-9-/]+)'],
-            ['/(.*)/m', 'g(.*)gm'],
-        ];
-    }
-
-    /**
-     * @dataProvider escapeJsRegularExpressionData
-     *
-     * @param string $expected
-     * @param string $regexp
-     */
-    public function testEscapeJsRegularExpression(string $expected, string $regexp): void
-    {
-        $this->assertSame(
-            $expected,
-            Html::escapeJsRegularExpression($regexp)
-        );
-    }
-
     public function dataNormalizeRegexpPattern(): array
     {
         return [
