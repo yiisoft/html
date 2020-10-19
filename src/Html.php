@@ -958,14 +958,14 @@ final class Html
         }
 
         if (!empty($options['multiple']) && !empty($name)) {
-            $name = static::setNameArrayable($name);
+            $name = static::getArrayableName($name);
         }
 
         $options['name'] = $name;
 
         if (isset($options['unselect'])) {
             // add a hidden field so that if the list box has no option being selected, it still submits a value
-            $name = static::unsetNameArrayable($name);
+            $name = static::getNonArrayableName($name);
             $hiddenOptions = [];
             // make sure disabled input is not sending any value
             if (!empty($options['disabled'])) {
@@ -1021,7 +1021,7 @@ final class Html
      */
     public static function checkboxList(string $name, $selection = null, array $items = [], array $options = []): string
     {
-        $name = static::setNameArrayable($name);
+        $name = static::getArrayableName($name);
 
         if (is_iterable($selection)) {
             $selection = array_map('strval', (array)$selection);
@@ -1054,7 +1054,7 @@ final class Html
 
         if (isset($options['unselect'])) {
             // add a hidden field so that if the list box has no option being selected, it still submits a value
-            $name2 = static::unsetNameArrayable($name);
+            $name2 = static::getNonArrayableName($name);
             $hiddenOptions = [];
             // make sure disabled input is not sending any value
             if (!empty($options['disabled'])) {
@@ -1638,12 +1638,12 @@ final class Html
         return $pattern;
     }
 
-    private static function setNameArrayable(string $name): string
+    private static function getArrayableName(string $name): string
     {
         return substr($name, -2) !== '[]' ? $name . '[]' : $name;
     }
 
-    private static function unsetNameArrayable(string $name): string
+    private static function getNonArrayableName(string $name): string
     {
         return substr($name, -2) === '[]' ? substr($name, 0, -2) : $name;
     }
