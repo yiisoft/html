@@ -81,6 +81,7 @@ Overall the helper has the following method groups.
 - endTag
 - tag
 - renderTagAttributes
+- normalizeRegexpPattern
 
 ### Generating base tags
 
@@ -141,7 +142,6 @@ Overall the helper has the following method groups.
 ### Other
 
 - generateId
-- escapeJsRegularExpression
 
 ## Testing
 
