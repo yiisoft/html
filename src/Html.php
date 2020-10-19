@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
+use InvalidArgumentException;
 use JsonException;
 use Traversable;
 use Yiisoft\Arrays\ArrayHelper;
@@ -1640,5 +1641,40 @@ final class Html
         }
 
         return $pattern;
+    }
+
+    /**
+     * Normalize PCRE regular expression to use in the "pattern" HTML attribute:
+     *  - convert \x{FFFF} to \uFFFF;
+     *  - remove flags and delimiters.
+     *
+     * For example:
+     *
+     * ```php
+     * Html::normalizeRegexpPattern('/([a-z0-9-]+)/im'); // will return: ([a-z0-9-]+)
+     * ```
+     *
+     * @see https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute
+     * @param string $regexp PCRE regular expression
+     * @param string|null $delimiter delimiter in `$regexp`
+     * @return string value for use in the "pattern" HTML attribute
+     * @throws InvalidArgumentException if incorrect regular expression or delimiter
+     */
+    public static function normalizeRegexpPattern(string $regexp, ?string $delimiter = null): string
+    {
+        $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
+
+        if ($delimiter === null) {
+            $delimiter = substr($pattern, 0, 1);
+        } elseif (strlen($delimiter) !== 1) {
+            throw new InvalidArgumentException('Incorrect delimiter.');
+        }
+
+        $endPosition = strrpos($pattern, $delimiter, 1);
+        if ($endPosition === false) {
+            throw new InvalidArgumentException('Incorrect regular expression.');
+        }
+
+        return substr($pattern, 1, $endPosition - 1);
     }
 }

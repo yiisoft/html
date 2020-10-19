@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests;
 
+use InvalidArgumentException;
 use Yiisoft\Html\Html;
 
 final class HtmlTest extends TestCase
@@ -1243,6 +1244,55 @@ EOD;
             $expected,
             Html::escapeJsRegularExpression($regexp)
         );
+    }
+
+    public function dataNormalizeRegexpPattern(): array
+    {
+        return [
+            ['', '//'],
+            ['.*', '/.*/'],
+            ['([a-z0-9-]+)', '/([a-z0-9-]+)/Ugimex'],
+            ['([a-z0-9-]+)', '~([a-z0-9-]+)~Ugimex'],
+            ['([a-z0-9-]+)', '~([a-z0-9-]+)~Ugimex', '~'],
+            ['\u1F596([a-z])', '/\x{1F596}([a-z])/i'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataNormalizeRegexpPattern
+     *
+     * @param string $expected
+     * @param string $regexp
+     * @param string|null $delimiter
+     */
+    public function testNormalizeRegexpPattern(string $expected, string $regexp, ?string $delimiter = null): void
+    {
+        $this->assertSame($expected, Html::normalizeRegexpPattern($regexp, $delimiter));
+    }
+
+    public function dataNormalizeRegexpPatternInvalid(): array
+    {
+        return [
+            [''],
+            ['.*'],
+            ['/.*'],
+            ['([a-z0-9-]+)'],
+            ['/.*/i', '~'],
+            ['/.*/i', '//'],
+            ['/~~/i', '~~'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataNormalizeRegexpPatternInvalid
+     *
+     * @param string $regexp
+     * @param string|null $delimiter
+     */
+    public function testNormalizeRegexpPatternInvalid(string $regexp, ?string $delimiter = null): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Html::normalizeRegexpPattern($regexp, $delimiter);
     }
 }
 
