@@ -957,17 +957,15 @@ final class Html
             $options['size'] = 4;
         }
 
-        if (!empty($options['multiple']) && !empty($name) && substr_compare($name, '[]', -2, 2)) {
-            $name .= '[]';
+        if (!empty($options['multiple']) && !empty($name)) {
+            $name = static::getArrayableName($name);
         }
 
         $options['name'] = $name;
 
         if (isset($options['unselect'])) {
             // add a hidden field so that if the list box has no option being selected, it still submits a value
-            if (!empty($name) && substr_compare($name, '[]', -2, 2) === 0) {
-                $name = substr($name, 0, -2);
-            }
+            $name = static::getNonArrayableName($name);
             $hiddenOptions = [];
             // make sure disabled input is not sending any value
             if (!empty($options['disabled'])) {
@@ -1023,9 +1021,7 @@ final class Html
      */
     public static function checkboxList(string $name, $selection = null, array $items = [], array $options = []): string
     {
-        if (substr($name, -2) !== '[]') {
-            $name .= '[]';
-        }
+        $name = static::getArrayableName($name);
 
         if (is_iterable($selection)) {
             $selection = array_map('strval', (array)$selection);
@@ -1058,7 +1054,7 @@ final class Html
 
         if (isset($options['unselect'])) {
             // add a hidden field so that if the list box has no option being selected, it still submits a value
-            $name2 = substr($name, -2) === '[]' ? substr($name, 0, -2) : $name;
+            $name2 = static::getNonArrayableName($name);
             $hiddenOptions = [];
             // make sure disabled input is not sending any value
             if (!empty($options['disabled'])) {
@@ -1640,5 +1636,15 @@ final class Html
         }
 
         return $pattern;
+    }
+
+    private static function getArrayableName(string $name): string
+    {
+        return substr($name, -2) !== '[]' ? $name . '[]' : $name;
+    }
+
+    private static function getNonArrayableName(string $name): string
+    {
+        return substr($name, -2) === '[]' ? substr($name, 0, -2) : $name;
     }
 }

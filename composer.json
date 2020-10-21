@@ -17,12 +17,11 @@
     "require": {
         "php": "^7.4|^8.0",
         "yiisoft/arrays": "^3.0@dev",
-        "yiisoft/json": "^1.0",
-        "yiisoft/strings": "^1.0"
+        "yiisoft/json": "^1.0"
     },
     "require-dev": {
         "infection/infection": "^0.18.0",
-        "phpunit/phpunit": "^9.3",
+        "phpunit/phpunit": "^9.4",
         "vimeo/psalm": "^4.0"
     },
     "autoload": {
