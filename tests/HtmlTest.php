@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests;
 
+use InvalidArgumentException;
 use Yiisoft\Html\Html;
 
 final class HtmlTest extends TestCase
@@ -1219,30 +1220,53 @@ EOD;
         ];
     }
 
-    public function escapeJsRegularExpressionData(): array
+    public function dataNormalizeRegexpPattern(): array
     {
         return [
-            ['/[a-z0-9-]+/', '([a-z0-9-]+)'],
-            ['/[igm]+/', '([igm]+)'],
-            ['/([a-z0-9-]+)/gim', '/([a-z0-9-]+)/Ugimex'],
-            ['/mag/img', '/mag/imgx'],
-            ['/[a-z0-9-\\/]+/', '([a-z0-9-/]+)'],
-            ['/(.*)/m', 'g(.*)gm'],
+            ['', '//'],
+            ['.*', '/.*/'],
+            ['([a-z0-9-]+)', '/([a-z0-9-]+)/Ugimex'],
+            ['([a-z0-9-]+)', '~([a-z0-9-]+)~Ugimex'],
+            ['([a-z0-9-]+)', '~([a-z0-9-]+)~Ugimex', '~'],
+            ['\u1F596([a-z])', '/\x{1F596}([a-z])/i'],
         ];
     }
 
     /**
-     * @dataProvider escapeJsRegularExpressionData
+     * @dataProvider dataNormalizeRegexpPattern
      *
      * @param string $expected
      * @param string $regexp
+     * @param string|null $delimiter
      */
-    public function testEscapeJsRegularExpression(string $expected, string $regexp): void
+    public function testNormalizeRegexpPattern(string $expected, string $regexp, ?string $delimiter = null): void
     {
-        $this->assertSame(
-            $expected,
-            Html::escapeJsRegularExpression($regexp)
-        );
+        $this->assertSame($expected, Html::normalizeRegexpPattern($regexp, $delimiter));
+    }
+
+    public function dataNormalizeRegexpPatternInvalid(): array
+    {
+        return [
+            [''],
+            ['.*'],
+            ['/.*'],
+            ['([a-z0-9-]+)'],
+            ['/.*/i', '~'],
+            ['/.*/i', '//'],
+            ['/~~/i', '~~'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataNormalizeRegexpPatternInvalid
+     *
+     * @param string $regexp
+     * @param string|null $delimiter
+     */
+    public function testNormalizeRegexpPatternInvalid(string $regexp, ?string $delimiter = null): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Html::normalizeRegexpPattern($regexp, $delimiter);
     }
 }
 

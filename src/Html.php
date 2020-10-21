@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
+use InvalidArgumentException;
 use JsonException;
 use Traversable;
 use Yiisoft\Arrays\ArrayHelper;
@@ -1614,28 +1615,46 @@ final class Html
     }
 
     /**
-     * Escapes regular expression to use in JavaScript.
+     * Normalize PCRE regular expression to use in the "pattern" HTML attribute:
+     *  - convert \x{FFFF} to \uFFFF;
+     *  - remove flags and delimiters.
      *
-     * @param string $regexp the regular expression to be escaped.
+     * For example:
      *
-     * @return string the escaped result.
+     * ```php
+     * Html::normalizeRegexpPattern('/([a-z0-9-]+)/im'); // will return: ([a-z0-9-]+)
+     * ```
+     *
+     * @see https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute
+     * @param string $regexp PCRE regular expression
+     * @param string|null $delimiter delimiter in `$regexp`
+     * @return string value for use in the "pattern" HTML attribute
+     * @throws InvalidArgumentException if incorrect regular expression or delimiter
      */
-    public static function escapeJsRegularExpression(string $regexp): string
+    public static function normalizeRegexpPattern(string $regexp, ?string $delimiter = null): string
     {
-        $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
-        $deliminator = substr($pattern, 0, 1);
-        $pos = (int)strrpos($pattern, $deliminator, 1);
-        $flag = $pos > 0 ? substr($pattern, $pos + 1) : '';
-        if ($deliminator !== '/') {
-            $pattern = '/' . str_replace('/', '\\/', substr($pattern, 1, $pos - 1)) . '/';
-        } else {
-            $pattern = substr($pattern, 0, $pos + 1);
-        }
-        if (!empty($flag)) {
-            $pattern .= preg_replace('/[^igm]/', '', $flag);
+        if (strlen($regexp) < 2) {
+            throw new InvalidArgumentException('Incorrect regular expression.');
         }
 
-        return $pattern;
+        $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
+
+        if ($delimiter === null) {
+            $delimiter = substr($pattern, 0, 1);
+        } elseif (strlen($delimiter) !== 1) {
+            throw new InvalidArgumentException('Incorrect delimiter.');
+        }
+
+        try {
+            $endPosition = strrpos($pattern, $delimiter, 1);
+        } catch (\ValueError $e) { // For PHP 8
+            $endPosition = false;
+        }
+        if ($endPosition === false) {
+            throw new InvalidArgumentException('Incorrect regular expression.');
+        }
+
+        return substr($pattern, 1, $endPosition - 1);
     }
 
     private static function getArrayableName(string $name): string
