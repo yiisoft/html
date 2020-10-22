@@ -147,15 +147,53 @@ final class Html
     }
 
     /**
+     * Encodes special characters in value into HTML entities for use as tag content.
+     * Encode symbols: &, <, >.
+     *
+     * @param mixed $content the content to be encoded
+     * @param bool $doubleEncode if already encoded entities should be encoded
+     * @param string $encoding the encoding to use, defaults to "UTF-8"
+     * @return string
+     */
+    public static function encodeContent($content, $doubleEncode = true, string $encoding = 'UTF-8'): string
+    {
+        return htmlspecialchars(
+            (string)$content,
+            ENT_NOQUOTES | ENT_SUBSTITUTE | ENT_HTML5,
+            $encoding,
+            $doubleEncode
+        );
+    }
+
+    /**
+     * Encodes special characters in value into HTML entities for use as attribute value of tag.
+     * Encode symbols: &, <, >, ", '.
+     *
+     * @param mixed $value the attribute value to be encoded
+     * @param bool $doubleEncode if already encoded entities should be encoded
+     * @param string $encoding the encoding to use, defaults to "UTF-8"
+     * @return string
+     */
+    public static function encodeAttribute($value, $doubleEncode = true, string $encoding = 'UTF-8'): string
+    {
+        return htmlspecialchars(
+            (string)$value,
+            ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
+            $encoding,
+            $doubleEncode
+        );
+    }
+
+    /**
      * Generates a complete HTML tag.
      *
      * @param string|bool|null $name the tag name. If $name is `null` or `false`, the corresponding content will be
      * rendered without any tag.
      * @param string $content the content to be enclosed between the start and end tags. It will not be HTML-encoded.
-     * If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
+     * If this is coming from end users, you should consider {@see encodeContent()} it to prevent XSS attacks.
      * @param array $options the HTML tag attributes (HTML options) in terms of name-value pairs. These will be
-     * rendered as the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}. If a
-     * value is null, the corresponding attribute will not be rendered.
+     * rendered as the attributes of the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
+     * If a value is null, the corresponding attribute will not be rendered.
      *
      * For example when using `['class' => 'my-class', 'target' => '_blank', 'value' => null]` it will result in the
      * HTML attributes rendered like this: `class="my-class" target="_blank"`.
@@ -186,7 +224,7 @@ final class Html
      * @param string|bool|null $name the tag name. If $name is `null` or `false`, the corresponding content will be
      * rendered without any tag.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding
      * attribute will not be rendered.
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
@@ -232,9 +270,9 @@ final class Html
      *
      * @param string $content the style content
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
-     * attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes are being
-     * rendered.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the
+     * corresponding attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes
+     * are being rendered.
      *
      * @return string the generated style tag
      *
@@ -250,7 +288,7 @@ final class Html
      *
      * @param string $content the script content
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding
      * attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes are being
      * rendered.
      *
@@ -275,7 +313,8 @@ final class Html
      * - noscript: if set to true, `link` tag will be wrapped into `<noscript>` tags.
      *
      * The rest of the options will be rendered as the attributes of the resulting link tag. The values will be
-     * HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute
+     * will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated link tag.
@@ -314,7 +353,7 @@ final class Html
      *   versions of IE browsers.
      *
      * The rest of the options will be rendered as the attributes of the resulting script tag. The values will be
-     * HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated script tag.
@@ -354,7 +393,7 @@ final class Html
      * Generates a hyperlink tag.
      *
      * @param string $text link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
-     * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
+     * tag. If this is coming from end users, you should consider {@see encodeContent()} it to prevent XSS attacks.
      * @param array|string|null $url the URL for the hyperlink tag. This parameter will be processed and will be used
      * for the "href" attribute of the tag. If this parameter is null, the "href" attribute will not
      * be generated.
@@ -366,7 +405,7 @@ final class Html
      * ```
      *
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -387,12 +426,12 @@ final class Html
      * Generates a mailto hyperlink.
      *
      * @param string $text link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
-     * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
+     * tag. If this is coming from end users, you should consider {@see encodeContent()} it to prevent XSS attacks.
      * @param string|null $email email address. If this is null, the first parameter (link body) will be treated
      * as the email address and used.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
-     * attribute will not be rendered.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
+     * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated mailto link
@@ -410,7 +449,7 @@ final class Html
      *
      * @param string $src the image URL. This parameter will be processed.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -444,11 +483,11 @@ final class Html
      * Generates a label tag.
      *
      * @param string $content label text. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an
-     * image tag. If this is is coming from end users, you should {@see encode()} it to prevent XSS attacks.
+     * image tag. If this is is coming from end users, you should {@see encodeContent()} it to prevent XSS attacks.
      * @param string|null $for the ID of the HTML element that this label is associated with.
      * If this is null, the "for" attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the
      * corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -467,9 +506,9 @@ final class Html
      *
      * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
      * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encode()} it to prevent XSS attacks.
+     * {@see encodeContent()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the
      * corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -495,10 +534,10 @@ final class Html
      *
      * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
      * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encode()} it to prevent XSS attacks.
+     * {@see encodeContent()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
-     * attribute will not be rendered.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
+     * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated submit button tag
@@ -517,10 +556,10 @@ final class Html
      *
      * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
      * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encode()} it to prevent XSS attacks.
+     * {@see encodeContent()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
-     * attribute will not be rendered.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
+     * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated reset button tag
@@ -542,7 +581,7 @@ final class Html
      * @param string|bool|int|float|null|callable $value the value attribute. If it is null, the value attribute will
      * not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -567,7 +606,7 @@ final class Html
      *
      * @param string $label the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -592,7 +631,7 @@ final class Html
      *
      * @param string $label the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding
      * attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
@@ -612,8 +651,8 @@ final class Html
      * Generates a reset input button.
      *
      * @param string $label the value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options the attributes of the button tag. The values will be HTML-encoded using {@see encode()}.
-     * Attributes whose value is null will be ignored and not put in the tag returned.
+     * @param array $options the attributes of the button tag. The values will be HTML-encoded using
+     * {@see encodeAttribute()}. Attributes whose value is null will be ignored and not put in the tag returned.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated button tag
@@ -634,8 +673,8 @@ final class Html
      * @param string $name the name attribute.
      * @param string|null $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null,
-     * the corresponding attribute will not be rendered.
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
+     * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated text input tag
@@ -654,8 +693,8 @@ final class Html
      * @param string|bool|int|float|null|callable $value the value attribute.
      * If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
-     * attribute will not be rendered.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
+     * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated hidden input tag
@@ -673,8 +712,8 @@ final class Html
      * @param string $name the name attribute.
      * @param string|null $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
-     * attribute will not be rendered.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
+     * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated password input tag
@@ -695,8 +734,8 @@ final class Html
      * @param string $name the name attribute.
      * @param string|null $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null,
-     * the corresponding attribute will not be rendered.
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value
+     * is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated file input tag
@@ -712,10 +751,10 @@ final class Html
      * Generates a text area input.
      *
      * @param string $name the input name
-     * @param string|null $value the input value. Note that it will be encoded using {@see encode()}.
+     * @param string|null $value the input value. Note that it will be encoded using {@see encodeContent()}.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encode()}. If a value is null, the corresponding
-     * attribute will not be rendered.
+     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
+     * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * The following special options are recognized:
      *
@@ -731,7 +770,7 @@ final class Html
         $options['name'] = $name;
         $doubleEncode = ArrayHelper::remove($options, 'doubleEncode', true);
 
-        return static::tag('textarea', static::encode($value, $doubleEncode), $options);
+        return static::tag('textarea', static::encodeContent($value, $doubleEncode), $options);
     }
 
     /**
@@ -780,8 +819,8 @@ final class Html
      *   a hidden input will be generated so that if the checkbox is not checked and is submitted, the value of this
      *   attribute will still be submitted to the server via the hidden input.
      * - label: string, a label displayed next to the checkbox. It will NOT be HTML-encoded. Therefore you can pass in
-     *   HTML code such as an image tag. If this is is coming from end users, you should {@see encode()} it to prevent
-     *   XSS attacks.
+     *   HTML code such as an image tag. If this is is coming from end users, you should {@see encodeContent()}
+     *   it to prevent XSS attacks.
      *   When this option is specified, the checkbox will be enclosed by a label tag.
      * - labelOptions: array, the HTML attributes for the label tag. Do not set this option unless you set the "label"
      *   option.
@@ -790,7 +829,8 @@ final class Html
      *   else `<input> <label>Label</label>`
      *
      * The rest of the options will be rendered as the attributes of the resulting checkbox tag. The values will be
-     * HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be
+     * rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated checkbox tag
@@ -881,7 +921,7 @@ final class Html
      * - encode: bool, whether to encode option prompt and option value characters. Defaults to `true`.
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will be HTML-encoded
-     * using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated drop-down list tag
@@ -945,7 +985,7 @@ final class Html
      * - encode: bool, whether to encode option prompt and option value characters. Defaults to `true`.
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will be HTML-encoded
-     * using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated list box tag.
@@ -1047,7 +1087,7 @@ final class Html
             } else {
                 $lines[] = static::checkbox($name, $checked, array_merge([
                     'value' => $value,
-                    'label' => $encode ? static::encode($label) : $label,
+                    'label' => $encode ? static::encodeContent($label) : $label,
                 ], $itemOptions));
             }
             $index++;
@@ -1143,7 +1183,7 @@ final class Html
             } else {
                 $lines[] = static::radio($name, $checked, array_merge([
                     'value' => $value,
-                    'label' => $encode ? static::encode($label) : $label,
+                    'label' => $encode ? static::encodeContent($label) : $label,
                 ], $itemOptions));
             }
             $index++;
@@ -1199,7 +1239,7 @@ final class Html
             if ($formatter !== null) {
                 $results[] = $formatter($item, $index);
             } else {
-                $results[] = static::tag('li', $encode ? static::encode($item) : $item, $itemOptions);
+                $results[] = static::tag('li', $encode ? static::encodeContent($item) : $item, $itemOptions);
             }
         }
 
@@ -1283,7 +1323,7 @@ final class Html
                 $promptText = $tagOptions['prompt']['text'];
                 $promptOptions = array_merge($promptOptions, $tagOptions['prompt']['options']);
             }
-            $promptText = $encode ? static::encode($promptText) : $promptText;
+            $promptText = $encode ? static::encodeContent($promptText) : $promptText;
             if ($encodeSpaces) {
                 $promptText = str_replace(' ', '&nbsp;', $promptText);
             }
@@ -1318,7 +1358,7 @@ final class Html
                         ((!is_iterable($selection) && !strcmp((string)$key, $selection))
                             || (is_iterable($selection) && ArrayHelper::isIn((string)$key, $selection)));
                 }
-                $text = $encode ? static::encode($value) : $value;
+                $text = $encode ? static::encodeContent($value) : $value;
                 if ($encodeSpaces) {
                     $text = str_replace(' ', '&nbsp;', $text);
                 }
@@ -1336,7 +1376,7 @@ final class Html
      * [boolean attributes](http://www.w3.org/TR/html5/infrastructure.html#boolean-attributes).
      *
      * Attributes whose values are null will not be rendered. The values of attributes will be HTML-encoded using
-     * {@see encode()}.
+     * {@see encodeAttribute()}.
      *
      * The "data" attribute is specially handled when it is receiving an array value. In this case, the array will be
      * "expanded" and a list data attributes will be rendered. For example, if `'data' => ['id' => 1, 'name' => 'yii']`
@@ -1348,7 +1388,7 @@ final class Html
      * `data-params='{"id":1,"name":"yii"}' data-status="ok"`.
      *
      * @param array $attributes attributes to be rendered. The attribute values will be HTML-encoded using
-     * {@see encode()}.
+     * {@see encodeAttribute()}.
      *
      * @return string the rendering result. If the attributes are not empty, they will be rendered into a string
      * with a leading white space (so that it can be directly appended to the tag name in a tag. If there is no
@@ -1382,24 +1422,24 @@ final class Html
                         if (is_array($v)) {
                             $html .= " $name-$n='" . Json::htmlEncode($v) . "'";
                         } else {
-                            $html .= " $name-$n=\"" . static::encode($v) . '"';
+                            $html .= " $name-$n=\"" . static::encodeAttribute($v) . '"';
                         }
                     }
                 } elseif ($name === 'class') {
                     if (empty($value)) {
                         continue;
                     }
-                    $html .= " $name=\"" . static::encode(implode(' ', $value)) . '"';
+                    $html .= " $name=\"" . static::encodeAttribute(implode(' ', $value)) . '"';
                 } elseif ($name === 'style') {
                     if (empty($value)) {
                         continue;
                     }
-                    $html .= " $name=\"" . static::encode(static::cssStyleFromArray($value)) . '"';
+                    $html .= " $name=\"" . static::encodeAttribute(static::cssStyleFromArray($value)) . '"';
                 } else {
                     $html .= " $name='" . Json::htmlEncode($value) . "'";
                 }
             } elseif ($value !== null) {
-                $html .= " $name=\"" . static::encode($value) . '"';
+                $html .= " $name=\"" . static::encodeAttribute($value) . '"';
             }
         }
 

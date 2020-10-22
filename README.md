@@ -136,6 +136,8 @@ Overall the helper has the following method groups.
 
 ### Encode and decode special characters
 
+- encodeContent
+- encodeAttribute
 - encode
 - decode
 
