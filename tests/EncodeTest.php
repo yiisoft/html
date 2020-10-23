@@ -14,8 +14,9 @@ final class EncodeTest extends TestCase
             ["a <>&\"'\x80\u{20bd}`", "a &lt;&gt;&amp;\"'�₽`"],
             ['<b>test</b>', '&lt;b&gt;test&lt;/b&gt;'],
             ['"hello"', '"hello"'],
-            ["'hello'", "'hello'"],
+            ["'hello world'", "'hello world'"],
             ['Chip&amp;Dale', 'Chip&amp;amp;Dale'],
+            [36.6, '36.6'],
         ];
     }
 
@@ -33,11 +34,12 @@ final class EncodeTest extends TestCase
     public function dataEncodeAttribute(): array
     {
         return [
-            ["a <>&\"'\x80\u{20bd}`", "a &lt;&gt;&amp;&quot;&apos;�₽`"],
+            ["a <>&\"'\x80\u{20bd}`", "a&#32;&lt;&gt;&amp;&quot;&apos;�₽&grave;"],
             ['<b>test</b>', '&lt;b&gt;test&lt;/b&gt;'],
             ['"hello"', '&quot;hello&quot;'],
-            ["'hello'", "&apos;hello&apos;"],
+            ["'hello world'", "&apos;hello&#32;world&apos;"],
             ['Chip&amp;Dale', 'Chip&amp;amp;Dale'],
+            [36.6, '36.6'],
         ];
     }
 
@@ -50,5 +52,28 @@ final class EncodeTest extends TestCase
     public function testEncodeAttribute($content, string $expected): void
     {
         $this->assertSame($expected, Html::encodeAttribute($content));
+    }
+
+    public function dataEncodeQuotedAttribute(): array
+    {
+        return [
+            ["a <>&\"'\x80\u{20bd}`", "a &lt;&gt;&amp;&quot;&apos;�₽`"],
+            ['<b>test</b>', '&lt;b&gt;test&lt;/b&gt;'],
+            ['"hello"', '&quot;hello&quot;'],
+            ["'hello world'", "&apos;hello world&apos;"],
+            ['Chip&amp;Dale', 'Chip&amp;amp;Dale'],
+            [36.6, '36.6'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataEncodeQuotedAttribute
+     *
+     * @param mixed $content
+     * @param string $expected
+     */
+    public function testEncodeQuotedAttribute($content, string $expected): void
+    {
+        $this->assertSame($expected, Html::encodeQuotedAttribute($content));
     }
 }
