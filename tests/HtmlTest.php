@@ -47,6 +47,28 @@ final class HtmlTest extends TestCase
         $this->assertSame("a<>&\"'", Html::decode('a&lt;&gt;&amp;&quot;&#039;'));
     }
 
+    public function dataEscapeJsStringValue(): array
+    {
+        return [
+            ['</script>', '<\/script>'],
+            ['"double" quotes', '\"double\" quotes'],
+            ["'single' quotes", "\'single\' quotes"],
+            ['slashes //\\', 'slashes \/\/\\\\'],
+            [36.6, '36.6'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataEscapeJsStringValue
+     *
+     * @param mixed $value
+     * @param string $expected
+     */
+    public function testEscapeJsStringValue($value, string $expected): void
+    {
+        $this->assertSame($expected, Html::escapeJsStringValue($value));
+    }
+
     public function testTag(): void
     {
         $this->assertSame('<br>', Html::tag('br'));

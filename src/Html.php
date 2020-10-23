@@ -152,7 +152,7 @@ final class Html
 
     /**
      * Encodes special characters in value into HTML entities for use as tag content.
-     * Encode symbols: &, <, >.
+     * Encode characters: &, <, >.
      *
      * @param mixed $content the content to be encoded
      * @param bool $doubleEncode if already encoded entities should be encoded
@@ -173,7 +173,7 @@ final class Html
 
     /**
      * Encodes special characters in value into HTML entities for use as attribute value of tag.
-     * Encode symbols: &, <, >, ", ', `, =, tab, space, U+000A (form feed), U+0000 (null).
+     * Encode characters: &, <, >, ", ', `, =, tab, space, U+000A (form feed), U+0000 (null).
      *
      * @param mixed $value the attribute value to be encoded
      * @param bool $doubleEncode if already encoded entities should be encoded
@@ -206,7 +206,7 @@ final class Html
 
     /**
      * Encodes special characters in value into HTML entities for use as quoted attribute value of tag.
-     * Encode symbols: &, <, >, ", ', U+0000 (null).
+     * Encode characters: &, <, >, ", ', U+0000 (null).
      *
      * @param mixed $value the attribute value to be encoded
      * @param bool $doubleEncode if already encoded entities should be encoded
@@ -227,6 +227,29 @@ final class Html
 
         return strtr($value, [
             "\u{0000}" => '&#0;', // U+0000 NULL
+        ]);
+    }
+
+    /**
+     * Escape special characters in value for use as string value in javascipt into tag script.
+     * For example:
+     *
+     * ```
+     * <script type="text/javascript">
+     *     window.myVar = "<?= Html::escapeJsStringValue($myVar) ?>";
+     * </script>
+     * ```
+     *
+     * @param mixed $value
+     * @return string
+     */
+    public static function escapeJsStringValue($value): string
+    {
+        return strtr((string)$value, [
+            '/' => '\/',
+            '"' => '\"',
+            "'" => "\'",
+            '\\' => '\\\\',
         ]);
     }
 
