@@ -12,11 +12,11 @@ final class EncodeTest extends TestCase
     {
         $items = [
             [
-                'value' => "a <>&\"'\x80\u{20bd}`",
+                'value' => "a \t=<>&\"'\x80\u{20bd}`\u{000a}\u{000c}\u{0000}",
                 'result' => [
-                    'content' => "a &lt;&gt;&amp;\"'�₽`",
-                    'attribute' => "a&#32;&lt;&gt;&amp;&quot;&apos;�₽&grave;",
-                    'quotedAttribute' => "a &lt;&gt;&amp;&quot;&apos;�₽`",
+                    'content' => "a \t=&lt;&gt;&amp;\"'�₽`\n\u{000c}\u{0000}",
+                    'attribute' => "a&#32;&Tab;&equals;&lt;&gt;&amp;&quot;&apos;�₽&grave;&NewLine;&#12;&#0;",
+                    'quotedAttribute' => "a \t=&lt;&gt;&amp;&quot;&apos;�₽`\n\u{000c}&#0;",
                 ],
             ],
             [
@@ -49,6 +49,14 @@ final class EncodeTest extends TestCase
                     'content' => 'Chip&amp;amp;Dale',
                     'attribute' => 'Chip&amp;amp;Dale',
                     'quotedAttribute' => 'Chip&amp;amp;Dale',
+                ],
+            ],
+            [
+                'value' => "\t\$x=24;",
+                'result' => [
+                    'content' => "\t\$x=24;",
+                    'attribute' => '&Tab;$x&equals;24;',
+                    'quotedAttribute' => "\t\$x=24;",
                 ],
             ],
             [

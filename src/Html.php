@@ -158,6 +158,8 @@ final class Html
      * @param bool $doubleEncode if already encoded entities should be encoded
      * @param string $encoding the encoding to use, defaults to "UTF-8"
      * @return string
+     *
+     * @see https://html.spec.whatwg.org/#data-state
      */
     public static function encodeContent($content, $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
@@ -171,12 +173,16 @@ final class Html
 
     /**
      * Encodes special characters in value into HTML entities for use as attribute value of tag.
-     * Encode symbols: &, <, >, ", ', ` and space.
+     * Encode symbols: &, <, >, ", ', `, =, tab, space, U+000A (form feed), U+0000 (null).
      *
      * @param mixed $value the attribute value to be encoded
      * @param bool $doubleEncode if already encoded entities should be encoded
      * @param string $encoding the encoding to use, defaults to "UTF-8"
      * @return string
+     *
+     * @see https://html.spec.whatwg.org/#attribute-value-(unquoted)-state
+     * @see https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
+     * @see https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
      */
     public static function encodeAttribute($value, $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
@@ -188,28 +194,40 @@ final class Html
         );
 
         return strtr($value, [
-            ' ' => '&#32;',
-            '`' => '&grave;',
+            "\t" => '&Tab;', // U+0009 CHARACTER TABULATION (tab)
+            "\n" => '&NewLine;', // U+000A LINE FEED (LF)
+            "\u{000c}" => '&#12;', // U+000C FORM FEED (FF)
+            "\u{0000}" => '&#0;', // U+0000 NULL
+            ' ' => '&#32;', // U+0020 SPACE
+            '=' => '&equals;', // U+003D EQUALS SIGN (=)
+            '`' => '&grave;', // U+0060 GRAVE ACCENT (`)
         ]);
     }
 
     /**
      * Encodes special characters in value into HTML entities for use as quoted attribute value of tag.
-     * Encode symbols: &, <, >, ", '.
+     * Encode symbols: &, <, >, ", ', U+0000 (null).
      *
      * @param mixed $value the attribute value to be encoded
      * @param bool $doubleEncode if already encoded entities should be encoded
      * @param string $encoding the encoding to use, defaults to "UTF-8"
      * @return string
+     *
+     * @see https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
+     * @see https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
      */
     public static function encodeQuotedAttribute($value, $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
-        return htmlspecialchars(
+        $value = htmlspecialchars(
             (string)$value,
             ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             $encoding,
             $doubleEncode
         );
+
+        return strtr($value, [
+            "\u{0000}" => '&#0;', // U+0000 NULL
+        ]);
     }
 
     /**
