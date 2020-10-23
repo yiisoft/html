@@ -31,6 +31,11 @@ final class EncodeTest extends TestCase
         $this->assertSame($expected, Html::encodeContent($content));
     }
 
+    public function testEncodeContentPreventDoubleEncode(): void
+    {
+        $this->assertSame('Chip&amp;Dale &gt;', Html::encodeContent('Chip&amp;Dale >', false));
+    }
+
     public function dataEncodeAttribute(): array
     {
         return [
@@ -54,6 +59,11 @@ final class EncodeTest extends TestCase
         $this->assertSame($expected, Html::encodeAttribute($content));
     }
 
+    public function testEncodeAttributePreventDoubleEncode(): void
+    {
+        $this->assertSame('Chip&amp;Dale&#32;&gt;', Html::encodeAttribute('Chip&amp;Dale >', false));
+    }
+
     public function dataEncodeQuotedAttribute(): array
     {
         return [
@@ -75,5 +85,10 @@ final class EncodeTest extends TestCase
     public function testEncodeQuotedAttribute($content, string $expected): void
     {
         $this->assertSame($expected, Html::encodeQuotedAttribute($content));
+    }
+
+    public function testEncodeQuotedAttributePreventDoubleEncode(): void
+    {
+        $this->assertSame('Chip&amp;Dale &gt;', Html::encodeQuotedAttribute('Chip&amp;Dale >', false));
     }
 }

@@ -38,6 +38,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('a&lt;&gt;&amp;&quot;&apos;�', Html::encode("a<>&\"'\x80"));
         $this->assertSame('Sam &amp; Dark', Html::encode('Sam & Dark'));
         $this->assertSame('Test &amp;amp;', Html::encode('Test &amp;'));
+        $this->assertSame('36.6', Html::encode(36.6));
         $this->assertSame('Test &amp;', Html::encode('Test &amp;', false));
     }
 
