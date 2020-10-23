@@ -8,16 +8,70 @@ use Yiisoft\Html\Html;
 
 final class EncodeTest extends TestCase
 {
+    private function dataEncode(string $context): array
+    {
+        $items = [
+            [
+                'value' => "a <>&\"'\x80\u{20bd}`",
+                'result' => [
+                    'content' => "a &lt;&gt;&amp;\"'�₽`",
+                    'attribute' => "a&#32;&lt;&gt;&amp;&quot;&apos;�₽&grave;",
+                    'quotedAttribute' => "a &lt;&gt;&amp;&quot;&apos;�₽`",
+                ],
+            ],
+            [
+                'value' => '<b>test</b>',
+                'result' => [
+                    'content' => '&lt;b&gt;test&lt;/b&gt;',
+                    'attribute' => '&lt;b&gt;test&lt;/b&gt;',
+                    'quotedAttribute' => '&lt;b&gt;test&lt;/b&gt;',
+                ],
+            ],
+            [
+                'value' => '"hello"',
+                'result' => [
+                    'content' => '"hello"',
+                    'attribute' => '&quot;hello&quot;',
+                    'quotedAttribute' => '&quot;hello&quot;',
+                ],
+            ],
+            [
+                'value' => "'hello world'",
+                'result' => [
+                    'content' => "'hello world'",
+                    'attribute' => "&apos;hello&#32;world&apos;",
+                    'quotedAttribute' => "&apos;hello world&apos;",
+                ],
+            ],
+            [
+                'value' => 'Chip&amp;Dale',
+                'result' => [
+                    'content' => 'Chip&amp;amp;Dale',
+                    'attribute' => 'Chip&amp;amp;Dale',
+                    'quotedAttribute' => 'Chip&amp;amp;Dale',
+                ],
+            ],
+            [
+                'value' => 36.6,
+                'result' => [
+                    'content' => '36.6',
+                    'attribute' => '36.6',
+                    'quotedAttribute' => '36.6',
+                ],
+            ],
+        ];
+
+        $result = [];
+        foreach ($items as $item) {
+            $result[] = [$item['value'], $item['result'][$context]];
+        }
+
+        return $result;
+    }
+
     public function dataEncodeContent(): array
     {
-        return [
-            ["a <>&\"'\x80\u{20bd}`", "a &lt;&gt;&amp;\"'�₽`"],
-            ['<b>test</b>', '&lt;b&gt;test&lt;/b&gt;'],
-            ['"hello"', '"hello"'],
-            ["'hello world'", "'hello world'"],
-            ['Chip&amp;Dale', 'Chip&amp;amp;Dale'],
-            [36.6, '36.6'],
-        ];
+        return $this->dataEncode('content');
     }
 
     /**
@@ -38,14 +92,7 @@ final class EncodeTest extends TestCase
 
     public function dataEncodeAttribute(): array
     {
-        return [
-            ["a <>&\"'\x80\u{20bd}`", "a&#32;&lt;&gt;&amp;&quot;&apos;�₽&grave;"],
-            ['<b>test</b>', '&lt;b&gt;test&lt;/b&gt;'],
-            ['"hello"', '&quot;hello&quot;'],
-            ["'hello world'", "&apos;hello&#32;world&apos;"],
-            ['Chip&amp;Dale', 'Chip&amp;amp;Dale'],
-            [36.6, '36.6'],
-        ];
+        return $this->dataEncode('attribute');
     }
 
     /**
@@ -66,14 +113,7 @@ final class EncodeTest extends TestCase
 
     public function dataEncodeQuotedAttribute(): array
     {
-        return [
-            ["a <>&\"'\x80\u{20bd}`", "a &lt;&gt;&amp;&quot;&apos;�₽`"],
-            ['<b>test</b>', '&lt;b&gt;test&lt;/b&gt;'],
-            ['"hello"', '&quot;hello&quot;'],
-            ["'hello world'", "&apos;hello world&apos;"],
-            ['Chip&amp;Dale', 'Chip&amp;amp;Dale'],
-            [36.6, '36.6'],
-        ];
+        return $this->dataEncode('quotedAttribute');
     }
 
     /**
