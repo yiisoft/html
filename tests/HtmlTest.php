@@ -33,20 +33,6 @@ final class HtmlTest extends TestCase
         $this->assertSame('i1241', Html::generateId());
     }
 
-    public function testEncode(): void
-    {
-        $this->assertSame('a&lt;&gt;&amp;&quot;&apos;�', Html::encode("a<>&\"'\x80"));
-        $this->assertSame('Sam &amp; Dark', Html::encode('Sam & Dark'));
-        $this->assertSame('Test &amp;amp;', Html::encode('Test &amp;'));
-        $this->assertSame('36.6', Html::encode(36.6));
-        $this->assertSame('Test &amp;', Html::encode('Test &amp;', false));
-    }
-
-    public function testDecode(): void
-    {
-        $this->assertSame("a<>&\"'", Html::decode('a&lt;&gt;&amp;&quot;&#039;'));
-    }
-
     public function dataEscapeJsStringValue(): array
     {
         return [

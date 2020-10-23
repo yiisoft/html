@@ -111,46 +111,6 @@ final class Html
     }
 
     /**
-     * Encodes special characters into HTML entities.
-     *
-     * @param mixed $content the content to be encoded
-     * @param bool $doubleEncode if already encoded entities should be encoded
-     *
-     * @return string the encoded content
-     *
-     * {@see decode()}
-     * {@see http://www.php.net/manual/en/function.htmlspecialchars.php}
-     *
-     * @deprecated
-     */
-    public static function encode($content, $doubleEncode = true): string
-    {
-        return htmlspecialchars(
-            (string)$content,
-            ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
-            ini_get('default_charset'),
-            $doubleEncode
-        );
-    }
-
-    /**
-     * Decodes special HTML entities back to the corresponding characters. This is the opposite of {@see encode()}.
-     *
-     * @param string $content the content to be decoded
-     *
-     * @return string the decoded content
-     *
-     * {@see encode()}
-     * {@see http://www.php.net/manual/en/function.htmlspecialchars-decode.php}
-     *
-     * @deprecated
-     */
-    public static function decode(string $content): string
-    {
-        return htmlspecialchars_decode($content, ENT_QUOTES);
-    }
-
-    /**
      * Encodes special characters in value into HTML entities for use as tag content.
      * Encode characters: &, <, >.
      *
