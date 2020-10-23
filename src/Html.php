@@ -120,6 +120,8 @@ final class Html
      *
      * {@see decode()}
      * {@see http://www.php.net/manual/en/function.htmlspecialchars.php}
+     *
+     * @deprecated
      */
     public static function encode($content, $doubleEncode = true): string
     {
@@ -140,6 +142,8 @@ final class Html
      *
      * {@see encode()}
      * {@see http://www.php.net/manual/en/function.htmlspecialchars-decode.php}
+     *
+     * @deprecated
      */
     public static function decode(string $content): string
     {
