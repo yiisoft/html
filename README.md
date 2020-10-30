@@ -136,7 +136,7 @@ Overall the helper has the following method groups.
 
 ### Encode and escape special characters
 
-- encodeContent
+- encode
 - encodeAttribute
 - encodeQuotedAttribute
 - escapeJsStringValue

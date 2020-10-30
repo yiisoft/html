@@ -121,7 +121,7 @@ final class Html
      *
      * @see https://html.spec.whatwg.org/#data-state
      */
-    public static function encodeContent($content, $doubleEncode = true, string $encoding = 'UTF-8'): string
+    public static function encode($content, $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
         return htmlspecialchars(
             (string)$content,
@@ -219,7 +219,7 @@ final class Html
      * @param string|bool|null $name the tag name. If $name is `null` or `false`, the corresponding content will be
      * rendered without any tag.
      * @param string $content the content to be enclosed between the start and end tags. It will not be HTML-encoded.
-     * If this is coming from end users, you should consider {@see encodeContent()} it to prevent XSS attacks.
+     * If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
      * @param array $options the HTML tag attributes (HTML options) in terms of name-value pairs. These will be
      * rendered as the attributes of the resulting tag. The values will be HTML-encoded using
      * {@see encodeQuotedAttribute()}. If a value is null, the corresponding attribute will not be rendered.
@@ -422,7 +422,7 @@ final class Html
      * Generates a hyperlink tag.
      *
      * @param string $text link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
-     * tag. If this is coming from end users, you should consider {@see encodeContent()} it to prevent XSS attacks.
+     * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
      * @param array|string|null $url the URL for the hyperlink tag. This parameter will be processed and will be used
      * for the "href" attribute of the tag. If this parameter is null, the "href" attribute will not
      * be generated.
@@ -455,7 +455,7 @@ final class Html
      * Generates a mailto hyperlink.
      *
      * @param string $text link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
-     * tag. If this is coming from end users, you should consider {@see encodeContent()} it to prevent XSS attacks.
+     * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
      * @param string|null $email email address. If this is null, the first parameter (link body) will be treated
      * as the email address and used.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
@@ -512,7 +512,7 @@ final class Html
      * Generates a label tag.
      *
      * @param string $content label text. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an
-     * image tag. If this is is coming from end users, you should {@see encodeContent()} it to prevent XSS attacks.
+     * image tag. If this is is coming from end users, you should {@see encode()} it to prevent XSS attacks.
      * @param string|null $for the ID of the HTML element that this label is associated with.
      * If this is null, the "for" attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
@@ -535,7 +535,7 @@ final class Html
      *
      * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
      * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encodeContent()} it to prevent XSS attacks.
+     * {@see encode()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes
      * the resulting tag. The values will be HTML-encoded using {@see encodeQuotedAttribute()}. If a value is null, the
      * corresponding attribute will not be rendered.
@@ -563,7 +563,7 @@ final class Html
      *
      * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
      * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encodeContent()} it to prevent XSS attacks.
+     * {@see encode()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encodeQuotedAttribute()}. If a value is null,
      * the corresponding attribute will not be rendered.
@@ -585,7 +585,7 @@ final class Html
      *
      * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
      * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encodeContent()} it to prevent XSS attacks.
+     * {@see encode()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encodeQuotedAttribute()}. If a value is null,
      * the corresponding attribute will not be rendered.
@@ -780,7 +780,7 @@ final class Html
      * Generates a text area input.
      *
      * @param string $name the input name
-     * @param string|null $value the input value. Note that it will be encoded using {@see encodeContent()}.
+     * @param string|null $value the input value. Note that it will be encoded using {@see encode()}.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encodeQuotedAttribute()}. If a value is null,
      * the corresponding attribute will not be rendered.
@@ -799,7 +799,7 @@ final class Html
         $options['name'] = $name;
         $doubleEncode = ArrayHelper::remove($options, 'doubleEncode', true);
 
-        return static::tag('textarea', static::encodeContent($value, $doubleEncode), $options);
+        return static::tag('textarea', static::encode($value, $doubleEncode), $options);
     }
 
     /**
@@ -848,7 +848,7 @@ final class Html
      *   a hidden input will be generated so that if the checkbox is not checked and is submitted, the value of this
      *   attribute will still be submitted to the server via the hidden input.
      * - label: string, a label displayed next to the checkbox. It will NOT be HTML-encoded. Therefore you can pass in
-     *   HTML code such as an image tag. If this is is coming from end users, you should {@see encodeContent()}
+     *   HTML code such as an image tag. If this is is coming from end users, you should {@see encode()}
      *   it to prevent XSS attacks.
      *   When this option is specified, the checkbox will be enclosed by a label tag.
      * - labelOptions: array, the HTML attributes for the label tag. Do not set this option unless you set the "label"
@@ -1116,7 +1116,7 @@ final class Html
             } else {
                 $lines[] = static::checkbox($name, $checked, array_merge([
                     'value' => $value,
-                    'label' => $encode ? static::encodeContent($label) : $label,
+                    'label' => $encode ? static::encode($label) : $label,
                 ], $itemOptions));
             }
             $index++;
@@ -1212,7 +1212,7 @@ final class Html
             } else {
                 $lines[] = static::radio($name, $checked, array_merge([
                     'value' => $value,
-                    'label' => $encode ? static::encodeContent($label) : $label,
+                    'label' => $encode ? static::encode($label) : $label,
                 ], $itemOptions));
             }
             $index++;
@@ -1268,7 +1268,7 @@ final class Html
             if ($formatter !== null) {
                 $results[] = $formatter($item, $index);
             } else {
-                $results[] = static::tag('li', $encode ? static::encodeContent($item) : $item, $itemOptions);
+                $results[] = static::tag('li', $encode ? static::encode($item) : $item, $itemOptions);
             }
         }
 
@@ -1352,7 +1352,7 @@ final class Html
                 $promptText = $tagOptions['prompt']['text'];
                 $promptOptions = array_merge($promptOptions, $tagOptions['prompt']['options']);
             }
-            $promptText = $encode ? static::encodeContent($promptText) : $promptText;
+            $promptText = $encode ? static::encode($promptText) : $promptText;
             if ($encodeSpaces) {
                 $promptText = str_replace(' ', '&nbsp;', $promptText);
             }
@@ -1387,7 +1387,7 @@ final class Html
                         ((!is_iterable($selection) && !strcmp((string)$key, $selection))
                             || (is_iterable($selection) && ArrayHelper::isIn((string)$key, $selection)));
                 }
-                $text = $encode ? static::encodeContent($value) : $value;
+                $text = $encode ? static::encode($value) : $value;
                 if ($encodeSpaces) {
                     $text = str_replace(' ', '&nbsp;', $text);
                 }

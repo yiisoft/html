@@ -8,7 +8,7 @@ use Yiisoft\Html\Html;
 
 final class EncodeTest extends TestCase
 {
-    private function dataEncode(string $context): array
+    private function makeData(string $context): array
     {
         $items = [
             [
@@ -77,30 +77,30 @@ final class EncodeTest extends TestCase
         return $result;
     }
 
-    public function dataEncodeContent(): array
+    public function dataEncode(): array
     {
-        return $this->dataEncode('content');
+        return $this->makeData('content');
     }
 
     /**
-     * @dataProvider dataEncodeContent
+     * @dataProvider dataEncode
      *
      * @param mixed $content
      * @param string $expected
      */
-    public function testEncodeContent($content, string $expected): void
+    public function testEncode($content, string $expected): void
     {
-        $this->assertSame($expected, Html::encodeContent($content));
+        $this->assertSame($expected, Html::encode($content));
     }
 
-    public function testEncodeContentPreventDoubleEncode(): void
+    public function testEncodePreventDoubleEncode(): void
     {
-        $this->assertSame('Chip&amp;Dale &gt;', Html::encodeContent('Chip&amp;Dale >', false));
+        $this->assertSame('Chip&amp;Dale &gt;', Html::encode('Chip&amp;Dale >', false));
     }
 
     public function dataEncodeAttribute(): array
     {
-        return $this->dataEncode('attribute');
+        return $this->makeData('attribute');
     }
 
     /**
@@ -121,7 +121,7 @@ final class EncodeTest extends TestCase
 
     public function dataEncodeQuotedAttribute(): array
     {
-        return $this->dataEncode('quotedAttribute');
+        return $this->makeData('quotedAttribute');
     }
 
     /**
