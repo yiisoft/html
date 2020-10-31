@@ -194,8 +194,7 @@ final class Html
     }
 
     /**
-     * Escape special characters in value for use as string value in javascipt into tag script.
-     * For example:
+     * Escape special characters for use as JavaScript string value in a `<script` tag:
      *
      * ```
      * <script type="text/javascript">
@@ -206,7 +205,7 @@ final class Html
      * @param mixed $value
      * @return string
      */
-    public static function escapeJsStringValue($value): string
+    public static function escapeJavaScriptStringValue($value): string
     {
         return strtr((string)$value, [
             '/' => '\/',

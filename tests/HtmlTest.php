@@ -33,7 +33,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('i1241', Html::generateId());
     }
 
-    public function dataEscapeJsStringValue(): array
+    public function dataEscapeJavaScriptStringValue(): array
     {
         return [
             ['</script>', '<\/script>'],
@@ -45,14 +45,14 @@ final class HtmlTest extends TestCase
     }
 
     /**
-     * @dataProvider dataEscapeJsStringValue
+     * @dataProvider dataEscapeJavaScriptStringValue
      *
      * @param mixed $value
      * @param string $expected
      */
-    public function testEscapeJsStringValue($value, string $expected): void
+    public function testEscapeJavaScriptStringValue($value, string $expected): void
     {
-        $this->assertSame($expected, Html::escapeJsStringValue($value));
+        $this->assertSame($expected, Html::escapeJavaScriptStringValue($value));
     }
 
     public function testTag(): void

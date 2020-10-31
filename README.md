@@ -139,7 +139,7 @@ Overall the helper has the following method groups.
 - encode
 - encodeAttribute
 - encodeUnquotedAttribute
-- escapeJsStringValue
+- escapeJavaScriptStringValue
 
 ### Other
 
