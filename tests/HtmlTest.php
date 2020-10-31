@@ -33,17 +33,26 @@ final class HtmlTest extends TestCase
         $this->assertSame('i1241', Html::generateId());
     }
 
-    public function testEncode(): void
+    public function dataEscapeJavaScriptStringValue(): array
     {
-        $this->assertSame('a&lt;&gt;&amp;&quot;&apos;�', Html::encode("a<>&\"'\x80"));
-        $this->assertSame('Sam &amp; Dark', Html::encode('Sam & Dark'));
-        $this->assertSame('Test &amp;amp;', Html::encode('Test &amp;'));
-        $this->assertSame('Test &amp;', Html::encode('Test &amp;', false));
+        return [
+            ['</script>', '<\/script>'],
+            ['"double" quotes', '\"double\" quotes'],
+            ["'single' quotes", "\'single\' quotes"],
+            ['slashes //\\', 'slashes \/\/\\\\'],
+            [36.6, '36.6'],
+        ];
     }
 
-    public function testDecode(): void
+    /**
+     * @dataProvider dataEscapeJavaScriptStringValue
+     *
+     * @param mixed $value
+     * @param string $expected
+     */
+    public function testEscapeJavaScriptStringValue($value, string $expected): void
     {
-        $this->assertSame("a<>&\"'", Html::decode('a&lt;&gt;&amp;&quot;&#039;'));
+        $this->assertSame($expected, Html::escapeJavaScriptStringValue($value));
     }
 
     public function testTag(): void

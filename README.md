@@ -134,10 +134,12 @@ Overall the helper has the following method groups.
 - cssStyleFromArray
 - cssStyleToArray
 
-### Encode and decode special characters
+### Encode and escape special characters
 
 - encode
-- decode
+- encodeAttribute
+- encodeUnquotedAttribute
+- escapeJavaScriptStringValue
 
 ### Other
 
