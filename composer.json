@@ -20,7 +20,7 @@
         "yiisoft/json": "^1.0"
     },
     "require-dev": {
-        "infection/infection": "^0.19.2",
+        "infection/infection": "^0.19.2 || ^0.20.0",
         "phpunit/phpunit": "^9.4",
         "vimeo/psalm": "^4.1"
     },
