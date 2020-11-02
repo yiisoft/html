@@ -21,11 +21,11 @@ jobs:
           - "7.4"
 
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v2"
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: "${{ matrix.php }}"
           ini-values: memory_limit=-1
