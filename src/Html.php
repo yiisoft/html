@@ -1490,16 +1490,15 @@ final class Html
      * var_dump($options['class']); // outputs: array('persistent' => 'initial');
      * ```
      *
-     * @param array|null $options the options to be modified. If the variable with null value is passed, options
-     * array will be created.
+     * @param array $options the options to be modified.
      * @param string|array $class the CSS class(es) to be added
      *
      * {@see mergeCssClasses()}
      * {@see removeCssClass()}
      */
-    public static function addCssClass(?array &$options, $class): void
+    public static function addCssClass(array &$options, $class): void
     {
-        if (isset($options['class'])) {
+        if (array_key_exists('class', $options)) {
             if (is_array($options['class'])) {
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
@@ -1578,8 +1577,7 @@ final class Html
      * Html::addCssStyle($options, 'width: 100px; height: 200px');
      * ```
      *
-     * @param array|null $options the HTML options to be modified. If the variable with null value is passed, options
-     * array will be created.
+     * @param array $options the HTML options to be modified.
      * @param string|array $style the new style string (e.g. `'width: 100px; height: 200px'`) or array
      * (e.g. `['width' => '100px', 'height' => '200px']`).
      * @param bool $overwrite whether to overwrite existing CSS properties if the new style
@@ -1589,7 +1587,7 @@ final class Html
      * {@see cssStyleFromArray()}
      * {@see cssStyleToArray()}
      */
-    public static function addCssStyle(?array &$options, $style, bool $overwrite = true): void
+    public static function addCssStyle(array &$options, $style, bool $overwrite = true): void
     {
         if (!empty($options['style'])) {
             $oldStyle = is_array($options['style']) ? $options['style'] : static::cssStyleToArray($options['style']);
