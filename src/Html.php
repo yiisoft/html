@@ -1498,7 +1498,7 @@ final class Html
      */
     public static function addCssClass(array &$options, $class): void
     {
-        if (array_key_exists('class', $options)) {
+        if (isset($options['class'])) {
             if (is_array($options['class'])) {
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
