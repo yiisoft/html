@@ -15,6 +15,7 @@ The package provides `Html` helper that has static methods to generate HTML.
 [![Code Coverage](https://scrutinizer-ci.com/g/yiisoft/html/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/yiisoft/html/?branch=master)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fyiisoft%2Fhtml%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/yiisoft/html/master)
 [![static analysis](https://github.com/yiisoft/html/workflows/static%20analysis/badge.svg)](https://github.com/yiisoft/html/actions?query=workflow%3A%22static+analysis%22)
+[![type-coverage](https://shepherd.dev/github/yiisoft/profiler/coverage.svg)](https://shepherd.dev/github/yiisoft/profiler)
 
 ## Requirements
 
