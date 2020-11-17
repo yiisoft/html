@@ -833,6 +833,21 @@ EOD;
         ));
     }
 
+    public function testDiv(): void
+    {
+        $this->assertSame('<div class="red">hello</div>', Html::div('hello', ['class' => 'red']));
+    }
+
+    public function testSpan(): void
+    {
+        $this->assertSame('<span class="red">hello</span>', Html::span('hello', ['class' => 'red']));
+    }
+
+    public function testP(): void
+    {
+        $this->assertSame('<p class="red">hello</p>', Html::p('hello', ['class' => 'red']));
+    }
+
     public function testUl(): void
     {
         $data = [1, 'abc', '<>'];
