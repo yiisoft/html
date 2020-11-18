@@ -1225,6 +1225,48 @@ final class Html
     }
 
     /**
+     * Generates a div tag. Based on {@see Html::tag()}.
+     *
+     * @param string $content
+     * @param array $options
+     * @return string
+     *
+     * @throws JsonException
+     */
+    public static function div(string $content = '', array $options = []): string
+    {
+        return static::tag('div', $content, $options);
+    }
+
+    /**
+     * Generates a span tag. Based on {@see Html::tag()}.
+     *
+     * @param string $content
+     * @param array $options
+     * @return string
+     *
+     * @throws JsonException
+     */
+    public static function span(string $content = '', array $options = []): string
+    {
+        return static::tag('span', $content, $options);
+    }
+
+    /**
+     * Generates a paragraph tag. Based on {@see Html::tag()}.
+     *
+     * @param string $content
+     * @param array $options
+     * @return string
+     *
+     * @throws JsonException
+     */
+    public static function p(string $content = '', array $options = []): string
+    {
+        return static::tag('p', $content, $options);
+    }
+
+    /**
      * Generates an unordered list.
      *
      * @param array|Traversable $items the items for generating the list. Each item generates a single list item. Note

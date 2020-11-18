@@ -86,6 +86,9 @@ Overall the helper has the following method groups.
 
 ### Generating base tags
 
+- div
+- span
+- p
 - ul
 - ol
 - img
