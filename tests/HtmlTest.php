@@ -11,13 +11,14 @@ final class HtmlTest extends TestCase
 {
     /**
      * Use different values in different tests
+     *
      * @var mixed
      */
     public static $hrtimeResult;
 
     protected function setUp(): void
     {
-        static::$hrtimeResult = null;
+        self::$hrtimeResult = null;
         parent::setUp();
     }
 
@@ -26,10 +27,10 @@ final class HtmlTest extends TestCase
         $this->assertMatchesRegularExpression('/i\d+/', Html::generateId());
         $this->assertMatchesRegularExpression('/test\d+/', Html::generateId('test'));
 
-        static::$hrtimeResult = 123;
+        self::$hrtimeResult = 123;
         $this->assertSame('i1231', Html::generateId());
         $this->assertSame('i1232', Html::generateId());
-        static::$hrtimeResult = 124;
+        self::$hrtimeResult = 124;
         $this->assertSame('i1241', Html::generateId());
     }
 
@@ -223,6 +224,7 @@ final class HtmlTest extends TestCase
 
     /**
      * @dataProvider imgDataProvider
+     *
      * @param string $expected
      * @param string $src
      * @param array $options
@@ -341,6 +343,7 @@ final class HtmlTest extends TestCase
 
     /**
      * @dataProvider textareaDataProvider
+     *
      * @param string $expected
      * @param string $name
      * @param string $value
@@ -358,12 +361,12 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="hidden" name="test" value="0"><input type="radio" class="a" name="test" value="2" checked>', Html::radio('test', true, [
             'class' => 'a',
             'uncheck' => '0',
-            'value' => 2
+            'value' => 2,
         ]));
         $this->assertSame('<input type="hidden" name="test" value="0" disabled><input type="radio" name="test" value="2" disabled>', Html::radio('test', false, [
             'disabled' => true,
             'uncheck' => '0',
-            'value' => 2
+            'value' => 2,
         ]));
 
         $this->assertSame('<label class="bbb"><input type="radio" class="a" name="test" checked> ccc</label>', Html::radio('test', true, [
@@ -389,7 +392,7 @@ final class HtmlTest extends TestCase
             ])
         );
 
-        static::$hrtimeResult = 42;
+        self::$hrtimeResult = 42;
         $this->assertSame(
             '<input type="radio" id="i421" name="test" checked> <label for="i421">Use this</label>',
             Html::radio('test', true, [
@@ -407,12 +410,12 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="hidden" name="test" value="0"><input type="checkbox" class="a" name="test" value="2" checked>', Html::checkbox('test', true, [
             'class' => 'a',
             'uncheck' => '0',
-            'value' => 2
+            'value' => 2,
         ]));
         $this->assertSame('<input type="hidden" name="test" value="0" disabled><input type="checkbox" name="test" value="2" disabled>', Html::checkbox('test', false, [
             'disabled' => true,
             'uncheck' => '0',
-            'value' => 2
+            'value' => 2,
         ]));
 
         $this->assertSame('<label class="bbb"><input type="checkbox" class="a" name="test" checked> ccc</label>', Html::checkbox('test', true, [
@@ -445,7 +448,7 @@ final class HtmlTest extends TestCase
             ])
         );
 
-        static::$hrtimeResult = 49;
+        self::$hrtimeResult = 49;
         $this->assertSame(
             '<input type="checkbox" id="i491" name="test"> <label for="i491">Use this</label>',
             Html::checkbox('test', false, [
