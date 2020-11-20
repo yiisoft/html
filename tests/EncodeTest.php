@@ -15,7 +15,7 @@ final class EncodeTest extends TestCase
                 'value' => "a \t=<>&\"'\x80\u{20bd}`\u{000a}\u{000c}\u{0000}",
                 'result' => [
                     'content' => "a \t=&lt;&gt;&amp;\"'�₽`\n\u{000c}\u{0000}",
-                    'attribute' => "a&#32;&Tab;&equals;&lt;&gt;&amp;&quot;&apos;�₽&grave;&NewLine;&#12;&#0;",
+                    'attribute' => 'a&#32;&Tab;&equals;&lt;&gt;&amp;&quot;&apos;�₽&grave;&NewLine;&#12;&#0;',
                     'quotedAttribute' => "a \t=&lt;&gt;&amp;&quot;&apos;�₽`\n\u{000c}&#0;",
                 ],
             ],
@@ -39,8 +39,8 @@ final class EncodeTest extends TestCase
                 'value' => "'hello world'",
                 'result' => [
                     'content' => "'hello world'",
-                    'attribute' => "&apos;hello&#32;world&apos;",
-                    'quotedAttribute' => "&apos;hello world&apos;",
+                    'attribute' => '&apos;hello&#32;world&apos;',
+                    'quotedAttribute' => '&apos;hello world&apos;',
                 ],
             ],
             [
