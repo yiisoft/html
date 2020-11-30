@@ -1015,6 +1015,17 @@ EOD;
             ],
         ];
         $this->assertSameWithoutLE($expected, Html::renderSelectOptions(1, $data, $attributes));
+
+        $expected = <<<'EOD'
+<option value="encode">1</option>
+<option value="encodeSpaces">2</option>
+EOD;
+        $data = ['encode' => 1, 'encodeSpaces' => 2];
+        $attributes = [
+            'encode' => true,
+            'encodeSpaces' => false,
+        ];
+        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(null, $data, $attributes));
     }
 
     public function testRenderAttributes(): void
