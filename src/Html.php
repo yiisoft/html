@@ -1417,8 +1417,6 @@ final class Html
         $options = $tagOptions['options'] ?? [];
         $groups = $tagOptions['groups'] ?? [];
         unset($tagOptions['prompt'], $tagOptions['options'], $tagOptions['groups']);
-        $options['encodeSpaces'] = ArrayHelper::getValue($options, 'encodeSpaces', $encodeSpaces);
-        $options['encode'] = ArrayHelper::getValue($options, 'encode', $encode);
 
         foreach ($items as $key => $value) {
             if (is_array($value)) {
