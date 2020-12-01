@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
+use Closure;
 use function in_array;
 use InvalidArgumentException;
 use function is_array;
@@ -21,6 +22,28 @@ use Yiisoft\Json\Json;
  * Nearly all of the methods in this class allow setting additional HTML attributes for the HTML tags they generate.
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
+ *
+ * @psalm-type HtmlOptions = array<string, mixed>&array{
+ *   id?: string|null,
+ *   class?: string[]|string|null,
+ *   style?: array<string, string>|string|null,
+ * }
+ * @psalm-type ListHtmlOptions = HtmlOptions&array{
+ *   tag?: string,
+ *   encode?: bool,
+ *   item?: Closure|null,
+ *   separator?: string,
+ *   itemOptions: HtmlOptions,
+ * }
+ * @psalm-type InputHtmlOptions = HtmlOptions&array {
+ *   value?: string|null,
+ * }
+ * @psalm-type ListBoxHtmlOptions = HtmlOptions&array{
+ *   size?: int,
+ *   multiple?: bool,
+ *   unselect?: bool,
+ *   disabled?: bool,
+ * }
  */
 final class Html
 {
@@ -91,6 +114,9 @@ final class Html
      */
     private const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng', 'aria'];
 
+    /**
+     * @var array<string, int>
+     */
     private static array $generateIdCounter = [];
 
     /**
@@ -237,12 +263,14 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param HtmlOptions|array<empty, empty> $options
+     *
      * @throws JsonException
      *
-     * {@see beginTag()}
-     * {@see endTag()}
-     *
      * @return string the generated HTML tag
+     *
+     * @see beginTag()
+     * @see endTag()
      */
     public static function tag($name, string $content = '', array $options = []): string
     {
@@ -353,6 +381,11 @@ final class Html
      * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute
      * will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
+     * @psalm-param HtmlOptions&array{
+     *   condition?: string|null,
+     *   noscript?: bool,
+     * } $options
      *
      * @throws JsonException
      *
@@ -491,6 +524,10 @@ final class Html
      *
      * It is possible to pass the `srcset` option as an array which keys are descriptors and
      * values are URLs. All URLs will be processed.
+     *
+     * @psalm-param HtmlOptions&array{
+     *   srcset?: string[]|string|null,
+     * }|array<empty, empty> $options
      *
      * @throws JsonException
      *
@@ -798,6 +835,10 @@ final class Html
      * - `doubleEncode`: whether to double encode HTML entities in `$value`. If `false`, HTML entities in `$value` will
      *   not be further encoded.
      *
+     * @psalm-param HtmlOptions&array{
+     *   doubleEncode?: bool,
+     * }|array<empty, empty> $options
+     *
      * @throws JsonException
      *
      * @return string the generated text area tag
@@ -805,6 +846,8 @@ final class Html
     public static function textarea(string $name, ?string $value = '', array $options = []): string
     {
         $options['name'] = $name;
+
+        /** @var bool $doubleEncode */
         $doubleEncode = ArrayHelper::remove($options, 'doubleEncode', true);
 
         return self::tag('textarea', self::encode($value, $doubleEncode), $options);
@@ -870,6 +913,15 @@ final class Html
      * rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param InputHtmlOptions&array{
+     *   label?: string|null,
+     *   labelOptions?: HtmlOptions|null,
+     *   wrapInput?: bool,
+     *   uncheck?: bool|callable|float|int|string|null,
+     *   form?: string|null,
+     *   disabled?: bool,
+     * } $options
+     *
      * @throws JsonException
      *
      * @return string the generated checkbox tag
@@ -923,7 +975,7 @@ final class Html
      * Generates a drop-down list.
      *
      * @param string $name the input name
-     * @param array|string|null $selection the selected value(s). String for single or array for multiple selection(s).
+     * @param iterable|string|null $selection the selected value(s). String for single or array for multiple selection(s).
      * @param array $items the option data items. The array keys are option values, and the array values are the
      * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
      * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
@@ -961,6 +1013,9 @@ final class Html
      * using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param iterable<array-key, string>|string|null $selection
+     * @psalm-param ListBoxHtmlOptions|array<empty, empty> $options
+     *
      * @throws JsonException
      *
      * @return string the generated drop-down list tag
@@ -984,7 +1039,8 @@ final class Html
      * Generates a list box.
      *
      * @param string $name the input name
-     * @param array|string|null $selection the selected value(s). String for single or array for multiple selection(s).
+     * @param iterable|string|null $selection the selected value(s). String for single or array for multiple
+     * selection(s).
      * @param array $items the option data items. The array keys are option values, and the array values are the
      * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
      * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
@@ -1024,6 +1080,9 @@ final class Html
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will be HTML-encoded
      * using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
+     * @psalm-param iterable<array-key, string>|string|null $selection
+     * @psalm-param ListBoxHtmlOptions|array<empty, empty> $options
      *
      * @throws JsonException
      *
@@ -1094,6 +1153,14 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param HtmlOptions&array{
+     *   item?: Closure|null,
+     *   itemOptions?: HtmlOptions|null,
+     *   encode?: bool,
+     *   separator?: string|null,
+     *   tag?: string|null,
+     * }|array<empty, empty> $options
+     *
      * @throws JsonException
      *
      * @return string the generated checkbox list
@@ -1108,10 +1175,19 @@ final class Html
             $selection = (string)$selection;
         }
 
+        /** @var Closure|null $formatter */
         $formatter = ArrayHelper::remove($options, 'item');
+
+        /** @psalm-var HtmlOptions $itemOptions */
         $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
+
+        /** @var bool $encode */
         $encode = ArrayHelper::remove($options, 'encode', true);
+
+        /** @var string $separator */
         $separator = ArrayHelper::remove($options, 'separator', "\n");
+
+        /** @var string $tag */
         $tag = ArrayHelper::remove($options, 'tag', 'div');
 
         $lines = [];
@@ -1302,17 +1378,29 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param ListHtmlOptions $options
+     *
      * @throws JsonException
      *
      * @return string the generated unordered list. An empty list tag will be returned if `$items` is empty.
      */
     public static function ul($items, array $options = []): string
     {
+        /** @var string $tag */
         $tag = ArrayHelper::remove($options, 'tag', 'ul');
+
+        /** @var bool $encode */
         $encode = ArrayHelper::remove($options, 'encode', true);
+
+        /** @var Closure|null $formatter */
         $formatter = ArrayHelper::remove($options, 'item');
+
+        /** @var string $separator */
         $separator = ArrayHelper::remove($options, 'separator', "\n");
+
+        /** @psalm-var HtmlOptions $itemOptions */
         $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
+
 
         if (empty($items)) {
             return self::tag($tag, '', $options);
@@ -1357,6 +1445,8 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param ListHtmlOptions $options
+     *
      * @throws JsonException
      *
      * @return string the generated ordered list. An empty string is returned if `$items` is empty.
@@ -1371,7 +1461,8 @@ final class Html
     /**
      * Renders the option tags that can be used by {@see dropDownList()} and {@see listBox()}.
      *
-     * @param array|string|null $selection the selected value(s). String for single or array for multiple selection(s).
+     * @param iterable|string|null $selection the selected value(s). String for single or array
+     * for multiple selection(s).
      * @param array $items the option data items. The array keys are option values, and the array values are the
      * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
      * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
@@ -1383,6 +1474,9 @@ final class Html
      * @param array $tagOptions the $options parameter that is passed to the {@see dropDownList()} or {@see listBox()}
      * call. This method will take out these elements, if any: "prompt", "options" and "groups". See more details in
      * {@see dropDownList()} for the explanation of these elements.
+     *
+     * @psalm-param array<array-key, array|string> $items
+     * @psalm-param iterable<array-key, string>|string|null $selection
      *
      * @throws JsonException
      *
@@ -1472,13 +1566,15 @@ final class Html
      * @param array $attributes attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encodeAttribute()}.
      *
-     * @throws JsonException
+     * @psalm-param HtmlOptions $attributes
      *
-     * {@see addCssClass()}
+     * @throws JsonException
      *
      * @return string the rendering result. If the attributes are not empty, they will be rendered into a string
      * with a leading white space (so that it can be directly appended to the tag name in a tag. If there is no
      * attribute, an empty string will be returned.
+     *
+     * @see addCssClass()
      */
     public static function renderTagAttributes(array $attributes): string
     {
@@ -1542,10 +1638,12 @@ final class Html
      * ```
      *
      * @param array $options the options to be modified.
-     * @param array|string $class the CSS class(es) to be added
+     * @param string[]|string $class the CSS class(es) to be added
      *
-     * {@see mergeCssClasses()}
-     * {@see removeCssClass()}
+     * @psalm-param HtmlOptions $options
+     *
+     * @see mergeCssClasses()
+     * @see removeCssClass()
      */
     public static function addCssClass(array &$options, $class): void
     {
@@ -1566,12 +1664,12 @@ final class Html
      *
      * This method provides the priority for named existing classes over additional.
      *
-     * @param array $existingClasses already existing CSS classes.
-     * @param array $additionalClasses CSS classes to be added.
+     * @param string[] $existingClasses already existing CSS classes.
+     * @param string[] $additionalClasses CSS classes to be added.
      *
-     * @return array merge result.
+     * @return string[] merge result.
      *
-     * {@see addCssClass()}
+     * @see addCssClass()
      */
     private static function mergeCssClasses(array $existingClasses, array $additionalClasses): array
     {
@@ -1590,9 +1688,9 @@ final class Html
      * Removes a CSS class from the specified options.
      *
      * @param array $options the options to be modified.
-     * @param array|string $class the CSS class(es) to be removed
+     * @param string[]|string $class the CSS class(es) to be removed
      *
-     * {@see addCssClass()}
+     * @see addCssClass()
      */
     public static function removeCssClass(array &$options, $class): void
     {
@@ -1630,14 +1728,16 @@ final class Html
      * ```
      *
      * @param array $options the HTML options to be modified.
-     * @param array|string $style the new style string (e.g. `'width: 100px; height: 200px'`) or array
+     * @param array<string, string>|string $style the new style string (e.g. `'width: 100px; height: 200px'`) or array
      * (e.g. `['width' => '100px', 'height' => '200px']`).
      * @param bool $overwrite whether to overwrite existing CSS properties if the new style
      * contain them too.
      *
-     * {@see removeCssStyle()}
-     * {@see cssStyleFromArray()}
-     * {@see cssStyleToArray()}
+     * @psalm-param HtmlOptions $options
+     *
+     * @see removeCssStyle()
+     * @see cssStyleFromArray()
+     * @see cssStyleToArray()
      */
     public static function addCssStyle(array &$options, $style, bool $overwrite = true): void
     {
@@ -1666,10 +1766,12 @@ final class Html
      * ```
      *
      * @param array $options the HTML options to be modified.
-     * @param array|string $properties the CSS properties to be removed. You may use a string if you are removing a
+     * @param string[]|string $properties the CSS properties to be removed. You may use a string if you are removing a
      * single property.
      *
-     * {@see addCssStyle()}
+     * @psalm-param HtmlOptions $options
+     *
+     * @see addCssStyle()
      */
     public static function removeCssStyle(array &$options, $properties): void
     {
@@ -1692,8 +1794,8 @@ final class Html
      * // will display: 'width: 100px; height: 200px;'
      * ```
      *
-     * @param array $style the CSS style array. The array keys are the CSS property names, and the array values are the
-     * corresponding CSS property values.
+     * @param array<string, string> $style the CSS style array. The array keys are the CSS property names,
+     * and the array values are the corresponding CSS property values.
      *
      * @return string|null the CSS style string. If the CSS style is empty, a null will be returned.
      */
@@ -1722,7 +1824,7 @@ final class Html
      *
      * @param string $style the CSS style string
      *
-     * @return array the array representation of the CSS style
+     * @return array<string, string> the array representation of the CSS style
      */
     public static function cssStyleToArray(string $style): array
     {
