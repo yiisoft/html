@@ -1030,7 +1030,7 @@ final class Html
 
         unset($options['unselect']);
 
-        $selectOptions = self::renderSelectOptions($selection, $items, $options);
+        $selectOptions = self::renderSelectOptionTags($selection, $items, $options);
 
         return self::tag('select', "\n" . $selectOptions . "\n", $options);
     }
@@ -1114,7 +1114,7 @@ final class Html
             $hidden = '';
         }
 
-        $selectOptions = self::renderSelectOptions($selection, $items, $options);
+        $selectOptions = self::renderSelectOptionTags($selection, $items, $options);
 
         return $hidden . self::tag('select', "\n" . $selectOptions . "\n", $options);
     }
@@ -1482,7 +1482,12 @@ final class Html
      *
      * @return string the generated list options
      */
-    public static function renderSelectOptions($selection, array $items, array &$tagOptions = []): string
+    public static function renderSelectOptions($selection, array $items, array $tagOptions = []): string
+    {
+        return static::renderSelectOptionTags($selection, $items, $tagOptions);
+    }
+
+    private static function renderSelectOptionTags($selection, array $items, array &$tagOptions): string
     {
         if (is_iterable($selection)) {
             $selection = array_map('strval', (array)$selection);
@@ -1524,7 +1529,7 @@ final class Html
                     'encodeSpaces' => $encodeSpaces,
                     'encode' => $encode,
                 ];
-                $content = self::renderSelectOptions($selection, $value, $attrs);
+                $content = self::renderSelectOptionTags($selection, $value, $attrs);
                 $lines[] = self::tag('optgroup', "\n" . $content . "\n", $groupAttrs);
             } else {
                 $attrs = $options[$key] ?? [];
