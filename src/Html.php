@@ -31,17 +31,25 @@ use Yiisoft\Json\Json;
  * @psalm-type ListHtmlOptions = HtmlOptions&array{
  *   tag?: string,
  *   encode?: bool,
- *   item?: Closure|null,
+ *   item?: Closure(string, array-key):string|null,
  *   separator?: string,
  *   itemOptions: HtmlOptions,
  * }
  * @psalm-type InputHtmlOptions = HtmlOptions&array {
- *   value?: string|null,
+ *   value?: string|int|float|\Stringable|bool|null,
+ *   disabled?: bool,
+ * }
+ * @psalm-type BooleanInputHtmlOptions = InputHtmlOptions&array{
+ *   label?: string|null,
+ *   labelOptions?: HtmlOptions|null,
+ *   wrapInput?: bool,
+ *   uncheck?: string|int|float|\Stringable|bool|null,
+ *   form?: string|null,
  * }
  * @psalm-type ListBoxHtmlOptions = HtmlOptions&array{
  *   size?: int,
  *   multiple?: bool,
- *   unselect?: bool,
+ *   unselect?: string|int|float|\Stringable|bool|null,
  *   disabled?: bool,
  * }
  */
@@ -426,6 +434,10 @@ final class Html
      * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute will
      * not be rendered. See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param HtmlOptions&array{
+     *   condition?: string|null,
+     * } $options
+     *
      * @throws JsonException
      *
      * @return string the generated script tag.
@@ -651,12 +663,15 @@ final class Html
      *
      * @param string $type the type attribute.
      * @param string|null $name the name attribute. If it is null, the name attribute will not be generated.
-     * @param bool|callable|float|int|string|null $value the value attribute. If it is null, the value attribute will
+     * @param bool|float|int|string|null $value the value attribute. If it is null, the value attribute will
      * not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
+     * @psalm-param string|int|float|\Stringable|bool|null $value
+     * @psalm-param InputHtmlOptions $options
      *
      * @throws JsonException
      *
@@ -750,6 +765,8 @@ final class Html
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param InputHtmlOptions $options
+     *
      * @throws JsonException
      *
      * @return string the generated text input tag
@@ -763,12 +780,15 @@ final class Html
      * Generates a hidden input field.
      *
      * @param string $name the name attribute.
-     * @param bool|callable|float|int|string|null $value the value attribute.
+     * @param bool|float|int|string|null $value the value attribute.
      * If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as the attributes of
      * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
      * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
+     * @psalm-param string|int|float|\Stringable|bool|null $value
+     * @psalm-param InputHtmlOptions $options
      *
      * @throws JsonException
      *
@@ -788,6 +808,8 @@ final class Html
      * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
      * the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
+     * @psalm-param InputHtmlOptions $options
      *
      * @throws JsonException
      *
@@ -811,6 +833,8 @@ final class Html
      * the attributes of the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     *
+     * @psalm-param InputHtmlOptions $options
      *
      * @throws JsonException
      *
@@ -861,6 +885,8 @@ final class Html
      * @param array $options the tag options in terms of name-value pairs.
      * See {@see booleanInput()} for details about accepted attributes.
      *
+     * @psalm-param BooleanInputHtmlOptions $options
+     *
      * @throws JsonException
      *
      * @return string the generated radio button tag
@@ -877,6 +903,8 @@ final class Html
      * @param bool $checked whether the checkbox should be checked.
      * @param array $options the tag options in terms of name-value pairs.
      * See {@see booleanInput()} for details about accepted attributes.
+     *
+     * @psalm-param BooleanInputHtmlOptions $options
      *
      * @throws JsonException
      *
@@ -913,14 +941,7 @@ final class Html
      * rendered.
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
-     * @psalm-param InputHtmlOptions&array{
-     *   label?: string|null,
-     *   labelOptions?: HtmlOptions|null,
-     *   wrapInput?: bool,
-     *   uncheck?: bool|callable|float|int|string|null,
-     *   form?: string|null,
-     *   disabled?: bool,
-     * } $options
+     * @psalm-param BooleanInputHtmlOptions $options
      *
      * @throws JsonException
      *
@@ -1014,6 +1035,7 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @psalm-param iterable<array-key, string>|string|null $selection
+     * @psalm-param array<array-key, array|string> $items
      * @psalm-param ListBoxHtmlOptions|array<empty, empty> $options
      *
      * @throws JsonException
@@ -1082,6 +1104,7 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @psalm-param iterable<array-key, string>|string|null $selection
+     * @psalm-param array<array-key, array|string> $items
      * @psalm-param ListBoxHtmlOptions|array<empty, empty> $options
      *
      * @throws JsonException
@@ -1153,12 +1176,15 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
-     * @psalm-param HtmlOptions&array{
-     *   item?: Closure|null,
+     * @psalm-param iterable<array-key, string>|string|int|float|\Stringable|bool|null $selection
+     * @psalm-param array<array-key, string> $items
+     * @psalm-param InputHtmlOptions&array{
+     *   item?: Closure(int, string, string, bool, mixed):string|null,
      *   itemOptions?: HtmlOptions|null,
      *   encode?: bool,
      *   separator?: string|null,
      *   tag?: string|null,
+     *   unselect?: string|int|float|\Stringable|bool|null,
      * }|array<empty, empty> $options
      *
      * @throws JsonException
@@ -1175,7 +1201,7 @@ final class Html
             $selection = (string)$selection;
         }
 
-        /** @var Closure|null $formatter */
+        /** @var Closure(int, string, string, bool, mixed):string|null $formatter */
         $formatter = ArrayHelper::remove($options, 'item');
 
         /** @psalm-var HtmlOptions $itemOptions */
@@ -1189,6 +1215,8 @@ final class Html
 
         /** @var string $tag */
         $tag = ArrayHelper::remove($options, 'tag', 'div');
+
+        /** @psalm-var InputHtmlOptions&array{unselect?: string|int|float|\Stringable|bool|null} $options */
 
         $lines = [];
         $index = 0;
@@ -1257,6 +1285,17 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param iterable<array-key, string>|string|int|float|\Stringable|bool|null $selection
+     * @psalm-param array<array-key, string> $items
+     * @psalm-param InputHtmlOptions&array{
+     *   item?: Closure(int, string, string, bool, mixed):string|null,
+     *   itemOptions?: HtmlOptions|null,
+     *   encode?: bool,
+     *   separator?: string|null,
+     *   tag?: string|null,
+     *   unselect?: string|int|float|\Stringable|bool|null,
+     * }|array<empty, empty> $options
+     *
      * @throws JsonException
      *
      * @return string the generated radio button list
@@ -1269,11 +1308,22 @@ final class Html
             $selection = (string)$selection;
         }
 
+        /** @var Closure(int, string, string, bool, mixed):string|null $formatter */
         $formatter = ArrayHelper::remove($options, 'item');
+
+        /** @psalm-var HtmlOptions $itemOptions */
         $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
+
+        /** @var bool $encode */
         $encode = ArrayHelper::remove($options, 'encode', true);
+
+        /** @var string $separator */
         $separator = ArrayHelper::remove($options, 'separator', "\n");
+
+        /** @var string $tag */
         $tag = ArrayHelper::remove($options, 'tag', 'div');
+
+        /** @psalm-var InputHtmlOptions&array{unselect?: string|int|float|\Stringable|bool|null} $options */
 
         $hidden = '';
         if (isset($options['unselect'])) {
@@ -1378,6 +1428,7 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param array<array-key, string> $items
      * @psalm-param ListHtmlOptions $options
      *
      * @throws JsonException
@@ -1392,7 +1443,7 @@ final class Html
         /** @var bool $encode */
         $encode = ArrayHelper::remove($options, 'encode', true);
 
-        /** @var Closure|null $formatter */
+        /** @var Closure(string, array-key):string|null $formatter */
         $formatter = ArrayHelper::remove($options, 'item');
 
         /** @var string $separator */
@@ -1445,6 +1496,7 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
+     * @psalm-param array<array-key, string> $items
      * @psalm-param ListHtmlOptions $options
      *
      * @throws JsonException
@@ -1475,8 +1527,8 @@ final class Html
      * call. This method will take out these elements, if any: "prompt", "options" and "groups". See more details in
      * {@see dropDownList()} for the explanation of these elements.
      *
-     * @psalm-param array<array-key, array|string> $items
      * @psalm-param iterable<array-key, string>|string|null $selection
+     * @psalm-param array<array-key, array|string> $items
      *
      * @throws JsonException
      *
@@ -1487,6 +1539,18 @@ final class Html
         return static::renderSelectOptionTags($selection, $items, $tagOptions);
     }
 
+    /**
+     * @param $selection
+     * @param array $items
+     * @param array $tagOptions
+     *
+     * @psalm-param iterable<array-key, string>|string|int|float|\Stringable|bool|null $selection
+     * @psalm-param array<array-key, array|string> $items
+     *
+     * @return string
+     *
+     * @throws JsonException
+     */
     private static function renderSelectOptionTags($selection, array $items, array &$tagOptions): string
     {
         if (is_iterable($selection)) {
@@ -1495,9 +1559,13 @@ final class Html
             $selection = (string)$selection;
         }
 
-        $lines = [];
+        /** @var bool $encodeSpaces */
         $encodeSpaces = ArrayHelper::remove($tagOptions, 'encodeSpaces', false);
+
+        /** @var bool $encode */
         $encode = ArrayHelper::remove($tagOptions, 'encode', true);
+
+        $lines = [];
         if (isset($tagOptions['prompt'])) {
             $promptOptions = ['value' => ''];
             if (is_string($tagOptions['prompt'])) {
@@ -1571,7 +1639,7 @@ final class Html
      * @param array $attributes attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encodeAttribute()}.
      *
-     * @psalm-param HtmlOptions $attributes
+     * @psalm-param HtmlOptions|array<empty, empty> $attributes
      *
      * @throws JsonException
      *
@@ -1601,6 +1669,7 @@ final class Html
                 }
             } elseif (is_array($value)) {
                 if (in_array($name, self::DATA_ATTRIBUTES, true)) {
+                    /** @psalm-var array<array-key, array|string|\Stringable|null> $value */
                     foreach ($value as $n => $v) {
                         if (is_array($v)) {
                             $html .= " $name-$n='" . Json::htmlEncode($v) . "'";
@@ -1617,6 +1686,7 @@ final class Html
                     if (empty($value)) {
                         continue;
                     }
+                    /** @psalm-var array<string, string> $value */
                     $html .= " $name=\"" . self::encodeAttribute(self::cssStyleFromArray($value)) . '"';
                 } else {
                     $html .= " $name='" . Json::htmlEncode($value) . "'";
