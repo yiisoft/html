@@ -1536,7 +1536,7 @@ final class Html
      */
     public static function renderSelectOptions($selection, array $items, array $tagOptions = []): string
     {
-        return static::renderSelectOptionTags($selection, $items, $tagOptions);
+        return self::renderSelectOptionTags($selection, $items, $tagOptions);
     }
 
     /**
@@ -1547,9 +1547,9 @@ final class Html
      * @psalm-param iterable<array-key, string>|string|int|float|\Stringable|bool|null $selection
      * @psalm-param array<array-key, array|string> $items
      *
-     * @return string
-     *
      * @throws JsonException
+     *
+     * @return string
      */
     private static function renderSelectOptionTags($selection, array $items, array &$tagOptions): string
     {
@@ -1763,7 +1763,7 @@ final class Html
      * Removes a CSS class from the specified options.
      *
      * @param array $options the options to be modified.
-     * @param string[]|string $class the CSS class(es) to be removed
+     * @param string|string[] $class the CSS class(es) to be removed
      *
      * @see addCssClass()
      */
@@ -1841,7 +1841,7 @@ final class Html
      * ```
      *
      * @param array $options the HTML options to be modified.
-     * @param string[]|string $properties the CSS properties to be removed. You may use a string if you are removing a
+     * @param string|string[] $properties the CSS properties to be removed. You may use a string if you are removing a
      * single property.
      *
      * @psalm-param HtmlOptions $options
