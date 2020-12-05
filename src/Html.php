@@ -1713,7 +1713,7 @@ final class Html
      * ```
      *
      * @param array $options the options to be modified.
-     * @param string[]|string $class the CSS class(es) to be added
+     * @param string|string[] $class the CSS class(es) to be added
      *
      * @psalm-param HtmlOptions $options
      *
