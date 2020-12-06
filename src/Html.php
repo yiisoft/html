@@ -1865,8 +1865,8 @@ final class Html
      * For example,
      *
      * ```php
-     * print_r(Html::cssStyleFromArray(['width' => '100px', 'height' => '200px']));
-     * // will display: 'width: 100px; height: 200px;'
+     * // width: 100px; height: 200px;
+     * Html::cssStyleFromArray(['width' => '100px', 'height' => '200px']);
      * ```
      *
      * @param array<string, string> $style the CSS style array. The array keys are the CSS property names,
@@ -1893,8 +1893,8 @@ final class Html
      * For example,
      *
      * ```php
-     * print_r(Html::cssStyleToArray('width: 100px; height: 200px;'));
-     * // will display: ['width' => '100px', 'height' => '200px']
+     * // ['width' => '100px', 'height' => '200px']
+     * Html::cssStyleToArray('width: 100px; height: 200px;');
      * ```
      *
      * @param string $style the CSS style string
