@@ -1149,7 +1149,8 @@ final class Html
      * is an array.
      *
      * @param string $name the name attribute of each checkbox.
-     * @param array|string|null $selection the selected value(s). String for single or array for multiple selection(s).
+     * @param array|Traversable|string|int|float|bool|null $selection the selected value(s). String for single or array
+     * for multiple selection(s).
      * @param array $items the data item used to generate the checkboxes. The array keys are the checkbox values, while
      * the array values are the corresponding labels.
      * @param array $options options (name => config) for the checkbox list container tag. The following options are
@@ -1176,7 +1177,7 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
-     * @psalm-param iterable<array-key, string>|string|int|float|\Stringable|bool|null $selection
+     * @psalm-param iterable<array-key, string>|string|\Stringable|int|float|bool|null $selection
      * @psalm-param array<array-key, string> $items
      * @psalm-param InputHtmlOptions&array{
      *   item?: Closure(int, string, string, bool, mixed):string|null,
@@ -1196,7 +1197,7 @@ final class Html
         $name = self::getArrayableName($name);
 
         if (is_iterable($selection)) {
-            $selection = array_map('strval', (array)$selection);
+            $selection = array_map('strval', is_array($selection) ? $selection : iterator_to_array($selection));
         } elseif ($selection !== null) {
             $selection = (string)$selection;
         }
@@ -1258,7 +1259,8 @@ final class Html
      * A radio button list is like a checkbox list, except that it only allows single selection.
      *
      * @param string $name the name attribute of each radio button.
-     * @param array|string|null $selection the selected value(s). String for single or array for multiple selection(s).
+     * @param array|Traversable|string|int|float|bool|null $selection the selected value(s). String for single or array
+     * for multiple selection(s).
      * @param array $items the data item used to generate the radio buttons. The array keys are the radio button
      * values, while the array values are the corresponding labels.
      * @param array $options options (name => config) for the radio button list container tag. The following options
@@ -1285,7 +1287,7 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
-     * @psalm-param iterable<array-key, string>|string|int|float|\Stringable|bool|null $selection
+     * @psalm-param iterable<array-key, string>|string|\Stringable|int|float|bool|null $selection
      * @psalm-param array<array-key, string> $items
      * @psalm-param InputHtmlOptions&array{
      *   item?: Closure(int, string, string, bool, mixed):string|null,
@@ -1303,7 +1305,7 @@ final class Html
     public static function radioList(string $name, $selection = null, array $items = [], array $options = []): string
     {
         if (is_iterable($selection)) {
-            $selection = array_map('strval', (array)$selection);
+            $selection = array_map('strval', is_array($selection) ? $selection : iterator_to_array($selection));
         } elseif ($selection !== null) {
             $selection = (string)$selection;
         }
@@ -1513,7 +1515,7 @@ final class Html
     /**
      * Renders the option tags that can be used by {@see dropDownList()} and {@see listBox()}.
      *
-     * @param iterable|string|null $selection the selected value(s). String for single or array
+     * @param array|Traversable|string|int|float|bool|null $selection the selected value(s). String for single or array
      * for multiple selection(s).
      * @param array $items the option data items. The array keys are option values, and the array values are the
      * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
@@ -1540,11 +1542,11 @@ final class Html
     }
 
     /**
-     * @param $selection
+     * @param array|Traversable|string|int|float|bool|null $selection
      * @param array $items
      * @param array $tagOptions
      *
-     * @psalm-param iterable<array-key, string>|string|int|float|\Stringable|bool|null $selection
+     * @psalm-param iterable<array-key, string>|string|\Stringable|int|float|bool|null $selection
      * @psalm-param array<array-key, array|string> $items
      *
      * @throws JsonException
@@ -1554,7 +1556,7 @@ final class Html
     private static function renderSelectOptionTags($selection, array $items, array &$tagOptions): string
     {
         if (is_iterable($selection)) {
-            $selection = array_map('strval', (array)$selection);
+            $selection = array_map('strval', is_array($selection) ? $selection : iterator_to_array($selection));
         } elseif ($selection !== null) {
             $selection = (string)$selection;
         }
@@ -1636,6 +1638,8 @@ final class Html
      * Additionally `'data' => ['params' => ['id' => 1, 'name' => 'yii'], 'status' => 'ok']` will be rendered as:
      * `data-params='{"id":1,"name":"yii"}' data-status="ok"`.
      *
+     * @see addCssClass()
+     *
      * @param array $attributes attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encodeAttribute()}.
      *
@@ -1646,8 +1650,6 @@ final class Html
      * @return string the rendering result. If the attributes are not empty, they will be rendered into a string
      * with a leading white space (so that it can be directly appended to the tag name in a tag. If there is no
      * attribute, an empty string will be returned.
-     *
-     * @see addCssClass()
      */
     public static function renderTagAttributes(array $attributes): string
     {

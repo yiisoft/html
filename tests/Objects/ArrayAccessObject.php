@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tests;
+namespace Yiisoft\Html\Tests\Objects;
 
 use ArrayAccess;
 use Countable;

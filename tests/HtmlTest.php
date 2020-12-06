@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests;
 
+use ArrayObject;
 use InvalidArgumentException;
 use Yiisoft\Html\Html;
+use Yiisoft\Html\Tests\Objects\ArrayAccessObject;
+use Yiisoft\Html\Tests\Objects\IterableObject;
 
 final class HtmlTest extends TestCase
 {
@@ -509,7 +512,7 @@ EOD;
 </select>
 EOD;
         $this->assertSameWithoutLE($expected, Html::dropDownList('test', [0], $this->getDataItems3(), ['multiple' => 'true']));
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', new \ArrayObject([0]), $this->getDataItems3(), ['multiple' => 'true']));
+        $this->assertSameWithoutLE($expected, Html::dropDownList('test', new ArrayObject([0]), $this->getDataItems3(), ['multiple' => 'true']));
 
         $expected = <<<'EOD'
 <select name="test[]" multiple="true" size="4">
@@ -519,7 +522,7 @@ EOD;
 </select>
 EOD;
         $this->assertSameWithoutLE($expected, Html::dropDownList('test', ['1', 'value3'], $this->getDataItems3(), ['multiple' => 'true']));
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', new \ArrayObject(['1', 'value3']), $this->getDataItems3(), ['multiple' => 'true']));
+        $this->assertSameWithoutLE($expected, Html::dropDownList('test', new ArrayObject(['1', 'value3']), $this->getDataItems3(), ['multiple' => 'true']));
     }
 
     public function testListBox(): void
@@ -608,7 +611,7 @@ EOD;
 <option value="value2" selected>text2</option>
 </select>
 EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', new \ArrayObject(['value1', 'value2']), $this->getDataItems()));
+        $this->assertSameWithoutLE($expected, Html::listBox('test', new ArrayObject(['value1', 'value2']), $this->getDataItems()));
 
         $expected = <<<'EOD'
 <select name="test" size="4">
@@ -618,7 +621,7 @@ EOD;
 </select>
 EOD;
         $this->assertSameWithoutLE($expected, Html::listBox('test', [0], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::listBox('test', new \ArrayObject([0]), $this->getDataItems3()));
+        $this->assertSameWithoutLE($expected, Html::listBox('test', new ArrayObject([0]), $this->getDataItems3()));
 
         $expected = <<<'EOD'
 <select name="test" size="4">
@@ -628,7 +631,7 @@ EOD;
 </select>
 EOD;
         $this->assertSameWithoutLE($expected, Html::listBox('test', ['1', 'value3'], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::listBox('test', new \ArrayObject(['1', 'value3']), $this->getDataItems3()));
+        $this->assertSameWithoutLE($expected, Html::listBox('test', new ArrayObject(['1', 'value3']), $this->getDataItems3()));
 
         $expected = <<<'EOD'
 <input type="hidden" name="test" value="none"><select name="test[]" size="4">
@@ -702,14 +705,24 @@ EOD;
             },
             'tag' => false,
         ]));
-
-
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', new \ArrayObject(['value2']), $this->getDataItems(), [
-            'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
-            },
-            'tag' => false,
-        ]));
+        $this->assertSameWithoutLE(
+            $expected,
+            Html::checkboxList('test', new ArrayObject(['value2']), $this->getDataItems(), [
+                'item' => static function ($index, $label, $name, $checked, $value) {
+                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                },
+                'tag' => false,
+            ])
+        );
+        $this->assertSameWithoutLE(
+            $expected,
+            Html::checkboxList('test', new IterableObject(['value2']), $this->getDataItems(), [
+                'item' => static function ($index, $label, $name, $checked, $value) {
+                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                },
+                'tag' => false,
+            ])
+        );
 
         $expected = <<<'EOD'
 <div><label><input type="checkbox" name="test[]" value="0" checked> zero</label>
@@ -717,7 +730,7 @@ EOD;
 <label><input type="checkbox" name="test[]" value="value3"> text3</label></div>
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', [0], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', new \ArrayObject([0]), $this->getDataItems3()));
+        $this->assertSameWithoutLE($expected, Html::checkboxList('test', new ArrayObject([0]), $this->getDataItems3()));
 
         $expected = <<<'EOD'
 <div><label><input type="checkbox" name="test[]" value="0"> zero</label>
@@ -725,7 +738,7 @@ EOD;
 <label><input type="checkbox" name="test[]" value="value3" checked> text3</label></div>
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['1', 'value3'], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', new \ArrayObject(['1', 'value3']), $this->getDataItems3()));
+        $this->assertSameWithoutLE($expected, Html::checkboxList('test', new ArrayObject(['1', 'value3']), $this->getDataItems3()));
 
         $expected = <<<'EOD'
 <div><label><input type="checkbox" name="test[]" value="0" any="42"> zero</label>
@@ -800,13 +813,24 @@ EOD;
             },
             'tag' => false,
         ]));
-
-        $this->assertSameWithoutLE($expected, Html::radioList('test', new \ArrayObject(['value2']), $this->getDataItems(), [
-            'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
-            },
-            'tag' => false,
-        ]));
+        $this->assertSameWithoutLE(
+            $expected,
+            Html::radioList('test', new ArrayObject(['value2']), $this->getDataItems(), [
+                'item' => static function ($index, $label, $name, $checked, $value) {
+                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                },
+                'tag' => false,
+            ])
+        );
+        $this->assertSameWithoutLE(
+            $expected,
+            Html::radioList('test', new IterableObject(['value2']), $this->getDataItems(), [
+                'item' => static function ($index, $label, $name, $checked, $value) {
+                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                },
+                'tag' => false,
+            ])
+        );
 
         $expected = <<<'EOD'
 <div><label><input type="radio" name="test" value="0" checked> zero</label>
@@ -814,7 +838,7 @@ EOD;
 <label><input type="radio" name="test" value="value3"> text3</label></div>
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', [0], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::radioList('test', new \ArrayObject([0]), $this->getDataItems3()));
+        $this->assertSameWithoutLE($expected, Html::radioList('test', new ArrayObject([0]), $this->getDataItems3()));
 
         $expected = <<<'EOD'
 <div><label><input type="radio" name="test" value="0"> zero</label>
@@ -822,7 +846,7 @@ EOD;
 <label><input type="radio" name="test" value="value3" checked> text3</label></div>
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', ['value3'], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::radioList('test', new \ArrayObject(['value3']), $this->getDataItems3()));
+        $this->assertSameWithoutLE($expected, Html::radioList('test', new ArrayObject(['value3']), $this->getDataItems3()));
 
         $expected = <<<'EOD'
 <div><label><input type="radio" name="test" value="1" checked any="42"> One</label>
@@ -971,6 +995,8 @@ EOD;
             'encodeSpaces' => true,
         ];
         $this->assertSameWithoutLE($expected, Html::renderSelectOptions(['value111', 'value1'], $data, $attributes));
+        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(new ArrayObject(['value111', 'value1']), $data, $attributes));
+        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(new IterableObject(['value111', 'value1']), $data, $attributes));
 
         $attributes = [
             'prompt' => 'please select<>',
