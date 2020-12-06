@@ -1163,7 +1163,7 @@ final class Html
      * is an array.
      *
      * @param string $name the name attribute of each checkbox.
-     * @param array|Traversable|string|int|float|bool|null $selection the selected value(s). String for single or array
+     * @param array|bool|float|int|string|Traversable|null $selection the selected value(s). String for single or array
      * for multiple selection(s).
      * @param array $items the data item used to generate the checkboxes. The array keys are the checkbox values, while
      * the array values are the corresponding labels.
@@ -1273,7 +1273,7 @@ final class Html
      * A radio button list is like a checkbox list, except that it only allows single selection.
      *
      * @param string $name the name attribute of each radio button.
-     * @param array|Traversable|string|int|float|bool|null $selection the selected value(s). String for single or array
+     * @param array|bool|float|int|string|Traversable|null $selection the selected value(s). String for single or array
      * for multiple selection(s).
      * @param array $items the data item used to generate the radio buttons. The array keys are the radio button
      * values, while the array values are the corresponding labels.
@@ -1529,7 +1529,7 @@ final class Html
     /**
      * Renders the option tags that can be used by {@see dropDownList()} and {@see listBox()}.
      *
-     * @param array|Traversable|string|int|float|bool|null $selection the selected value(s). String for single or array
+     * @param array|bool|float|int|string|Traversable|null $selection the selected value(s). String for single or array
      * for multiple selection(s).
      * @param array $items the option data items. The array keys are option values, and the array values are the
      * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
@@ -1557,7 +1557,7 @@ final class Html
     }
 
     /**
-     * @param array|Traversable|string|int|float|bool|null $selection
+     * @param array|bool|float|int|string|Traversable|null $selection
      * @param array $items
      * @param array $tagOptions
      *
