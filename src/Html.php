@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Yiisoft\Html;
 
 use Closure;
-use function in_array;
 use InvalidArgumentException;
-use function is_array;
-use function is_bool;
-use function is_int;
-
 use JsonException;
 use Traversable;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Json\Json;
+
+use function in_array;
+use function is_array;
+use function is_bool;
+use function is_int;
 
 /**
  * Html provides a set of static methods for generating commonly used HTML tags.
@@ -1380,6 +1380,8 @@ final class Html
      * @param string $content
      * @param array $options
      *
+     * @psalm-param HtmlOptions|array<empty, empty> $options
+     *
      * @throws JsonException
      *
      * @return string
@@ -1395,6 +1397,8 @@ final class Html
      * @param string $content
      * @param array $options
      *
+     * @psalm-param HtmlOptions|array<empty, empty> $options
+     *
      * @throws JsonException
      *
      * @return string
@@ -1409,6 +1413,8 @@ final class Html
      *
      * @param string $content
      * @param array $options
+     *
+     * @psalm-param HtmlOptions|array<empty, empty> $options
      *
      * @throws JsonException
      *
