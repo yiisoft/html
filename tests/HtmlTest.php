@@ -111,17 +111,13 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<link href="http://example.com" rel="stylesheet">', Html::cssFile('http://example.com'));
         $this->assertSame('<link href="" rel="stylesheet">', Html::cssFile(''));
-        $this->assertSame("<!--[if IE 9]>\n" . '<link href="http://example.com" rel="stylesheet">' . "\n<![endif]-->", Html::cssFile('http://example.com', ['condition' => 'IE 9']));
-        $this->assertSame("<!--[if (gte IE 9)|(!IE)]><!-->\n" . '<link href="http://example.com" rel="stylesheet">' . "\n<!--<![endif]-->", Html::cssFile('http://example.com', ['condition' => '(gte IE 9)|(!IE)']));
         $this->assertSame('<noscript><link href="http://example.com" rel="stylesheet"></noscript>', Html::cssFile('http://example.com', ['noscript' => true]));
     }
 
     public function testJsFile(): void
     {
-        $this->assertSame('<script src="http://example.com"></script>', Html::jsFile('http://example.com'));
-        $this->assertSame('<script src=""></script>', Html::jsFile(''));
-        $this->assertSame("<!--[if IE 9]>\n" . '<script src="http://example.com"></script>' . "\n<![endif]-->", Html::jsFile('http://example.com', ['condition' => 'IE 9']));
-        $this->assertSame("<!--[if (gte IE 9)|(!IE)]><!-->\n" . '<script src="http://example.com"></script>' . "\n<!--<![endif]-->", Html::jsFile('http://example.com', ['condition' => '(gte IE 9)|(!IE)']));
+        $this->assertSame('<script src="http://example.com"></script>', Html::javaScriptFile('http://example.com'));
+        $this->assertSame('<script src=""></script>', Html::javaScriptFile(''));
     }
 
     public function testA(): void

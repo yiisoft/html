@@ -254,7 +254,7 @@ final class Html
      *
      * ```
      * <script type="text/javascript">
-     *     window.myVar = "<?= Html::escapeJsStringValue($myVar) ?>";
+     *     window.myVar = "<?= Html::escapeJavaScriptStringValue($myVar) ?>";
      * </script>
      * ```
      *
@@ -397,9 +397,6 @@ final class Html
      * @param string $url The URL of the external CSS file. This parameter will be processed.
      * @param array $options The tag options in terms of name-value pairs. The following options are specially handled:
      *
-     * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this is specified, the generated
-     *   `link` tag will be enclosed within the conditional comments. This is mainly useful for supporting old versions
-     *   of IE browsers.
      * - noscript: if set to true, `link` tag will be wrapped into `<noscript>` tags.
      *
      * The rest of the options will be rendered as the attributes of the resulting link tag. The values will be
@@ -408,7 +405,6 @@ final class Html
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @psalm-param HtmlOptions&array{
-     *   condition?: string|null,
      *   noscript?: bool,
      * } $options
      *
@@ -423,12 +419,6 @@ final class Html
         }
         $options['href'] = $url;
 
-        if (isset($options['condition'])) {
-            $condition = $options['condition'];
-            unset($options['condition']);
-            return self::wrapIntoCondition(self::tag('link', '', $options), $condition);
-        }
-
         if (isset($options['noscript']) && $options['noscript'] === true) {
             unset($options['noscript']);
             return '<noscript>' . self::tag('link', '', $options) . '</noscript>';
@@ -441,51 +431,21 @@ final class Html
      * Generates a script tag that refers to an external JavaScript file.
      *
      * @param string $url The URL of the external JavaScript file. This parameter will be processed.
-     * @param array $options The tag options in terms of name-value pairs. The following option is specially handled:
-     *
-     * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this is specified, the generated
-     *   `script` tag will be enclosed within the conditional comments. This is mainly useful for supporting old
-     *   versions of IE browsers.
-     *
-     * The rest of the options will be rendered as the attributes of the resulting script tag. The values will be
+     * @param array $options The tag options in terms of name-value pairs.
+     * Options will be rendered as the attributes of the resulting script tag. The values will be
      * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute will
      * not be rendered. See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
-     * @psalm-param HtmlOptions&array{
-     *   condition?: string|null,
-     * } $options
+     * @psalm-param HtmlOptions $options
      *
      * @throws JsonException
      *
      * @return string The generated script tag.
      */
-    public static function jsFile(string $url, array $options = []): string
+    public static function javaScriptFile(string $url, array $options = []): string
     {
         $options['src'] = $url;
-        if (isset($options['condition'])) {
-            $condition = $options['condition'];
-            unset($options['condition']);
-            return self::wrapIntoCondition(self::tag('script', '', $options), $condition);
-        }
-
         return self::tag('script', '', $options);
-    }
-
-    /**
-     * Wraps given content into conditional comments for IE, e.g., `lt IE 9`.
-     *
-     * @param string $content Taw HTML content.
-     * @param string $condition Condition string.
-     *
-     * @return string Generated HTML.
-     */
-    private static function wrapIntoCondition(string $content, string $condition): string
-    {
-        if (strpos($condition, '!IE') !== false) {
-            return "<!--[if $condition]><!-->\n" . $content . "\n<!--<![endif]-->";
-        }
-
-        return "<!--[if $condition]>\n" . $content . "\n<![endif]-->";
     }
 
     /**
@@ -1216,7 +1176,7 @@ final class Html
         $name = self::getArrayableName($name);
 
         if (is_iterable($selection)) {
-            $selection = array_map('strval', is_array($selection) ? $selection : iterator_to_array($selection));
+            $selection = array_map('\strval', is_array($selection) ? $selection : iterator_to_array($selection));
         } elseif ($selection !== null) {
             $selection = (string)$selection;
         }
