@@ -277,11 +277,13 @@ final class Html
      *
      * @param bool|string|null $name The tag name. If $name is `null` or `false`, the corresponding content will be
      * rendered without any tag.
-     * @param string $content The content to be enclosed between the start and end tags. It will not be HTML-encoded.
-     * If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
+     * @param string $content The content to be enclosed between the start and end tags. It will be HTML-encoded by
+     * default to prevent XSS attacks. In order to turn it off, set `encode` option to `false`.
      * @param array $options The HTML tag attributes (HTML options) in terms of name-value pairs. These will be
      * rendered as the attributes of the resulting tag. The values will be HTML-encoded using
      * {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
+     * The `encode` option is specially handled. If it is `false`, content will be rendered as is. Else it will be
+     * HTML-encoded with {@see encode()}.
      *
      * For example when using `['class' => 'my-class', 'target' => '_blank', 'value' => null]` it will result in the
      * HTML attributes rendered like this: `class="my-class" target="_blank"`.
@@ -299,6 +301,12 @@ final class Html
      */
     public static function tag($name, string $content = '', array $options = []): string
     {
+        /** @var bool $encode */
+        $encode = ArrayHelper::remove($options, 'encode', true);
+        if ($encode) {
+            $content = self::encode($content);
+        }
+
         if ($name === null || is_bool($name)) {
             return $content;
         }
