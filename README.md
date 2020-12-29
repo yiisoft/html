@@ -127,7 +127,7 @@ Overall the helper has the following method groups.
 ### Generating link tags
 
 - cssFile
-- jsFile
+- javaScriptFile
 
 ### Working with CSS styles and classes
 
