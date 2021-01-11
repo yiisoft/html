@@ -20,6 +20,7 @@
         "yiisoft/json": "^1.0"
     },
     "require-dev": {
+        "phpbench/phpbench": "^1.0@alpha",
         "phpunit/phpunit": "^9.5",
         "roave/infection-static-analysis-plugin": "^1.6",
         "spatie/phpunit-watcher": "^1.23",
