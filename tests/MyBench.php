@@ -6,10 +6,11 @@ namespace Yiisoft\Html\Tests;
 
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Span;
+use Yiisoft\Html\SpanNoClone;
 
 /**
  * @Iterations(10)
- * @Revs(10)
+ * @Revs(1)
  * @BeforeMethods({"before"})
  */
 final class MyBench
@@ -43,6 +44,18 @@ final class MyBench
         $c = count($this->content);
         for ($i = 0; $i < $c; $i++) {
             $html = (string)(new Span())
+                ->withContent($this->content[$i])
+                ->withClass($this->class[$i])
+                ->withId($this->id[$i])
+                ->withData($this->data[$i]);
+        }
+    }
+
+    public function benchObjectNoClone()
+    {
+        $c = count($this->content);
+        for ($i = 0; $i < $c; $i++) {
+            $html = (string)(new SpanNoClone())
                 ->withContent($this->content[$i])
                 ->withClass($this->class[$i])
                 ->withId($this->id[$i])
