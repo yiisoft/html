@@ -436,7 +436,7 @@ final class Html
      * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute will
      * not be rendered. See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
-     * @psalm-param HtmlOptions $options
+     * @psalm-param HtmlOptions|array<empty, empty> $options
      *
      * @throws JsonException
      *
@@ -1586,6 +1586,7 @@ final class Html
                 if (!isset($groupAttrs['label'])) {
                     $groupAttrs['label'] = $key;
                 }
+                /** @psalm-var SelectHtmlOptions $attrs */
                 $attrs = [
                     'options' => $options,
                     'groups' => $groups,
