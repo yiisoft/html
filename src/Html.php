@@ -37,7 +37,7 @@ use function strlen;
  *   tag?: string,
  *   item?: Closure(string, array-key):string|null,
  *   separator?: string,
- *   itemOptions: HtmlOptions,
+ *   itemOptions?: HtmlOptions,
  * }
  * @psalm-type InputHtmlOptions = HtmlOptions&array {
  *   value?: string|int|float|\Stringable|bool|null,
