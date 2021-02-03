@@ -1466,7 +1466,7 @@ final class Html
             }
         }
 
-        $separator = Html::encode($separator);
+        $separator = self::encode($separator);
         $options['encode'] = false;
 
         return self::tag(
