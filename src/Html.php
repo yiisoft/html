@@ -942,8 +942,8 @@ final class Html
     private static function booleanInput(string $type, string $name, bool $checked, array $options): string
     {
         $options['checked'] = $checked;
-        $encode = (bool) ArrayHelper::remove($options, 'encode', true);
         $value = array_key_exists('value', $options) ? $options['value'] : '1';
+        $encode = (bool) ArrayHelper::remove($options, 'encode', true);
 
         /** @var BooleanInputHtmlOptions $options */
         if (isset($options['uncheck'])) {
