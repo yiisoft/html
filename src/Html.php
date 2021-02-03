@@ -301,9 +301,7 @@ final class Html
      */
     public static function tag($name, string $content = '', array $options = []): string
     {
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($options, 'encode', true);
-        if ($encode) {
+        if (ArrayHelper::remove($options, 'encode', true)) {
             $content = self::encode($content);
         }
 
@@ -378,6 +376,7 @@ final class Html
      */
     public static function style(string $content, array $options = []): string
     {
+        $options['encode'] ??= false;
         return self::tag('style', $content, $options);
     }
 
@@ -396,6 +395,7 @@ final class Html
      */
     public static function script(string $content, array $options = []): string
     {
+        $options['encode'] ??= false;
         return self::tag('script', $content, $options);
     }
 
@@ -856,10 +856,12 @@ final class Html
     {
         $options['name'] = $name;
 
-        /** @var bool $doubleEncode */
-        $doubleEncode = ArrayHelper::remove($options, 'doubleEncode', true);
+        if (isset($options['doubleEncode']) && $options['doubleEncode'] === false) {
+            $value = self::encode($value, false);
+            $options['encode'] = false;
+        }
 
-        return self::tag('textarea', self::encode($value, $doubleEncode), $options);
+        return self::tag('textarea', (string) $value, $options);
     }
 
     /**
@@ -937,6 +939,9 @@ final class Html
         $options['checked'] = $checked;
         $value = array_key_exists('value', $options) ? $options['value'] : '1';
 
+        /** @var bool $formatter */
+        $encode = ArrayHelper::remove($options, 'encode', true);
+
         if (isset($options['uncheck'])) {
             // Add a hidden field so that if the checkbox is not selected, it still submits a value.
             $hiddenOptions = [];
@@ -962,6 +967,9 @@ final class Html
         if (empty($label)) {
             return $hidden . self::input($type, $name, $value, $options);
         }
+
+        $label = $encode ? self::encode($label) : $label;
+        $labelOptions['encode'] = false;
 
         if ($wrapInput) {
             $input = self::input($type, $name, $value, $options);
@@ -1039,6 +1047,8 @@ final class Html
         unset($options['unselect']);
 
         $selectOptions = self::renderSelectOptionTags($selection, $items, $options);
+
+        $options['encode'] = false;
 
         return self::tag('select', "\n" . $selectOptions . "\n", $options);
     }
@@ -1126,6 +1136,8 @@ final class Html
         /** @var SelectHtmlOptions $options */
         $selectOptions = self::renderSelectOptionTags($selection, $items, $options);
 
+        $options['encode'] = false;
+
         return $hidden . self::tag('select', "\n" . $selectOptions . "\n", $options);
     }
 
@@ -1195,9 +1207,6 @@ final class Html
         /** @psalm-var HtmlOptions $itemOptions */
         $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
 
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($options, 'encode', true);
-
         /** @var string $separator */
         $separator = ArrayHelper::remove($options, 'separator', "\n");
 
@@ -1217,7 +1226,7 @@ final class Html
             } else {
                 $lines[] = self::checkbox($name, $checked, array_merge([
                     'value' => $value,
-                    'label' => $encode ? self::encode($label) : $label,
+                    'label' => $label,
                 ], $itemOptions));
             }
             $index++;
@@ -1237,6 +1246,7 @@ final class Html
             $hidden = '';
         }
 
+        $options['encode'] = false;
         return $hidden . self::tag($tag, implode($separator, $lines), $options);
     }
 
@@ -1303,9 +1313,6 @@ final class Html
         /** @psalm-var HtmlOptions $itemOptions */
         $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
 
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($options, 'encode', true);
-
         /** @var string $separator */
         $separator = ArrayHelper::remove($options, 'separator', "\n");
 
@@ -1337,13 +1344,14 @@ final class Html
             } else {
                 $lines[] = self::radio($name, $checked, array_merge([
                     'value' => $value,
-                    'label' => $encode ? self::encode($label) : $label,
+                    'label' => $label,
                 ], $itemOptions));
             }
             $index++;
         }
         $visibleContent = implode($separator, $lines);
 
+        $options['encode'] = false;
         return $hidden . self::tag($tag, $visibleContent, $options);
     }
 
@@ -1435,9 +1443,6 @@ final class Html
         /** @var string $tag */
         $tag = ArrayHelper::remove($options, 'tag', 'ul');
 
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($options, 'encode', true);
-
         /** @var Closure(string, array-key):string|null $formatter */
         $formatter = ArrayHelper::remove($options, 'item');
 
@@ -1457,9 +1462,12 @@ final class Html
             if ($formatter !== null) {
                 $results[] = $formatter($item, $index);
             } else {
-                $results[] = self::tag('li', $encode ? self::encode($item) : $item, $itemOptions);
+                $results[] = self::tag('li', (string) $item, $itemOptions);
             }
         }
+
+        $separator = Html::encode($separator);
+        $options['encode'] = false;
 
         return self::tag(
             $tag,
@@ -1566,7 +1574,7 @@ final class Html
 
         $lines = [];
         if (isset($tagOptions['prompt'])) {
-            $promptOptions = ['value' => ''];
+            $promptOptions = ['value' => '', 'encode' => false];
             if (is_string($tagOptions['prompt'])) {
                 $promptText = $tagOptions['prompt'];
             } else {
@@ -1591,6 +1599,7 @@ final class Html
         foreach ($items as $key => $value) {
             if (is_array($value)) {
                 $groupAttrs = $groups[$key] ?? [];
+                $groupAttrs['encode'] = false;
                 if (!isset($groupAttrs['label'])) {
                     $groupAttrs['label'] = $key;
                 }
@@ -1614,6 +1623,7 @@ final class Html
                 if ($encodeSpaces) {
                     $text = str_replace(' ', '&nbsp;', $text);
                 }
+                $attrs['encode'] = false;
                 $lines[] = self::tag('option', $text, $attrs);
             }
         }

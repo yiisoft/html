@@ -122,7 +122,8 @@ final class HtmlTest extends TestCase
 
     public function testA(): void
     {
-        $this->assertSame('<a>something<></a>', Html::a('something<>'));
+        $this->assertSame('<a>something&lt;&gt;</a>', Html::a('something<>'));
+        $this->assertSame('<a>something<></a>', Html::a('something<>', null, ['encode' => false]));
         $this->assertSame('<a href="/example">something</a>', Html::a('something', '/example'));
         $this->assertSame('<a href="">something</a>', Html::a('something', ''));
         $this->assertSame('<a href="http://www.быстроном.рф">http://www.быстроном.рф</a>', Html::a('http://www.быстроном.рф', 'http://www.быстроном.рф'));
@@ -131,8 +132,8 @@ final class HtmlTest extends TestCase
 
     public function testMailto(): void
     {
-        $this->assertSame('<a href="mailto:test&lt;&gt;">test<></a>', Html::mailto('test<>'));
-        $this->assertSame('<a href="mailto:test&gt;">test<></a>', Html::mailto('test<>', 'test>'));
+        $this->assertSame('<a href="mailto:test&lt;&gt;">test&lt;&gt;</a>', Html::mailto('test<>'));
+        $this->assertSame('<a href="mailto:test&gt;">test<></a>', Html::mailto('test<>', 'test>', ['encode' => false]));
     }
 
     /**
@@ -235,28 +236,30 @@ final class HtmlTest extends TestCase
 
     public function testLabel(): void
     {
-        $this->assertSame('<label>something<></label>', Html::label('something<>'));
-        $this->assertSame('<label for="a">something<></label>', Html::label('something<>', 'a'));
-        $this->assertSame('<label class="test" for="a">something<></label>', Html::label('something<>', 'a', ['class' => 'test']));
+        $this->assertSame('<label>something<></label>', Html::label('something<>', null, ['encode' => false]));
+        $this->assertSame('<label for="a">something&lt;&gt;</label>', Html::label('something<>', 'a'));
+        $this->assertSame('<label class="test" for="a">something&lt;&gt;</label>', Html::label('something<>', 'a', ['class' => 'test']));
     }
 
     public function testButton(): void
     {
         $this->assertSame('<button type="button">Button</button>', Html::button());
-        $this->assertSame('<button type="button" name="test" value="value">content<></button>', Html::button('content<>', ['name' => 'test', 'value' => 'value']));
-        $this->assertSame('<button type="submit" class="t" name="test" value="value">content<></button>', Html::button('content<>', ['type' => 'submit', 'name' => 'test', 'value' => 'value', 'class' => 't']));
+        $this->assertSame('<button type="button" name="test" value="value">content<></button>', Html::button('content<>', ['name' => 'test', 'value' => 'value', 'encode' => false]));
+        $this->assertSame('<button type="submit" class="t" name="test" value="value">content&lt;&gt;</button>', Html::button('content<>', ['type' => 'submit', 'name' => 'test', 'value' => 'value', 'class' => 't']));
     }
 
     public function testSubmitButton(): void
     {
         $this->assertSame('<button type="submit">Submit</button>', Html::submitButton());
-        $this->assertSame('<button type="submit" class="t" name="test" value="value">content<></button>', Html::submitButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't']));
+        $this->assertSame('<button type="submit" class="t" name="test" value="value">content&lt;&gt;</button>', Html::submitButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't']));
+        $this->assertSame('<button type="submit" class="t" name="test" value="value">content<></button>', Html::submitButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't', 'encode' => false]));
     }
 
     public function testResetButton(): void
     {
         $this->assertSame('<button type="reset">Reset</button>', Html::resetButton());
-        $this->assertSame('<button type="reset" class="t" name="test" value="value">content<></button>', Html::resetButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't']));
+        $this->assertSame('<button type="reset" class="t" name="test" value="value">content&lt;&gt;</button>', Html::resetButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't']));
+        $this->assertSame('<button type="reset" class="t" name="test" value="value">content<></button>', Html::resetButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't', 'encode' => false]));
     }
 
     public function testInput(): void
@@ -687,8 +690,9 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                return $index . Html::label(Html::encode($label) . ' ' . Html::checkbox($name, $checked, ['value' => $value]), null, ['encode' => false]);
             },
+            'encode' => false,
         ]));
 
         $expected = <<<'EOD'
@@ -697,26 +701,29 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                return $index . Html::label(Html::encode($label) . ' ' . Html::checkbox($name, $checked, ['value' => $value]), null, ['encode' => false]);
             },
             'tag' => false,
+            'encode' => false,
         ]));
         $this->assertSameWithoutLE(
             $expected,
             Html::checkboxList('test', new ArrayObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                    return $index . Html::label(Html::encode($label) . ' ' . Html::checkbox($name, $checked, ['value' => $value]), null, ['encode' => false]);
                 },
                 'tag' => false,
+                'encode' => false,
             ])
         );
         $this->assertSameWithoutLE(
             $expected,
             Html::checkboxList('test', new IterableObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                    return $index . Html::label(Html::encode($label) . ' ' . Html::checkbox($name, $checked, ['value' => $value]), null, ['encode' => false]);
                 },
                 'tag' => false,
+                'encode' => false,
             ])
         );
 
@@ -795,8 +802,9 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]), null, ['encode' => false]);
             },
+            'encode' => false,
         ]));
 
         $expected = <<<'EOD'
@@ -805,26 +813,29 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                return $index . Html::label(Html::encode($label) . ' ' . Html::radio($name, $checked, ['value' => $value]), null, ['encode' => false]);
             },
             'tag' => false,
+            'encode' => false,
         ]));
         $this->assertSameWithoutLE(
             $expected,
             Html::radioList('test', new ArrayObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                    return $index . Html::label(Html::encode($label) . ' ' . Html::radio($name, $checked, ['value' => $value]), null, ['encode' => false]);
                 },
                 'tag' => false,
+                'encode' => false,
             ])
         );
         $this->assertSameWithoutLE(
             $expected,
             Html::radioList('test', new IterableObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                    return $index . Html::label(Html::encode($label) . ' ' . Html::radio($name, $checked, ['value' => $value]), null, ['encode' => false]);
                 },
                 'tag' => false,
+                'encode' => false,
             ])
         );
 
