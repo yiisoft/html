@@ -31,10 +31,10 @@ use function strlen;
  *   id?: string|null,
  *   class?: string[]|string|null,
  *   style?: array<string, string>|string|null,
+ *   encode?: bool|null,
  * }
  * @psalm-type ListHtmlOptions = HtmlOptions&array{
  *   tag?: string,
- *   encode?: bool,
  *   item?: Closure(string, array-key):string|null,
  *   separator?: string,
  *   itemOptions: HtmlOptions,
@@ -52,7 +52,6 @@ use function strlen;
  * }
  * @psalm-type SelectHtmlOptions = HtmlOptions&array{
  *   encodeSpaces?: bool,
- *   encode?: bool,
  *   prompt?: array{
  *     text: string,
  *     options: HtmlOptions,
@@ -370,12 +369,15 @@ final class Html
      * corresponding attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes
      * are being rendered.
      *
+     * @psalm-param HtmlOptions|array<empty, empty> $options
+     *
      * @throws JsonException
      *
      * @return string The generated style tag.
      */
     public static function style(string $content, array $options = []): string
     {
+        /** @psalm-var HtmlOptions $options */
         $options['encode'] ??= false;
         return self::tag('style', $content, $options);
     }
@@ -389,12 +391,15 @@ final class Html
      * the corresponding attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes
      * are being rendered.
      *
+     * @psalm-param HtmlOptions|array<empty, empty> $options
+     *
      * @throws JsonException
      *
      * @return string The generated script tag.
      */
     public static function script(string $content, array $options = []): string
     {
+        /** @psalm-var HtmlOptions $options */
         $options['encode'] ??= false;
         return self::tag('script', $content, $options);
     }
@@ -861,7 +866,7 @@ final class Html
             $options['encode'] = false;
         }
 
-        return self::tag('textarea', (string) $value, $options);
+        return self::tag('textarea', (string)$value, $options);
     }
 
     /**
@@ -939,8 +944,10 @@ final class Html
         $options['checked'] = $checked;
         $value = array_key_exists('value', $options) ? $options['value'] : '1';
 
-        /** @var bool $formatter */
+        /** @var bool $encode */
         $encode = ArrayHelper::remove($options, 'encode', true);
+
+        /** @var BooleanInputHtmlOptions $options */
 
         if (isset($options['uncheck'])) {
             // Add a hidden field so that if the checkbox is not selected, it still submits a value.
@@ -1181,7 +1188,6 @@ final class Html
      * @psalm-param InputHtmlOptions&array{
      *   item?: Closure(int, string, string, bool, mixed):string|null,
      *   itemOptions?: HtmlOptions|null,
-     *   encode?: bool,
      *   separator?: string|null,
      *   tag?: string|null,
      *   unselect?: string|int|float|\Stringable|bool|null,
@@ -1289,7 +1295,6 @@ final class Html
      * @psalm-param InputHtmlOptions&array{
      *   item?: Closure(int, string, string, bool, mixed):string|null,
      *   itemOptions?: HtmlOptions|null,
-     *   encode?: bool,
      *   separator?: string|null,
      *   tag?: string|null,
      *   unselect?: string|int|float|\Stringable|bool|null,
@@ -1431,7 +1436,7 @@ final class Html
      *
      * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
-     * @psalm-param array<array-key, string> $items
+     * @psalm-param array<array-key, mixed> $items
      * @psalm-param ListHtmlOptions $options
      *
      * @throws JsonException
@@ -1458,11 +1463,13 @@ final class Html
         }
 
         $results = [];
+        /** @var mixed $item */
         foreach ($items as $index => $item) {
+            $item = (string)$item;
             if ($formatter !== null) {
                 $results[] = $formatter($item, $index);
             } else {
-                $results[] = self::tag('li', (string) $item, $itemOptions);
+                $results[] = self::tag('li', $item, $itemOptions);
             }
         }
 

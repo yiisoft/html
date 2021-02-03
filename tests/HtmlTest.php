@@ -902,7 +902,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::ul($data, [
             'class' => 'test',
-            'item' => static function ($item, $index) {
+            'item' => static function (string $item, int $index) {
                 return "<li class=\"item-$index\">$item</li>";
             },
         ]));
