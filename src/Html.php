@@ -942,13 +942,10 @@ final class Html
     private static function booleanInput(string $type, string $name, bool $checked, array $options): string
     {
         $options['checked'] = $checked;
+        $encode = (bool) ArrayHelper::remove($options, 'encode', true);
         $value = array_key_exists('value', $options) ? $options['value'] : '1';
 
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($options, 'encode', true);
-
         /** @var BooleanInputHtmlOptions $options */
-
         if (isset($options['uncheck'])) {
             // Add a hidden field so that if the checkbox is not selected, it still submits a value.
             $hiddenOptions = [];
