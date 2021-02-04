@@ -6,19 +6,34 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Html;
 
+/**
+ * @psalm-type HtmlAttributes = array<string, mixed>&array{
+ *   id?: string|null,
+ *   class?: string[]|string|null,
+ * }
+ */
 abstract class Tag
 {
+    /**
+     * @psalm-var HtmlAttributes|array<empty, empty>
+     */
     protected array $attributes = [];
 
     final private function __construct()
     {
     }
 
+    /**
+     * @return static
+     */
     final public static function tag(): self
     {
         return new static();
     }
 
+    /**
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
     final public function attributes(array $attributes): self
     {
         $new = clone $this;
@@ -43,6 +58,7 @@ abstract class Tag
     final public function addClass(string ...$class): self
     {
         $new = clone $this;
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         Html::addCssClass($new->attributes, $class);
         return $new;
     }
