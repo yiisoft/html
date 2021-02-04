@@ -6,7 +6,7 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Html;
 
-abstract class ClosedTag extends Tag
+abstract class NormalTag extends Tag
 {
     private bool $encode = true;
     private string $content = '';

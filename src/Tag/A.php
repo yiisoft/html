@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-final class A extends ClosedTag
+final class A extends NormalTag
 {
-    public static function tag(): self
-    {
-        return new self();
-    }
-
     public function url(?string $url): self
     {
         $new = clone $this;

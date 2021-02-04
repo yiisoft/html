@@ -9,9 +9,14 @@ use Yiisoft\Html\Html;
 abstract class Tag
 {
     protected array $attributes = [];
-    
-    final protected function __construct()
+
+    final private function __construct()
     {
+    }
+
+    final public static function tag(): self
+    {
+        return new static();
     }
 
     final public function attributes(array $attributes): self
@@ -35,7 +40,7 @@ abstract class Tag
         return $new;
     }
 
-    final public function addedClass(string ...$class): self
+    final public function addClass(string ...$class): self
     {
         $new = clone $this;
         Html::addCssClass($new->attributes, $class);
