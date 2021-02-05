@@ -91,6 +91,9 @@ abstract class Tag
         return $new;
     }
 
+    /**
+     * @return static
+     */
     final public function id(?string $id): self
     {
         $new = clone $this;
@@ -98,6 +101,9 @@ abstract class Tag
         return $new;
     }
 
+    /**
+     * @return static
+     */
     final public function class(string ...$class): self
     {
         $new = clone $this;
@@ -105,6 +111,9 @@ abstract class Tag
         return $new;
     }
 
+    /**
+     * @return static
+     */
     final public function addClass(string ...$class): self
     {
         $new = clone $this;

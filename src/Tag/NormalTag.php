@@ -11,6 +11,9 @@ abstract class NormalTag extends Tag
     private bool $encode = true;
     private string $content = '';
 
+    /**
+     * @return static
+     */
     final public function withoutEncode(): self
     {
         $new = clone $this;
@@ -18,6 +21,9 @@ abstract class NormalTag extends Tag
         return $new;
     }
 
+    /**
+     * @return static
+     */
     final public function content(string $content): self
     {
         $new = clone $this;
