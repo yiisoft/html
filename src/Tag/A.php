@@ -6,11 +6,21 @@ namespace Yiisoft\Html\Tag;
 
 final class A extends NormalTag
 {
-    public function url(?string $url): self
+    public function href(?string $href): self
     {
         $new = clone $this;
-        $new->attributes['href'] = $url;
+        $new->attributes['href'] = $href;
         return $new;
+    }
+
+    public function url(?string $url): self
+    {
+        return $this->href($url);
+    }
+
+    public function mailto(?string $mail): self
+    {
+        return $this->href($mail === null ? null : 'mailto:' . $mail);
     }
 
     protected function getName(): string
