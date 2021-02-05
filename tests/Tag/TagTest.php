@@ -13,7 +13,41 @@ final class TagTest extends TestCase
     {
         return [
             ['<test>', []],
+            ['<test>', ['id' => null]],
             ['<test id="main">', ['id' => 'main']],
+            ['<test value="1&lt;&gt;">', ['value' => '1<>']],
+            ['<test checked disabled>', ['checked' => true, 'disabled' => true, 'hidden' => false]],
+            ['<test class="first second">', ['class' => ['first', 'second']]],
+            ['<test>', ['class' => []]],
+            ['<test style="width: 100px; height: 200px;">', ['style' => ['width' => '100px', 'height' => '200px']]],
+            ['<test name="position" value="42">', ['value' => 42, 'name' => 'position']],
+            [
+                '<test id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'>',
+                [
+                    'id' => 'x',
+                    'class' => ['a', 'b'],
+                    'data' => ['a' => 1, 'b' => 2],
+                    'style' => ['width' => '100px'],
+                    'any' => [1, 2],
+                ],
+            ],
+            [
+                '<test data-a="0" data-b=\'[1,2]\' any="42">',
+                [
+                    'class' => [],
+                    'style' => [],
+                    'data' => ['a' => 0, 'b' => [1, 2]],
+                    'any' => 42,
+                ],
+            ],
+            [
+                '<test data-foo=\'[]\'>',
+                [
+                    'data' => [
+                        'foo' => [],
+                    ],
+                ],
+            ],
         ];
     }
 

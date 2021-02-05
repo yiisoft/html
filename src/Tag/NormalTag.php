@@ -34,7 +34,7 @@ abstract class NormalTag extends Tag
 
     final public function __toString(): string
     {
-        return '<' . $this->getName() . Html::renderTagAttributes($this->attributes) . '>' .
+        return '<' . $this->getName() . $this->renderAttributes() . '>' .
             ($this->encode ? Html::encode($this->content) : $this->content) .
             '</' . $this->getName() . '>';
     }
