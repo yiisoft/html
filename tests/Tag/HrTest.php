@@ -17,4 +17,3 @@ final class HrTest extends TestCase
         );
     }
 }
-

@@ -95,7 +95,6 @@ final class TagTest extends TestCase
         $this->assertSame($expected, (string)TestTag::tag()->class(...$class));
     }
 
-
     public function dataAddClass(): array
     {
         return [
