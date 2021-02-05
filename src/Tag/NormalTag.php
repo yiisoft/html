@@ -11,13 +11,6 @@ abstract class NormalTag extends Tag
     private bool $encode = true;
     private string $content = '';
 
-    final public function encode(): self
-    {
-        $new = clone $this;
-        $new->encode = true;
-        return $new;
-    }
-
     final public function withoutEncode(): self
     {
         $new = clone $this;

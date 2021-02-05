@@ -12,16 +12,8 @@ final class NormalTagTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<test id="main"></test>',
-            (string)TestNormalTag::tag()->id('main')
-        );
-    }
-
-    public function testEncode(): void
-    {
-        $this->assertSame(
-            '<test>&lt;b&gt;hello&lt;/b&gt;</test>',
-            (string)TestNormalTag::tag()->content('<b>hello</b>')->withoutEncode()->encode()
+            '<test id="main">&lt;b&gt;hello&lt;/b&gt;</test>',
+            (string)TestNormalTag::tag()->id('main')->content('<b>hello</b>')
         );
     }
 
@@ -44,7 +36,6 @@ final class NormalTagTest extends TestCase
     public function testImmutability(): void
     {
         $tag = TestNormalTag::tag();
-        $this->assertNotSame($tag, $tag->encode());
         $this->assertNotSame($tag, $tag->withoutEncode());
         $this->assertNotSame($tag, $tag->content(''));
     }
