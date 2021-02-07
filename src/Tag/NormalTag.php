@@ -9,6 +9,7 @@ use Yiisoft\Html\Html;
 abstract class NormalTag extends Tag
 {
     private bool $encode = true;
+    private bool $doubleEncode = true;
     private string $content = '';
 
     /**
@@ -18,6 +19,16 @@ abstract class NormalTag extends Tag
     {
         $new = clone $this;
         $new->encode = false;
+        return $new;
+    }
+
+    /**
+     * @return static
+     */
+    final public function preventDoubleEncode(): self
+    {
+        $new = clone $this;
+        $new->doubleEncode = false;
         return $new;
     }
 
@@ -34,7 +45,7 @@ abstract class NormalTag extends Tag
     final public function __toString(): string
     {
         return '<' . $this->getName() . $this->renderAttributes() . '>' .
-            ($this->encode ? Html::encode($this->content) : $this->content) .
+            ($this->encode ? Html::encode($this->content, $this->doubleEncode) : $this->content) .
             '</' . $this->getName() . '>';
     }
 }
