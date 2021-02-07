@@ -11,23 +11,23 @@ use Yiisoft\Html\Tag\Base\NormalTag;
  */
 final class Button extends NormalTag
 {
-    public static function button(string $label): self
+    public static function button(string $content): self
     {
-        $button = self::tag()->content($label);
+        $button = self::tag()->content($content);
         $button->attributes['type'] = 'button';
         return $button;
     }
 
-    public static function submit(string $label): self
+    public static function submit(string $content): self
     {
-        $button = self::tag()->content($label);
+        $button = self::tag()->content($content);
         $button->attributes['type'] = 'submit';
         return $button;
     }
 
-    public static function reset(string $label): self
+    public static function reset(string $content): self
     {
-        $button = self::tag()->content($label);
+        $button = self::tag()->content($content);
         $button->attributes['type'] = 'reset';
         return $button;
     }
