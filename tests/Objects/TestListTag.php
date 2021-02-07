@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tag;
+namespace Yiisoft\Html\Tests\Objects;
 
 use Yiisoft\Html\Tag\Base\ListTag;
 
-final class Ul extends ListTag
+final class TestListTag extends ListTag
 {
     protected function getName(): string
     {
-        return 'ul';
+        return 'test';
     }
 }
