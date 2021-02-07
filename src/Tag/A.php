@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Yiisoft\Html\Tag\Base\NormalTag;
+
 final class A extends NormalTag
 {
     public function href(?string $href): self

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tag;
+namespace Yiisoft\Html\Tag\Base;
 
 abstract class VoidTag extends Tag
 {

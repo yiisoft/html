@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use InvalidArgumentException;
+use Yiisoft\Html\Tag\Base\VoidTag;
 
 final class Img extends VoidTag
 {

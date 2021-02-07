@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Yiisoft\Html\Tag\Base\ContainerTag;
+
 final class Ol extends ContainerTag
 {
     private array $items = [];

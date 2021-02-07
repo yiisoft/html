@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tests\Tag;
+namespace Yiisoft\Html\Tests\Tag\Base;
 
 use Yiisoft\Html\Tests\Objects\TestVoidTag;
 use Yiisoft\Html\Tests\TestCase;

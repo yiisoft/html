@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Objects;
 
-use Yiisoft\Html\Tag\Tag;
+use Yiisoft\Html\Tag\Base\Tag;
 
 final class TestTag extends Tag
 {

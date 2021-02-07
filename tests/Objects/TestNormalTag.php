@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Objects;
 
-use Yiisoft\Html\Tag\NormalTag;
+use Yiisoft\Html\Tag\Base\NormalTag;
 
 final class TestNormalTag extends NormalTag
 {
