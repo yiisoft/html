@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use InvalidArgumentException;
 use Yiisoft\Html\Tag\Base\VoidTag;
 
 final class Img extends VoidTag
@@ -21,27 +20,27 @@ final class Img extends VoidTag
         return $new;
     }
 
+    public function srcset(?string ...$items): self
+    {
+        $items = array_filter($items, fn ($item) => $item !== null);
+
+        $new = clone $this;
+        $new->attributes['srcset'] = $items ? implode(',', $items) : null;
+        return $new;
+    }
+
     /**
-     * @param array<string, string>|string|null $set
+     * @param array<string, string> $data
      */
-    public function srcset($set): self
+    public function srcsetData(array $data): self
     {
         $new = clone $this;
 
-        /** @var mixed $set */
-
-        if (is_array($set)) {
-            $items = [];
-            /** @var array<string, string> $set */
-            foreach ($set as $descriptor => $url) {
-                $items[] = $url . ' ' . $descriptor;
-            }
-            $new->attributes['srcset'] = $items ? implode(',', $items) : null;
-        } elseif (is_string($set) || is_null($set)) {
-            $new->attributes['srcset'] = $set;
-        } else {
-            throw new InvalidArgumentException('Incorrect the srcset attribute.');
+        $items = [];
+        foreach ($data as $descriptor => $url) {
+            $items[] = $url . ' ' . $descriptor;
         }
+        $new->attributes['srcset'] = $items ? implode(',', $items) : null;
 
         return $new;
     }

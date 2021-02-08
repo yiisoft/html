@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Img;
 
@@ -38,8 +37,24 @@ final class ImgTest extends TestCase
     public function dataSrcset(): array
     {
         return [
-            ['<img>', null],
-            ['<img srcset="logo.png 9001w">', 'logo.png 9001w'],
+            ['<img>', [null]],
+            ['<img>', []],
+            ['<img srcset="logo.png 9001w">', ['logo.png 9001w']],
+            ['<img srcset="/example-100w 100w,/example-500w 500w">', ['/example-100w 100w', '/example-500w 500w']],
+        ];
+    }
+
+    /**
+     * @dataProvider dataSrcset
+     */
+    public function testSrcset(string $expected, array $items): void
+    {
+        $this->assertSame($expected, (string)Img::tag()->srcset(...$items));
+    }
+
+    public function dataSrcsetData(): array
+    {
+        return [
             ['<img>', []],
             ['<img srcset="/example-9001w 9001w">', ['9001w' => '/example-9001w']],
             [
@@ -54,19 +69,11 @@ final class ImgTest extends TestCase
     }
 
     /**
-     * @dataProvider dataSrcset
-     *
-     * @param array|string|null $set
+     * @dataProvider dataSrcsetData
      */
-    public function testSrcset(string $expected, $set): void
+    public function testSrcsetData(string $expected, array $items): void
     {
-        $this->assertSame($expected, (string)Img::tag()->srcset($set));
-    }
-
-    public function testIncorrectSrcset(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        Img::tag()->srcset(42);
+        $this->assertSame($expected, (string)Img::tag()->srcsetData($items));
     }
 
     public function dataAlt(): array
@@ -148,7 +155,8 @@ final class ImgTest extends TestCase
         $img = Img::tag();
         $this->assertNotSame($img, $img->url(null));
         $this->assertNotSame($img, $img->src(null));
-        $this->assertNotSame($img, $img->srcset(null));
+        $this->assertNotSame($img, $img->srcset());
+        $this->assertNotSame($img, $img->srcsetData([]));
         $this->assertNotSame($img, $img->alt(null));
         $this->assertNotSame($img, $img->width(null));
         $this->assertNotSame($img, $img->height(null));
