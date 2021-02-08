@@ -28,8 +28,11 @@ final class Img extends VoidTag
     {
         $new = clone $this;
 
+        /** @var mixed $set */
+
         if (is_array($set)) {
             $items = [];
+            /** @var array<string, string> $set */
             foreach ($set as $descriptor => $url) {
                 $items[] = $url . ' ' . $descriptor;
             }

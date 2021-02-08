@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Img;
 
@@ -60,6 +61,12 @@ final class ImgTest extends TestCase
     public function testSrcset(string $expected, $set): void
     {
         $this->assertSame($expected, (string)Img::tag()->srcset($set));
+    }
+
+    public function testIncorrectSrcset(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Img::tag()->srcset(42);
     }
 
     public function dataAlt(): array
