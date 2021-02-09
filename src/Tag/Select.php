@@ -59,7 +59,7 @@ final class Select extends ContainerTag
     }
 
     /**
-     * @param Option|Optgroup ...$items
+     * @param Optgroup|Option ...$items
      */
     public function items(Tag ...$items): self
     {
@@ -157,7 +157,7 @@ final class Select extends ContainerTag
             array_unshift($items, $this->prompt);
         }
 
-        /** @var Option[]|Optgroup[] $items */
+        /** @var Optgroup[]|Option[] $items */
 
         $items = array_map(function ($item) {
             if ($item instanceof Option) {

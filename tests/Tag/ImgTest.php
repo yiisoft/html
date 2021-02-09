@@ -103,8 +103,6 @@ final class ImgTest extends TestCase
 
     /**
      * @dataProvider dataWidth
-     *
-     * @param string|int|null $width
      */
     public function testWidth(string $expected, $width): void
     {
@@ -122,8 +120,6 @@ final class ImgTest extends TestCase
 
     /**
      * @dataProvider dataHeight
-     *
-     * @param string|int|null $height
      */
     public function testHeight(string $expected, $height): void
     {
@@ -141,9 +137,6 @@ final class ImgTest extends TestCase
 
     /**
      * @dataProvider dataSize
-     *
-     * @param string|int|null $width
-     * @param string|int|null $height
      */
     public function testSize(string $expected, $width, $height): void
     {

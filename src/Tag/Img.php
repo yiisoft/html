@@ -53,7 +53,7 @@ final class Img extends VoidTag
     }
 
     /**
-     * @param string|int|null $width
+     * @param int|string|null $width
      */
     public function width($width): self
     {
@@ -63,7 +63,7 @@ final class Img extends VoidTag
     }
 
     /**
-     * @param string|int|null $height
+     * @param int|string|null $height
      */
     public function height($height): self
     {
@@ -73,8 +73,8 @@ final class Img extends VoidTag
     }
 
     /**
-     * @param string|int|null $width
-     * @param string|int|null $height
+     * @param int|string|null $width
+     * @param int|string|null $height
      */
     public function size($width, $height): self
     {
