@@ -98,6 +98,50 @@ final class OptgroupTest extends TestCase
         $this->assertSame('<optgroup></optgroup>', (string)Optgroup::tag()->disabled(true)->disabled(false));
     }
 
+    public function dataSelection(): array
+    {
+        return [
+            ['<optgroup></optgroup>', [], []],
+            ['<optgroup></optgroup>', [], [42]],
+            [
+                '<optgroup><option value="1"></option><option value="2"></option></optgroup>',
+                [Option::tag()->value('1'), Option::tag()->value('2')->selected()],
+                [],
+            ],
+            [
+                '<optgroup><option value="1"></option><option value="2"></option></optgroup>',
+                [Option::tag()->value('1'), Option::tag()->value('2')],
+                [7],
+            ],
+            [
+                '<optgroup><option value="1" selected></option><option value="2"></option></optgroup>',
+                [Option::tag()->value('1'), Option::tag()->value('2')],
+                [1],
+            ],
+            [
+                '<optgroup><option value="1"></option><option value="2" selected></option></optgroup>',
+                [Option::tag()->value('1'), Option::tag()->value('2')],
+                ['2'],
+            ],
+            [
+                '<optgroup><option value="1" selected></option><option value="2" selected></option></optgroup>',
+                [Option::tag()->value('1'), Option::tag()->value('2')],
+                [1, 2],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataSelection
+     */
+    public function testSelection(string $expected, array $options, array $selection): void
+    {
+        $this->assertSame(
+            $expected,
+            (string)Optgroup::tag()->options(...$options)->selection(...$selection)->separator(''),
+        );
+    }
+
     public function testImmutability(): void
     {
         $optgroup = Optgroup::tag();
@@ -106,5 +150,6 @@ final class OptgroupTest extends TestCase
         $this->assertNotSame($optgroup, $optgroup->label(null));
         $this->assertNotSame($optgroup, $optgroup->separator(''));
         $this->assertNotSame($optgroup, $optgroup->disabled());
+        $this->assertNotSame($optgroup, $optgroup->selection());
     }
 }

@@ -13,6 +13,7 @@ final class Optgroup extends ContainerTag
 {
     private array $options = [];
     private string $separator = "\n";
+    private array $selection = [];
 
     public function options(Option ...$options): self
     {
@@ -64,10 +65,24 @@ final class Optgroup extends ContainerTag
         return $new;
     }
 
+    /**
+     * @psalm-param \Stringable|scalar|null ...$value
+     */
+    public function selection(...$value): self
+    {
+        $new = clone $this;
+        $new->selection = array_map('strval', $value);
+        return $new;
+    }
+
     protected function generateContent(): string
     {
-        return $this->options
-            ? $this->separator . implode($this->separator, $this->options) . $this->separator
+        $options = array_map(function (Option $option) {
+            return $option->selected(in_array($option->getValue(), $this->selection, true));
+        }, $this->options);
+
+        return $options
+            ? $this->separator . implode($this->separator, $options) . $this->separator
             : '';
     }
 

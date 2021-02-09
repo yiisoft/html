@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Tag\Base\NormalTag;
 
 /**
@@ -39,6 +40,13 @@ final class Option extends NormalTag
         $new = clone $this;
         $new->attributes['disabled'] = $disabled;
         return $new;
+    }
+
+    public function getValue(): ?string
+    {
+        /** @var mixed $value */
+        $value = ArrayHelper::getValue($this->attributes, 'value');
+        return $value === null ? null : (string)$value;
     }
 
     protected function getName(): string

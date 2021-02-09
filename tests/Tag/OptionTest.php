@@ -47,6 +47,24 @@ final class OptionTest extends TestCase
         $this->assertSame('<option></option>', (string)Option::tag()->disabled(true)->disabled(false));
     }
 
+    public function dataGetValue(): array
+    {
+        return [
+            [null, Option::tag()],
+            [null, Option::tag()->value(null)],
+            ['', Option::tag()->value('')],
+            ['one', Option::tag()->value('one')],
+        ];
+    }
+
+    /**
+     * @dataProvider dataGetValue
+     */
+    public function testGetValue(?string $expected, Option $tag): void
+    {
+        $this->assertSame($expected, $tag->getValue());
+    }
+
     public function testImmutability(): void
     {
         $option = Option::tag();
