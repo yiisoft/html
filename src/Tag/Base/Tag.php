@@ -7,6 +7,9 @@ namespace Yiisoft\Html\Tag\Base;
 use JsonException;
 use Yiisoft\Html\Html;
 use Yiisoft\Json\Json;
+use function in_array;
+use function is_array;
+use function is_bool;
 
 /**
  * @psalm-type HtmlAttributes = array<string, mixed>&array{

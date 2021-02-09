@@ -31,7 +31,7 @@ final class Textarea extends NormalTag
 
     public function value(?string $value): self
     {
-        return $this->content($value === null ? '' : $value);
+        return $this->content($value ?? '');
     }
 
     protected function getName(): string

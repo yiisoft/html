@@ -22,7 +22,7 @@ final class Img extends VoidTag
 
     public function srcset(?string ...$items): self
     {
-        $items = array_filter($items, fn ($item) => $item !== null);
+        $items = array_filter($items, static fn ($item) => $item !== null);
 
         $new = clone $this;
         $new->attributes['srcset'] = $items ? implode(',', $items) : null;

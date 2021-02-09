@@ -7,6 +7,8 @@ namespace Yiisoft\Html\Tag;
 use InvalidArgumentException;
 use Yiisoft\Html\Tag\Base\ContainerTag;
 use Yiisoft\Html\Tag\Base\Tag;
+use function in_array;
+use function is_array;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-select-element
@@ -38,7 +40,7 @@ final class Select extends ContainerTag
     public function value(...$value): self
     {
         $new = clone $this;
-        $new->values = array_map('strval', $value);
+        $new->values = array_map('\strval', $value);
         return $new;
     }
 

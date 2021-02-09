@@ -23,7 +23,7 @@ abstract class ListTag extends ContainerTag
      */
     public function strings(array $strings, bool $encode = true): self
     {
-        $items = array_map(function (string $string) use ($encode) {
+        $items = array_map(static function (string $string) use ($encode) {
             $item = Li::tag()->content($string);
             if (!$encode) {
                 $item = $item->withoutEncode();

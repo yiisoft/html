@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\ContainerTag;
+use function in_array;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-optgroup-element
