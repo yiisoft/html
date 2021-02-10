@@ -11,6 +11,7 @@ use Traversable;
 use ValueError;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Tag\A;
+use Yiisoft\Html\Tag\B;
 use Yiisoft\Json\Json;
 
 use function array_key_exists;
@@ -452,6 +453,11 @@ final class Html
     public static function a(): A
     {
         return A::tag();
+    }
+
+    public static function b(): B
+    {
+        return B::tag();
     }
 
     /**

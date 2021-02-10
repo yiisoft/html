@@ -125,6 +125,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<a href="#">link</a>', Html::a()->url('#')->content('link')->render());
     }
 
+    public function testB(): void
+    {
+        $this->assertSame('<b>bold</b>', Html::b()->content('bold')->render());
+    }
+
     /**
      * @return array
      */
