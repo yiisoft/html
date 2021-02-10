@@ -10,6 +10,7 @@ use JsonException;
 use Traversable;
 use ValueError;
 use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Html\Tag\A;
 use Yiisoft\Json\Json;
 
 use function array_key_exists;
@@ -448,58 +449,9 @@ final class Html
         return self::tag('script', '', $options);
     }
 
-    /**
-     * Generates a hyperlink tag.
-     *
-     * @param string $text Link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
-     * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
-     * @param array|string|null $url The URL for the hyperlink tag. This parameter will be processed and will be used
-     * for the "href" attribute of the tag. If this parameter is null, the "href" attribute will not
-     * be generated.
-     *
-     * If you want to use an absolute url you can call yourself, before passing the URL to this method, like this:
-     *
-     * ```php
-     * Html::a('link text', $url, true))
-     * ```
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated hyperlink.
-     */
-    public static function a(string $text, $url = null, array $options = []): string
+    public static function a(): A
     {
-        if ($url !== null) {
-            $options['href'] = $url;
-        }
-
-        return self::tag('a', $text, $options);
-    }
-
-    /**
-     * Generates a mailto hyperlink.
-     *
-     * @param string $text Link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
-     * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
-     * @param string|null $email Email address. If this is null, the first parameter (link body) will be treated
-     * as the email address and used.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated mailto link.
-     */
-    public static function mailto(string $text, ?string $email = null, array $options = []): string
-    {
-        $options['href'] = 'mailto:' . ($email ?? $text);
-        return self::tag('a', $text, $options);
+        return A::tag();
     }
 
     /**

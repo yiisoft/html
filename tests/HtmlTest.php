@@ -122,17 +122,7 @@ final class HtmlTest extends TestCase
 
     public function testA(): void
     {
-        $this->assertSame('<a>something<></a>', Html::a('something<>'));
-        $this->assertSame('<a href="/example">something</a>', Html::a('something', '/example'));
-        $this->assertSame('<a href="">something</a>', Html::a('something', ''));
-        $this->assertSame('<a href="http://www.быстроном.рф">http://www.быстроном.рф</a>', Html::a('http://www.быстроном.рф', 'http://www.быстроном.рф'));
-        $this->assertSame('<a href="/site/test">Test page</a>', Html::a('Test page', '/site/test'));
-    }
-
-    public function testMailto(): void
-    {
-        $this->assertSame('<a href="mailto:test&lt;&gt;">test<></a>', Html::mailto('test<>'));
-        $this->assertSame('<a href="mailto:test&gt;">test<></a>', Html::mailto('test<>', 'test>'));
+        $this->assertSame('<a href="#">link</a>', Html::a()->url('#')->content('link')->render());
     }
 
     /**
