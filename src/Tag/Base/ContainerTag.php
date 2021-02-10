@@ -6,7 +6,7 @@ namespace Yiisoft\Html\Tag\Base;
 
 abstract class ContainerTag extends Tag
 {
-    final public function __toString(): string
+    final public function render(): string
     {
         return '<' . $this->getName() . $this->renderAttributes() . '>' .
             $this->generateContent() .

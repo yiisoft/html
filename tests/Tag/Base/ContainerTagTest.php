@@ -13,7 +13,7 @@ final class ContainerTagTest extends TestCase
     {
         $this->assertSame(
             '<test id="main">content</test>',
-            (string)TestContainerTag::tag()->id('main')
+            TestContainerTag::tag()->id('main')->render()
         );
     }
 }

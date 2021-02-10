@@ -42,7 +42,7 @@ abstract class NormalTag extends Tag
         return $new;
     }
 
-    final public function __toString(): string
+    final public function render(): string
     {
         return '<' . $this->getName() . $this->renderAttributes() . '>' .
             ($this->encode ? Html::encode($this->content, $this->doubleEncode) : $this->content) .

@@ -13,7 +13,7 @@ final class TestTag extends Tag
         return 'test';
     }
 
-    public function __toString(): string
+    public function render(): string
     {
         return '<' . $this->getName() . $this->renderAttributes() . '>';
     }

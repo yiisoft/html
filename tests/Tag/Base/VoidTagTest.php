@@ -13,7 +13,7 @@ final class VoidTagTest extends TestCase
     {
         $this->assertSame(
             '<test id="main">',
-            (string)TestVoidTag::tag()->id('main')
+            TestVoidTag::tag()->id('main')->render()
         );
     }
 }

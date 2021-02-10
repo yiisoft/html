@@ -13,7 +13,7 @@ final class NormalTagTest extends TestCase
     {
         $this->assertSame(
             '<test id="main">&lt;b&gt;hello &amp;gt; world!&lt;/b&gt;</test>',
-            (string)TestNormalTag::tag()->id('main')->content('<b>hello &gt; world!</b>')
+            TestNormalTag::tag()->id('main')->content('<b>hello &gt; world!</b>')->render()
         );
     }
 

@@ -204,7 +204,12 @@ abstract class Tag
         return $html;
     }
 
+    abstract public function render(): string;
+
     abstract protected function getName(): string;
 
-    abstract public function __toString(): string;
+    final public function __toString(): string
+    {
+        return $this->render();
+    }
 }
