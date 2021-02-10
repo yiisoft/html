@@ -7,6 +7,7 @@ namespace Yiisoft\Html\Tag;
 use InvalidArgumentException;
 use Yiisoft\Html\Tag\Base\ContainerTag;
 use Yiisoft\Html\Tag\Base\Tag;
+
 use function in_array;
 use function is_array;
 
