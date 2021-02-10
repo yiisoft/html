@@ -1735,10 +1735,11 @@ final class Html
      * @param array $options The options to be modified.
      * @param string|string[] $class The CSS class(es) to be added.
      *
-     * @psalm-param HtmlOptions $options
+     * @psalm-param HtmlOptions|array<empty, empty> $options
      */
     public static function addCssClass(array &$options, $class): void
     {
+        /** @psalm-var HtmlOptions $options */
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
