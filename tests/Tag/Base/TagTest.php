@@ -57,6 +57,31 @@ final class TagTest extends TestCase
     public function testAttributes(string $expected, array $attributes): void
     {
         $this->assertSame($expected, (string)TestTag::tag()->attributes($attributes));
+        $this->assertSame($expected, (string)TestTag::tag()->replaceAttributes($attributes));
+    }
+
+    public function testAttributesMerge(): void
+    {
+        $this->assertSame(
+            '<test id="color" class="green">',
+            TestTag::tag()
+                ->id('color')
+                ->class('red')
+                ->attributes(['class' => 'green'])
+                ->render(),
+        );
+    }
+
+    public function testReplaceAttributes(): void
+    {
+        $this->assertSame(
+            '<test class="green">',
+            TestTag::tag()
+                ->id('color')
+                ->class('red')
+                ->replaceAttributes(['class' => 'green'])
+                ->render(),
+        );
     }
 
     public function dataId(): array
@@ -120,6 +145,7 @@ final class TagTest extends TestCase
     {
         $tag = TestTag::tag();
         $this->assertNotSame($tag, $tag->attributes([]));
+        $this->assertNotSame($tag, $tag->replaceAttributes([]));
         $this->assertNotSame($tag, $tag->id(null));
         $this->assertNotSame($tag, $tag->class('test'));
         $this->assertNotSame($tag, $tag->addClass('test'));

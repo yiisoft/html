@@ -91,6 +91,16 @@ abstract class Tag
     final public function attributes(array $attributes): self
     {
         $new = clone $this;
+        $new->attributes = array_merge($new->attributes, $attributes);
+        return $new;
+    }
+
+    /**
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    final public function replaceAttributes(array $attributes): self
+    {
+        $new = clone $this;
         $new->attributes = $attributes;
         return $new;
     }
