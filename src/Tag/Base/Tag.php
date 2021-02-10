@@ -87,6 +87,8 @@ abstract class Tag
 
     /**
      * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     *
+     * @return static
      */
     final public function attributes(array $attributes): self
     {
@@ -97,11 +99,25 @@ abstract class Tag
 
     /**
      * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     *
+     * @return static
      */
     final public function replaceAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->attributes = $attributes;
+        return $new;
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return static
+     */
+    final public function attribute(string $key, $value): self
+    {
+        $new = clone $this;
+        $new->attributes[$key] = $value;
         return $new;
     }
 

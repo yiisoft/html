@@ -84,6 +84,23 @@ final class TagTest extends TestCase
         );
     }
 
+    public function dataAttribute(): array
+    {
+        return [
+            ['<test>', null],
+            ['<test key="one">', 'one'],
+            ['<test key="42">', 42],
+        ];
+    }
+
+    /**
+     * @dataProvider dataAttribute
+     */
+    public function testAttribute(string $expected, $value): void
+    {
+        $this->assertSame($expected, TestTag::tag()->attribute('key', $value)->render());
+    }
+
     public function dataId(): array
     {
         return [
@@ -146,6 +163,7 @@ final class TagTest extends TestCase
         $tag = TestTag::tag();
         $this->assertNotSame($tag, $tag->attributes([]));
         $this->assertNotSame($tag, $tag->replaceAttributes([]));
+        $this->assertNotSame($tag, $tag->attribute('id', null));
         $this->assertNotSame($tag, $tag->id(null));
         $this->assertNotSame($tag, $tag->class('test'));
         $this->assertNotSame($tag, $tag->addClass('test'));
