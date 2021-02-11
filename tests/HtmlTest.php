@@ -125,102 +125,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<a href="#">link</a>', Html::a()->url('#')->content('link')->render());
     }
 
-    /**
-     * @return array
-     */
-    public function imgDataProvider(): array
+    public function testImg(): void
     {
-        return [
-            [
-                '<img src="/example" alt="">',
-                '/example',
-                [],
-            ],
-            [
-                '<img src="" alt="">',
-                '',
-                [],
-            ],
-            [
-                '<img src="/example" width="10" alt="something">',
-                '/example',
-                [
-                    'alt' => 'something',
-                    'width' => 10,
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-9001w 9001w" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                        '9001w' => '/example-9001w',
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-100w 100w,/example-500w 500w,/example-1500w 1500w" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                        '100w' => '/example-100w',
-                        '500w' => '/example-500w',
-                        '1500w' => '/example-1500w',
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-1x 1x,/example-2x 2x,/example-3x 3x,/example-4x 4x,/example-5x 5x" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                        '1x' => '/example-1x',
-                        '2x' => '/example-2x',
-                        '3x' => '/example-3x',
-                        '4x' => '/example-4x',
-                        '5x' => '/example-5x',
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-1.42x 1.42x,/example-2.0x 2.0x,/example-3.99999x 3.99999x" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                        '1.42x' => '/example-1.42x',
-                        '2.0x' => '/example-2.0x',
-                        '3.99999x' => '/example-3.99999x',
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-1x 1x,/example-2x 2x,/example-3x 3x" alt="">',
-                '/base-url',
-                [
-                    'srcset' => '/example-1x 1x,/example-2x 2x,/example-3x 3x',
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider imgDataProvider
-     *
-     * @param string $expected
-     * @param string $src
-     * @param array $options
-     */
-    public function testImg(string $expected, string $src, array $options): void
-    {
-        $this->assertSame($expected, Html::img($src, $options));
+        $this->assertSame('<img>', Html::img()->render());
+        $this->assertSame('<img src="face.png">', Html::img('face.png')->render());
     }
 
     public function testLabel(): void
@@ -853,7 +761,8 @@ EOD;
 
     public function testDiv(): void
     {
-        $this->assertSame('<div class="red">hello</div>', Html::div('hello', ['class' => 'red']));
+        $this->assertSame('<div></div>', Html::div()->render());
+        $this->assertSame('<div>hello</div>', Html::div('hello')->render());
     }
 
     public function testSpan(): void

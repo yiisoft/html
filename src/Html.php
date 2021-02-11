@@ -12,6 +12,8 @@ use ValueError;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Button;
+use Yiisoft\Html\Tag\Div;
+use Yiisoft\Html\Tag\Img;
 use Yiisoft\Json\Json;
 
 use function array_key_exists;
@@ -456,42 +458,14 @@ final class Html
     }
 
     /**
-     * Generates an image tag.
+     * Generates an {@see Img} tag.
      *
-     * @param string $src The image URL. This parameter will be processed.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * It is possible to pass the `srcset` option as an array which keys are descriptors and
-     * values are URLs. All URLs will be processed.
-     *
-     * @psalm-param HtmlOptions&array{
-     *   srcset?: string[]|string|null,
-     * }|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated image tag.
+     * @param string $src The image URL.
      */
-    public static function img(string $src, array $options = []): string
+    public static function img(string $url = null): Img
     {
-        $options['src'] = $src;
-
-        if (isset($options['srcset']) && is_array($options['srcset'])) {
-            $srcset = [];
-            foreach ($options['srcset'] as $descriptor => $url) {
-                $srcset[] = $url . ' ' . $descriptor;
-            }
-            $options['srcset'] = implode(',', $srcset);
-        }
-
-        if (!isset($options['alt'])) {
-            $options['alt'] = '';
-        }
-
-        return self::tag('img', '', $options);
+        $tag = Img::tag();
+        return empty($url) ? $tag : $tag->src($url);
     }
 
     /**
@@ -1257,20 +1231,14 @@ final class Html
     }
 
     /**
-     * Generates a div tag. Based on {@see Html::tag()}.
+     * Generates a {@see Div} tag.
      *
      * @param string $content Tag content.
-     * @param array $options Tag options.
-     *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated div.
      */
-    public static function div(string $content = '', array $options = []): string
+    public static function div(string $content = null): Div
     {
-        return self::tag('div', $content, $options);
+        $tag = Div::tag();
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**
