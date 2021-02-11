@@ -232,21 +232,26 @@ final class HtmlTest extends TestCase
 
     public function testButton(): void
     {
-        $this->assertSame('<button type="button">Button</button>', Html::button());
-        $this->assertSame('<button type="button" name="test" value="value">content<></button>', Html::button('content<>', ['name' => 'test', 'value' => 'value']));
-        $this->assertSame('<button type="submit" class="t" name="test" value="value">content<></button>', Html::button('content<>', ['type' => 'submit', 'name' => 'test', 'value' => 'value', 'class' => 't']));
+        $this->assertSame(
+            '<button type="button">Button</button>',
+            Html::button('Button')->render()
+        );
     }
 
     public function testSubmitButton(): void
     {
-        $this->assertSame('<button type="submit">Submit</button>', Html::submitButton());
-        $this->assertSame('<button type="submit" class="t" name="test" value="value">content<></button>', Html::submitButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't']));
+        $this->assertSame(
+            '<button type="submit">Submit</button>',
+            Html::submitButton('Submit')->render()
+        );
     }
 
     public function testResetButton(): void
     {
-        $this->assertSame('<button type="reset">Reset</button>', Html::resetButton());
-        $this->assertSame('<button type="reset" class="t" name="test" value="value">content<></button>', Html::resetButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't']));
+        $this->assertSame(
+            '<button type="reset">Reset</button>',
+            Html::resetButton('Reset')->render()
+        );
     }
 
     public function testInput(): void

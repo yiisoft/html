@@ -11,6 +11,7 @@ use Traversable;
 use ValueError;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Tag\A;
+use Yiisoft\Html\Tag\Button;
 use Yiisoft\Json\Json;
 
 use function array_key_exists;
@@ -518,73 +519,37 @@ final class Html
     /**
      * Generates a button tag.
      *
-     * @param string $content The content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
-     * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encode()} it to prevent XSS attacks.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the
-     * corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Button::button()
      *
-     * @throws JsonException
-     *
-     * @return string The generated button tag.
+     * @param string $content The content enclosed within the button tag.
      */
-    public static function button(string $content = 'Button', array $options = []): string
+    public static function button(string $content = 'Button'): Button
     {
-        if (!isset($options['type'])) {
-            $options['type'] = 'button';
-        }
-
-        return self::tag('button', $content, $options);
+        return Button::button($content);
     }
 
     /**
      * Generates a submit button tag.
      *
-     * Be careful when naming form elements such as submit buttons. According to the [jQuery documentation]
-     * (https://api.jquery.com/submit/) there are some reserved names that can cause conflicts, e.g. `submit`, `length`
-     * or `method`.
+     * @see Button::submit()
      *
-     * @param string $content The content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
-     * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encode()} it to prevent XSS attacks.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated submit button tag.
+     * @param string $content The content enclosed within the button tag.
      */
-    public static function submitButton(string $content = 'Submit', array $options = []): string
+    public static function submitButton(string $content = 'Submit'): Button
     {
-        $options['type'] = 'submit';
-
-        return self::button($content, $options);
+        return Button::submit($content);
     }
 
     /**
      * Generates a reset button tag.
      *
-     * @param string $content The content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
-     * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encode()} it to prevent XSS attacks.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Button::reset()
      *
-     * @throws JsonException
-     *
-     * @return string The generated reset button tag.
+     * @param string $content The content enclosed within the button tag.
      */
-    public static function resetButton(string $content = 'Reset', array $options = []): string
+    public static function resetButton(string $content = 'Reset'): Button
     {
-        $options['type'] = 'reset';
-
-        return self::button($content, $options);
+        return Button::reset($content);
     }
 
     /**
