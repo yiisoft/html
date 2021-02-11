@@ -464,10 +464,10 @@ final class Html
      *
      * @param string $src The image URL.
      */
-    public static function img(string $url = null): Img
+    public static function img(?string $url = null): Img
     {
         $tag = Img::tag();
-        return empty($url) ? $tag : $tag->src($url);
+        return $url === null ? $tag : $tag->src($url);
     }
 
     /**
@@ -698,7 +698,7 @@ final class Html
     public static function textarea(?string $name = null, ?string $value = null): Textarea
     {
         $tag = Textarea::tag();
-        if (!empty($name)) {
+        if ($name !== null) {
             $tag = $tag->name($name);
         }
         if (!empty($value)) {
@@ -1210,7 +1210,7 @@ final class Html
      *
      * @param string $content Tag content.
      */
-    public static function div(string $content = null): Div
+    public static function div(string $content = ''): Div
     {
         $tag = Div::tag();
         return empty($content) ? $tag : $tag->content($content);
