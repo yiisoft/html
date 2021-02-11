@@ -15,6 +15,7 @@ use Yiisoft\Html\Tag\Button;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
+use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Textarea;
 use Yiisoft\Json\Json;
 
@@ -471,25 +472,22 @@ final class Html
     }
 
     /**
-     * Generates a label tag.
+     * Generates a {@see Label} tag.
      *
-     * @param string $content Label text. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an
-     * image tag. If this is is coming from end users, you should {@see encode()} it to prevent XSS attacks.
+     * @param string $content Label text.
      * @param string|null $for The ID of the HTML element that this label is associated with.
      * If this is null, the "for" attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the
-     * corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated label tag.
      */
-    public static function label(string $content, ?string $for = null, array $options = []): string
+    public static function label(string $content = '', ?string $for = null): Label
     {
-        $options['for'] = $for;
-        return self::tag('label', $content, $options);
+        $tag = Label::tag();
+        if ($for !== null) {
+            $tag = $tag->forId($for);
+        }
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        return $tag;
     }
 
     /**
@@ -813,7 +811,7 @@ final class Html
 
         if ($wrapInput) {
             $input = self::input($type, $name, $value, $options);
-            return $hidden . self::label($input . ' ' . $label, null, $labelOptions);
+            return $hidden . self::label($input . ' ' . $label, null)->attributes($labelOptions)->withoutEncode();
         }
 
         if (!isset($options['id'])) {
@@ -822,7 +820,7 @@ final class Html
         return $hidden .
             self::input($type, $name, $value, $options) .
             ' ' .
-            self::label($label, $options['id'], $labelOptions);
+            self::label($label, $options['id'])->attributes($labelOptions);
     }
 
     /**

@@ -134,9 +134,10 @@ final class HtmlTest extends TestCase
 
     public function testLabel(): void
     {
-        $this->assertSame('<label>something<></label>', Html::label('something<>'));
-        $this->assertSame('<label for="a">something<></label>', Html::label('something<>', 'a'));
-        $this->assertSame('<label class="test" for="a">something<></label>', Html::label('something<>', 'a', ['class' => 'test']));
+        $this->assertSame('<label></label>', Html::label()->render());
+        $this->assertSame('<label>Name</label>', Html::label('Name')->render());
+        $this->assertSame('<label for="">Name</label>', Html::label('Name', '')->render());
+        $this->assertSame('<label for="fieldName">Name</label>', Html::label('Name', 'fieldName')->render());
     }
 
     public function testButton(): void
@@ -571,7 +572,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]))->withoutEncode();
             },
         ]));
 
@@ -581,7 +582,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]))->withoutEncode();
             },
             'tag' => false,
         ]));
@@ -589,7 +590,7 @@ EOD;
             $expected,
             Html::checkboxList('test', new ArrayObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]))->withoutEncode();
                 },
                 'tag' => false,
             ])
@@ -598,7 +599,7 @@ EOD;
             $expected,
             Html::checkboxList('test', new IterableObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]));
+                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]))->withoutEncode();
                 },
                 'tag' => false,
             ])
@@ -679,7 +680,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]))->withoutEncode();
             },
         ]));
 
@@ -689,7 +690,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]))->withoutEncode();
             },
             'tag' => false,
         ]));
@@ -697,7 +698,7 @@ EOD;
             $expected,
             Html::radioList('test', new ArrayObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]))->withoutEncode();
                 },
                 'tag' => false,
             ])
@@ -706,7 +707,7 @@ EOD;
             $expected,
             Html::radioList('test', new IterableObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]));
+                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]))->withoutEncode();
                 },
                 'tag' => false,
             ])
