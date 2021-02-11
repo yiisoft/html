@@ -16,6 +16,10 @@ use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
 use Yiisoft\Html\Tag\Label;
+use Yiisoft\Html\Tag\P;
+use Yiisoft\Html\Tag\Script;
+use Yiisoft\Html\Tag\Span;
+use Yiisoft\Html\Tag\Style;
 use Yiisoft\Html\Tag\Textarea;
 use Yiisoft\Json\Json;
 
@@ -363,39 +367,25 @@ final class Html
     }
 
     /**
-     * Generates a style tag.
+     * Generates a {@see Style} tag.
      *
      * @param string $content The style content.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the
-     * corresponding attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes
-     * are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated style tag.
      */
-    public static function style(string $content, array $options = []): string
+    public static function style(string $content = ''): Style
     {
-        return self::tag('style', $content, $options);
+        $tag = Style::tag();
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**
-     * Generates a script tag.
+     * Generates a {@see Script} tag.
      *
      * @param string $content The script content.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes
-     * are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated script tag.
      */
-    public static function script(string $content, array $options = []): string
+    public static function script(string $content = ''): Script
     {
-        return self::tag('script', $content, $options);
+        $tag = Script::tag();
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**
@@ -1215,37 +1205,25 @@ final class Html
     }
 
     /**
-     * Generates a span tag. Based on {@see Html::tag()}.
+     * Generates a {@see Span} tag.
      *
      * @param string $content Tag content.
-     * @param array $options Tag options.
-     *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated span.
      */
-    public static function span(string $content = '', array $options = []): string
+    public static function span(string $content = ''): Span
     {
-        return self::tag('span', $content, $options);
+        $tag = Span::tag();
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**
-     * Generates a paragraph tag. Based on {@see Html::tag()}.
+     * Generates a {@see P} tag.
      *
      * @param string $content Tag content.
-     * @param array $options Tag options.
-     *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated paragraph.
      */
-    public static function p(string $content = '', array $options = []): string
+    public static function p(string $content = ''): P
     {
-        return self::tag('p', $content, $options);
+        $tag = P::tag();
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**

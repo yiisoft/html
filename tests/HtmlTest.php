@@ -95,16 +95,14 @@ final class HtmlTest extends TestCase
 
     public function testStyle(): void
     {
-        $content = 'a <>';
-        $this->assertSame("<style>{$content}</style>", Html::style($content));
-        $this->assertSame("<style type=\"text/less\">{$content}</style>", Html::style($content, ['type' => 'text/less']));
+        $this->assertSame('<style></style>', Html::style()->render());
+        $this->assertSame('<style>.red{color:#f00}</style>', Html::style('.red{color:#f00}')->render());
     }
 
     public function testScript(): void
     {
-        $content = 'a <>';
-        $this->assertSame("<script>{$content}</script>", Html::script($content));
-        $this->assertSame("<script type=\"text/js\">{$content}</script>", Html::script($content, ['type' => 'text/js']));
+        $this->assertSame('<script></script>', Html::script()->render());
+        $this->assertSame('<script>alert(15)</script>', Html::script('alert(15)')->render());
     }
 
     public function testCssFile(): void
@@ -749,12 +747,14 @@ EOD;
 
     public function testSpan(): void
     {
-        $this->assertSame('<span class="red">hello</span>', Html::span('hello', ['class' => 'red']));
+        $this->assertSame('<span></span>', Html::span()->render());
+        $this->assertSame('<span>hello</span>', Html::span('hello')->render());
     }
 
     public function testP(): void
     {
-        $this->assertSame('<p class="red">hello</p>', Html::p('hello', ['class' => 'red']));
+        $this->assertSame('<p></p>', Html::p()->render());
+        $this->assertSame('<p>hello</p>', Html::p('hello')->render());
     }
 
     public function testUl(): void
