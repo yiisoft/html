@@ -24,6 +24,18 @@ final class Input extends VoidTag
     }
 
     /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#text-typetext-state-and-search-state-typesearch
+     */
+    public static function text(?string $name = null, ?string $value = null): self
+    {
+        $input = self::tag();
+        $input->attributes['type'] = 'text';
+        $input->attributes['name'] = $name;
+        $input->attributes['value'] = $value;
+        return $input;
+    }
+
+    /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#password-state-typepassword
      */
     public static function password(?string $name = null, ?string $value = null): self
@@ -68,6 +80,39 @@ final class Input extends VoidTag
         $input->attributes['type'] = 'radio';
         $input->attributes['name'] = $name;
         $input->attributes['value'] = $value;
+        return $input;
+    }
+
+    /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#button-state-typebutton
+     */
+    public static function button(?string $label = null): self
+    {
+        $input = self::tag();
+        $input->attributes['type'] = 'button';
+        $input->attributes['value'] = $label;
+        return $input;
+    }
+
+    /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#submit-button-state-typesubmit
+     */
+    public static function submitButton(?string $label = null): self
+    {
+        $input = self::tag();
+        $input->attributes['type'] = 'submit';
+        $input->attributes['value'] = $label;
+        return $input;
+    }
+
+    /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#reset-button-state-typereset
+     */
+    public static function resetButton(?string $label = null): self
+    {
+        $input = self::tag();
+        $input->attributes['type'] = 'reset';
+        $input->attributes['value'] = $label;
         return $input;
     }
 

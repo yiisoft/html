@@ -25,6 +25,14 @@ final class InputTest extends TestCase
         );
     }
 
+    public function testText(): void
+    {
+        $this->assertSame(
+            '<input type="text" name="name" value="Mike">',
+            (string)Input::text('name', 'Mike')
+        );
+    }
+
     public function testPassword(): void
     {
         $this->assertSame(
@@ -54,6 +62,30 @@ final class InputTest extends TestCase
         $this->assertSame(
             '<input type="radio" name="count" value="one">',
             (string)Input::radio('count', 'one')
+        );
+    }
+
+    public function testButton(): void
+    {
+        $this->assertSame(
+            '<input type="button" value="Go!">',
+            (string)Input::button('Go!')
+        );
+    }
+
+    public function testSubmitButton(): void
+    {
+        $this->assertSame(
+            '<input type="submit" value="Go!">',
+            (string)Input::submitButton('Go!')
+        );
+    }
+
+    public function testResetButton(): void
+    {
+        $this->assertSame(
+            '<input type="reset" value="Go!">',
+            (string)Input::resetButton('Go!')
         );
     }
 

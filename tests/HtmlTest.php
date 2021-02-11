@@ -170,26 +170,38 @@ final class HtmlTest extends TestCase
 
     public function testButtonInput(): void
     {
-        $this->assertSame('<input type="button" value="Button">', Html::buttonInput());
-        $this->assertSame('<input type="button" class="a" name="test" value="text">', Html::buttonInput('text', ['name' => 'test', 'class' => 'a']));
+        $this->assertSame('<input type="button" value="Button">', Html::buttonInput()->render());
+        $this->assertSame('<input type="button">', Html::buttonInput(null)->render());
+        $this->assertSame('<input type="button" value="">', Html::buttonInput('')->render());
+        $this->assertSame('<input type="button" value="Go">', Html::buttonInput('Go')->render());
     }
 
     public function testSubmitInput(): void
     {
-        $this->assertSame('<input type="submit" value="Submit">', Html::submitInput());
-        $this->assertSame('<input type="submit" class="a" name="test" value="text">', Html::submitInput('text', ['name' => 'test', 'class' => 'a']));
+        $this->assertSame('<input type="submit" value="Submit">', Html::submitInput()->render());
+        $this->assertSame('<input type="submit">', Html::submitInput(null)->render());
+        $this->assertSame('<input type="submit" value="">', Html::submitInput('')->render());
+        $this->assertSame('<input type="submit" value="Go">', Html::submitInput('Go')->render());
     }
 
     public function testResetInput(): void
     {
-        $this->assertSame('<input type="reset" value="Reset">', Html::resetInput());
-        $this->assertSame('<input type="reset" class="a" name="test" value="text">', Html::resetInput('text', ['name' => 'test', 'class' => 'a']));
+        $this->assertSame('<input type="reset" value="Reset">', Html::resetInput()->render());
+        $this->assertSame('<input type="reset">', Html::resetInput(null)->render());
+        $this->assertSame('<input type="reset" value="">', Html::resetInput('')->render());
+        $this->assertSame('<input type="reset" value="Go">', Html::resetInput('Go')->render());
     }
 
     public function testTextInput(): void
     {
-        $this->assertSame('<input type="text" name="test">', Html::textInput('test'));
-        $this->assertSame('<input type="text" class="t" name="test" value="value">', Html::textInput('test', 'value', ['class' => 't']));
+        $this->assertSame('<input type="text">', Html::textInput()->render());
+        $this->assertSame('<input type="text" name="">', Html::textInput('')->render());
+        $this->assertSame('<input type="text" value="">', Html::textInput(null, '')->render());
+        $this->assertSame('<input type="text" name="test">', Html::textInput('test')->render());
+        $this->assertSame(
+            '<input type="text" name="test" value="43">',
+            Html::textInput('test', '43')->render(),
+        );
     }
 
     public function testHiddenInput(): void

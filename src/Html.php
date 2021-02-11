@@ -548,90 +548,50 @@ final class Html
     }
 
     /**
-     * Generates an input button.
+     * Generates an {@see Input} button.
      *
-     * @param string $label The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::button()
      *
-     * @throws JsonException
-     *
-     * @return string The generated button tag.
+     * @param string|null $label The value attribute.
      */
-    public static function buttonInput(string $label = 'Button', array $options = []): string
+    public static function buttonInput(?string $label = 'Button'): Input
     {
-        $options['type'] = 'button';
-        $options['value'] = $label;
-
-        return self::tag('input', '', $options);
+        return Input::button($label);
     }
 
     /**
-     * Generates a submit input button.
+     * Generates a submit {@see Input} button.
      *
-     * Be careful when naming form elements such as submit buttons. According to the {@see jQuery documentation}
-     * https://api.jquery.com/submit/) there are some reserved names that can cause conflicts, e.g. `submit`, `length`
-     * or `method`.
+     * @see Input::submitButton()
      *
-     * @param string $label The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated button tag.
+     * @param string|null $label The value attribute.
      */
-    public static function submitInput($label = 'Submit', $options = []): string
+    public static function submitInput(?string $label = 'Submit'): Input
     {
-        $options['type'] = 'submit';
-        $options['value'] = $label;
-
-        return self::tag('input', '', $options);
+        return Input::submitButton($label);
     }
 
     /**
-     * Generates a reset input button.
+     * Generates a reset {@see Input} button.
      *
-     * @param string $label The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The attributes of the button tag. The values will be HTML-encoded using
-     * {@see encodeAttribute()}. Attributes whose value is null will be ignored and not put in the tag returned.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::resetButton()
      *
-     * @throws JsonException
-     *
-     * @return string The generated button tag.
+     * @param string|null $label The value attribute.
      */
-    public static function resetInput(string $label = 'Reset', array $options = []): string
+    public static function resetInput(?string $label = 'Reset'): Input
     {
-        $options['type'] = 'reset';
-        $options['value'] = $label;
-
-        return self::tag('input', '', $options);
+        return Input::resetButton($label);
     }
 
     /**
-     * Generates a text input field.
+     * Generates a text {@see Input} field.
      *
-     * @param string $name The name attribute.
-     * @param string|null $value The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated text input tag.
+     * @param string|null $name The name attribute.
+     * @param string|null $value The value attribute.
      */
-    public static function textInput(string $name, ?string $value = null, array $options = []): string
+    public static function textInput(?string $name = null, ?string $value = null): Input
     {
-        return self::input('text', $name, $value, $options);
+        return Input::text($name, $value);
     }
 
     /**
