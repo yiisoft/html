@@ -194,66 +194,39 @@ final class HtmlTest extends TestCase
 
     public function testHiddenInput(): void
     {
-        $this->assertSame('<input type="hidden" name="test">', Html::hiddenInput('test'));
-        $this->assertSame('<input type="hidden" class="t" name="test" value="value">', Html::hiddenInput('test', 'value', ['class' => 't']));
+        $this->assertSame('<input type="hidden">', Html::hiddenInput()->render());
+        $this->assertSame('<input type="hidden" name="test">', Html::hiddenInput('test')->render());
+        $this->assertSame(
+            '<input type="hidden" name="test" value="43">',
+            Html::hiddenInput('test', '43')->render(),
+        );
     }
 
     public function testPasswordInput(): void
     {
-        $this->assertSame('<input type="password" name="test">', Html::passwordInput('test'));
-        $this->assertSame('<input type="password" class="t" name="test" value="value">', Html::passwordInput('test', 'value', ['class' => 't']));
+        $this->assertSame('<input type="password">', Html::passwordInput()->render());
+        $this->assertSame('<input type="password" name="test">', Html::passwordInput('test')->render());
+        $this->assertSame(
+            '<input type="password" name="test" value="43">',
+            Html::passwordInput('test', '43')->render(),
+        );
     }
 
     public function testFileInput(): void
     {
-        $this->assertSame('<input type="file" name="test">', Html::fileInput('test'));
-        $this->assertSame('<input type="file" class="t" name="test" value="value">', Html::fileInput('test', 'value', ['class' => 't']));
+        $this->assertSame('<input type="file">', Html::fileInput()->render());
+        $this->assertSame('<input type="file" name="test">', Html::fileInput('test')->render());
+        $this->assertSame(
+            '<input type="file" name="test" value="43">',
+            Html::fileInput('test', '43')->render(),
+        );
     }
 
-    /**
-     * @return array
-     */
-    public function textareaDataProvider(): array
+    public function testTextarea(): void
     {
-        return [
-            [
-                '<textarea name="test"></textarea>',
-                'test',
-                null,
-                [],
-            ],
-            [
-                '<textarea class="t" name="test">value&lt;&gt;</textarea>',
-                'test',
-                'value<>',
-                ['class' => 't'],
-            ],
-            [
-                '<textarea name="test">value&amp;lt;&amp;gt;</textarea>',
-                'test',
-                'value&lt;&gt;',
-                [],
-            ],
-            [
-                '<textarea name="test">value&lt;&gt;</textarea>',
-                'test',
-                'value&lt;&gt;',
-                ['doubleEncode' => false],
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider textareaDataProvider
-     *
-     * @param string $expected
-     * @param string $name
-     * @param string $value
-     * @param array $options
-     */
-    public function testTextarea($expected, $name, $value, $options): void
-    {
-        $this->assertSame($expected, Html::textarea($name, $value, $options));
+        $this->assertSame('<textarea></textarea>', Html::textarea()->render());
+        $this->assertSame('<textarea name="test"></textarea>', Html::textarea('test')->render());
+        $this->assertSame('<textarea name="test">body</textarea>', Html::textarea('test', 'body')->render());
     }
 
     public function testRadio(): void

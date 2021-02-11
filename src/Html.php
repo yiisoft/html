@@ -14,6 +14,8 @@ use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Button;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Img;
+use Yiisoft\Html\Tag\Input;
+use Yiisoft\Html\Tag\Textarea;
 use Yiisoft\Json\Json;
 
 use function array_key_exists;
@@ -647,45 +649,27 @@ final class Html
     /**
      * Generates a hidden input field.
      *
-     * @param string $name The name attribute.
-     * @param bool|float|int|string|null $value The value attribute.
-     * If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::hidden()
      *
-     * @psalm-param string|int|float|\Stringable|bool|null $value
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated hidden input tag.
+     * @param string|null $name The name attribute.
+     * @param string|null $value The value attribute.
      */
-    public static function hiddenInput(string $name, $value = null, array $options = []): string
+    public static function hiddenInput(?string $name = null, ?string $value = null): Input
     {
-        return self::input('hidden', $name, $value, $options);
+        return Input::hidden($name, $value);
     }
 
     /**
      * Generates a password input field.
      *
-     * @param string $name The name attribute.
-     * @param string|null $value The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::password()
      *
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated password input tag.
+     * @param string|null $name The name attribute.
+     * @param string|null $value The value attribute.
      */
-    public static function passwordInput(string $name, ?string $value = null, array $options = []): string
+    public static function passwordInput(?string $name = null, ?string $value = null): Input
     {
-        return self::input('password', $name, $value, $options);
+        return Input::password($name, $value);
     }
 
     /**
@@ -695,54 +679,32 @@ final class Html
      * After the form is submitted, the uploaded file information can be obtained via $_FILES[$name]
      * (see PHP documentation).
      *
-     * @param string $name The name attribute.
-     * @param string|null $value The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::file()
      *
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated file input tag.
+     * @param string|null $name The name attribute.
+     * @param string|null $value The value attribute.
      */
-    public static function fileInput(string $name, ?string $value = null, array $options = []): string
+    public static function fileInput(?string $name = null, ?string $value = null): Input
     {
-        return self::input('file', $name, $value, $options);
+        return Input::file($name, $value);
     }
 
     /**
-     * Generates a text area input.
+     * Generates a {@see Textarea} input.
      *
-     * @param string $name The input name.
-     * @param string|null $value The input value. Note that it will be encoded using {@see encode()}.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     * The following special options are recognized:
-     *
-     * - `doubleEncode`: whether to double encode HTML entities in `$value`. If `false`, HTML entities in `$value` will
-     *   not be further encoded.
-     *
-     * @psalm-param HtmlOptions&array{
-     *   doubleEncode?: bool,
-     * }|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated text area tag.
+     * @param string|null $name The input name.
+     * @param string|null $value The input value.
      */
-    public static function textarea(string $name, ?string $value = '', array $options = []): string
+    public static function textarea(?string $name = null, ?string $value = null): Textarea
     {
-        $options['name'] = $name;
-
-        /** @var bool $doubleEncode */
-        $doubleEncode = ArrayHelper::remove($options, 'doubleEncode', true);
-
-        return self::tag('textarea', self::encode($value, $doubleEncode), $options);
+        $tag = Textarea::tag();
+        if (!empty($name)) {
+            $tag = $tag->name($name);
+        }
+        if (!empty($value)) {
+            $tag = $tag->value($value);
+        }
+        return $tag;
     }
 
     /**
@@ -830,7 +792,10 @@ final class Html
             if (!empty($options['disabled'])) {
                 $hiddenOptions['disabled'] = $options['disabled'];
             }
-            $hidden = self::hiddenInput($name, $options['uncheck'], $hiddenOptions);
+            $hidden = self::hiddenInput(
+                $name,
+                isset($options['uncheck']) ? (string)$options['uncheck'] : null
+            )->attributes($hiddenOptions);
 
             unset($options['uncheck']);
         } else {
@@ -1000,7 +965,10 @@ final class Html
             if (!empty($options['disabled'])) {
                 $hiddenOptions['disabled'] = $options['disabled'];
             }
-            $hidden = self::hiddenInput($name, $options['unselect'], $hiddenOptions);
+            $hidden = self::hiddenInput(
+                $name,
+                isset($options['unselect']) ? (string)$options['unselect'] : null
+            )->attributes($hiddenOptions);
             unset($options['unselect']);
         } else {
             $hidden = '';
@@ -1114,7 +1082,10 @@ final class Html
             if (!empty($options['disabled'])) {
                 $hiddenOptions['disabled'] = $options['disabled'];
             }
-            $hidden = self::hiddenInput($name2, $options['unselect'], $hiddenOptions);
+            $hidden = self::hiddenInput(
+                $name2,
+                isset($options['unselect']) ? (string)$options['unselect'] : null
+            )->attributes($hiddenOptions);
             unset($options['unselect'], $options['disabled']);
         } else {
             $hidden = '';
@@ -1205,7 +1176,11 @@ final class Html
             if (!empty($options['disabled'])) {
                 $hiddenOptions['disabled'] = $options['disabled'];
             }
-            $hidden = self::hiddenInput($name, $options['unselect'], $hiddenOptions);
+            $hidden = self::hiddenInput(
+                $name,
+                isset($options['unselect']) ? (string)$options['unselect'] : null
+            )->attributes($hiddenOptions);
+
             unset($options['unselect'], $options['disabled']);
         }
 
