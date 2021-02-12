@@ -605,6 +605,34 @@ final class Html
     }
 
     /**
+     * Generates a radio button {@see Input}.
+     *
+     * @see Input::radio()
+     *
+     * @param string|null $name The name attribute.
+     * @param bool $checked Whether the radio button should be checked.
+     */
+    public static function radioInput(?string $name = null, bool $checked = false): Input
+    {
+        $tag = Input::radio($name);
+        return $checked ? $tag->checked() : $tag;
+    }
+
+    /**
+     * Generates a checkbox {@see Input}.
+     *
+     * @see Input::checkbox()
+     *
+     * @param string|null $name The name attribute.
+     * @param bool $checked Whether the checkbox should be checked.
+     */
+    public static function checkboxInput(?string $name = null, bool $checked = false): Input
+    {
+        $tag = Input::checkbox($name);
+        return $checked ? $tag->checked() : $tag;
+    }
+
+    /**
      * Generates a {@see Textarea} input.
      *
      * @param string|null $name The input name.

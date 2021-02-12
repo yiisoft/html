@@ -265,6 +265,24 @@ final class HtmlTest extends TestCase
         );
     }
 
+    public function testRadioInput(): void
+    {
+        self::assertSame('<input type="radio">', Html::radioInput()->render());
+        self::assertSame('<input type="radio" name="">', Html::radioInput('')->render());
+        self::assertSame('<input type="radio" name="test">', Html::radioInput('test')->render());
+        self::assertSame('<input type="radio" name="test">', Html::radioInput('test', false)->render());
+        self::assertSame('<input type="radio" name="test" checked>', Html::radioInput('test', true)->render());
+    }
+
+    public function testCheckboxInput(): void
+    {
+        self::assertSame('<input type="checkbox">', Html::checkboxInput()->render());
+        self::assertSame('<input type="checkbox" name="">', Html::checkboxInput('')->render());
+        self::assertSame('<input type="checkbox" name="test">', Html::checkboxInput('test')->render());
+        self::assertSame('<input type="checkbox" name="test">', Html::checkboxInput('test', false)->render());
+        self::assertSame('<input type="checkbox" name="test" checked>', Html::checkboxInput('test', true)->render());
+    }
+
     public function testTextarea(): void
     {
         $this->assertSame('<textarea></textarea>', Html::textarea()->render());
