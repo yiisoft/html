@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag\Base;
 
+use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tests\Objects\TestVoidTag;
-use Yiisoft\Html\Tests\TestCase;
 
 final class VoidTagTest extends TestCase
 {

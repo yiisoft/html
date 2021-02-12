@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests;
 
-use ArrayObject;
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Tests\Objects\IterableObject;
 
 final class HtmlTest extends TestCase
 {
@@ -304,111 +303,40 @@ final class HtmlTest extends TestCase
         $this->assertSame('<textarea name="test">body</textarea>', Html::textarea('test', 'body')->render());
     }
 
+    public function testCheckboxList(): void
+    {
+        self::assertSame(
+            '<input type="hidden" name="test" value="0">' .
+            '<div id="main">' .
+            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
+            '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n" .
+            '<label><input type="checkbox" name="test[]" value="5" checked> Five</label>' .
+            '</div>',
+            Html::checkboxList('test')
+                ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
+                ->uncheckValue(0)
+                ->value(2, 5)
+                ->containerAttributes(['id' => 'main'])
+                ->render(),
+        );
+    }
+
     public function testRadioList(): void
     {
-        $this->assertSame('<div></div>', Html::radioList('test'));
-
-        $this->assertSame(
-            '<input type="hidden" name="test" value="1"><label><input type="radio" name="test" value="1"> a</label>',
-            Html::radioList('test', null, [1 => 'a'], ['unselect' => 1, 'tag' => false])
+        self::assertSame(
+            '<input type="hidden" name="test" value="0">' .
+            '<div id="main">' .
+            '<label><input type="radio" name="test[]" value="1"> One</label>' . "\n" .
+            '<label><input type="radio" name="test[]" value="2" checked> Two</label>' . "\n" .
+            '<label><input type="radio" name="test[]" value="5"> Five</label>' .
+            '</div>',
+            Html::radioList('test')
+                ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
+                ->uncheckValue(0)
+                ->value(2)
+                ->containerAttributes(['id' => 'main'])
+                ->render(),
         );
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="value1"> text1</label>
-<label><input type="radio" name="test" value="value2" checked> text2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems()));
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="value1&lt;&gt;"> text1&lt;&gt;</label>
-<label><input type="radio" name="test" value="value  2"> text  2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems2()));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0"><div><label><input type="radio" name="test" value="value1"> text1</label><br>
-<label><input type="radio" name="test" value="value2" checked> text2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
-            'separator' => "<br>\n",
-            'unselect' => '0',
-        ]));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0" disabled><div><label><input type="radio" name="test" value="value1"> text1</label><br>
-<label><input type="radio" name="test" value="value2"> text2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', null, $this->getDataItems(), [
-            'separator' => "<br>\n",
-            'unselect' => '0',
-            'disabled' => true,
-        ]));
-
-        $expected = <<<'EOD'
-<div>0<label>text1 <input type="radio" name="test" value="value1"></label>
-1<label>text2 <input type="radio" name="test" value="value2" checked></label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
-            'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $value)->checked($checked))->withoutEncode();
-            },
-        ]));
-
-        $expected = <<<'EOD'
-0<label>text1 <input type="radio" name="test" value="value1"></label>
-1<label>text2 <input type="radio" name="test" value="value2" checked></label>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
-            'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $value)->checked($checked))->withoutEncode();
-            },
-            'tag' => false,
-        ]));
-        $this->assertSameWithoutLE(
-            $expected,
-            Html::radioList('test', new ArrayObject(['value2']), $this->getDataItems(), [
-                'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::radio($name, $value)->checked($checked))->withoutEncode();
-                },
-                'tag' => false,
-            ])
-        );
-        $this->assertSameWithoutLE(
-            $expected,
-            Html::radioList('test', new IterableObject(['value2']), $this->getDataItems(), [
-                'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::radio($name, $value)->checked($checked))->withoutEncode();
-                },
-                'tag' => false,
-            ])
-        );
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="0" checked> zero</label>
-<label><input type="radio" name="test" value="1"> one</label>
-<label><input type="radio" name="test" value="value3"> text3</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', [0], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::radioList('test', new ArrayObject([0]), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="0"> zero</label>
-<label><input type="radio" name="test" value="1"> one</label>
-<label><input type="radio" name="test" value="value3" checked> text3</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value3'], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::radioList('test', new ArrayObject(['value3']), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="1" checked any="42"> One</label>
-<label><input type="radio" name="test" value="2" any="42"> Two</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList(
-            'test',
-            1,
-            [1 => 'One', 2 => 'Two'],
-            ['itemOptions' => ['any' => 42]]
-        ));
     }
 
     public function testDiv(): void

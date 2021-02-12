@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
 
 final class EncodeTest extends TestCase

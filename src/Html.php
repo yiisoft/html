@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
-use Closure;
 use InvalidArgumentException;
 use JsonException;
-use Traversable;
 use ValueError;
-use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Button;
 use Yiisoft\Html\Tag\CustomTag;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
+use Yiisoft\Html\Tag\Input\Checkbox;
+use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
@@ -27,6 +26,8 @@ use Yiisoft\Html\Tag\Span;
 use Yiisoft\Html\Tag\Style;
 use Yiisoft\Html\Tag\Textarea;
 use Yiisoft\Html\Tag\Ul;
+use Yiisoft\Html\Widget\CheckboxList\CheckboxList;
+use Yiisoft\Html\Widget\RadioList\RadioList;
 use Yiisoft\Json\Json;
 
 use function count;
@@ -565,7 +566,7 @@ final class Html
      * @param string|null $name The name attribute.
      * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function radio(?string $name = null, $value = null): Input\Radio
+    public static function radio(?string $name = null, $value = null): Radio
     {
         return Input::radio($name, $value);
     }
@@ -578,7 +579,7 @@ final class Html
      * @param string|null $name The name attribute.
      * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function checkbox(?string $name = null, $value = null): Input\Checkbox
+    public static function checkbox(?string $name = null, $value = null): Checkbox
     {
         return Input::checkbox($name, $value);
     }
@@ -616,119 +617,23 @@ final class Html
     }
 
     /**
+     * Generates a list of checkboxes.
+     *
+     * @see CheckboxList
+     */
+    public static function checkboxList(string $name): CheckboxList
+    {
+        return CheckboxList::widget($name);
+    }
+
+    /**
      * Generates a list of radio buttons.
      *
-     * A radio button list is like a checkbox list, except that it only allows single selection.
-     *
-     * @param string $name The name attribute of each radio button.
-     * @param array|bool|float|int|string|Traversable|null $selection The selected value(s). String for single or array
-     * for multiple selection(s).
-     * @param array $items The data item used to generate the radio buttons. The array keys are the radio button
-     * values, while the array values are the corresponding labels.
-     * @param array $options Options (name => config) for the radio button list container tag. The following options
-     * are specially handled:
-     *
-     * - tag: string|false, the tag name of the container element. False to render radio buttons without container.
-     *   See also {@see tag()}.
-     * - unselect: string, the value that should be submitted when none of the radio buttons is selected. By setting
-     *   this option, a hidden input will be generated.
-     * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true. This option is ignored if `item`
-     *   option is set.
-     * - separator: string, the HTML code that separates items.
-     * - itemOptions: array, the options for generating the radio button tag using {@see radio()}.
-     * - item: callable, a callback that can be used to customize the generation of the HTML code corresponding to a
-     *   single item in $items. The signature of this callback must be:
-     *
-     *   ```php
-     *   function ($index, $label, $name, $checked, $value)
-     *   ```
-     *
-     *   where $index is the zero-based index of the radio button in the whole list; $label is the label for the radio
-     *   button; and $name, $value and $checked represent the name, value and the checked status of the radio button
-     *   input, respectively.
-     *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param iterable<array-key, string>|string|\Stringable|int|float|bool|null $selection
-     * @psalm-param array<array-key, string> $items
-     * @psalm-param InputHtmlOptions&array{
-     *   item?: Closure(int, string, string, bool, mixed):string|null,
-     *   itemOptions?: HtmlOptions|null,
-     *   encode?: bool,
-     *   separator?: string|null,
-     *   tag?: string|null,
-     *   unselect?: string|int|float|\Stringable|bool|null,
-     * }|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated radio button list.
+     * @see RadioList
      */
-    public static function radioList(string $name, $selection = null, array $items = [], array $options = []): string
+    public static function radioList(string $name): RadioList
     {
-        if (is_iterable($selection)) {
-            $selection = array_map('strval', is_array($selection) ? $selection : iterator_to_array($selection));
-        } elseif ($selection !== null) {
-            $selection = (string)$selection;
-        }
-
-        /** @var Closure(int, string, string, bool, mixed):string|null $formatter */
-        $formatter = ArrayHelper::remove($options, 'item');
-
-        /** @psalm-var HtmlOptions $itemOptions */
-        $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
-
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($options, 'encode', true);
-
-        /** @var string $separator */
-        $separator = ArrayHelper::remove($options, 'separator', "\n");
-
-        /** @psalm-var non-empty-string|false $tag */
-        $tag = ArrayHelper::remove($options, 'tag', 'div');
-
-        /** @psalm-var InputHtmlOptions&array{unselect?: string|int|float|\Stringable|bool|null} $options */
-
-        $hidden = '';
-        if (isset($options['unselect'])) {
-            // add a hidden field so that if the list box has no option being selected, it still submits a value
-            $hiddenOptions = [];
-            // make sure disabled input is not sending any value
-            if (!empty($options['disabled'])) {
-                $hiddenOptions['disabled'] = $options['disabled'];
-            }
-            $hidden = self::hiddenInput(
-                $name,
-                isset($options['unselect']) ? (string)$options['unselect'] : null
-            )->attributes($hiddenOptions);
-
-            unset($options['unselect'], $options['disabled']);
-        }
-
-        $lines = [];
-        $index = 0;
-        foreach ($items as $value => $label) {
-            $checked = $selection !== null &&
-                ((!is_iterable($selection) && !strcmp((string)$value, $selection))
-                    || (is_iterable($selection) && ArrayHelper::isIn((string)$value, $selection)));
-            if ($formatter !== null) {
-                $lines[] = $formatter($index, $label, $name, $checked, $value);
-            } else {
-                $lines[] = self::radio($name, $value)
-                    ->attributes($itemOptions)
-                    ->checked($checked)
-                    ->label($encode ? self::encode($label) : $label)
-                    ->withoutLabelEncode();
-            }
-            $index++;
-        }
-        $visibleContent = implode($separator, $lines);
-
-        return $hidden . (
-            $tag === false
-                ? $visibleContent
-                : self::tag($tag, $visibleContent, $options)->withoutEncode()
-            );
+        return RadioList::widget($name);
     }
 
     /**
