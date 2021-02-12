@@ -16,4 +16,20 @@ final class ContainerTagTest extends TestCase
             TestContainerTag::tag()->id('main')->render()
         );
     }
+
+    public function testBegin(): void
+    {
+        self::assertSame(
+            '<test id="main">',
+            TestContainerTag::tag()->id('main')->begin(),
+        );
+    }
+
+    public function testEnd(): void
+    {
+        self::assertSame(
+            '</test>',
+            TestContainerTag::tag()->id('main')->end(),
+        );
+    }
 }
