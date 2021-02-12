@@ -7,7 +7,6 @@ namespace Yiisoft\Html\Tests;
 use ArrayObject;
 use InvalidArgumentException;
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Tests\Objects\ArrayAccessObject;
 use Yiisoft\Html\Tests\Objects\IterableObject;
 
 final class HtmlTest extends TestCase
@@ -283,6 +282,13 @@ final class HtmlTest extends TestCase
         self::assertSame('<input type="checkbox" name="test" checked>', Html::checkboxInput('test', true)->render());
     }
 
+    public function testSelect(): void
+    {
+        $this->assertSame('<select></select>', Html::select()->render());
+        $this->assertSame('<select name=""></select>', Html::select('')->render());
+        $this->assertSame('<select name="test"></select>', Html::select('test')->render());
+    }
+
     public function testTextarea(): void
     {
         $this->assertSame('<textarea></textarea>', Html::textarea()->render());
@@ -394,192 +400,6 @@ final class HtmlTest extends TestCase
                 'wrapInput' => false,
             ])
         );
-    }
-
-    public function testDropDownList(): void
-    {
-        $expected = <<<'EOD'
-<select name="test">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test'));
-        $expected = <<<'EOD'
-<select name="test">
-<option value="value1">text1</option>
-<option value="value2">text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', null, $this->getDataItems()));
-        $expected = <<<'EOD'
-<select name="test">
-<option value="value1">text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', 'value2', $this->getDataItems()));
-
-        $expected = <<<'EOD'
-<select name="test">
-<option value="value1">text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', null, $this->getDataItems(), [
-            'options' => [
-                'value2' => ['selected' => true],
-            ],
-        ]));
-
-        $expected = <<<'EOD'
-<select name="test[]" multiple="true" size="4">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', null, [], ['multiple' => 'true']));
-
-        $expected = <<<'EOD'
-<select name="test[]" multiple="true" size="4">
-<option value="0" selected>zero</option>
-<option value="1">one</option>
-<option value="value3">text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', [0], $this->getDataItems3(), ['multiple' => 'true']));
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', new ArrayObject([0]), $this->getDataItems3(), ['multiple' => 'true']));
-
-        $expected = <<<'EOD'
-<select name="test[]" multiple="true" size="4">
-<option value="0">zero</option>
-<option value="1" selected>one</option>
-<option value="value3" selected>text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', ['1', 'value3'], $this->getDataItems3(), ['multiple' => 'true']));
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', new ArrayObject(['1', 'value3']), $this->getDataItems3(), ['multiple' => 'true']));
-    }
-
-    public function testListBox(): void
-    {
-        $expected = <<<'EOD'
-<select name="test" size="4">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test'));
-        $expected = <<<'EOD'
-<select name="test" size="5">
-<option value="value1">text1</option>
-<option value="value2">text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems(), ['size' => 5]));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1&lt;&gt;">text1&lt;&gt;</option>
-<option value="value  2">text  2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems2()));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1&lt;&gt;">text1&lt;&gt;</option>
-<option value="value  2">text&nbsp;&nbsp;2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems2(), ['encodeSpaces' => true]));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1&lt;&gt;">text1<></option>
-<option value="value  2">text  2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems2(), ['encode' => false]));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1&lt;&gt;">text1<></option>
-<option value="value  2">text&nbsp;&nbsp;2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems2(), ['encodeSpaces' => true, 'encode' => false]));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1">text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', 'value2', $this->getDataItems()));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1" selected>text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', ['value1', 'value2'], $this->getDataItems()));
-
-        $expected = <<<'EOD'
-<select name="test[]" multiple size="4">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, [], ['multiple' => true]));
-        $this->assertSameWithoutLE($expected, Html::listBox('test[]', null, [], ['multiple' => true]));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0"><select name="test" size="4">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', '', [], ['unselect' => '0']));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0" disabled><select name="test" disabled size="4">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', '', [], ['unselect' => '0', 'disabled' => true]));
-
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1" selected>text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', new ArrayObject(['value1', 'value2']), $this->getDataItems()));
-
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="0" selected>zero</option>
-<option value="1">one</option>
-<option value="value3">text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', [0], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::listBox('test', new ArrayObject([0]), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="0">zero</option>
-<option value="1" selected>one</option>
-<option value="value3" selected>text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', ['1', 'value3'], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::listBox('test', new ArrayObject(['1', 'value3']), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="none"><select name="test[]" size="4">
-<option value="0">zero</option>
-<option value="1" selected>one</option>
-<option value="value3" selected>text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox(
-            'test[]',
-            ['1', 'value3'],
-            $this->getDataItems3(),
-            ['unselect' => 'none'],
-        ));
     }
 
     public function testCheckboxList(): void
@@ -826,107 +646,6 @@ EOD;
     {
         self::assertSame('<li></li>', Html::li()->render());
         self::assertSame('<li>hello</li>', Html::li('hello')->render());
-    }
-
-    public function testRenderSelectOptions(): void
-    {
-        $data = [
-            'value1' => 'label1',
-            'group1' => [
-                'value11' => 'label11',
-                'group11' => [
-                    'value111' => 'label111',
-                ],
-                'group12' => [],
-            ],
-            'value2' => 'label2',
-            'group2' => [],
-        ];
-        $expected = <<<'EOD'
-<option value="">please&nbsp;select&lt;&gt;</option>
-<option value="value1" selected>label1</option>
-<optgroup label="group1">
-<option value="value11">label11</option>
-<optgroup label="group11">
-<option class="option" value="value111" selected>label111</option>
-</optgroup>
-<optgroup class="group" label="group12">
-
-</optgroup>
-</optgroup>
-<option value="value2">label2</option>
-<optgroup label="group2">
-
-</optgroup>
-EOD;
-        $attributes = [
-            'prompt' => 'please select<>',
-            'options' => [
-                'value111' => ['class' => 'option'],
-            ],
-            'groups' => [
-                'group12' => ['class' => 'group'],
-            ],
-            'encodeSpaces' => true,
-        ];
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(['value111', 'value1'], $data, $attributes));
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(new ArrayObject(['value111', 'value1']), $data, $attributes));
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(new IterableObject(['value111', 'value1']), $data, $attributes));
-
-        $attributes = [
-            'prompt' => 'please select<>',
-            'options' => [
-                'value111' => ['class' => 'option'],
-            ],
-            'groups' => [
-                'group12' => ['class' => 'group'],
-            ],
-        ];
-        $this->assertSameWithoutLE(str_replace('&nbsp;', ' ', $expected), Html::renderSelectOptions(['value111', 'value1'], $data, $attributes));
-
-        // Attributes for prompt (https://github.com/yiisoft/yii2/issues/7420)
-
-        $data = [
-            'value1' => 'label1',
-            'value2' => 'label2',
-        ];
-        $expected = <<<'EOD'
-<option class="prompt" value="-1" label="None">Please select</option>
-<option value="value1" selected>label1</option>
-<option value="value2">label2</option>
-EOD;
-        $attributes = [
-            'prompt' => [
-                'text' => 'Please select',
-                'options' => ['class' => 'prompt', 'value' => '-1', 'label' => 'None'],
-            ],
-        ];
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(['value1'], $data, $attributes));
-
-        $data = [1 => 'One', 2 => 'Two'];
-        $expected = <<<'EOD'
-<option class="prompt" value="" label="None">Please select</option>
-<option value="1" selected>One</option>
-<option value="2">Two</option>
-EOD;
-        $attributes = [
-            'prompt' => [
-                'text' => 'Please select',
-                'options' => ['class' => 'prompt', 'label' => 'None'],
-            ],
-        ];
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(1, $data, $attributes));
-
-        $expected = <<<'EOD'
-<option value="encode">1</option>
-<option value="encodeSpaces">2</option>
-EOD;
-        $data = ['encode' => 1, 'encodeSpaces' => 2];
-        $attributes = [
-            'encode' => true,
-            'encodeSpaces' => false,
-        ];
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(null, $data, $attributes));
     }
 
     public function testRenderAttributes(): void

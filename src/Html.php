@@ -21,6 +21,7 @@ use Yiisoft\Html\Tag\Link;
 use Yiisoft\Html\Tag\Ol;
 use Yiisoft\Html\Tag\P;
 use Yiisoft\Html\Tag\Script;
+use Yiisoft\Html\Tag\Select;
 use Yiisoft\Html\Tag\Span;
 use Yiisoft\Html\Tag\Style;
 use Yiisoft\Html\Tag\Textarea;
@@ -32,7 +33,6 @@ use function in_array;
 use function is_array;
 use function is_bool;
 use function is_int;
-use function is_string;
 use function strlen;
 
 /**
@@ -47,13 +47,6 @@ use function strlen;
  *   class?: string[]|string|null,
  *   style?: array<string, string>|string|null,
  * }
- * @psalm-type ListHtmlOptions = HtmlOptions&array{
- *   tag?: string,
- *   encode?: bool,
- *   item?: Closure(string, array-key):string|null,
- *   separator?: string,
- *   itemOptions: HtmlOptions,
- * }
  * @psalm-type InputHtmlOptions = HtmlOptions&array {
  *   value?: string|int|float|\Stringable|bool|null,
  *   disabled?: bool,
@@ -65,24 +58,6 @@ use function strlen;
  *   uncheck?: string|int|float|\Stringable|bool|null,
  *   form?: string|null,
  * }
- * @psalm-type SelectHtmlOptions = HtmlOptions&array{
- *   encodeSpaces?: bool,
- *   encode?: bool,
- *   prompt?: array{
- *     text: string,
- *     options: HtmlOptions,
- *   }|string|null,
- *   options?: array<array-key, HtmlOptions>,
- *   groups?: array<array-key, HtmlOptions>,
- * }
- * @psalm-type ListBoxHtmlOptions = SelectHtmlOptions&array{
- *   size?: int,
- *   multiple?: bool,
- *   unselect?: string|int|float|\Stringable|bool|null,
- *   disabled?: bool,
- * }
- *
- * @psalm-type SelectItems = array<array-key, string[]|string>
  */
 final class Html
 {
@@ -769,158 +744,17 @@ final class Html
     }
 
     /**
-     * Generates a drop-down list.
+     * Generates a {@see Select} tag.
      *
-     * @param string $name The input name.
-     * @param iterable|string|null $selection The selected value(s). String for single or array for multiple
-     * selection(s).
-     * @param array $items The option data items. The array keys are option values, and the array values are the
-     * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
-     * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
-     * list of data models, you may convert them into the format described above using
-     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
-     *
-     * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in the
-     * labels will also be HTML-encoded.
-     * @param array $options The tag options in terms of name-value pairs. The following options are specially handled:
-     *
-     * - prompt: string, a prompt text to be displayed as the first option. You can use an array to override the value
-     *   and to set other tag attributes:
-     *
-     *   ```php
-     *   ['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
-     *   ```
-     *
-     * - options: array, the attributes for the select option tags. The array keys must be valid option values, and the
-     *   array values are the extra attributes for the corresponding option tags. For example,
-     *
-     *   ```php
-     *   [
-     *       'value1' => ['disabled' => true],
-     *       'value2' => ['label' => 'value 2'],
-     *   ];
-     *   ```
-     *
-     * - groups: array, the attributes for the optgroup tags. The structure of this is similar to that of 'options',
-     *   except that the array keys represent the optgroup labels specified in $items.
-     * - encodeSpaces: bool, whether to encode spaces in option prompt and option value with `&nbsp;` character.
-     *   Defaults to false.
-     * - encode: bool, whether to encode option prompt and option value characters. Defaults to `true`.
-     *
-     * The rest of the options will be rendered as the attributes of the resulting tag. The values will be HTML-encoded
-     * using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param iterable<array-key, string>|string|null $selection
-     * @psalm-param SelectItems $items
-     * @psalm-param ListBoxHtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated drop-down list tag.
+     * @param string|null $name The name attribute
      */
-    public static function dropDownList(string $name, $selection = null, array $items = [], array $options = []): string
+    public static function select(?string $name = null): Select
     {
-        if (!empty($options['multiple'])) {
-            return self::listBox($name, $selection, $items, $options);
+        $tag = Select::tag();
+        if ($name !== null) {
+            $tag = $tag->name($name);
         }
-
-        $options['name'] = $name;
-
-        unset($options['unselect']);
-
-        $selectOptions = self::renderSelectOptionTags($selection, $items, $options);
-
-        return self::tag('select', "\n" . $selectOptions . "\n", $options);
-    }
-
-    /**
-     * Generates a list box.
-     *
-     * @param string $name The input name.
-     * @param iterable|string|null $selection The selected value(s). String for single or array for multiple
-     * selection(s).
-     * @param array $items The option data items. The array keys are option values, and the array values are the
-     * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
-     * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
-     * list of data models, you may convert them into the format described above using
-     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
-     *
-     * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in the
-     * labels will also be HTML-encoded.
-     * @param array $options The tag options in terms of name-value pairs. The following options are specially handled:
-     *
-     * - prompt: string, a prompt text to be displayed as the first option. You can use an array to override the value
-     *   and to set other tag attributes:
-     *
-     *   ```php
-     *   ['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
-     *   ```
-     *
-     * - options: array, the attributes for the select option tags. The array keys must be valid option values, and the
-     *   array values are the extra attributes for the corresponding option tags. For example,
-     *
-     *   ```php
-     *   [
-     *       'value1' => ['disabled' => true],
-     *       'value2' => ['label' => 'value 2'],
-     *   ];
-     *   ```
-     *
-     * - groups: array, the attributes for the optgroup tags. The structure of this is similar to that of 'options',
-     *   except that the array keys represent the optgroup labels specified in $items.
-     * - unselect: string, the value that will be submitted when no option is selected.
-     *   When this attribute is set, a hidden field will be generated so that if no option is selected in multiple
-     *   mode, we can still obtain the posted unselect value.
-     * - encodeSpaces: bool, whether to encode spaces in option prompt and option value with `&nbsp;` character.
-     *   Defaults to false.
-     * - encode: bool, whether to encode option prompt and option value characters. Defaults to `true`.
-     *
-     * The rest of the options will be rendered as the attributes of the resulting tag. The values will be HTML-encoded
-     * using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param iterable<array-key, string>|string|null $selection
-     * @psalm-param SelectItems $items
-     * @psalm-param ListBoxHtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated list box tag.
-     */
-    public static function listBox(string $name, $selection = null, array $items = [], array $options = []): string
-    {
-        if (!array_key_exists('size', $options)) {
-            $options['size'] = 4;
-        }
-
-        if (!empty($options['multiple']) && !empty($name)) {
-            $name = self::getArrayableName($name);
-        }
-
-        $options['name'] = $name;
-
-        if (isset($options['unselect'])) {
-            // Add a hidden field so that if the list box has no option being selected, it still submits a value.
-            $name = self::getNonArrayableName($name);
-            $hiddenOptions = [];
-            // Make sure disabled input is not sending any value.
-            if (!empty($options['disabled'])) {
-                $hiddenOptions['disabled'] = $options['disabled'];
-            }
-            $hidden = self::hiddenInput(
-                $name,
-                isset($options['unselect']) ? (string)$options['unselect'] : null
-            )->attributes($hiddenOptions);
-            unset($options['unselect']);
-        } else {
-            $hidden = '';
-        }
-
-        /** @var SelectHtmlOptions $options */
-        $selectOptions = self::renderSelectOptionTags($selection, $items, $options);
-
-        return $hidden . self::tag('select', "\n" . $selectOptions . "\n", $options);
+        return $tag;
     }
 
     /**
@@ -1206,124 +1040,6 @@ final class Html
     {
         $tag = Li::tag();
         return empty($content) ? $tag : $tag->content($content);
-    }
-
-    /**
-     * Renders the option tags that can be used by {@see dropDownList()} and {@see listBox()}.
-     *
-     * @param array|bool|float|int|string|Traversable|null $selection The selected value(s). String for single or array
-     * for multiple selection(s).
-     * @param array $items The option data items. The array keys are option values, and the array values are the
-     * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
-     * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
-     * list of data models, you may convert them into the format described above using
-     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
-     *
-     * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in the
-     * labels will also be HTML-encoded.
-     * @param array $tagOptions The $options parameter that is passed to the {@see dropDownList()} or {@see listBox()}
-     * call. This method will take out these elements, if any: "prompt", "options" and "groups". See more details in
-     * {@see dropDownList()} for the explanation of these elements.
-     *
-     * @psalm-param iterable<array-key, string>|string|null $selection
-     * @psalm-param SelectItems $items
-     * @psalm-param SelectHtmlOptions $tagOptions
-     *
-     * @throws JsonException
-     *
-     * @return string The generated list options.
-     */
-    public static function renderSelectOptions($selection, array $items, array $tagOptions = []): string
-    {
-        return self::renderSelectOptionTags($selection, $items, $tagOptions);
-    }
-
-    /**
-     * @param array|bool|float|int|string|Traversable|null $selection
-     * @param array $items
-     * @param array $tagOptions
-     *
-     * @psalm-param iterable<array-key, string>|string|\Stringable|int|float|bool|null $selection
-     * @psalm-param SelectItems $items
-     * @psalm-param SelectHtmlOptions $tagOptions
-     *
-     * @throws JsonException
-     *
-     * @return string
-     */
-    private static function renderSelectOptionTags($selection, array $items, array &$tagOptions): string
-    {
-        if (is_iterable($selection)) {
-            $selection = array_map('strval', is_array($selection) ? $selection : iterator_to_array($selection));
-        } elseif ($selection !== null) {
-            $selection = (string)$selection;
-        }
-
-        /** @var bool $encodeSpaces */
-        $encodeSpaces = ArrayHelper::remove($tagOptions, 'encodeSpaces', false);
-
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($tagOptions, 'encode', true);
-
-        /** @psalm-var SelectHtmlOptions $tagOptions */
-
-        $lines = [];
-        if (isset($tagOptions['prompt'])) {
-            $promptOptions = ['value' => ''];
-            if (is_string($tagOptions['prompt'])) {
-                $promptText = $tagOptions['prompt'];
-            } else {
-                $promptText = $tagOptions['prompt']['text'];
-                $promptOptions = array_merge($promptOptions, $tagOptions['prompt']['options']);
-            }
-            $promptText = $encode ? self::encode($promptText) : $promptText;
-            if ($encodeSpaces) {
-                $promptText = str_replace(' ', '&nbsp;', $promptText);
-            }
-            $lines[] = self::tag('option', $promptText, $promptOptions);
-        }
-
-        /** @psalm-var array<array-key, HtmlOptions> $options */
-        $options = $tagOptions['options'] ?? [];
-
-        /** @psalm-var array<array-key, HtmlOptions> $groups */
-        $groups = $tagOptions['groups'] ?? [];
-
-        unset($tagOptions['prompt'], $tagOptions['options'], $tagOptions['groups']);
-
-        foreach ($items as $key => $value) {
-            if (is_array($value)) {
-                $groupAttrs = $groups[$key] ?? [];
-                if (!isset($groupAttrs['label'])) {
-                    $groupAttrs['label'] = $key;
-                }
-                /** @psalm-var SelectHtmlOptions $attrs */
-                $attrs = [
-                    'options' => $options,
-                    'groups' => $groups,
-                    'encodeSpaces' => $encodeSpaces,
-                    'encode' => $encode,
-                ];
-                $content = self::renderSelectOptionTags($selection, $value, $attrs);
-                $lines[] = self::tag('optgroup', "\n" . $content . "\n", $groupAttrs);
-            } else {
-                $attrs = $options[$key] ?? [];
-                $attrs['value'] = $key;
-                if (!array_key_exists('selected', $attrs)) {
-                    $attrs['selected'] = $selection !== null &&
-                        ((!is_iterable($selection) && !strcmp((string)$key, $selection))
-                            || (is_iterable($selection) && ArrayHelper::isIn((string)$key, $selection)));
-                }
-                $text = $encode ? self::encode($value) : $value;
-                if ($encodeSpaces) {
-                    $text = str_replace(' ', '&nbsp;', $text);
-                }
-                $lines[] = self::tag('option', $text, $attrs);
-            }
-        }
-
-        /** @psalm-var SelectHtmlOptions $tagOptions */
-        return implode("\n", $lines);
     }
 
     /**
