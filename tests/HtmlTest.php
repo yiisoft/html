@@ -266,20 +266,26 @@ final class HtmlTest extends TestCase
 
     public function testRadioInput(): void
     {
-        self::assertSame('<input type="radio">', Html::radioInput()->render());
-        self::assertSame('<input type="radio" name="">', Html::radioInput('')->render());
-        self::assertSame('<input type="radio" name="test">', Html::radioInput('test')->render());
-        self::assertSame('<input type="radio" name="test">', Html::radioInput('test', false)->render());
-        self::assertSame('<input type="radio" name="test" checked>', Html::radioInput('test', true)->render());
+        $this->assertSame('<input type="radio">', Html::radioInput()->render());
+        $this->assertSame('<input type="radio" name="">', Html::radioInput('')->render());
+        $this->assertSame('<input type="radio" value="">', Html::radioInput(null, '')->render());
+        $this->assertSame('<input type="radio" name="test">', Html::radioInput('test')->render());
+        $this->assertSame(
+            '<input type="radio" name="test" value="43">',
+            Html::radioInput('test', '43')->render(),
+        );
     }
 
     public function testCheckboxInput(): void
     {
-        self::assertSame('<input type="checkbox">', Html::checkboxInput()->render());
-        self::assertSame('<input type="checkbox" name="">', Html::checkboxInput('')->render());
-        self::assertSame('<input type="checkbox" name="test">', Html::checkboxInput('test')->render());
-        self::assertSame('<input type="checkbox" name="test">', Html::checkboxInput('test', false)->render());
-        self::assertSame('<input type="checkbox" name="test" checked>', Html::checkboxInput('test', true)->render());
+        $this->assertSame('<input type="checkbox">', Html::checkboxInput()->render());
+        $this->assertSame('<input type="checkbox" name="">', Html::checkboxInput('')->render());
+        $this->assertSame('<input type="checkbox" value="">', Html::checkboxInput(null, '')->render());
+        $this->assertSame('<input type="checkbox" name="test">', Html::checkboxInput('test')->render());
+        $this->assertSame(
+            '<input type="checkbox" name="test" value="43">',
+            Html::checkboxInput('test', '43')->render(),
+        );
     }
 
     public function testSelect(): void

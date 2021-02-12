@@ -585,12 +585,11 @@ final class Html
      * @see Input::radio()
      *
      * @param string|null $name The name attribute.
-     * @param bool $checked Whether the radio button should be checked.
+     * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function radioInput(?string $name = null, bool $checked = false): Input
+    public static function radioInput(?string $name = null, $value = null): Input
     {
-        $tag = Input::radio($name);
-        return $checked ? $tag->checked() : $tag;
+        return Input::radio($name, $value);
     }
 
     /**
@@ -599,12 +598,11 @@ final class Html
      * @see Input::checkbox()
      *
      * @param string|null $name The name attribute.
-     * @param bool $checked Whether the checkbox should be checked.
+     * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function checkboxInput(?string $name = null, bool $checked = false): Input
+    public static function checkboxInput(?string $name = null, $value = null): Input
     {
-        $tag = Input::checkbox($name);
-        return $checked ? $tag->checked() : $tag;
+        return Input::checkbox($name, $value);
     }
 
     /**
