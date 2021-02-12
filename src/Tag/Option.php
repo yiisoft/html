@@ -14,8 +14,10 @@ final class Option extends NormalTag
 {
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-option-value
+     *
+     * @param \Stringable|string|int|float|bool|null $value
      */
-    public function value(?string $value): self
+    public function value($value): self
     {
         $new = clone $this;
         $new->attributes['value'] = $value;

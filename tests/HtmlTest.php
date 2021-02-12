@@ -295,6 +295,19 @@ final class HtmlTest extends TestCase
         $this->assertSame('<select name="test"></select>', Html::select('test')->render());
     }
 
+    public function testOptgroup(): void
+    {
+        self::assertSame('<optgroup></optgroup>', Html::optgroup()->render());
+    }
+
+    public function testOption(): void
+    {
+        self::assertSame('<option></option>', Html::option()->render());
+        self::assertSame('<option value=""></option>', Html::option('', '')->render());
+        self::assertSame('<option>test</option>', Html::option('test')->render());
+        self::assertSame('<option value="42">test</option>', Html::option('test', 42)->render());
+    }
+
     public function testTextarea(): void
     {
         $this->assertSame('<textarea></textarea>', Html::textarea()->render());

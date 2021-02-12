@@ -31,7 +31,7 @@ final class Optgroup extends ContainerTag
     {
         $options = [];
         foreach ($data as $value => $content) {
-            $option = Option::tag()->value((string)$value)->content($content);
+            $option = Option::tag()->value($value)->content($content);
             if (!$encode) {
                 $option = $option->withoutEncode();
             }

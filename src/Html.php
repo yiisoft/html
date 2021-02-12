@@ -19,6 +19,8 @@ use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
 use Yiisoft\Html\Tag\Ol;
+use Yiisoft\Html\Tag\Optgroup;
+use Yiisoft\Html\Tag\Option;
 use Yiisoft\Html\Tag\P;
 use Yiisoft\Html\Tag\Script;
 use Yiisoft\Html\Tag\Select;
@@ -612,6 +614,32 @@ final class Html
         $tag = Select::tag();
         if ($name !== null) {
             $tag = $tag->name($name);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Optgroup} tag.
+     */
+    public static function optgroup(): Optgroup
+    {
+        return Optgroup::tag();
+    }
+
+    /**
+     * Generates a {@see Option} tag.
+     *
+     * @param string $content Tag content.
+     * @param \Stringable|string|int|float|bool|null $value The value attribute.
+     */
+    public static function option(string $content = '', $value = null): Option
+    {
+        $tag = Option::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if ($value !== null) {
+            $tag = $tag->value($value);
         }
         return $tag;
     }
