@@ -51,7 +51,7 @@ final class BooleanInputTagTest extends TestCase
     public function testSideLabel(): void
     {
         self::assertMatchesRegularExpression(
-            '~<input type="test" id="i\d*"> <label for="i\d*">One</label>~',
+            '~<input type="test" id="i(\d*?)"> <label for="i\1">One</label>~',
             TestBooleanInputTag::tag()->sideLabel('One')->render()
         );
     }
@@ -59,7 +59,7 @@ final class BooleanInputTagTest extends TestCase
     public function testSideLabelWithAttributes(): void
     {
         self::assertMatchesRegularExpression(
-            '~<input type="test" id="i\d*"> <label class="red" for="i\d*">One</label>~',
+            '~<input type="test" id="i(\d*?)"> <label class="red" for="i\1">One</label>~',
             TestBooleanInputTag::tag()->sideLabel('One', ['class' => 'red'])->render()
         );
     }
