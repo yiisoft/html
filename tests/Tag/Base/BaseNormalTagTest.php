@@ -25,11 +25,11 @@ final class BaseNormalTagTest extends TestCase
         );
     }
 
-    public function testPreventDoubleEncode(): void
+    public function testWithoutDoubleEncode(): void
     {
         self::assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string)TestBaseNormalTag::tag()->content('<b>A &gt; B</b>')->preventDoubleEncode()
+            (string)TestBaseNormalTag::tag()->content('<b>A &gt; B</b>')->withoutDoubleEncode()
         );
     }
 
@@ -61,7 +61,7 @@ final class BaseNormalTagTest extends TestCase
     {
         $tag = TestBaseNormalTag::tag();
         self::assertNotSame($tag, $tag->withoutEncode());
-        self::assertNotSame($tag, $tag->preventDoubleEncode());
+        self::assertNotSame($tag, $tag->withoutDoubleEncode());
         self::assertNotSame($tag, $tag->content(''));
     }
 }

@@ -25,7 +25,7 @@ abstract class BaseNormalTag extends Tag
     /**
      * @return static
      */
-    final public function preventDoubleEncode(): self
+    final public function withoutDoubleEncode(): self
     {
         $new = clone $this;
         $new->doubleEncode = false;
