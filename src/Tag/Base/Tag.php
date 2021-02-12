@@ -88,7 +88,22 @@ abstract class Tag
     {
     }
 
-    abstract public function render(): string;
+    final public function render(): string
+    {
+        return $this->before() . $this->renderTag() . $this->after();
+    }
+
+    protected function before(): string
+    {
+        return '';
+    }
+
+    protected function after(): string
+    {
+        return '';
+    }
+
+    abstract protected function renderTag(): string;
 
     abstract protected function getName(): string;
 

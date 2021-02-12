@@ -137,6 +137,23 @@ final class SelectTest extends TestCase
         Select::tag()->values('42');
     }
 
+    public function dataForm(): array
+    {
+        return [
+            ['<select></select>', null],
+            ['<select form=""></select>', ''],
+            ['<select form="post"></select>', 'post'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataForm
+     */
+    public function testForm(string $expected, ?string $formId): void
+    {
+        self::assertSame($expected, Select::tag()->form($formId)->render());
+    }
+
     public function dataItems(): array
     {
         return [
@@ -311,6 +328,65 @@ final class SelectTest extends TestCase
         self::assertSame($expected, (string)Select::tag()->size($size));
     }
 
+    public function dataUnselectValue(): array
+    {
+        return [
+            ['<select></select>', null, null],
+            ['<select></select>', null, 7],
+            ['<select name="test"></select>', 'test', null],
+            ['<select name="test[]"></select>', 'test[]', null],
+            [
+                '<input type="hidden" name="test" value="7"><select name="test"></select>',
+                'test',
+                7
+            ],
+            [
+                '<input type="hidden" name="test" value="7"><select name="test[]"></select>',
+                'test[]',
+                7
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataUnselectValue
+     *
+     * @param \Stringable|string|int|float|bool|null $value
+     */
+    public function testUnselectValue(string $expected, ?string $name, $value): void
+    {
+        self::assertSame(
+            $expected,
+            Select::tag()->name($name)->unselectValue($value)->separator('')->render()
+        );
+    }
+
+    public function testUnselectValueDisabled(): void
+    {
+        self::assertSame(
+            '<input type="hidden" name="test" value="7" disabled>' . "\n" .
+            '<select name="test" disabled></select>',
+            Select::tag()->name('test')->unselectValue(7)->disabled()->render()
+        );
+    }
+
+    public function testUnselectValueForm(): void
+    {
+        self::assertSame(
+            '<input type="hidden" name="test" value="7" form="post">' . "\n" .
+            '<select name="test" form="post"></select>',
+            Select::tag()->name('test')->unselectValue(7)->form('post')->render()
+        );
+    }
+
+    public function testUnselectValueMultiple(): void
+    {
+        self::assertSame(
+            '<select name="test[]" multiple></select>',
+            Select::tag()->name('test')->unselectValue(7)->multiple()->render()
+        );
+    }
+
     public function testSeparator(): void
     {
         self::assertSame(
@@ -330,6 +406,7 @@ final class SelectTest extends TestCase
         self::assertNotSame($select, $select->name(''));
         self::assertNotSame($select, $select->value());
         self::assertNotSame($select, $select->values([]));
+        self::assertNotSame($select, $select->form(null));
         self::assertNotSame($select, $select->items());
         self::assertNotSame($select, $select->options());
         self::assertNotSame($select, $select->optionsData([]));
@@ -339,6 +416,7 @@ final class SelectTest extends TestCase
         self::assertNotSame($select, $select->multiple());
         self::assertNotSame($select, $select->required());
         self::assertNotSame($select, $select->size(0));
+        self::assertNotSame($select, $select->unselectValue(null));
         self::assertNotSame($select, $select->separator(''));
     }
 }

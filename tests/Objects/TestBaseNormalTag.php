@@ -18,7 +18,7 @@ final class TestBaseNormalTag extends BaseNormalTag
         return 'test';
     }
 
-    public function render(): string
+    protected function renderTag(): string
     {
         return $this->begin() . $this->generateContent() . $this->end();
     }

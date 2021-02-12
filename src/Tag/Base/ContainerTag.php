@@ -18,7 +18,7 @@ abstract class ContainerTag extends Tag
         return new static();
     }
 
-    final public function render(): string
+    final protected function renderTag(): string
     {
         return $this->begin() . $this->generateContent() . $this->end();
     }

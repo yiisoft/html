@@ -74,7 +74,7 @@ final class CustomTag extends BaseNormalTag
         return $this->name;
     }
 
-    public function render(): string
+    protected function renderTag(): string
     {
         $isVoid = $this->type === self::TYPE_VOID ||
             ($this->type === self::TYPE_AUTO && isset(self::VOID_ELEMENTS[strtolower($this->name)]));

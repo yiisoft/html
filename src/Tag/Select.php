@@ -21,6 +21,7 @@ final class Select extends ContainerTag
     private array $items = [];
     private ?Option $prompt = null;
     private string $separator = "\n";
+    private ?string $unselectValue = null;
 
     /**
      * @psalm-var list<string>
@@ -61,6 +62,16 @@ final class Select extends ContainerTag
         $values = is_array($values) ? $values : iterator_to_array($values);
 
         return $this->value(...$values);
+    }
+
+    /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
+     */
+    public function form(?string $formId): self
+    {
+        $new = clone $this;
+        $new->attributes['form'] = $formId;
+        return $new;
     }
 
     /**
@@ -148,6 +159,16 @@ final class Select extends ContainerTag
         return $new;
     }
 
+    /**
+     * @param \Stringable|string|int|float|bool|null $value
+     */
+    public function unselectValue($value): self
+    {
+        $new = clone $this;
+        $new->unselectValue = $value === null ? null : (string)$value;
+        return $new;
+    }
+
     public function separator(string $separator): self
     {
         $new = clone $this;
@@ -184,6 +205,34 @@ final class Select extends ContainerTag
         return $items
             ? $this->separator . implode($this->separator, $items) . $this->separator
             : '';
+    }
+
+    protected function before(): string
+    {
+        $name = (string)($this->attributes['name'] ?? '');
+        if (
+            empty($name) ||
+            $this->unselectValue === null ||
+            !empty($this->attributes['multiple'])
+        ) {
+            return '';
+        }
+
+        $input = Input::hidden(
+            Html::getNonArrayableName($name),
+            $this->unselectValue
+        );
+
+        // Make sure disabled input is not sending any value
+        if (!empty($this->attributes['disabled'])) {
+            $input = $input->attribute('disabled', $this->attributes['disabled']);
+        }
+
+        if (!empty($this->attributes['form'])) {
+            $input = $input->attribute('form', $this->attributes['form']);
+        }
+
+        return $input->render() . $this->separator;
     }
 
     protected function getName(): string

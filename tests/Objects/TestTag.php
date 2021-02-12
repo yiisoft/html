@@ -18,7 +18,7 @@ final class TestTag extends Tag
         return 'test';
     }
 
-    public function render(): string
+    protected function renderTag(): string
     {
         return '<' . $this->getName() . $this->renderAttributes() . '>';
     }

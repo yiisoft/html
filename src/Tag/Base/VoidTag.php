@@ -18,7 +18,7 @@ abstract class VoidTag extends Tag
         return new static();
     }
 
-    final public function render(): string
+    final protected function renderTag(): string
     {
         return '<' . $this->getName() . $this->renderAttributes() . '>';
     }
