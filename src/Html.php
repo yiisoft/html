@@ -17,6 +17,7 @@ use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
 use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Li;
+use Yiisoft\Html\Tag\Link;
 use Yiisoft\Html\Tag\Ol;
 use Yiisoft\Html\Tag\P;
 use Yiisoft\Html\Tag\Script;
@@ -392,60 +393,34 @@ final class Html
     }
 
     /**
-     * Generates a link tag that refers to an external CSS file.
+     * Generates a {@see Link} tag.
      *
-     * @param string $url The URL of the external CSS file. This parameter will be processed.
-     * @param array $options The tag options in terms of name-value pairs. The following options are specially handled:
-     *
-     * - noscript: if set to true, `link` tag will be wrapped into `<noscript>` tags.
-     *
-     * The rest of the options will be rendered as the attributes of the resulting link tag. The values will be
-     * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute
-     * will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param HtmlOptions&array{
-     *   noscript?: bool,
-     * } $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated link tag.
+     * @param string|null $url The destination of the link.
      */
-    public static function cssFile(string $url, array $options = []): string
+    public static function link(?string $url = null): Link
     {
-        if (!isset($options['rel'])) {
-            $options['rel'] = 'stylesheet';
-        }
-        $options['href'] = $url;
-
-        if (isset($options['noscript']) && $options['noscript'] === true) {
-            unset($options['noscript']);
-            return '<noscript>' . self::tag('link', '', $options) . '</noscript>';
-        }
-
-        return self::tag('link', '', $options);
+        $tag = Link::tag();
+        return $url === null ? $tag : $tag->url($url);
     }
 
     /**
-     * Generates a script tag that refers to an external JavaScript file.
+     * Generates a {@see Link} tag that refers to an CSS file.
      *
-     * @param string $url The URL of the external JavaScript file. This parameter will be processed.
-     * @param array $options The tag options in terms of name-value pairs.
-     * Options will be rendered as the attributes of the resulting script tag. The values will be
-     * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute will
-     * not be rendered. See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated script tag.
+     * @param string $url The URL of the CSS file.
      */
-    public static function javaScriptFile(string $url, array $options = []): string
+    public static function cssFile(string $url): Link
     {
-        $options['src'] = $url;
-        return self::tag('script', '', $options);
+        return Link::toCssFile($url);
+    }
+
+    /**
+     * Generates a {@see Script} tag that refers to a JavaScript file.
+     *
+     * @param string $url The URL of the JavaScript file.
+     */
+    public static function javaScriptFile(string $url): Script
+    {
+        return Script::tag()->url($url);
     }
 
     public static function a(): A

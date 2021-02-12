@@ -105,17 +105,35 @@ final class HtmlTest extends TestCase
         $this->assertSame('<script>alert(15)</script>', Html::script('alert(15)')->render());
     }
 
-    public function testCssFile(): void
+    public function testLink(): void
     {
-        $this->assertSame('<link href="http://example.com" rel="stylesheet">', Html::cssFile('http://example.com'));
-        $this->assertSame('<link href="" rel="stylesheet">', Html::cssFile(''));
-        $this->assertSame('<noscript><link href="http://example.com" rel="stylesheet"></noscript>', Html::cssFile('http://example.com', ['noscript' => true]));
+        self::assertSame('<link>', Html::link()->render());
+        self::assertSame('<link href="">', Html::link('')->render());
+        self::assertSame('<link href="main.css">', Html::link('main.css')->render());
     }
 
-    public function testJsFile(): void
+    public function testCssFile(): void
     {
-        $this->assertSame('<script src="http://example.com"></script>', Html::javaScriptFile('http://example.com'));
-        $this->assertSame('<script src=""></script>', Html::javaScriptFile(''));
+        self::assertSame(
+            '<link href="http://example.com" rel="stylesheet">',
+            Html::cssFile('http://example.com')->render()
+        );
+        self::assertSame(
+            '<link href="" rel="stylesheet">',
+            Html::cssFile('')->render()
+        );
+    }
+
+    public function testJavaScriptFile(): void
+    {
+        self::assertSame(
+            '<script src="http://example.com"></script>',
+            Html::javaScriptFile('http://example.com')->render()
+        );
+        self::assertSame(
+            '<script src=""></script>',
+            Html::javaScriptFile('')->render()
+        );
     }
 
     public function testA(): void
