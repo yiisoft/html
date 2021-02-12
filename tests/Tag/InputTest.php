@@ -12,7 +12,7 @@ final class InputTest extends TestCase
 {
     public function testBase(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="hidden" name="id" value="42">',
             (string)Input::tag()->type('hidden')->name('id')->value('42')
         );
@@ -20,7 +20,7 @@ final class InputTest extends TestCase
 
     public function testHidden(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="hidden" name="id" value="42">',
             (string)Input::hidden('id', '42')
         );
@@ -28,7 +28,7 @@ final class InputTest extends TestCase
 
     public function testText(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="text" name="name" value="Mike">',
             (string)Input::text('name', 'Mike')
         );
@@ -36,7 +36,7 @@ final class InputTest extends TestCase
 
     public function testPassword(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="password" name="new_password" value="42-7-42">',
             (string)Input::password('new_password', '42-7-42')
         );
@@ -44,7 +44,7 @@ final class InputTest extends TestCase
 
     public function testFile(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="file" name="photo" value="c:\path\">',
             (string)Input::file('photo', 'c:\\path\\')
         );
@@ -52,7 +52,7 @@ final class InputTest extends TestCase
 
     public function testCheckbox(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="checkbox" name="subscribe" checked>',
             (string)Input::checkbox('subscribe')->checked()
         );
@@ -60,7 +60,7 @@ final class InputTest extends TestCase
 
     public function testRadio(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="radio" name="count" value="one">',
             (string)Input::radio('count', 'one')
         );
@@ -68,7 +68,7 @@ final class InputTest extends TestCase
 
     public function testButton(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="button" value="Go!">',
             (string)Input::button('Go!')
         );
@@ -76,7 +76,7 @@ final class InputTest extends TestCase
 
     public function testSubmitButton(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="submit" value="Go!">',
             (string)Input::submitButton('Go!')
         );
@@ -84,7 +84,7 @@ final class InputTest extends TestCase
 
     public function testResetButton(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<input type="reset" value="Go!">',
             (string)Input::resetButton('Go!')
         );
@@ -103,7 +103,7 @@ final class InputTest extends TestCase
      */
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string)Input::tag()->type($type));
+        self::assertSame($expected, (string)Input::tag()->type($type));
     }
 
     public function dataName(): array
@@ -119,7 +119,7 @@ final class InputTest extends TestCase
      */
     public function testName(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string)Input::tag()->name($name));
+        self::assertSame($expected, (string)Input::tag()->name($name));
     }
 
     public function dataValue(): array
@@ -146,43 +146,61 @@ final class InputTest extends TestCase
         self::assertSame($expected, (string)Input::tag()->value($value));
     }
 
+    public function dataForm(): array
+    {
+        return [
+            ['<input>', null],
+            ['<input form="">', ''],
+            ['<input form="post">', 'post'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataForm
+     */
+    public function testForm(string $expected, ?string $formId): void
+    {
+        self::assertSame($expected, Input::tag()->form($formId)->render());
+    }
+
     public function testReadonly(): void
     {
-        $this->assertSame('<input readonly>', (string)Input::tag()->readonly());
-        $this->assertSame('<input>', (string)Input::tag()->readonly(false));
-        $this->assertSame('<input>', (string)Input::tag()->readonly(true)->readonly(false));
+        self::assertSame('<input readonly>', (string)Input::tag()->readonly());
+        self::assertSame('<input>', (string)Input::tag()->readonly(false));
+        self::assertSame('<input>', (string)Input::tag()->readonly(true)->readonly(false));
     }
 
     public function testRequired(): void
     {
-        $this->assertSame('<input required>', (string)Input::tag()->required());
-        $this->assertSame('<input>', (string)Input::tag()->required(false));
-        $this->assertSame('<input>', (string)Input::tag()->required(true)->required(false));
+        self::assertSame('<input required>', (string)Input::tag()->required());
+        self::assertSame('<input>', (string)Input::tag()->required(false));
+        self::assertSame('<input>', (string)Input::tag()->required(true)->required(false));
     }
 
     public function testDisabled(): void
     {
-        $this->assertSame('<input disabled>', (string)Input::tag()->disabled());
-        $this->assertSame('<input>', (string)Input::tag()->disabled(false));
-        $this->assertSame('<input>', (string)Input::tag()->disabled(true)->disabled(false));
+        self::assertSame('<input disabled>', (string)Input::tag()->disabled());
+        self::assertSame('<input>', (string)Input::tag()->disabled(false));
+        self::assertSame('<input>', (string)Input::tag()->disabled(true)->disabled(false));
     }
 
     public function testChecked(): void
     {
-        $this->assertSame('<input checked>', (string)Input::tag()->checked());
-        $this->assertSame('<input>', (string)Input::tag()->checked(false));
-        $this->assertSame('<input>', (string)Input::tag()->checked(true)->checked(false));
+        self::assertSame('<input checked>', (string)Input::tag()->checked());
+        self::assertSame('<input>', (string)Input::tag()->checked(false));
+        self::assertSame('<input>', (string)Input::tag()->checked(true)->checked(false));
     }
 
     public function testImmutability(): void
     {
         $input = Input::tag();
-        $this->assertNotSame($input, $input->type(null));
-        $this->assertNotSame($input, $input->name(null));
-        $this->assertNotSame($input, $input->value(null));
-        $this->assertNotSame($input, $input->readonly());
-        $this->assertNotSame($input, $input->required());
-        $this->assertNotSame($input, $input->disabled());
-        $this->assertNotSame($input, $input->checked());
+        self::assertNotSame($input, $input->type(null));
+        self::assertNotSame($input, $input->name(null));
+        self::assertNotSame($input, $input->value(null));
+        self::assertNotSame($input, $input->form(null));
+        self::assertNotSame($input, $input->readonly());
+        self::assertNotSame($input, $input->required());
+        self::assertNotSame($input, $input->disabled());
+        self::assertNotSame($input, $input->checked());
     }
 }

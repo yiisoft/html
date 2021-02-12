@@ -161,6 +161,16 @@ final class Input extends VoidTag
     }
 
     /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
+     */
+    public function form(?string $formId): self
+    {
+        $new = clone $this;
+        $new->attributes['form'] = $formId;
+        return $new;
+    }
+
+    /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#the-readonly-attribute
      */
     public function readonly(bool $readonly = true): self

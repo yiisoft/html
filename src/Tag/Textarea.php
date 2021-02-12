@@ -34,6 +34,16 @@ final class Textarea extends NormalTag
         return $this->content($value ?? '');
     }
 
+    /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
+     */
+    public function form(?string $formId): self
+    {
+        $new = clone $this;
+        $new->attributes['form'] = $formId;
+        return $new;
+    }
+
     protected function getName(): string
     {
         return 'textarea';
