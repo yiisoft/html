@@ -44,14 +44,14 @@ use function strlen;
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
  *
- * @psalm-type HtmlOptions = array<string, mixed>&array{
- *   id?: string|null,
- *   class?: string[]|string|null,
- *   style?: array<string, string>|string|null,
- * }
- * @psalm-type InputHtmlOptions = HtmlOptions&array {
- *   value?: string|int|float|\Stringable|bool|null,
- *   disabled?: bool,
+ * @psalm-type HtmlAttributes = array<string, mixed>&array{
+ *   id?: string|\Stringable|null,
+ *   class?: string[]|string|\Stringable[]|\Stringable|null,
+ *   style?: array<string, string>|\Stringable|string|null,
+ *   data?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   data-ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   aria?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
  * }
  */
 final class Html
@@ -715,6 +715,8 @@ final class Html
      * @param array $attributes Attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encodeAttribute()}.
      *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     *
      * @throws JsonException
      *
      * @return string The rendering result. If the attributes are not empty, they will be rendered into a string
@@ -792,15 +794,16 @@ final class Html
      * @param array $options The options to be modified.
      * @param string|string[] $class The CSS class(es) to be added.
      *
-     * @psalm-param HtmlOptions $options
+     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function addCssClass(array &$options, $class): void
     {
+        /** @psalm-var HtmlAttributes $options */
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
-                $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+                $classes = preg_split('/\s+/', (string)$options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $options['class'] = implode(' ', self::mergeCssClasses($classes, (array)$class));
             }
         } else {
@@ -816,7 +819,7 @@ final class Html
      * @param array $options The options to be modified.
      * @param string|string[] $class The CSS class(es) to be removed.
      *
-     * @psalm-param HtmlOptions $options
+     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function removeCssClass(array &$options, $class): void
     {
@@ -829,7 +832,7 @@ final class Html
                     $options['class'] = $classes;
                 }
             } else {
-                $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+                $classes = preg_split('/\s+/', (string)$options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $classes = array_diff($classes, (array)$class);
                 if (empty($classes)) {
                     unset($options['class']);
@@ -838,7 +841,6 @@ final class Html
                 }
             }
         }
-        /** @psalm-var HtmlOptions $options */
     }
 
     /**
@@ -884,10 +886,11 @@ final class Html
      * (e.g. `['width' => '100px', 'height' => '200px']`).
      * @param bool $overwrite Whether to overwrite existing CSS properties if the new style contain them too.
      *
-     * @psalm-param HtmlOptions $options
+     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function addCssStyle(array &$options, $style, bool $overwrite = true): void
     {
+        /** @psalm-var HtmlAttributes $options */
         if (!empty($options['style'])) {
             $oldStyle = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
             $newStyle = is_array($style) ? $style : self::cssStyleToArray($style);
@@ -918,10 +921,11 @@ final class Html
      * @param string|string[] $properties The CSS properties to be removed. You may use a string if you are removing a
      * single property.
      *
-     * @psalm-param HtmlOptions $options
+     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function removeCssStyle(array &$options, $properties): void
     {
+        /** @psalm-var HtmlAttributes $options */
         if (!empty($options['style'])) {
             $style = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
             foreach ((array)$properties as $property) {
@@ -973,15 +977,15 @@ final class Html
      *
      * @see cssStyleFromArray()
      *
-     * @param string $style The CSS style string.
+     * @param string|\Stringable $style The CSS style string.
      *
      * @return array The array representation of the CSS style.
      * @psalm-return array<string, string>
      */
-    public static function cssStyleToArray(string $style): array
+    public static function cssStyleToArray($style): array
     {
         $result = [];
-        foreach (explode(';', $style) as $property) {
+        foreach (explode(';', (string)$style) as $property) {
             $property = explode(':', $property);
             if (count($property) > 1) {
                 $result[trim($property[0])] = trim($property[1]);
