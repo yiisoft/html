@@ -41,6 +41,22 @@ final class NormalTagTest extends TestCase
         );
     }
 
+    public function testBegin(): void
+    {
+        self::assertSame(
+            '<test id="main">',
+            TestNormalTag::tag()->id('main')->begin(),
+        );
+    }
+
+    public function testEnd(): void
+    {
+        self::assertSame(
+            '</test>',
+            TestNormalTag::tag()->id('main')->end(),
+        );
+    }
+
     public function testImmutability(): void
     {
         $tag = TestNormalTag::tag();

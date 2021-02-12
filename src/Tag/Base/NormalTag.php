@@ -44,8 +44,18 @@ abstract class NormalTag extends Tag
 
     final public function render(): string
     {
-        return '<' . $this->getName() . $this->renderAttributes() . '>' .
+        return $this->begin() .
             ($this->encode ? Html::encode($this->content, $this->doubleEncode) : $this->content) .
-            '</' . $this->getName() . '>';
+            $this->end();
+    }
+
+    final public function begin(): string
+    {
+        return '<' . $this->getName() . $this->renderAttributes() . '>';
+    }
+
+    final public function end(): string
+    {
+        return '</' . $this->getName() . '>';
     }
 }
