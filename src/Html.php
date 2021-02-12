@@ -12,6 +12,7 @@ use ValueError;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Button;
+use Yiisoft\Html\Tag\CustomTag;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
@@ -58,32 +59,17 @@ use function strlen;
  *   uncheck?: string|int|float|\Stringable|bool|null,
  *   form?: string|null,
  * }
+ * @psalm-type HtmlAttributes = array<string, mixed>&array{
+ *   id?: string|\Stringable|null,
+ *   class?: string[]|string|\Stringable[]|\Stringable|null,
+ *   data?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   data-ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   aria?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ * }
  */
 final class Html
 {
-    /**
-     * List of void elements. These only have a start tag; end tags must not be specified.
-     * {@see http://www.w3.org/TR/html-markup/syntax.html#void-element}
-     */
-    private const VOID_ELEMENTS = [
-        'area' => 1,
-        'base' => 1,
-        'br' => 1,
-        'col' => 1,
-        'command' => 1,
-        'embed' => 1,
-        'hr' => 1,
-        'img' => 1,
-        'input' => 1,
-        'keygen' => 1,
-        'link' => 1,
-        'meta' => 1,
-        'param' => 1,
-        'source' => 1,
-        'track' => 1,
-        'wbr' => 1,
-    ];
-
     /**
      * The preferred order of attributes in a tag. This mainly affects the order of the attributes that are
      * rendered by {@see renderTagAttributes()}.
@@ -265,83 +251,44 @@ final class Html
     /**
      * Generates a complete HTML tag.
      *
-     * @param bool|string|null $name The tag name. If $name is `null` or `false`, the corresponding content will be
-     * rendered without any tag.
-     * @param string $content The content to be enclosed between the start and end tags. It will not be HTML-encoded.
-     * If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
-     * @param array $options The HTML tag attributes (HTML options) in terms of name-value pairs. These will be
-     * rendered as the attributes of the resulting tag. The values will be HTML-encoded using
-     * {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
+     * @see CustomTag
      *
-     * For example when using `['class' => 'my-class', 'target' => '_blank', 'value' => null]` it will result in the
-     * HTML attributes rendered like this: `class="my-class" target="_blank"`.
+     * @param string $name The tag name.
      *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated HTML tag.
-     *
-     * @see beginTag()
-     * @see endTag()
+     * @psalm-param non-empty-string $name
      */
-    public static function tag($name, string $content = '', array $options = []): string
+    public static function tag(string $name): CustomTag
     {
-        if ($name === null || is_bool($name)) {
-            return $content;
-        }
-
-        $html = '<' . $name . self::renderTagAttributes($options) . '>';
-
-        return isset(self::VOID_ELEMENTS[strtolower($name)]) ? $html : "$html$content</$name>";
+        return CustomTag::name($name);
     }
 
     /**
      * Generates a start tag.
      *
-     * @param bool|string|null $name The tag name. If $name is `null` or `false`, the corresponding content will be
-     * rendered without any tag.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
+     * @see self::endTag()
      *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @param string $name The tag name.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @throws JsonException
-     *
-     * {@see endTag()}
-     * {@see tag()}
-     *
-     * @return string The generated start tag.
+     * @psalm-param non-empty-string $name
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function beginTag($name, array $options = []): string
+    public static function beginTag(string $name, array $attributes = []): string
     {
-        if ($name === null || is_bool($name)) {
-            return '';
-        }
-
-        return '<' . $name . self::renderTagAttributes($options) . '>';
+        return '<' . $name . self::renderTagAttributes($attributes) . '>';
     }
 
     /**
      * Generates an end tag.
      *
-     * @param bool|string|null $name The tag name. If $name is `null` or `false`, the corresponding content will be
-     * rendered without any tag.
+     * @see self::beginTag()
      *
-     * @return string The generated end tag.
+     * @param string $name The tag name.
      *
-     * {@see beginTag()}
-     * {@see tag()}
+     * @psalm-param non-empty-string $name
      */
-    public static function endTag($name): string
+    public static function endTag(string $name): string
     {
-        if ($name === null || is_bool($name)) {
-            return '';
-        }
-
         return "</$name>";
     }
 
@@ -827,7 +774,7 @@ final class Html
         /** @var string $separator */
         $separator = ArrayHelper::remove($options, 'separator', "\n");
 
-        /** @var string $tag */
+        /** @psalm-var non-empty-string|false $tag */
         $tag = ArrayHelper::remove($options, 'tag', 'div');
 
         /** @psalm-var InputHtmlOptions&array{unselect?: string|int|float|\Stringable|bool|null} $options */
@@ -866,7 +813,12 @@ final class Html
             $hidden = '';
         }
 
-        return $hidden . self::tag($tag, implode($separator, $lines), $options);
+        $visibleContent = implode($separator, $lines);
+        return $hidden . (
+            $tag === false
+                ? $visibleContent
+                : self::tag($tag)->content($visibleContent)->attributes($options)->withoutEncode()
+            );
     }
 
     /**
@@ -938,7 +890,7 @@ final class Html
         /** @var string $separator */
         $separator = ArrayHelper::remove($options, 'separator', "\n");
 
-        /** @var string $tag */
+        /** @psalm-var non-empty-string|false $tag */
         $tag = ArrayHelper::remove($options, 'tag', 'div');
 
         /** @psalm-var InputHtmlOptions&array{unselect?: string|int|float|\Stringable|bool|null} $options */
@@ -977,7 +929,11 @@ final class Html
         }
         $visibleContent = implode($separator, $lines);
 
-        return $hidden . self::tag($tag, $visibleContent, $options);
+        return $hidden . (
+            $tag === false
+                ? $visibleContent
+                : self::tag($tag)->content($visibleContent)->attributes($options)->withoutEncode()
+            );
     }
 
     /**
@@ -1059,7 +1015,7 @@ final class Html
      * @param array $attributes Attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encodeAttribute()}.
      *
-     * @psalm-param HtmlOptions|array<empty, empty> $attributes
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      *
      * @throws JsonException
      *

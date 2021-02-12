@@ -60,36 +60,21 @@ final class HtmlTest extends TestCase
 
     public function testTag(): void
     {
-        $this->assertSame('<br>', Html::tag('br'));
-        $this->assertSame('<BR>', Html::tag('BR'));
-        $this->assertSame('<span></span>', Html::tag('span'));
-        $this->assertSame('<div>content</div>', Html::tag('div', 'content'));
-        $this->assertSame(
-            '<input type="text" name="test" value="&lt;&gt;">',
-            Html::tag('input', '', ['type' => 'text', 'name' => 'test', 'value' => '<>'])
-        );
-        $this->assertSame('<span disabled></span>', Html::tag('span', '', ['disabled' => true]));
-        $this->assertSame('test', Html::tag(false, 'test'));
-        $this->assertSame('test', Html::tag(null, 'test'));
+        self::assertSame('<h1></h1>', Html::tag('h1')->render());
     }
 
     public function testBeginTag(): void
     {
-        $this->assertSame('<br>', Html::beginTag('br'));
-        $this->assertSame(
+        self::assertSame('<div>', Html::beginTag('div'));
+        self::assertSame(
             '<span id="test" class="title">',
             Html::beginTag('span', ['id' => 'test', 'class' => 'title'])
         );
-        $this->assertSame('', Html::beginTag(null));
-        $this->assertSame('', Html::beginTag(false));
     }
 
     public function testEndTag(): void
     {
-        $this->assertSame('</br>', Html::endTag('br'));
-        $this->assertSame('</span>', Html::endTag('span'));
-        $this->assertSame('', Html::endTag(null));
-        $this->assertSame('', Html::endTag(false));
+        self::assertSame('</div>', Html::endTag('div'));
     }
 
     public function testStyle(): void
@@ -696,6 +681,26 @@ EOD;
                     ],
                 ],
             ],
+            [
+                ' src="xyz" data-a="1" data-b="c"',
+                ['src' => 'xyz', 'data' => ['a' => 1, 'b' => 'c']],
+            ],
+            [
+                ' src="xyz" ng-a="1" ng-b="c"',
+                ['src' => 'xyz', 'ng' => ['a' => 1, 'b' => 'c']],
+            ],
+            [
+                ' src="xyz" data-ng-a="1" data-ng-b="c"',
+                ['src' => 'xyz', 'data-ng' => ['a' => 1, 'b' => 'c']],
+            ],
+            [
+                ' src="xyz" aria-a="1" aria-b="c"',
+                ['src' => 'xyz', 'aria' => ['a' => 1, 'b' => 'c']],
+            ],
+            [
+                ' src=\'{"a":1,"b":"It\\u0027s"}\'',
+                ['src' => ['a' => 1, 'b' => "It's"]],
+            ],
         ];
     }
 
@@ -860,15 +865,6 @@ EOD;
         ];
         Html::removeCssStyle($options, ['color']);
         $this->assertSame('width: 100px;', $options['style']);
-    }
-
-    public function testDataAttributes(): void
-    {
-        $this->assertSame('<link src="xyz" data-a="1" data-b="c">', Html::tag('link', '', ['src' => 'xyz', 'data' => ['a' => 1, 'b' => 'c']]));
-        $this->assertSame('<link src="xyz" ng-a="1" ng-b="c">', Html::tag('link', '', ['src' => 'xyz', 'ng' => ['a' => 1, 'b' => 'c']]));
-        $this->assertSame('<link src="xyz" data-ng-a="1" data-ng-b="c">', Html::tag('link', '', ['src' => 'xyz', 'data-ng' => ['a' => 1, 'b' => 'c']]));
-        $this->assertSame('<link src="xyz" aria-a="1" aria-b="c">', Html::tag('link', '', ['src' => 'xyz', 'aria' => ['a' => 1, 'b' => 'c']]));
-        $this->assertSame('<link src=\'{"a":1,"b":"It\\u0027s"}\'>', Html::tag('link', '', ['src' => ['a' => 1, 'b' => "It's"]]));
     }
 
     private function getDataItems(): array

@@ -7,14 +7,7 @@ namespace Yiisoft\Html\Tag\Base;
 use Yiisoft\Html\Html;
 
 /**
- * @psalm-type HtmlAttributes = array<string, mixed>&array{
- *   id?: string|\Stringable|null,
- *   class?: string[]|string|\Stringable[]|\Stringable|null,
- *   data?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- *   data-ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- *   ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- *   aria?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- * }
+ * @psalm-import-type HtmlAttributes from Html
  */
 abstract class Tag
 {
@@ -22,18 +15,6 @@ abstract class Tag
      * @psalm-var HtmlAttributes|array<empty, empty>
      */
     protected array $attributes = [];
-
-    final private function __construct()
-    {
-    }
-
-    /**
-     * @return static
-     */
-    final public static function tag(): self
-    {
-        return new static();
-    }
 
     /**
      * @psalm-param HtmlAttributes|array<empty, empty> $attributes

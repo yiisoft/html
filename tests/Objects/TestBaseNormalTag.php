@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Objects;
 
-use Yiisoft\Html\Tag\Base\Tag;
+use Yiisoft\Html\Tag\Base\BaseNormalTag;
 
-final class TestTag extends Tag
+final class TestBaseNormalTag extends BaseNormalTag
 {
     public static function tag(): self
     {
@@ -20,6 +20,6 @@ final class TestTag extends Tag
 
     public function render(): string
     {
-        return '<' . $this->getName() . $this->renderAttributes() . '>';
+        return $this->begin() . $this->generateContent() . $this->end();
     }
 }
