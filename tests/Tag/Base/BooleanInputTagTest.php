@@ -16,7 +16,71 @@ final class BooleanInputTagTest extends TestCase
         self::assertSame('<input type="test">', (string)TestBooleanInputTag::tag()->checked(true)->checked(false));
     }
 
-    public function dataUnselectValue(): array
+    public function dataLabel(): array
+    {
+        return [
+            [
+                '<label><input type="test"> One</label>',
+                'One',
+                [],
+            ],
+            [
+                '<label><input type="test"> &lt;b&gt;One&lt;/b&gt;</label>',
+                '<b>One</b>',
+                [],
+            ],
+            [
+                '<label class="red"><input type="test"> One</label>',
+                'One',
+                ['class' => 'red'],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataLabel
+     */
+    public function testLabel(string $expected, string $label, array $attributes): void
+    {
+        self::assertSame(
+            $expected,
+            TestBooleanInputTag::tag()->label($label, $attributes)->render()
+        );
+    }
+
+    public function testSideLabel(): void
+    {
+        self::assertMatchesRegularExpression(
+            '~<input type="test" id="i\d*"> <label for="i\d*">One</label>~',
+            TestBooleanInputTag::tag()->sideLabel('One')->render()
+        );
+    }
+
+    public function testSideLabelWithAttributes(): void
+    {
+        self::assertMatchesRegularExpression(
+            '~<input type="test" id="i\d*"> <label class="red" for="i\d*">One</label>~',
+            TestBooleanInputTag::tag()->sideLabel('One', ['class' => 'red'])->render()
+        );
+    }
+
+    public function testSideLabelId(): void
+    {
+        self::assertSame(
+            '<input type="test" id="count"> <label for="count">One</label>',
+            TestBooleanInputTag::tag()->sideLabel('One')->id('count')->render()
+        );
+    }
+
+    public function testWithoutLabelEncode(): void
+    {
+        self::assertSame(
+            '<label><input type="test"> <b>One</b></label>',
+            TestBooleanInputTag::tag()->label('<b>One</b>')->withoutLabelEncode()->render()
+        );
+    }
+
+    public function dataUncheckValue(): array
     {
         return [
             ['<input type="test">', null, null],
@@ -37,7 +101,7 @@ final class BooleanInputTagTest extends TestCase
     }
 
     /**
-     * @dataProvider dataUnselectValue
+     * @dataProvider dataUncheckValue
      *
      * @param \Stringable|string|int|float|bool|null $value
      */
@@ -71,6 +135,9 @@ final class BooleanInputTagTest extends TestCase
     {
         $input = TestBooleanInputTag::tag();
         self::assertNotSame($input, $input->checked());
+        self::assertNotSame($input, $input->label(''));
+        self::assertNotSame($input, $input->sideLabel(''));
+        self::assertNotSame($input, $input->withoutLabelEncode());
         self::assertNotSame($input, $input->uncheckValue(null));
     }
 }

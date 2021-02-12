@@ -10,6 +10,10 @@ use Yiisoft\Html\Tag\Input;
 abstract class BooleanInputTag extends BaseInputTag
 {
     private ?string $uncheckValue = null;
+    private ?string $label = null;
+    private array $labelAttributes = [];
+    private bool $labelWrap = true;
+    private bool $labelEncode = true;
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-checked
@@ -20,6 +24,39 @@ abstract class BooleanInputTag extends BaseInputTag
     {
         $new = clone $this;
         $new->attributes['checked'] = $checked;
+        return $new;
+    }
+
+    /**
+     * @return static
+     */
+    final public function label(string $label, array $attributes = []): self
+    {
+        $new = clone $this;
+        $new->label = $label;
+        $new->labelAttributes = $attributes;
+        return $new;
+    }
+
+    /**
+     * @return static
+     */
+    final public function sideLabel(string $label, array $attributes = []): self
+    {
+        $new = clone $this;
+        $new->label = $label;
+        $new->labelAttributes = $attributes;
+        $new->labelWrap = false;
+        return $new;
+    }
+
+    /**
+     * @return static
+     */
+    final public function withoutLabelEncode(): self
+    {
+        $new = clone $this;
+        $new->labelEncode = false;
         return $new;
     }
 
@@ -42,6 +79,14 @@ abstract class BooleanInputTag extends BaseInputTag
 
     protected function before(): string
     {
+        $this->attributes['id'] ??= $this->labelWrap ? null : Html::generateId();
+
+        return ($this->labelWrap ? $this->renderBeginLabel() : '') .
+            $this->renderUncheckInput();
+    }
+
+    private function renderUncheckInput(): string
+    {
         $name = (string)($this->attributes['name'] ?? '');
         if (empty($name) || $this->uncheckValue === null) {
             return '';
@@ -62,6 +107,31 @@ abstract class BooleanInputTag extends BaseInputTag
         }
 
         return $input->render();
+    }
+
+    private function renderBeginLabel(): string
+    {
+        if ($this->label === null) {
+            return '';
+        }
+
+        $attributes = $this->labelAttributes;
+        /** @var mixed */
+        $attributes['for'] = $this->attributes['id'];
+
+        return Html::beginTag('label', $attributes);
+    }
+
+    protected function after(): string
+    {
+        if ($this->label === null) {
+            return '';
+        }
+
+        return ' ' .
+            ($this->labelWrap ? '' : $this->renderBeginLabel()) .
+            ($this->labelEncode ? Html::encode($this->label) : $this->label) .
+            '</label>';
     }
 
     abstract protected function getType(): string;

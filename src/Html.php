@@ -29,7 +29,7 @@ use Yiisoft\Html\Tag\Textarea;
 use Yiisoft\Html\Tag\Ul;
 use Yiisoft\Json\Json;
 
-use function array_key_exists;
+use function count;
 use function in_array;
 use function is_array;
 use function is_bool;
@@ -51,13 +51,6 @@ use function strlen;
  * @psalm-type InputHtmlOptions = HtmlOptions&array {
  *   value?: string|int|float|\Stringable|bool|null,
  *   disabled?: bool,
- * }
- * @psalm-type BooleanInputHtmlOptions = InputHtmlOptions&array{
- *   label?: string|null,
- *   labelOptions?: HtmlOptions|null,
- *   wrapInput?: bool,
- *   uncheck?: string|int|float|\Stringable|bool|null,
- *   form?: string|null,
  * }
  */
 final class Html
@@ -576,7 +569,7 @@ final class Html
      * @param string|null $name The name attribute.
      * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function radioInput(?string $name = null, $value = null): Input\Radio
+    public static function radio(?string $name = null, $value = null): Input\Radio
     {
         return Input::radio($name, $value);
     }
@@ -589,7 +582,7 @@ final class Html
      * @param string|null $name The name attribute.
      * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function checkboxInput(?string $name = null, $value = null): Input\Checkbox
+    public static function checkbox(?string $name = null, $value = null): Input\Checkbox
     {
         return Input::checkbox($name, $value);
     }
@@ -610,124 +603,6 @@ final class Html
             $tag = $tag->value($value);
         }
         return $tag;
-    }
-
-    /**
-     * Generates a radio button input.
-     *
-     * @param string $name The name attribute.
-     * @param bool $checked Whether the radio button should be checked.
-     * @param array $options The tag options in terms of name-value pairs.
-     * See {@see booleanInput()} for details about accepted attributes.
-     *
-     * @psalm-param BooleanInputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated radio button tag.
-     */
-    public static function radio(string $name, bool $checked = false, array $options = []): string
-    {
-        return self::booleanInput('radio', $name, $checked, $options);
-    }
-
-    /**
-     * Generates a checkbox input.
-     *
-     * @param string $name The name attribute.
-     * @param bool $checked Whether the checkbox should be checked.
-     * @param array $options The tag options in terms of name-value pairs.
-     * See {@see booleanInput()} for details about accepted attributes.
-     *
-     * @psalm-param BooleanInputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated checkbox tag.
-     */
-    public static function checkbox(string $name, bool $checked = false, array $options = []): string
-    {
-        return self::booleanInput('checkbox', $name, $checked, $options);
-    }
-
-    /**
-     * Generates a boolean input.
-     *
-     * @param string $type The input type. This can be either `radio` or `checkbox`.
-     * @param string $name The name attribute.
-     * @param bool $checked Whether the checkbox should be checked.
-     * @param array $options The tag options in terms of name-value pairs. The following options are specially handled:
-     *
-     * - uncheck: string, the value associated with the uncheck state of the checkbox. When this attribute is present,
-     *   a hidden input will be generated so that if the checkbox is not checked and is submitted, the value of this
-     *   attribute will still be submitted to the server via the hidden input.
-     * - label: string, a label displayed next to the checkbox. It will NOT be HTML-encoded. Therefore you can pass in
-     *   HTML code such as an image tag. If this is is coming from end users, you should {@see encode()}
-     *   it to prevent XSS attacks.
-     *   When this option is specified, the checkbox will be enclosed by a label tag.
-     * - labelOptions: array, the HTML attributes for the label tag. Do not set this option unless you set the "label"
-     *   option.
-     * - wrapInput: bool, use when has label.
-     *   if `wrapInput` is true result will be `<label><input> Label</label>`,
-     *   else `<input> <label>Label</label>`
-     *
-     * The rest of the options will be rendered as the attributes of the resulting checkbox tag. The values will be
-     * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be
-     * rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param BooleanInputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated checkbox tag.
-     */
-    private static function booleanInput(string $type, string $name, bool $checked, array $options): string
-    {
-        $options['checked'] = $checked;
-        $value = array_key_exists('value', $options) ? $options['value'] : '1';
-
-        if (isset($options['uncheck'])) {
-            // Add a hidden field so that if the checkbox is not selected, it still submits a value.
-            $hiddenOptions = [];
-            if (isset($options['form'])) {
-                $hiddenOptions['form'] = $options['form'];
-            }
-            // Make sure disabled input is not sending any value.
-            if (!empty($options['disabled'])) {
-                $hiddenOptions['disabled'] = $options['disabled'];
-            }
-            $hidden = self::hiddenInput(
-                $name,
-                isset($options['uncheck']) ? (string)$options['uncheck'] : null
-            )->attributes($hiddenOptions);
-
-            unset($options['uncheck']);
-        } else {
-            $hidden = '';
-        }
-
-        $label = $options['label'] ?? null;
-        $labelOptions = $options['labelOptions'] ?? [];
-        $wrapInput = $options['wrapInput'] ?? true;
-        unset($options['label'], $options['labelOptions'], $options['wrapInput']);
-
-        if (empty($label)) {
-            return $hidden . self::input($type, $name, $value)->attributes($options);
-        }
-
-        if ($wrapInput) {
-            $input = self::input($type, $name, $value)->attributes($options);
-            return $hidden . self::label($input . ' ' . $label, null)->attributes($labelOptions)->withoutEncode();
-        }
-
-        if (!isset($options['id'])) {
-            $options['id'] = self::generateId();
-        }
-        return $hidden .
-            self::input($type, $name, $value)->attributes($options) .
-            ' ' .
-            self::label($label, $options['id'])->attributes($labelOptions);
     }
 
     /**
@@ -830,10 +705,11 @@ final class Html
             if ($formatter !== null) {
                 $lines[] = $formatter($index, $label, $name, $checked, $value);
             } else {
-                $lines[] = self::checkbox($name, $checked, array_merge([
-                    'value' => $value,
-                    'label' => $encode ? self::encode($label) : $label,
-                ], $itemOptions));
+                $lines[] = self::checkbox($name, $value)
+                    ->attributes($itemOptions)
+                    ->checked($checked)
+                    ->label($encode ? self::encode($label) : $label)
+                    ->withoutLabelEncode();
             }
             $index++;
         }
@@ -962,10 +838,11 @@ final class Html
             if ($formatter !== null) {
                 $lines[] = $formatter($index, $label, $name, $checked, $value);
             } else {
-                $lines[] = self::radio($name, $checked, array_merge([
-                    'value' => $value,
-                    'label' => $encode ? self::encode($label) : $label,
-                ], $itemOptions));
+                $lines[] = self::radio($name, $value)
+                    ->attributes($itemOptions)
+                    ->checked($checked)
+                    ->label($encode ? self::encode($label) : $label)
+                    ->withoutLabelEncode();
             }
             $index++;
         }

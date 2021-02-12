@@ -265,27 +265,27 @@ final class HtmlTest extends TestCase
         );
     }
 
-    public function testRadioInput(): void
+    public function testRadio(): void
     {
-        $this->assertSame('<input type="radio">', Html::radioInput()->render());
-        $this->assertSame('<input type="radio" name="">', Html::radioInput('')->render());
-        $this->assertSame('<input type="radio" value="">', Html::radioInput(null, '')->render());
-        $this->assertSame('<input type="radio" name="test">', Html::radioInput('test')->render());
+        $this->assertSame('<input type="radio">', Html::radio()->render());
+        $this->assertSame('<input type="radio" name="">', Html::radio('')->render());
+        $this->assertSame('<input type="radio" value="">', Html::radio(null, '')->render());
+        $this->assertSame('<input type="radio" name="test">', Html::radio('test')->render());
         $this->assertSame(
             '<input type="radio" name="test" value="43">',
-            Html::radioInput('test', '43')->render(),
+            Html::radio('test', '43')->render(),
         );
     }
 
-    public function testCheckboxInput(): void
+    public function testCheckbox(): void
     {
-        $this->assertSame('<input type="checkbox">', Html::checkboxInput()->render());
-        $this->assertSame('<input type="checkbox" name="">', Html::checkboxInput('')->render());
-        $this->assertSame('<input type="checkbox" value="">', Html::checkboxInput(null, '')->render());
-        $this->assertSame('<input type="checkbox" name="test">', Html::checkboxInput('test')->render());
+        $this->assertSame('<input type="checkbox">', Html::checkbox()->render());
+        $this->assertSame('<input type="checkbox" name="">', Html::checkbox('')->render());
+        $this->assertSame('<input type="checkbox" value="">', Html::checkbox(null, '')->render());
+        $this->assertSame('<input type="checkbox" name="test">', Html::checkbox('test')->render());
         $this->assertSame(
             '<input type="checkbox" name="test" value="43">',
-            Html::checkboxInput('test', '43')->render(),
+            Html::checkbox('test', '43')->render(),
         );
     }
 
@@ -302,111 +302,6 @@ final class HtmlTest extends TestCase
         $this->assertSame('<textarea name=""></textarea>', Html::textarea('')->render());
         $this->assertSame('<textarea name="test"></textarea>', Html::textarea('test')->render());
         $this->assertSame('<textarea name="test">body</textarea>', Html::textarea('test', 'body')->render());
-    }
-
-    public function testRadio(): void
-    {
-        $this->assertSame('<input type="radio" name="test" value="1">', Html::radio('test'));
-        $this->assertSame('<input type="radio" class="a" name="test" checked>', Html::radio('test', true, ['class' => 'a', 'value' => null]));
-        $this->assertSame('<input type="hidden" name="test" value="0"><input type="radio" class="a" name="test" value="2" checked>', Html::radio('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'value' => 2,
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0" disabled><input type="radio" name="test" value="2" disabled>', Html::radio('test', false, [
-            'disabled' => true,
-            'uncheck' => '0',
-            'value' => 2,
-        ]));
-
-        $this->assertSame('<label class="bbb"><input type="radio" class="a" name="test" checked> ccc</label>', Html::radio('test', true, [
-            'class' => 'a',
-            'value' => null,
-            'label' => 'ccc',
-            'labelOptions' => ['class' => 'bbb'],
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0"><label><input type="radio" class="a" name="test" value="2" checked> ccc</label>', Html::radio('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'label' => 'ccc',
-            'value' => 2,
-        ]));
-
-        $this->assertSame(
-            '<input type="radio" id="UseThis" name="test" checked> <label for="UseThis">Use this</label>',
-            Html::radio('test', true, [
-                'id' => 'UseThis',
-                'label' => 'Use this',
-                'value' => null,
-                'wrapInput' => false,
-            ])
-        );
-
-        self::$hrtimeResult = 42;
-        $this->assertSame(
-            '<input type="radio" id="i421" name="test" checked> <label for="i421">Use this</label>',
-            Html::radio('test', true, [
-                'label' => 'Use this',
-                'value' => null,
-                'wrapInput' => false,
-            ])
-        );
-    }
-
-    public function testCheckbox(): void
-    {
-        $this->assertSame('<input type="checkbox" name="test" value="1">', Html::checkbox('test'));
-        $this->assertSame('<input type="checkbox" class="a" name="test" checked>', Html::checkbox('test', true, ['class' => 'a', 'value' => null]));
-        $this->assertSame('<input type="hidden" name="test" value="0"><input type="checkbox" class="a" name="test" value="2" checked>', Html::checkbox('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'value' => 2,
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0" disabled><input type="checkbox" name="test" value="2" disabled>', Html::checkbox('test', false, [
-            'disabled' => true,
-            'uncheck' => '0',
-            'value' => 2,
-        ]));
-
-        $this->assertSame('<label class="bbb"><input type="checkbox" class="a" name="test" checked> ccc</label>', Html::checkbox('test', true, [
-            'class' => 'a',
-            'value' => null,
-            'label' => 'ccc',
-            'labelOptions' => ['class' => 'bbb'],
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0"><label><input type="checkbox" class="a" name="test" value="2" checked> ccc</label>', Html::checkbox('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'label' => 'ccc',
-            'value' => 2,
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0" form="test-form"><label><input type="checkbox" class="a" name="test" value="2" form="test-form" checked> ccc</label>', Html::checkbox('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'label' => 'ccc',
-            'value' => 2,
-            'form' => 'test-form',
-        ]));
-
-        $this->assertSame(
-            '<input type="checkbox" id="UseThis" name="test"> <label for="UseThis">Use this</label>',
-            Html::checkbox('test', false, [
-                'id' => 'UseThis',
-                'label' => 'Use this',
-                'value' => null,
-                'wrapInput' => false,
-            ])
-        );
-
-        self::$hrtimeResult = 49;
-        $this->assertSame(
-            '<input type="checkbox" id="i491" name="test"> <label for="i491">Use this</label>',
-            Html::checkbox('test', false, [
-                'label' => 'Use this',
-                'value' => null,
-                'wrapInput' => false,
-            ])
-        );
     }
 
     public function testCheckboxList(): void
@@ -452,7 +347,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]))->withoutEncode();
+                return $index . Html::label($label . ' ' . Html::checkbox($name, $value)->checked($checked))->withoutEncode();
             },
         ]));
 
@@ -462,7 +357,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]))->withoutEncode();
+                return $index . Html::label($label . ' ' . Html::checkbox($name, $value)->checked($checked))->withoutEncode();
             },
             'tag' => false,
         ]));
@@ -470,7 +365,7 @@ EOD;
             $expected,
             Html::checkboxList('test', new ArrayObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]))->withoutEncode();
+                    return $index . Html::label($label . ' ' . Html::checkbox($name, $value)->checked($checked))->withoutEncode();
                 },
                 'tag' => false,
             ])
@@ -479,7 +374,7 @@ EOD;
             $expected,
             Html::checkboxList('test', new IterableObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::checkbox($name, $checked, ['value' => $value]))->withoutEncode();
+                    return $index . Html::label($label . ' ' . Html::checkbox($name, $value)->checked($checked))->withoutEncode();
                 },
                 'tag' => false,
             ])
@@ -560,7 +455,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]))->withoutEncode();
+                return $index . Html::label($label . ' ' . Html::radio($name, $value)->checked($checked))->withoutEncode();
             },
         ]));
 
@@ -570,7 +465,7 @@ EOD;
 EOD;
         $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
             'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]))->withoutEncode();
+                return $index . Html::label($label . ' ' . Html::radio($name, $value)->checked($checked))->withoutEncode();
             },
             'tag' => false,
         ]));
@@ -578,7 +473,7 @@ EOD;
             $expected,
             Html::radioList('test', new ArrayObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]))->withoutEncode();
+                    return $index . Html::label($label . ' ' . Html::radio($name, $value)->checked($checked))->withoutEncode();
                 },
                 'tag' => false,
             ])
@@ -587,7 +482,7 @@ EOD;
             $expected,
             Html::radioList('test', new IterableObject(['value2']), $this->getDataItems(), [
                 'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]))->withoutEncode();
+                    return $index . Html::label($label . ' ' . Html::radio($name, $value)->checked($checked))->withoutEncode();
                 },
                 'tag' => false,
             ])
