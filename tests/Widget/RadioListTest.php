@@ -292,7 +292,7 @@ final class RadioListTest extends TestCase
                 '<label><input type="radio" name="test[]" value="2"> Two</label>' .
                 '</div>',
                 'test',
-                null
+                null,
             ],
             [
                 '<div>' .
@@ -300,7 +300,7 @@ final class RadioListTest extends TestCase
                 '<label><input type="radio" name="test[]" value="2"> Two</label>' .
                 '</div>',
                 'test[]',
-                null
+                null,
             ],
             [
                 '<input type="hidden" name="test" value="7">' .
@@ -309,7 +309,7 @@ final class RadioListTest extends TestCase
                 '<label><input type="radio" name="test[]" value="2"> Two</label>' .
                 '</div>',
                 'test',
-                7
+                7,
             ],
             [
                 '<input type="hidden" name="test" value="7">' .
@@ -318,7 +318,7 @@ final class RadioListTest extends TestCase
                 '<label><input type="radio" name="test[]" value="2"> Two</label>' .
                 '</div>',
                 'test[]',
-                7
+                7,
             ],
         ];
     }
