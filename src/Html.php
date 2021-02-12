@@ -576,7 +576,7 @@ final class Html
      * @param string|null $name The name attribute.
      * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function radioInput(?string $name = null, $value = null): Input
+    public static function radioInput(?string $name = null, $value = null): Input\Radio
     {
         return Input::radio($name, $value);
     }
@@ -589,7 +589,7 @@ final class Html
      * @param string|null $name The name attribute.
      * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function checkboxInput(?string $name = null, $value = null): Input
+    public static function checkboxInput(?string $name = null, $value = null): Input\Checkbox
     {
         return Input::checkbox($name, $value);
     }

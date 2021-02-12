@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\VoidTag;
+use Yiisoft\Html\Tag\Base\BaseInputTag;
+use Yiisoft\Html\Tag\Input\Checkbox;
+use Yiisoft\Html\Tag\Input\Radio;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-input-element
  */
-final class Input extends VoidTag
+final class Input extends BaseInputTag
 {
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#hidden-state-typehidden
@@ -72,12 +74,15 @@ final class Input extends VoidTag
      *
      * @param \Stringable|string|int|float|bool|null $value
      */
-    public static function checkbox(?string $name = null, $value = null): self
+    public static function checkbox(?string $name = null, $value = null): Checkbox
     {
-        $input = self::tag();
-        $input->attributes['type'] = 'checkbox';
-        $input->attributes['name'] = $name;
-        $input->attributes['value'] = $value;
+        $input = Checkbox::tag();
+        if ($name !== null) {
+            $input = $input->name($name);
+        }
+        if ($value !== null) {
+            $input = $input->value($value);
+        }
         return $input;
     }
 
@@ -86,12 +91,15 @@ final class Input extends VoidTag
      *
      * @param \Stringable|string|int|float|bool|null $value
      */
-    public static function radio(?string $name = null, $value = null): self
+    public static function radio(?string $name = null, $value = null): Radio
     {
-        $input = self::tag();
-        $input->attributes['type'] = 'radio';
-        $input->attributes['name'] = $name;
-        $input->attributes['value'] = $value;
+        $input = Radio::tag();
+        if ($name !== null) {
+            $input = $input->name($name);
+        }
+        if ($value !== null) {
+            $input = $input->value($value);
+        }
         return $input;
     }
 
@@ -136,82 +144,5 @@ final class Input extends VoidTag
         $new = clone $this;
         $new->attributes['type'] = $type;
         return $new;
-    }
-
-    /**
-     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-name
-     */
-    public function name(?string $name): self
-    {
-        $new = clone $this;
-        $new->attributes['name'] = $name;
-        return $new;
-    }
-
-    /**
-     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-value
-     *
-     * @param \Stringable|string|int|float|bool|null $value
-     */
-    public function value($value): self
-    {
-        $new = clone $this;
-        $new->attributes['value'] = $value;
-        return $new;
-    }
-
-    /**
-     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
-     */
-    public function form(?string $formId): self
-    {
-        $new = clone $this;
-        $new->attributes['form'] = $formId;
-        return $new;
-    }
-
-    /**
-     * @link https://www.w3.org/TR/html52/sec-forms.html#the-readonly-attribute
-     */
-    public function readonly(bool $readonly = true): self
-    {
-        $new = clone $this;
-        $new->attributes['readonly'] = $readonly;
-        return $new;
-    }
-
-    /**
-     * @link https://www.w3.org/TR/html52/sec-forms.html#the-required-attribute
-     */
-    public function required(bool $required = true): self
-    {
-        $new = clone $this;
-        $new->attributes['required'] = $required;
-        return $new;
-    }
-
-    /**
-     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-disabledformelements-disabled
-     */
-    public function disabled(bool $disabled = true): self
-    {
-        $new = clone $this;
-        $new->attributes['disabled'] = $disabled;
-        return $new;
-    }
-
-    /**
-     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-checked
-     */
-    public function checked(bool $checked = true): self
-    {
-        $new = clone $this;
-        $new->attributes['checked'] = $checked;
-        return $new;
-    }
-
-    protected function getName(): string
-    {
-        return 'input';
     }
 }
