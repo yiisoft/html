@@ -6,19 +6,11 @@ namespace Yiisoft\Html\Tag\Base;
 
 use Yiisoft\Html\Html;
 
-/**
- * @psalm-import-type HtmlAttributes from Html
- */
 abstract class Tag
 {
-    /**
-     * @psalm-var HtmlAttributes|array<empty, empty>
-     */
     protected array $attributes = [];
 
     /**
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
-     *
      * @return static
      */
     final public function attributes(array $attributes): self
@@ -29,8 +21,6 @@ abstract class Tag
     }
 
     /**
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
-     *
      * @return static
      */
     final public function replaceAttributes(array $attributes): self

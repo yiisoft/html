@@ -59,14 +59,6 @@ use function strlen;
  *   uncheck?: string|int|float|\Stringable|bool|null,
  *   form?: string|null,
  * }
- * @psalm-type HtmlAttributes = array<string, mixed>&array{
- *   id?: string|\Stringable|null,
- *   class?: string[]|string|\Stringable[]|\Stringable|null,
- *   data?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- *   data-ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- *   ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- *   aria?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- * }
  */
 final class Html
 {
@@ -258,7 +250,6 @@ final class Html
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param non-empty-string $name
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function tag(string $name, string $content = '', array $attributes = []): CustomTag
     {
@@ -282,7 +273,6 @@ final class Html
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param non-empty-string $name
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function normalTag(string $name, string $content = '', array $attributes = []): CustomTag
     {
@@ -305,7 +295,6 @@ final class Html
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param non-empty-string $name
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function voidTag(string $name, array $attributes = []): CustomTag
     {
@@ -325,7 +314,6 @@ final class Html
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param non-empty-string $name
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function beginTag(string $name, array $attributes = []): string
     {
@@ -1068,8 +1056,6 @@ final class Html
      *
      * @param array $attributes Attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encodeAttribute()}.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      *
      * @throws JsonException
      *
