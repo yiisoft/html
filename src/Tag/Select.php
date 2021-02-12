@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use InvalidArgumentException;
+use RuntimeException;
 use Yiisoft\Html\Tag\Base\ContainerTag;
 use Yiisoft\Html\Tag\Base\Tag;
 
@@ -169,7 +170,7 @@ final class Select extends ContainerTag
             if ($item instanceof Optgroup) {
                 return $item->separator($this->separator)->selection(...$this->values);
             }
-            return $item;
+            throw new RuntimeException('Incorrect item into Select.');
         }, $items);
 
         return $items

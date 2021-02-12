@@ -6,6 +6,8 @@ namespace Yiisoft\Html\Tests\Tag;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
+use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
 use Yiisoft\Html\Tag\Select;
@@ -25,7 +27,7 @@ final class SelectTest extends TestCase
      */
     public function testName(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string)Select::tag()->name($name));
+        self::assertSame($expected, (string)Select::tag()->name($name));
     }
 
     public function dataValue(): array
@@ -100,11 +102,11 @@ final class SelectTest extends TestCase
      */
     public function testValue(string $expected, array $items, array $value): void
     {
-        $this->assertSame(
+        self::assertSame(
             $expected,
             (string)Select::tag()->items(...$items)->value(...$value)->separator(''),
         );
-        $this->assertSame(
+        self::assertSame(
             $expected,
             (string)Select::tag()->items(...$items)->values($value)->separator(''),
         );
@@ -151,12 +153,19 @@ final class SelectTest extends TestCase
      */
     public function testItems(string $expected, array $items): void
     {
-        $this->assertSame($expected, (string)Select::tag()->items(...$items)->separator(''));
+        self::assertSame($expected, (string)Select::tag()->items(...$items)->separator(''));
+    }
+
+    public function testIncorrectItems(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Incorrect item into Select.');
+        Select::tag()->items(Li::tag())->render();
     }
 
     public function testOptions(): void
     {
-        $this->assertSame(
+        self::assertSame(
             "<select>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</select>",
             (string)Select::tag()
                 ->options(
@@ -168,7 +177,7 @@ final class SelectTest extends TestCase
 
     public function testOptionsData(): void
     {
-        $this->assertSame(
+        self::assertSame(
             "<select>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</select>",
             (string)Select::tag()->optionsData(['1' => 'One', '2' => 'Two'])
         );
@@ -176,7 +185,7 @@ final class SelectTest extends TestCase
 
     public function testOptionsDataEncode(): void
     {
-        $this->assertSame(
+        self::assertSame(
             "<select>\n<option value=\"1\">&lt;b&gt;One&lt;/b&gt;</option>\n</select>",
             (string)Select::tag()->optionsData(['1' => '<b>One</b>'])
         );
@@ -184,7 +193,7 @@ final class SelectTest extends TestCase
 
     public function testOptionsDataWithoutEncode(): void
     {
-        $this->assertSame(
+        self::assertSame(
             "<select>\n<option value=\"1\"><b>One</b></option>\n</select>",
             (string)Select::tag()->optionsData(['1' => '<b>One</b>'], false)
         );
@@ -209,7 +218,7 @@ final class SelectTest extends TestCase
      */
     public function testPrompt(string $expected, ?string $text): void
     {
-        $this->assertSame(
+        self::assertSame(
             $expected,
             (string)Select::tag()
                 ->prompt($text)
@@ -237,7 +246,7 @@ final class SelectTest extends TestCase
      */
     public function testPromptOption(string $expected, ?Option $option): void
     {
-        $this->assertSame(
+        self::assertSame(
             $expected,
             (string)Select::tag()
                 ->promptOption($option)
@@ -248,23 +257,23 @@ final class SelectTest extends TestCase
 
     public function testDisabled(): void
     {
-        $this->assertSame('<select disabled></select>', (string)Select::tag()->disabled());
-        $this->assertSame('<select></select>', (string)Select::tag()->disabled(false));
-        $this->assertSame('<select></select>', (string)Select::tag()->disabled(true)->disabled(false));
+        self::assertSame('<select disabled></select>', (string)Select::tag()->disabled());
+        self::assertSame('<select></select>', (string)Select::tag()->disabled(false));
+        self::assertSame('<select></select>', (string)Select::tag()->disabled(true)->disabled(false));
     }
 
     public function testMultiple(): void
     {
-        $this->assertSame('<select multiple></select>', (string)Select::tag()->multiple());
-        $this->assertSame('<select></select>', (string)Select::tag()->multiple(false));
-        $this->assertSame('<select></select>', (string)Select::tag()->multiple(true)->multiple(false));
+        self::assertSame('<select multiple></select>', (string)Select::tag()->multiple());
+        self::assertSame('<select></select>', (string)Select::tag()->multiple(false));
+        self::assertSame('<select></select>', (string)Select::tag()->multiple(true)->multiple(false));
     }
 
     public function testRequired(): void
     {
-        $this->assertSame('<select required></select>', (string)Select::tag()->required());
-        $this->assertSame('<select></select>', (string)Select::tag()->required(false));
-        $this->assertSame('<select></select>', (string)Select::tag()->required(true)->required(false));
+        self::assertSame('<select required></select>', (string)Select::tag()->required());
+        self::assertSame('<select></select>', (string)Select::tag()->required(false));
+        self::assertSame('<select></select>', (string)Select::tag()->required(true)->required(false));
     }
 
     public function dataSize(): array
@@ -280,12 +289,12 @@ final class SelectTest extends TestCase
      */
     public function testSize(string $expected, ?int $size): void
     {
-        $this->assertSame($expected, (string)Select::tag()->size($size));
+        self::assertSame($expected, (string)Select::tag()->size($size));
     }
 
     public function testSeparator(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<select>' . "\r" .
             '<option value="1">One</option>' . "\r" .
             '<option value="2">Two</option>' . "\r" .
@@ -299,18 +308,18 @@ final class SelectTest extends TestCase
     public function testImmutability(): void
     {
         $select = Select::tag();
-        $this->assertNotSame($select, $select->name(''));
-        $this->assertNotSame($select, $select->value());
-        $this->assertNotSame($select, $select->values([]));
-        $this->assertNotSame($select, $select->items());
-        $this->assertNotSame($select, $select->options());
-        $this->assertNotSame($select, $select->optionsData([]));
-        $this->assertNotSame($select, $select->prompt(''));
-        $this->assertNotSame($select, $select->promptOption(Option::tag()));
-        $this->assertNotSame($select, $select->disabled());
-        $this->assertNotSame($select, $select->multiple());
-        $this->assertNotSame($select, $select->required());
-        $this->assertNotSame($select, $select->size(0));
-        $this->assertNotSame($select, $select->separator(''));
+        self::assertNotSame($select, $select->name(''));
+        self::assertNotSame($select, $select->value());
+        self::assertNotSame($select, $select->values([]));
+        self::assertNotSame($select, $select->items());
+        self::assertNotSame($select, $select->options());
+        self::assertNotSame($select, $select->optionsData([]));
+        self::assertNotSame($select, $select->prompt(''));
+        self::assertNotSame($select, $select->promptOption(Option::tag()));
+        self::assertNotSame($select, $select->disabled());
+        self::assertNotSame($select, $select->multiple());
+        self::assertNotSame($select, $select->required());
+        self::assertNotSame($select, $select->size(0));
+        self::assertNotSame($select, $select->separator(''));
     }
 }
