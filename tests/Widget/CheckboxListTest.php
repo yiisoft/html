@@ -210,21 +210,21 @@ final class CheckboxListTest extends TestCase
                 '<label><input type="checkbox" name="test[]" value="1"> One</label>' .
                 '<label><input type="checkbox" name="test[]" value="2"> Two</label>' .
                 '</div>',
-                null
+                null,
             ],
             [
                 '<div>' .
                 '<label><input type="checkbox" name="test[]" value="1" form=""> One</label>' .
                 '<label><input type="checkbox" name="test[]" value="2" form=""> Two</label>' .
                 '</div>',
-                ''
+                '',
             ],
             [
                 '<div>' .
                 '<label><input type="checkbox" name="test[]" value="1" form="post"> One</label>' .
                 '<label><input type="checkbox" name="test[]" value="2" form="post"> Two</label>' .
                 '</div>',
-                'post'
+                'post',
             ],
         ];
     }
@@ -322,7 +322,7 @@ final class CheckboxListTest extends TestCase
                 '<label><input type="checkbox" name="test[]" value="2"> Two</label>' .
                 '</div>',
                 'test',
-                null
+                null,
             ],
             [
                 '<div>' .
@@ -330,7 +330,7 @@ final class CheckboxListTest extends TestCase
                 '<label><input type="checkbox" name="test[]" value="2"> Two</label>' .
                 '</div>',
                 'test[]',
-                null
+                null,
             ],
             [
                 '<input type="hidden" name="test" value="7">' .
@@ -339,7 +339,7 @@ final class CheckboxListTest extends TestCase
                 '<label><input type="checkbox" name="test[]" value="2"> Two</label>' .
                 '</div>',
                 'test',
-                7
+                7,
             ],
             [
                 '<input type="hidden" name="test" value="7">' .
@@ -348,7 +348,7 @@ final class CheckboxListTest extends TestCase
                 '<label><input type="checkbox" name="test[]" value="2"> Two</label>' .
                 '</div>',
                 'test[]',
-                7
+                7,
             ],
         ];
     }

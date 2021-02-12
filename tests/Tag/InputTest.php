@@ -6,7 +6,6 @@ namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Input;
-use Yiisoft\Html\Tests\Objects\StringableObject;
 
 final class InputTest extends TestCase
 {

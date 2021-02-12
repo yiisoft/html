@@ -10,7 +10,7 @@ final class CheckboxItem
     public string $name;
 
     /**
-     * @var \Stringable|string|int|float|bool|null
+     * @var bool|float|int|string|\Stringable|null
      */
     public $value;
 
@@ -20,7 +20,7 @@ final class CheckboxItem
     public bool $encodeLabel;
 
     /**
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      */
     public function __construct(
         int $index,

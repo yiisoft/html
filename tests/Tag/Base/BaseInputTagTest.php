@@ -43,7 +43,7 @@ final class BaseInputTagTest extends TestCase
     /**
      * @dataProvider dataValue
      *
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      */
     public function testValue(string $expected, $value): void
     {

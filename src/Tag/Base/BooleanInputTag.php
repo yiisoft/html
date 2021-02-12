@@ -61,7 +61,7 @@ abstract class BooleanInputTag extends BaseInputTag
     }
 
     /**
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      *
      * @return static
      */

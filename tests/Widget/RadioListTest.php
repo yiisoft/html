@@ -180,21 +180,21 @@ final class RadioListTest extends TestCase
                 '<label><input type="radio" name="test[]" value="1"> One</label>' .
                 '<label><input type="radio" name="test[]" value="2"> Two</label>' .
                 '</div>',
-                null
+                null,
             ],
             [
                 '<div>' .
                 '<label><input type="radio" name="test[]" value="1" form=""> One</label>' .
                 '<label><input type="radio" name="test[]" value="2" form=""> Two</label>' .
                 '</div>',
-                ''
+                '',
             ],
             [
                 '<div>' .
                 '<label><input type="radio" name="test[]" value="1" form="post"> One</label>' .
                 '<label><input type="radio" name="test[]" value="2" form="post"> Two</label>' .
                 '</div>',
-                'post'
+                'post',
             ],
         ];
     }

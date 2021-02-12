@@ -10,7 +10,6 @@ use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Input;
 
-use function call_user_func;
 use function is_array;
 
 final class CheckboxList
@@ -92,7 +91,7 @@ final class CheckboxList
     }
 
     /**
-     * @param \Stringable|string|int|float|bool|null ...$value
+     * @param bool|float|int|string|\Stringable|null ...$value
      */
     public function value(...$value): self
     {
@@ -148,7 +147,7 @@ final class CheckboxList
     }
 
     /**
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      */
     public function uncheckValue($value): self
     {
@@ -240,7 +239,7 @@ final class CheckboxList
     private function formatItem(CheckboxItem $item): string
     {
         if ($this->itemFormatter !== null) {
-            return call_user_func($this->itemFormatter, $item);
+            return ($this->itemFormatter)($item);
         }
 
         $checkbox = Html::checkbox($item->name, $item->value)

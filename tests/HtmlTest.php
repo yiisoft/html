@@ -395,7 +395,7 @@ final class HtmlTest extends TestCase
             [' value="1&lt;&gt;"', ['value' => '1<>']],
             [
                 ' checked disabled required="yes"',
-                ['checked' => true, 'disabled' => true, 'hidden' => false, 'required' => 'yes']
+                ['checked' => true, 'disabled' => true, 'hidden' => false, 'required' => 'yes'],
             ],
             [' class="first second"', ['class' => ['first', 'second']]],
             ['', ['class' => []]],

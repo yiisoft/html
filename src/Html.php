@@ -455,7 +455,7 @@ final class Html
      *
      * @param string $type The type attribute.
      * @param string|null $name The name attribute. If it is `null`, the name attribute will not be generated.
-     * @param \Stringable|string|int|float|bool|null $value The value attribute. If it is `null`, the value
+     * @param bool|float|int|string|\Stringable|null $value The value attribute. If it is `null`, the value
      * attribute will not be generated.
      */
     public static function input(string $type, ?string $name = null, $value = null): Input
@@ -510,7 +510,7 @@ final class Html
      * Generates a text {@see Input} field.
      *
      * @param string|null $name The name attribute.
-     * @param \Stringable|string|int|float|bool|null $value The value attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
     public static function textInput(?string $name = null, $value = null): Input
     {
@@ -523,7 +523,7 @@ final class Html
      * @see Input::hidden()
      *
      * @param string|null $name The name attribute.
-     * @param \Stringable|string|int|float|bool|null $value The value attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
     public static function hiddenInput(?string $name = null, $value = null): Input
     {
@@ -536,7 +536,7 @@ final class Html
      * @see Input::password()
      *
      * @param string|null $name The name attribute.
-     * @param \Stringable|string|int|float|bool|null $value The value attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
     public static function passwordInput(?string $name = null, $value = null): Input
     {
@@ -553,7 +553,7 @@ final class Html
      * @see Input::file()
      *
      * @param string|null $name The name attribute.
-     * @param \Stringable|string|int|float|bool|null $value The value attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
     public static function fileInput(?string $name = null, $value = null): Input
     {
@@ -566,7 +566,7 @@ final class Html
      * @see Input::radio()
      *
      * @param string|null $name The name attribute.
-     * @param \Stringable|string|int|float|bool|null $value The value attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
     public static function radio(?string $name = null, $value = null): Radio
     {
@@ -579,7 +579,7 @@ final class Html
      * @see Input::checkbox()
      *
      * @param string|null $name The name attribute.
-     * @param \Stringable|string|int|float|bool|null $value The value attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
     public static function checkbox(?string $name = null, $value = null): Checkbox
     {
@@ -630,7 +630,7 @@ final class Html
      * Generates a {@see Option} tag.
      *
      * @param string $content Tag content.
-     * @param \Stringable|string|int|float|bool|null $value The value attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
     public static function option(string $content = '', $value = null): Option
     {

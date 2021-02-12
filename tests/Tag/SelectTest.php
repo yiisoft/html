@@ -338,12 +338,12 @@ final class SelectTest extends TestCase
             [
                 '<input type="hidden" name="test" value="7"><select name="test"></select>',
                 'test',
-                7
+                7,
             ],
             [
                 '<input type="hidden" name="test" value="7"><select name="test[]"></select>',
                 'test[]',
-                7
+                7,
             ],
         ];
     }
@@ -351,7 +351,7 @@ final class SelectTest extends TestCase
     /**
      * @dataProvider dataUnselectValue
      *
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      */
     public function testUnselectValue(string $expected, ?string $name, $value): void
     {

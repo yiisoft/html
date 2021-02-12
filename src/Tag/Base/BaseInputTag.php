@@ -21,7 +21,7 @@ abstract class BaseInputTag extends VoidTag
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-value
      *
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      *
      * @return static
      */

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Widget\RadioList;
 
 use Closure;
-use InvalidArgumentException;
-use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Input;
 
@@ -86,7 +84,7 @@ final class RadioList
     }
 
     /**
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      */
     public function value($value): self
     {
@@ -126,7 +124,7 @@ final class RadioList
     }
 
     /**
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      */
     public function uncheckValue($value): self
     {
@@ -218,7 +216,7 @@ final class RadioList
     private function formatItem(RadioItem $item): string
     {
         if ($this->itemFormatter !== null) {
-            return call_user_func($this->itemFormatter, $item);
+            return ($this->itemFormatter)($item);
         }
 
         $radio = Html::radio($item->name, $item->value)

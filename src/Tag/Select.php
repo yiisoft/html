@@ -160,7 +160,7 @@ final class Select extends ContainerTag
     }
 
     /**
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      */
     public function unselectValue($value): self
     {

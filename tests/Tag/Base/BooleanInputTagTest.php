@@ -90,12 +90,12 @@ final class BooleanInputTagTest extends TestCase
             [
                 '<input type="hidden" name="color" value="7"><input type="test" name="color">',
                 'color',
-                7
+                7,
             ],
             [
                 '<input type="hidden" name="color" value="7"><input type="test" name="color[]">',
                 'color[]',
-                7
+                7,
             ],
         ];
     }
@@ -103,7 +103,7 @@ final class BooleanInputTagTest extends TestCase
     /**
      * @dataProvider dataUncheckValue
      *
-     * @param \Stringable|string|int|float|bool|null $value
+     * @param bool|float|int|string|\Stringable|null $value
      */
     public function testUncheckValue(string $expected, ?string $name, $value): void
     {

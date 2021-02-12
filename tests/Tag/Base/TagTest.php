@@ -18,7 +18,7 @@ final class TagTest extends TestCase
             ['<test value="1&lt;&gt;">', ['value' => '1<>']],
             [
                 '<test checked disabled required="yes">',
-                ['checked' => true, 'disabled' => true, 'hidden' => false, 'required' => 'yes']
+                ['checked' => true, 'disabled' => true, 'hidden' => false, 'required' => 'yes'],
             ],
             ['<test class="first second">', ['class' => ['first', 'second']]],
             ['<test>', ['class' => []]],
