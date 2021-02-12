@@ -254,12 +254,66 @@ final class Html
      * @see CustomTag
      *
      * @param string $name The tag name.
+     * @param string $content The tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param non-empty-string $name
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function tag(string $name): CustomTag
+    public static function tag(string $name, string $content = '', array $attributes = []): CustomTag
     {
-        return CustomTag::name($name);
+        $tag = CustomTag::name($name);
+        if (!empty($content)) {
+            $tag = $tag->content($content);
+        }
+        if ($attributes) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a normal HTML tag.
+     *
+     * @see CustomTag
+     *
+     * @param string $name The tag name.
+     * @param string $content The tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param non-empty-string $name
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function normalTag(string $name, string $content = '', array $attributes = []): CustomTag
+    {
+        $tag = CustomTag::name($name)->normal();
+        if (!empty($content)) {
+            $tag = $tag->content($content);
+        }
+        if ($attributes) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a void HTML tag.
+     *
+     * @see CustomTag
+     *
+     * @param string $name The tag name.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param non-empty-string $name
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function voidTag(string $name, array $attributes = []): CustomTag
+    {
+        $tag = CustomTag::name($name)->void();
+        if ($attributes) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
     }
 
     /**
@@ -817,7 +871,7 @@ final class Html
         return $hidden . (
             $tag === false
                 ? $visibleContent
-                : self::tag($tag)->content($visibleContent)->attributes($options)->withoutEncode()
+                : self::tag($tag, $visibleContent, $options)->withoutEncode()
             );
     }
 
@@ -932,7 +986,7 @@ final class Html
         return $hidden . (
             $tag === false
                 ? $visibleContent
-                : self::tag($tag)->content($visibleContent)->attributes($options)->withoutEncode()
+                : self::tag($tag, $visibleContent, $options)->withoutEncode()
             );
     }
 

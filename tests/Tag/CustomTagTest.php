@@ -39,4 +39,43 @@ final class CustomTagTest extends TestCase
             CustomTag::name($name)->render()
         );
     }
+
+    public function dataNormal(): array
+    {
+        return [
+            ['<h1></h1>', 'h1'],
+            ['<col></col>', 'col'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataNormal
+     */
+    public function testNormal(string $expected, string $name): void
+    {
+        $this->assertSame($expected, CustomTag::name($name)->normal()->render());
+    }
+
+    public function dataVoid(): array
+    {
+        return [
+            ['<h1>', 'h1'],
+            ['<col>', 'col'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataVoid
+     */
+    public function testVoid(string $expected, string $name): void
+    {
+        $this->assertSame($expected, CustomTag::name($name)->void()->render());
+    }
+
+    public function testImmutability(): void
+    {
+        $tag = CustomTag::name('test');
+        self::assertNotSame($tag, $tag->normal());
+        self::assertNotSame($tag, $tag->void());
+    }
 }

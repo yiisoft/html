@@ -61,6 +61,22 @@ final class HtmlTest extends TestCase
     public function testTag(): void
     {
         self::assertSame('<h1></h1>', Html::tag('h1')->render());
+        self::assertSame('<h1>hello</h1>', Html::tag('h1', 'hello')->render());
+        self::assertSame('<h1 id="main">hello</h1>', Html::tag('h1', 'hello', ['id' => 'main'])->render());
+    }
+
+    public function testNormalTag(): void
+    {
+        self::assertSame('<h1></h1>', Html::normalTag('h1')->render());
+        self::assertSame('<col></col>', Html::normalTag('col')->render());
+        self::assertSame('<h1>hello</h1>', Html::normalTag('h1', 'hello')->render());
+        self::assertSame('<h1 id="main">hello</h1>', Html::normalTag('h1', 'hello', ['id' => 'main'])->render());
+    }
+
+    public function testVoidTag(): void
+    {
+        self::assertSame('<h1>', Html::voidTag('h1')->render());
+        self::assertSame('<h1 id="main">', Html::voidTag('h1', ['id' => 'main'])->render());
     }
 
     public function testBeginTag(): void

@@ -8,6 +8,12 @@ use Yiisoft\Html\Tag\Base\BaseNormalTag;
 
 final class CustomTag extends BaseNormalTag
 {
+    private const TYPE_AUTO = 0;
+    private const TYPE_NORMAL = 1;
+    private const TYPE_VOID = 2;
+
+    private int $type = self::TYPE_AUTO;
+
     /**
      * List of void elements. These only have a start tag; end tags must not be specified.
      *
@@ -49,6 +55,20 @@ final class CustomTag extends BaseNormalTag
         return new self($name);
     }
 
+    public function normal(): self
+    {
+        $new = clone $this;
+        $new->type = self::TYPE_NORMAL;
+        return $new;
+    }
+
+    public function void(): self
+    {
+        $new = clone $this;
+        $new->type = self::TYPE_VOID;
+        return $new;
+    }
+
     protected function getName(): string
     {
         return $this->name;
@@ -56,8 +76,8 @@ final class CustomTag extends BaseNormalTag
 
     public function render(): string
     {
-        return isset(self::VOID_ELEMENTS[strtolower($this->name)])
-            ? $this->begin()
-            : ($this->begin() . $this->generateContent() . $this->end());
+        $isVoid = $this->type === self::TYPE_VOID ||
+            ($this->type === self::TYPE_AUTO && isset(self::VOID_ELEMENTS[strtolower($this->name)]));
+        return $isVoid ? $this->begin() : ($this->begin() . $this->generateContent() . $this->end());
     }
 }
