@@ -16,11 +16,14 @@ use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
 use Yiisoft\Html\Tag\Label;
+use Yiisoft\Html\Tag\Li;
+use Yiisoft\Html\Tag\Ol;
 use Yiisoft\Html\Tag\P;
 use Yiisoft\Html\Tag\Script;
 use Yiisoft\Html\Tag\Span;
 use Yiisoft\Html\Tag\Style;
 use Yiisoft\Html\Tag\Textarea;
+use Yiisoft\Html\Tag\Ul;
 use Yiisoft\Json\Json;
 
 use function array_key_exists;
@@ -1187,110 +1190,30 @@ final class Html
     }
 
     /**
-     * Generates an unordered list.
-     *
-     * @param array|Traversable $items The items for generating the list. Each item generates a single list item. Note
-     * that items will be automatically HTML encoded if `$options['encode']` is not set or true.
-     * @param array $options Options (name => config) for the radio button list. The following options are supported:
-     *
-     * - encode: boolean, whether to HTML-encode the items. Defaults to true. This option is ignored if the `item`
-     *   option is specified.
-     * - separator: string, the HTML code that separates items. Defaults to a simple newline (`"\n"`). This option is
-     *   available.
-     * - itemOptions: array, the HTML attributes for the `li` tags. This option is ignored if the `item` option is
-     *   specified.
-     * - item: callable, a callback that is used to generate each individual list item. The signature of this callback
-     *   must be:
-     *
-     *   ```php
-     *   function ($item, $index)
-     *   ```
-     *
-     *   where $index is the array key corresponding to `$item` in `$items`. The callback should return the whole list
-     *   item tag.
-     *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param array<array-key, string> $items
-     * @psalm-param ListHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated unordered list. An empty list tag will be returned if `$items` is empty.
+     * Generates a {@see Ul} tag.
      */
-    public static function ul($items, array $options = []): string
+    public static function ul(): Ul
     {
-        /** @var string $tag */
-        $tag = ArrayHelper::remove($options, 'tag', 'ul');
-
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($options, 'encode', true);
-
-        /** @var Closure(string, array-key):string|null $formatter */
-        $formatter = ArrayHelper::remove($options, 'item');
-
-        /** @var string $separator */
-        $separator = ArrayHelper::remove($options, 'separator', "\n");
-
-        /** @psalm-var HtmlOptions $itemOptions */
-        $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
-
-
-        if (empty($items)) {
-            return self::tag($tag, '', $options);
-        }
-
-        $results = [];
-        foreach ($items as $index => $item) {
-            if ($formatter !== null) {
-                $results[] = $formatter($item, $index);
-            } else {
-                $results[] = self::tag('li', $encode ? self::encode($item) : $item, $itemOptions);
-            }
-        }
-
-        return self::tag(
-            $tag,
-            $separator . implode($separator, $results) . $separator,
-            $options
-        );
+        return Ul::tag();
     }
 
     /**
-     * Generates an ordered list.
-     *
-     * @param array|Traversable $items The items for generating the list. Each item generates a single list item. Note
-     * that items will be automatically HTML encoded if `$options['encode']` is not set or true.
-     * @param array $options Options (name => config) for the radio button list. The following options are supported:
-     *
-     * - encode: boolean, whether to HTML-encode the items. Defaults to true. This option is ignored if the `item`
-     *   option is specified.
-     * - itemOptions: array, the HTML attributes for the `li` tags. This option is ignored if the `item` option is
-     *   specified.
-     * - item: callable, a callback that is used to generate each individual list item. The signature of this callback
-     *   must be:
-     *
-     *   ```php
-     *   function ($item, $index)
-     *   ```
-     *
-     *   where $index is the array key corresponding to `$item` in `$items`. The callback should return the whole list
-     *   item tag.
-     *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param array<array-key, string> $items
-     * @psalm-param ListHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated ordered list. An empty string is returned if `$items` is empty.
+     * Generates a {@see Ol} tag.
      */
-    public static function ol($items, array $options = []): string
+    public static function ol(): Ol
     {
-        $options['tag'] = 'ol';
+        return Ol::tag();
+    }
 
-        return self::ul($items, $options);
+    /**
+     * Generates a {@see Li} tag.
+     *
+     * @param string $content Tag content.
+     */
+    public static function li(string $content = ''): Li
+    {
+        $tag = Li::tag();
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**

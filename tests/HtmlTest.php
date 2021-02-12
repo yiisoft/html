@@ -771,80 +771,18 @@ EOD;
 
     public function testUl(): void
     {
-        $data = [1, 'abc', '<>'];
-        $expected = <<<'EOD'
-<ul>
-<li>1</li>
-<li>abc</li>
-<li>&lt;&gt;</li>
-</ul>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ul($data));
-        $expected = <<<'EOD'
-<ul class="test">
-<li class="item-0">1</li>
-<li class="item-1">abc</li>
-<li class="item-2"><></li>
-</ul>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ul($data, [
-            'class' => 'test',
-            'item' => static function ($item, $index) {
-                return "<li class=\"item-$index\">$item</li>";
-            },
-        ]));
-
-        $this->assertSame('<ul class="test"></ul>', Html::ul([], ['class' => 'test']));
-
-        $this->assertStringMatchesFormat('<foo>%A</foo>', Html::ul([], ['tag' => 'foo']));
-
-        $expected = <<<EOD
-<ul>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-</ul>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ul(new ArrayAccessObject()));
+        self::assertSame('<ul></ul>', Html::ul()->render());
     }
 
     public function testOl(): void
     {
-        $data = [1, 'abc', '<>'];
-        $expected = <<<'EOD'
-<ol>
-<li class="ti">1</li>
-<li class="ti">abc</li>
-<li class="ti">&lt;&gt;</li>
-</ol>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ol($data, [
-            'itemOptions' => ['class' => 'ti'],
-        ]));
-        $expected = <<<'EOD'
-<ol class="test">
-<li class="item-0">1</li>
-<li class="item-1">abc</li>
-<li class="item-2"><></li>
-</ol>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ol($data, [
-            'class' => 'test',
-            'item' => static function ($item, $index) {
-                return "<li class=\"item-$index\">$item</li>";
-            },
-        ]));
+        self::assertSame('<ol></ol>', Html::ol()->render());
+    }
 
-        $this->assertSame('<ol class="test"></ol>', Html::ol([], ['class' => 'test']));
-
-        $expected = <<<EOD
-<ol>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-</ol>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ol(new ArrayAccessObject()));
+    public function testLi(): void
+    {
+        self::assertSame('<li></li>', Html::li()->render());
+        self::assertSame('<li>hello</li>', Html::li('hello')->render());
     }
 
     public function testRenderSelectOptions(): void
