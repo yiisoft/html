@@ -305,8 +305,6 @@ final class Html
      *
      * @param string $name The tag name.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param non-empty-string $name
      */
     public static function beginTag(string $name, array $attributes = []): string
     {
@@ -319,8 +317,6 @@ final class Html
      * @see self::beginTag()
      *
      * @param string $name The tag name.
-     *
-     * @psalm-param non-empty-string $name
      */
     public static function endTag(string $name): string
     {
@@ -617,126 +613,6 @@ final class Html
             $tag = $tag->name($name);
         }
         return $tag;
-    }
-
-    /**
-     * Generates a list of checkboxes.
-     *
-     * A checkbox list allows multiple selection, like {@see listBox()}. As a result, the corresponding submitted value
-     * is an array.
-     *
-     * @param string $name The name attribute of each checkbox.
-     * @param array|bool|float|int|string|Traversable|null $selection The selected value(s). String for single or array
-     * for multiple selection(s).
-     * @param array $items The data item used to generate the checkboxes. The array keys are the checkbox values, while
-     * the array values are the corresponding labels.
-     * @param array $options Options (name => config) for the checkbox list container tag. The following options are
-     * specially handled:
-     *
-     * - tag: string|false, the tag name of the container element. False to render checkbox without container.
-     *   See also {@see tag()}.
-     * - unselect: string, the value that should be submitted when none of the checkboxes is selected. By setting this
-     *   option, a hidden input will be generated.
-     * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true. This option is ignored if `item`
-     *   option is set.
-     * - separator: string, the HTML code that separates items.
-     * - itemOptions: array, the options for generating the checkbox tag using {@see checkbox()}.
-     * - item: callable, a callback that can be used to customize the generation of the HTML code corresponding to a
-     *   single item in $items. The signature of this callback must be:
-     *
-     *   ```php
-     *   function ($index, $label, $name, $checked, $value)
-     *   ```
-     *
-     *   where $index is the zero-based index of the checkbox in the whole list; $label is the label for the checkbox;
-     *   and $name, $value and $checked represent the name, value and the checked status of the checkbox input,
-     *   respectively.
-     *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param iterable<array-key, string>|string|\Stringable|int|float|bool|null $selection
-     * @psalm-param array<array-key, string> $items
-     * @psalm-param InputHtmlOptions&array{
-     *   item?: Closure(int, string, string, bool, mixed):string|null,
-     *   itemOptions?: HtmlOptions|null,
-     *   encode?: bool,
-     *   separator?: string|null,
-     *   tag?: string|null,
-     *   unselect?: string|int|float|\Stringable|bool|null,
-     * }|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated checkbox list.
-     */
-    public static function checkboxList(string $name, $selection = null, array $items = [], array $options = []): string
-    {
-        $name = self::getArrayableName($name);
-
-        if (is_iterable($selection)) {
-            $selection = array_map('\strval', is_array($selection) ? $selection : iterator_to_array($selection));
-        } elseif ($selection !== null) {
-            $selection = (string)$selection;
-        }
-
-        /** @var Closure(int, string, string, bool, mixed):string|null $formatter */
-        $formatter = ArrayHelper::remove($options, 'item');
-
-        /** @psalm-var HtmlOptions $itemOptions */
-        $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
-
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($options, 'encode', true);
-
-        /** @var string $separator */
-        $separator = ArrayHelper::remove($options, 'separator', "\n");
-
-        /** @psalm-var non-empty-string|false $tag */
-        $tag = ArrayHelper::remove($options, 'tag', 'div');
-
-        /** @psalm-var InputHtmlOptions&array{unselect?: string|int|float|\Stringable|bool|null} $options */
-
-        $lines = [];
-        $index = 0;
-        foreach ($items as $value => $label) {
-            $checked = $selection !== null &&
-                ((!is_iterable($selection) && !strcmp((string)$value, $selection))
-                    || (is_iterable($selection) && ArrayHelper::isIn((string)$value, $selection)));
-            if ($formatter !== null) {
-                $lines[] = $formatter($index, $label, $name, $checked, $value);
-            } else {
-                $lines[] = self::checkbox($name, $value)
-                    ->attributes($itemOptions)
-                    ->checked($checked)
-                    ->label($encode ? self::encode($label) : $label)
-                    ->withoutLabelEncode();
-            }
-            $index++;
-        }
-
-        if (isset($options['unselect'])) {
-            // Add a hidden field so that if the list box has no option being selected, it still submits a value.
-            $name2 = self::getNonArrayableName($name);
-            $hiddenOptions = [];
-            // Make sure disabled input is not sending any value.
-            if (!empty($options['disabled'])) {
-                $hiddenOptions['disabled'] = $options['disabled'];
-            }
-            $hidden = self::hiddenInput(
-                $name2,
-                isset($options['unselect']) ? (string)$options['unselect'] : null
-            )->attributes($hiddenOptions);
-            unset($options['unselect'], $options['disabled']);
-        } else {
-            $hidden = '';
-        }
-
-        $visibleContent = implode($separator, $lines);
-        return $hidden . (
-            $tag === false
-                ? $visibleContent
-                : self::tag($tag, $visibleContent, $options)->withoutEncode()
-            );
     }
 
     /**

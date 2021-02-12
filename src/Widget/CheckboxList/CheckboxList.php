@@ -1,0 +1,257 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Yiisoft\Html\Widget\CheckboxList;
+
+use Closure;
+use InvalidArgumentException;
+use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Html\Html;
+use Yiisoft\Html\Tag\Input;
+
+use function call_user_func;
+use function is_array;
+
+final class CheckboxList
+{
+    private ?string $containerTag = 'div';
+    private array $containerAttributes = [];
+    private array $checkboxAttributes = [];
+    private ?string $uncheckValue = null;
+    private string $separator = "\n";
+    private bool $encodeLabels = true;
+
+    /**
+     * @var array<array-key, string>
+     */
+    private array $items = [];
+
+    /**
+     * @psalm-param non-empty-string
+     */
+    private string $name;
+
+    /**
+     * @psalm-var list<string>
+     */
+    private array $values = [];
+
+    /**
+     * @psalm-var Closure(CheckboxItem):string|null
+     */
+    private ?Closure $itemFormatter = null;
+
+    private function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public static function widget(string $name): self
+    {
+        return new self($name);
+    }
+
+    public function withoutContainer(): self
+    {
+        $new = clone $this;
+        $new->containerTag = null;
+        return $new;
+    }
+
+    public function containerTag(string $name): self
+    {
+        $new = clone $this;
+        $new->containerTag = $name;
+        return $new;
+    }
+
+    public function containerAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->containerAttributes = $attributes;
+        return $new;
+    }
+
+    public function checkboxAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->checkboxAttributes = $attributes;
+        return $new;
+    }
+
+    /**
+     * @param array<array-key, string> $items
+     */
+    public function items(array $items, bool $encodeLabels = true): self
+    {
+        $new = clone $this;
+        $new->items = $items;
+        $new->encodeLabels = $encodeLabels;
+        return $new;
+    }
+
+    /**
+     * @param \Stringable|string|int|float|bool|null ...$value
+     */
+    public function value(...$value): self
+    {
+        $new = clone $this;
+        $new->values = array_map('\strval', $value);
+        return $new;
+    }
+
+    /**
+     * @psalm-param iterable<array-key, \Stringable|scalar|null> $values
+     */
+    public function values($values): self
+    {
+        /** @var mixed $values */
+        if (!is_iterable($values)) {
+            throw new InvalidArgumentException('$values should be iterable.');
+        }
+
+        /** @psalm-var iterable<array-key, \Stringable|scalar|null> $values */
+        $values = is_array($values) ? $values : iterator_to_array($values);
+
+        return $this->value(...$values);
+    }
+
+    /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
+     */
+    public function form(?string $formId): self
+    {
+        $new = clone $this;
+        $new->checkboxAttributes['form'] = $formId;
+        return $new;
+    }
+
+    /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#the-readonly-attribute
+     */
+    public function readonly(bool $readonly = true): self
+    {
+        $new = clone $this;
+        $new->checkboxAttributes['readonly'] = $readonly;
+        return $new;
+    }
+
+    /**
+     * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-disabledformelements-disabled
+     */
+    public function disabled(bool $disabled = true): self
+    {
+        $new = clone $this;
+        $new->checkboxAttributes['disabled'] = $disabled;
+        return $new;
+    }
+
+    /**
+     * @param \Stringable|string|int|float|bool|null $value
+     */
+    public function uncheckValue($value): self
+    {
+        $new = clone $this;
+        $new->uncheckValue = $value === null ? null : (string)$value;
+        return $new;
+    }
+
+    public function separator(string $separator): self
+    {
+        $new = clone $this;
+        $new->separator = $separator;
+        return $new;
+    }
+
+    public function withoutSeparator(): self
+    {
+        return $this->separator('');
+    }
+
+    /**
+     * @param Closure(CheckboxItem):string $formatter
+     */
+    public function itemFormatter(Closure $formatter): self
+    {
+        $new = clone $this;
+        $new->itemFormatter = $formatter;
+        return $new;
+    }
+
+    public function render(): string
+    {
+        $name = Html::getArrayableName($this->name);
+
+        $lines = [];
+        $index = 0;
+        foreach ($this->items as $value => $label) {
+            $item = new CheckboxItem(
+                $index,
+                $name,
+                $value,
+                ArrayHelper::isIn($value, $this->values),
+                array_merge($this->checkboxAttributes, [
+                    'name' => $name,
+                    'value' => $value,
+                ]),
+                $label,
+                $this->encodeLabels,
+            );
+            $lines[] = $this->formatItem($item);
+            $index++;
+        }
+
+        $html = $this->renderUncheckInput();
+        if (!empty($this->containerTag)) {
+            $html .= Html::beginTag($this->containerTag, $this->containerAttributes);
+        }
+        $html .= implode($this->separator, $lines);
+        if (!empty($this->containerTag)) {
+            $html .= Html::endTag($this->containerTag);
+        }
+
+        return $html;
+    }
+
+    private function renderUncheckInput(): string
+    {
+        if ($this->uncheckValue === null) {
+            return '';
+        }
+
+        $input = Input::hidden(
+            Html::getNonArrayableName($this->name),
+            $this->uncheckValue
+        );
+
+        // Make sure disabled input is not sending any value
+        if (!empty($this->checkboxAttributes['disabled'])) {
+            $input = $input->attribute('disabled', $this->checkboxAttributes['disabled']);
+        }
+
+        if (!empty($this->checkboxAttributes['form'])) {
+            $input = $input->attribute('form', $this->checkboxAttributes['form']);
+        }
+
+        return $input->render();
+    }
+
+    private function formatItem(CheckboxItem $item): string
+    {
+        if ($this->itemFormatter !== null) {
+            return call_user_func($this->itemFormatter, $item);
+        }
+
+        $checkbox = Html::checkbox($item->name, $item->value)
+            ->attributes($item->checkboxAttributes)
+            ->checked($item->checked)
+            ->label($item->label);
+
+        if (!$item->encodeLabel) {
+            $checkbox = $checkbox->withoutLabelEncode();
+        }
+
+        return $checkbox->render();
+    }
+}
