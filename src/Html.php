@@ -1073,7 +1073,7 @@ final class Html
             $sorted = [];
             foreach (self::ATTRIBUTE_ORDER as $name) {
                 if (isset($attributes[$name])) {
-                    /** @psalm-suppress MixedAssignment */
+                    /** @var mixed */
                     $sorted[$name] = $attributes[$name];
                 }
             }

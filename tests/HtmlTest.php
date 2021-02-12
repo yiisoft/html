@@ -654,38 +654,57 @@ EOD;
         self::assertSame('<li>hello</li>', Html::li('hello')->render());
     }
 
-    public function testRenderAttributes(): void
+    public function dataRenderTagAttributes(): array
     {
-        $this->assertSame('', Html::renderTagAttributes([]));
-        $this->assertSame(' name="test" value="1&lt;&gt;"', Html::renderTagAttributes(['name' => 'test', 'empty' => null, 'value' => '1<>']));
-        $this->assertSame(' checked disabled', Html::renderTagAttributes(['checked' => true, 'disabled' => true, 'hidden' => false]));
-        $this->assertSame(' class="first second"', Html::renderTagAttributes(['class' => ['first', 'second']]));
-        $this->assertSame('', Html::renderTagAttributes(['class' => []]));
-        $this->assertSame(' style="width: 100px; height: 200px;"', Html::renderTagAttributes(['style' => ['width' => '100px', 'height' => '200px']]));
-        $this->assertSame('', Html::renderTagAttributes(['style' => []]));
-        $this->assertSame(
-            ' id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'',
-            Html::renderTagAttributes([
-                'id' => 'x',
-                'class' => ['a', 'b'],
-                'data' => ['a' => 1, 'b' => 2],
-                'style' => ['width' => '100px'],
-                'any' => [1, 2],
-            ])
-        );
-        $this->assertSame(' data-a="0" data-b=\'[1,2]\' any="42"', Html::renderTagAttributes([
-            'class' => [],
-            'style' => [],
-            'data' => ['a' => 0, 'b' => [1, 2]],
-            'any' => 42,
-        ]));
-
-        $attributes = [
-            'data' => [
-                'foo' => [],
+        return [
+            ['', []],
+            ['', ['id' => null]],
+            [' id="main"', ['id' => 'main']],
+            [' value="1&lt;&gt;"', ['value' => '1<>']],
+            [
+                ' checked disabled required="yes"',
+                ['checked' => true, 'disabled' => true, 'hidden' => false, 'required' => 'yes']
+            ],
+            [' class="first second"', ['class' => ['first', 'second']]],
+            ['', ['class' => []]],
+            [' style="width: 100px; height: 200px;"', ['style' => ['width' => '100px', 'height' => '200px']]],
+            [' name="position" value="42"', ['value' => 42, 'name' => 'position']],
+            [
+                ' id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'',
+                [
+                    'id' => 'x',
+                    'class' => ['a', 'b'],
+                    'data' => ['a' => 1, 'b' => 2],
+                    'style' => ['width' => '100px'],
+                    'any' => [1, 2],
+                ],
+            ],
+            [
+                ' data-a="0" data-b=\'[1,2]\' any="42"',
+                [
+                    'class' => [],
+                    'style' => [],
+                    'data' => ['a' => 0, 'b' => [1, 2]],
+                    'any' => 42,
+                ],
+            ],
+            [
+                ' data-foo=\'[]\'',
+                [
+                    'data' => [
+                        'foo' => [],
+                    ],
+                ],
             ],
         ];
-        $this->assertSame(' data-foo=\'[]\'', Html::renderTagAttributes($attributes));
+    }
+
+    /**
+     * @dataProvider dataRenderTagAttributes
+     */
+    public function testRenderTagAttributes(string $expected, array $attributes): void
+    {
+        self::assertSame($expected, Html::renderTagAttributes($attributes));
     }
 
     public function testAddCssClass(): void
