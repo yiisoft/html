@@ -182,8 +182,15 @@ final class HtmlTest extends TestCase
 
     public function testInput(): void
     {
-        $this->assertSame('<input type="text">', Html::input('text'));
-        $this->assertSame('<input type="text" class="t" name="test" value="value">', Html::input('text', 'test', 'value', ['class' => 't']));
+        self::assertSame('<input type="">', Html::input('')->render());
+        self::assertSame('<input type="text">', Html::input('text')->render());
+        self::assertSame('<input type="text" name="">', Html::input('text', '')->render());
+        self::assertSame('<input type="text" value="">', Html::input('text', null, '')->render());
+        self::assertSame('<input type="text" name="test">', Html::input('text', 'test')->render());
+        self::assertSame(
+            '<input type="text" name="test" value="43">',
+            Html::input('text', 'test', '43')->render(),
+        );
     }
 
     public function testButtonInput(): void
@@ -1091,13 +1098,6 @@ EOD;
         ];
         Html::removeCssStyle($options, ['color']);
         $this->assertSame('width: 100px;', $options['style']);
-    }
-
-    public function testBooleanAttributes(): void
-    {
-        $this->assertSame('<input type="email" name="mail">', Html::input('email', 'mail', null, ['required' => false]));
-        $this->assertSame('<input type="email" name="mail" required>', Html::input('email', 'mail', null, ['required' => true]));
-        $this->assertSame('<input type="email" name="mail" required="hi">', Html::input('email', 'mail', null, ['required' => 'hi']));
     }
 
     public function testDataAttributes(): void

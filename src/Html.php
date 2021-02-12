@@ -495,34 +495,23 @@ final class Html
     }
 
     /**
-     * Generates an input type of the given type.
+     * Generates an {@see Input} type of the given type.
      *
      * @param string $type The type attribute.
-     * @param string|null $name The name attribute. If it is null, the name attribute will not be generated.
-     * @param bool|float|int|string|null $value the value attribute. If it is null, the value attribute will
-     * not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param string|int|float|\Stringable|bool|null $value
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated input tag.
+     * @param string|null $name The name attribute. If it is `null`, the name attribute will not be generated.
+     * @param \Stringable|string|int|float|bool|null $value The value attribute. If it is `null`, the value
+     * attribute will not be generated.
      */
-    public static function input(string $type, ?string $name = null, $value = null, array $options = []): string
+    public static function input(string $type, ?string $name = null, $value = null): Input
     {
-        if (!isset($options['type'])) {
-            $options['type'] = $type;
+        $tag = Input::tag()->type($type);
+        if ($name !== null) {
+            $tag = $tag->name($name);
         }
-
-        $options['name'] = $name;
-        $options['value'] = $value;
-
-        return self::tag('input', '', $options);
+        if ($value !== null) {
+            $tag = $tag->value($value);
+        }
+        return $tag;
     }
 
     /**
@@ -565,9 +554,9 @@ final class Html
      * Generates a text {@see Input} field.
      *
      * @param string|null $name The name attribute.
-     * @param string|null $value The value attribute.
+     * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function textInput(?string $name = null, ?string $value = null): Input
+    public static function textInput(?string $name = null, $value = null): Input
     {
         return Input::text($name, $value);
     }
@@ -578,9 +567,9 @@ final class Html
      * @see Input::hidden()
      *
      * @param string|null $name The name attribute.
-     * @param string|null $value The value attribute.
+     * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function hiddenInput(?string $name = null, ?string $value = null): Input
+    public static function hiddenInput(?string $name = null, $value = null): Input
     {
         return Input::hidden($name, $value);
     }
@@ -591,9 +580,9 @@ final class Html
      * @see Input::password()
      *
      * @param string|null $name The name attribute.
-     * @param string|null $value The value attribute.
+     * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function passwordInput(?string $name = null, ?string $value = null): Input
+    public static function passwordInput(?string $name = null, $value = null): Input
     {
         return Input::password($name, $value);
     }
@@ -608,9 +597,9 @@ final class Html
      * @see Input::file()
      *
      * @param string|null $name The name attribute.
-     * @param string|null $value The value attribute.
+     * @param \Stringable|string|int|float|bool|null $value The value attribute.
      */
-    public static function fileInput(?string $name = null, ?string $value = null): Input
+    public static function fileInput(?string $name = null, $value = null): Input
     {
         return Input::file($name, $value);
     }
@@ -734,11 +723,11 @@ final class Html
         unset($options['label'], $options['labelOptions'], $options['wrapInput']);
 
         if (empty($label)) {
-            return $hidden . self::input($type, $name, $value, $options);
+            return $hidden . self::input($type, $name, $value)->attributes($options);
         }
 
         if ($wrapInput) {
-            $input = self::input($type, $name, $value, $options);
+            $input = self::input($type, $name, $value)->attributes($options);
             return $hidden . self::label($input . ' ' . $label, null)->attributes($labelOptions)->withoutEncode();
         }
 
@@ -746,7 +735,7 @@ final class Html
             $options['id'] = self::generateId();
         }
         return $hidden .
-            self::input($type, $name, $value, $options) .
+            self::input($type, $name, $value)->attributes($options) .
             ' ' .
             self::label($label, $options['id'])->attributes($labelOptions);
     }

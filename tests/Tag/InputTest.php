@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Input;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 
 final class InputTest extends TestCase
 {
@@ -124,17 +125,25 @@ final class InputTest extends TestCase
     public function dataValue(): array
     {
         return [
-            ['<input>', null],
-            ['<input value="hello">', 'hello'],
+            'null' => ['<input>', null],
+            'string' => ['<input value="hello">', 'hello'],
+            'stringable' => ['<input value="string">', new StringableObject()],
+            'int' => ['<input value="42">', 42],
+            'float' => ['<input value="42.56">', 42.56],
+            'float-zero' => ['<input value="42">', 42.00],
+            'true' => ['<input value>', true],
+            'false' => ['<input>', false],
         ];
     }
 
     /**
      * @dataProvider dataValue
+     *
+     * @param \Stringable|string|int|float|bool|null $value
      */
-    public function testValue(string $expected, ?string $value): void
+    public function testValue(string $expected, $value): void
     {
-        $this->assertSame($expected, (string)Input::tag()->value($value));
+        self::assertSame($expected, (string)Input::tag()->value($value));
     }
 
     public function testReadonly(): void

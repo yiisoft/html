@@ -16,7 +16,10 @@ final class TagTest extends TestCase
             ['<test>', ['id' => null]],
             ['<test id="main">', ['id' => 'main']],
             ['<test value="1&lt;&gt;">', ['value' => '1<>']],
-            ['<test checked disabled>', ['checked' => true, 'disabled' => true, 'hidden' => false]],
+            [
+                '<test checked disabled required="yes">',
+                ['checked' => true, 'disabled' => true, 'hidden' => false, 'required' => 'yes']
+            ],
             ['<test class="first second">', ['class' => ['first', 'second']]],
             ['<test>', ['class' => []]],
             ['<test style="width: 100px; height: 200px;">', ['style' => ['width' => '100px', 'height' => '200px']]],
@@ -56,8 +59,8 @@ final class TagTest extends TestCase
      */
     public function testAttributes(string $expected, array $attributes): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->attributes($attributes));
-        $this->assertSame($expected, (string)TestTag::tag()->replaceAttributes($attributes));
+        self::assertSame($expected, (string)TestTag::tag()->attributes($attributes));
+        self::assertSame($expected, (string)TestTag::tag()->replaceAttributes($attributes));
     }
 
     public function testAttributesMerge(): void

@@ -13,8 +13,10 @@ final class Input extends VoidTag
 {
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#hidden-state-typehidden
+     *
+     * @param \Stringable|string|int|float|bool|null $value
      */
-    public static function hidden(?string $name = null, ?string $value = null): self
+    public static function hidden(?string $name = null, $value = null): self
     {
         $input = self::tag();
         $input->attributes['type'] = 'hidden';
@@ -25,8 +27,10 @@ final class Input extends VoidTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#text-typetext-state-and-search-state-typesearch
+     *
+     * @param \Stringable|string|int|float|bool|null $value
      */
-    public static function text(?string $name = null, ?string $value = null): self
+    public static function text(?string $name = null, $value = null): self
     {
         $input = self::tag();
         $input->attributes['type'] = 'text';
@@ -37,8 +41,10 @@ final class Input extends VoidTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#password-state-typepassword
+     *
+     * @param \Stringable|string|int|float|bool|null $value
      */
-    public static function password(?string $name = null, ?string $value = null): self
+    public static function password(?string $name = null, $value = null): self
     {
         $input = self::tag();
         $input->attributes['type'] = 'password';
@@ -49,8 +55,10 @@ final class Input extends VoidTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#file-upload-state-typefile
+     *
+     * @param \Stringable|string|int|float|bool|null $value
      */
-    public static function file(?string $name = null, ?string $value = null): self
+    public static function file(?string $name = null, $value = null): self
     {
         $input = self::tag();
         $input->attributes['type'] = 'file';
@@ -61,8 +69,10 @@ final class Input extends VoidTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#checkbox-state-typecheckbox
+     *
+     * @param \Stringable|string|int|float|bool|null $value
      */
-    public static function checkbox(?string $name = null, ?string $value = null): self
+    public static function checkbox(?string $name = null, $value = null): self
     {
         $input = self::tag();
         $input->attributes['type'] = 'checkbox';
@@ -73,8 +83,10 @@ final class Input extends VoidTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#radio-button-state-typeradio
+     *
+     * @param \Stringable|string|int|float|bool|null $value
      */
-    public static function radio(?string $name = null, ?string $value = null): self
+    public static function radio(?string $name = null, $value = null): self
     {
         $input = self::tag();
         $input->attributes['type'] = 'radio';
@@ -138,8 +150,10 @@ final class Input extends VoidTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-value
+     *
+     * @param \Stringable|string|int|float|bool|null $value
      */
-    public function value(?string $value): self
+    public function value($value): self
     {
         $new = clone $this;
         $new->attributes['value'] = $value;
