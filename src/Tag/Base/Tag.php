@@ -80,7 +80,12 @@ abstract class Tag
      */
     final protected function renderAttributes(): string
     {
+        $this->prepareAttributes();
         return Html::renderTagAttributes($this->attributes);
+    }
+
+    protected function prepareAttributes(): void
+    {
     }
 
     abstract public function render(): string;

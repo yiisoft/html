@@ -19,6 +19,7 @@ final class SelectTest extends TestCase
         return [
             ['<select></select>', null],
             ['<select name="age"></select>', 'age'],
+            ['<select name="place[]"></select>', 'place[]'],
         ];
     }
 
@@ -28,6 +29,24 @@ final class SelectTest extends TestCase
     public function testName(string $expected, ?string $name): void
     {
         self::assertSame($expected, (string)Select::tag()->name($name));
+    }
+
+    public function dataNameForMultiple(): array
+    {
+        return [
+            ['<select multiple></select>', null],
+            ['<select name="" multiple></select>', ''],
+            ['<select name="age[]" multiple></select>', 'age'],
+            ['<select name="place[]" multiple></select>', 'place[]'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataNameForMultiple
+     */
+    public function testNameForMultiple(string $expected, ?string $name): void
+    {
+        self::assertSame($expected, (string)Select::tag()->multiple()->name($name));
     }
 
     public function dataValue(): array

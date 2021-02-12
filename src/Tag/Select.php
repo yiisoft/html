@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tag;
 
 use InvalidArgumentException;
 use RuntimeException;
+use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\ContainerTag;
 use Yiisoft\Html\Tag\Base\Tag;
 
@@ -152,6 +153,13 @@ final class Select extends ContainerTag
         $new = clone $this;
         $new->separator = $separator;
         return $new;
+    }
+
+    protected function prepareAttributes(): void
+    {
+        if (!empty($this->attributes['multiple']) && !empty($this->attributes['name'])) {
+            $this->attributes['name'] = Html::getArrayableName((string)$this->attributes['name']);
+        }
     }
 
     protected function generateContent(): string

@@ -1379,12 +1379,12 @@ final class Html
         return substr($pattern, 1, $endPosition - 1);
     }
 
-    private static function getArrayableName(string $name): string
+    public static function getArrayableName(string $name): string
     {
         return substr($name, -2) !== '[]' ? $name . '[]' : $name;
     }
 
-    private static function getNonArrayableName(string $name): string
+    public static function getNonArrayableName(string $name): string
     {
         return substr($name, -2) === '[]' ? substr($name, 0, -2) : $name;
     }
