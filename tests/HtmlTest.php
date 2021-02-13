@@ -137,7 +137,21 @@ final class HtmlTest extends TestCase
 
     public function testA(): void
     {
-        $this->assertSame('<a href="#">link</a>', Html::a()->url('#')->content('link')->render());
+        self::assertSame('<a></a>', Html::a()->render());
+        self::assertSame('<a>link</a>', Html::a('link')->render());
+        self::assertSame('<a href="https://example.com">link</a>', Html::a('link', 'https://example.com')->render());
+    }
+
+    public function testMailto(): void
+    {
+        self::assertSame(
+            '<a href="mailto:info@example.com">info@example.com</a>',
+            Html::mailto('info@example.com')->render()
+        );
+        self::assertSame(
+            '<a href="mailto:info@example.com">contact me</a>',
+            Html::mailto('contact me', 'info@example.com')->render()
+        );
     }
 
     public function testImg(): void

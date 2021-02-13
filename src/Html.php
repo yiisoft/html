@@ -379,9 +379,33 @@ final class Html
         return Script::tag()->url($url);
     }
 
-    public static function a(): A
+    /**
+     * Generates a hyperlink tag.
+     *
+     * @see A
+     */
+    public static function a(string $content = '', ?string $url = null): A
     {
-        return A::tag();
+        $tag = A::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if ($url !== null) {
+            $tag = $tag->url($url);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a mailto hyperlink tag.
+     *
+     * @see A
+     */
+    public static function mailto(string $content, ?string $mail = null): A
+    {
+        return A::tag()
+            ->content($content)
+            ->mailto($mail ?? $content);
     }
 
     /**
