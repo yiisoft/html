@@ -6,6 +6,9 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\VoidTag;
 
+/**
+ * @link https://www.w3.org/TR/html52/semantics-embedded-content.html#the-img-element
+ */
 final class Img extends VoidTag
 {
     public function url(?string $url): self

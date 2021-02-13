@@ -6,6 +6,9 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\NormalTag;
 
+/**
+ * @link https://www.w3.org/TR/html52/sec-forms.html#the-label-element
+ */
 final class Label extends NormalTag
 {
     public function forId(?string $id): self

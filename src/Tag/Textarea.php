@@ -6,6 +6,9 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\NormalTag;
 
+/**
+ * @link https://www.w3.org/TR/html52/sec-forms.html#the-textarea-element
+ */
 final class Textarea extends NormalTag
 {
     public function name(?string $name): self

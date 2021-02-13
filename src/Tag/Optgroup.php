@@ -73,7 +73,7 @@ final class Optgroup extends ContainerTag
     public function selection(...$value): self
     {
         $new = clone $this;
-        $new->selection = array_map('strval', $value);
+        $new->selection = array_map('\strval', $value);
         return $new;
     }
 

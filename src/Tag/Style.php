@@ -6,6 +6,9 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\NormalTag;
 
+/**
+ * @link https://www.w3.org/TR/html52/document-metadata.html#the-style-element
+ */
 final class Style extends NormalTag
 {
     public function media(?string $media): self
