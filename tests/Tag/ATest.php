@@ -65,11 +65,28 @@ final class ATest extends TestCase
         $this->assertSame($expected, (string)A::tag()->mailto($url));
     }
 
+    public function dataTarget(): array
+    {
+        return [
+            ['<a></a>', null],
+            ['<a target="_blank"></a>', '_blank'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataTarget
+     */
+    public function testTarget(string $expected, ?string $contextName): void
+    {
+        self::assertSame($expected, (string)A::tag()->target($contextName));
+    }
+
     public function testImmutability(): void
     {
         $tag = A::tag();
-        $this->assertNotSame($tag, $tag->href(null));
-        $this->assertNotSame($tag, $tag->url(null));
-        $this->assertNotSame($tag, $tag->mailto(null));
+        self::assertNotSame($tag, $tag->href(null));
+        self::assertNotSame($tag, $tag->url(null));
+        self::assertNotSame($tag, $tag->mailto(null));
+        self::assertNotSame($tag, $tag->target(null));
     }
 }
