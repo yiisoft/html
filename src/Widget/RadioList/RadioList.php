@@ -68,6 +68,13 @@ final class RadioList
     public function radioAttributes(array $attributes): self
     {
         $new = clone $this;
+        $new->radioAttributes = array_merge($new->radioAttributes, $attributes);
+        return $new;
+    }
+
+    public function replaceRadioAttributes(array $attributes): self
+    {
+        $new = clone $this;
         $new->radioAttributes = $attributes;
         return $new;
     }

@@ -75,6 +75,13 @@ final class CheckboxList
     public function checkboxAttributes(array $attributes): self
     {
         $new = clone $this;
+        $new->checkboxAttributes = array_merge($new->checkboxAttributes, $attributes);
+        return $new;
+    }
+
+    public function replaceCheckboxAttributes(array $attributes): self
+    {
+        $new = clone $this;
         $new->checkboxAttributes = $attributes;
         return $new;
     }

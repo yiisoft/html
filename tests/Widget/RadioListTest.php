@@ -72,7 +72,7 @@ final class RadioListTest extends TestCase
         );
     }
 
-    public function testCheckboxAttributes(): void
+    public function testRadioAttributes(): void
     {
         self::assertSame(
             '<label><input type="radio" class="red" name="test[]" value="1"> One</label>' . "\n" .
@@ -83,6 +83,40 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->radioAttributes(['class' => 'red'])
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
+    public function testRadioAttributesMerge(): void
+    {
+        self::assertSame(
+            '<label><input type="radio" class="red" name="test[]" value="1" readonly> One</label>' . "\n" .
+            '<label><input type="radio" class="red" name="test[]" value="2" readonly> Two</label>',
+            RadioList::widget('test')
+                ->items([
+                    1 => 'One',
+                    2 => 'Two',
+                ])
+                ->readonly()
+                ->radioAttributes(['class' => 'red'])
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
+    public function testReplaceRadioAttributes(): void
+    {
+        self::assertSame(
+            '<label><input type="radio" class="red" name="test[]" value="1"> One</label>' . "\n" .
+            '<label><input type="radio" class="red" name="test[]" value="2"> Two</label>',
+            RadioList::widget('test')
+                ->items([
+                    1 => 'One',
+                    2 => 'Two',
+                ])
+                ->readonly()
+                ->replaceRadioAttributes(['class' => 'red'])
                 ->withoutContainer()
                 ->render(),
         );
@@ -431,6 +465,7 @@ final class RadioListTest extends TestCase
         self::assertNotSame($widget, $widget->containerTag(''));
         self::assertNotSame($widget, $widget->containerAttributes([]));
         self::assertNotSame($widget, $widget->radioAttributes([]));
+        self::assertNotSame($widget, $widget->replaceRadioAttributes([]));
         self::assertNotSame($widget, $widget->items([]));
         self::assertNotSame($widget, $widget->value(null));
         self::assertNotSame($widget, $widget->form(''));

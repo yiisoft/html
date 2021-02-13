@@ -91,6 +91,40 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testCheckboxAttributesMerge(): void
+    {
+        self::assertSame(
+            '<label><input type="checkbox" class="red" name="test[]" value="1" readonly> One</label>' . "\n" .
+            '<label><input type="checkbox" class="red" name="test[]" value="2" readonly> Two</label>',
+            CheckboxList::widget('test')
+                ->items([
+                    1 => 'One',
+                    2 => 'Two',
+                ])
+                ->readonly()
+                ->checkboxAttributes(['class' => 'red'])
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
+    public function testReplaceCheckboxAttributes(): void
+    {
+        self::assertSame(
+            '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n" .
+            '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>',
+            CheckboxList::widget('test')
+                ->items([
+                    1 => 'One',
+                    2 => 'Two',
+                ])
+                ->readonly()
+                ->replaceCheckboxAttributes(['class' => 'red'])
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
     public function testItems(): void
     {
         self::assertSame(
@@ -461,6 +495,7 @@ final class CheckboxListTest extends TestCase
         self::assertNotSame($widget, $widget->containerTag(''));
         self::assertNotSame($widget, $widget->containerAttributes([]));
         self::assertNotSame($widget, $widget->checkboxAttributes([]));
+        self::assertNotSame($widget, $widget->replaceCheckboxAttributes([]));
         self::assertNotSame($widget, $widget->items([]));
         self::assertNotSame($widget, $widget->value());
         self::assertNotSame($widget, $widget->values([]));
