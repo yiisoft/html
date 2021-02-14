@@ -18,6 +18,7 @@ abstract class Tag
      * Same named attributes are replaced.
      *
      * @param array $attributes Name-value set of attributes.
+     *
      * @return static
      */
     final public function attributes(array $attributes): self
@@ -31,6 +32,7 @@ abstract class Tag
      * Replace attributes with a new set.
      *
      * @param array $attributes Name-value set of attributes.
+     *
      * @return static
      */
     final public function replaceAttributes(array $attributes): self
@@ -59,6 +61,7 @@ abstract class Tag
      * Set tag ID.
      *
      * @param string|null $id Tag ID.
+     *
      * @return static
      */
     final public function id(?string $id): self
@@ -69,29 +72,31 @@ abstract class Tag
     }
 
     /**
-     * Replace current tag CSS classes with a new set of classes.
+     * Add one or more CSS classes to the tag.
      *
      * @param string ...$class One or many CSS classes.
+     *
      * @return static
      */
     final public function class(string ...$class): self
     {
         $new = clone $this;
-        $new->attributes['class'] = $class;
+        /** @psalm-suppress MixedArgumentTypeCoercion */
+        Html::addCssClass($new->attributes, $class);
         return $new;
     }
 
     /**
-     * Add one or more CSS classes to the tag.
+     * Replace current tag CSS classes with a new set of classes.
      *
      * @param string ...$class One or many CSS classes.
+     *
      * @return static
      */
-    final public function addClass(string ...$class): self
+    final public function replaceClass(string ...$class): self
     {
         $new = clone $this;
-        /** @psalm-suppress MixedArgumentTypeCoercion */
-        Html::addCssClass($new->attributes, $class);
+        $new->attributes['class'] = $class;
         return $new;
     }
 
