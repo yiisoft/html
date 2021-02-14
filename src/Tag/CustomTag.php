@@ -46,15 +46,23 @@ final class CustomTag extends BaseNormalTag
     }
 
     /**
+     * Create a tag instance with the name provided.
+     *
+     * @param string $name Name of the tag.
      * @psalm-param non-empty-string $name
      *
-     * @return static
+     * @return self
      */
     public static function name(string $name): self
     {
         return new self($name);
     }
 
+    /**
+     * Set type of the tag as normal.
+     * Normal tags have both open and close parts.
+     * @return self
+     */
     public function normal(): self
     {
         $new = clone $this;
@@ -62,6 +70,11 @@ final class CustomTag extends BaseNormalTag
         return $new;
     }
 
+    /**
+     * Set type of the tag as void.
+     * Void tags should be self-closed right away.
+     * @return self
+     */
     public function void(): self
     {
         $new = clone $this;

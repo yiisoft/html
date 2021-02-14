@@ -11,6 +11,10 @@ abstract class Tag
     protected array $attributes = [];
 
     /**
+     * Add a set of attributes to existing tag attributes.
+     * Same named attributes are replaced.
+     *
+     * @param array $attributes Name-value set of attributes.
      * @return static
      */
     final public function attributes(array $attributes): self
@@ -21,6 +25,9 @@ abstract class Tag
     }
 
     /**
+     * Replace attributes with a new set.
+     *
+     * @param array $attributes Name-value set of attributes.
      * @return static
      */
     final public function replaceAttributes(array $attributes): self
@@ -31,18 +38,24 @@ abstract class Tag
     }
 
     /**
-     * @param mixed $value
+     * Set attribute value.
+     *
+     * @param string $name Name of the attribute.
+     * @param mixed $value Value of the attribute.
      *
      * @return static
      */
-    final public function attribute(string $key, $value): self
+    final public function attribute(string $name, $value): self
     {
         $new = clone $this;
-        $new->attributes[$key] = $value;
+        $new->attributes[$name] = $value;
         return $new;
     }
 
     /**
+     * Set tag ID.
+     *
+     * @param string|null $id Tag ID.
      * @return static
      */
     final public function id(?string $id): self
@@ -53,6 +66,9 @@ abstract class Tag
     }
 
     /**
+     * Replace current tag CSS classes with a new set of classes.
+     *
+     * @param string ...$class One or many CSS classes.
      * @return static
      */
     final public function class(string ...$class): self
@@ -63,6 +79,9 @@ abstract class Tag
     }
 
     /**
+     * Add one or more CSS classes to the tag.
+     *
+     * @param string ...$class One or many CSS classes.
      * @return static
      */
     final public function addClass(string ...$class): self
@@ -74,7 +93,7 @@ abstract class Tag
     }
 
     /**
-     * Renders the current tag attributes.
+     * Render the current tag attributes.
      *
      * @see Html::renderTagAttributes()
      */
@@ -103,8 +122,18 @@ abstract class Tag
         return '';
     }
 
+    /**
+     * Render tag object into its string representation.
+     *
+     * @return string String representation of a tag object.
+     */
     abstract protected function renderTag(): string;
 
+    /**
+     * Get tag name.
+     *
+     * @return string Tag name.
+     */
     abstract protected function getName(): string;
 
     final public function __toString(): string
