@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+/**
+ * Base for all void tags.
+ * Void tags are immediately self-closed and have no content.
+ */
 abstract class VoidTag extends Tag
 {
     final private function __construct()
