@@ -14,6 +14,8 @@ use function in_array;
 use function is_array;
 
 /**
+ * The select element represents a control for selecting amongst a set of options.
+ *
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-select-element
  */
 final class Select extends ContainerTag
@@ -30,6 +32,8 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-name
+     * @param string|null $name Name of the select input.
+     * @return Select
      */
     public function name(?string $name): self
     {
@@ -39,7 +43,7 @@ final class Select extends ContainerTag
     }
 
     /**
-     * @psalm-param \Stringable|scalar|null ...$value
+     * @psalm-param \Stringable|scalar|null ...$value One or more string values.
      */
     public function value(...$value): self
     {
@@ -49,7 +53,7 @@ final class Select extends ContainerTag
     }
 
     /**
-     * @psalm-param iterable<array-key, \Stringable|scalar|null> $values
+     * @psalm-param iterable<array-key, \Stringable|scalar|null> $values A set of values.
      */
     public function values($values): self
     {
@@ -66,6 +70,8 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
+     * @param string|null $formId ID of the form the select belongs to.
+     * @return self
      */
     public function form(?string $formId): self
     {
@@ -75,7 +81,7 @@ final class Select extends ContainerTag
     }
 
     /**
-     * @param Optgroup|Option ...$items
+     * @param Optgroup|Option ...$items Select options or option groups.
      */
     public function items(Tag ...$items): self
     {
@@ -91,6 +97,8 @@ final class Select extends ContainerTag
 
     /**
      * @param array<array-key, string> $data
+     * @param bool $encode Whether option content should be HTML-encoded.
+     * @return self
      */
     public function optionsData(array $data, bool $encode = true): self
     {
@@ -105,6 +113,10 @@ final class Select extends ContainerTag
         return $this->items(...$options);
     }
 
+    /**
+     * @param string|null $text Text of the option that has dummy value and is rendered as an invitation to select a value.
+     * @return self
+     */
     public function prompt(?string $text): self
     {
         $new = clone $this;
@@ -112,6 +124,10 @@ final class Select extends ContainerTag
         return $new;
     }
 
+    /**
+     * @param Option|null $option Option that has dummy value and is rendered as an invitation to select a value.
+     * @return self
+     */
     public function promptOption(?Option $option): self
     {
         $new = clone $this;
@@ -121,6 +137,8 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-disabledformelements-disabled
+     * @param bool $disabled Whether select input is disabled.
+     * @return self
      */
     public function disabled(bool $disabled = true): self
     {
@@ -131,6 +149,8 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-multiple
+     * @param bool $multiple Whether to allow selecting multiple values.
+     * @return self
      */
     public function multiple(bool $multiple = true): self
     {
@@ -141,6 +161,8 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-required
+     * @param bool $required Whether select input is required.
+     * @return self
      */
     public function required(bool $required = true): self
     {
@@ -151,6 +173,8 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-size
+     * @param int|null $size The number of options to show to the user.
+     * @return self
      */
     public function size(?int $size): self
     {
@@ -169,6 +193,10 @@ final class Select extends ContainerTag
         return $new;
     }
 
+    /**
+     * @param string $separator Separator to render between options.
+     * @return self
+     */
     public function separator(string $separator): self
     {
         $new = clone $this;
@@ -223,7 +251,7 @@ final class Select extends ContainerTag
             $this->unselectValue
         );
 
-        // Make sure disabled input is not sending any value
+        // Make sure disabled input is not sending any value.
         if (!empty($this->attributes['disabled'])) {
             $input = $input->attribute('disabled', $this->attributes['disabled']);
         }
