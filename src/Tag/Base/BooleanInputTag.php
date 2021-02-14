@@ -95,7 +95,7 @@ abstract class BooleanInputTag extends BaseInputTag
     {
         $this->attributes['id'] ??= $this->labelWrap ? null : Html::generateId();
 
-        return ($this->labelWrap ? $this->renderBeginLabel() : '') .
+        return ($this->labelWrap ? $this->renderLabelOpenTag() : '') .
             $this->renderUncheckInput();
     }
 
@@ -123,7 +123,7 @@ abstract class BooleanInputTag extends BaseInputTag
         return $input->render();
     }
 
-    private function renderBeginLabel(): string
+    private function renderLabelOpenTag(): string
     {
         if ($this->label === null) {
             return '';
@@ -133,7 +133,7 @@ abstract class BooleanInputTag extends BaseInputTag
         /** @var mixed */
         $attributes['for'] = $this->attributes['id'];
 
-        return Html::beginTag('label', $attributes);
+        return Html::openTag('label', $attributes);
     }
 
     protected function after(): string
@@ -143,7 +143,7 @@ abstract class BooleanInputTag extends BaseInputTag
         }
 
         return ' ' .
-            ($this->labelWrap ? '' : $this->renderBeginLabel()) .
+            ($this->labelWrap ? '' : $this->renderLabelOpenTag()) .
             ($this->labelEncode ? Html::encode($this->label) : $this->label) .
             '</label>';
     }

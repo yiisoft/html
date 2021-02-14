@@ -23,15 +23,15 @@ abstract class ContainerTag extends Tag
 
     final protected function renderTag(): string
     {
-        return $this->begin() . $this->generateContent() . $this->end();
+        return $this->open() . $this->generateContent() . $this->close();
     }
 
-    final public function begin(): string
+    final public function open(): string
     {
         return '<' . $this->getName() . $this->renderAttributes() . '>';
     }
 
-    final public function end(): string
+    final public function close(): string
     {
         return '</' . $this->getName() . '>';
     }

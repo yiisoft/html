@@ -78,18 +78,18 @@ final class HtmlTest extends TestCase
         self::assertSame('<h1 id="main">', Html::voidTag('h1', ['id' => 'main'])->render());
     }
 
-    public function testBeginTag(): void
+    public function testOpenTag(): void
     {
-        self::assertSame('<div>', Html::beginTag('div'));
+        self::assertSame('<div>', Html::openTag('div'));
         self::assertSame(
             '<span id="test" class="title">',
-            Html::beginTag('span', ['id' => 'test', 'class' => 'title'])
+            Html::openTag('span', ['id' => 'test', 'class' => 'title'])
         );
     }
 
-    public function testEndTag(): void
+    public function testCloseTag(): void
     {
-        self::assertSame('</div>', Html::endTag('div'));
+        self::assertSame('</div>', Html::closeTag('div'));
     }
 
     public function testStyle(): void

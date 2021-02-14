@@ -304,12 +304,12 @@ final class Html
     /**
      * Generates a start tag.
      *
-     * @see self::endTag()
+     * @see self::closeTag()
      *
      * @param string $name The tag name.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function beginTag(string $name, array $attributes = []): string
+    public static function openTag(string $name, array $attributes = []): string
     {
         return '<' . $name . self::renderTagAttributes($attributes) . '>';
     }
@@ -317,11 +317,11 @@ final class Html
     /**
      * Generates an end tag.
      *
-     * @see self::beginTag()
+     * @see self::openTag()
      *
      * @param string $name The tag name.
      */
-    public static function endTag(string $name): string
+    public static function closeTag(string $name): string
     {
         return "</$name>";
     }

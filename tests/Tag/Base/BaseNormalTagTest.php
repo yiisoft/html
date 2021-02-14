@@ -41,19 +41,19 @@ final class BaseNormalTagTest extends TestCase
         );
     }
 
-    public function testBegin(): void
+    public function testOpen(): void
     {
         self::assertSame(
             '<test id="main">',
-            TestBaseNormalTag::tag()->id('main')->begin(),
+            TestBaseNormalTag::tag()->id('main')->open(),
         );
     }
 
-    public function testEnd(): void
+    public function testClose(): void
     {
         self::assertSame(
             '</test>',
-            TestBaseNormalTag::tag()->id('main')->end(),
+            TestBaseNormalTag::tag()->id('main')->close(),
         );
     }
 

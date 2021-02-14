@@ -210,11 +210,11 @@ final class CheckboxList
 
         $html = $this->renderUncheckInput();
         if (!empty($this->containerTag)) {
-            $html .= Html::beginTag($this->containerTag, $this->containerAttributes);
+            $html .= Html::openTag($this->containerTag, $this->containerAttributes);
         }
         $html .= implode($this->separator, $lines);
         if (!empty($this->containerTag)) {
-            $html .= Html::endTag($this->containerTag);
+            $html .= Html::closeTag($this->containerTag);
         }
 
         return $html;

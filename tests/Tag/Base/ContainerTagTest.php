@@ -11,25 +11,25 @@ final class ContainerTagTest extends TestCase
 {
     public function testBase(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<test id="main">content</test>',
             TestContainerTag::tag()->id('main')->render()
         );
     }
 
-    public function testBegin(): void
+    public function testOpen(): void
     {
         self::assertSame(
             '<test id="main">',
-            TestContainerTag::tag()->id('main')->begin(),
+            TestContainerTag::tag()->id('main')->open(),
         );
     }
 
-    public function testEnd(): void
+    public function testClose(): void
     {
         self::assertSame(
             '</test>',
-            TestContainerTag::tag()->id('main')->end(),
+            TestContainerTag::tag()->id('main')->close(),
         );
     }
 }

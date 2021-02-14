@@ -59,7 +59,7 @@ abstract class BaseNormalTag extends Tag
     /**
      * @return string Opening tag.
      */
-    final public function begin(): string
+    final public function open(): string
     {
         return '<' . $this->getName() . $this->renderAttributes() . '>';
     }
@@ -67,7 +67,7 @@ abstract class BaseNormalTag extends Tag
     /**
      * @return string Closing tag.
      */
-    final public function end(): string
+    final public function close(): string
     {
         return '</' . $this->getName() . '>';
     }

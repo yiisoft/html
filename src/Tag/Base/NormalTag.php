@@ -20,6 +20,6 @@ abstract class NormalTag extends BaseNormalTag
 
     final protected function renderTag(): string
     {
-        return $this->begin() . $this->generateContent() . $this->end();
+        return $this->open() . $this->generateContent() . $this->close();
     }
 }

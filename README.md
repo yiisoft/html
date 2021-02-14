@@ -50,20 +50,20 @@ use Yiisoft\Html\Html;
     ]
 ); ?>
 
-<?= Html::beginTag('footer', ['class' => 'footer']) ?>
-    <?= Html::beginTag('div', ['class' => 'container flex-fill']) ?>
-        <?= Html::beginTag('p', ['class' => 'float-left']) ?>
-        <?= Html::endTag('p') ?>
-        <?= Html::beginTag('p', ['class' => 'float-right']) ?>
+<?= Html::openTag('footer', ['class' => 'footer']) ?>
+    <?= Html::openTag('div', ['class' => 'container flex-fill']) ?>
+        <?= Html::openTag('p', ['class' => 'float-left']) ?>
+        <?= Html::closeTag('p') ?>
+        <?= Html::openTag('p', ['class' => 'float-right']) ?>
             <?= 'Powered by' ?>
             <?= Html::a(
                 'Yii Framework',
                 'https://www.yiiframework.com/',
                 ['rel' => 'external']
             ) ?>
-        <?= Html::endTag('p') ?>
-    <?= Html::endTag('div') ?>
-<?= Html::endTag('footer') ?>
+        <?= Html::closeTag('p') ?>
+    <?= Html::closeTag('div') ?>
+<?= Html::closeTag('footer') ?>
 ```
 
 ## Html helper usage

@@ -94,6 +94,6 @@ final class CustomTag extends BaseNormalTag
     {
         $isVoid = $this->type === self::TYPE_VOID ||
             ($this->type === self::TYPE_AUTO && isset(self::VOID_ELEMENTS[strtolower($this->name)]));
-        return $isVoid ? $this->begin() : ($this->begin() . $this->generateContent() . $this->end());
+        return $isVoid ? $this->open() : ($this->open() . $this->generateContent() . $this->close());
     }
 }
