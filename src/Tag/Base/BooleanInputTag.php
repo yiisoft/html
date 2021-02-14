@@ -91,7 +91,7 @@ abstract class BooleanInputTag extends BaseInputTag
         $this->attributes['type'] = $this->getType();
     }
 
-    protected function before(): string
+    final protected function before(): string
     {
         $this->attributes['id'] ??= $this->labelWrap ? null : Html::generateId();
 
@@ -136,7 +136,7 @@ abstract class BooleanInputTag extends BaseInputTag
         return Html::openTag('label', $attributes);
     }
 
-    protected function after(): string
+    final protected function after(): string
     {
         if ($this->label === null) {
             return '';
