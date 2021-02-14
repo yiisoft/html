@@ -6,6 +6,9 @@ namespace Yiisoft\Html\Tag\Base;
 
 use Yiisoft\Html\Html;
 
+/**
+ * HTML tag. Base class for all tags.
+ */
 abstract class Tag
 {
     protected array $attributes = [];

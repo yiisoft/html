@@ -6,6 +6,9 @@ namespace Yiisoft\Html\Tag\Base;
 
 use Yiisoft\Html\Html;
 
+/**
+ * Base for all normal tags. Normal tags are the ones that have both opening tag and closing tag.
+ */
 abstract class BaseNormalTag extends Tag
 {
     private bool $encode = true;
@@ -13,6 +16,7 @@ abstract class BaseNormalTag extends Tag
     private string $content = '';
 
     /**
+     * Do not HTML-encode tag content.
      * @return static
      */
     final public function withoutEncode(): self
@@ -23,6 +27,7 @@ abstract class BaseNormalTag extends Tag
     }
 
     /**
+     * Do not double-encode already encoded HTML entities in tag content.
      * @return static
      */
     final public function withoutDoubleEncode(): self
@@ -33,6 +38,7 @@ abstract class BaseNormalTag extends Tag
     }
 
     /**
+     * @param string $content Tag content.
      * @return static
      */
     final public function content(string $content): self
@@ -42,16 +48,25 @@ abstract class BaseNormalTag extends Tag
         return $new;
     }
 
+    /**
+     * @return string Obtain tag content considering encoding options.
+     */
     final protected function generateContent(): string
     {
         return $this->encode ? Html::encode($this->content, $this->doubleEncode) : $this->content;
     }
 
+    /**
+     * @return string Opening tag.
+     */
     final public function begin(): string
     {
         return '<' . $this->getName() . $this->renderAttributes() . '>';
     }
 
+    /**
+     * @return string Closing tag.
+     */
     final public function end(): string
     {
         return '</' . $this->getName() . '>';

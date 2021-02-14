@@ -6,6 +6,9 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\BaseNormalTag;
 
+/**
+ * Custom HTML tag.
+ */
 final class CustomTag extends BaseNormalTag
 {
     private const TYPE_AUTO = 0;
