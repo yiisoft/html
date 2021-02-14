@@ -7,6 +7,9 @@ namespace Yiisoft\Html\Tag\Base;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Input;
 
+/**
+ * Base for boolean input tags such as checkboxes and radios.
+ */
 abstract class BooleanInputTag extends BaseInputTag
 {
     private ?string $uncheckValue = null;
@@ -18,6 +21,7 @@ abstract class BooleanInputTag extends BaseInputTag
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-checked
      *
+     * @param bool $checked Whether input it checked.
      * @return static
      */
     final public function checked(bool $checked = true): self
@@ -28,6 +32,10 @@ abstract class BooleanInputTag extends BaseInputTag
     }
 
     /**
+     * Label that is wraps around attribute when rendered.
+     *
+     * @param string $label Input label.
+     * @param array $attributes Name-value set of label attributes.
      * @return static
      */
     final public function label(string $label, array $attributes = []): self
@@ -39,6 +47,10 @@ abstract class BooleanInputTag extends BaseInputTag
     }
 
     /**
+     * Label that is rendered separately and is referring input by ID.
+     *
+     * @param string $label Input label.
+     * @param array $attributes Name-value set of label attributes.
      * @return static
      */
     final public function sideLabel(string $label, array $attributes = []): self
@@ -51,6 +63,8 @@ abstract class BooleanInputTag extends BaseInputTag
     }
 
     /**
+     * Do not encode label content.
+     *
      * @return static
      */
     final public function withoutLabelEncode(): self
@@ -61,7 +75,7 @@ abstract class BooleanInputTag extends BaseInputTag
     }
 
     /**
-     * @param bool|float|int|string|\Stringable|null $value
+     * @param bool|float|int|string|\Stringable|null $value Value that corresponds to "unchecked" state of the input.
      *
      * @return static
      */
@@ -97,7 +111,7 @@ abstract class BooleanInputTag extends BaseInputTag
             $this->uncheckValue
         );
 
-        // Make sure disabled input is not sending any value
+        // Make sure disabled input is not sending any value.
         if (!empty($this->attributes['disabled'])) {
             $input = $input->attribute('disabled', $this->attributes['disabled']);
         }
