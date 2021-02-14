@@ -12,6 +12,9 @@ use Yiisoft\Html\Tag\Input;
 
 use function is_array;
 
+/**
+ * CheckboxList represents a list of checkboxes and their corresponding labels.
+ */
 final class CheckboxList
 {
     private ?string $containerTag = 'div';
@@ -88,6 +91,8 @@ final class CheckboxList
 
     /**
      * @param array<array-key, string> $items
+     * @param bool $encodeLabels Whether labels should be encoded.
+     * @return self
      */
     public function items(array $items, bool $encodeLabels = true): self
     {

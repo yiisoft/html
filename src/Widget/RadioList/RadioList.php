@@ -8,6 +8,9 @@ use Closure;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Input;
 
+/**
+ * RadioList represents a list of radios and their corresponding labels.
+ */
 final class RadioList
 {
     private ?string $containerTag = 'div';
