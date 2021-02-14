@@ -15,7 +15,7 @@ final class Option extends NormalTag
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-option-value
      *
-     * @param bool|float|int|string|\Stringable|null $value
+     * @param bool|float|int|string|\Stringable|null $value Value of the option.
      */
     public function value($value): self
     {
@@ -26,6 +26,7 @@ final class Option extends NormalTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-option-selected
+     * @param bool $selected Whether option is selected.
      */
     public function selected(bool $selected = true): self
     {
@@ -36,6 +37,7 @@ final class Option extends NormalTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-option-disabled
+     * @param bool $disabled Whether option is disabled.
      */
     public function disabled(bool $disabled = true): self
     {
@@ -44,6 +46,9 @@ final class Option extends NormalTag
         return $new;
     }
 
+    /**
+     * @return string|null Get option value.
+     */
     public function getValue(): ?string
     {
         /** @var mixed $value */
