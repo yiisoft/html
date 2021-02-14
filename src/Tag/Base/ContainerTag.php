@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+/**
+ * Base for container tags such as lists and select.
+ */
 abstract class ContainerTag extends Tag
 {
     final private function __construct()
