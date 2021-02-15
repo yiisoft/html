@@ -32,7 +32,9 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-name
+     *
      * @param string|null $name Name of the select input.
+     *
      * @return Select
      */
     public function name(?string $name): self
@@ -70,7 +72,9 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
+     *
      * @param string|null $formId ID of the form the select belongs to.
+     *
      * @return self
      */
     public function form(?string $formId): self
@@ -98,6 +102,7 @@ final class Select extends ContainerTag
     /**
      * @param array<array-key, string> $data
      * @param bool $encode Whether option content should be HTML-encoded.
+     *
      * @return self
      */
     public function optionsData(array $data, bool $encode = true): self
@@ -114,7 +119,9 @@ final class Select extends ContainerTag
     }
 
     /**
-     * @param string|null $text Text of the option that has dummy value and is rendered as an invitation to select a value.
+     * @param string|null $text Text of the option that has dummy value and is rendered
+     * as an invitation to select a value.
+     *
      * @return self
      */
     public function prompt(?string $text): self
@@ -126,6 +133,7 @@ final class Select extends ContainerTag
 
     /**
      * @param Option|null $option Option that has dummy value and is rendered as an invitation to select a value.
+     *
      * @return self
      */
     public function promptOption(?Option $option): self
@@ -137,7 +145,9 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-disabledformelements-disabled
+     *
      * @param bool $disabled Whether select input is disabled.
+     *
      * @return self
      */
     public function disabled(bool $disabled = true): self
@@ -149,7 +159,9 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-multiple
+     *
      * @param bool $multiple Whether to allow selecting multiple values.
+     *
      * @return self
      */
     public function multiple(bool $multiple = true): self
@@ -161,7 +173,9 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-required
+     *
      * @param bool $required Whether select input is required.
+     *
      * @return self
      */
     public function required(bool $required = true): self
@@ -173,7 +187,9 @@ final class Select extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-size
+     *
      * @param int|null $size The number of options to show to the user.
+     *
      * @return self
      */
     public function size(?int $size): self
@@ -195,6 +211,7 @@ final class Select extends ContainerTag
 
     /**
      * @param string $separator Separator to render between options.
+     *
      * @return self
      */
     public function separator(string $separator): self
@@ -202,6 +219,11 @@ final class Select extends ContainerTag
         $new = clone $this;
         $new->separator = $separator;
         return $new;
+    }
+
+    public function withoutSeparator(): self
+    {
+        return $this->separator('');
     }
 
     protected function prepareAttributes(): void

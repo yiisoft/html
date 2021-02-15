@@ -29,6 +29,7 @@ final class Optgroup extends ContainerTag
      *
      * @param array<array-key, string> $data Value-content set of options.
      * @param bool $encode Whether to encode option content.
+     *
      * @return self
      */
     public function optionsData(array $data, bool $encode = true): self
@@ -46,7 +47,9 @@ final class Optgroup extends ContainerTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-optgroup-label
+     *
      * @param string|null $label
+     *
      * @return self
      */
     public function label(?string $label): self
@@ -58,6 +61,7 @@ final class Optgroup extends ContainerTag
 
     /**
      * @param string $separator Separator to render between options.
+     *
      * @return self
      */
     public function separator(string $separator): self
@@ -65,6 +69,11 @@ final class Optgroup extends ContainerTag
         $new = clone $this;
         $new->separator = $separator;
         return $new;
+    }
+
+    public function withoutSeparator(): self
+    {
+        return $this->separator('');
     }
 
     /**
@@ -79,6 +88,7 @@ final class Optgroup extends ContainerTag
 
     /**
      * @psalm-param \Stringable|scalar|null ...$value Values of options that are selected.
+     *
      * @return self
      */
     public function selection(...$value): self

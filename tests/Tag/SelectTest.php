@@ -400,6 +400,19 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testWithoutSeparator(): void
+    {
+        self::assertSame(
+            '<select>' .
+            '<option value="1">One</option>' .
+            '<option value="2">Two</option>' .
+            '</select>',
+            (string)Select::tag()
+                ->optionsData(['1' => 'One', '2' => 'Two'])
+                ->withoutSeparator()
+        );
+    }
+
     public function testImmutability(): void
     {
         $select = Select::tag();
@@ -418,5 +431,6 @@ final class SelectTest extends TestCase
         self::assertNotSame($select, $select->size(0));
         self::assertNotSame($select, $select->unselectValue(null));
         self::assertNotSame($select, $select->separator(''));
+        self::assertNotSame($select, $select->withoutSeparator());
     }
 }

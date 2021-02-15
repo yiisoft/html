@@ -48,14 +48,22 @@ final class ListTagTest extends TestCase
     {
         $tag = TestListTag::tag()->strings(['A', 'B'])->separator("\r");
 
-        $this->assertSame("<test>\r<li>A</li>\r<li>B</li>\r</test>", (string)$tag);
+        self::assertSame("<test>\r<li>A</li>\r<li>B</li>\r</test>", (string)$tag);
+    }
+
+    public function testWithoutSeparator(): void
+    {
+        $tag = TestListTag::tag()->strings(['A', 'B'])->withoutSeparator();
+
+        self::assertSame('<test><li>A</li><li>B</li></test>', (string)$tag);
     }
 
     public function testImmutability(): void
     {
         $tag = TestListTag::tag();
-        $this->assertNotSame($tag, $tag->items());
-        $this->assertNotSame($tag, $tag->strings([]));
-        $this->assertNotSame($tag, $tag->separator(''));
+        self::assertNotSame($tag, $tag->items());
+        self::assertNotSame($tag, $tag->strings([]));
+        self::assertNotSame($tag, $tag->separator(''));
+        self::assertNotSame($tag, $tag->withoutSeparator());
     }
 }

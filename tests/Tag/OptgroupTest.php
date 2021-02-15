@@ -80,7 +80,7 @@ final class OptgroupTest extends TestCase
 
     public function testSeparator(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<optgroup>' . "\r" .
             '<option value="1">One</option>' . "\r" .
             '<option value="2">Two</option>' . "\r" .
@@ -88,6 +88,19 @@ final class OptgroupTest extends TestCase
             (string)Optgroup::tag()
                 ->optionsData(['1' => 'One', '2' => 'Two'])
                 ->separator("\r")
+        );
+    }
+
+    public function testWithoutSeparator(): void
+    {
+        self::assertSame(
+            '<optgroup>' .
+            '<option value="1">One</option>' .
+            '<option value="2">Two</option>' .
+            '</optgroup>',
+            (string)Optgroup::tag()
+                ->optionsData(['1' => 'One', '2' => 'Two'])
+                ->withoutSeparator()
         );
     }
 
@@ -145,11 +158,12 @@ final class OptgroupTest extends TestCase
     public function testImmutability(): void
     {
         $optgroup = Optgroup::tag();
-        $this->assertNotSame($optgroup, $optgroup->options());
-        $this->assertNotSame($optgroup, $optgroup->optionsData([]));
-        $this->assertNotSame($optgroup, $optgroup->label(null));
-        $this->assertNotSame($optgroup, $optgroup->separator(''));
-        $this->assertNotSame($optgroup, $optgroup->disabled());
-        $this->assertNotSame($optgroup, $optgroup->selection());
+        self::assertNotSame($optgroup, $optgroup->options());
+        self::assertNotSame($optgroup, $optgroup->optionsData([]));
+        self::assertNotSame($optgroup, $optgroup->label(null));
+        self::assertNotSame($optgroup, $optgroup->separator(''));
+        self::assertNotSame($optgroup, $optgroup->withoutSeparator());
+        self::assertNotSame($optgroup, $optgroup->disabled());
+        self::assertNotSame($optgroup, $optgroup->selection());
     }
 }

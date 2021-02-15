@@ -16,6 +16,7 @@ abstract class ListTag extends ContainerTag
 
     /**
      * @param Li ...$items One or more list items.
+     *
      * @return static
      */
     public function items(Li ...$items): self
@@ -28,6 +29,7 @@ abstract class ListTag extends ContainerTag
     /**
      * @param string[] $strings Array of list items as strings.
      * @param bool $encode Whether to encode strings passed.
+     *
      * @return static
      */
     public function strings(array $strings, bool $encode = true): self
@@ -44,6 +46,7 @@ abstract class ListTag extends ContainerTag
 
     /**
      * @param string $separator List item separator.
+     *
      * @return static
      */
     public function separator(string $separator): self
@@ -51,6 +54,14 @@ abstract class ListTag extends ContainerTag
         $new = clone $this;
         $new->separator = $separator;
         return $new;
+    }
+
+    /**
+     * @return static
+     */
+    public function withoutSeparator(): self
+    {
+        return $this->separator('');
     }
 
     protected function generateContent(): string
