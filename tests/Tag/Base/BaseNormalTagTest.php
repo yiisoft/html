@@ -21,7 +21,7 @@ final class BaseNormalTagTest extends TestCase
     {
         self::assertSame(
             '<test><b>hello</b></test>',
-            (string)TestBaseNormalTag::tag()->content('<b>hello</b>')->withoutEncode()
+            (string)TestBaseNormalTag::tag()->content('<b>hello</b>')->encode(false)
         );
     }
 
@@ -29,7 +29,7 @@ final class BaseNormalTagTest extends TestCase
     {
         self::assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string)TestBaseNormalTag::tag()->content('<b>A &gt; B</b>')->withoutDoubleEncode()
+            (string)TestBaseNormalTag::tag()->content('<b>A &gt; B</b>')->doubleEncode(false)
         );
     }
 
@@ -60,8 +60,8 @@ final class BaseNormalTagTest extends TestCase
     public function testImmutability(): void
     {
         $tag = TestBaseNormalTag::tag();
-        self::assertNotSame($tag, $tag->withoutEncode());
-        self::assertNotSame($tag, $tag->withoutDoubleEncode());
+        self::assertNotSame($tag, $tag->encode(true));
+        self::assertNotSame($tag, $tag->doubleEncode(true));
         self::assertNotSame($tag, $tag->content(''));
     }
 }

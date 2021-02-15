@@ -92,6 +92,7 @@ final class CheckboxList
     /**
      * @param array<array-key, string> $items
      * @param bool $encodeLabels Whether labels should be encoded.
+     *
      * @return self
      */
     public function items(array $items, bool $encodeLabels = true): self
@@ -252,11 +253,8 @@ final class CheckboxList
         $checkbox = Html::checkbox($item->name, $item->value)
             ->attributes($item->checkboxAttributes)
             ->checked($item->checked)
-            ->label($item->label);
-
-        if (!$item->encodeLabel) {
-            $checkbox = $checkbox->withoutLabelEncode();
-        }
+            ->label($item->label)
+            ->labelEncode($item->encodeLabel);
 
         return $checkbox->render();
     }

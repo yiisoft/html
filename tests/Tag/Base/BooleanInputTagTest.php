@@ -76,7 +76,7 @@ final class BooleanInputTagTest extends TestCase
     {
         self::assertSame(
             '<label><input type="test"> <b>One</b></label>',
-            TestBooleanInputTag::tag()->label('<b>One</b>')->withoutLabelEncode()->render()
+            TestBooleanInputTag::tag()->label('<b>One</b>')->labelEncode(false)->render()
         );
     }
 
@@ -137,7 +137,7 @@ final class BooleanInputTagTest extends TestCase
         self::assertNotSame($input, $input->checked());
         self::assertNotSame($input, $input->label(''));
         self::assertNotSame($input, $input->sideLabel(''));
-        self::assertNotSame($input, $input->withoutLabelEncode());
+        self::assertNotSame($input, $input->labelEncode(true));
         self::assertNotSame($input, $input->uncheckValue(null));
     }
 }

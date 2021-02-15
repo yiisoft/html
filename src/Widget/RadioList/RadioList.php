@@ -227,11 +227,8 @@ final class RadioList
         $radio = Html::radio($item->name, $item->value)
             ->attributes($item->radioAttributes)
             ->checked($item->checked)
-            ->label($item->label);
-
-        if (!$item->encodeLabel) {
-            $radio = $radio->withoutLabelEncode();
-        }
+            ->label($item->label)
+            ->labelEncode($item->encodeLabel);
 
         return $radio->render();
     }

@@ -22,6 +22,7 @@ abstract class BooleanInputTag extends BaseInputTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-checked
      *
      * @param bool $checked Whether input it checked.
+     *
      * @return static
      */
     final public function checked(bool $checked = true): self
@@ -36,6 +37,7 @@ abstract class BooleanInputTag extends BaseInputTag
      *
      * @param string $label Input label.
      * @param array $attributes Name-value set of label attributes.
+     *
      * @return static
      */
     final public function label(string $label, array $attributes = []): self
@@ -51,6 +53,7 @@ abstract class BooleanInputTag extends BaseInputTag
      *
      * @param string $label Input label.
      * @param array $attributes Name-value set of label attributes.
+     *
      * @return static
      */
     final public function sideLabel(string $label, array $attributes = []): self
@@ -63,14 +66,14 @@ abstract class BooleanInputTag extends BaseInputTag
     }
 
     /**
-     * Do not encode label content.
+     * @patam bool $encode Whether to encode label content. Defaults to `true`.
      *
      * @return static
      */
-    final public function withoutLabelEncode(): self
+    final public function labelEncode(bool $encode): self
     {
         $new = clone $this;
-        $new->labelEncode = false;
+        $new->labelEncode = $encode;
         return $new;
     }
 

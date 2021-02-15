@@ -16,29 +16,33 @@ abstract class BaseNormalTag extends Tag
     private string $content = '';
 
     /**
-     * Do not HTML-encode tag content.
+     * @param bool $encode Whether to encode tag content. Defaults to `true`.
+     *
      * @return static
      */
-    final public function withoutEncode(): self
+    final public function encode(bool $encode): self
     {
         $new = clone $this;
-        $new->encode = false;
+        $new->encode = $encode;
         return $new;
     }
 
     /**
-     * Do not double-encode already encoded HTML entities in tag content.
+     * @param bool $doubleEncode Whether already encoded HTML entities in tag content should be encoded.
+     * Defaults to `true`.
+     *
      * @return static
      */
-    final public function withoutDoubleEncode(): self
+    final public function doubleEncode(bool $doubleEncode): self
     {
         $new = clone $this;
-        $new->doubleEncode = false;
+        $new->doubleEncode = $doubleEncode;
         return $new;
     }
 
     /**
      * @param string $content Tag content.
+     *
      * @return static
      */
     final public function content(string $content): self
