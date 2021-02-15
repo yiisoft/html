@@ -175,11 +175,6 @@ final class CheckboxList
         return $new;
     }
 
-    public function withoutSeparator(): self
-    {
-        return $this->separator('');
-    }
-
     /**
      * @param Closure(CheckboxItem):string $formatter
      */

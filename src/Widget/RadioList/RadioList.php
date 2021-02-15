@@ -150,11 +150,6 @@ final class RadioList
         return $new;
     }
 
-    public function withoutSeparator(): self
-    {
-        return $this->separator('');
-    }
-
     /**
      * @param Closure(RadioItem):string $formatter
      */

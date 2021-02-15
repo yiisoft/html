@@ -454,17 +454,6 @@ final class CheckboxListTest extends TestCase
         );
     }
 
-    public function testWithoutSeparator(): void
-    {
-        self::assertSame(
-            '<div>' .
-            '<label><input type="checkbox" name="test[]" value="1"> One</label>' .
-            '<label><input type="checkbox" name="test[]" value="2"> Two</label>' .
-            '</div>',
-            CheckboxList::widget('test')->items([1 => 'One', 2 => 'Two'])->withoutSeparator()->render(),
-        );
-    }
-
     public function testItemFormatter(): void
     {
         self::assertSame(
@@ -504,7 +493,6 @@ final class CheckboxListTest extends TestCase
         self::assertNotSame($widget, $widget->disabled());
         self::assertNotSame($widget, $widget->uncheckValue(null));
         self::assertNotSame($widget, $widget->separator(''));
-        self::assertNotSame($widget, $widget->withoutSeparator());
         self::assertNotSame($widget, $widget->itemFormatter(fn () => ''));
     }
 }
