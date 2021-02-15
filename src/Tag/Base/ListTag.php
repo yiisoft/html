@@ -12,7 +12,6 @@ use Yiisoft\Html\Tag\Li;
 abstract class ListTag extends ContainerTag
 {
     private array $items = [];
-    private string $separator = "\n";
 
     /**
      * @param Li ...$items One or more list items.
@@ -44,30 +43,10 @@ abstract class ListTag extends ContainerTag
         return $this->items(...$items);
     }
 
-    /**
-     * @param string $separator List item separator.
-     *
-     * @return static
-     */
-    public function separator(string $separator): self
-    {
-        $new = clone $this;
-        $new->separator = $separator;
-        return $new;
-    }
-
-    /**
-     * @return static
-     */
-    public function withoutSeparator(): self
-    {
-        return $this->separator('');
-    }
-
     protected function generateContent(): string
     {
         return $this->items
-            ? $this->separator . implode($this->separator, $this->items) . $this->separator
+            ? "\n" . implode("\n", $this->items) . "\n"
             : '';
     }
 }

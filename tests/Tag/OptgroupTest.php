@@ -78,32 +78,6 @@ final class OptgroupTest extends TestCase
         $this->assertSame($expected, (string)Optgroup::tag()->label($label));
     }
 
-    public function testSeparator(): void
-    {
-        self::assertSame(
-            '<optgroup>' . "\r" .
-            '<option value="1">One</option>' . "\r" .
-            '<option value="2">Two</option>' . "\r" .
-            '</optgroup>',
-            (string)Optgroup::tag()
-                ->optionsData(['1' => 'One', '2' => 'Two'])
-                ->separator("\r")
-        );
-    }
-
-    public function testWithoutSeparator(): void
-    {
-        self::assertSame(
-            '<optgroup>' .
-            '<option value="1">One</option>' .
-            '<option value="2">Two</option>' .
-            '</optgroup>',
-            (string)Optgroup::tag()
-                ->optionsData(['1' => 'One', '2' => 'Two'])
-                ->withoutSeparator()
-        );
-    }
-
     public function testDisabled(): void
     {
         $this->assertSame('<optgroup disabled></optgroup>', (string)Optgroup::tag()->disabled());
@@ -117,27 +91,42 @@ final class OptgroupTest extends TestCase
             ['<optgroup></optgroup>', [], []],
             ['<optgroup></optgroup>', [], [42]],
             [
-                '<optgroup><option value="1"></option><option value="2"></option></optgroup>',
+                '<optgroup>' . "\n" .
+                '<option value="1"></option>' . "\n" .
+                '<option value="2"></option>' . "\n" .
+                '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()->value('2')->selected()],
                 [],
             ],
             [
-                '<optgroup><option value="1"></option><option value="2"></option></optgroup>',
+                '<optgroup>' . "\n" .
+                '<option value="1"></option>' . "\n" .
+                '<option value="2"></option>' . "\n" .
+                '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [7],
             ],
             [
-                '<optgroup><option value="1" selected></option><option value="2"></option></optgroup>',
+                '<optgroup>' . "\n" .
+                '<option value="1" selected></option>' . "\n" .
+                '<option value="2"></option>' . "\n" .
+                '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [1],
             ],
             [
-                '<optgroup><option value="1"></option><option value="2" selected></option></optgroup>',
+                '<optgroup>' . "\n" .
+                '<option value="1"></option>' . "\n" .
+                '<option value="2" selected></option>' . "\n" .
+                '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 ['2'],
             ],
             [
-                '<optgroup><option value="1" selected></option><option value="2" selected></option></optgroup>',
+                '<optgroup>' . "\n" .
+                '<option value="1" selected></option>' . "\n" .
+                '<option value="2" selected></option>' . "\n" .
+                '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [1, 2],
             ],
@@ -151,7 +140,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string)Optgroup::tag()->options(...$options)->selection(...$selection)->separator(''),
+            (string)Optgroup::tag()->options(...$options)->selection(...$selection),
         );
     }
 
@@ -161,8 +150,6 @@ final class OptgroupTest extends TestCase
         self::assertNotSame($optgroup, $optgroup->options());
         self::assertNotSame($optgroup, $optgroup->optionsData([]));
         self::assertNotSame($optgroup, $optgroup->label(null));
-        self::assertNotSame($optgroup, $optgroup->separator(''));
-        self::assertNotSame($optgroup, $optgroup->withoutSeparator());
         self::assertNotSame($optgroup, $optgroup->disabled());
         self::assertNotSame($optgroup, $optgroup->selection());
     }

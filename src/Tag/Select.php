@@ -22,7 +22,6 @@ final class Select extends ContainerTag
 {
     private array $items = [];
     private ?Option $prompt = null;
-    private string $separator = "\n";
     private ?string $unselectValue = null;
 
     /**
@@ -209,23 +208,6 @@ final class Select extends ContainerTag
         return $new;
     }
 
-    /**
-     * @param string $separator Separator to render between options.
-     *
-     * @return self
-     */
-    public function separator(string $separator): self
-    {
-        $new = clone $this;
-        $new->separator = $separator;
-        return $new;
-    }
-
-    public function withoutSeparator(): self
-    {
-        return $this->separator('');
-    }
-
     protected function prepareAttributes(): void
     {
         if (!empty($this->attributes['multiple']) && !empty($this->attributes['name'])) {
@@ -247,13 +229,13 @@ final class Select extends ContainerTag
                 return $item->selected(in_array($item->getValue(), $this->values, true));
             }
             if ($item instanceof Optgroup) {
-                return $item->separator($this->separator)->selection(...$this->values);
+                return $item->selection(...$this->values);
             }
             throw new RuntimeException('Incorrect item into Select.');
         }, $items);
 
         return $items
-            ? $this->separator . implode($this->separator, $items) . $this->separator
+            ? "\n" . implode("\n", $items) . "\n"
             : '';
     }
 
@@ -282,7 +264,7 @@ final class Select extends ContainerTag
             $input = $input->attribute('form', $this->attributes['form']);
         }
 
-        return $input->render() . $this->separator;
+        return $input->render() . "\n";
     }
 
     protected function getName(): string

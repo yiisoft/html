@@ -14,7 +14,6 @@ use function in_array;
 final class Optgroup extends ContainerTag
 {
     private array $options = [];
-    private string $separator = "\n";
     private array $selection = [];
 
     public function options(Option ...$options): self
@@ -60,23 +59,6 @@ final class Optgroup extends ContainerTag
     }
 
     /**
-     * @param string $separator Separator to render between options.
-     *
-     * @return self
-     */
-    public function separator(string $separator): self
-    {
-        $new = clone $this;
-        $new->separator = $separator;
-        return $new;
-    }
-
-    public function withoutSeparator(): self
-    {
-        return $this->separator('');
-    }
-
-    /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-optgroup-disabled
      */
     public function disabled(bool $disabled = true): self
@@ -105,7 +87,7 @@ final class Optgroup extends ContainerTag
         }, $this->options);
 
         return $options
-            ? $this->separator . implode($this->separator, $options) . $this->separator
+            ? "\n" . implode("\n", $options) . "\n"
             : '';
     }
 
