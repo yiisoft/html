@@ -370,31 +370,54 @@ final class Html
      * Generates a {@see Link} tag.
      *
      * @param string|null $url The destination of the link.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function link(?string $url = null): Link
+    public static function link(?string $url = null, array $attributes = []): Link
     {
         $tag = Link::tag();
-        return $url === null ? $tag : $tag->url($url);
+        if ($url !== null) {
+            $tag = $tag->url($url);
+        }
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
      * Generates a {@see Link} tag that refers to an CSS file.
      *
      * @param string $url The URL of the CSS file.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function cssFile(string $url): Link
+    public static function cssFile(string $url, array $attributes = []): Link
     {
-        return Link::toCssFile($url);
+        $tag = Link::toCssFile($url);
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
      * Generates a {@see Script} tag that refers to a JavaScript file.
      *
      * @param string $url The URL of the JavaScript file.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function javaScriptFile(string $url): Script
+    public static function javaScriptFile(string $url, array $attributes = []): Script
     {
-        return Script::tag()->url($url);
+        $tag = Script::tag()->url($url);
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**

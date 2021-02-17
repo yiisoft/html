@@ -117,6 +117,10 @@ final class HtmlTest extends TestCase
         self::assertSame('<link>', Html::link()->render());
         self::assertSame('<link href="">', Html::link('')->render());
         self::assertSame('<link href="main.css">', Html::link('main.css')->render());
+        self::assertSame(
+            '<link id="main" href="main.css">',
+            Html::link('main.css', ['id' => 'main'])->render()
+        );
     }
 
     public function testCssFile(): void
@@ -129,6 +133,10 @@ final class HtmlTest extends TestCase
             '<link href="" rel="stylesheet">',
             Html::cssFile('')->render()
         );
+        self::assertSame(
+            '<link id="main" href="http://example.com" rel="stylesheet">',
+            Html::cssFile('http://example.com', ['id' => 'main'])->render()
+        );
     }
 
     public function testJavaScriptFile(): void
@@ -140,6 +148,10 @@ final class HtmlTest extends TestCase
         self::assertSame(
             '<script src=""></script>',
             Html::javaScriptFile('')->render()
+        );
+        self::assertSame(
+            '<script id="main" src="http://example.com"></script>',
+            Html::javaScriptFile('http://example.com', ['id' => 'main'])->render()
         );
     }
 
