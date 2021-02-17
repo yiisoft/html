@@ -9,7 +9,7 @@ use Yiisoft\Html\Html;
 /**
  * Base for all normal tags. Normal tags are the ones that have both opening tag and closing tag.
  */
-abstract class BaseNormalTag extends Tag
+abstract class ContentTag extends Tag
 {
     private bool $encode = true;
     private bool $doubleEncode = true;

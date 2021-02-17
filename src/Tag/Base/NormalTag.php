@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
-abstract class NormalTag extends BaseNormalTag
+abstract class NormalTag extends ContentTag
 {
     final private function __construct()
     {

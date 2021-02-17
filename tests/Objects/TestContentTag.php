@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Objects;
 
-use Yiisoft\Html\Tag\Base\BaseNormalTag;
+use Yiisoft\Html\Tag\Base\ContentTag;
 
-final class TestBaseNormalTag extends BaseNormalTag
+final class TestContentTag extends ContentTag
 {
     public static function tag(): self
     {

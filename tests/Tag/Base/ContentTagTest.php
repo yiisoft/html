@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests\Tag\Base;
 
 use PHPUnit\Framework\TestCase;
-use Yiisoft\Html\Tests\Objects\TestBaseNormalTag;
+use Yiisoft\Html\Tests\Objects\TestContentTag;
 
-final class BaseNormalTagTest extends TestCase
+final class ContentTagTest extends TestCase
 {
     public function testBase(): void
     {
         self::assertSame(
             '<test id="main">&lt;b&gt;hello &amp;gt; world!&lt;/b&gt;</test>',
-            TestBaseNormalTag::tag()->id('main')->content('<b>hello &gt; world!</b>')->render()
+            TestContentTag::tag()->id('main')->content('<b>hello &gt; world!</b>')->render()
         );
     }
 
@@ -21,7 +21,7 @@ final class BaseNormalTagTest extends TestCase
     {
         self::assertSame(
             '<test><b>hello</b></test>',
-            (string)TestBaseNormalTag::tag()->content('<b>hello</b>')->encode(false)
+            (string)TestContentTag::tag()->content('<b>hello</b>')->encode(false)
         );
     }
 
@@ -29,7 +29,7 @@ final class BaseNormalTagTest extends TestCase
     {
         self::assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string)TestBaseNormalTag::tag()->content('<b>A &gt; B</b>')->doubleEncode(false)
+            (string)TestContentTag::tag()->content('<b>A &gt; B</b>')->doubleEncode(false)
         );
     }
 
@@ -37,7 +37,7 @@ final class BaseNormalTagTest extends TestCase
     {
         self::assertSame(
             '<test>hello</test>',
-            (string)TestBaseNormalTag::tag()->content('hello')
+            (string)TestContentTag::tag()->content('hello')
         );
     }
 
@@ -45,7 +45,7 @@ final class BaseNormalTagTest extends TestCase
     {
         self::assertSame(
             '<test id="main">',
-            TestBaseNormalTag::tag()->id('main')->open(),
+            TestContentTag::tag()->id('main')->open(),
         );
     }
 
@@ -53,13 +53,13 @@ final class BaseNormalTagTest extends TestCase
     {
         self::assertSame(
             '</test>',
-            TestBaseNormalTag::tag()->id('main')->close(),
+            TestContentTag::tag()->id('main')->close(),
         );
     }
 
     public function testImmutability(): void
     {
-        $tag = TestBaseNormalTag::tag();
+        $tag = TestContentTag::tag();
         self::assertNotSame($tag, $tag->encode(true));
         self::assertNotSame($tag, $tag->doubleEncode(true));
         self::assertNotSame($tag, $tag->content(''));

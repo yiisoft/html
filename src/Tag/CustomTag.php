@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\BaseNormalTag;
+use Yiisoft\Html\Tag\Base\ContentTag;
 
 /**
  * Custom HTML tag.
  */
-final class CustomTag extends BaseNormalTag
+final class CustomTag extends ContentTag
 {
     private const TYPE_AUTO = 0;
     private const TYPE_NORMAL = 1;
