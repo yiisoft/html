@@ -22,6 +22,7 @@ final class Input extends BaseInputTag
      *
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     *
      * @return self
      */
     public static function hidden(?string $name = null, $value = null): self
@@ -40,6 +41,7 @@ final class Input extends BaseInputTag
      *
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     *
      * @return self
      */
     public static function text(?string $name = null, $value = null): self
@@ -58,6 +60,7 @@ final class Input extends BaseInputTag
      *
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     *
      * @return self
      */
     public static function password(?string $name = null, $value = null): self
@@ -76,6 +79,7 @@ final class Input extends BaseInputTag
      *
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     *
      * @return self
      */
     public static function file(?string $name = null, $value = null): self
@@ -94,6 +98,7 @@ final class Input extends BaseInputTag
      *
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     *
      * @return Checkbox
      */
     public static function checkbox(?string $name = null, $value = null): Checkbox
@@ -115,6 +120,7 @@ final class Input extends BaseInputTag
      *
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     *
      * @return Radio
      */
     public static function radio(?string $name = null, $value = null): Radio
@@ -133,7 +139,9 @@ final class Input extends BaseInputTag
      * Button.
      *
      * @link https://www.w3.org/TR/html52/sec-forms.html#button-state-typebutton
+     *
      * @param string|null $label Button label.
+     *
      * @return self
      */
     public static function button(?string $label = null): self
@@ -148,7 +156,9 @@ final class Input extends BaseInputTag
      * Submit button.
      *
      * @link https://www.w3.org/TR/html52/sec-forms.html#submit-button-state-typesubmit
+     *
      * @param string|null $label Button label.
+     *
      * @return self
      */
     public static function submitButton(?string $label = null): self
@@ -163,7 +173,9 @@ final class Input extends BaseInputTag
      * Reset button.
      *
      * @link https://www.w3.org/TR/html52/sec-forms.html#reset-button-state-typereset
+     *
      * @param string|null $label Button label.
+     *
      * @return self
      */
     public static function resetButton(?string $label = null): self
@@ -178,7 +190,9 @@ final class Input extends BaseInputTag
      * Input with the type specified.
      *
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-type
+     *
      * @param string|null $type Type of the input.
+     *
      * @return self
      */
     public function type(?string $type): self

@@ -13,6 +13,7 @@ abstract class BaseInputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-name
      *
      * @param string|null $name Name of the input.
+     *
      * @return static
      */
     public function name(?string $name): self
@@ -40,6 +41,7 @@ abstract class BaseInputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
      *
      * @param string|null $formId ID of the form input belongs to.
+     *
      * @return static
      */
     public function form(?string $formId): self
@@ -53,6 +55,7 @@ abstract class BaseInputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#the-readonly-attribute
      *
      * @param bool $readOnly Whether input is read only.
+     *
      * @return static
      */
     public function readonly(bool $readOnly = true): self
@@ -66,6 +69,7 @@ abstract class BaseInputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#the-required-attribute
      *
      * @param bool $required Whether input is required.
+     *
      * @return static
      */
     public function required(bool $required = true): self
@@ -79,6 +83,7 @@ abstract class BaseInputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-disabledformelements-disabled
      *
      * @param bool $disabled Whether input is disabled.
+     *
      * @return static
      */
     public function disabled(bool $disabled = true): self

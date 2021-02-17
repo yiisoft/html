@@ -52,6 +52,7 @@ final class CustomTag extends BaseNormalTag
      * Create a tag instance with the name provided.
      *
      * @param string $name Name of the tag.
+     *
      * @psalm-param non-empty-string $name
      *
      * @return self
@@ -64,6 +65,7 @@ final class CustomTag extends BaseNormalTag
     /**
      * Set type of the tag as normal.
      * Normal tags have both open and close parts.
+     *
      * @return self
      */
     public function normal(): self
@@ -76,6 +78,7 @@ final class CustomTag extends BaseNormalTag
     /**
      * Set type of the tag as void.
      * Void tags should be self-closed right away.
+     *
      * @return self
      */
     public function void(): self

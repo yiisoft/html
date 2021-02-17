@@ -26,6 +26,7 @@ final class Option extends NormalTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-option-selected
+     *
      * @param bool $selected Whether option is selected.
      */
     public function selected(bool $selected = true): self
@@ -37,6 +38,7 @@ final class Option extends NormalTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-option-disabled
+     *
      * @param bool $disabled Whether option is disabled.
      */
     public function disabled(bool $disabled = true): self
