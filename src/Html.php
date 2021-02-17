@@ -18,6 +18,7 @@ use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
+use Yiisoft\Html\Tag\Meta;
 use Yiisoft\Html\Tag\Ol;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
@@ -362,6 +363,30 @@ final class Html
         }
         if ($attributes) {
             $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Meta} tag.
+     *
+     * @param string|null $name Metadata name.
+     * @param string|null $content Value of the element.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function meta(?string $name = null, ?string $content = null, array $attributes = []): Meta
+    {
+        $tag = Meta::tag();
+        if ($name !== null) {
+            $tag = $tag->name($name);
+        }
+        if ($content !== null) {
+            $tag = $tag->content($content);
+        }
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
