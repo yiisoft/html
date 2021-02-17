@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\BaseInputTag;
+use Yiisoft\Html\Tag\Base\InputTag;
 use Yiisoft\Html\Tag\Input\Checkbox;
 use Yiisoft\Html\Tag\Input\Radio;
 
@@ -13,7 +13,7 @@ use Yiisoft\Html\Tag\Input\Radio;
  *
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-input-element
  */
-final class Input extends BaseInputTag
+final class Input extends InputTag
 {
     /**
      * Hidden input.

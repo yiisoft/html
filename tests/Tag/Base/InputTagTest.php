@@ -6,9 +6,9 @@ namespace Yiisoft\Html\Tests\Tag\Base;
 
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tests\Objects\StringableObject;
-use Yiisoft\Html\Tests\Objects\TestBaseInputTag;
+use Yiisoft\Html\Tests\Objects\TestInputTag;
 
-final class BaseInputTagTest extends TestCase
+final class InputTagTest extends TestCase
 {
     public function dataName(): array
     {
@@ -23,7 +23,7 @@ final class BaseInputTagTest extends TestCase
      */
     public function testName(string $expected, ?string $name): void
     {
-        self::assertSame($expected, (string)TestBaseInputTag::tag()->name($name));
+        self::assertSame($expected, (string)TestInputTag::tag()->name($name));
     }
 
     public function dataValue(): array
@@ -47,7 +47,7 @@ final class BaseInputTagTest extends TestCase
      */
     public function testValue(string $expected, $value): void
     {
-        self::assertSame($expected, (string)TestBaseInputTag::tag()->value($value));
+        self::assertSame($expected, (string)TestInputTag::tag()->value($value));
     }
 
     public function dataForm(): array
@@ -64,33 +64,33 @@ final class BaseInputTagTest extends TestCase
      */
     public function testForm(string $expected, ?string $formId): void
     {
-        self::assertSame($expected, TestBaseInputTag::tag()->form($formId)->render());
+        self::assertSame($expected, TestInputTag::tag()->form($formId)->render());
     }
 
     public function testReadonly(): void
     {
-        self::assertSame('<input readonly>', (string)TestBaseInputTag::tag()->readonly());
-        self::assertSame('<input>', (string)TestBaseInputTag::tag()->readonly(false));
-        self::assertSame('<input>', (string)TestBaseInputTag::tag()->readonly(true)->readonly(false));
+        self::assertSame('<input readonly>', (string)TestInputTag::tag()->readonly());
+        self::assertSame('<input>', (string)TestInputTag::tag()->readonly(false));
+        self::assertSame('<input>', (string)TestInputTag::tag()->readonly(true)->readonly(false));
     }
 
     public function testRequired(): void
     {
-        self::assertSame('<input required>', (string)TestBaseInputTag::tag()->required());
-        self::assertSame('<input>', (string)TestBaseInputTag::tag()->required(false));
-        self::assertSame('<input>', (string)TestBaseInputTag::tag()->required(true)->required(false));
+        self::assertSame('<input required>', (string)TestInputTag::tag()->required());
+        self::assertSame('<input>', (string)TestInputTag::tag()->required(false));
+        self::assertSame('<input>', (string)TestInputTag::tag()->required(true)->required(false));
     }
 
     public function testDisabled(): void
     {
-        self::assertSame('<input disabled>', (string)TestBaseInputTag::tag()->disabled());
-        self::assertSame('<input>', (string)TestBaseInputTag::tag()->disabled(false));
-        self::assertSame('<input>', (string)TestBaseInputTag::tag()->disabled(true)->disabled(false));
+        self::assertSame('<input disabled>', (string)TestInputTag::tag()->disabled());
+        self::assertSame('<input>', (string)TestInputTag::tag()->disabled(false));
+        self::assertSame('<input>', (string)TestInputTag::tag()->disabled(true)->disabled(false));
     }
 
     public function testImmutability(): void
     {
-        $input = TestBaseInputTag::tag();
+        $input = TestInputTag::tag();
         self::assertNotSame($input, $input->name(null));
         self::assertNotSame($input, $input->value(null));
         self::assertNotSame($input, $input->form(null));

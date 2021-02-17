@@ -7,7 +7,7 @@ namespace Yiisoft\Html\Tag\Base;
 /**
  * Base for all input tags.
  */
-abstract class BaseInputTag extends VoidTag
+abstract class InputTag extends VoidTag
 {
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-name

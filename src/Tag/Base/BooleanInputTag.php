@@ -10,7 +10,7 @@ use Yiisoft\Html\Tag\Input;
 /**
  * Base for boolean input tags such as checkboxes and radios.
  */
-abstract class BooleanInputTag extends BaseInputTag
+abstract class BooleanInputTag extends InputTag
 {
     private ?string $uncheckValue = null;
     private ?string $label = null;
