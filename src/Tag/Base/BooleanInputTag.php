@@ -99,7 +99,7 @@ abstract class BooleanInputTag extends InputTag
         $this->attributes['id'] ??= $this->labelWrap ? null : Html::generateId();
 
         return $this->renderUncheckInput() .
-            ($this->labelWrap ? $this->renderLabelOpenTag() : '');
+            ($this->labelWrap ? $this->renderLabelOpenTag($this->labelAttributes) : '');
     }
 
     private function renderUncheckInput(): string
@@ -126,15 +126,11 @@ abstract class BooleanInputTag extends InputTag
         return $input->render();
     }
 
-    private function renderLabelOpenTag(): string
+    private function renderLabelOpenTag(array $attributes): string
     {
         if ($this->label === null) {
             return '';
         }
-
-        $attributes = $this->labelAttributes;
-        /** @var mixed */
-        $attributes['for'] = $this->attributes['id'];
 
         return Html::openTag('label', $attributes);
     }
@@ -145,10 +141,20 @@ abstract class BooleanInputTag extends InputTag
             return '';
         }
 
-        return ' ' .
-            ($this->labelWrap ? '' : $this->renderLabelOpenTag()) .
-            ($this->labelEncode ? Html::encode($this->label) : $this->label) .
-            '</label>';
+        $html = ' ';
+
+        if (!$this->labelWrap) {
+            $labelAttributes = array_merge($this->labelAttributes, [
+                'for' => $this->attributes['id'],
+            ]);
+            $html .= $this->renderLabelOpenTag($labelAttributes);
+        }
+
+        $html .= $this->labelEncode ? Html::encode($this->label) : $this->label;
+
+        $html .= '</label>';
+
+        return $html;
     }
 
     abstract protected function getType(): string;
