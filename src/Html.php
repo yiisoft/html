@@ -681,7 +681,7 @@ final class Html
      */
     public static function checkboxList(string $name): CheckboxList
     {
-        return CheckboxList::widget($name);
+        return CheckboxList::create($name);
     }
 
     /**
@@ -691,7 +691,7 @@ final class Html
      */
     public static function radioList(string $name): RadioList
     {
-        return RadioList::widget($name);
+        return RadioList::create($name);
     }
 
     /**

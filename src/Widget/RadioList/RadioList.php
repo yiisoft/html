@@ -42,7 +42,7 @@ final class RadioList
         $this->name = $name;
     }
 
-    public static function widget(string $name): self
+    public static function create(string $name): self
     {
         return new self($name);
     }
