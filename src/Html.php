@@ -448,9 +448,13 @@ final class Html
     /**
      * Generates a hyperlink tag.
      *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     *
      * @see A
      */
-    public static function a(string $content = '', ?string $url = null): A
+    public static function a(string $content = '', ?string $url = null, array $attributes = []): A
     {
         $tag = A::tag();
         if ($content !== '') {
@@ -459,19 +463,30 @@ final class Html
         if ($url !== null) {
             $tag = $tag->url($url);
         }
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
         return $tag;
     }
 
     /**
      * Generates a mailto hyperlink tag.
      *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     *
      * @see A
      */
-    public static function mailto(string $content, ?string $mail = null): A
+    public static function mailto(string $content, ?string $mail = null, array $attributes = []): A
     {
-        return A::tag()
+        $tag = A::tag()
             ->content($content)
             ->mailto($mail ?? $content);
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**

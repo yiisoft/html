@@ -173,6 +173,10 @@ final class HtmlTest extends TestCase
         self::assertSame('<a></a>', Html::a()->render());
         self::assertSame('<a>link</a>', Html::a('link')->render());
         self::assertSame('<a href="https://example.com">link</a>', Html::a('link', 'https://example.com')->render());
+        self::assertSame(
+            '<a id="home" href="https://example.com">link</a>',
+            Html::a('link', 'https://example.com', ['id' => 'home'])->render()
+        );
     }
 
     public function testMailto(): void
@@ -184,6 +188,10 @@ final class HtmlTest extends TestCase
         self::assertSame(
             '<a href="mailto:info@example.com">contact me</a>',
             Html::mailto('contact me', 'info@example.com')->render()
+        );
+        self::assertSame(
+            '<a id="contact" href="mailto:info@example.com">contact me</a>',
+            Html::mailto('contact me', 'info@example.com', ['id' => 'contact'])->render()
         );
     }
 
