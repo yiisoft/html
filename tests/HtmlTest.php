@@ -94,14 +94,22 @@ final class HtmlTest extends TestCase
 
     public function testStyle(): void
     {
-        $this->assertSame('<style></style>', Html::style()->render());
-        $this->assertSame('<style>.red{color:#f00}</style>', Html::style('.red{color:#f00}')->render());
+        self::assertSame('<style></style>', Html::style()->render());
+        self::assertSame('<style>.red{color:#f00}</style>', Html::style('.red{color:#f00}')->render());
+        self::assertSame(
+            '<style id="main">.red{color:#f00}</style>',
+            Html::style('.red{color:#f00}', ['id' => 'main'])->render()
+        );
     }
 
     public function testScript(): void
     {
-        $this->assertSame('<script></script>', Html::script()->render());
-        $this->assertSame('<script>alert(15)</script>', Html::script('alert(15)')->render());
+        self::assertSame('<script></script>', Html::script()->render());
+        self::assertSame('<script>alert(15)</script>', Html::script('alert(15)')->render());
+        self::assertSame(
+            '<script id="main">alert(15)</script>',
+            Html::script('alert(15)', ['id' => 'main'])->render()
+        );
     }
 
     public function testLink(): void

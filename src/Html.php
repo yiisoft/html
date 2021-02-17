@@ -330,22 +330,40 @@ final class Html
      * Generates a {@see Style} tag.
      *
      * @param string $content The style content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function style(string $content = ''): Style
+    public static function style(string $content = '', array $attributes = []): Style
     {
         $tag = Style::tag();
-        return empty($content) ? $tag : $tag->content($content);
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if ($attributes) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
     }
 
     /**
      * Generates a {@see Script} tag.
      *
      * @param string $content The script content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function script(string $content = ''): Script
+    public static function script(string $content = '', array $attributes = []): Script
     {
         $tag = Script::tag();
-        return empty($content) ? $tag : $tag->content($content);
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if ($attributes) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
     }
 
     /**
