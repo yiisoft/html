@@ -494,7 +494,7 @@ final class Html
      *
      * @param string $src The image URL.
      */
-    public static function img(?string $url = null, ?string $alt = null): Img
+    public static function img(?string $url = null, ?string $alt = ''): Img
     {
         $tag = Img::tag();
         if ($url !== null) {

@@ -197,9 +197,9 @@ final class HtmlTest extends TestCase
 
     public function testImg(): void
     {
-        self::assertSame('<img>', Html::img()->render());
-        self::assertSame('<img src="">', Html::img('')->render());
-        self::assertSame('<img alt="">', Html::img(null, '')->render());
+        self::assertSame('<img alt="">', Html::img()->render());
+        self::assertSame('<img src="" alt="">', Html::img('')->render());
+        self::assertSame('<img>', Html::img(null, null)->render());
         self::assertSame('<img src="face.png" alt="My Face">', Html::img('face.png', 'My Face')->render());
     }
 
