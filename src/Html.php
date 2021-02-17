@@ -531,10 +531,17 @@ final class Html
      * @see Button::button()
      *
      * @param string $content The content enclosed within the button tag.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function button(string $content = 'Button'): Button
+    public static function button(string $content = 'Button', array $attributes = []): Button
     {
-        return Button::button($content);
+        $tag = Button::button($content);
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
@@ -543,10 +550,17 @@ final class Html
      * @see Button::submit()
      *
      * @param string $content The content enclosed within the button tag.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function submitButton(string $content = 'Submit'): Button
+    public static function submitButton(string $content = 'Submit', array $attributes = []): Button
     {
-        return Button::submit($content);
+        $tag = Button::submit($content);
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
@@ -555,10 +569,17 @@ final class Html
      * @see Button::reset()
      *
      * @param string $content The content enclosed within the button tag.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function resetButton(string $content = 'Reset'): Button
+    public static function resetButton(string $content = 'Reset', array $attributes = []): Button
     {
-        return Button::reset($content);
+        $tag = Button::reset($content);
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**

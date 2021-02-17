@@ -213,25 +213,37 @@ final class HtmlTest extends TestCase
 
     public function testButton(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<button type="button">Button</button>',
             Html::button('Button')->render()
+        );
+        self::assertSame(
+            '<button type="button" id="main">Button</button>',
+            Html::button('Button', ['id' => 'main'])->render()
         );
     }
 
     public function testSubmitButton(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<button type="submit">Submit</button>',
             Html::submitButton('Submit')->render()
+        );
+        self::assertSame(
+            '<button type="submit" id="main">Submit</button>',
+            Html::submitButton('Submit', ['id' => 'main'])->render()
         );
     }
 
     public function testResetButton(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<button type="reset">Reset</button>',
             Html::resetButton('Reset')->render()
+        );
+        self::assertSame(
+            '<button type="reset" id="main">Reset</button>',
+            Html::resetButton('Reset', ['id' => 'main'])->render()
         );
     }
 
