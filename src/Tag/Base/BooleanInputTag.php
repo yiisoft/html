@@ -98,8 +98,8 @@ abstract class BooleanInputTag extends InputTag
     {
         $this->attributes['id'] ??= $this->labelWrap ? null : Html::generateId();
 
-        return ($this->labelWrap ? $this->renderLabelOpenTag() : '') .
-            $this->renderUncheckInput();
+        return $this->renderUncheckInput() .
+            ($this->labelWrap ? $this->renderLabelOpenTag() : '');
     }
 
     private function renderUncheckInput(): string

@@ -131,6 +131,19 @@ final class BooleanInputTagTest extends TestCase
         );
     }
 
+    public function testUncheckValueWithLabel(): void
+    {
+        self::assertSame(
+            '<input type="hidden" name="color" value="7">' .
+            '<label><input type="test" name="color"> Seven</label>',
+            TestBooleanInputTag::tag()
+                ->name('color')
+                ->uncheckValue(7)
+                ->label('Seven')
+                ->render()
+        );
+    }
+
     public function testImmutability(): void
     {
         $input = TestBooleanInputTag::tag();
