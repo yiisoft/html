@@ -42,6 +42,10 @@ final class RadioListTest extends TestCase
         return [
             [
                 '<label><input type="radio" name="test[]" value="1"> One</label>',
+                null,
+            ],
+            [
+                '<label><input type="radio" name="test[]" value="1"> One</label>',
                 '',
             ],
             [
@@ -54,7 +58,7 @@ final class RadioListTest extends TestCase
     /**
      * @dataProvider dataContainerTag
      */
-    public function testContainerTag(string $expected, string $name): void
+    public function testContainerTag(string $expected, ?string $name): void
     {
         self::assertSame(
             $expected,

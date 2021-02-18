@@ -61,7 +61,7 @@ final class CheckboxList
         return $new;
     }
 
-    public function containerTag(string $name): self
+    public function containerTag(?string $name): self
     {
         $new = clone $this;
         $new->containerTag = $name;

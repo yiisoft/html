@@ -45,6 +45,10 @@ final class CheckboxListTest extends TestCase
         return [
             [
                 '<label><input type="checkbox" name="test[]" value="1"> One</label>',
+                null,
+            ],
+            [
+                '<label><input type="checkbox" name="test[]" value="1"> One</label>',
                 '',
             ],
             [
@@ -57,7 +61,7 @@ final class CheckboxListTest extends TestCase
     /**
      * @dataProvider dataContainerTag
      */
-    public function testContainerTag(string $expected, string $name): void
+    public function testContainerTag(string $expected, ?string $name): void
     {
         self::assertSame(
             $expected,
