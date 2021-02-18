@@ -162,18 +162,16 @@ final class RadioList
 
     public function render(): string
     {
-        $name = Html::getArrayableName($this->name);
-
         $lines = [];
         $index = 0;
         foreach ($this->items as $value => $label) {
             $item = new RadioItem(
                 $index,
-                $name,
+                $this->name,
                 $value,
                 $this->value !== null && $this->value == $value,
                 array_merge($this->radioAttributes, [
-                    'name' => $name,
+                    'name' => $this->name,
                     'value' => $value,
                 ]),
                 $label,

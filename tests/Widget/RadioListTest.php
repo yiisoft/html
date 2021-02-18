@@ -16,9 +16,9 @@ final class RadioListTest extends TestCase
         self::assertSame(
             '<input type="hidden" name="test" value="0">' .
             '<div id="main">' .
-            '<label><input type="radio" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="radio" name="test[]" value="2" checked> Two</label>' . "\n" .
-            '<label><input type="radio" name="test[]" value="5"> Five</label>' .
+            '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
+            '<label><input type="radio" name="test" value="2" checked> Two</label>' . "\n" .
+            '<label><input type="radio" name="test" value="5"> Five</label>' .
             '</div>',
             RadioList::create('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
@@ -32,7 +32,7 @@ final class RadioListTest extends TestCase
     public function testWithoutContainer(): void
     {
         self::assertSame(
-            '<label><input type="radio" name="test[]" value="1"> One</label>',
+            '<label><input type="radio" name="test" value="1"> One</label>',
             RadioList::create('test')->items([1 => 'One'])->withoutContainer()->render(),
         );
     }
@@ -41,15 +41,15 @@ final class RadioListTest extends TestCase
     {
         return [
             [
-                '<label><input type="radio" name="test[]" value="1"> One</label>',
+                '<label><input type="radio" name="test" value="1"> One</label>',
                 null,
             ],
             [
-                '<label><input type="radio" name="test[]" value="1"> One</label>',
+                '<label><input type="radio" name="test" value="1"> One</label>',
                 '',
             ],
             [
-                '<section><label><input type="radio" name="test[]" value="1"> One</label></section>',
+                '<section><label><input type="radio" name="test" value="1"> One</label></section>',
                 'section',
             ],
         ];
@@ -70,7 +70,7 @@ final class RadioListTest extends TestCase
     {
         self::assertSame(
             '<div id="main">' .
-            '<label><input type="radio" name="test[]" value="1"> One</label>' .
+            '<label><input type="radio" name="test" value="1"> One</label>' .
             '</div>',
             RadioList::create('test')->items([1 => 'One'])->containerAttributes(['id' => 'main'])->render(),
         );
@@ -79,8 +79,8 @@ final class RadioListTest extends TestCase
     public function testRadioAttributes(): void
     {
         self::assertSame(
-            '<label><input type="radio" class="red" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="radio" class="red" name="test[]" value="2"> Two</label>',
+            '<label><input type="radio" class="red" name="test" value="1"> One</label>' . "\n" .
+            '<label><input type="radio" class="red" name="test" value="2"> Two</label>',
             RadioList::create('test')
                 ->items([
                     1 => 'One',
@@ -95,8 +95,8 @@ final class RadioListTest extends TestCase
     public function testRadioAttributesMerge(): void
     {
         self::assertSame(
-            '<label><input type="radio" class="red" name="test[]" value="1" readonly> One</label>' . "\n" .
-            '<label><input type="radio" class="red" name="test[]" value="2" readonly> Two</label>',
+            '<label><input type="radio" class="red" name="test" value="1" readonly> One</label>' . "\n" .
+            '<label><input type="radio" class="red" name="test" value="2" readonly> Two</label>',
             RadioList::create('test')
                 ->items([
                     1 => 'One',
@@ -112,8 +112,8 @@ final class RadioListTest extends TestCase
     public function testReplaceRadioAttributes(): void
     {
         self::assertSame(
-            '<label><input type="radio" class="red" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="radio" class="red" name="test[]" value="2"> Two</label>',
+            '<label><input type="radio" class="red" name="test" value="1"> One</label>' . "\n" .
+            '<label><input type="radio" class="red" name="test" value="2"> Two</label>',
             RadioList::create('test')
                 ->items([
                     1 => 'One',
@@ -129,8 +129,8 @@ final class RadioListTest extends TestCase
     public function testItems(): void
     {
         self::assertSame(
-            '<label><input type="radio" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="radio" name="test[]" value="2"> &lt;b&gt;Two&lt;/b&gt;</label>',
+            '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
+            '<label><input type="radio" name="test" value="2"> &lt;b&gt;Two&lt;/b&gt;</label>',
             RadioList::create('test')
                 ->items([
                     1 => 'One',
@@ -144,8 +144,8 @@ final class RadioListTest extends TestCase
     public function testItemsWithoutEncodeLabel(): void
     {
         self::assertSame(
-            '<label><input type="radio" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="radio" name="test[]" value="2"> <b>Two</b></label>',
+            '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
+            '<label><input type="radio" name="test" value="2"> <b>Two</b></label>',
             RadioList::create('test')
                 ->items([
                     1 => 'One',
@@ -163,32 +163,32 @@ final class RadioListTest extends TestCase
             ['<div></div>', [], 42],
             [
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1"> One</label>' .
-                '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+                '<label><input type="radio" name="test" value="1"> One</label>' .
+                '<label><input type="radio" name="test" value="2"> Two</label>' .
                 '</div>',
                 [1 => 'One', 2 => 'Two'],
                 null,
             ],
             [
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1"> One</label>' .
-                '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+                '<label><input type="radio" name="test" value="1"> One</label>' .
+                '<label><input type="radio" name="test" value="2"> Two</label>' .
                 '</div>',
                 [1 => 'One', 2 => 'Two'],
                 7,
             ],
             [
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1" checked> One</label>' .
-                '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+                '<label><input type="radio" name="test" value="1" checked> One</label>' .
+                '<label><input type="radio" name="test" value="2"> Two</label>' .
                 '</div>',
                 [1 => 'One', 2 => 'Two'],
                 1,
             ],
             [
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1"> One</label>' .
-                '<label><input type="radio" name="test[]" value="2" checked> Two</label>' .
+                '<label><input type="radio" name="test" value="1"> One</label>' .
+                '<label><input type="radio" name="test" value="2" checked> Two</label>' .
                 '</div>',
                 [1 => 'One', 2 => 'Two'],
                 2,
@@ -215,22 +215,22 @@ final class RadioListTest extends TestCase
         return [
             [
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1"> One</label>' .
-                '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+                '<label><input type="radio" name="test" value="1"> One</label>' .
+                '<label><input type="radio" name="test" value="2"> Two</label>' .
                 '</div>',
                 null,
             ],
             [
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1" form=""> One</label>' .
-                '<label><input type="radio" name="test[]" value="2" form=""> Two</label>' .
+                '<label><input type="radio" name="test" value="1" form=""> One</label>' .
+                '<label><input type="radio" name="test" value="2" form=""> Two</label>' .
                 '</div>',
                 '',
             ],
             [
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1" form="post"> One</label>' .
-                '<label><input type="radio" name="test[]" value="2" form="post"> Two</label>' .
+                '<label><input type="radio" name="test" value="1" form="post"> One</label>' .
+                '<label><input type="radio" name="test" value="2" form="post"> Two</label>' .
                 '</div>',
                 'post',
             ],
@@ -266,23 +266,23 @@ final class RadioListTest extends TestCase
 
         self::assertSame(
             '<div>' .
-            '<label><input type="radio" name="test[]" value="1" readonly> One</label>' .
-            '<label><input type="radio" name="test[]" value="2" readonly> Two</label>' .
+            '<label><input type="radio" name="test" value="1" readonly> One</label>' .
+            '<label><input type="radio" name="test" value="2" readonly> Two</label>' .
             '</div>',
             $checkbox->readonly()->render()
         );
 
         self::assertSame(
             '<div>' .
-            '<label><input type="radio" name="test[]" value="1"> One</label>' .
-            '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+            '<label><input type="radio" name="test" value="1"> One</label>' .
+            '<label><input type="radio" name="test" value="2"> Two</label>' .
             '</div>',
             $checkbox->readonly(false)->render()
         );
         self::assertSame(
             '<div>' .
-            '<label><input type="radio" name="test[]" value="1"> One</label>' .
-            '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+            '<label><input type="radio" name="test" value="1"> One</label>' .
+            '<label><input type="radio" name="test" value="2"> Two</label>' .
             '</div>',
             $checkbox->readonly(true)->readonly(false)->render()
         );
@@ -299,23 +299,23 @@ final class RadioListTest extends TestCase
 
         self::assertSame(
             '<div>' .
-            '<label><input type="radio" name="test[]" value="1" disabled> One</label>' .
-            '<label><input type="radio" name="test[]" value="2" disabled> Two</label>' .
+            '<label><input type="radio" name="test" value="1" disabled> One</label>' .
+            '<label><input type="radio" name="test" value="2" disabled> Two</label>' .
             '</div>',
             $checkbox->disabled()->render()
         );
 
         self::assertSame(
             '<div>' .
-            '<label><input type="radio" name="test[]" value="1"> One</label>' .
-            '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+            '<label><input type="radio" name="test" value="1"> One</label>' .
+            '<label><input type="radio" name="test" value="2"> Two</label>' .
             '</div>',
             $checkbox->disabled(false)->render()
         );
         self::assertSame(
             '<div>' .
-            '<label><input type="radio" name="test[]" value="1"> One</label>' .
-            '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+            '<label><input type="radio" name="test" value="1"> One</label>' .
+            '<label><input type="radio" name="test" value="2"> Two</label>' .
             '</div>',
             $checkbox->disabled(true)->disabled(false)->render()
         );
@@ -326,25 +326,25 @@ final class RadioListTest extends TestCase
         return [
             [
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1"> One</label>' .
-                '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+                '<label><input type="radio" name="test" value="1"> One</label>' .
+                '<label><input type="radio" name="test" value="2"> Two</label>' .
                 '</div>',
                 'test',
                 null,
             ],
             [
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1"> One</label>' .
-                '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+                '<label><input type="radio" name="test" value="1"> One</label>' .
+                '<label><input type="radio" name="test" value="2"> Two</label>' .
                 '</div>',
-                'test[]',
+                'test',
                 null,
             ],
             [
                 '<input type="hidden" name="test" value="7">' .
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1"> One</label>' .
-                '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+                '<label><input type="radio" name="test" value="1"> One</label>' .
+                '<label><input type="radio" name="test" value="2"> Two</label>' .
                 '</div>',
                 'test',
                 7,
@@ -352,10 +352,10 @@ final class RadioListTest extends TestCase
             [
                 '<input type="hidden" name="test" value="7">' .
                 '<div>' .
-                '<label><input type="radio" name="test[]" value="1"> One</label>' .
-                '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+                '<label><input type="radio" name="test" value="1"> One</label>' .
+                '<label><input type="radio" name="test" value="2"> Two</label>' .
                 '</div>',
-                'test[]',
+                'test',
                 7,
             ],
         ];
@@ -385,8 +385,8 @@ final class RadioListTest extends TestCase
     {
         self::assertSame(
             '<input type="hidden" name="test" value="7" disabled>' .
-            '<label><input type="radio" name="test[]" value="1" disabled> One</label>' . "\n" .
-            '<label><input type="radio" name="test[]" value="2" disabled> Two</label>',
+            '<label><input type="radio" name="test" value="1" disabled> One</label>' . "\n" .
+            '<label><input type="radio" name="test" value="2" disabled> Two</label>',
             RadioList::create('test')
                 ->items([
                     1 => 'One',
@@ -403,8 +403,8 @@ final class RadioListTest extends TestCase
     {
         self::assertSame(
             '<input type="hidden" name="test" value="7" form="post">' .
-            '<label><input type="radio" name="test[]" value="1" form="post"> One</label>' . "\n" .
-            '<label><input type="radio" name="test[]" value="2" form="post"> Two</label>',
+            '<label><input type="radio" name="test" value="1" form="post"> One</label>' . "\n" .
+            '<label><input type="radio" name="test" value="2" form="post"> Two</label>',
             RadioList::create('test')
                 ->items([
                     1 => 'One',
@@ -421,8 +421,8 @@ final class RadioListTest extends TestCase
     {
         self::assertSame(
             '<div>' .
-            '<label><input type="radio" name="test[]" value="1"> One</label><br>' .
-            '<label><input type="radio" name="test[]" value="2"> Two</label>' .
+            '<label><input type="radio" name="test" value="1"> One</label><br>' .
+            '<label><input type="radio" name="test" value="2"> Two</label>' .
             '</div>',
             RadioList::create('test')->items([1 => 'One', 2 => 'Two'])->separator('<br>')->render(),
         );
@@ -432,8 +432,8 @@ final class RadioListTest extends TestCase
     {
         self::assertSame(
             '<div>' .
-            '<div>0) <label><input type="radio" name="test[]" value="1"> One</label></div>' .
-            '<div>1) <label><input type="radio" name="test[]" value="2"> Two</label></div>' .
+            '<div>0) <label><input type="radio" name="test" value="1"> One</label></div>' .
+            '<div>1) <label><input type="radio" name="test" value="2"> Two</label></div>' .
             '</div>',
             RadioList::create('test')
                 ->items([1 => 'One', 2 => 'Two'])

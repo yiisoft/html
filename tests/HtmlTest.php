@@ -407,9 +407,9 @@ final class HtmlTest extends TestCase
         self::assertSame(
             '<input type="hidden" name="test" value="0">' .
             '<div id="main">' .
-            '<label><input type="radio" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="radio" name="test[]" value="2" checked> Two</label>' . "\n" .
-            '<label><input type="radio" name="test[]" value="5"> Five</label>' .
+            '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
+            '<label><input type="radio" name="test" value="2" checked> Two</label>' . "\n" .
+            '<label><input type="radio" name="test" value="5"> Five</label>' .
             '</div>',
             Html::radioList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
