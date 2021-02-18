@@ -800,10 +800,16 @@ final class Html
      * Generates a {@see Div} tag.
      *
      * @param string $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function div(string $content = ''): Div
+    public static function div(string $content = '', array $attributes = []): Div
     {
         $tag = Div::tag();
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
         return empty($content) ? $tag : $tag->content($content);
     }
 
@@ -811,10 +817,16 @@ final class Html
      * Generates a {@see Span} tag.
      *
      * @param string $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function span(string $content = ''): Span
+    public static function span(string $content = '', array $attributes = []): Span
     {
         $tag = Span::tag();
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
         return empty($content) ? $tag : $tag->content($content);
     }
 
@@ -822,10 +834,16 @@ final class Html
      * Generates a {@see P} tag.
      *
      * @param string $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function p(string $content = ''): P
+    public static function p(string $content = '', array $attributes = []): P
     {
         $tag = P::tag();
+        if ($attributes) {
+            $tag = $tag->attributes($attributes);
+        }
         return empty($content) ? $tag : $tag->content($content);
     }
 

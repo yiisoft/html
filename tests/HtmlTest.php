@@ -422,20 +422,23 @@ final class HtmlTest extends TestCase
 
     public function testDiv(): void
     {
-        $this->assertSame('<div></div>', Html::div()->render());
-        $this->assertSame('<div>hello</div>', Html::div('hello')->render());
+        self::assertSame('<div></div>', Html::div()->render());
+        self::assertSame('<div>hello</div>', Html::div('hello')->render());
+        self::assertSame('<div id="main">hello</div>', Html::div('hello', ['id' => 'main'])->render());
     }
 
     public function testSpan(): void
     {
-        $this->assertSame('<span></span>', Html::span()->render());
-        $this->assertSame('<span>hello</span>', Html::span('hello')->render());
+        self::assertSame('<span></span>', Html::span()->render());
+        self::assertSame('<span>hello</span>', Html::span('hello')->render());
+        self::assertSame('<span id="main">hello</span>', Html::span('hello', ['id' => 'main'])->render());
     }
 
     public function testP(): void
     {
-        $this->assertSame('<p></p>', Html::p()->render());
-        $this->assertSame('<p>hello</p>', Html::p('hello')->render());
+        self::assertSame('<p></p>', Html::p()->render());
+        self::assertSame('<p>hello</p>', Html::p('hello')->render());
+        self::assertSame('<p id="main">hello</p>', Html::p('hello', ['id' => 'main'])->render());
     }
 
     public function testUl(): void
