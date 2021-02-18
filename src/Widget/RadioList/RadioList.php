@@ -151,9 +151,9 @@ final class RadioList
     }
 
     /**
-     * @param Closure(RadioItem):string $formatter
+     * @param Closure(RadioItem):string|null $formatter
      */
-    public function itemFormatter(Closure $formatter): self
+    public function itemFormatter(?Closure $formatter): self
     {
         $new = clone $this;
         $new->itemFormatter = $formatter;
