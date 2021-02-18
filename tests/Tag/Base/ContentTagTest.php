@@ -25,6 +25,14 @@ final class ContentTagTest extends TestCase
         );
     }
 
+    public function testEncodeSpaces(): void
+    {
+        self::assertSame(
+            '<test>hello&nbsp;world</test>',
+            (string)TestContentTag::tag()->content('hello world')->encodeSpaces(true)
+        );
+    }
+
     public function testWithoutDoubleEncode(): void
     {
         self::assertSame(
@@ -61,6 +69,7 @@ final class ContentTagTest extends TestCase
     {
         $tag = TestContentTag::tag();
         self::assertNotSame($tag, $tag->encode(true));
+        self::assertNotSame($tag, $tag->encodeSpaces(true));
         self::assertNotSame($tag, $tag->doubleEncode(true));
         self::assertNotSame($tag, $tag->content(''));
     }

@@ -12,6 +12,7 @@ use Yiisoft\Html\Html;
 abstract class ContentTag extends Tag
 {
     private bool $encode = true;
+    private bool $encodeSpaces = false;
     private bool $doubleEncode = true;
     private string $content = '';
 
@@ -24,6 +25,18 @@ abstract class ContentTag extends Tag
     {
         $new = clone $this;
         $new->encode = $encode;
+        return $new;
+    }
+
+    /**
+     * @param bool $encodeSpaces Whether to encode spaces in tag content with `&nbsp;` character. Defaults to `false`.
+     *
+     * @return static
+     */
+    final public function encodeSpaces(bool $encodeSpaces): self
+    {
+        $new = clone $this;
+        $new->encodeSpaces = $encodeSpaces;
         return $new;
     }
 
@@ -57,7 +70,14 @@ abstract class ContentTag extends Tag
      */
     final protected function generateContent(): string
     {
-        return $this->encode ? Html::encode($this->content, $this->doubleEncode) : $this->content;
+        $content = $this->content;
+        if ($this->encode) {
+            $content = Html::encode($this->content, $this->doubleEncode);
+        }
+        if ($this->encodeSpaces) {
+            $content = str_replace(' ', '&nbsp;', $content);
+        }
+        return $content;
     }
 
     /**
