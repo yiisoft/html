@@ -36,8 +36,16 @@ final class SelectTest extends TestCase
         return [
             ['<select multiple></select>', null],
             ['<select name="" multiple></select>', ''],
-            ['<select name="age[]" multiple></select>', 'age'],
-            ['<select name="place[]" multiple></select>', 'place[]'],
+            [
+                '<input type="hidden" name="age" value="">' . "\n" .
+                '<select name="age[]" multiple></select>',
+                'age',
+            ],
+            [
+                '<input type="hidden" name="place" value="">' . "\n" .
+                '<select name="place[]" multiple></select>',
+                'place[]',
+            ],
         ];
     }
 
@@ -413,6 +421,7 @@ final class SelectTest extends TestCase
     public function testUnselectValueMultiple(): void
     {
         self::assertSame(
+            '<input type="hidden" name="test" value="7">' . "\n" .
             '<select name="test[]" multiple></select>',
             Select::tag()->name('test')->unselectValue(7)->multiple()->render()
         );

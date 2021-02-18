@@ -243,15 +243,17 @@ final class Select extends ContainerTag
         $name = (string)($this->attributes['name'] ?? '');
         if (
             empty($name) ||
-            $this->unselectValue === null ||
-            !empty($this->attributes['multiple'])
+            (
+                $this->unselectValue === null &&
+                empty($this->attributes['multiple'])
+            )
         ) {
             return '';
         }
 
         $input = Input::hidden(
             Html::getNonArrayableName($name),
-            $this->unselectValue
+            (string)$this->unselectValue
         );
 
         // Make sure disabled input is not sending any value.
