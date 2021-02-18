@@ -177,9 +177,9 @@ final class CheckboxList
     }
 
     /**
-     * @param Closure(CheckboxItem):string $formatter
+     * @param Closure(CheckboxItem):string|null $formatter
      */
-    public function itemFormatter(Closure $formatter): self
+    public function itemFormatter(?Closure $formatter): self
     {
         $new = clone $this;
         $new->itemFormatter = $formatter;

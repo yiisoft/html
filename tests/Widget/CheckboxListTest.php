@@ -493,6 +493,6 @@ final class CheckboxListTest extends TestCase
         self::assertNotSame($widget, $widget->disabled());
         self::assertNotSame($widget, $widget->uncheckValue(null));
         self::assertNotSame($widget, $widget->separator(''));
-        self::assertNotSame($widget, $widget->itemFormatter(fn () => ''));
+        self::assertNotSame($widget, $widget->itemFormatter(null));
     }
 }
