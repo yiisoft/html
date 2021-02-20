@@ -209,24 +209,25 @@ final class CheckboxList
             $index++;
         }
 
-        $html = $this->renderUncheckInput();
-        if (!empty($this->containerTag)) {
-            $html .= Html::openTag($this->containerTag, $this->containerAttributes);
+        $html = [];
+        if ($this->uncheckValue !== null) {
+            $html[] = $this->renderUncheckInput();
         }
-        $html .= implode($this->separator, $lines);
         if (!empty($this->containerTag)) {
-            $html .= Html::closeTag($this->containerTag);
+            $html[] = Html::openTag($this->containerTag, $this->containerAttributes);
+        }
+        if ($lines) {
+            $html[] = implode($this->separator, $lines);
+        }
+        if (!empty($this->containerTag)) {
+            $html[] = Html::closeTag($this->containerTag);
         }
 
-        return $html;
+        return implode("\n", $html);
     }
 
     private function renderUncheckInput(): string
     {
-        if ($this->uncheckValue === null) {
-            return '';
-        }
-
         $input = Input::hidden(
             Html::getNonArrayableName($this->name),
             $this->uncheckValue

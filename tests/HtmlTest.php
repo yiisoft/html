@@ -383,11 +383,11 @@ final class HtmlTest extends TestCase
     public function testCheckboxList(): void
     {
         self::assertSame(
-            '<input type="hidden" name="test" value="0">' .
-            '<div id="main">' .
+            '<input type="hidden" name="test" value="0">' . "\n" .
+            '<div id="main">' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="5" checked> Five</label>' .
+            '<label><input type="checkbox" name="test[]" value="5" checked> Five</label>' . "\n" .
             '</div>',
             Html::checkboxList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
@@ -401,11 +401,11 @@ final class HtmlTest extends TestCase
     public function testRadioList(): void
     {
         self::assertSame(
-            '<input type="hidden" name="test" value="0">' .
-            '<div id="main">' .
+            '<input type="hidden" name="test" value="0">' . "\n" .
+            '<div id="main">' . "\n" .
             '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
             '<label><input type="radio" name="test" value="2" checked> Two</label>' . "\n" .
-            '<label><input type="radio" name="test" value="5"> Five</label>' .
+            '<label><input type="radio" name="test" value="5"> Five</label>' . "\n" .
             '</div>',
             Html::radioList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
