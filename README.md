@@ -18,7 +18,7 @@
 The package provides:
 - tag classes `A`, `Button`, `Div`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`, `Meta`, `Ol`,
   `Optgroup`, `Option`, `P`, `Script`, `Select`, `Span`, `Style`, `Textarea`, `Ul`;
-- `CustomTag` class that help generate custom tag with any attributes.
+- `CustomTag` class that help generate custom tag with any attributes;
 - HTML widgets `CheckboxList` and `RadioList`;
 - `Html` helper that has static methods to generate HTML, create tag and HTML widget objects.
 
