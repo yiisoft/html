@@ -115,13 +115,9 @@ final class HtmlTest extends TestCase
     public function testMeta(): void
     {
         self::assertSame('<meta>', Html::meta()->render());
-        self::assertSame('<meta name="">', Html::meta('')->render());
-        self::assertSame('<meta name="keywords">', Html::meta('keywords')->render());
-        self::assertSame('<meta name="keywords" content="">', Html::meta('keywords', '')->render());
-        self::assertSame('<meta name="keywords" content="yii">', Html::meta('keywords', 'yii')->render());
         self::assertSame(
             '<meta id="main" name="keywords" content="yii">',
-            Html::meta('keywords', 'yii', ['id' => 'main'])->render()
+            Html::meta(['name' => 'keywords', 'content' => 'yii', 'id' => 'main'])->render()
         );
     }
 

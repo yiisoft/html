@@ -20,6 +20,30 @@ final class MetaTest extends TestCase
         );
     }
 
+    public function testData(): void
+    {
+        self::assertSame(
+            '<meta name="keywords" content="yii">',
+            Meta::data('keywords', 'yii')->render()
+        );
+    }
+
+    public function testPragmaDirective(): void
+    {
+        self::assertSame(
+            '<meta http-equiv="Cache-Control" content="public">',
+            Meta::pragmaDirective('Cache-Control', 'public')->render()
+        );
+    }
+
+    public function testDocumentEncoding(): void
+    {
+        self::assertSame(
+            '<meta charset="utf-8">',
+            Meta::documentEncoding('utf-8')->render()
+        );
+    }
+
     public function testDescription(): void
     {
         self::assertSame(
@@ -45,6 +69,23 @@ final class MetaTest extends TestCase
         self::assertSame($expected, (string)Meta::tag()->name($name));
     }
 
+    public function dataHttpEquiv(): array
+    {
+        return [
+            ['<meta>', null],
+            ['<meta http-equiv="">', ''],
+            ['<meta http-equiv="refresh">', 'refresh'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataHttpEquiv
+     */
+    public function testHttpEquiv(string $expected, ?string $name): void
+    {
+        self::assertSame($expected, (string)Meta::tag()->httpEquiv($name));
+    }
+
     public function dataContent(): array
     {
         return [
@@ -62,10 +103,29 @@ final class MetaTest extends TestCase
         self::assertSame($expected, (string)Meta::tag()->content($content));
     }
 
+    public function dataCharset(): array
+    {
+        return [
+            ['<meta>', null],
+            ['<meta charset="">', ''],
+            ['<meta charset="utf-8">', 'utf-8'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataCharset
+     */
+    public function testCharset(string $expected, ?string $charset): void
+    {
+        self::assertSame($expected, (string)Meta::tag()->charset($charset));
+    }
+
     public function testImmutability(): void
     {
         $tag = Meta::tag();
         self::assertNotSame($tag, $tag->name(null));
+        self::assertNotSame($tag, $tag->httpEquiv(null));
         self::assertNotSame($tag, $tag->content(null));
+        self::assertNotSame($tag, $tag->charset(null));
     }
 }

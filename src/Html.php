@@ -370,21 +370,13 @@ final class Html
     /**
      * Generates a {@see Meta} tag.
      *
-     * @param string|null $name Metadata name.
-     * @param string|null $content Value of the element.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function meta(?string $name = null, ?string $content = null, array $attributes = []): Meta
+    public static function meta(array $attributes = []): Meta
     {
         $tag = Meta::tag();
-        if ($name !== null) {
-            $tag = $tag->name($name);
-        }
-        if ($content !== null) {
-            $tag = $tag->content($content);
-        }
         if ($attributes) {
             $tag = $tag->attributes($attributes);
         }
