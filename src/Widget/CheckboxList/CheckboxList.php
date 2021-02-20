@@ -25,7 +25,7 @@ final class CheckboxList
     private bool $encodeLabels = true;
 
     /**
-     * @var array<array-key, string>
+     * @var string[]
      */
     private array $items = [];
 
@@ -90,7 +90,7 @@ final class CheckboxList
     }
 
     /**
-     * @param array<array-key, string> $items
+     * @param string[] $items
      * @param bool $encodeLabels Whether labels should be encoded.
      *
      * @return self

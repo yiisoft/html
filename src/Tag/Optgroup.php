@@ -26,7 +26,7 @@ final class Optgroup extends ContainerTag
     /**
      * Options as a set of value-content pairs.
      *
-     * @param array<array-key, string> $data Value-content set of options.
+     * @param string[] $data Value-content set of options.
      * @param bool $encode Whether to encode option content.
      *
      * @return self

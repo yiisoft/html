@@ -21,7 +21,7 @@ final class RadioList
     private bool $encodeLabels = true;
 
     /**
-     * @var array<array-key, string>
+     * @var string[]
      */
     private array $items = [];
 
@@ -83,7 +83,7 @@ final class RadioList
     }
 
     /**
-     * @param array<array-key, string> $items
+     * @param string[] $items
      */
     public function items(array $items, bool $encodeLabels = true): self
     {

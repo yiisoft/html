@@ -99,7 +99,7 @@ final class Select extends ContainerTag
     }
 
     /**
-     * @param array<array-key, string> $data
+     * @param string[] $data
      * @param bool $encode Whether option content should be HTML-encoded.
      *
      * @return self
