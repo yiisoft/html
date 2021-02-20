@@ -98,7 +98,7 @@ Package has clasess for tags
 
 ### Generating custom tags 
 
-For generate custom tags, use the `CustomTag` object. For example, code:
+For generate custom tags, use the `CustomTag` class. For example, code:
 
 ```php
 echo \Yiisoft\Html\Tag\CustomTag::name('b')
