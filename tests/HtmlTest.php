@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests;
 
-use ArrayObject;
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Tests\Objects\ArrayAccessObject;
-use Yiisoft\Html\Tests\Objects\IterableObject;
 
 final class HtmlTest extends TestCase
 {
@@ -61,1038 +59,471 @@ final class HtmlTest extends TestCase
 
     public function testTag(): void
     {
-        $this->assertSame('<br>', Html::tag('br'));
-        $this->assertSame('<BR>', Html::tag('BR'));
-        $this->assertSame('<span></span>', Html::tag('span'));
-        $this->assertSame('<div>content</div>', Html::tag('div', 'content'));
-        $this->assertSame(
-            '<input type="text" name="test" value="&lt;&gt;">',
-            Html::tag('input', '', ['type' => 'text', 'name' => 'test', 'value' => '<>'])
-        );
-        $this->assertSame('<span disabled></span>', Html::tag('span', '', ['disabled' => true]));
-        $this->assertSame('test', Html::tag(false, 'test'));
-        $this->assertSame('test', Html::tag(null, 'test'));
+        self::assertSame('<h1></h1>', Html::tag('h1')->render());
+        self::assertSame('<h1>hello</h1>', Html::tag('h1', 'hello')->render());
+        self::assertSame('<h1 id="main">hello</h1>', Html::tag('h1', 'hello', ['id' => 'main'])->render());
     }
 
-    public function testBeginTag(): void
+    public function testNormalTag(): void
     {
-        $this->assertSame('<br>', Html::beginTag('br'));
-        $this->assertSame(
+        self::assertSame('<h1></h1>', Html::normalTag('h1')->render());
+        self::assertSame('<col></col>', Html::normalTag('col')->render());
+        self::assertSame('<h1>hello</h1>', Html::normalTag('h1', 'hello')->render());
+        self::assertSame('<h1 id="main">hello</h1>', Html::normalTag('h1', 'hello', ['id' => 'main'])->render());
+    }
+
+    public function testVoidTag(): void
+    {
+        self::assertSame('<h1>', Html::voidTag('h1')->render());
+        self::assertSame('<h1 id="main">', Html::voidTag('h1', ['id' => 'main'])->render());
+    }
+
+    public function testOpenTag(): void
+    {
+        self::assertSame('<div>', Html::openTag('div'));
+        self::assertSame(
             '<span id="test" class="title">',
-            Html::beginTag('span', ['id' => 'test', 'class' => 'title'])
+            Html::openTag('span', ['id' => 'test', 'class' => 'title'])
         );
-        $this->assertSame('', Html::beginTag(null));
-        $this->assertSame('', Html::beginTag(false));
     }
 
-    public function testEndTag(): void
+    public function testCloseTag(): void
     {
-        $this->assertSame('</br>', Html::endTag('br'));
-        $this->assertSame('</span>', Html::endTag('span'));
-        $this->assertSame('', Html::endTag(null));
-        $this->assertSame('', Html::endTag(false));
+        self::assertSame('</div>', Html::closeTag('div'));
     }
 
     public function testStyle(): void
     {
-        $content = 'a <>';
-        $this->assertSame("<style>{$content}</style>", Html::style($content));
-        $this->assertSame("<style type=\"text/less\">{$content}</style>", Html::style($content, ['type' => 'text/less']));
+        self::assertSame('<style></style>', Html::style()->render());
+        self::assertSame('<style>.red{color:#f00}</style>', Html::style('.red{color:#f00}')->render());
+        self::assertSame(
+            '<style id="main">.red{color:#f00}</style>',
+            Html::style('.red{color:#f00}', ['id' => 'main'])->render()
+        );
     }
 
     public function testScript(): void
     {
-        $content = 'a <>';
-        $this->assertSame("<script>{$content}</script>", Html::script($content));
-        $this->assertSame("<script type=\"text/js\">{$content}</script>", Html::script($content, ['type' => 'text/js']));
+        self::assertSame('<script></script>', Html::script()->render());
+        self::assertSame('<script>alert(15)</script>', Html::script('alert(15)')->render());
+        self::assertSame(
+            '<script id="main">alert(15)</script>',
+            Html::script('alert(15)', ['id' => 'main'])->render()
+        );
+    }
+
+    public function testMeta(): void
+    {
+        self::assertSame('<meta>', Html::meta()->render());
+        self::assertSame(
+            '<meta id="main" name="keywords" content="yii">',
+            Html::meta(['name' => 'keywords', 'content' => 'yii', 'id' => 'main'])->render()
+        );
+    }
+
+    public function testLink(): void
+    {
+        self::assertSame('<link>', Html::link()->render());
+        self::assertSame('<link href="">', Html::link('')->render());
+        self::assertSame('<link href="main.css">', Html::link('main.css')->render());
+        self::assertSame(
+            '<link id="main" href="main.css">',
+            Html::link('main.css', ['id' => 'main'])->render()
+        );
     }
 
     public function testCssFile(): void
     {
-        $this->assertSame('<link href="http://example.com" rel="stylesheet">', Html::cssFile('http://example.com'));
-        $this->assertSame('<link href="" rel="stylesheet">', Html::cssFile(''));
-        $this->assertSame('<noscript><link href="http://example.com" rel="stylesheet"></noscript>', Html::cssFile('http://example.com', ['noscript' => true]));
+        self::assertSame(
+            '<link href="http://example.com" rel="stylesheet">',
+            Html::cssFile('http://example.com')->render()
+        );
+        self::assertSame(
+            '<link href="" rel="stylesheet">',
+            Html::cssFile('')->render()
+        );
+        self::assertSame(
+            '<link id="main" href="http://example.com" rel="stylesheet">',
+            Html::cssFile('http://example.com', ['id' => 'main'])->render()
+        );
     }
 
-    public function testJsFile(): void
+    public function testJavaScriptFile(): void
     {
-        $this->assertSame('<script src="http://example.com"></script>', Html::javaScriptFile('http://example.com'));
-        $this->assertSame('<script src=""></script>', Html::javaScriptFile(''));
+        self::assertSame(
+            '<script src="http://example.com"></script>',
+            Html::javaScriptFile('http://example.com')->render()
+        );
+        self::assertSame(
+            '<script src=""></script>',
+            Html::javaScriptFile('')->render()
+        );
+        self::assertSame(
+            '<script id="main" src="http://example.com"></script>',
+            Html::javaScriptFile('http://example.com', ['id' => 'main'])->render()
+        );
     }
 
     public function testA(): void
     {
-        $this->assertSame('<a>something&lt;&gt;</a>', Html::a('something<>'));
-        $this->assertSame('<a>something<></a>', Html::a('something<>', null, ['encode' => false]));
-        $this->assertSame('<a href="/example">something</a>', Html::a('something', '/example'));
-        $this->assertSame('<a href="">something</a>', Html::a('something', ''));
-        $this->assertSame('<a href="http://www.быстроном.рф">http://www.быстроном.рф</a>', Html::a('http://www.быстроном.рф', 'http://www.быстроном.рф'));
-        $this->assertSame('<a href="/site/test">Test page</a>', Html::a('Test page', '/site/test'));
+        self::assertSame('<a></a>', Html::a()->render());
+        self::assertSame('<a>link</a>', Html::a('link')->render());
+        self::assertSame('<a href="https://example.com">link</a>', Html::a('link', 'https://example.com')->render());
+        self::assertSame(
+            '<a id="home" href="https://example.com">link</a>',
+            Html::a('link', 'https://example.com', ['id' => 'home'])->render()
+        );
     }
 
     public function testMailto(): void
     {
-        $this->assertSame('<a href="mailto:test&lt;&gt;">test&lt;&gt;</a>', Html::mailto('test<>'));
-        $this->assertSame('<a href="mailto:test&gt;">test<></a>', Html::mailto('test<>', 'test>', ['encode' => false]));
+        self::assertSame(
+            '<a href="mailto:info@example.com">info@example.com</a>',
+            Html::mailto('info@example.com')->render()
+        );
+        self::assertSame(
+            '<a href="mailto:info@example.com">contact me</a>',
+            Html::mailto('contact me', 'info@example.com')->render()
+        );
+        self::assertSame(
+            '<a id="contact" href="mailto:info@example.com">contact me</a>',
+            Html::mailto('contact me', 'info@example.com', ['id' => 'contact'])->render()
+        );
     }
 
-    /**
-     * @return array
-     */
-    public function imgDataProvider(): array
+    public function testImg(): void
     {
-        return [
-            [
-                '<img src="/example" alt="">',
-                '/example',
-                [],
-            ],
-            [
-                '<img src="" alt="">',
-                '',
-                [],
-            ],
-            [
-                '<img src="/example" width="10" alt="something">',
-                '/example',
-                [
-                    'alt' => 'something',
-                    'width' => 10,
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-9001w 9001w" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                        '9001w' => '/example-9001w',
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-100w 100w,/example-500w 500w,/example-1500w 1500w" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                        '100w' => '/example-100w',
-                        '500w' => '/example-500w',
-                        '1500w' => '/example-1500w',
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-1x 1x,/example-2x 2x,/example-3x 3x,/example-4x 4x,/example-5x 5x" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                        '1x' => '/example-1x',
-                        '2x' => '/example-2x',
-                        '3x' => '/example-3x',
-                        '4x' => '/example-4x',
-                        '5x' => '/example-5x',
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-1.42x 1.42x,/example-2.0x 2.0x,/example-3.99999x 3.99999x" alt="">',
-                '/base-url',
-                [
-                    'srcset' => [
-                        '1.42x' => '/example-1.42x',
-                        '2.0x' => '/example-2.0x',
-                        '3.99999x' => '/example-3.99999x',
-                    ],
-                ],
-            ],
-            [
-                '<img src="/base-url" srcset="/example-1x 1x,/example-2x 2x,/example-3x 3x" alt="">',
-                '/base-url',
-                [
-                    'srcset' => '/example-1x 1x,/example-2x 2x,/example-3x 3x',
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider imgDataProvider
-     *
-     * @param string $expected
-     * @param string $src
-     * @param array $options
-     */
-    public function testImg(string $expected, string $src, array $options): void
-    {
-        $this->assertSame($expected, Html::img($src, $options));
+        self::assertSame('<img alt="">', Html::img()->render());
+        self::assertSame('<img src="" alt="">', Html::img('')->render());
+        self::assertSame('<img>', Html::img(null, null)->render());
+        self::assertSame('<img src="face.png" alt="My Face">', Html::img('face.png', 'My Face')->render());
     }
 
     public function testLabel(): void
     {
-        $this->assertSame('<label>something<></label>', Html::label('something<>', null, ['encode' => false]));
-        $this->assertSame('<label for="a">something&lt;&gt;</label>', Html::label('something<>', 'a'));
-        $this->assertSame('<label class="test" for="a">something&lt;&gt;</label>', Html::label('something<>', 'a', ['class' => 'test']));
+        $this->assertSame('<label></label>', Html::label()->render());
+        $this->assertSame('<label>Name</label>', Html::label('Name')->render());
+        $this->assertSame('<label for="">Name</label>', Html::label('Name', '')->render());
+        $this->assertSame('<label for="fieldName">Name</label>', Html::label('Name', 'fieldName')->render());
     }
 
     public function testButton(): void
     {
-        $this->assertSame('<button type="button">Button</button>', Html::button());
-        $this->assertSame('<button type="button" name="test" value="value">content<></button>', Html::button('content<>', ['name' => 'test', 'value' => 'value', 'encode' => false]));
-        $this->assertSame('<button type="submit" class="t" name="test" value="value">content&lt;&gt;</button>', Html::button('content<>', ['type' => 'submit', 'name' => 'test', 'value' => 'value', 'class' => 't']));
+        self::assertSame(
+            '<button type="button">Button</button>',
+            Html::button('Button')->render()
+        );
+        self::assertSame(
+            '<button type="button" id="main">Button</button>',
+            Html::button('Button', ['id' => 'main'])->render()
+        );
     }
 
     public function testSubmitButton(): void
     {
-        $this->assertSame('<button type="submit">Submit</button>', Html::submitButton());
-        $this->assertSame('<button type="submit" class="t" name="test" value="value">content&lt;&gt;</button>', Html::submitButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't']));
-        $this->assertSame('<button type="submit" class="t" name="test" value="value">content<></button>', Html::submitButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't', 'encode' => false]));
+        self::assertSame(
+            '<button type="submit">Submit</button>',
+            Html::submitButton('Submit')->render()
+        );
+        self::assertSame(
+            '<button type="submit" id="main">Submit</button>',
+            Html::submitButton('Submit', ['id' => 'main'])->render()
+        );
     }
 
     public function testResetButton(): void
     {
-        $this->assertSame('<button type="reset">Reset</button>', Html::resetButton());
-        $this->assertSame('<button type="reset" class="t" name="test" value="value">content&lt;&gt;</button>', Html::resetButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't']));
-        $this->assertSame('<button type="reset" class="t" name="test" value="value">content<></button>', Html::resetButton('content<>', ['name' => 'test', 'value' => 'value', 'class' => 't', 'encode' => false]));
+        self::assertSame(
+            '<button type="reset">Reset</button>',
+            Html::resetButton('Reset')->render()
+        );
+        self::assertSame(
+            '<button type="reset" id="main">Reset</button>',
+            Html::resetButton('Reset', ['id' => 'main'])->render()
+        );
     }
 
     public function testInput(): void
     {
-        $this->assertSame('<input type="text">', Html::input('text'));
-        $this->assertSame('<input type="text" class="t" name="test" value="value">', Html::input('text', 'test', 'value', ['class' => 't']));
+        self::assertSame('<input type="">', Html::input('')->render());
+        self::assertSame('<input type="text">', Html::input('text')->render());
+        self::assertSame('<input type="text" name="">', Html::input('text', '')->render());
+        self::assertSame('<input type="text" value="">', Html::input('text', null, '')->render());
+        self::assertSame('<input type="text" name="test">', Html::input('text', 'test')->render());
+        self::assertSame(
+            '<input type="text" name="test" value="43">',
+            Html::input('text', 'test', '43')->render(),
+        );
     }
 
     public function testButtonInput(): void
     {
-        $this->assertSame('<input type="button" value="Button">', Html::buttonInput());
-        $this->assertSame('<input type="button" class="a" name="test" value="text">', Html::buttonInput('text', ['name' => 'test', 'class' => 'a']));
+        $this->assertSame('<input type="button" value="Button">', Html::buttonInput()->render());
+        $this->assertSame('<input type="button">', Html::buttonInput(null)->render());
+        $this->assertSame('<input type="button" value="">', Html::buttonInput('')->render());
+        $this->assertSame('<input type="button" value="Go">', Html::buttonInput('Go')->render());
     }
 
     public function testSubmitInput(): void
     {
-        $this->assertSame('<input type="submit" value="Submit">', Html::submitInput());
-        $this->assertSame('<input type="submit" class="a" name="test" value="text">', Html::submitInput('text', ['name' => 'test', 'class' => 'a']));
+        $this->assertSame('<input type="submit" value="Submit">', Html::submitInput()->render());
+        $this->assertSame('<input type="submit">', Html::submitInput(null)->render());
+        $this->assertSame('<input type="submit" value="">', Html::submitInput('')->render());
+        $this->assertSame('<input type="submit" value="Go">', Html::submitInput('Go')->render());
     }
 
     public function testResetInput(): void
     {
-        $this->assertSame('<input type="reset" value="Reset">', Html::resetInput());
-        $this->assertSame('<input type="reset" class="a" name="test" value="text">', Html::resetInput('text', ['name' => 'test', 'class' => 'a']));
+        $this->assertSame('<input type="reset" value="Reset">', Html::resetInput()->render());
+        $this->assertSame('<input type="reset">', Html::resetInput(null)->render());
+        $this->assertSame('<input type="reset" value="">', Html::resetInput('')->render());
+        $this->assertSame('<input type="reset" value="Go">', Html::resetInput('Go')->render());
     }
 
     public function testTextInput(): void
     {
-        $this->assertSame('<input type="text" name="test">', Html::textInput('test'));
-        $this->assertSame('<input type="text" class="t" name="test" value="value">', Html::textInput('test', 'value', ['class' => 't']));
+        $this->assertSame('<input type="text">', Html::textInput()->render());
+        $this->assertSame('<input type="text" name="">', Html::textInput('')->render());
+        $this->assertSame('<input type="text" value="">', Html::textInput(null, '')->render());
+        $this->assertSame('<input type="text" name="test">', Html::textInput('test')->render());
+        $this->assertSame(
+            '<input type="text" name="test" value="43">',
+            Html::textInput('test', '43')->render(),
+        );
     }
 
     public function testHiddenInput(): void
     {
-        $this->assertSame('<input type="hidden" name="test">', Html::hiddenInput('test'));
-        $this->assertSame('<input type="hidden" class="t" name="test" value="value">', Html::hiddenInput('test', 'value', ['class' => 't']));
+        $this->assertSame('<input type="hidden">', Html::hiddenInput()->render());
+        $this->assertSame('<input type="hidden" name="">', Html::hiddenInput('')->render());
+        $this->assertSame('<input type="hidden" value="">', Html::hiddenInput(null, '')->render());
+        $this->assertSame('<input type="hidden" name="test">', Html::hiddenInput('test')->render());
+        $this->assertSame(
+            '<input type="hidden" name="test" value="43">',
+            Html::hiddenInput('test', '43')->render(),
+        );
     }
 
     public function testPasswordInput(): void
     {
-        $this->assertSame('<input type="password" name="test">', Html::passwordInput('test'));
-        $this->assertSame('<input type="password" class="t" name="test" value="value">', Html::passwordInput('test', 'value', ['class' => 't']));
+        $this->assertSame('<input type="password">', Html::passwordInput()->render());
+        $this->assertSame('<input type="password" name="">', Html::passwordInput('')->render());
+        $this->assertSame('<input type="password" value="">', Html::passwordInput(null, '')->render());
+        $this->assertSame('<input type="password" name="test">', Html::passwordInput('test')->render());
+        $this->assertSame(
+            '<input type="password" name="test" value="43">',
+            Html::passwordInput('test', '43')->render(),
+        );
     }
 
     public function testFileInput(): void
     {
-        $this->assertSame('<input type="file" name="test">', Html::fileInput('test'));
-        $this->assertSame('<input type="file" class="t" name="test" value="value">', Html::fileInput('test', 'value', ['class' => 't']));
-    }
-
-    /**
-     * @return array
-     */
-    public function textareaDataProvider(): array
-    {
-        return [
-            [
-                '<textarea name="test"></textarea>',
-                'test',
-                null,
-                [],
-            ],
-            [
-                '<textarea class="t" name="test">value&lt;&gt;</textarea>',
-                'test',
-                'value<>',
-                ['class' => 't'],
-            ],
-            [
-                '<textarea name="test">value&amp;lt;&amp;gt;</textarea>',
-                'test',
-                'value&lt;&gt;',
-                [],
-            ],
-            [
-                '<textarea name="test">value&lt;&gt;</textarea>',
-                'test',
-                'value&lt;&gt;',
-                ['doubleEncode' => false],
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider textareaDataProvider
-     *
-     * @param string $expected
-     * @param string $name
-     * @param string $value
-     * @param array $options
-     */
-    public function testTextarea($expected, $name, $value, $options): void
-    {
-        $this->assertSame($expected, Html::textarea($name, $value, $options));
+        $this->assertSame('<input type="file">', Html::fileInput()->render());
+        $this->assertSame('<input type="file" name="">', Html::fileInput('')->render());
+        $this->assertSame('<input type="file" value="">', Html::fileInput(null, '')->render());
+        $this->assertSame('<input type="file" name="test">', Html::fileInput('test')->render());
+        $this->assertSame(
+            '<input type="file" name="test" value="43">',
+            Html::fileInput('test', '43')->render(),
+        );
     }
 
     public function testRadio(): void
     {
-        $this->assertSame('<input type="radio" name="test" value="1">', Html::radio('test'));
-        $this->assertSame('<input type="radio" class="a" name="test" checked>', Html::radio('test', true, ['class' => 'a', 'value' => null]));
-        $this->assertSame('<input type="hidden" name="test" value="0"><input type="radio" class="a" name="test" value="2" checked>', Html::radio('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'value' => 2,
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0" disabled><input type="radio" name="test" value="2" disabled>', Html::radio('test', false, [
-            'disabled' => true,
-            'uncheck' => '0',
-            'value' => 2,
-        ]));
-
-        $this->assertSame('<label class="bbb"><input type="radio" class="a" name="test" checked> ccc</label>', Html::radio('test', true, [
-            'class' => 'a',
-            'value' => null,
-            'label' => 'ccc',
-            'labelOptions' => ['class' => 'bbb'],
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0"><label><input type="radio" class="a" name="test" value="2" checked> ccc</label>', Html::radio('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'label' => 'ccc',
-            'value' => 2,
-        ]));
-
+        $this->assertSame('<input type="radio">', Html::radio()->render());
+        $this->assertSame('<input type="radio" name="">', Html::radio('')->render());
+        $this->assertSame('<input type="radio" value="">', Html::radio(null, '')->render());
+        $this->assertSame('<input type="radio" name="test">', Html::radio('test')->render());
         $this->assertSame(
-            '<input type="radio" id="UseThis" name="test" checked> <label for="UseThis">Use this</label>',
-            Html::radio('test', true, [
-                'id' => 'UseThis',
-                'label' => 'Use this',
-                'value' => null,
-                'wrapInput' => false,
-            ])
-        );
-
-        self::$hrtimeResult = 42;
-        $this->assertSame(
-            '<input type="radio" id="i421" name="test" checked> <label for="i421">Use this</label>',
-            Html::radio('test', true, [
-                'label' => 'Use this',
-                'value' => null,
-                'wrapInput' => false,
-            ])
+            '<input type="radio" name="test" value="43">',
+            Html::radio('test', '43')->render(),
         );
     }
 
     public function testCheckbox(): void
     {
-        $this->assertSame('<input type="checkbox" name="test" value="1">', Html::checkbox('test'));
-        $this->assertSame('<input type="checkbox" class="a" name="test" checked>', Html::checkbox('test', true, ['class' => 'a', 'value' => null]));
-        $this->assertSame('<input type="hidden" name="test" value="0"><input type="checkbox" class="a" name="test" value="2" checked>', Html::checkbox('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'value' => 2,
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0" disabled><input type="checkbox" name="test" value="2" disabled>', Html::checkbox('test', false, [
-            'disabled' => true,
-            'uncheck' => '0',
-            'value' => 2,
-        ]));
-
-        $this->assertSame('<label class="bbb"><input type="checkbox" class="a" name="test" checked> ccc</label>', Html::checkbox('test', true, [
-            'class' => 'a',
-            'value' => null,
-            'label' => 'ccc',
-            'labelOptions' => ['class' => 'bbb'],
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0"><label><input type="checkbox" class="a" name="test" value="2" checked> ccc</label>', Html::checkbox('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'label' => 'ccc',
-            'value' => 2,
-        ]));
-        $this->assertSame('<input type="hidden" name="test" value="0" form="test-form"><label><input type="checkbox" class="a" name="test" value="2" form="test-form" checked> ccc</label>', Html::checkbox('test', true, [
-            'class' => 'a',
-            'uncheck' => '0',
-            'label' => 'ccc',
-            'value' => 2,
-            'form' => 'test-form',
-        ]));
-
+        $this->assertSame('<input type="checkbox">', Html::checkbox()->render());
+        $this->assertSame('<input type="checkbox" name="">', Html::checkbox('')->render());
+        $this->assertSame('<input type="checkbox" value="">', Html::checkbox(null, '')->render());
+        $this->assertSame('<input type="checkbox" name="test">', Html::checkbox('test')->render());
         $this->assertSame(
-            '<input type="checkbox" id="UseThis" name="test"> <label for="UseThis">Use this</label>',
-            Html::checkbox('test', false, [
-                'id' => 'UseThis',
-                'label' => 'Use this',
-                'value' => null,
-                'wrapInput' => false,
-            ])
-        );
-
-        self::$hrtimeResult = 49;
-        $this->assertSame(
-            '<input type="checkbox" id="i491" name="test"> <label for="i491">Use this</label>',
-            Html::checkbox('test', false, [
-                'label' => 'Use this',
-                'value' => null,
-                'wrapInput' => false,
-            ])
+            '<input type="checkbox" name="test" value="43">',
+            Html::checkbox('test', '43')->render(),
         );
     }
 
-    public function testDropDownList(): void
+    public function testSelect(): void
     {
-        $expected = <<<'EOD'
-<select name="test">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test'));
-        $expected = <<<'EOD'
-<select name="test">
-<option value="value1">text1</option>
-<option value="value2">text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', null, $this->getDataItems()));
-        $expected = <<<'EOD'
-<select name="test">
-<option value="value1">text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', 'value2', $this->getDataItems()));
-
-        $expected = <<<'EOD'
-<select name="test">
-<option value="value1">text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', null, $this->getDataItems(), [
-            'options' => [
-                'value2' => ['selected' => true],
-            ],
-        ]));
-
-        $expected = <<<'EOD'
-<select name="test[]" multiple="true" size="4">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', null, [], ['multiple' => 'true']));
-
-        $expected = <<<'EOD'
-<select name="test[]" multiple="true" size="4">
-<option value="0" selected>zero</option>
-<option value="1">one</option>
-<option value="value3">text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', [0], $this->getDataItems3(), ['multiple' => 'true']));
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', new ArrayObject([0]), $this->getDataItems3(), ['multiple' => 'true']));
-
-        $expected = <<<'EOD'
-<select name="test[]" multiple="true" size="4">
-<option value="0">zero</option>
-<option value="1" selected>one</option>
-<option value="value3" selected>text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', ['1', 'value3'], $this->getDataItems3(), ['multiple' => 'true']));
-        $this->assertSameWithoutLE($expected, Html::dropDownList('test', new ArrayObject(['1', 'value3']), $this->getDataItems3(), ['multiple' => 'true']));
+        $this->assertSame('<select></select>', Html::select()->render());
+        $this->assertSame('<select name=""></select>', Html::select('')->render());
+        $this->assertSame('<select name="test"></select>', Html::select('test')->render());
     }
 
-    public function testListBox(): void
+    public function testOptgroup(): void
     {
-        $expected = <<<'EOD'
-<select name="test" size="4">
+        self::assertSame('<optgroup></optgroup>', Html::optgroup()->render());
+    }
 
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test'));
-        $expected = <<<'EOD'
-<select name="test" size="5">
-<option value="value1">text1</option>
-<option value="value2">text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems(), ['size' => 5]));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1&lt;&gt;">text1&lt;&gt;</option>
-<option value="value  2">text  2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems2()));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1&lt;&gt;">text1&lt;&gt;</option>
-<option value="value  2">text&nbsp;&nbsp;2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems2(), ['encodeSpaces' => true]));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1&lt;&gt;">text1<></option>
-<option value="value  2">text  2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems2(), ['encode' => false]));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1&lt;&gt;">text1<></option>
-<option value="value  2">text&nbsp;&nbsp;2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, $this->getDataItems2(), ['encodeSpaces' => true, 'encode' => false]));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1">text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', 'value2', $this->getDataItems()));
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1" selected>text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', ['value1', 'value2'], $this->getDataItems()));
+    public function testOption(): void
+    {
+        self::assertSame('<option></option>', Html::option()->render());
+        self::assertSame('<option value=""></option>', Html::option('', '')->render());
+        self::assertSame('<option>test</option>', Html::option('test')->render());
+        self::assertSame('<option value="42">test</option>', Html::option('test', 42)->render());
+    }
 
-        $expected = <<<'EOD'
-<select name="test[]" multiple size="4">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', null, [], ['multiple' => true]));
-        $this->assertSameWithoutLE($expected, Html::listBox('test[]', null, [], ['multiple' => true]));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0"><select name="test" size="4">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', '', [], ['unselect' => '0']));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0" disabled><select name="test" disabled size="4">
-
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', '', [], ['unselect' => '0', 'disabled' => true]));
-
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="value1" selected>text1</option>
-<option value="value2" selected>text2</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', new ArrayObject(['value1', 'value2']), $this->getDataItems()));
-
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="0" selected>zero</option>
-<option value="1">one</option>
-<option value="value3">text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', [0], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::listBox('test', new ArrayObject([0]), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<select name="test" size="4">
-<option value="0">zero</option>
-<option value="1" selected>one</option>
-<option value="value3" selected>text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox('test', ['1', 'value3'], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::listBox('test', new ArrayObject(['1', 'value3']), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="none"><select name="test[]" size="4">
-<option value="0">zero</option>
-<option value="1" selected>one</option>
-<option value="value3" selected>text3</option>
-</select>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::listBox(
-            'test[]',
-            ['1', 'value3'],
-            $this->getDataItems3(),
-            ['unselect' => 'none'],
-        ));
+    public function testTextarea(): void
+    {
+        $this->assertSame('<textarea></textarea>', Html::textarea()->render());
+        $this->assertSame('<textarea name=""></textarea>', Html::textarea('')->render());
+        $this->assertSame('<textarea name="test"></textarea>', Html::textarea('test')->render());
+        $this->assertSame('<textarea name="test">body</textarea>', Html::textarea('test', 'body')->render());
     }
 
     public function testCheckboxList(): void
     {
-        $this->assertSame('<div></div>', Html::checkboxList('test'));
-
-        $expected = <<<'EOD'
-<div><label><input type="checkbox" name="test[]" value="value1"> text1</label>
-<label><input type="checkbox" name="test[]" value="value2" checked> text2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems()));
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test[]', ['value2'], $this->getDataItems()));
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', 'value2', $this->getDataItems()));
-
-        $expected = <<<'EOD'
-<div><label><input type="checkbox" name="test[]" value="value1&lt;&gt;"> text1&lt;&gt;</label>
-<label><input type="checkbox" name="test[]" value="value  2"> text  2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems2()));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0"><div><label><input type="checkbox" name="test[]" value="value1"> text1</label><br>
-<label><input type="checkbox" name="test[]" value="value2" checked> text2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems(), [
-            'separator' => "<br>\n",
-            'unselect' => '0',
-        ]));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0" disabled><div><label><input type="checkbox" name="test[]" value="value1"> text1</label><br>
-<label><input type="checkbox" name="test[]" value="value2"> text2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', null, $this->getDataItems(), [
-            'separator' => "<br>\n",
-            'unselect' => '0',
-            'disabled' => true,
-        ]));
-
-        $expected = <<<'EOD'
-<div>0<label>text1 <input type="checkbox" name="test[]" value="value1"></label>
-1<label>text2 <input type="checkbox" name="test[]" value="value2" checked></label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems(), [
-            'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label(Html::encode($label) . ' ' . Html::checkbox($name, $checked, ['value' => $value]), null, ['encode' => false]);
-            },
-            'encode' => false,
-        ]));
-
-        $expected = <<<'EOD'
-0<label>text1 <input type="checkbox" name="test[]" value="value1"></label>
-1<label>text2 <input type="checkbox" name="test[]" value="value2" checked></label>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['value2'], $this->getDataItems(), [
-            'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label(Html::encode($label) . ' ' . Html::checkbox($name, $checked, ['value' => $value]), null, ['encode' => false]);
-            },
-            'tag' => false,
-            'encode' => false,
-        ]));
-        $this->assertSameWithoutLE(
-            $expected,
-            Html::checkboxList('test', new ArrayObject(['value2']), $this->getDataItems(), [
-                'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label(Html::encode($label) . ' ' . Html::checkbox($name, $checked, ['value' => $value]), null, ['encode' => false]);
-                },
-                'tag' => false,
-                'encode' => false,
-            ])
+        self::assertSame(
+            '<input type="hidden" name="test" value="0">' . "\n" .
+            '<div id="main">' . "\n" .
+            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
+            '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n" .
+            '<label><input type="checkbox" name="test[]" value="5" checked> Five</label>' . "\n" .
+            '</div>',
+            Html::checkboxList('test')
+                ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
+                ->uncheckValue(0)
+                ->value(2, 5)
+                ->containerAttributes(['id' => 'main'])
+                ->render(),
         );
-        $this->assertSameWithoutLE(
-            $expected,
-            Html::checkboxList('test', new IterableObject(['value2']), $this->getDataItems(), [
-                'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label(Html::encode($label) . ' ' . Html::checkbox($name, $checked, ['value' => $value]), null, ['encode' => false]);
-                },
-                'tag' => false,
-                'encode' => false,
-            ])
-        );
-
-        $expected = <<<'EOD'
-<div><label><input type="checkbox" name="test[]" value="0" checked> zero</label>
-<label><input type="checkbox" name="test[]" value="1"> one</label>
-<label><input type="checkbox" name="test[]" value="value3"> text3</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', [0], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', new ArrayObject([0]), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<div><label><input type="checkbox" name="test[]" value="0"> zero</label>
-<label><input type="checkbox" name="test[]" value="1" checked> one</label>
-<label><input type="checkbox" name="test[]" value="value3" checked> text3</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', ['1', 'value3'], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::checkboxList('test', new ArrayObject(['1', 'value3']), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<div><label><input type="checkbox" name="test[]" value="0" any="42"> zero</label>
-<label><input type="checkbox" name="test[]" value="1" checked any="42"> one</label>
-<label><input type="checkbox" name="test[]" value="value3" any="42"> text3</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::checkboxList(
-            'test',
-            1,
-            $this->getDataItems3(),
-            ['itemOptions' => ['any' => 42]]
-        ));
     }
 
     public function testRadioList(): void
     {
-        $this->assertSame('<div></div>', Html::radioList('test'));
-
-        $this->assertSame(
-            '<input type="hidden" name="test" value="1"><label><input type="radio" name="test" value="1"> a</label>',
-            Html::radioList('test', null, [1 => 'a'], ['unselect' => 1, 'tag' => false])
+        self::assertSame(
+            '<input type="hidden" name="test" value="0">' . "\n" .
+            '<div id="main">' . "\n" .
+            '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
+            '<label><input type="radio" name="test" value="2" checked> Two</label>' . "\n" .
+            '<label><input type="radio" name="test" value="5"> Five</label>' . "\n" .
+            '</div>',
+            Html::radioList('test')
+                ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
+                ->uncheckValue(0)
+                ->value(2)
+                ->containerAttributes(['id' => 'main'])
+                ->render(),
         );
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="value1"> text1</label>
-<label><input type="radio" name="test" value="value2" checked> text2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems()));
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="value1&lt;&gt;"> text1&lt;&gt;</label>
-<label><input type="radio" name="test" value="value  2"> text  2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems2()));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0"><div><label><input type="radio" name="test" value="value1"> text1</label><br>
-<label><input type="radio" name="test" value="value2" checked> text2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
-            'separator' => "<br>\n",
-            'unselect' => '0',
-        ]));
-
-        $expected = <<<'EOD'
-<input type="hidden" name="test" value="0" disabled><div><label><input type="radio" name="test" value="value1"> text1</label><br>
-<label><input type="radio" name="test" value="value2"> text2</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', null, $this->getDataItems(), [
-            'separator' => "<br>\n",
-            'unselect' => '0',
-            'disabled' => true,
-        ]));
-
-        $expected = <<<'EOD'
-<div>0<label>text1 <input type="radio" name="test" value="value1"></label>
-1<label>text2 <input type="radio" name="test" value="value2" checked></label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
-            'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label($label . ' ' . Html::radio($name, $checked, ['value' => $value]), null, ['encode' => false]);
-            },
-            'encode' => false,
-        ]));
-
-        $expected = <<<'EOD'
-0<label>text1 <input type="radio" name="test" value="value1"></label>
-1<label>text2 <input type="radio" name="test" value="value2" checked></label>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value2'], $this->getDataItems(), [
-            'item' => static function ($index, $label, $name, $checked, $value) {
-                return $index . Html::label(Html::encode($label) . ' ' . Html::radio($name, $checked, ['value' => $value]), null, ['encode' => false]);
-            },
-            'tag' => false,
-            'encode' => false,
-        ]));
-        $this->assertSameWithoutLE(
-            $expected,
-            Html::radioList('test', new ArrayObject(['value2']), $this->getDataItems(), [
-                'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label(Html::encode($label) . ' ' . Html::radio($name, $checked, ['value' => $value]), null, ['encode' => false]);
-                },
-                'tag' => false,
-                'encode' => false,
-            ])
-        );
-        $this->assertSameWithoutLE(
-            $expected,
-            Html::radioList('test', new IterableObject(['value2']), $this->getDataItems(), [
-                'item' => static function ($index, $label, $name, $checked, $value) {
-                    return $index . Html::label(Html::encode($label) . ' ' . Html::radio($name, $checked, ['value' => $value]), null, ['encode' => false]);
-                },
-                'tag' => false,
-                'encode' => false,
-            ])
-        );
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="0" checked> zero</label>
-<label><input type="radio" name="test" value="1"> one</label>
-<label><input type="radio" name="test" value="value3"> text3</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', [0], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::radioList('test', new ArrayObject([0]), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="0"> zero</label>
-<label><input type="radio" name="test" value="1"> one</label>
-<label><input type="radio" name="test" value="value3" checked> text3</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList('test', ['value3'], $this->getDataItems3()));
-        $this->assertSameWithoutLE($expected, Html::radioList('test', new ArrayObject(['value3']), $this->getDataItems3()));
-
-        $expected = <<<'EOD'
-<div><label><input type="radio" name="test" value="1" checked any="42"> One</label>
-<label><input type="radio" name="test" value="2" any="42"> Two</label></div>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::radioList(
-            'test',
-            1,
-            [1 => 'One', 2 => 'Two'],
-            ['itemOptions' => ['any' => 42]]
-        ));
     }
 
     public function testDiv(): void
     {
-        $this->assertSame('<div class="red">hello</div>', Html::div('hello', ['class' => 'red']));
+        self::assertSame('<div></div>', Html::div()->render());
+        self::assertSame('<div>hello</div>', Html::div('hello')->render());
+        self::assertSame('<div id="main">hello</div>', Html::div('hello', ['id' => 'main'])->render());
     }
 
     public function testSpan(): void
     {
-        $this->assertSame('<span class="red">hello</span>', Html::span('hello', ['class' => 'red']));
+        self::assertSame('<span></span>', Html::span()->render());
+        self::assertSame('<span>hello</span>', Html::span('hello')->render());
+        self::assertSame('<span id="main">hello</span>', Html::span('hello', ['id' => 'main'])->render());
     }
 
     public function testP(): void
     {
-        $this->assertSame('<p class="red">hello</p>', Html::p('hello', ['class' => 'red']));
+        self::assertSame('<p></p>', Html::p()->render());
+        self::assertSame('<p>hello</p>', Html::p('hello')->render());
+        self::assertSame('<p id="main">hello</p>', Html::p('hello', ['id' => 'main'])->render());
     }
 
     public function testUl(): void
     {
-        $data = [1, 'abc', '<>'];
-        $expected = <<<'EOD'
-<ul>
-<li>1</li>
-<li>abc</li>
-<li>&lt;&gt;</li>
-</ul>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ul($data));
-        $expected = <<<'EOD'
-<ul class="test">
-<li class="item-0">1</li>
-<li class="item-1">abc</li>
-<li class="item-2"><></li>
-</ul>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ul($data, [
-            'class' => 'test',
-            'item' => static function (string $item, int $index) {
-                return "<li class=\"item-$index\">$item</li>";
-            },
-        ]));
-
-        $this->assertSame('<ul class="test"></ul>', Html::ul([], ['class' => 'test']));
-
-        $this->assertStringMatchesFormat('<foo>%A</foo>', Html::ul([], ['tag' => 'foo']));
-
-        $expected = <<<EOD
-<ul>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-</ul>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ul(new ArrayAccessObject()));
+        self::assertSame('<ul></ul>', Html::ul()->render());
     }
 
     public function testOl(): void
     {
-        $data = [1, 'abc', '<>'];
-        $expected = <<<'EOD'
-<ol>
-<li class="ti">1</li>
-<li class="ti">abc</li>
-<li class="ti">&lt;&gt;</li>
-</ol>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ol($data, [
-            'itemOptions' => ['class' => 'ti'],
-        ]));
-        $expected = <<<'EOD'
-<ol class="test">
-<li class="item-0">1</li>
-<li class="item-1">abc</li>
-<li class="item-2"><></li>
-</ol>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ol($data, [
-            'class' => 'test',
-            'item' => static function ($item, $index) {
-                return "<li class=\"item-$index\">$item</li>";
-            },
-        ]));
-
-        $this->assertSame('<ol class="test"></ol>', Html::ol([], ['class' => 'test']));
-
-        $expected = <<<EOD
-<ol>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-</ol>
-EOD;
-        $this->assertSameWithoutLE($expected, Html::ol(new ArrayAccessObject()));
+        self::assertSame('<ol></ol>', Html::ol()->render());
     }
 
-    public function testRenderSelectOptions(): void
+    public function testLi(): void
     {
-        $data = [
-            'value1' => 'label1',
-            'group1' => [
-                'value11' => 'label11',
-                'group11' => [
-                    'value111' => 'label111',
+        self::assertSame('<li></li>', Html::li()->render());
+        self::assertSame('<li>hello</li>', Html::li('hello')->render());
+    }
+
+    public function dataRenderTagAttributes(): array
+    {
+        return [
+            ['', []],
+            ['', ['id' => null]],
+            [' id="main"', ['id' => 'main']],
+            [' value="1&lt;&gt;"', ['value' => '1<>']],
+            [
+                ' checked disabled required="yes"',
+                ['checked' => true, 'disabled' => true, 'hidden' => false, 'required' => 'yes'],
+            ],
+            [' class="first second"', ['class' => ['first', 'second']]],
+            ['', ['class' => []]],
+            [' style="width: 100px; height: 200px;"', ['style' => ['width' => '100px', 'height' => '200px']]],
+            [' name="position" value="42"', ['value' => 42, 'name' => 'position']],
+            [
+                ' id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'',
+                [
+                    'id' => 'x',
+                    'class' => ['a', 'b'],
+                    'data' => ['a' => 1, 'b' => 2],
+                    'style' => ['width' => '100px'],
+                    'any' => [1, 2],
                 ],
-                'group12' => [],
             ],
-            'value2' => 'label2',
-            'group2' => [],
-        ];
-        $expected = <<<'EOD'
-<option value="">please&nbsp;select&lt;&gt;</option>
-<option value="value1" selected>label1</option>
-<optgroup label="group1">
-<option value="value11">label11</option>
-<optgroup label="group11">
-<option class="option" value="value111" selected>label111</option>
-</optgroup>
-<optgroup class="group" label="group12">
-
-</optgroup>
-</optgroup>
-<option value="value2">label2</option>
-<optgroup label="group2">
-
-</optgroup>
-EOD;
-        $attributes = [
-            'prompt' => 'please select<>',
-            'options' => [
-                'value111' => ['class' => 'option'],
+            [
+                ' data-a="0" data-b=\'[1,2]\' any="42"',
+                [
+                    'class' => [],
+                    'style' => [],
+                    'data' => ['a' => 0, 'b' => [1, 2]],
+                    'any' => 42,
+                ],
             ],
-            'groups' => [
-                'group12' => ['class' => 'group'],
+            [
+                ' data-foo=\'[]\'',
+                [
+                    'data' => [
+                        'foo' => [],
+                    ],
+                ],
             ],
-            'encodeSpaces' => true,
-        ];
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(['value111', 'value1'], $data, $attributes));
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(new ArrayObject(['value111', 'value1']), $data, $attributes));
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(new IterableObject(['value111', 'value1']), $data, $attributes));
-
-        $attributes = [
-            'prompt' => 'please select<>',
-            'options' => [
-                'value111' => ['class' => 'option'],
+            [
+                ' src="xyz" data-a="1" data-b="c"',
+                ['src' => 'xyz', 'data' => ['a' => 1, 'b' => 'c']],
             ],
-            'groups' => [
-                'group12' => ['class' => 'group'],
+            [
+                ' src="xyz" ng-a="1" ng-b="c"',
+                ['src' => 'xyz', 'ng' => ['a' => 1, 'b' => 'c']],
+            ],
+            [
+                ' src="xyz" data-ng-a="1" data-ng-b="c"',
+                ['src' => 'xyz', 'data-ng' => ['a' => 1, 'b' => 'c']],
+            ],
+            [
+                ' src="xyz" aria-a="1" aria-b="c"',
+                ['src' => 'xyz', 'aria' => ['a' => 1, 'b' => 'c']],
+            ],
+            [
+                ' src=\'{"a":1,"b":"It\\u0027s"}\'',
+                ['src' => ['a' => 1, 'b' => "It's"]],
             ],
         ];
-        $this->assertSameWithoutLE(str_replace('&nbsp;', ' ', $expected), Html::renderSelectOptions(['value111', 'value1'], $data, $attributes));
-
-        // Attributes for prompt (https://github.com/yiisoft/yii2/issues/7420)
-
-        $data = [
-            'value1' => 'label1',
-            'value2' => 'label2',
-        ];
-        $expected = <<<'EOD'
-<option class="prompt" value="-1" label="None">Please select</option>
-<option value="value1" selected>label1</option>
-<option value="value2">label2</option>
-EOD;
-        $attributes = [
-            'prompt' => [
-                'text' => 'Please select',
-                'options' => ['class' => 'prompt', 'value' => '-1', 'label' => 'None'],
-            ],
-        ];
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(['value1'], $data, $attributes));
-
-        $data = [1 => 'One', 2 => 'Two'];
-        $expected = <<<'EOD'
-<option class="prompt" value="" label="None">Please select</option>
-<option value="1" selected>One</option>
-<option value="2">Two</option>
-EOD;
-        $attributes = [
-            'prompt' => [
-                'text' => 'Please select',
-                'options' => ['class' => 'prompt', 'label' => 'None'],
-            ],
-        ];
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(1, $data, $attributes));
-
-        $expected = <<<'EOD'
-<option value="encode">1</option>
-<option value="encodeSpaces">2</option>
-EOD;
-        $data = ['encode' => 1, 'encodeSpaces' => 2];
-        $attributes = [
-            'encode' => true,
-            'encodeSpaces' => false,
-        ];
-        $this->assertSameWithoutLE($expected, Html::renderSelectOptions(null, $data, $attributes));
     }
 
-    public function testRenderAttributes(): void
+    /**
+     * @dataProvider dataRenderTagAttributes
+     */
+    public function testRenderTagAttributes(string $expected, array $attributes): void
     {
-        $this->assertSame('', Html::renderTagAttributes([]));
-        $this->assertSame(' name="test" value="1&lt;&gt;"', Html::renderTagAttributes(['name' => 'test', 'empty' => null, 'value' => '1<>']));
-        $this->assertSame(' checked disabled', Html::renderTagAttributes(['checked' => true, 'disabled' => true, 'hidden' => false]));
-        $this->assertSame(' class="first second"', Html::renderTagAttributes(['class' => ['first', 'second']]));
-        $this->assertSame('', Html::renderTagAttributes(['class' => []]));
-        $this->assertSame(' style="width: 100px; height: 200px;"', Html::renderTagAttributes(['style' => ['width' => '100px', 'height' => '200px']]));
-        $this->assertSame('', Html::renderTagAttributes(['style' => []]));
-        $this->assertSame(
-            ' id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'',
-            Html::renderTagAttributes([
-                'id' => 'x',
-                'class' => ['a', 'b'],
-                'data' => ['a' => 1, 'b' => 2],
-                'style' => ['width' => '100px'],
-                'any' => [1, 2],
-            ])
-        );
-        $this->assertSame(' data-a="0" data-b=\'[1,2]\' any="42"', Html::renderTagAttributes([
-            'class' => [],
-            'style' => [],
-            'data' => ['a' => 0, 'b' => [1, 2]],
-            'any' => 42,
-        ]));
-
-        $attributes = [
-            'data' => [
-                'foo' => [],
-            ],
-        ];
-        $this->assertSame(' data-foo=\'[]\'', Html::renderTagAttributes($attributes));
+        self::assertSame($expected, Html::renderTagAttributes($attributes));
     }
 
     public function testAddCssClass(): void
@@ -1248,22 +679,6 @@ EOD;
         ];
         Html::removeCssStyle($options, ['color']);
         $this->assertSame('width: 100px;', $options['style']);
-    }
-
-    public function testBooleanAttributes(): void
-    {
-        $this->assertSame('<input type="email" name="mail">', Html::input('email', 'mail', null, ['required' => false]));
-        $this->assertSame('<input type="email" name="mail" required>', Html::input('email', 'mail', null, ['required' => true]));
-        $this->assertSame('<input type="email" name="mail" required="hi">', Html::input('email', 'mail', null, ['required' => 'hi']));
-    }
-
-    public function testDataAttributes(): void
-    {
-        $this->assertSame('<link src="xyz" data-a="1" data-b="c">', Html::tag('link', '', ['src' => 'xyz', 'data' => ['a' => 1, 'b' => 'c']]));
-        $this->assertSame('<link src="xyz" ng-a="1" ng-b="c">', Html::tag('link', '', ['src' => 'xyz', 'ng' => ['a' => 1, 'b' => 'c']]));
-        $this->assertSame('<link src="xyz" data-ng-a="1" data-ng-b="c">', Html::tag('link', '', ['src' => 'xyz', 'data-ng' => ['a' => 1, 'b' => 'c']]));
-        $this->assertSame('<link src="xyz" aria-a="1" aria-b="c">', Html::tag('link', '', ['src' => 'xyz', 'aria' => ['a' => 1, 'b' => 'c']]));
-        $this->assertSame('<link src=\'{"a":1,"b":"It\\u0027s"}\'>', Html::tag('link', '', ['src' => ['a' => 1, 'b' => "It's"]]));
     }
 
     private function getDataItems(): array

@@ -4,20 +4,40 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
-use Closure;
 use InvalidArgumentException;
 use JsonException;
-use Traversable;
 use ValueError;
-use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Html\Tag\A;
+use Yiisoft\Html\Tag\Button;
+use Yiisoft\Html\Tag\CustomTag;
+use Yiisoft\Html\Tag\Div;
+use Yiisoft\Html\Tag\Img;
+use Yiisoft\Html\Tag\Input;
+use Yiisoft\Html\Tag\Input\Checkbox;
+use Yiisoft\Html\Tag\Input\Radio;
+use Yiisoft\Html\Tag\Label;
+use Yiisoft\Html\Tag\Li;
+use Yiisoft\Html\Tag\Link;
+use Yiisoft\Html\Tag\Meta;
+use Yiisoft\Html\Tag\Ol;
+use Yiisoft\Html\Tag\Optgroup;
+use Yiisoft\Html\Tag\Option;
+use Yiisoft\Html\Tag\P;
+use Yiisoft\Html\Tag\Script;
+use Yiisoft\Html\Tag\Select;
+use Yiisoft\Html\Tag\Span;
+use Yiisoft\Html\Tag\Style;
+use Yiisoft\Html\Tag\Textarea;
+use Yiisoft\Html\Tag\Ul;
+use Yiisoft\Html\Widget\CheckboxList\CheckboxList;
+use Yiisoft\Html\Widget\RadioList\RadioList;
 use Yiisoft\Json\Json;
 
-use function array_key_exists;
+use function count;
 use function in_array;
 use function is_array;
 use function is_bool;
 use function is_int;
-use function is_string;
 use function strlen;
 
 /**
@@ -27,72 +47,18 @@ use function strlen;
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
  *
- * @psalm-type HtmlOptions = array<string, mixed>&array{
- *   id?: string|null,
- *   class?: string[]|string|null,
- *   style?: array<string, string>|string|null,
- *   encode?: bool|null,
+ * @psalm-type HtmlAttributes = array<string, mixed>&array{
+ *   id?: string|\Stringable|null,
+ *   class?: string[]|string|\Stringable[]|\Stringable|null,
+ *   style?: array<string, string>|\Stringable|string|null,
+ *   data?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   data-ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   aria?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
  * }
- * @psalm-type ListHtmlOptions = HtmlOptions&array{
- *   tag?: string,
- *   item?: Closure(string, array-key):string|null,
- *   separator?: string,
- *   itemOptions?: HtmlOptions,
- * }
- * @psalm-type InputHtmlOptions = HtmlOptions&array {
- *   value?: string|int|float|\Stringable|bool|null,
- *   disabled?: bool,
- * }
- * @psalm-type BooleanInputHtmlOptions = InputHtmlOptions&array{
- *   label?: string|null,
- *   labelOptions?: HtmlOptions|null,
- *   wrapInput?: bool,
- *   uncheck?: string|int|float|\Stringable|bool|null,
- *   form?: string|null,
- * }
- * @psalm-type SelectHtmlOptions = HtmlOptions&array{
- *   encodeSpaces?: bool,
- *   prompt?: array{
- *     text: string,
- *     options: HtmlOptions,
- *   }|string|null,
- *   options?: array<array-key, HtmlOptions>,
- *   groups?: array<array-key, HtmlOptions>,
- * }
- * @psalm-type ListBoxHtmlOptions = SelectHtmlOptions&array{
- *   size?: int,
- *   multiple?: bool,
- *   unselect?: string|int|float|\Stringable|bool|null,
- *   disabled?: bool,
- * }
- *
- * @psalm-type SelectItems = array<array-key, string[]|string>
  */
 final class Html
 {
-    /**
-     * List of void elements. These only have a start tag; end tags must not be specified.
-     * {@see http://www.w3.org/TR/html-markup/syntax.html#void-element}
-     */
-    private const VOID_ELEMENTS = [
-        'area' => 1,
-        'base' => 1,
-        'br' => 1,
-        'col' => 1,
-        'command' => 1,
-        'embed' => 1,
-        'hr' => 1,
-        'img' => 1,
-        'input' => 1,
-        'keygen' => 1,
-        'link' => 1,
-        'meta' => 1,
-        'param' => 1,
-        'source' => 1,
-        'track' => 1,
-        'wbr' => 1,
-    ];
-
     /**
      * The preferred order of attributes in a tag. This mainly affects the order of the attributes that are
      * rendered by {@see renderTagAttributes()}.
@@ -274,540 +240,431 @@ final class Html
     /**
      * Generates a complete HTML tag.
      *
-     * @param bool|string|null $name The tag name. If $name is `null` or `false`, the corresponding content will be
-     * rendered without any tag.
-     * @param string $content The content to be enclosed between the start and end tags. It will be HTML-encoded by
-     * default to prevent XSS attacks. In order to turn it off, set `encode` option to `false`.
-     * @param array $options The HTML tag attributes (HTML options) in terms of name-value pairs. These will be
-     * rendered as the attributes of the resulting tag. The values will be HTML-encoded using
-     * {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
-     * The `encode` option is specially handled. If it is `false`, content will be rendered as is. Else it will be
-     * HTML-encoded with {@see encode()}.
+     * @see CustomTag
      *
-     * For example when using `['class' => 'my-class', 'target' => '_blank', 'value' => null]` it will result in the
-     * HTML attributes rendered like this: `class="my-class" target="_blank"`.
+     * @param string $name The tag name.
+     * @param string $content The tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated HTML tag.
-     *
-     * @see beginTag()
-     * @see endTag()
+     * @psalm-param non-empty-string $name
      */
-    public static function tag($name, string $content = '', array $options = []): string
+    public static function tag(string $name, string $content = '', array $attributes = []): CustomTag
     {
-        if (ArrayHelper::remove($options, 'encode', true)) {
-            $content = self::encode($content);
+        $tag = CustomTag::name($name);
+        if (!empty($content)) {
+            $tag = $tag->content($content);
         }
-
-        if ($name === null || is_bool($name)) {
-            return $content;
+        if (!empty($attributes)) {
+            $tag = $tag->replaceAttributes($attributes);
         }
+        return $tag;
+    }
 
-        $html = '<' . $name . self::renderTagAttributes($options) . '>';
+    /**
+     * Generates a normal HTML tag.
+     *
+     * @see CustomTag
+     *
+     * @param string $name The tag name.
+     * @param string $content The tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param non-empty-string $name
+     */
+    public static function normalTag(string $name, string $content = '', array $attributes = []): CustomTag
+    {
+        $tag = CustomTag::name($name)->normal();
+        if (!empty($content)) {
+            $tag = $tag->content($content);
+        }
+        if (!empty($attributes)) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
+    }
 
-        return isset(self::VOID_ELEMENTS[strtolower($name)]) ? $html : "$html$content</$name>";
+    /**
+     * Generates a void HTML tag.
+     *
+     * @see CustomTag
+     *
+     * @param string $name The tag name.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param non-empty-string $name
+     */
+    public static function voidTag(string $name, array $attributes = []): CustomTag
+    {
+        $tag = CustomTag::name($name)->void();
+        if (!empty($attributes)) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
     }
 
     /**
      * Generates a start tag.
      *
-     * @param bool|string|null $name The tag name. If $name is `null` or `false`, the corresponding content will be
-     * rendered without any tag.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
+     * @see self::closeTag()
      *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @throws JsonException
-     *
-     * {@see endTag()}
-     * {@see tag()}
-     *
-     * @return string The generated start tag.
+     * @param string $name The tag name.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function beginTag($name, array $options = []): string
+    public static function openTag(string $name, array $attributes = []): string
     {
-        if ($name === null || is_bool($name)) {
-            return '';
-        }
-
-        return '<' . $name . self::renderTagAttributes($options) . '>';
+        return '<' . $name . self::renderTagAttributes($attributes) . '>';
     }
 
     /**
      * Generates an end tag.
      *
-     * @param bool|string|null $name The tag name. If $name is `null` or `false`, the corresponding content will be
-     * rendered without any tag.
+     * @see self::openTag()
      *
-     * @return string The generated end tag.
-     *
-     * {@see beginTag()}
-     * {@see tag()}
+     * @param string $name The tag name.
      */
-    public static function endTag($name): string
+    public static function closeTag(string $name): string
     {
-        if ($name === null || is_bool($name)) {
-            return '';
-        }
-
         return "</$name>";
     }
 
     /**
-     * Generates a style tag.
+     * Generates a {@see Style} tag.
      *
      * @param string $content The style content.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the
-     * corresponding attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes
-     * are being rendered.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated style tag.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function style(string $content, array $options = []): string
+    public static function style(string $content = '', array $attributes = []): Style
     {
-        /** @psalm-var HtmlOptions $options */
-        $options['encode'] ??= false;
-        return self::tag('style', $content, $options);
+        $tag = Style::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if (!empty($attributes)) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
     }
 
     /**
-     * Generates a script tag.
+     * Generates a {@see Script} tag.
      *
      * @param string $content The script content.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered. See {@see renderTagAttributes()} for details on how attributes
-     * are being rendered.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated script tag.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function script(string $content, array $options = []): string
+    public static function script(string $content = '', array $attributes = []): Script
     {
-        /** @psalm-var HtmlOptions $options */
-        $options['encode'] ??= false;
-        return self::tag('script', $content, $options);
+        $tag = Script::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if (!empty($attributes)) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
     }
 
     /**
-     * Generates a link tag that refers to an external CSS file.
+     * Generates a {@see Meta} tag.
      *
-     * @param string $url The URL of the external CSS file. This parameter will be processed.
-     * @param array $options The tag options in terms of name-value pairs. The following options are specially handled:
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * - noscript: if set to true, `link` tag will be wrapped into `<noscript>` tags.
-     *
-     * The rest of the options will be rendered as the attributes of the resulting link tag. The values will be
-     * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute
-     * will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param HtmlOptions&array{
-     *   noscript?: bool,
-     * } $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated link tag.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function cssFile(string $url, array $options = []): string
+    public static function meta(array $attributes = []): Meta
     {
-        if (!isset($options['rel'])) {
-            $options['rel'] = 'stylesheet';
+        $tag = Meta::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
         }
-        $options['href'] = $url;
-
-        if (isset($options['noscript']) && $options['noscript'] === true) {
-            unset($options['noscript']);
-            return '<noscript>' . self::tag('link', '', $options) . '</noscript>';
-        }
-
-        return self::tag('link', '', $options);
+        return $tag;
     }
 
     /**
-     * Generates a script tag that refers to an external JavaScript file.
+     * Generates a {@see Link} tag.
      *
-     * @param string $url The URL of the external JavaScript file. This parameter will be processed.
-     * @param array $options The tag options in terms of name-value pairs.
-     * Options will be rendered as the attributes of the resulting script tag. The values will be
-     * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute will
-     * not be rendered. See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @param string|null $url The destination of the link.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated script tag.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function javaScriptFile(string $url, array $options = []): string
+    public static function link(?string $url = null, array $attributes = []): Link
     {
-        $options['src'] = $url;
-        return self::tag('script', '', $options);
+        $tag = Link::tag();
+        if ($url !== null) {
+            $tag = $tag->url($url);
+        }
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Link} tag that refers to an CSS file.
+     *
+     * @param string $url The URL of the CSS file.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function cssFile(string $url, array $attributes = []): Link
+    {
+        $tag = Link::toCssFile($url);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Script} tag that refers to a JavaScript file.
+     *
+     * @param string $url The URL of the JavaScript file.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function javaScriptFile(string $url, array $attributes = []): Script
+    {
+        $tag = Script::tag()->url($url);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
      * Generates a hyperlink tag.
      *
-     * @param string $text Link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
-     * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
-     * @param array|string|null $url The URL for the hyperlink tag. This parameter will be processed and will be used
-     * for the "href" attribute of the tag. If this parameter is null, the "href" attribute will not
-     * be generated.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * If you want to use an absolute url you can call yourself, before passing the URL to this method, like this:
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      *
-     * ```php
-     * Html::a('link text', $url, true))
-     * ```
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated hyperlink.
+     * @see A
      */
-    public static function a(string $text, $url = null, array $options = []): string
+    public static function a(string $content = '', ?string $url = null, array $attributes = []): A
     {
+        $tag = A::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
         if ($url !== null) {
-            $options['href'] = $url;
+            $tag = $tag->url($url);
         }
-
-        return self::tag('a', $text, $options);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
-     * Generates a mailto hyperlink.
+     * Generates a mailto hyperlink tag.
      *
-     * @param string $text Link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image
-     * tag. If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
-     * @param string|null $email Email address. If this is null, the first parameter (link body) will be treated
-     * as the email address and used.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @throws JsonException
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      *
-     * @return string The generated mailto link.
+     * @see A
      */
-    public static function mailto(string $text, ?string $email = null, array $options = []): string
+    public static function mailto(string $content, ?string $mail = null, array $attributes = []): A
     {
-        $options['href'] = 'mailto:' . ($email ?? $text);
-        return self::tag('a', $text, $options);
+        $tag = A::tag()
+            ->content($content)
+            ->mailto($mail ?? $content);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
-     * Generates an image tag.
+     * Generates an {@see Img} tag.
      *
-     * @param string $src The image URL. This parameter will be processed.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * It is possible to pass the `srcset` option as an array which keys are descriptors and
-     * values are URLs. All URLs will be processed.
-     *
-     * @psalm-param HtmlOptions&array{
-     *   srcset?: string[]|string|null,
-     * }|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated image tag.
+     * @param string $src The image URL.
      */
-    public static function img(string $src, array $options = []): string
+    public static function img(?string $url = null, ?string $alt = ''): Img
     {
-        $options['src'] = $src;
-
-        if (isset($options['srcset']) && is_array($options['srcset'])) {
-            $srcset = [];
-            foreach ($options['srcset'] as $descriptor => $url) {
-                $srcset[] = $url . ' ' . $descriptor;
-            }
-            $options['srcset'] = implode(',', $srcset);
+        $tag = Img::tag();
+        if ($url !== null) {
+            $tag = $tag->src($url);
         }
-
-        if (!isset($options['alt'])) {
-            $options['alt'] = '';
+        if ($alt !== null) {
+            $tag = $tag->alt($alt);
         }
-
-        return self::tag('img', '', $options);
+        return $tag;
     }
 
     /**
-     * Generates a label tag.
+     * Generates a {@see Label} tag.
      *
-     * @param string $content Label text. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an
-     * image tag. If this is is coming from end users, you should {@see encode()} it to prevent XSS attacks.
+     * @param string $content Label text.
      * @param string|null $for The ID of the HTML element that this label is associated with.
      * If this is null, the "for" attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the
-     * corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated label tag.
      */
-    public static function label(string $content, ?string $for = null, array $options = []): string
+    public static function label(string $content = '', ?string $for = null): Label
     {
-        $options['for'] = $for;
-        return self::tag('label', $content, $options);
+        $tag = Label::tag();
+        if ($for !== null) {
+            $tag = $tag->forId($for);
+        }
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        return $tag;
     }
 
     /**
      * Generates a button tag.
      *
-     * @param string $content The content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
-     * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encode()} it to prevent XSS attacks.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null, the
-     * corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Button::button()
      *
-     * @throws JsonException
+     * @param string $content The content enclosed within the button tag.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @return string The generated button tag.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function button(string $content = 'Button', array $options = []): string
+    public static function button(string $content = 'Button', array $attributes = []): Button
     {
-        if (!isset($options['type'])) {
-            $options['type'] = 'button';
+        $tag = Button::button($content);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
         }
-
-        return self::tag('button', $content, $options);
+        return $tag;
     }
 
     /**
      * Generates a submit button tag.
      *
-     * Be careful when naming form elements such as submit buttons. According to the [jQuery documentation]
-     * (https://api.jquery.com/submit/) there are some reserved names that can cause conflicts, e.g. `submit`, `length`
-     * or `method`.
+     * @see Button::submit()
      *
-     * @param string $content The content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
-     * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encode()} it to prevent XSS attacks.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @param string $content The content enclosed within the button tag.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @throws JsonException
-     *
-     * @return string The generated submit button tag.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function submitButton(string $content = 'Submit', array $options = []): string
+    public static function submitButton(string $content = 'Submit', array $attributes = []): Button
     {
-        $options['type'] = 'submit';
-
-        return self::button($content, $options);
+        $tag = Button::submit($content);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
      * Generates a reset button tag.
      *
-     * @param string $content The content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you
-     * can pass in HTML code such as an image tag. If this is is coming from end users, you should consider
-     * {@see encode()} it to prevent XSS attacks.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Button::reset()
      *
-     * @throws JsonException
+     * @param string $content The content enclosed within the button tag.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @return string The generated reset button tag.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function resetButton(string $content = 'Reset', array $options = []): string
+    public static function resetButton(string $content = 'Reset', array $attributes = []): Button
     {
-        $options['type'] = 'reset';
-
-        return self::button($content, $options);
+        $tag = Button::reset($content);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
-     * Generates an input type of the given type.
+     * Generates an {@see Input} type of the given type.
      *
      * @param string $type The type attribute.
-     * @param string|null $name The name attribute. If it is null, the name attribute will not be generated.
-     * @param bool|float|int|string|null $value the value attribute. If it is null, the value attribute will
-     * not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param string|int|float|\Stringable|bool|null $value
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated input tag.
+     * @param string|null $name The name attribute. If it is `null`, the name attribute will not be generated.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute. If it is `null`, the value
+     * attribute will not be generated.
      */
-    public static function input(string $type, ?string $name = null, $value = null, array $options = []): string
+    public static function input(string $type, ?string $name = null, $value = null): Input
     {
-        if (!isset($options['type'])) {
-            $options['type'] = $type;
+        $tag = Input::tag()->type($type);
+        if ($name !== null) {
+            $tag = $tag->name($name);
         }
-
-        $options['name'] = $name;
-        $options['value'] = $value;
-
-        return self::tag('input', '', $options);
+        if ($value !== null) {
+            $tag = $tag->value($value);
+        }
+        return $tag;
     }
 
     /**
-     * Generates an input button.
+     * Generates an {@see Input} button.
      *
-     * @param string $label The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::button()
      *
-     * @throws JsonException
-     *
-     * @return string The generated button tag.
+     * @param string|null $label The value attribute.
      */
-    public static function buttonInput(string $label = 'Button', array $options = []): string
+    public static function buttonInput(?string $label = 'Button'): Input
     {
-        $options['type'] = 'button';
-        $options['value'] = $label;
-
-        return self::tag('input', '', $options);
+        return Input::button($label);
     }
 
     /**
-     * Generates a submit input button.
+     * Generates a submit {@see Input} button.
      *
-     * Be careful when naming form elements such as submit buttons. According to the {@see jQuery documentation}
-     * https://api.jquery.com/submit/) there are some reserved names that can cause conflicts, e.g. `submit`, `length`
-     * or `method`.
+     * @see Input::submitButton()
      *
-     * @param string $label The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @throws JsonException
-     *
-     * @return string The generated button tag.
+     * @param string|null $label The value attribute.
      */
-    public static function submitInput($label = 'Submit', $options = []): string
+    public static function submitInput(?string $label = 'Submit'): Input
     {
-        $options['type'] = 'submit';
-        $options['value'] = $label;
-
-        return self::tag('input', '', $options);
+        return Input::submitButton($label);
     }
 
     /**
-     * Generates a reset input button.
+     * Generates a reset {@see Input} button.
      *
-     * @param string $label The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The attributes of the button tag. The values will be HTML-encoded using
-     * {@see encodeAttribute()}. Attributes whose value is null will be ignored and not put in the tag returned.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::resetButton()
      *
-     * @throws JsonException
-     *
-     * @return string The generated button tag.
+     * @param string|null $label The value attribute.
      */
-    public static function resetInput(string $label = 'Reset', array $options = []): string
+    public static function resetInput(?string $label = 'Reset'): Input
     {
-        $options['type'] = 'reset';
-        $options['value'] = $label;
-
-        return self::tag('input', '', $options);
+        return Input::resetButton($label);
     }
 
     /**
-     * Generates a text input field.
+     * Generates a text {@see Input} field.
      *
-     * @param string $name The name attribute.
-     * @param string|null $value The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated text input tag.
+     * @param string|null $name The name attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
-    public static function textInput(string $name, ?string $value = null, array $options = []): string
+    public static function textInput(?string $name = null, $value = null): Input
     {
-        return self::input('text', $name, $value, $options);
+        return Input::text($name, $value);
     }
 
     /**
      * Generates a hidden input field.
      *
-     * @param string $name The name attribute.
-     * @param bool|float|int|string|null $value The value attribute.
-     * If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::hidden()
      *
-     * @psalm-param string|int|float|\Stringable|bool|null $value
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated hidden input tag.
+     * @param string|null $name The name attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
-    public static function hiddenInput(string $name, $value = null, array $options = []): string
+    public static function hiddenInput(?string $name = null, $value = null): Input
     {
-        return self::input('hidden', $name, $value, $options);
+        return Input::hidden($name, $value);
     }
 
     /**
      * Generates a password input field.
      *
-     * @param string $name The name attribute.
-     * @param string|null $value The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::password()
      *
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated password input tag.
+     * @param string|null $name The name attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
-    public static function passwordInput(string $name, ?string $value = null, array $options = []): string
+    public static function passwordInput(?string $name = null, $value = null): Input
     {
-        return self::input('password', $name, $value, $options);
+        return Input::password($name, $value);
     }
 
     /**
@@ -817,824 +674,196 @@ final class Html
      * After the form is submitted, the uploaded file information can be obtained via $_FILES[$name]
      * (see PHP documentation).
      *
-     * @param string $name The name attribute.
-     * @param string|null $value The value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}.
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
+     * @see Input::file()
      *
-     * @psalm-param InputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated file input tag.
+     * @param string|null $name The name attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
-    public static function fileInput(string $name, ?string $value = null, array $options = []): string
+    public static function fileInput(?string $name = null, $value = null): Input
     {
-        return self::input('file', $name, $value, $options);
+        return Input::file($name, $value);
     }
 
     /**
-     * Generates a text area input.
+     * Generates a radio button {@see Input}.
      *
-     * @param string $name The input name.
-     * @param string|null $value The input value. Note that it will be encoded using {@see encode()}.
-     * @param array $options The tag options in terms of name-value pairs. These will be rendered as the attributes of
-     * the resulting tag. The values will be HTML-encoded using {@see encodeAttribute()}. If a value is null,
-     * the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     * The following special options are recognized:
+     * @see Input::radio()
      *
-     * - `doubleEncode`: whether to double encode HTML entities in `$value`. If `false`, HTML entities in `$value` will
-     *   not be further encoded.
-     *
-     * @psalm-param HtmlOptions&array{
-     *   doubleEncode?: bool,
-     * }|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated text area tag.
+     * @param string|null $name The name attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
-    public static function textarea(string $name, ?string $value = '', array $options = []): string
+    public static function radio(?string $name = null, $value = null): Radio
     {
-        $options['name'] = $name;
-
-        if (isset($options['doubleEncode']) && $options['doubleEncode'] === false) {
-            $value = self::encode($value, false);
-            $options['encode'] = false;
-        }
-
-        return self::tag('textarea', (string)$value, $options);
+        return Input::radio($name, $value);
     }
 
     /**
-     * Generates a radio button input.
+     * Generates a checkbox {@see Input}.
      *
-     * @param string $name The name attribute.
-     * @param bool $checked Whether the radio button should be checked.
-     * @param array $options The tag options in terms of name-value pairs.
-     * See {@see booleanInput()} for details about accepted attributes.
+     * @see Input::checkbox()
      *
-     * @psalm-param BooleanInputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated radio button tag.
+     * @param string|null $name The name attribute.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
-    public static function radio(string $name, bool $checked = false, array $options = []): string
+    public static function checkbox(?string $name = null, $value = null): Checkbox
     {
-        return self::booleanInput('radio', $name, $checked, $options);
+        return Input::checkbox($name, $value);
     }
 
     /**
-     * Generates a checkbox input.
+     * Generates a {@see Textarea} input.
      *
-     * @param string $name The name attribute.
-     * @param bool $checked Whether the checkbox should be checked.
-     * @param array $options The tag options in terms of name-value pairs.
-     * See {@see booleanInput()} for details about accepted attributes.
-     *
-     * @psalm-param BooleanInputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated checkbox tag.
+     * @param string|null $name The input name.
+     * @param string|null $value The input value.
      */
-    public static function checkbox(string $name, bool $checked = false, array $options = []): string
+    public static function textarea(?string $name = null, ?string $value = null): Textarea
     {
-        return self::booleanInput('checkbox', $name, $checked, $options);
+        $tag = Textarea::tag();
+        if ($name !== null) {
+            $tag = $tag->name($name);
+        }
+        if (!empty($value)) {
+            $tag = $tag->value($value);
+        }
+        return $tag;
     }
 
     /**
-     * Generates a boolean input.
+     * Generates a {@see Select} tag.
      *
-     * @param string $type The input type. This can be either `radio` or `checkbox`.
-     * @param string $name The name attribute.
-     * @param bool $checked Whether the checkbox should be checked.
-     * @param array $options The tag options in terms of name-value pairs. The following options are specially handled:
-     *
-     * - uncheck: string, the value associated with the uncheck state of the checkbox. When this attribute is present,
-     *   a hidden input will be generated so that if the checkbox is not checked and is submitted, the value of this
-     *   attribute will still be submitted to the server via the hidden input.
-     * - label: string, a label displayed next to the checkbox. It will NOT be HTML-encoded. Therefore you can pass in
-     *   HTML code such as an image tag. If this is is coming from end users, you should {@see encode()}
-     *   it to prevent XSS attacks.
-     *   When this option is specified, the checkbox will be enclosed by a label tag.
-     * - labelOptions: array, the HTML attributes for the label tag. Do not set this option unless you set the "label"
-     *   option.
-     * - wrapInput: bool, use when has label.
-     *   if `wrapInput` is true result will be `<label><input> Label</label>`,
-     *   else `<input> <label>Label</label>`
-     *
-     * The rest of the options will be rendered as the attributes of the resulting checkbox tag. The values will be
-     * HTML-encoded using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be
-     * rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param BooleanInputHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated checkbox tag.
+     * @param string|null $name The name attribute
      */
-    private static function booleanInput(string $type, string $name, bool $checked, array $options): string
+    public static function select(?string $name = null): Select
     {
-        $options['checked'] = $checked;
-        $value = array_key_exists('value', $options) ? $options['value'] : '1';
-        $encode = (bool) ArrayHelper::remove($options, 'encode', true);
-
-        /** @var BooleanInputHtmlOptions $options */
-        if (isset($options['uncheck'])) {
-            // Add a hidden field so that if the checkbox is not selected, it still submits a value.
-            $hiddenOptions = [];
-            if (isset($options['form'])) {
-                $hiddenOptions['form'] = $options['form'];
-            }
-            // Make sure disabled input is not sending any value.
-            if (!empty($options['disabled'])) {
-                $hiddenOptions['disabled'] = $options['disabled'];
-            }
-            $hidden = self::hiddenInput($name, $options['uncheck'], $hiddenOptions);
-
-            unset($options['uncheck']);
-        } else {
-            $hidden = '';
+        $tag = Select::tag();
+        if ($name !== null) {
+            $tag = $tag->name($name);
         }
-
-        $label = $options['label'] ?? null;
-        $labelOptions = $options['labelOptions'] ?? [];
-        $wrapInput = $options['wrapInput'] ?? true;
-        unset($options['label'], $options['labelOptions'], $options['wrapInput']);
-
-        if (empty($label)) {
-            return $hidden . self::input($type, $name, $value, $options);
-        }
-
-        $label = $encode ? self::encode($label) : $label;
-        $labelOptions['encode'] = false;
-
-        if ($wrapInput) {
-            $input = self::input($type, $name, $value, $options);
-            return $hidden . self::label($input . ' ' . $label, null, $labelOptions);
-        }
-
-        if (!isset($options['id'])) {
-            $options['id'] = self::generateId();
-        }
-        return $hidden .
-            self::input($type, $name, $value, $options) .
-            ' ' .
-            self::label($label, $options['id'], $labelOptions);
+        return $tag;
     }
 
     /**
-     * Generates a drop-down list.
-     *
-     * @param string $name The input name.
-     * @param iterable|string|null $selection The selected value(s). String for single or array for multiple
-     * selection(s).
-     * @param array $items The option data items. The array keys are option values, and the array values are the
-     * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
-     * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
-     * list of data models, you may convert them into the format described above using
-     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
-     *
-     * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in the
-     * labels will also be HTML-encoded.
-     * @param array $options The tag options in terms of name-value pairs. The following options are specially handled:
-     *
-     * - prompt: string, a prompt text to be displayed as the first option. You can use an array to override the value
-     *   and to set other tag attributes:
-     *
-     *   ```php
-     *   ['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
-     *   ```
-     *
-     * - options: array, the attributes for the select option tags. The array keys must be valid option values, and the
-     *   array values are the extra attributes for the corresponding option tags. For example,
-     *
-     *   ```php
-     *   [
-     *       'value1' => ['disabled' => true],
-     *       'value2' => ['label' => 'value 2'],
-     *   ];
-     *   ```
-     *
-     * - groups: array, the attributes for the optgroup tags. The structure of this is similar to that of 'options',
-     *   except that the array keys represent the optgroup labels specified in $items.
-     * - encodeSpaces: bool, whether to encode spaces in option prompt and option value with `&nbsp;` character.
-     *   Defaults to false.
-     * - encode: bool, whether to encode option prompt and option value characters. Defaults to `true`.
-     *
-     * The rest of the options will be rendered as the attributes of the resulting tag. The values will be HTML-encoded
-     * using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param iterable<array-key, string>|string|null $selection
-     * @psalm-param SelectItems $items
-     * @psalm-param ListBoxHtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated drop-down list tag.
+     * Generates a {@see Optgroup} tag.
      */
-    public static function dropDownList(string $name, $selection = null, array $items = [], array $options = []): string
+    public static function optgroup(): Optgroup
     {
-        if (!empty($options['multiple'])) {
-            return self::listBox($name, $selection, $items, $options);
-        }
-
-        $options['name'] = $name;
-
-        unset($options['unselect']);
-
-        $selectOptions = self::renderSelectOptionTags($selection, $items, $options);
-
-        $options['encode'] = false;
-
-        return self::tag('select', "\n" . $selectOptions . "\n", $options);
+        return Optgroup::tag();
     }
 
     /**
-     * Generates a list box.
+     * Generates a {@see Option} tag.
      *
-     * @param string $name The input name.
-     * @param iterable|string|null $selection The selected value(s). String for single or array for multiple
-     * selection(s).
-     * @param array $items The option data items. The array keys are option values, and the array values are the
-     * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
-     * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
-     * list of data models, you may convert them into the format described above using
-     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
-     *
-     * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in the
-     * labels will also be HTML-encoded.
-     * @param array $options The tag options in terms of name-value pairs. The following options are specially handled:
-     *
-     * - prompt: string, a prompt text to be displayed as the first option. You can use an array to override the value
-     *   and to set other tag attributes:
-     *
-     *   ```php
-     *   ['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
-     *   ```
-     *
-     * - options: array, the attributes for the select option tags. The array keys must be valid option values, and the
-     *   array values are the extra attributes for the corresponding option tags. For example,
-     *
-     *   ```php
-     *   [
-     *       'value1' => ['disabled' => true],
-     *       'value2' => ['label' => 'value 2'],
-     *   ];
-     *   ```
-     *
-     * - groups: array, the attributes for the optgroup tags. The structure of this is similar to that of 'options',
-     *   except that the array keys represent the optgroup labels specified in $items.
-     * - unselect: string, the value that will be submitted when no option is selected.
-     *   When this attribute is set, a hidden field will be generated so that if no option is selected in multiple
-     *   mode, we can still obtain the posted unselect value.
-     * - encodeSpaces: bool, whether to encode spaces in option prompt and option value with `&nbsp;` character.
-     *   Defaults to false.
-     * - encode: bool, whether to encode option prompt and option value characters. Defaults to `true`.
-     *
-     * The rest of the options will be rendered as the attributes of the resulting tag. The values will be HTML-encoded
-     * using {@see encodeAttribute()}. If a value is null, the corresponding attribute will not be rendered.
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param iterable<array-key, string>|string|null $selection
-     * @psalm-param SelectItems $items
-     * @psalm-param ListBoxHtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated list box tag.
+     * @param string $content Tag content.
+     * @param bool|float|int|string|\Stringable|null $value The value attribute.
      */
-    public static function listBox(string $name, $selection = null, array $items = [], array $options = []): string
+    public static function option(string $content = '', $value = null): Option
     {
-        if (!array_key_exists('size', $options)) {
-            $options['size'] = 4;
+        $tag = Option::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
         }
-
-        if (!empty($options['multiple']) && !empty($name)) {
-            $name = self::getArrayableName($name);
+        if ($value !== null) {
+            $tag = $tag->value($value);
         }
-
-        $options['name'] = $name;
-
-        if (isset($options['unselect'])) {
-            // Add a hidden field so that if the list box has no option being selected, it still submits a value.
-            $name = self::getNonArrayableName($name);
-            $hiddenOptions = [];
-            // Make sure disabled input is not sending any value.
-            if (!empty($options['disabled'])) {
-                $hiddenOptions['disabled'] = $options['disabled'];
-            }
-            $hidden = self::hiddenInput($name, $options['unselect'], $hiddenOptions);
-            unset($options['unselect']);
-        } else {
-            $hidden = '';
-        }
-
-        /** @var SelectHtmlOptions $options */
-        $selectOptions = self::renderSelectOptionTags($selection, $items, $options);
-
-        $options['encode'] = false;
-
-        return $hidden . self::tag('select', "\n" . $selectOptions . "\n", $options);
+        return $tag;
     }
 
     /**
      * Generates a list of checkboxes.
      *
-     * A checkbox list allows multiple selection, like {@see listBox()}. As a result, the corresponding submitted value
-     * is an array.
-     *
-     * @param string $name The name attribute of each checkbox.
-     * @param array|bool|float|int|string|Traversable|null $selection The selected value(s). String for single or array
-     * for multiple selection(s).
-     * @param array $items The data item used to generate the checkboxes. The array keys are the checkbox values, while
-     * the array values are the corresponding labels.
-     * @param array $options Options (name => config) for the checkbox list container tag. The following options are
-     * specially handled:
-     *
-     * - tag: string|false, the tag name of the container element. False to render checkbox without container.
-     *   See also {@see tag()}.
-     * - unselect: string, the value that should be submitted when none of the checkboxes is selected. By setting this
-     *   option, a hidden input will be generated.
-     * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true. This option is ignored if `item`
-     *   option is set.
-     * - separator: string, the HTML code that separates items.
-     * - itemOptions: array, the options for generating the checkbox tag using {@see checkbox()}.
-     * - item: callable, a callback that can be used to customize the generation of the HTML code corresponding to a
-     *   single item in $items. The signature of this callback must be:
-     *
-     *   ```php
-     *   function ($index, $label, $name, $checked, $value)
-     *   ```
-     *
-     *   where $index is the zero-based index of the checkbox in the whole list; $label is the label for the checkbox;
-     *   and $name, $value and $checked represent the name, value and the checked status of the checkbox input,
-     *   respectively.
-     *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param iterable<array-key, string>|string|\Stringable|int|float|bool|null $selection
-     * @psalm-param array<array-key, string> $items
-     * @psalm-param InputHtmlOptions&array{
-     *   item?: Closure(int, string, string, bool, mixed):string|null,
-     *   itemOptions?: HtmlOptions|null,
-     *   separator?: string|null,
-     *   tag?: string|null,
-     *   unselect?: string|int|float|\Stringable|bool|null,
-     * }|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated checkbox list.
+     * @see CheckboxList
      */
-    public static function checkboxList(string $name, $selection = null, array $items = [], array $options = []): string
+    public static function checkboxList(string $name): CheckboxList
     {
-        $name = self::getArrayableName($name);
-
-        if (is_iterable($selection)) {
-            $selection = array_map('\strval', is_array($selection) ? $selection : iterator_to_array($selection));
-        } elseif ($selection !== null) {
-            $selection = (string)$selection;
-        }
-
-        /** @var Closure(int, string, string, bool, mixed):string|null $formatter */
-        $formatter = ArrayHelper::remove($options, 'item');
-
-        /** @psalm-var HtmlOptions $itemOptions */
-        $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
-
-        /** @var string $separator */
-        $separator = ArrayHelper::remove($options, 'separator', "\n");
-
-        /** @var string $tag */
-        $tag = ArrayHelper::remove($options, 'tag', 'div');
-
-        /** @psalm-var InputHtmlOptions&array{unselect?: string|int|float|\Stringable|bool|null} $options */
-
-        $lines = [];
-        $index = 0;
-        foreach ($items as $value => $label) {
-            $checked = $selection !== null &&
-                ((!is_iterable($selection) && !strcmp((string)$value, $selection))
-                    || (is_iterable($selection) && ArrayHelper::isIn((string)$value, $selection)));
-            if ($formatter !== null) {
-                $lines[] = $formatter($index, $label, $name, $checked, $value);
-            } else {
-                $lines[] = self::checkbox($name, $checked, array_merge([
-                    'value' => $value,
-                    'label' => $label,
-                ], $itemOptions));
-            }
-            $index++;
-        }
-
-        if (isset($options['unselect'])) {
-            // Add a hidden field so that if the list box has no option being selected, it still submits a value.
-            $name2 = self::getNonArrayableName($name);
-            $hiddenOptions = [];
-            // Make sure disabled input is not sending any value.
-            if (!empty($options['disabled'])) {
-                $hiddenOptions['disabled'] = $options['disabled'];
-            }
-            $hidden = self::hiddenInput($name2, $options['unselect'], $hiddenOptions);
-            unset($options['unselect'], $options['disabled']);
-        } else {
-            $hidden = '';
-        }
-
-        $options['encode'] = false;
-        return $hidden . self::tag($tag, implode($separator, $lines), $options);
+        return CheckboxList::create($name);
     }
 
     /**
      * Generates a list of radio buttons.
      *
-     * A radio button list is like a checkbox list, except that it only allows single selection.
-     *
-     * @param string $name The name attribute of each radio button.
-     * @param array|bool|float|int|string|Traversable|null $selection The selected value(s). String for single or array
-     * for multiple selection(s).
-     * @param array $items The data item used to generate the radio buttons. The array keys are the radio button
-     * values, while the array values are the corresponding labels.
-     * @param array $options Options (name => config) for the radio button list container tag. The following options
-     * are specially handled:
-     *
-     * - tag: string|false, the tag name of the container element. False to render radio buttons without container.
-     *   See also {@see tag()}.
-     * - unselect: string, the value that should be submitted when none of the radio buttons is selected. By setting
-     *   this option, a hidden input will be generated.
-     * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true. This option is ignored if `item`
-     *   option is set.
-     * - separator: string, the HTML code that separates items.
-     * - itemOptions: array, the options for generating the radio button tag using {@see radio()}.
-     * - item: callable, a callback that can be used to customize the generation of the HTML code corresponding to a
-     *   single item in $items. The signature of this callback must be:
-     *
-     *   ```php
-     *   function ($index, $label, $name, $checked, $value)
-     *   ```
-     *
-     *   where $index is the zero-based index of the radio button in the whole list; $label is the label for the radio
-     *   button; and $name, $value and $checked represent the name, value and the checked status of the radio button
-     *   input, respectively.
-     *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param iterable<array-key, string>|string|\Stringable|int|float|bool|null $selection
-     * @psalm-param array<array-key, string> $items
-     * @psalm-param InputHtmlOptions&array{
-     *   item?: Closure(int, string, string, bool, mixed):string|null,
-     *   itemOptions?: HtmlOptions|null,
-     *   separator?: string|null,
-     *   tag?: string|null,
-     *   unselect?: string|int|float|\Stringable|bool|null,
-     * }|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated radio button list.
+     * @see RadioList
      */
-    public static function radioList(string $name, $selection = null, array $items = [], array $options = []): string
+    public static function radioList(string $name): RadioList
     {
-        if (is_iterable($selection)) {
-            $selection = array_map('strval', is_array($selection) ? $selection : iterator_to_array($selection));
-        } elseif ($selection !== null) {
-            $selection = (string)$selection;
-        }
-
-        /** @var Closure(int, string, string, bool, mixed):string|null $formatter */
-        $formatter = ArrayHelper::remove($options, 'item');
-
-        /** @psalm-var HtmlOptions $itemOptions */
-        $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
-
-        /** @var string $separator */
-        $separator = ArrayHelper::remove($options, 'separator', "\n");
-
-        /** @var string $tag */
-        $tag = ArrayHelper::remove($options, 'tag', 'div');
-
-        /** @psalm-var InputHtmlOptions&array{unselect?: string|int|float|\Stringable|bool|null} $options */
-
-        $hidden = '';
-        if (isset($options['unselect'])) {
-            // add a hidden field so that if the list box has no option being selected, it still submits a value
-            $hiddenOptions = [];
-            // make sure disabled input is not sending any value
-            if (!empty($options['disabled'])) {
-                $hiddenOptions['disabled'] = $options['disabled'];
-            }
-            $hidden = self::hiddenInput($name, $options['unselect'], $hiddenOptions);
-            unset($options['unselect'], $options['disabled']);
-        }
-
-        $lines = [];
-        $index = 0;
-        foreach ($items as $value => $label) {
-            $checked = $selection !== null &&
-                ((!is_iterable($selection) && !strcmp((string)$value, $selection))
-                    || (is_iterable($selection) && ArrayHelper::isIn((string)$value, $selection)));
-            if ($formatter !== null) {
-                $lines[] = $formatter($index, $label, $name, $checked, $value);
-            } else {
-                $lines[] = self::radio($name, $checked, array_merge([
-                    'value' => $value,
-                    'label' => $label,
-                ], $itemOptions));
-            }
-            $index++;
-        }
-        $visibleContent = implode($separator, $lines);
-
-        $options['encode'] = false;
-        return $hidden . self::tag($tag, $visibleContent, $options);
+        return RadioList::create($name);
     }
 
     /**
-     * Generates a div tag. Based on {@see Html::tag()}.
+     * Generates a {@see Div} tag.
      *
      * @param string $content Tag content.
-     * @param array $options Tag options.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated div.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function div(string $content = '', array $options = []): string
+    public static function div(string $content = '', array $attributes = []): Div
     {
-        return self::tag('div', $content, $options);
+        $tag = Div::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**
-     * Generates a span tag. Based on {@see Html::tag()}.
+     * Generates a {@see Span} tag.
      *
      * @param string $content Tag content.
-     * @param array $options Tag options.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated span.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function span(string $content = '', array $options = []): string
+    public static function span(string $content = '', array $attributes = []): Span
     {
-        return self::tag('span', $content, $options);
+        $tag = Span::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**
-     * Generates a paragraph tag. Based on {@see Html::tag()}.
+     * Generates a {@see P} tag.
      *
      * @param string $content Tag content.
-     * @param array $options Tag options.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated paragraph.
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function p(string $content = '', array $options = []): string
+    public static function p(string $content = '', array $attributes = []): P
     {
-        return self::tag('p', $content, $options);
+        $tag = P::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**
-     * Generates an unordered list.
-     *
-     * @param array|Traversable $items The items for generating the list. Each item generates a single list item. Note
-     * that items will be automatically HTML encoded if `$options['encode']` is not set or true.
-     * @param array $options Options (name => config) for the radio button list. The following options are supported:
-     *
-     * - encode: boolean, whether to HTML-encode the items. Defaults to true. This option is ignored if the `item`
-     *   option is specified.
-     * - separator: string, the HTML code that separates items. Defaults to a simple newline (`"\n"`). This option is
-     *   available.
-     * - itemOptions: array, the HTML attributes for the `li` tags. This option is ignored if the `item` option is
-     *   specified.
-     * - item: callable, a callback that is used to generate each individual list item. The signature of this callback
-     *   must be:
-     *
-     *   ```php
-     *   function ($item, $index)
-     *   ```
-     *
-     *   where $index is the array key corresponding to `$item` in `$items`. The callback should return the whole list
-     *   item tag.
-     *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param array<array-key, mixed> $items
-     * @psalm-param ListHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated unordered list. An empty list tag will be returned if `$items` is empty.
+     * Generates a {@see Ul} tag.
      */
-    public static function ul($items, array $options = []): string
+    public static function ul(): Ul
     {
-        /** @var string $tag */
-        $tag = ArrayHelper::remove($options, 'tag', 'ul');
-
-        /** @var Closure(string, array-key):string|null $formatter */
-        $formatter = ArrayHelper::remove($options, 'item');
-
-        /** @var string $separator */
-        $separator = ArrayHelper::remove($options, 'separator', "\n");
-
-        /** @psalm-var HtmlOptions $itemOptions */
-        $itemOptions = ArrayHelper::remove($options, 'itemOptions', []);
-
-
-        if (empty($items)) {
-            return self::tag($tag, '', $options);
-        }
-
-        $results = [];
-        /** @var mixed $item */
-        foreach ($items as $index => $item) {
-            $item = (string)$item;
-            if ($formatter !== null) {
-                $results[] = $formatter($item, $index);
-            } else {
-                $results[] = self::tag('li', $item, $itemOptions);
-            }
-        }
-
-        $separator = self::encode($separator);
-        $options['encode'] = false;
-
-        return self::tag(
-            $tag,
-            $separator . implode($separator, $results) . $separator,
-            $options
-        );
+        return Ul::tag();
     }
 
     /**
-     * Generates an ordered list.
-     *
-     * @param array|Traversable $items The items for generating the list. Each item generates a single list item. Note
-     * that items will be automatically HTML encoded if `$options['encode']` is not set or true.
-     * @param array $options Options (name => config) for the radio button list. The following options are supported:
-     *
-     * - encode: boolean, whether to HTML-encode the items. Defaults to true. This option is ignored if the `item`
-     *   option is specified.
-     * - itemOptions: array, the HTML attributes for the `li` tags. This option is ignored if the `item` option is
-     *   specified.
-     * - item: callable, a callback that is used to generate each individual list item. The signature of this callback
-     *   must be:
-     *
-     *   ```php
-     *   function ($item, $index)
-     *   ```
-     *
-     *   where $index is the array key corresponding to `$item` in `$items`. The callback should return the whole list
-     *   item tag.
-     *
-     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
-     *
-     * @psalm-param array<array-key, string> $items
-     * @psalm-param ListHtmlOptions $options
-     *
-     * @throws JsonException
-     *
-     * @return string The generated ordered list. An empty string is returned if `$items` is empty.
+     * Generates a {@see Ol} tag.
      */
-    public static function ol($items, array $options = []): string
+    public static function ol(): Ol
     {
-        $options['tag'] = 'ol';
-
-        return self::ul($items, $options);
+        return Ol::tag();
     }
 
     /**
-     * Renders the option tags that can be used by {@see dropDownList()} and {@see listBox()}.
+     * Generates a {@see Li} tag.
      *
-     * @param array|bool|float|int|string|Traversable|null $selection The selected value(s). String for single or array
-     * for multiple selection(s).
-     * @param array $items The option data items. The array keys are option values, and the array values are the
-     * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
-     * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you have a
-     * list of data models, you may convert them into the format described above using
-     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
-     *
-     * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in the
-     * labels will also be HTML-encoded.
-     * @param array $tagOptions The $options parameter that is passed to the {@see dropDownList()} or {@see listBox()}
-     * call. This method will take out these elements, if any: "prompt", "options" and "groups". See more details in
-     * {@see dropDownList()} for the explanation of these elements.
-     *
-     * @psalm-param iterable<array-key, string>|string|null $selection
-     * @psalm-param SelectItems $items
-     * @psalm-param SelectHtmlOptions $tagOptions
-     *
-     * @throws JsonException
-     *
-     * @return string The generated list options.
+     * @param string $content Tag content.
      */
-    public static function renderSelectOptions($selection, array $items, array $tagOptions = []): string
+    public static function li(string $content = ''): Li
     {
-        return self::renderSelectOptionTags($selection, $items, $tagOptions);
-    }
-
-    /**
-     * @param array|bool|float|int|string|Traversable|null $selection
-     * @param array $items
-     * @param array $tagOptions
-     *
-     * @psalm-param iterable<array-key, string>|string|\Stringable|int|float|bool|null $selection
-     * @psalm-param SelectItems $items
-     * @psalm-param SelectHtmlOptions $tagOptions
-     *
-     * @throws JsonException
-     *
-     * @return string
-     */
-    private static function renderSelectOptionTags($selection, array $items, array &$tagOptions): string
-    {
-        if (is_iterable($selection)) {
-            $selection = array_map('strval', is_array($selection) ? $selection : iterator_to_array($selection));
-        } elseif ($selection !== null) {
-            $selection = (string)$selection;
-        }
-
-        /** @var bool $encodeSpaces */
-        $encodeSpaces = ArrayHelper::remove($tagOptions, 'encodeSpaces', false);
-
-        /** @var bool $encode */
-        $encode = ArrayHelper::remove($tagOptions, 'encode', true);
-
-        /** @psalm-var SelectHtmlOptions $tagOptions */
-
-        $lines = [];
-        if (isset($tagOptions['prompt'])) {
-            $promptOptions = ['value' => '', 'encode' => false];
-            if (is_string($tagOptions['prompt'])) {
-                $promptText = $tagOptions['prompt'];
-            } else {
-                $promptText = $tagOptions['prompt']['text'];
-                $promptOptions = array_merge($promptOptions, $tagOptions['prompt']['options']);
-            }
-            $promptText = $encode ? self::encode($promptText) : $promptText;
-            if ($encodeSpaces) {
-                $promptText = str_replace(' ', '&nbsp;', $promptText);
-            }
-            $lines[] = self::tag('option', $promptText, $promptOptions);
-        }
-
-        /** @psalm-var array<array-key, HtmlOptions> $options */
-        $options = $tagOptions['options'] ?? [];
-
-        /** @psalm-var array<array-key, HtmlOptions> $groups */
-        $groups = $tagOptions['groups'] ?? [];
-
-        unset($tagOptions['prompt'], $tagOptions['options'], $tagOptions['groups']);
-
-        foreach ($items as $key => $value) {
-            if (is_array($value)) {
-                $groupAttrs = $groups[$key] ?? [];
-                $groupAttrs['encode'] = false;
-                if (!isset($groupAttrs['label'])) {
-                    $groupAttrs['label'] = $key;
-                }
-                /** @psalm-var SelectHtmlOptions $attrs */
-                $attrs = [
-                    'options' => $options,
-                    'groups' => $groups,
-                    'encodeSpaces' => $encodeSpaces,
-                    'encode' => $encode,
-                ];
-                $content = self::renderSelectOptionTags($selection, $value, $attrs);
-                $lines[] = self::tag('optgroup', "\n" . $content . "\n", $groupAttrs);
-            } else {
-                $attrs = $options[$key] ?? [];
-                $attrs['value'] = $key;
-                if (!array_key_exists('selected', $attrs)) {
-                    $attrs['selected'] = $selection !== null &&
-                        ((!is_iterable($selection) && !strcmp((string)$key, $selection))
-                            || (is_iterable($selection) && ArrayHelper::isIn((string)$key, $selection)));
-                }
-                $text = $encode ? self::encode($value) : $value;
-                if ($encodeSpaces) {
-                    $text = str_replace(' ', '&nbsp;', $text);
-                }
-                $attrs['encode'] = false;
-                $lines[] = self::tag('option', $text, $attrs);
-            }
-        }
-
-        /** @psalm-var SelectHtmlOptions $tagOptions */
-        return implode("\n", $lines);
+        $tag = Li::tag();
+        return empty($content) ? $tag : $tag->content($content);
     }
 
     /**
@@ -1656,7 +885,7 @@ final class Html
      * @param array $attributes Attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encodeAttribute()}.
      *
-     * @psalm-param HtmlOptions|array<empty, empty> $attributes
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      *
      * @throws JsonException
      *
@@ -1670,7 +899,7 @@ final class Html
             $sorted = [];
             foreach (self::ATTRIBUTE_ORDER as $name) {
                 if (isset($attributes[$name])) {
-                    /** @psalm-suppress MixedAssignment */
+                    /** @var mixed */
                     $sorted[$name] = $attributes[$name];
                 }
             }
@@ -1735,16 +964,16 @@ final class Html
      * @param array $options The options to be modified.
      * @param string|string[] $class The CSS class(es) to be added.
      *
-     * @psalm-param HtmlOptions|array<empty, empty> $options
+     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function addCssClass(array &$options, $class): void
     {
-        /** @psalm-var HtmlOptions $options */
+        /** @psalm-var HtmlAttributes $options */
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
-                $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+                $classes = preg_split('/\s+/', (string)$options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $options['class'] = implode(' ', self::mergeCssClasses($classes, (array)$class));
             }
         } else {
@@ -1760,7 +989,7 @@ final class Html
      * @param array $options The options to be modified.
      * @param string|string[] $class The CSS class(es) to be removed.
      *
-     * @psalm-param HtmlOptions $options
+     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function removeCssClass(array &$options, $class): void
     {
@@ -1773,7 +1002,7 @@ final class Html
                     $options['class'] = $classes;
                 }
             } else {
-                $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+                $classes = preg_split('/\s+/', (string)$options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $classes = array_diff($classes, (array)$class);
                 if (empty($classes)) {
                     unset($options['class']);
@@ -1782,7 +1011,6 @@ final class Html
                 }
             }
         }
-        /** @psalm-var HtmlOptions $options */
     }
 
     /**
@@ -1828,10 +1056,11 @@ final class Html
      * (e.g. `['width' => '100px', 'height' => '200px']`).
      * @param bool $overwrite Whether to overwrite existing CSS properties if the new style contain them too.
      *
-     * @psalm-param HtmlOptions $options
+     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function addCssStyle(array &$options, $style, bool $overwrite = true): void
     {
+        /** @psalm-var HtmlAttributes $options */
         if (!empty($options['style'])) {
             $oldStyle = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
             $newStyle = is_array($style) ? $style : self::cssStyleToArray($style);
@@ -1862,10 +1091,11 @@ final class Html
      * @param string|string[] $properties The CSS properties to be removed. You may use a string if you are removing a
      * single property.
      *
-     * @psalm-param HtmlOptions $options
+     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function removeCssStyle(array &$options, $properties): void
     {
+        /** @psalm-var HtmlAttributes $options */
         if (!empty($options['style'])) {
             $style = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
             foreach ((array)$properties as $property) {
@@ -1917,15 +1147,15 @@ final class Html
      *
      * @see cssStyleFromArray()
      *
-     * @param string $style The CSS style string.
+     * @param string|\Stringable $style The CSS style string.
      *
      * @return array The array representation of the CSS style.
      * @psalm-return array<string, string>
      */
-    public static function cssStyleToArray(string $style): array
+    public static function cssStyleToArray($style): array
     {
         $result = [];
-        foreach (explode(';', $style) as $property) {
+        foreach (explode(';', (string)$style) as $property) {
             $property = explode(':', $property);
             if (count($property) > 1) {
                 $result[trim($property[0])] = trim($property[1]);
@@ -1981,12 +1211,12 @@ final class Html
         return substr($pattern, 1, $endPosition - 1);
     }
 
-    private static function getArrayableName(string $name): string
+    public static function getArrayableName(string $name): string
     {
         return substr($name, -2) !== '[]' ? $name . '[]' : $name;
     }
 
-    private static function getNonArrayableName(string $name): string
+    public static function getNonArrayableName(string $name): string
     {
         return substr($name, -2) === '[]' ? substr($name, 0, -2) : $name;
     }

@@ -15,7 +15,12 @@
 [![static analysis](https://github.com/yiisoft/html/workflows/static%20analysis/badge.svg)](https://github.com/yiisoft/html/actions?query=workflow%3A%22static+analysis%22)
 [![type-coverage](https://shepherd.dev/github/yiisoft/html/coverage.svg)](https://shepherd.dev/github/yiisoft/html)
 
-The package provides `Html` helper that has static methods to generate HTML.
+The package provides:
+- tag classes `A`, `Button`, `Div`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`, `Meta`, `Ol`,
+  `Optgroup`, `Option`, `P`, `Script`, `Select`, `Span`, `Style`, `Textarea`, `Ul`;
+- `CustomTag` class that help generate custom tag with any attributes;
+- HTML widgets `CheckboxList` and `RadioList`;
+- `Html` helper that has static methods to generate HTML, create tag and HTML widget objects.
 
 ## Requirements
 
@@ -33,101 +38,215 @@ composer require yiisoft/html --prefer-dist
 <?php
 
 use Yiisoft\Html\Html;
+use Yiisoft\Html\Tag\Meta;
 
 ?>
 
-<?= Html::tag('meta', '', ['http-equiv' => 'X-UA-Compatible', 'content' => 'IE=edge']) ?>
-<?= Html::tag('meta', '', ['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1']) ?>
-
-<?= Html::cssFile($aliases->get('@css/site.css'), ['rel' => 'stylesheet']); ?>
+<?= Meta::pragmaDirective('X-UA-Compatible', 'IE=edge') ?>
+<?= Meta::data('viewport', 'width=device-width, initial-scale=1') ?>
 
 <?= Html::cssFile(
     'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
     [
-        'rel' => 'stylesheet',
         'integrity' => 'sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T',
         'crossorigin' => 'anonymous'
     ]
-); ?>
+) ?>
+<?= Html::cssFile('/css/site.css', ['rel' => 'stylesheet']); ?>
 
-<?= Html::beginTag('footer', ['class' => 'footer']) ?>
-    <?= Html::beginTag('div', ['class' => 'container flex-fill']) ?>
-        <?= Html::beginTag('p', ['class' => 'float-left']) ?>
-        <?= Html::endTag('p') ?>
-        <?= Html::beginTag('p', ['class' => 'float-right']) ?>
+<?= Html::openTag('footer', ['class' => 'footer']) ?>
+    <?= Html::openTag('div', ['class' => 'container flex-fill']) ?>
+        <?= Html::p('', ['class' => 'float-left']) ?>
+        <?= Html::openTag('p', ['class' => 'float-right']) ?>
             <?= 'Powered by' ?>
             <?= Html::a(
                 'Yii Framework',
                 'https://www.yiiframework.com/',
                 ['rel' => 'external']
             ) ?>
-        <?= Html::endTag('p') ?>
-    <?= Html::endTag('div') ?>
-<?= Html::endTag('footer') ?>
+        <?= Html::closeTag('p') ?>
+    <?= Html::closeTag('div') ?>
+<?= Html::closeTag('footer') ?>
 ```
 
-## Html helper usage
+## Tag objects usage
+
+Tag classes allow working with tag as is object and then get a HTML code by method `render()` or type casting to string. For example, code:
+
+```php
+echo \Yiisoft\Html\Tag\Div::tag()
+    ->content(
+        \Yiisoft\Html\Tag\A::tag()
+            ->mailto('info@example.com')
+            ->content('contact us')
+            ->render()
+    )
+    ->encode(false)
+    ->id('ContactEmail')
+    ->class('red');
+```
+
+... will generate HTML:
+
+```html
+<div id="ContactEmail" class="red"><a href="mailto:info@example.com">contact us</a></div>
+```
+
+Package has clasess for tags
+`A`, `Button`, `Div`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`, `Meta`, `Ol`,
+`Optgroup`, `Option`, `P`, `Script`, `Select`, `Span`, `Style`, `Textarea`, `Ul`.
+
+### Generating custom tags 
+
+For generate custom tags, use the `CustomTag` class. For example, code:
+
+```php
+echo \Yiisoft\Html\Tag\CustomTag::name('b')
+    ->content('text')
+    ->attribute('title', 'Important');
+```
+
+... will generate HTML:
+
+```html
+<b title="Important">text</b>
+```
+
+## HTML widgets usage
+
+### `CheckboxList`
+
+```php
+echo \Yiisoft\Html\Widget\CheckboxList\CheckboxList::create('count')
+	->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
+	->uncheckValue(0)
+	->value(2, 5)
+	->containerAttributes(['id' => 'main']);
+```
+
+Result will be:
+
+```html
+<input type="hidden" name="count" value="0">
+<div id="main">
+<label><input type="checkbox" name="count[]" value="1"> One</label>
+<label><input type="checkbox" name="count[]" value="2" checked> Two</label>
+<label><input type="checkbox" name="count[]" value="5" checked> Five</label>
+</div>
+```
+
+### `RadioList`
+
+```php
+echo \Yiisoft\Html\Widget\RadioList\RadioList::create('count')
+    ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
+    ->uncheckValue(0)
+    ->value(2)
+    ->containerAttributes(['id' => 'main'])
+    ->render();
+```
+
+Result will be:
+
+```html
+<input type="hidden" name="test" value="0">
+<div id="main">
+<label><input type="radio" name="test" value="1"> One</label>
+<label><input type="radio" name="test" value="2" checked> Two</label>
+<label><input type="radio" name="test" value="5"> Five</label>
+</div>
+```
+
+## `Html` helper usage
 
 `Html` helper methods are static so usage is like the following:
 
 ```php
-echo \Yiisoft\Html\Html::a('Yii Framework', 'https://www.yiiframework.com/') ?>
+echo \Yiisoft\Html\Html::a('Yii Framework', 'https://www.yiiframework.com/');
 ```
 
 Overall the helper has the following method groups.
 
-### Generating any tags
+### Creating tag objects
 
-- beginTag
-- endTag
+#### Custom tag
+
 - tag
-- renderTagAttributes
-- normalizeRegexpPattern
+- normalTag
+- voidTag
 
-### Generating base tags
+#### Base tags
 
 - div
-- span
+- img
+- meta
 - p
+- script
+- span
+- style
+
+#### List tags
+
 - ul
 - ol
-- img
-- style
-- script
+- li
 
-### Generating hyperlink tags
+#### Hyperlink tags
 
 - a
 - mailto
 
-### Generating form tags
+#### Link tags
 
-- booleanInput
+- link
+- cssFile
+- javaScriptFile
+
+#### Form tags
+
 - button
 - buttonInput
 - checkbox
-- checkboxList
-- dropDownList
 - fileInput
 - hiddenInput
 - input
 - label
-- listBox
+- optgroup
+- option
 - passwordInput
 - radio
-- radioList
-- renderSelectOptions
 - resetButton
 - resetInput
+- select
 - submitButton
 - submitInput
 - textInput
 - textarea
 
-### Generating link tags
+### Generating tag parts
 
-- cssFile
-- javaScriptFile
+- openTag
+- closeTag
+- renderTagAttributes
+
+### Creating HTML widget objects
+
+- radioList
+- checkboxList
+
+### Working with tag attributes
+
+- generateId
+- getArrayableName
+- getNonArrayableName
+- normalizeRegexpPattern
+
+### Encode and escape special characters
+
+- encode
+- encodeAttribute
+- encodeUnquotedAttribute
+- escapeJavaScriptStringValue
 
 ### Working with CSS styles and classes
 
@@ -137,17 +256,6 @@ Overall the helper has the following method groups.
 - removeCssClass
 - cssStyleFromArray
 - cssStyleToArray
-
-### Encode and escape special characters
-
-- encode
-- encodeAttribute
-- encodeUnquotedAttribute
-- escapeJavaScriptStringValue
-
-### Other
-
-- generateId
 
 ## Testing
 
@@ -178,8 +286,7 @@ The code is statically analyzed with [Psalm](https://psalm.dev/). To run static 
 
 ## License
 
-The Yii HTML is free software. It is released under the terms of the BSD License.
-Please see [`LICENSE`](./LICENSE.md) for more information.
+The Yii HTML is free software. It is released under the terms of the BSD License. Please see [`LICENSE`](./LICENSE.md) for more information.
 
 Maintained by [Yii Software](https://www.yiiframework.com/).
 
