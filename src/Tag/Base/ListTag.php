@@ -27,15 +27,17 @@ abstract class ListTag extends ContainerTag
 
     /**
      * @param string[] $strings Array of list items as strings.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      *
      * @return static
      */
-    public function strings(array $strings, bool $encode = true): self
+    public function strings(array $strings, array $attributes = [], bool $encode = true): self
     {
-        $items = array_map(static function (string $string) use ($encode) {
+        $items = array_map(static function (string $string) use ($attributes, $encode) {
             return Li::tag()
                 ->content($string)
+                ->attributes($attributes)
                 ->encode($encode);
         }, $strings);
         return $this->items(...$items);
