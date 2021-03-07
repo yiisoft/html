@@ -357,7 +357,7 @@ final class Html
      */
     public static function script(string $content = '', array $attributes = []): Script
     {
-        $tag = Script::tag();
+        $tag = Script::tag()->encode(false);
         if ($content !== '') {
             $tag = $tag->content($content);
         }
