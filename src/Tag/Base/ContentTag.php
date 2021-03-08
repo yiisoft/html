@@ -6,10 +6,7 @@ namespace Yiisoft\Html\Tag\Base;
 
 use Yiisoft\Html\Html;
 
-/**
- * Base for all normal tags. Normal tags are the ones that have both opening tag and closing tag.
- */
-abstract class ContentTag extends Tag
+abstract class ContentTag extends NormalTag
 {
     private bool $encode = true;
     private bool $encodeSpaces = false;
@@ -78,21 +75,5 @@ abstract class ContentTag extends Tag
             $content = str_replace(' ', '&nbsp;', $content);
         }
         return $content;
-    }
-
-    /**
-     * @return string Opening tag.
-     */
-    final public function open(): string
-    {
-        return '<' . $this->getName() . $this->renderAttributes() . '>';
-    }
-
-    /**
-     * @return string Closing tag.
-     */
-    final public function close(): string
-    {
-        return '</' . $this->getName() . '>';
     }
 }

@@ -8,6 +8,11 @@ use Yiisoft\Html\Tag\Base\NormalTag;
 
 final class TestNormalTag extends NormalTag
 {
+    protected function generateContent(): string
+    {
+        return 'content';
+    }
+
     protected function getName(): string
     {
         return 'test';

@@ -12,8 +12,24 @@ final class NormalTagTest extends TestCase
     public function testBase(): void
     {
         self::assertSame(
-            '<test id="main">&lt;b&gt;hello &amp;gt; world!&lt;/b&gt;</test>',
-            TestNormalTag::tag()->id('main')->content('<b>hello &gt; world!</b>')->render()
+            '<test id="main">content</test>',
+            TestNormalTag::tag()->id('main')->render()
+        );
+    }
+
+    public function testOpen(): void
+    {
+        self::assertSame(
+            '<test id="main">',
+            TestNormalTag::tag()->id('main')->open(),
+        );
+    }
+
+    public function testClose(): void
+    {
+        self::assertSame(
+            '</test>',
+            TestNormalTag::tag()->id('main')->close(),
         );
     }
 }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\NormalTag;
+use Yiisoft\Html\Tag\Base\ContentTag;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-textarea-element
  */
-final class Textarea extends NormalTag
+final class Textarea extends ContentTag
 {
     public function name(?string $name): self
     {

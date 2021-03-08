@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\NormalTag;
+use Yiisoft\Html\Tag\Base\ContentTag;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-button-element
  */
-final class Button extends NormalTag
+final class Button extends ContentTag
 {
     public static function button(string $content): self
     {

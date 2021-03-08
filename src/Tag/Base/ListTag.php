@@ -9,7 +9,7 @@ use Yiisoft\Html\Tag\Li;
 /**
  * Base for list tags such as "ul" and "ol".
  */
-abstract class ListTag extends ContainerTag
+abstract class ListTag extends NormalTag
 {
     private array $items = [];
 
