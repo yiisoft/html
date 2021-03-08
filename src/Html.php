@@ -139,7 +139,7 @@ final class Html
      *
      * @return string Encoded content.
      *
-     * @see https://html.spec.whatwg.org/#data-state
+     * @link https://html.spec.whatwg.org/#data-state
      */
     public static function encode($content, bool $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
@@ -162,9 +162,9 @@ final class Html
      *
      * @return string Encoded attribute value.
      *
-     * @see https://html.spec.whatwg.org/#attribute-value-(unquoted)-state
-     * @see https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
-     * @see https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
+     * @link https://html.spec.whatwg.org/#attribute-value-(unquoted)-state
+     * @link https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
+     * @link https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
      */
     public static function encodeUnquotedAttribute($value, bool $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
@@ -197,8 +197,8 @@ final class Html
      *
      * @return string Encoded attribute value.
      *
-     * @see https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
-     * @see https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
+     * @link https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
+     * @link https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
      */
     public static function encodeAttribute($value, bool $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
@@ -357,7 +357,7 @@ final class Html
      */
     public static function script(string $content = '', array $attributes = []): Script
     {
-        $tag = Script::tag()->encode(false);
+        $tag = Script::tag();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -1176,7 +1176,7 @@ final class Html
      * Html::normalizeRegexpPattern('/([a-z0-9-]+)/im'); // will return: ([a-z0-9-]+)
      * ```
      *
-     * @see https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute
+     * @link https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute
      *
      * @param string $regexp PCRE regular expression.
      * @param string|null $delimiter Regular expression delimiter.

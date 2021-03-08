@@ -4,13 +4,29 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\ContentTag;
+use Yiisoft\Html\Tag\Base\NormalTag;
 
 /**
  * @link https://www.w3.org/TR/html52/semantics-scripting.html#the-script-element
  */
-final class Script extends ContentTag
+final class Script extends NormalTag
 {
+    private string $content = '';
+
+    /**
+     * @link https://www.w3.org/TR/html52/semantics-scripting.html#script-content-restrictions
+     *
+     * @param string $content Tag content.
+     *
+     * @return static
+     */
+    public function content(string $content): self
+    {
+        $new = clone $this;
+        $new->content = $content;
+        return $new;
+    }
+
     /**
      * Alias for {@see src}
      */
@@ -72,5 +88,13 @@ final class Script extends ContentTag
     protected function getName(): string
     {
         return 'script';
+    }
+
+    /**
+     * @return string Obtain tag content.
+     */
+    protected function generateContent(): string
+    {
+        return $this->content;
     }
 }
