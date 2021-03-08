@@ -141,7 +141,7 @@ final class Html
      *
      * @see https://html.spec.whatwg.org/#data-state
      */
-    public static function encode($content, $doubleEncode = true, string $encoding = 'UTF-8'): string
+    public static function encode($content, bool $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
         return htmlspecialchars(
             (string)$content,
@@ -166,7 +166,7 @@ final class Html
      * @see https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
      * @see https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
      */
-    public static function encodeUnquotedAttribute($value, $doubleEncode = true, string $encoding = 'UTF-8'): string
+    public static function encodeUnquotedAttribute($value, bool $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
         $value = htmlspecialchars(
             (string)$value,
@@ -200,7 +200,7 @@ final class Html
      * @see https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
      * @see https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
      */
-    public static function encodeAttribute($value, $doubleEncode = true, string $encoding = 'UTF-8'): string
+    public static function encodeAttribute($value, bool $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
         $value = htmlspecialchars(
             (string)$value,
@@ -907,7 +907,7 @@ final class Html
         }
 
         $html = '';
-        /** @var mixed $value */
+        /** @var mixed */
         foreach ($attributes as $name => $value) {
             if (is_bool($value)) {
                 if ($value) {
