@@ -215,10 +215,10 @@ final class Html
     }
 
     /**
-     * Escape special characters for use as JavaScript string value in a `<script` tag:
+     * Escape special characters for use as JavaScript string value in a `<script>` tag:
      *
      * ```
-     * <script type="text/javascript">
+     * <script>
      *     window.myVar = "<?= Html::escapeJavaScriptStringValue($myVar) ?>";
      * </script>
      * ```
