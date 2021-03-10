@@ -49,22 +49,6 @@ final class ContentTagTest extends TestCase
         );
     }
 
-    public function testOpen(): void
-    {
-        self::assertSame(
-            '<test id="main">',
-            TestContentTag::tag()->id('main')->open(),
-        );
-    }
-
-    public function testClose(): void
-    {
-        self::assertSame(
-            '</test>',
-            TestContentTag::tag()->id('main')->close(),
-        );
-    }
-
     public function testImmutability(): void
     {
         $tag = TestContentTag::tag();

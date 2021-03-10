@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
-abstract class NormalTag extends ContentTag
+/**
+ * Base for all normal tags. Normal tags are the ones that have both opening tag and closing tag.
+ */
+abstract class NormalTag extends Tag
 {
     final private function __construct()
     {
@@ -22,4 +25,22 @@ abstract class NormalTag extends ContentTag
     {
         return $this->open() . $this->generateContent() . $this->close();
     }
+
+    /**
+     * @return string Opening tag.
+     */
+    final public function open(): string
+    {
+        return '<' . $this->getName() . $this->renderAttributes() . '>';
+    }
+
+    /**
+     * @return string Closing tag.
+     */
+    final public function close(): string
+    {
+        return '</' . $this->getName() . '>';
+    }
+
+    abstract protected function generateContent(): string;
 }

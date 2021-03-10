@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\NormalTag;
+use Yiisoft\Html\Tag\Base\ContentTag;
 
 /**
  * @link https://www.w3.org/TR/html52/document-metadata.html#the-style-element
  */
-final class Style extends NormalTag
+final class Style extends ContentTag
 {
     public function media(?string $media): self
     {

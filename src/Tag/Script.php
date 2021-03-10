@@ -11,6 +11,22 @@ use Yiisoft\Html\Tag\Base\NormalTag;
  */
 final class Script extends NormalTag
 {
+    private string $content = '';
+
+    /**
+     * @link https://www.w3.org/TR/html52/semantics-scripting.html#script-content-restrictions
+     *
+     * @param string $content Tag content.
+     *
+     * @return static
+     */
+    public function content(string $content): self
+    {
+        $new = clone $this;
+        $new->content = $content;
+        return $new;
+    }
+
     /**
      * Alias for {@see src}
      */
@@ -72,5 +88,13 @@ final class Script extends NormalTag
     protected function getName(): string
     {
         return 'script';
+    }
+
+    /**
+     * @return string Obtain tag content.
+     */
+    protected function generateContent(): string
+    {
+        return $this->content;
     }
 }

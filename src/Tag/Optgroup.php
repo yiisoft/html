@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\ContainerTag;
-
+use Yiisoft\Html\Tag\Base\NormalTag;
 use function in_array;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-optgroup-element
  */
-final class Optgroup extends ContainerTag
+final class Optgroup extends NormalTag
 {
     private array $options = [];
     private array $selection = [];

@@ -50,10 +50,12 @@ final class CustomTagTest extends TestCase
 
     /**
      * @dataProvider dataNormal
+     *
+     * @psalm-param non-empty-string $name
      */
     public function testNormal(string $expected, string $name): void
     {
-        $this->assertSame($expected, CustomTag::name($name)->normal()->render());
+        self::assertSame($expected, CustomTag::name($name)->normal()->render());
     }
 
     public function dataVoid(): array
@@ -66,10 +68,60 @@ final class CustomTagTest extends TestCase
 
     /**
      * @dataProvider dataVoid
+     *
+     * @psalm-param non-empty-string $name
      */
     public function testVoid(string $expected, string $name): void
     {
-        $this->assertSame($expected, CustomTag::name($name)->void()->render());
+        self::assertSame($expected, CustomTag::name($name)->void()->render());
+    }
+
+    public function testWithoutEncode(): void
+    {
+        self::assertSame(
+            '<test><b>hello</b></test>',
+            (string)CustomTag::name('test')->content('<b>hello</b>')->encode(false)
+        );
+    }
+
+    public function testEncodeSpaces(): void
+    {
+        self::assertSame(
+            '<test>hello&nbsp;world</test>',
+            (string)CustomTag::name('test')->content('hello world')->encodeSpaces(true)
+        );
+    }
+
+    public function testWithoutDoubleEncode(): void
+    {
+        self::assertSame(
+            '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
+            (string)CustomTag::name('test')->content('<b>A &gt; B</b>')->doubleEncode(false)
+        );
+    }
+
+    public function testContent(): void
+    {
+        self::assertSame(
+            '<test>hello</test>',
+            (string)CustomTag::name('test')->content('hello')
+        );
+    }
+
+    public function testOpen(): void
+    {
+        self::assertSame(
+            '<test id="main">',
+            CustomTag::name('test')->id('main')->open(),
+        );
+    }
+
+    public function testClose(): void
+    {
+        self::assertSame(
+            '</test>',
+            CustomTag::name('test')->id('main')->close(),
+        );
     }
 
     public function testImmutability(): void
@@ -77,5 +129,9 @@ final class CustomTagTest extends TestCase
         $tag = CustomTag::name('test');
         self::assertNotSame($tag, $tag->normal());
         self::assertNotSame($tag, $tag->void());
+        self::assertNotSame($tag, $tag->encode(true));
+        self::assertNotSame($tag, $tag->encodeSpaces(true));
+        self::assertNotSame($tag, $tag->doubleEncode(true));
+        self::assertNotSame($tag, $tag->content(''));
     }
 }

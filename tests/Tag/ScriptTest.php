@@ -11,9 +11,17 @@ final class ScriptTest extends TestCase
 {
     public function testBase(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '<script src="main.js"></script>',
             (string)Script::tag()->url('main.js')
+        );
+    }
+
+    public function testContent(): void
+    {
+        self::assertSame(
+            '<script>alert("4 > 2");</script>',
+            Script::tag()->content('alert("4 > 2");')->render()
         );
     }
 
@@ -30,8 +38,8 @@ final class ScriptTest extends TestCase
      */
     public function testUrl(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string)Script::tag()->url($url));
-        $this->assertSame($expected, (string)Script::tag()->src($url));
+        self::assertSame($expected, (string)Script::tag()->url($url));
+        self::assertSame($expected, (string)Script::tag()->src($url));
     }
 
     public function dataType(): array
@@ -47,7 +55,7 @@ final class ScriptTest extends TestCase
      */
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string)Script::tag()->type($type));
+        self::assertSame($expected, (string)Script::tag()->type($type));
     }
 
     public function dataCharset(): array
@@ -63,31 +71,32 @@ final class ScriptTest extends TestCase
      */
     public function testCharset(string $expected, ?string $charset): void
     {
-        $this->assertSame($expected, (string)Script::tag()->charset($charset));
+        self::assertSame($expected, (string)Script::tag()->charset($charset));
     }
 
     public function testAsync(): void
     {
-        $this->assertSame('<script async></script>', (string)Script::tag()->async());
-        $this->assertSame('<script></script>', (string)Script::tag()->async(false));
-        $this->assertSame('<script></script>', (string)Script::tag()->async(true)->async(false));
+        self::assertSame('<script async></script>', (string)Script::tag()->async());
+        self::assertSame('<script></script>', (string)Script::tag()->async(false));
+        self::assertSame('<script></script>', (string)Script::tag()->async(true)->async(false));
     }
 
     public function testDefer(): void
     {
-        $this->assertSame('<script defer></script>', (string)Script::tag()->defer());
-        $this->assertSame('<script></script>', (string)Script::tag()->defer(false));
-        $this->assertSame('<script></script>', (string)Script::tag()->defer(true)->defer(false));
+        self::assertSame('<script defer></script>', (string)Script::tag()->defer());
+        self::assertSame('<script></script>', (string)Script::tag()->defer(false));
+        self::assertSame('<script></script>', (string)Script::tag()->defer(true)->defer(false));
     }
 
     public function testImmutability(): void
     {
         $script = Script::tag();
-        $this->assertNotSame($script, $script->url(null));
-        $this->assertNotSame($script, $script->src(null));
-        $this->assertNotSame($script, $script->type(null));
-        $this->assertNotSame($script, $script->charset(null));
-        $this->assertNotSame($script, $script->async());
-        $this->assertNotSame($script, $script->defer());
+        self::assertNotSame($script, $script->content(''));
+        self::assertNotSame($script, $script->url(null));
+        self::assertNotSame($script, $script->src(null));
+        self::assertNotSame($script, $script->type(null));
+        self::assertNotSame($script, $script->charset(null));
+        self::assertNotSame($script, $script->async());
+        self::assertNotSame($script, $script->defer());
     }
 }
