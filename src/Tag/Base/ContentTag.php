@@ -4,21 +4,28 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+use Stringable;
 use Yiisoft\Html\Html;
+
+use function is_array;
 
 abstract class ContentTag extends NormalTag
 {
-    private bool $encode = true;
-    private bool $encodeSpaces = false;
+    private ?bool $encode = null;
+    private ?bool $encodeSpaces = null;
     private bool $doubleEncode = true;
-    private string $content = '';
 
     /**
-     * @param bool $encode Whether to encode tag content. Defaults to `true`.
+     * @var string[]|Stringable[]
+     */
+    private array $content = [];
+
+    /**
+     * @param bool|null $encode Whether to encode tag content. Defaults to `null`.
      *
      * @return static
      */
-    final public function encode(bool $encode): self
+    final public function encode(?bool $encode): self
     {
         $new = clone $this;
         $new->encode = $encode;
@@ -26,11 +33,11 @@ abstract class ContentTag extends NormalTag
     }
 
     /**
-     * @param bool $encodeSpaces Whether to encode spaces in tag content with `&nbsp;` character. Defaults to `false`.
+     * @param bool|null $encodeSpaces Whether to encode spaces in tag content with `&nbsp;` character. Defaults to `null`.
      *
      * @return static
      */
-    final public function encodeSpaces(bool $encodeSpaces): self
+    final public function encodeSpaces(?bool $encodeSpaces): self
     {
         $new = clone $this;
         $new->encodeSpaces = $encodeSpaces;
@@ -51,14 +58,14 @@ abstract class ContentTag extends NormalTag
     }
 
     /**
-     * @param string $content Tag content.
+     * @param string|Stringable|string[]|Stringable[] $content Tag content.
      *
      * @return static
      */
-    final public function content(string $content): self
+    final public function content($content): self
     {
         $new = clone $this;
-        $new->content = $content;
+        $new->content = is_array($content) ? $content : [$content];
         return $new;
     }
 
@@ -67,13 +74,20 @@ abstract class ContentTag extends NormalTag
      */
     final protected function generateContent(): string
     {
-        $content = $this->content;
-        if ($this->encode) {
-            $content = Html::encode($this->content, $this->doubleEncode);
-        }
-        if ($this->encodeSpaces) {
-            $content = str_replace(' ', '&nbsp;', $content);
-        }
-        return $content;
+        $content = array_map(function ($item) {
+            if ($this->encode ||
+                ($this->encode === null && !($item instanceof NotEncodeStringableInterface))
+            ) {
+                $item = Html::encode($item, $this->doubleEncode);
+            }
+
+            if ($this->encodeSpaces) {
+                $item = str_replace(' ', '&nbsp;', (string)$item);
+            }
+
+            return $item;
+        }, $this->content);
+
+        return implode('', $content);
     }
 }

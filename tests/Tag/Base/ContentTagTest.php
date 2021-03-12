@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests\Tag\Base;
 
 use PHPUnit\Framework\TestCase;
+use Stringable;
+use Yiisoft\Html\Tag\P;
+use Yiisoft\Html\Tag\Span;
 use Yiisoft\Html\Tests\Objects\TestContentTag;
 
 final class ContentTagTest extends TestCase
@@ -41,12 +44,27 @@ final class ContentTagTest extends TestCase
         );
     }
 
-    public function testContent(): void
+    public function dataContent(): array
     {
-        self::assertSame(
-            '<test>hello</test>',
-            (string)TestContentTag::tag()->content('hello')
-        );
+        return [
+            'string' => ['<test>hello</test>', 'hello'],
+            'string-tag' => ['<test>&lt;p&gt;Hi!&lt;/p&gt;</test>', '<p>Hi!</p>'],
+            'object-tag' => ['<test><p>Hi!</p></test>', P::tag()->content('Hi!')],
+            'array' => [
+                '<test>Hello, <span>World</span>!</test>',
+                ['Hello', ', ', Span::tag()->content('World'), '!'],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataContent
+     *
+     * @param string|Stringable|string[]|Stringable[] $content
+     */
+    public function testContent(string $expected, $content): void
+    {
+        self::assertSame($expected, TestContentTag::tag()->content($content)->render());
     }
 
     public function testImmutability(): void
