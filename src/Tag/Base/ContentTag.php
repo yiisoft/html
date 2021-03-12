@@ -12,7 +12,6 @@ use function is_array;
 abstract class ContentTag extends NormalTag
 {
     private ?bool $encode = null;
-    private ?bool $encodeSpaces = null;
     private bool $doubleEncode = true;
 
     /**
@@ -29,18 +28,6 @@ abstract class ContentTag extends NormalTag
     {
         $new = clone $this;
         $new->encode = $encode;
-        return $new;
-    }
-
-    /**
-     * @param bool|null $encodeSpaces Whether to encode spaces in tag content with `&nbsp;` character. Defaults to `null`.
-     *
-     * @return static
-     */
-    final public function encodeSpaces(?bool $encodeSpaces): self
-    {
-        $new = clone $this;
-        $new->encodeSpaces = $encodeSpaces;
         return $new;
     }
 
@@ -79,10 +66,6 @@ abstract class ContentTag extends NormalTag
                 ($this->encode === null && !($item instanceof NotEncodeStringableInterface))
             ) {
                 $item = Html::encode($item, $this->doubleEncode);
-            }
-
-            if ($this->encodeSpaces) {
-                $item = str_replace(' ', '&nbsp;', (string)$item);
             }
 
             return $item;

@@ -84,14 +84,6 @@ final class CustomTagTest extends TestCase
         );
     }
 
-    public function testEncodeSpaces(): void
-    {
-        self::assertSame(
-            '<test>hello&nbsp;world</test>',
-            (string)CustomTag::name('test')->content('hello world')->encodeSpaces(true)
-        );
-    }
-
     public function testWithoutDoubleEncode(): void
     {
         self::assertSame(
@@ -130,7 +122,6 @@ final class CustomTagTest extends TestCase
         self::assertNotSame($tag, $tag->normal());
         self::assertNotSame($tag, $tag->void());
         self::assertNotSame($tag, $tag->encode(true));
-        self::assertNotSame($tag, $tag->encodeSpaces(true));
         self::assertNotSame($tag, $tag->doubleEncode(true));
         self::assertNotSame($tag, $tag->content(''));
     }

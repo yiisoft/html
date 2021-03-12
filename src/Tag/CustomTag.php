@@ -44,7 +44,6 @@ final class CustomTag extends Tag
 
     private string $name;
     private bool $encode = true;
-    private bool $encodeSpaces = false;
     private bool $doubleEncode = true;
     private string $content = '';
 
@@ -102,18 +101,6 @@ final class CustomTag extends Tag
     {
         $new = clone $this;
         $new->encode = $encode;
-        return $new;
-    }
-
-    /**
-     * @param bool $encodeSpaces Whether to encode spaces in tag content with `&nbsp;` character. Defaults to `false`.
-     *
-     * @return static
-     */
-    public function encodeSpaces(bool $encodeSpaces): self
-    {
-        $new = clone $this;
-        $new->encodeSpaces = $encodeSpaces;
         return $new;
     }
 
@@ -178,9 +165,6 @@ final class CustomTag extends Tag
         $content = $this->content;
         if ($this->encode) {
             $content = Html::encode($this->content, $this->doubleEncode);
-        }
-        if ($this->encodeSpaces) {
-            $content = str_replace(' ', '&nbsp;', $content);
         }
         return $content;
     }

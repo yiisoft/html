@@ -28,14 +28,6 @@ final class ContentTagTest extends TestCase
         );
     }
 
-    public function testEncodeSpaces(): void
-    {
-        self::assertSame(
-            '<test>hello&nbsp;world</test>',
-            (string)TestContentTag::tag()->content('hello world')->encodeSpaces(true)
-        );
-    }
-
     public function testWithoutDoubleEncode(): void
     {
         self::assertSame(
@@ -51,8 +43,8 @@ final class ContentTagTest extends TestCase
             'string-tag' => ['<test>&lt;p&gt;Hi!&lt;/p&gt;</test>', '<p>Hi!</p>'],
             'object-tag' => ['<test><p>Hi!</p></test>', P::tag()->content('Hi!')],
             'array' => [
-                '<test>Hello, <span>World</span>!</test>',
-                ['Hello', ', ', Span::tag()->content('World'), '!'],
+                '<test>Hello &gt; <span>World</span>!</test>',
+                ['Hello', ' > ', Span::tag()->content('World'), '!'],
             ],
         ];
     }
@@ -67,11 +59,21 @@ final class ContentTagTest extends TestCase
         self::assertSame($expected, TestContentTag::tag()->content($content)->render());
     }
 
+    public function testEncodeContent(): void
+    {
+        self::assertSame(
+            '<test>&lt;p&gt;Hi!&lt;/p&gt;</test>',
+            TestContentTag::tag()
+                ->encode(true)
+                ->content(P::tag()->content('Hi!'))
+                ->render()
+        );
+    }
+
     public function testImmutability(): void
     {
         $tag = TestContentTag::tag();
         self::assertNotSame($tag, $tag->encode(true));
-        self::assertNotSame($tag, $tag->encodeSpaces(true));
         self::assertNotSame($tag, $tag->doubleEncode(true));
         self::assertNotSame($tag, $tag->content(''));
     }
