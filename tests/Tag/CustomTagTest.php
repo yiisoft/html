@@ -114,11 +114,11 @@ final class CustomTagTest extends TestCase
     /**
      * @dataProvider dataContent
      *
-     * @param string|Stringable|string[]|Stringable[] $content
+     * @param string|string[]|Stringable|Stringable[] $content
      */
     public function testContent(string $expected, $content): void
     {
-        $tag =  CustomTag::name('test');
+        $tag = CustomTag::name('test');
         $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);
 
         self::assertSame($expected, $tag->render());

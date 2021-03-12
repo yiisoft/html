@@ -54,7 +54,7 @@ final class ContentTagTest extends TestCase
     /**
      * @dataProvider dataContent
      *
-     * @param string|Stringable|string[]|Stringable[] $content
+     * @param string|string[]|Stringable|Stringable[] $content
      */
     public function testContent(string $expected, $content): void
     {
