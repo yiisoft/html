@@ -87,6 +87,17 @@ final class ContentTagTest extends TestCase
         );
     }
 
+    public function testAddContentVariadic(): void
+    {
+        self::assertSame(
+            '<test>123</test>',
+            TestContentTag::tag()
+                ->content('1')
+                ->addContent(...['2', '3'])
+                ->render()
+        );
+    }
+
     public function testImmutability(): void
     {
         $tag = TestContentTag::tag();

@@ -136,14 +136,14 @@ final class CustomTag extends Tag
     }
 
     /**
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable ...$content Tag content.
      *
      * @return static
      */
-    public function addContent($content): self
+    public function addContent(...$content): self
     {
         $new = clone $this;
-        $new->content[] = $content;
+        $new->content = array_merge($new->content, $content);
         return $new;
     }
 

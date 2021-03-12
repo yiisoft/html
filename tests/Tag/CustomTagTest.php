@@ -147,6 +147,17 @@ final class CustomTagTest extends TestCase
         );
     }
 
+    public function testAddContentVariadic(): void
+    {
+        self::assertSame(
+            '<test>123</test>',
+            CustomTag::name('test')
+                ->content('1')
+                ->addContent(...['2', '3'])
+                ->render()
+        );
+    }
+
     public function testOpen(): void
     {
         self::assertSame(
