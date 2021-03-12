@@ -8,7 +8,9 @@ use PHPUnit\Framework\TestCase;
 use Stringable;
 use Yiisoft\Html\Tag\P;
 use Yiisoft\Html\Tag\Span;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 use Yiisoft\Html\Tests\Objects\TestContentTag;
+use function is_array;
 
 final class ContentTagTest extends TestCase
 {
@@ -56,7 +58,10 @@ final class ContentTagTest extends TestCase
      */
     public function testContent(string $expected, $content): void
     {
-        self::assertSame($expected, TestContentTag::tag()->content($content)->render());
+        $tag = TestContentTag::tag();
+        $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);
+
+        self::assertSame($expected, $tag->render());
     }
 
     public function testEncodeContent(): void
@@ -70,11 +75,24 @@ final class ContentTagTest extends TestCase
         );
     }
 
+    public function testAddContent(): void
+    {
+        self::assertSame(
+            '<test>Hello World</test>',
+            TestContentTag::tag()
+                ->content('Hello')
+                ->addContent(' ')
+                ->addContent(new StringableObject('World'))
+                ->render()
+        );
+    }
+
     public function testImmutability(): void
     {
         $tag = TestContentTag::tag();
         self::assertNotSame($tag, $tag->encode(true));
         self::assertNotSame($tag, $tag->doubleEncode(true));
         self::assertNotSame($tag, $tag->content(''));
+        self::assertNotSame($tag, $tag->addContent(''));
     }
 }

@@ -7,8 +7,6 @@ namespace Yiisoft\Html\Tag\Base;
 use Stringable;
 use Yiisoft\Html\Html;
 
-use function is_array;
-
 abstract class ContentTag extends NormalTag
 {
     private ?bool $encode = null;
@@ -45,14 +43,26 @@ abstract class ContentTag extends NormalTag
     }
 
     /**
-     * @param string|Stringable|string[]|Stringable[] $content Tag content.
+     * @param string|Stringable ...$content Tag content.
      *
      * @return static
      */
-    final public function content($content): self
+    final public function content(...$content): self
     {
         $new = clone $this;
-        $new->content = is_array($content) ? $content : [$content];
+        $new->content = $content;
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable $content Tag content.
+     *
+     * @return static
+     */
+    final public function addContent($content): self
+    {
+        $new = clone $this;
+        $new->content[] = $content;
         return $new;
     }
 
