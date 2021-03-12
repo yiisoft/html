@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Html;
+use Yiisoft\Html\Tag\Base\NotEncodeStringableInterface;
 use Yiisoft\Html\Tag\Base\Tag;
 
 /**
@@ -43,9 +45,13 @@ final class CustomTag extends Tag
     ];
 
     private string $name;
-    private bool $encode = true;
+    private ?bool $encode = null;
     private bool $doubleEncode = true;
-    private string $content = '';
+
+    /**
+     * @var string[]|Stringable[]
+     */
+    private array $content = [];
 
     private function __construct(string $name)
     {
@@ -93,11 +99,11 @@ final class CustomTag extends Tag
     }
 
     /**
-     * @param bool $encode Whether to encode tag content. Defaults to `true`.
+     * @param bool|null $encode Whether to encode tag content. Defaults to `null`.
      *
      * @return static
      */
-    public function encode(bool $encode): self
+    public function encode(?bool $encode): self
     {
         $new = clone $this;
         $new->encode = $encode;
@@ -118,14 +124,26 @@ final class CustomTag extends Tag
     }
 
     /**
-     * @param string $content Tag content.
+     * @param string|Stringable ...$content Tag content.
      *
      * @return static
      */
-    public function content(string $content): self
+    public function content(...$content): self
     {
         $new = clone $this;
         $new->content = $content;
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable $content Tag content.
+     *
+     * @return static
+     */
+    public function addContent($content): self
+    {
+        $new = clone $this;
+        $new->content[] = $content;
         return $new;
     }
 
@@ -162,10 +180,16 @@ final class CustomTag extends Tag
      */
     private function generateContent(): string
     {
-        $content = $this->content;
-        if ($this->encode) {
-            $content = Html::encode($this->content, $this->doubleEncode);
-        }
-        return $content;
+        $content = array_map(function ($item) {
+            if ($this->encode ||
+                ($this->encode === null && !($item instanceof NotEncodeStringableInterface))
+            ) {
+                $item = Html::encode($item, $this->doubleEncode);
+            }
+
+            return $item;
+        }, $this->content);
+
+        return implode('', $content);
     }
 }
