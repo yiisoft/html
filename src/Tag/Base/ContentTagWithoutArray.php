@@ -20,7 +20,7 @@ final class ContentTagWithoutArray extends NormalTag
      *
      * @return static
      */
-    final public function encode(?bool $encode): self
+    public function encode(?bool $encode): self
     {
         $new = clone $this;
         $new->encode = $encode;
@@ -33,7 +33,7 @@ final class ContentTagWithoutArray extends NormalTag
      *
      * @return static
      */
-    final public function doubleEncode(bool $doubleEncode): self
+    public function doubleEncode(bool $doubleEncode): self
     {
         $new = clone $this;
         $new->doubleEncode = $doubleEncode;
@@ -45,7 +45,7 @@ final class ContentTagWithoutArray extends NormalTag
      *
      * @return static
      */
-    final public function content($content): self
+    public function content($content): self
     {
         $new = clone $this;
         $new->content = (string)$content;
@@ -55,7 +55,7 @@ final class ContentTagWithoutArray extends NormalTag
     /**
      * @return string Obtain tag content considering encoding options.
      */
-    final protected function generateContent(): string
+    protected function generateContent(): string
     {
         $content = $this->content;
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests;
 
 use Yiisoft\Html\Tag\Base\ContentTagArrayMap;
-use Yiisoft\Html\Tag\Base\ContentTagOptimizedForeach;
 use Yiisoft\Html\Tag\Base\ContentTagWithoutArray;
 use Yiisoft\Html\Tag\Base\ContentTagForeach;
 

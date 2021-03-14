@@ -23,7 +23,7 @@ final class ContentTagArrayMap extends NormalTag
      *
      * @return static
      */
-    final public function encode(?bool $encode): self
+    public function encode(?bool $encode): self
     {
         $new = clone $this;
         $new->encode = $encode;
@@ -36,7 +36,7 @@ final class ContentTagArrayMap extends NormalTag
      *
      * @return static
      */
-    final public function doubleEncode(bool $doubleEncode): self
+    public function doubleEncode(bool $doubleEncode): self
     {
         $new = clone $this;
         $new->doubleEncode = $doubleEncode;
@@ -48,7 +48,7 @@ final class ContentTagArrayMap extends NormalTag
      *
      * @return static
      */
-    final public function content(...$content): self
+    public function content(...$content): self
     {
         $new = clone $this;
         $new->content = $content;
@@ -70,7 +70,7 @@ final class ContentTagArrayMap extends NormalTag
     /**
      * @return string Obtain tag content considering encoding options.
      */
-    final protected function generateContent(): string
+    protected function generateContent(): string
     {
         $content = array_map(function ($item) {
             if ($this->encode ||
