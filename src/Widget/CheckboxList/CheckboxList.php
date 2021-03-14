@@ -8,7 +8,7 @@ use Closure;
 use InvalidArgumentException;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Tag\Base\NotEncodeStringableInterface;
+use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Input;
 
 use function is_array;
@@ -16,7 +16,7 @@ use function is_array;
 /**
  * CheckboxList represents a list of checkboxes and their corresponding labels.
  */
-final class CheckboxList implements NotEncodeStringableInterface
+final class CheckboxList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];

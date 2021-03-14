@@ -6,13 +6,13 @@ namespace Yiisoft\Html\Widget\RadioList;
 
 use Closure;
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Tag\Base\NotEncodeStringableInterface;
+use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Input;
 
 /**
  * RadioList represents a list of radios and their corresponding labels.
  */
-final class RadioList implements NotEncodeStringableInterface
+final class RadioList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];

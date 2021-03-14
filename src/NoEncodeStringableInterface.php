@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tag\Base;
+namespace Yiisoft\Html;
 
-interface NotEncodeStringableInterface
+interface NoEncodeStringableInterface
 {
     public function __toString(): string;
 }

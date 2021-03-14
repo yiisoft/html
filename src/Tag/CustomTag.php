@@ -6,7 +6,7 @@ namespace Yiisoft\Html\Tag;
 
 use Stringable;
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Tag\Base\NotEncodeStringableInterface;
+use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Base\Tag;
 
 /**
@@ -182,7 +182,7 @@ final class CustomTag extends Tag
     {
         $content = array_map(function ($item) {
             if ($this->encode ||
-                ($this->encode === null && !($item instanceof NotEncodeStringableInterface))
+                ($this->encode === null && !($item instanceof NoEncodeStringableInterface))
             ) {
                 $item = Html::encode($item, $this->doubleEncode);
             }

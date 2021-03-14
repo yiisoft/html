@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tag\Base;
 
 use Stringable;
 use Yiisoft\Html\Html;
+use Yiisoft\Html\NoEncodeStringableInterface;
 
 abstract class ContentTag extends NormalTag
 {
@@ -73,7 +74,7 @@ abstract class ContentTag extends NormalTag
     {
         $content = array_map(function ($item) {
             if ($this->encode ||
-                ($this->encode === null && !($item instanceof NotEncodeStringableInterface))
+                ($this->encode === null && !($item instanceof NoEncodeStringableInterface))
             ) {
                 $item = Html::encode($item, $this->doubleEncode);
             }
