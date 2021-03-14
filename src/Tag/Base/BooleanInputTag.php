@@ -66,7 +66,7 @@ abstract class BooleanInputTag extends InputTag
     }
 
     /**
-     * @patam bool $encode Whether to encode label content. Defaults to `true`.
+     * @param bool $encode Whether to encode label content. Defaults to `true`.
      *
      * @return static
      */
