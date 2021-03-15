@@ -180,16 +180,18 @@ final class CustomTag extends Tag
      */
     private function generateContent(): string
     {
-        $content = array_map(function ($item) {
-            if ($this->encode ||
+        $content = '';
+        foreach ($this->content as $item) {
+            if (
+                $this->encode ||
                 ($this->encode === null && !($item instanceof NoEncodeStringableInterface))
             ) {
                 $item = Html::encode($item, $this->doubleEncode);
             }
 
-            return $item;
-        }, $this->content);
+            $content .= $item;
+        }
 
-        return implode('', $content);
+        return $content;
     }
 }
