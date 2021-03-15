@@ -19,7 +19,12 @@ abstract class ContentTag extends NormalTag
     private array $content = [];
 
     /**
-     * @param bool|null $encode Whether to encode tag content. Defaults to `null`.
+     * @param bool|null $encode Whether to encode tag content. Supported values:
+     *  - `null`: stringable objects that implement interface {@see NoEncodeStringableInterface} not encoded,
+     *    everything else is encoded;
+     *  - `true`: any content is encoded;
+     *  - `false`: nothing is encoded.
+     * Defaults to `null`.
      *
      * @return static
      */
