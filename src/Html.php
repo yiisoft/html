@@ -48,13 +48,13 @@ use function strlen;
  * documentation of the {@see tag()} method for more details.
  *
  * @psalm-type HtmlAttributes = array<string, mixed>&array{
- *   id?: string|\Stringable|null,
- *   class?: string[]|string|\Stringable[]|\Stringable|null,
- *   style?: array<string, string>|\Stringable|string|null,
- *   data?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- *   data-ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- *   ng?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
- *   aria?: array<array-key, array|string|\Stringable|null>|string|\Stringable|null,
+ *   id?: string|null,
+ *   class?: string[]|string|null,
+ *   style?: array<string, string>|string|null,
+ *   data?: array<array-key, array|string|null>|string|null,
+ *   data-ng?: array<array-key, array|string|null>|string|null,
+ *   ng?: array<array-key, array|string|null>|string|null,
+ *   aria?: array<array-key, array|string|null>|string|null,
  * }
  */
 final class Html
@@ -973,7 +973,7 @@ final class Html
             if (is_array($options['class'])) {
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
-                $classes = preg_split('/\s+/', (string)$options['class'], -1, PREG_SPLIT_NO_EMPTY);
+                $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $options['class'] = implode(' ', self::mergeCssClasses($classes, (array)$class));
             }
         } else {
