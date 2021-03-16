@@ -25,7 +25,6 @@ final class StyleTest extends TestCase
         );
     }
 
-
     public function dataMedia(): array
     {
         return [
