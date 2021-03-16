@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\ContentTag;
+use Yiisoft\Html\Tag\Base\NormalTag;
+use Yiisoft\Html\Tag\Base\TagContentTrait;
 
 /**
  * @link https://www.w3.org/TR/html52/textlevel-semantics.html#the-a-element
  */
-final class A extends ContentTag
+final class A extends NormalTag
 {
+    use TagContentTrait;
+
     /**
      * @link https://www.w3.org/TR/html52/links.html#element-attrdef-a-href
      */

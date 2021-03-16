@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Arrays\ArrayHelper;
-use Yiisoft\Html\Tag\Base\ContentTag;
+use Yiisoft\Html\Tag\Base\NormalTag;
+use Yiisoft\Html\Tag\Base\TagContentTrait;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-option-element
  */
-final class Option extends ContentTag
+final class Option extends NormalTag
 {
+    use TagContentTrait;
+
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-option-value
      *

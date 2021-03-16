@@ -2,20 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tag;
+namespace Yiisoft\Html\Tests\Objects;
 
 use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TagContentTrait;
 
-/**
- * @link https://www.w3.org/TR/html52/grouping-content.html#the-p-element
- */
-final class P extends NormalTag
+final class TestTagContentTrait extends NormalTag
 {
     use TagContentTrait;
 
     protected function getName(): string
     {
-        return 'p';
+        return 'test';
     }
 }

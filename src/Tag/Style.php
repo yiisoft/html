@@ -4,13 +4,27 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\ContentTag;
+use Yiisoft\Html\Tag\Base\NormalTag;
 
 /**
  * @link https://www.w3.org/TR/html52/document-metadata.html#the-style-element
  */
-final class Style extends ContentTag
+final class Style extends NormalTag
 {
+    private string $content = '';
+
+    /**
+     * @param string $content Tag content.
+     *
+     * @return static
+     */
+    public function content(string $content): self
+    {
+        $new = clone $this;
+        $new->content = $content;
+        return $new;
+    }
+
     public function media(?string $media): self
     {
         $new = clone $this;
@@ -28,5 +42,13 @@ final class Style extends ContentTag
     protected function getName(): string
     {
         return 'style';
+    }
+
+    /**
+     * @return string Obtain tag content.
+     */
+    protected function generateContent(): string
+    {
+        return $this->content;
     }
 }

@@ -9,7 +9,7 @@ use Stringable;
 use Yiisoft\Html\Tag\P;
 use Yiisoft\Html\Tag\Span;
 use Yiisoft\Html\Tests\Objects\StringableObject;
-use Yiisoft\Html\Tests\Objects\TestContentTag;
+use Yiisoft\Html\Tests\Objects\TestTagContentTrait;
 use function is_array;
 
 final class ContentTagTest extends TestCase
@@ -18,7 +18,7 @@ final class ContentTagTest extends TestCase
     {
         self::assertSame(
             '<test id="main">&lt;b&gt;hello &amp;gt; world!&lt;/b&gt;</test>',
-            TestContentTag::tag()->id('main')->content('<b>hello &gt; world!</b>')->render()
+            TestTagContentTrait::tag()->id('main')->content('<b>hello &gt; world!</b>')->render()
         );
     }
 
@@ -26,7 +26,7 @@ final class ContentTagTest extends TestCase
     {
         self::assertSame(
             '<test><b>hello</b></test>',
-            (string)TestContentTag::tag()->content('<b>hello</b>')->encode(false)
+            (string)TestTagContentTrait::tag()->content('<b>hello</b>')->encode(false)
         );
     }
 
@@ -34,7 +34,7 @@ final class ContentTagTest extends TestCase
     {
         self::assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string)TestContentTag::tag()->content('<b>A &gt; B</b>')->doubleEncode(false)
+            (string)TestTagContentTrait::tag()->content('<b>A &gt; B</b>')->doubleEncode(false)
         );
     }
 
@@ -58,7 +58,7 @@ final class ContentTagTest extends TestCase
      */
     public function testContent(string $expected, $content): void
     {
-        $tag = TestContentTag::tag();
+        $tag = TestTagContentTrait::tag();
         $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);
 
         self::assertSame($expected, $tag->render());
@@ -68,7 +68,7 @@ final class ContentTagTest extends TestCase
     {
         self::assertSame(
             '<test>&lt;p&gt;Hi!&lt;/p&gt;</test>',
-            TestContentTag::tag()
+            TestTagContentTrait::tag()
                 ->encode(true)
                 ->content(P::tag()->content('Hi!'))
                 ->render()
@@ -79,7 +79,7 @@ final class ContentTagTest extends TestCase
     {
         self::assertSame(
             '<test>Hello World</test>',
-            TestContentTag::tag()
+            TestTagContentTrait::tag()
                 ->content('Hello')
                 ->addContent(' ')
                 ->addContent(new StringableObject('World'))
@@ -91,7 +91,7 @@ final class ContentTagTest extends TestCase
     {
         self::assertSame(
             '<test>123</test>',
-            TestContentTag::tag()
+            TestTagContentTrait::tag()
                 ->content('1')
                 ->addContent(...['2', '3'])
                 ->render()
@@ -100,7 +100,7 @@ final class ContentTagTest extends TestCase
 
     public function testImmutability(): void
     {
-        $tag = TestContentTag::tag();
+        $tag = TestTagContentTrait::tag();
         self::assertNotSame($tag, $tag->encode(true));
         self::assertNotSame($tag, $tag->doubleEncode(true));
         self::assertNotSame($tag, $tag->content(''));
