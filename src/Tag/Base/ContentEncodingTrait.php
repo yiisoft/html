@@ -53,7 +53,7 @@ trait ContentEncodingTrait
      *
      * @return string Encoded content considering encoding options.
      */
-    final private function encodeContent($content): string
+    final protected function encodeContent($content): string
     {
         if ($this->encode || ($this->encode === null && !($content instanceof NoEncodeStringableInterface))) {
             return Html::encode($content, $this->doubleEncode);
