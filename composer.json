@@ -16,7 +16,6 @@
     },
     "require": {
         "php": "^7.4|^8.0",
-        "symfony/polyfill-php80": "^1.22",
         "yiisoft/arrays": "^1.0",
         "yiisoft/json": "^1.0"
     },
