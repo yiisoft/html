@@ -4,21 +4,15 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Stringable;
-use Yiisoft\Html\Html;
-use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Base\Tag;
+use Yiisoft\Html\Tag\Base\TagContentTrait;
 
 /**
  * Custom HTML tag.
  */
 final class CustomTag extends Tag
 {
-    private const TYPE_AUTO = 0;
-    private const TYPE_NORMAL = 1;
-    private const TYPE_VOID = 2;
-
-    private int $type = self::TYPE_AUTO;
+    use TagContentTrait;
 
     /**
      * List of void elements. These only have a start tag; end tags must not be specified.
@@ -44,14 +38,12 @@ final class CustomTag extends Tag
         'wbr' => 1,
     ];
 
-    private string $name;
-    private ?bool $encode = null;
-    private bool $doubleEncode = true;
+    private const TYPE_AUTO = 0;
+    private const TYPE_NORMAL = 1;
+    private const TYPE_VOID = 2;
 
-    /**
-     * @var string[]|Stringable[]
-     */
-    private array $content = [];
+    private int $type = self::TYPE_AUTO;
+    private string $name;
 
     private function __construct(string $name)
     {
@@ -98,60 +90,6 @@ final class CustomTag extends Tag
         return $new;
     }
 
-    /**
-     * @param bool|null $encode Whether to encode tag content. Supported values:
-     *  - `null`: stringable objects that implement interface {@see NoEncodeStringableInterface} are not encoded,
-     *    everything else is encoded;
-     *  - `true`: any content is encoded;
-     *  - `false`: nothing is encoded.
-     * Defaults to `null`.
-     *
-     * @return static
-     */
-    public function encode(?bool $encode): self
-    {
-        $new = clone $this;
-        $new->encode = $encode;
-        return $new;
-    }
-
-    /**
-     * @param bool $doubleEncode Whether already encoded HTML entities in tag content should be encoded.
-     * Defaults to `true`.
-     *
-     * @return static
-     */
-    public function doubleEncode(bool $doubleEncode): self
-    {
-        $new = clone $this;
-        $new->doubleEncode = $doubleEncode;
-        return $new;
-    }
-
-    /**
-     * @param string|Stringable ...$content Tag content.
-     *
-     * @return static
-     */
-    public function content(...$content): self
-    {
-        $new = clone $this;
-        $new->content = $content;
-        return $new;
-    }
-
-    /**
-     * @param string|Stringable ...$content Tag content.
-     *
-     * @return static
-     */
-    public function addContent(...$content): self
-    {
-        $new = clone $this;
-        $new->content = [...$new->content, ...$content];
-        return $new;
-    }
-
     protected function getName(): string
     {
         return $this->name;
@@ -178,22 +116,5 @@ final class CustomTag extends Tag
     public function close(): string
     {
         return '</' . $this->getName() . '>';
-    }
-
-    /**
-     * @return string Obtain tag content considering encoding options.
-     */
-    private function generateContent(): string
-    {
-        $content = '';
-        foreach ($this->content as $item) {
-            if ($this->encode || ($this->encode === null && !($item instanceof NoEncodeStringableInterface))) {
-                $item = Html::encode($item, $this->doubleEncode);
-            }
-
-            $content .= $item;
-        }
-
-        return $content;
     }
 }
