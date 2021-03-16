@@ -16,7 +16,7 @@ final class IterableObject implements IteratorAggregate
         $this->data = $data;
     }
 
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->data);
     }

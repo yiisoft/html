@@ -16,7 +16,7 @@ final class TextareaTest extends TestCase
             ->value('content')
             ->rows(6);
 
-        self::assertSame('<textarea name="body" rows="6">content</textarea>', (string)$textarea);
+        $this->assertSame('<textarea name="body" rows="6">content</textarea>', (string)$textarea);
     }
 
     public function dataName(): array
@@ -32,7 +32,7 @@ final class TextareaTest extends TestCase
      */
     public function testName(string $expected, ?string $name): void
     {
-        self::assertSame($expected, (string)Textarea::tag()->name($name));
+        $this->assertSame($expected, (string)Textarea::tag()->name($name));
     }
 
     public function dataRows(): array
@@ -48,7 +48,7 @@ final class TextareaTest extends TestCase
      */
     public function testRows(string $expected, ?int $rows): void
     {
-        self::assertSame($expected, (string)Textarea::tag()->rows($rows));
+        $this->assertSame($expected, (string)Textarea::tag()->rows($rows));
     }
 
     public function dataColumns(): array
@@ -64,7 +64,7 @@ final class TextareaTest extends TestCase
      */
     public function testColumns(string $expected, ?int $columns): void
     {
-        self::assertSame($expected, (string)Textarea::tag()->columns($columns));
+        $this->assertSame($expected, (string)Textarea::tag()->columns($columns));
     }
 
     public function dataValue(): array
@@ -80,7 +80,7 @@ final class TextareaTest extends TestCase
      */
     public function testValue(string $expected, ?string $value): void
     {
-        self::assertSame($expected, (string)Textarea::tag()->value($value));
+        $this->assertSame($expected, (string)Textarea::tag()->value($value));
     }
 
     public function dataForm(): array
@@ -97,16 +97,16 @@ final class TextareaTest extends TestCase
      */
     public function testForm(string $expected, ?string $formId): void
     {
-        self::assertSame($expected, Textarea::tag()->form($formId)->render());
+        $this->assertSame($expected, Textarea::tag()->form($formId)->render());
     }
 
     public function testImmutability(): void
     {
         $textarea = Textarea::tag();
-        self::assertNotSame($textarea, $textarea->name(null));
-        self::assertNotSame($textarea, $textarea->rows(null));
-        self::assertNotSame($textarea, $textarea->columns(null));
-        self::assertNotSame($textarea, $textarea->value(null));
-        self::assertNotSame($textarea, $textarea->form(null));
+        $this->assertNotSame($textarea, $textarea->name(null));
+        $this->assertNotSame($textarea, $textarea->rows(null));
+        $this->assertNotSame($textarea, $textarea->columns(null));
+        $this->assertNotSame($textarea, $textarea->value(null));
+        $this->assertNotSame($textarea, $textarea->form(null));
     }
 }

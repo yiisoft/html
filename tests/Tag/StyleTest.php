@@ -17,6 +17,14 @@ final class StyleTest extends TestCase
         );
     }
 
+    public function testContent(): void
+    {
+        $this->assertSame(
+            '<style>body { display: block }</style>',
+            Style::tag()->content('body { display: block }')->render()
+        );
+    }
+
     public function dataMedia(): array
     {
         return [
@@ -52,6 +60,7 @@ final class StyleTest extends TestCase
     public function testImmutability(): void
     {
         $tag = Style::tag();
+        $this->assertNotSame($tag, $tag->content(''));
         $this->assertNotSame($tag, $tag->media(null));
         $this->assertNotSame($tag, $tag->type(null));
     }

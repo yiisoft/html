@@ -11,7 +11,7 @@ final class MetaTest extends TestCase
 {
     public function testBase(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<meta name="description" content="Yii Framework">',
             Meta::tag()
                 ->name('description')
@@ -22,7 +22,7 @@ final class MetaTest extends TestCase
 
     public function testData(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<meta name="keywords" content="yii">',
             Meta::data('keywords', 'yii')->render()
         );
@@ -30,7 +30,7 @@ final class MetaTest extends TestCase
 
     public function testPragmaDirective(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<meta http-equiv="Cache-Control" content="public">',
             Meta::pragmaDirective('Cache-Control', 'public')->render()
         );
@@ -38,7 +38,7 @@ final class MetaTest extends TestCase
 
     public function testDocumentEncoding(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<meta charset="utf-8">',
             Meta::documentEncoding('utf-8')->render()
         );
@@ -46,7 +46,7 @@ final class MetaTest extends TestCase
 
     public function testDescription(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<meta name="description" content="Yii Framework">',
             Meta::description('Yii Framework')->render()
         );
@@ -66,7 +66,7 @@ final class MetaTest extends TestCase
      */
     public function testName(string $expected, ?string $name): void
     {
-        self::assertSame($expected, (string)Meta::tag()->name($name));
+        $this->assertSame($expected, (string)Meta::tag()->name($name));
     }
 
     public function dataHttpEquiv(): array
@@ -83,7 +83,7 @@ final class MetaTest extends TestCase
      */
     public function testHttpEquiv(string $expected, ?string $name): void
     {
-        self::assertSame($expected, (string)Meta::tag()->httpEquiv($name));
+        $this->assertSame($expected, (string)Meta::tag()->httpEquiv($name));
     }
 
     public function dataContent(): array
@@ -100,7 +100,7 @@ final class MetaTest extends TestCase
      */
     public function testContent(string $expected, ?string $content): void
     {
-        self::assertSame($expected, (string)Meta::tag()->content($content));
+        $this->assertSame($expected, (string)Meta::tag()->content($content));
     }
 
     public function dataCharset(): array
@@ -117,15 +117,15 @@ final class MetaTest extends TestCase
      */
     public function testCharset(string $expected, ?string $charset): void
     {
-        self::assertSame($expected, (string)Meta::tag()->charset($charset));
+        $this->assertSame($expected, (string)Meta::tag()->charset($charset));
     }
 
     public function testImmutability(): void
     {
         $tag = Meta::tag();
-        self::assertNotSame($tag, $tag->name(null));
-        self::assertNotSame($tag, $tag->httpEquiv(null));
-        self::assertNotSame($tag, $tag->content(null));
-        self::assertNotSame($tag, $tag->charset(null));
+        $this->assertNotSame($tag, $tag->name(null));
+        $this->assertNotSame($tag, $tag->httpEquiv(null));
+        $this->assertNotSame($tag, $tag->content(null));
+        $this->assertNotSame($tag, $tag->charset(null));
     }
 }
