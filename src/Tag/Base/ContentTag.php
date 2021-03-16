@@ -5,48 +5,15 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag\Base;
 
 use Stringable;
-use Yiisoft\Html\Html;
-use Yiisoft\Html\NoEncodeStringableInterface;
 
 abstract class ContentTag extends NormalTag
 {
-    private ?bool $encode = null;
-    private bool $doubleEncode = true;
+    use ContentEncodingTrait;
 
     /**
      * @var string[]|Stringable[]
      */
     private array $content = [];
-
-    /**
-     * @param bool|null $encode Whether to encode tag content. Supported values:
-     *  - `null`: stringable objects that implement interface {@see NoEncodeStringableInterface} are not encoded,
-     *    everything else is encoded;
-     *  - `true`: any content is encoded;
-     *  - `false`: nothing is encoded.
-     * Defaults to `null`.
-     *
-     * @return static
-     */
-    final public function encode(?bool $encode): self
-    {
-        $new = clone $this;
-        $new->encode = $encode;
-        return $new;
-    }
-
-    /**
-     * @param bool $doubleEncode Whether already encoded HTML entities in tag content should be encoded.
-     * Defaults to `true`.
-     *
-     * @return static
-     */
-    final public function doubleEncode(bool $doubleEncode): self
-    {
-        $new = clone $this;
-        $new->doubleEncode = $doubleEncode;
-        return $new;
-    }
 
     /**
      * @param string|Stringable ...$content Tag content.
@@ -78,12 +45,9 @@ abstract class ContentTag extends NormalTag
     final protected function generateContent(): string
     {
         $content = '';
-        foreach ($this->content as $item) {
-            if ($this->encode || ($this->encode === null && !($item instanceof NoEncodeStringableInterface))) {
-                $item = Html::encode($item, $this->doubleEncode);
-            }
 
-            $content .= $item;
+        foreach ($this->content as $item) {
+            $content .= $this->encodeContent($item);
         }
 
         return $content;

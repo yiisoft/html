@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use Stringable;
-use Yiisoft\Html\Html;
-use Yiisoft\Html\NoEncodeStringableInterface;
+use Yiisoft\Html\Tag\Base\ContentEncodingTrait;
 use Yiisoft\Html\Tag\Base\Tag;
 
 /**
@@ -14,6 +13,8 @@ use Yiisoft\Html\Tag\Base\Tag;
  */
 final class CustomTag extends Tag
 {
+    use ContentEncodingTrait;
+
     private const TYPE_AUTO = 0;
     private const TYPE_NORMAL = 1;
     private const TYPE_VOID = 2;
@@ -45,8 +46,6 @@ final class CustomTag extends Tag
     ];
 
     private string $name;
-    private ?bool $encode = null;
-    private bool $doubleEncode = true;
 
     /**
      * @var string[]|Stringable[]
@@ -95,36 +94,6 @@ final class CustomTag extends Tag
     {
         $new = clone $this;
         $new->type = self::TYPE_VOID;
-        return $new;
-    }
-
-    /**
-     * @param bool|null $encode Whether to encode tag content. Supported values:
-     *  - `null`: stringable objects that implement interface {@see NoEncodeStringableInterface} are not encoded,
-     *    everything else is encoded;
-     *  - `true`: any content is encoded;
-     *  - `false`: nothing is encoded.
-     * Defaults to `null`.
-     *
-     * @return static
-     */
-    public function encode(?bool $encode): self
-    {
-        $new = clone $this;
-        $new->encode = $encode;
-        return $new;
-    }
-
-    /**
-     * @param bool $doubleEncode Whether already encoded HTML entities in tag content should be encoded.
-     * Defaults to `true`.
-     *
-     * @return static
-     */
-    public function doubleEncode(bool $doubleEncode): self
-    {
-        $new = clone $this;
-        $new->doubleEncode = $doubleEncode;
         return $new;
     }
 
@@ -186,12 +155,9 @@ final class CustomTag extends Tag
     private function generateContent(): string
     {
         $content = '';
-        foreach ($this->content as $item) {
-            if ($this->encode || ($this->encode === null && !($item instanceof NoEncodeStringableInterface))) {
-                $item = Html::encode($item, $this->doubleEncode);
-            }
 
-            $content .= $item;
+        foreach ($this->content as $item) {
+            $content .= $this->encodeContent($item);
         }
 
         return $content;
