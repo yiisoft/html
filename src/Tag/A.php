@@ -38,6 +38,16 @@ final class A extends NormalTag
     }
 
     /**
+     * @link https://www.w3.org/TR/html52/links.html#element-attrdef-a-rel
+     */
+    public function rel(?string $rel): self
+    {
+        $new = clone $this;
+        $new->attributes['rel'] = $rel;
+        return $new;
+    }
+
+    /**
      * Default browsing context for hyperlink navigation
      *
      * @link https://www.w3.org/TR/html52/browsers.html#valid-browsing-context-names-or-keywords
