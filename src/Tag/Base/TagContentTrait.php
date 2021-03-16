@@ -11,10 +11,15 @@ use Yiisoft\Html\NoEncodeStringableInterface;
 /**
  * Adds functionality for encoding tag content.
  */
-trait ContentEncodingTrait
+trait TagContentTrait
 {
     private ?bool $encode = null;
     private bool $doubleEncode = true;
+
+    /**
+     * @var string[]|Stringable[]
+     */
+    private array $content = [];
 
     /**
      * @param bool|null $encode Whether to encode tag content. Supported values:
@@ -47,18 +52,44 @@ trait ContentEncodingTrait
     }
 
     /**
-     * Encodes content considering encoding options {@see encode()}.
+     * @param string|Stringable ...$content Tag content.
      *
-     * @param string|Stringable $content Tag content.
-     *
-     * @return string Encoded content considering encoding options.
+     * @return static
      */
-    final protected function encodeContent($content): string
+    final public function content(...$content): self
     {
-        if ($this->encode || ($this->encode === null && !($content instanceof NoEncodeStringableInterface))) {
-            return Html::encode($content, $this->doubleEncode);
+        $new = clone $this;
+        $new->content = $content;
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable ...$content Tag content.
+     *
+     * @return static
+     */
+    final public function addContent(...$content): self
+    {
+        $new = clone $this;
+        $new->content = [...$new->content, ...$content];
+        return $new;
+    }
+
+    /**
+     * @return string Obtain tag content considering encoding options {@see encode()}.
+     */
+    final protected function generateContent(): string
+    {
+        $content = '';
+
+        foreach ($this->content as $item) {
+            if ($this->encode || ($this->encode === null && !($item instanceof NoEncodeStringableInterface))) {
+                $item = Html::encode($item, $this->doubleEncode);
+            }
+
+            $content .= $item;
         }
 
-        return (string) $content;
+        return $content;
     }
 }

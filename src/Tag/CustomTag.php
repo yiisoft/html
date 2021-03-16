@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Stringable;
-use Yiisoft\Html\Tag\Base\ContentEncodingTrait;
 use Yiisoft\Html\Tag\Base\Tag;
+use Yiisoft\Html\Tag\Base\TagContentTrait;
 
 /**
  * Custom HTML tag.
  */
 final class CustomTag extends Tag
 {
-    use ContentEncodingTrait;
-
-    private const TYPE_AUTO = 0;
-    private const TYPE_NORMAL = 1;
-    private const TYPE_VOID = 2;
-
-    private int $type = self::TYPE_AUTO;
+    use TagContentTrait;
 
     /**
      * List of void elements. These only have a start tag; end tags must not be specified.
@@ -45,12 +38,12 @@ final class CustomTag extends Tag
         'wbr' => 1,
     ];
 
-    private string $name;
+    private const TYPE_AUTO = 0;
+    private const TYPE_NORMAL = 1;
+    private const TYPE_VOID = 2;
 
-    /**
-     * @var string[]|Stringable[]
-     */
-    private array $content = [];
+    private int $type = self::TYPE_AUTO;
+    private string $name;
 
     private function __construct(string $name)
     {
@@ -97,30 +90,6 @@ final class CustomTag extends Tag
         return $new;
     }
 
-    /**
-     * @param string|Stringable ...$content Tag content.
-     *
-     * @return static
-     */
-    public function content(...$content): self
-    {
-        $new = clone $this;
-        $new->content = $content;
-        return $new;
-    }
-
-    /**
-     * @param string|Stringable ...$content Tag content.
-     *
-     * @return static
-     */
-    public function addContent(...$content): self
-    {
-        $new = clone $this;
-        $new->content = [...$new->content, ...$content];
-        return $new;
-    }
-
     protected function getName(): string
     {
         return $this->name;
@@ -147,19 +116,5 @@ final class CustomTag extends Tag
     public function close(): string
     {
         return '</' . $this->getName() . '>';
-    }
-
-    /**
-     * @return string Obtain tag content considering encoding options.
-     */
-    private function generateContent(): string
-    {
-        $content = '';
-
-        foreach ($this->content as $item) {
-            $content .= $this->encodeContent($item);
-        }
-
-        return $content;
     }
 }
