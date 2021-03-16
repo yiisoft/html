@@ -9,7 +9,7 @@ use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 
 /**
- * Adds functionality for encoding tag content.
+ * Adds functionality for processing with tag content.
  */
 trait TagContentTrait
 {
