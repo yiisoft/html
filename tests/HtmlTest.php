@@ -681,31 +681,6 @@ final class HtmlTest extends TestCase
         $this->assertSame('width: 100px;', $options['style']);
     }
 
-    private function getDataItems(): array
-    {
-        return [
-            'value1' => 'text1',
-            'value2' => 'text2',
-        ];
-    }
-
-    private function getDataItems2(): array
-    {
-        return [
-            'value1<>' => 'text1<>',
-            'value  2' => 'text  2',
-        ];
-    }
-
-    private function getDataItems3(): array
-    {
-        return [
-            'zero',
-            'one',
-            'value3' => 'text3',
-        ];
-    }
-
     public function dataNormalizeRegexpPattern(): array
     {
         return [

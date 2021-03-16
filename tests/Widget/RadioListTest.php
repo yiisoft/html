@@ -449,6 +449,14 @@ final class RadioListTest extends TestCase
         );
     }
 
+    public function testStringable(): void
+    {
+        self::assertSame(
+            "<div>\n</div>",
+            (string)RadioList::create('test'),
+        );
+    }
+
     public function testImmutability(): void
     {
         $widget = RadioList::create('test');

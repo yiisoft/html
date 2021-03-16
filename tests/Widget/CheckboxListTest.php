@@ -479,6 +479,14 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testStringable(): void
+    {
+        self::assertSame(
+            "<div>\n</div>",
+            (string)CheckboxList::create('test'),
+        );
+    }
+
     public function testImmutability(): void
     {
         $widget = CheckboxList::create('test');

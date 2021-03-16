@@ -4,36 +4,34 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+use Stringable;
 use Yiisoft\Html\Html;
+use Yiisoft\Html\NoEncodeStringableInterface;
 
 abstract class ContentTag extends NormalTag
 {
-    private bool $encode = true;
-    private bool $encodeSpaces = false;
+    private ?bool $encode = null;
     private bool $doubleEncode = true;
-    private string $content = '';
 
     /**
-     * @param bool $encode Whether to encode tag content. Defaults to `true`.
+     * @var string[]|Stringable[]
+     */
+    private array $content = [];
+
+    /**
+     * @param bool|null $encode Whether to encode tag content. Supported values:
+     *  - `null`: stringable objects that implement interface {@see NoEncodeStringableInterface} are not encoded,
+     *    everything else is encoded;
+     *  - `true`: any content is encoded;
+     *  - `false`: nothing is encoded.
+     * Defaults to `null`.
      *
      * @return static
      */
-    final public function encode(bool $encode): self
+    final public function encode(?bool $encode): self
     {
         $new = clone $this;
         $new->encode = $encode;
-        return $new;
-    }
-
-    /**
-     * @param bool $encodeSpaces Whether to encode spaces in tag content with `&nbsp;` character. Defaults to `false`.
-     *
-     * @return static
-     */
-    final public function encodeSpaces(bool $encodeSpaces): self
-    {
-        $new = clone $this;
-        $new->encodeSpaces = $encodeSpaces;
         return $new;
     }
 
@@ -51,14 +49,26 @@ abstract class ContentTag extends NormalTag
     }
 
     /**
-     * @param string $content Tag content.
+     * @param string|Stringable ...$content Tag content.
      *
      * @return static
      */
-    final public function content(string $content): self
+    final public function content(...$content): self
     {
         $new = clone $this;
         $new->content = $content;
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable ...$content Tag content.
+     *
+     * @return static
+     */
+    public function addContent(...$content): self
+    {
+        $new = clone $this;
+        $new->content = [...$new->content, ...$content];
         return $new;
     }
 
@@ -67,13 +77,15 @@ abstract class ContentTag extends NormalTag
      */
     final protected function generateContent(): string
     {
-        $content = $this->content;
-        if ($this->encode) {
-            $content = Html::encode($this->content, $this->doubleEncode);
+        $content = '';
+        foreach ($this->content as $item) {
+            if ($this->encode || ($this->encode === null && !($item instanceof NoEncodeStringableInterface))) {
+                $item = Html::encode($item, $this->doubleEncode);
+            }
+
+            $content .= $item;
         }
-        if ($this->encodeSpaces) {
-            $content = str_replace(' ', '&nbsp;', $content);
-        }
+
         return $content;
     }
 }

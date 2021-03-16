@@ -52,7 +52,7 @@ use Yiisoft\Html\Tag\Meta;
         'crossorigin' => 'anonymous'
     ]
 ) ?>
-<?= Html::cssFile('/css/site.css', ['rel' => 'stylesheet']); ?>
+<?= Html::cssFile('/css/site.css', ['rel' => 'stylesheet']) ?>
 
 <?= Html::openTag('footer', ['class' => 'footer']) ?>
     <?= Html::openTag('div', ['class' => 'container flex-fill']) ?>
@@ -71,7 +71,7 @@ use Yiisoft\Html\Tag\Meta;
 
 ## Tag objects usage
 
-Tag classes allow working with tag as is object and then get a HTML code by method `render()` or type casting to string. For example, code:
+Tag classes allow working with tag as is object and then get an HTML code by method `render()` or type casting to string. For example, code:
 
 ```php
 echo \Yiisoft\Html\Tag\Div::tag()
