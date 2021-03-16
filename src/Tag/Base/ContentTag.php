@@ -79,10 +79,7 @@ abstract class ContentTag extends NormalTag
     {
         $content = '';
         foreach ($this->content as $item) {
-            if (
-                $this->encode ||
-                ($this->encode === null && !($item instanceof NoEncodeStringableInterface))
-            ) {
+            if ($this->encode || ($this->encode === null && !($item instanceof NoEncodeStringableInterface))) {
                 $item = Html::encode($item, $this->doubleEncode);
             }
 
