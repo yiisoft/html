@@ -148,7 +148,7 @@ final class CustomTag extends Tag
     public function addContent(...$content): self
     {
         $new = clone $this;
-        $new->content = array_merge($new->content, $content);
+        $new->content = [...$new->content, ...$content];
         return $new;
     }
 
