@@ -16,7 +16,7 @@ final class ContentTagTest extends TestCase
 {
     public function testBase(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test id="main">&lt;b&gt;hello &amp;gt; world!&lt;/b&gt;</test>',
             TestTagContentTrait::tag()->id('main')->content('<b>hello &gt; world!</b>')->render()
         );
@@ -24,7 +24,7 @@ final class ContentTagTest extends TestCase
 
     public function testWithoutEncode(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test><b>hello</b></test>',
             (string)TestTagContentTrait::tag()->content('<b>hello</b>')->encode(false)
         );
@@ -32,7 +32,7 @@ final class ContentTagTest extends TestCase
 
     public function testWithoutDoubleEncode(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
             (string)TestTagContentTrait::tag()->content('<b>A &gt; B</b>')->doubleEncode(false)
         );
@@ -61,12 +61,12 @@ final class ContentTagTest extends TestCase
         $tag = TestTagContentTrait::tag();
         $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);
 
-        self::assertSame($expected, $tag->render());
+        $this->assertSame($expected, $tag->render());
     }
 
     public function testEncodeContent(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test>&lt;p&gt;Hi!&lt;/p&gt;</test>',
             TestTagContentTrait::tag()
                 ->encode(true)
@@ -77,7 +77,7 @@ final class ContentTagTest extends TestCase
 
     public function testAddContent(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test>Hello World</test>',
             TestTagContentTrait::tag()
                 ->content('Hello')
@@ -89,7 +89,7 @@ final class ContentTagTest extends TestCase
 
     public function testAddContentVariadic(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test>123</test>',
             TestTagContentTrait::tag()
                 ->content('1')
@@ -101,9 +101,9 @@ final class ContentTagTest extends TestCase
     public function testImmutability(): void
     {
         $tag = TestTagContentTrait::tag();
-        self::assertNotSame($tag, $tag->encode(true));
-        self::assertNotSame($tag, $tag->doubleEncode(true));
-        self::assertNotSame($tag, $tag->content(''));
-        self::assertNotSame($tag, $tag->addContent(''));
+        $this->assertNotSame($tag, $tag->encode(true));
+        $this->assertNotSame($tag, $tag->doubleEncode(true));
+        $this->assertNotSame($tag, $tag->content(''));
+        $this->assertNotSame($tag, $tag->addContent(''));
     }
 }

@@ -147,10 +147,10 @@ final class OptgroupTest extends TestCase
     public function testImmutability(): void
     {
         $optgroup = Optgroup::tag();
-        self::assertNotSame($optgroup, $optgroup->options());
-        self::assertNotSame($optgroup, $optgroup->optionsData([]));
-        self::assertNotSame($optgroup, $optgroup->label(null));
-        self::assertNotSame($optgroup, $optgroup->disabled());
-        self::assertNotSame($optgroup, $optgroup->selection());
+        $this->assertNotSame($optgroup, $optgroup->options());
+        $this->assertNotSame($optgroup, $optgroup->optionsData([]));
+        $this->assertNotSame($optgroup, $optgroup->label(null));
+        $this->assertNotSame($optgroup, $optgroup->disabled());
+        $this->assertNotSame($optgroup, $optgroup->selection());
     }
 }

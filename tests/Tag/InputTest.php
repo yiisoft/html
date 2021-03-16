@@ -11,7 +11,7 @@ final class InputTest extends TestCase
 {
     public function testBase(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="hidden" name="id" value="42">',
             (string)Input::tag()->type('hidden')->name('id')->value('42')
         );
@@ -19,7 +19,7 @@ final class InputTest extends TestCase
 
     public function testHidden(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="hidden" name="id" value="42">',
             (string)Input::hidden('id', '42')
         );
@@ -27,7 +27,7 @@ final class InputTest extends TestCase
 
     public function testText(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="text" name="name" value="Mike">',
             (string)Input::text('name', 'Mike')
         );
@@ -35,7 +35,7 @@ final class InputTest extends TestCase
 
     public function testPassword(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="password" name="new_password" value="42-7-42">',
             (string)Input::password('new_password', '42-7-42')
         );
@@ -43,7 +43,7 @@ final class InputTest extends TestCase
 
     public function testFile(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="file" name="photo" value="c:\path\">',
             (string)Input::file('photo', 'c:\\path\\')
         );
@@ -51,7 +51,7 @@ final class InputTest extends TestCase
 
     public function testCheckbox(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="checkbox" name="subscribe" checked>',
             (string)Input::checkbox('subscribe')->checked()
         );
@@ -59,7 +59,7 @@ final class InputTest extends TestCase
 
     public function testRadio(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="radio" name="count" value="one">',
             (string)Input::radio('count', 'one')
         );
@@ -67,7 +67,7 @@ final class InputTest extends TestCase
 
     public function testButton(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="button" value="Go!">',
             (string)Input::button('Go!')
         );
@@ -75,7 +75,7 @@ final class InputTest extends TestCase
 
     public function testSubmitButton(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="submit" value="Go!">',
             (string)Input::submitButton('Go!')
         );
@@ -83,7 +83,7 @@ final class InputTest extends TestCase
 
     public function testResetButton(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="reset" value="Go!">',
             (string)Input::resetButton('Go!')
         );
@@ -102,12 +102,12 @@ final class InputTest extends TestCase
      */
     public function testType(string $expected, ?string $type): void
     {
-        self::assertSame($expected, (string)Input::tag()->type($type));
+        $this->assertSame($expected, (string)Input::tag()->type($type));
     }
 
     public function testImmutability(): void
     {
         $input = Input::tag();
-        self::assertNotSame($input, $input->type(null));
+        $this->assertNotSame($input, $input->type(null));
     }
 }

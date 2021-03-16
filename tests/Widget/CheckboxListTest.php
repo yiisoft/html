@@ -16,7 +16,7 @@ final class CheckboxListTest extends TestCase
 {
     public function testBase(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="hidden" name="test" value="0">' . "\n" .
             '<div id="main">' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
@@ -34,7 +34,7 @@ final class CheckboxListTest extends TestCase
 
     public function testWithoutContainer(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<label><input type="checkbox" name="test[]" value="1"> One</label>',
             CheckboxList::create('test')->items([1 => 'One'])->withoutContainer()->render(),
         );
@@ -65,7 +65,7 @@ final class CheckboxListTest extends TestCase
      */
     public function testContainerTag(string $expected, ?string $name): void
     {
-        self::assertSame(
+        $this->assertSame(
             $expected,
             CheckboxList::create('test')->items([1 => 'One'])->containerTag($name)->render(),
         );
@@ -73,7 +73,7 @@ final class CheckboxListTest extends TestCase
 
     public function testContainerAttributes(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<div id="main">' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
             '</div>',
@@ -83,7 +83,7 @@ final class CheckboxListTest extends TestCase
 
     public function testCheckboxAttributes(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n" .
             '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>',
             CheckboxList::create('test')
@@ -99,7 +99,7 @@ final class CheckboxListTest extends TestCase
 
     public function testCheckboxAttributesMerge(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<label><input type="checkbox" class="red" name="test[]" value="1" readonly> One</label>' . "\n" .
             '<label><input type="checkbox" class="red" name="test[]" value="2" readonly> Two</label>',
             CheckboxList::create('test')
@@ -116,7 +116,7 @@ final class CheckboxListTest extends TestCase
 
     public function testReplaceCheckboxAttributes(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n" .
             '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>',
             CheckboxList::create('test')
@@ -133,7 +133,7 @@ final class CheckboxListTest extends TestCase
 
     public function testItems(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2"> &lt;b&gt;Two&lt;/b&gt;</label>',
             CheckboxList::create('test')
@@ -148,7 +148,7 @@ final class CheckboxListTest extends TestCase
 
     public function testItemsWithoutEncodeLabel(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2"> <b>Two</b></label>',
             CheckboxList::create('test')
@@ -218,19 +218,19 @@ final class CheckboxListTest extends TestCase
      */
     public function testValue(string $expected, array $items, array $value): void
     {
-        self::assertSame(
+        $this->assertSame(
             $expected,
             CheckboxList::create('test')->items($items)->value(...$value)->render(),
         );
-        self::assertSame(
+        $this->assertSame(
             $expected,
             CheckboxList::create('test')->items($items)->values($value)->render(),
         );
-        self::assertSame(
+        $this->assertSame(
             $expected,
             CheckboxList::create('test')->items($items)->values(new ArrayObject($value))->render(),
         );
-        self::assertSame(
+        $this->assertSame(
             $expected,
             CheckboxList::create('test')->items($items)->values(new IterableObject($value))->render(),
         );
@@ -274,7 +274,7 @@ final class CheckboxListTest extends TestCase
      */
     public function testForm(string $expected, ?string $formId): void
     {
-        self::assertSame(
+        $this->assertSame(
             $expected,
             CheckboxList::create('test')
                 ->items([
@@ -294,7 +294,7 @@ final class CheckboxListTest extends TestCase
                 2 => 'Two',
             ]);
 
-        self::assertSame(
+        $this->assertSame(
             '<div>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1" readonly> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2" readonly> Two</label>' . "\n" .
@@ -302,14 +302,14 @@ final class CheckboxListTest extends TestCase
             $checkbox->readonly()->render()
         );
 
-        self::assertSame(
+        $this->assertSame(
             '<div>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
             '</div>',
             $checkbox->readonly(false)->render()
         );
-        self::assertSame(
+        $this->assertSame(
             '<div>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
@@ -326,7 +326,7 @@ final class CheckboxListTest extends TestCase
                 2 => 'Two',
             ]);
 
-        self::assertSame(
+        $this->assertSame(
             '<div>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1" disabled> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2" disabled> Two</label>' . "\n" .
@@ -334,14 +334,14 @@ final class CheckboxListTest extends TestCase
             $checkbox->disabled()->render()
         );
 
-        self::assertSame(
+        $this->assertSame(
             '<div>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
             '</div>',
             $checkbox->disabled(false)->render()
         );
-        self::assertSame(
+        $this->assertSame(
             '<div>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
@@ -397,7 +397,7 @@ final class CheckboxListTest extends TestCase
      */
     public function testUncheckValue(string $expected, string $name, $value): void
     {
-        self::assertSame(
+        $this->assertSame(
             $expected,
             CheckboxList::create($name)
                 ->items([
@@ -411,7 +411,7 @@ final class CheckboxListTest extends TestCase
 
     public function testUncheckValueDisabled(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="hidden" name="test" value="7" disabled>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1" disabled> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2" disabled> Two</label>',
@@ -429,7 +429,7 @@ final class CheckboxListTest extends TestCase
 
     public function testUncheckValueForm(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<input type="hidden" name="test" value="7" form="post">' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1" form="post"> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="2" form="post"> Two</label>',
@@ -447,7 +447,7 @@ final class CheckboxListTest extends TestCase
 
     public function testSeparator(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<div>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="1"> One</label><br>' .
             '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
@@ -458,7 +458,7 @@ final class CheckboxListTest extends TestCase
 
     public function testItemFormatter(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<div>' . "\n" .
             '<div>0) <label><input type="checkbox" name="test[]" value="1"> One</label></div>' .
             '<div>1) <label><input type="checkbox" name="test[]" value="2"> Two</label></div>' . "\n" .
@@ -481,7 +481,7 @@ final class CheckboxListTest extends TestCase
 
     public function testStringable(): void
     {
-        self::assertSame(
+        $this->assertSame(
             "<div>\n</div>",
             (string)CheckboxList::create('test'),
         );
@@ -490,19 +490,19 @@ final class CheckboxListTest extends TestCase
     public function testImmutability(): void
     {
         $widget = CheckboxList::create('test');
-        self::assertNotSame($widget, $widget->withoutContainer());
-        self::assertNotSame($widget, $widget->containerTag(''));
-        self::assertNotSame($widget, $widget->containerAttributes([]));
-        self::assertNotSame($widget, $widget->checkboxAttributes([]));
-        self::assertNotSame($widget, $widget->replaceCheckboxAttributes([]));
-        self::assertNotSame($widget, $widget->items([]));
-        self::assertNotSame($widget, $widget->value());
-        self::assertNotSame($widget, $widget->values([]));
-        self::assertNotSame($widget, $widget->form(''));
-        self::assertNotSame($widget, $widget->readonly());
-        self::assertNotSame($widget, $widget->disabled());
-        self::assertNotSame($widget, $widget->uncheckValue(null));
-        self::assertNotSame($widget, $widget->separator(''));
-        self::assertNotSame($widget, $widget->itemFormatter(null));
+        $this->assertNotSame($widget, $widget->withoutContainer());
+        $this->assertNotSame($widget, $widget->containerTag(''));
+        $this->assertNotSame($widget, $widget->containerAttributes([]));
+        $this->assertNotSame($widget, $widget->checkboxAttributes([]));
+        $this->assertNotSame($widget, $widget->replaceCheckboxAttributes([]));
+        $this->assertNotSame($widget, $widget->items([]));
+        $this->assertNotSame($widget, $widget->value());
+        $this->assertNotSame($widget, $widget->values([]));
+        $this->assertNotSame($widget, $widget->form(''));
+        $this->assertNotSame($widget, $widget->readonly());
+        $this->assertNotSame($widget, $widget->disabled());
+        $this->assertNotSame($widget, $widget->uncheckValue(null));
+        $this->assertNotSame($widget, $widget->separator(''));
+        $this->assertNotSame($widget, $widget->itemFormatter(null));
     }
 }
