@@ -65,6 +65,25 @@ final class ATest extends TestCase
         $this->assertSame($expected, (string)A::tag()->mailto($url));
     }
 
+    public function dataRel(): array
+    {
+        return [
+            ['<a></a>', null],
+            ['<a rel="nofollow"></a>', 'nofollow'],
+            ['<a rel="noopener"></a>', 'noopener'],
+            ['<a rel="noreferrer"></a>', 'noreferrer'],
+            ['<a rel="nofollow noopener noreferrer"></a>', 'nofollow noopener noreferrer'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataRel
+     */
+    public function testRel(string $expected, ?string $rel): void
+    {
+        $this->assertSame($expected, (string)A::tag()->rel($rel));
+    }
+
     public function dataTarget(): array
     {
         return [
@@ -78,15 +97,17 @@ final class ATest extends TestCase
      */
     public function testTarget(string $expected, ?string $contextName): void
     {
-        self::assertSame($expected, (string)A::tag()->target($contextName));
+        $this->assertSame($expected, (string)A::tag()->target($contextName));
     }
 
     public function testImmutability(): void
     {
         $tag = A::tag();
-        self::assertNotSame($tag, $tag->href(null));
-        self::assertNotSame($tag, $tag->url(null));
-        self::assertNotSame($tag, $tag->mailto(null));
-        self::assertNotSame($tag, $tag->target(null));
+        $this->assertNotSame($tag, $tag->content(''));
+        $this->assertNotSame($tag, $tag->href(null));
+        $this->assertNotSame($tag, $tag->url(null));
+        $this->assertNotSame($tag, $tag->mailto(null));
+        $this->assertNotSame($tag, $tag->rel(null));
+        $this->assertNotSame($tag, $tag->target(null));
     }
 }

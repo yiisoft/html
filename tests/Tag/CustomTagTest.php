@@ -17,7 +17,7 @@ final class CustomTagTest extends TestCase
 {
     public function testBase(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test id="custom" count="15">body</test>',
             CustomTag::name('test')->id('custom')->attribute('count', 15)->content('body')->render()
         );
@@ -40,7 +40,7 @@ final class CustomTagTest extends TestCase
      */
     public function testVoidTags(string $name): void
     {
-        self::assertSame(
+        $this->assertSame(
             "<$name>",
             CustomTag::name($name)->render()
         );
@@ -61,7 +61,7 @@ final class CustomTagTest extends TestCase
      */
     public function testNormal(string $expected, string $name): void
     {
-        self::assertSame($expected, CustomTag::name($name)->normal()->render());
+        $this->assertSame($expected, CustomTag::name($name)->normal()->render());
     }
 
     public function dataVoid(): array
@@ -79,12 +79,12 @@ final class CustomTagTest extends TestCase
      */
     public function testVoid(string $expected, string $name): void
     {
-        self::assertSame($expected, CustomTag::name($name)->void()->render());
+        $this->assertSame($expected, CustomTag::name($name)->void()->render());
     }
 
     public function testWithoutEncode(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test><b>hello</b></test>',
             (string)CustomTag::name('test')->content('<b>hello</b>')->encode(false)
         );
@@ -92,7 +92,7 @@ final class CustomTagTest extends TestCase
 
     public function testWithoutDoubleEncode(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
             (string)CustomTag::name('test')->content('<b>A &gt; B</b>')->doubleEncode(false)
         );
@@ -121,12 +121,12 @@ final class CustomTagTest extends TestCase
         $tag = CustomTag::name('test');
         $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);
 
-        self::assertSame($expected, $tag->render());
+        $this->assertSame($expected, $tag->render());
     }
 
     public function testEncodeContent(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test>&lt;p&gt;Hi!&lt;/p&gt;</test>',
             CustomTag::name('test')
                 ->encode(true)
@@ -137,7 +137,7 @@ final class CustomTagTest extends TestCase
 
     public function testAddContent(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test>Hello World</test>',
             CustomTag::name('test')
                 ->content('Hello')
@@ -149,7 +149,7 @@ final class CustomTagTest extends TestCase
 
     public function testAddContentVariadic(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test>123</test>',
             CustomTag::name('test')
                 ->content('1')
@@ -160,7 +160,7 @@ final class CustomTagTest extends TestCase
 
     public function testOpen(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test id="main">',
             CustomTag::name('test')->id('main')->open(),
         );
@@ -168,7 +168,7 @@ final class CustomTagTest extends TestCase
 
     public function testClose(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '</test>',
             CustomTag::name('test')->id('main')->close(),
         );
@@ -177,11 +177,11 @@ final class CustomTagTest extends TestCase
     public function testImmutability(): void
     {
         $tag = CustomTag::name('test');
-        self::assertNotSame($tag, $tag->normal());
-        self::assertNotSame($tag, $tag->void());
-        self::assertNotSame($tag, $tag->encode(true));
-        self::assertNotSame($tag, $tag->doubleEncode(true));
-        self::assertNotSame($tag, $tag->content(''));
-        self::assertNotSame($tag, $tag->addContent(''));
+        $this->assertNotSame($tag, $tag->normal());
+        $this->assertNotSame($tag, $tag->void());
+        $this->assertNotSame($tag, $tag->encode(true));
+        $this->assertNotSame($tag, $tag->doubleEncode(true));
+        $this->assertNotSame($tag, $tag->content(''));
+        $this->assertNotSame($tag, $tag->addContent(''));
     }
 }

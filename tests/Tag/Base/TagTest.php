@@ -59,13 +59,13 @@ final class TagTest extends TestCase
      */
     public function testAttributes(string $expected, array $attributes): void
     {
-        self::assertSame($expected, (string)TestTag::tag()->attributes($attributes));
-        self::assertSame($expected, (string)TestTag::tag()->replaceAttributes($attributes));
+        $this->assertSame($expected, (string)TestTag::tag()->attributes($attributes));
+        $this->assertSame($expected, (string)TestTag::tag()->replaceAttributes($attributes));
     }
 
     public function testAttributesMerge(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test id="color" class="green">',
             TestTag::tag()
                 ->id('color')
@@ -77,7 +77,7 @@ final class TagTest extends TestCase
 
     public function testReplaceAttributes(): void
     {
-        self::assertSame(
+        $this->assertSame(
             '<test class="green">',
             TestTag::tag()
                 ->id('color')
@@ -101,7 +101,7 @@ final class TagTest extends TestCase
      */
     public function testAttribute(string $expected, $value): void
     {
-        self::assertSame($expected, TestTag::tag()->attribute('key', $value)->render());
+        $this->assertSame($expected, TestTag::tag()->attribute('key', $value)->render());
     }
 
     public function dataId(): array
@@ -117,7 +117,7 @@ final class TagTest extends TestCase
      */
     public function testId(string $expected, ?string $id): void
     {
-        self::assertSame($expected, (string)TestTag::tag()->id($id));
+        $this->assertSame($expected, (string)TestTag::tag()->id($id));
     }
 
     public function dataClass(): array
@@ -138,7 +138,7 @@ final class TagTest extends TestCase
      */
     public function testClass(string $expected, array $class): void
     {
-        self::assertSame($expected, (string)TestTag::tag()->class('main')->class(...$class));
+        $this->assertSame($expected, (string)TestTag::tag()->class('main')->class(...$class));
     }
 
     public function dataReplaceClass(): array
@@ -158,17 +158,17 @@ final class TagTest extends TestCase
      */
     public function testReplaceClass(string $expected, array $class): void
     {
-        self::assertSame($expected, (string)TestTag::tag()->replaceClass(...$class));
+        $this->assertSame($expected, (string)TestTag::tag()->replaceClass(...$class));
     }
 
     public function testImmutability(): void
     {
         $tag = TestTag::tag();
-        self::assertNotSame($tag, $tag->attributes([]));
-        self::assertNotSame($tag, $tag->replaceAttributes([]));
-        self::assertNotSame($tag, $tag->attribute('id', null));
-        self::assertNotSame($tag, $tag->id(null));
-        self::assertNotSame($tag, $tag->class('test'));
-        self::assertNotSame($tag, $tag->replaceClass('test'));
+        $this->assertNotSame($tag, $tag->attributes([]));
+        $this->assertNotSame($tag, $tag->replaceAttributes([]));
+        $this->assertNotSame($tag, $tag->attribute('id', null));
+        $this->assertNotSame($tag, $tag->id(null));
+        $this->assertNotSame($tag, $tag->class('test'));
+        $this->assertNotSame($tag, $tag->replaceClass('test'));
     }
 }
