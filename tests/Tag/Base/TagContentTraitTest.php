@@ -12,7 +12,7 @@ use Yiisoft\Html\Tests\Objects\StringableObject;
 use Yiisoft\Html\Tests\Objects\TestTagContentTrait;
 use function is_array;
 
-final class ContentTagTest extends TestCase
+final class TagContentTraitTest extends TestCase
 {
     public function testBase(): void
     {

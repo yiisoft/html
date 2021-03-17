@@ -77,11 +77,11 @@ final class ATest extends TestCase
     }
 
     /**
-     * @dataProvider dataTarget
+     * @dataProvider dataRel
      */
-    public function testRel(string $expected, ?string $contextName): void
+    public function testRel(string $expected, ?string $rel): void
     {
-        $this->assertSame($expected, (string)A::tag()->target($contextName));
+        $this->assertSame($expected, (string)A::tag()->rel($rel));
     }
 
     public function dataTarget(): array
@@ -107,6 +107,7 @@ final class ATest extends TestCase
         $this->assertNotSame($tag, $tag->href(null));
         $this->assertNotSame($tag, $tag->url(null));
         $this->assertNotSame($tag, $tag->mailto(null));
+        $this->assertNotSame($tag, $tag->rel(null));
         $this->assertNotSame($tag, $tag->target(null));
     }
 }
