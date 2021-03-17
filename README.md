@@ -57,14 +57,14 @@ use Yiisoft\Html\Tag\Meta;
 <?= Html::openTag('footer', ['class' => 'footer']) ?>
     <?= Html::openTag('div', ['class' => 'container flex-fill']) ?>
         <?= Html::p('', ['class' => 'float-left']) ?>
-        <?= Html::openTag('p', ['class' => 'float-right']) ?>
-            <?= 'Powered by' ?>
-            <?= Html::a(
-                'Yii Framework',
-                'https://www.yiiframework.com/',
-                ['rel' => 'external']
+        <?= Html::p()->class('float-right')->content(
+                'Powered by ',
+                Html::a(
+                    'Yii Framework',
+                    'https://www.yiiframework.com/',
+                    ['rel' => 'external']
+                )
             ) ?>
-        <?= Html::closeTag('p') ?>
     <?= Html::closeTag('div') ?>
 <?= Html::closeTag('footer') ?>
 ```
