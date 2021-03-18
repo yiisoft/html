@@ -7,6 +7,7 @@ namespace Yiisoft\Html\Tests;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
+use function array_key_exists;
 
 final class HtmlTest extends TestCase
 {

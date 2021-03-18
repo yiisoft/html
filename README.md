@@ -16,9 +16,10 @@
 [![type-coverage](https://shepherd.dev/github/yiisoft/html/coverage.svg)](https://shepherd.dev/github/yiisoft/html)
 
 The package provides:
+
 - tag classes `A`, `Button`, `Div`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`, `Meta`, `Ol`,
   `Optgroup`, `Option`, `P`, `Script`, `Select`, `Span`, `Style`, `Textarea`, `Ul`;
-- `CustomTag` class that help generate custom tag with any attributes;
+- `CustomTag` class that helps to generate custom tag with any attributes;
 - HTML widgets `CheckboxList` and `RadioList`;
 - `Html` helper that has static methods to generate HTML, create tag and HTML widget objects.
 
@@ -71,7 +72,8 @@ use Yiisoft\Html\Tag\Meta;
 
 ## Tag objects usage
 
-Tag classes allow working with tag as is object and then get an HTML code by method `render()` or type casting to string. For example, code:
+Tag classes allow working with a tag as an object and then get an HTML code by using `render()` method or type casting
+to string. For example, the following code:
 
 ```php
 echo \Yiisoft\Html\Tag\Div::tag()
@@ -86,19 +88,15 @@ echo \Yiisoft\Html\Tag\Div::tag()
     ->class('red');
 ```
 
-... will generate HTML:
+... will generate the following HTML:
 
 ```html
 <div id="ContactEmail" class="red"><a href="mailto:info@example.com">contact us</a></div>
 ```
 
-Package has clasess for tags
-`A`, `Button`, `Div`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`, `Meta`, `Ol`,
-`Optgroup`, `Option`, `P`, `Script`, `Select`, `Span`, `Style`, `Textarea`, `Ul`.
-
 ### Generating custom tags 
 
-For generate custom tags, use the `CustomTag` class. For example, code:
+To generate custom tags, use the `CustomTag` class. For example, the following code:
 
 ```php
 echo \Yiisoft\Html\Tag\CustomTag::name('b')
@@ -106,7 +104,7 @@ echo \Yiisoft\Html\Tag\CustomTag::name('b')
     ->attribute('title', 'Important');
 ```
 
-... will generate HTML:
+... will generate the following HTML:
 
 ```html
 <b title="Important">text</b>
@@ -114,7 +112,12 @@ echo \Yiisoft\Html\Tag\CustomTag::name('b')
 
 ## HTML widgets usage
 
+There are multiple widgets that do not directly represent any HTML tag, but a set of tags. These help to express
+complex HTML in simple PHP.
+
 ### `CheckboxList`
+
+Represents a list of checkboxes.
 
 ```php
 echo \Yiisoft\Html\Widget\CheckboxList\CheckboxList::create('count')
@@ -136,6 +139,8 @@ Result will be:
 ```
 
 ### `RadioList`
+
+Represents a list of radio buttons.
 
 ```php
 echo \Yiisoft\Html\Widget\RadioList\RadioList::create('count')
@@ -159,7 +164,7 @@ Result will be:
 
 ## `Html` helper usage
 
-`Html` helper methods are static so usage is like the following:
+`Html` helper methods are static so usage is:
 
 ```php
 echo \Yiisoft\Html\Html::a('Yii Framework', 'https://www.yiiframework.com/');
@@ -169,7 +174,7 @@ Overall the helper has the following method groups.
 
 ### Creating tag objects
 
-#### Custom tag
+#### Custom tags
 
 - tag
 - normalTag
