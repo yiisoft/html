@@ -32,7 +32,7 @@ final class TableRowsContainerTagTest extends TestCase
         );
     }
 
-    public function testAddCells(): void
+    public function testAddRows(): void
     {
         $tag = TestTableRowsContainerTag::tag()
             ->rows(
