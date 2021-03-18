@@ -9,7 +9,7 @@ abstract class TableCellTag extends NormalTag
     use TagContentTrait;
 
     /**
-     * Number of columns that the cell is to span
+     * Number of columns that the cell is to span.
      *
      * @return static
      */
@@ -21,7 +21,7 @@ abstract class TableCellTag extends NormalTag
     }
 
     /**
-     * Number of rows that the cell is to span
+     * Number of rows that the cell is to span.
      *
      * @return static
      */

@@ -11,7 +11,7 @@ abstract class TableRowsContainerTag extends NormalTag
     private array $rows = [];
 
     /**
-     * @param Tr ...$rows One or more rows (TR).
+     * @param Tr ...$rows One or more rows ({@see Tr}).
      *
      * @return static
      */
@@ -23,7 +23,7 @@ abstract class TableRowsContainerTag extends NormalTag
     }
 
     /**
-     * @param Tr ...$rows One or more rows (TR).
+     * @param Tr ...$rows One or more rows ({@see Tr}).
      *
      * @return static
      */

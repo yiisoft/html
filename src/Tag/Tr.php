@@ -35,7 +35,7 @@ final class Tr extends NormalTag
     }
 
     /**
-     * @param string[] $strings Array of data cells (TD) as strings.
+     * @param string[] $strings Array of data cells ({@see Td}) as strings.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */
@@ -45,7 +45,7 @@ final class Tr extends NormalTag
     }
 
     /**
-     * @param string[] $strings Array of data cells (TD) as strings.
+     * @param string[] $strings Array of data cells ({@see Td}) as strings.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */
@@ -70,7 +70,7 @@ final class Tr extends NormalTag
     }
 
     /**
-     * @param string[] $strings Array of header cells (TH) as strings.
+     * @param string[] $strings Array of header cells ({@see Th}) as strings.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */
@@ -80,7 +80,7 @@ final class Tr extends NormalTag
     }
 
     /**
-     * @param string[] $strings Array of header cells (TH) as strings.
+     * @param string[] $strings Array of header cells ({@see Th}) as strings.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */

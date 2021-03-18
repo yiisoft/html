@@ -14,7 +14,7 @@ final class Colgroup extends NormalTag
     private array $columns = [];
 
     /**
-     * @param Col ...$columns One or more columns (COL).
+     * @param Col ...$columns One or more columns ({@see Col}).
      */
     public function columns(Col ...$columns): self
     {
@@ -24,7 +24,7 @@ final class Colgroup extends NormalTag
     }
 
     /**
-     * @param Col ...$columns One or more columns (COL).
+     * @param Col ...$columns One or more columns ({@see Col}).
      */
     public function addColumns(Col ...$columns): self
     {
