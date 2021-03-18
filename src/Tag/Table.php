@@ -157,6 +157,8 @@ final class Table extends NormalTag
             $items[] = $this->footer;
         }
 
+        /** @var string[]|\Stringable[] $items */
+
         return $items
             ? "\n" . implode("\n", $items) . "\n"
             : '';
