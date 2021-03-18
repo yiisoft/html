@@ -3,7 +3,7 @@
 
 ## 1.0.1 under development
 
-- no changes in this release.
+- Enh #65: Add classes for table tags `Table`, `Caption`, `Colgroup`, `Col`, `Thead`, `Tbody`, `Tfoot`, `Tr`, `Th`, `Td` (vjik) 
 
 ## 1.0.0 March 17, 2021
 
