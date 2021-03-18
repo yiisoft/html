@@ -45,6 +45,22 @@ class TableTest extends TestCase
         );
     }
 
+    public function testCaptionStringWithEncode(): void
+    {
+        $this->assertSame(
+            "<table>\n<caption>&lt;b&gt;Hello&lt;/b&gt;</caption>\n</table>",
+            Table::tag()->captionString('<b>Hello</b>')->render()
+        );
+    }
+
+    public function testCaptionStringWithoutEncode(): void
+    {
+        $this->assertSame(
+            "<table>\n<caption><b>Hello</b></caption>\n</table>",
+            Table::tag()->captionString('<b>Hello</b>', false)->render()
+        );
+    }
+
     public function testColumnGroups(): void
     {
         $tag = Table::tag()->columnGroups(
