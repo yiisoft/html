@@ -1,4 +1,4 @@
-# Yii Html Change Log
+# Yii HTML Change Log
 
 
 ## 1.0.1 under development
