@@ -17,7 +17,7 @@ trait TagContentTrait
     private bool $doubleEncode = true;
 
     /**
-     * @var string[]|Stringable[]
+     * @psalm-var list<string|Stringable>
      */
     private array $content = [];
 
@@ -58,6 +58,7 @@ trait TagContentTrait
      */
     final public function content(...$content): self
     {
+        /** @psalm-var list<string|Stringable> $content */
         $new = clone $this;
         $new->content = $content;
         return $new;
@@ -70,6 +71,7 @@ trait TagContentTrait
      */
     final public function addContent(...$content): self
     {
+        /** @psalm-var list<string|Stringable> $content */
         $new = clone $this;
         $new->content = [...$new->content, ...$content];
         return $new;
