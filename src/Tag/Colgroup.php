@@ -29,7 +29,7 @@ final class Colgroup extends NormalTag
     public function addColumns(Col ...$columns): self
     {
         $new = clone $this;
-        $new->columns = [...$new->columns, ...$columns];
+        $new->columns = array_merge($new->columns, $columns);
         return $new;
     }
 

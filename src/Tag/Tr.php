@@ -30,7 +30,7 @@ final class Tr extends NormalTag
     public function addCells(TableCellTag ...$cells): self
     {
         $new = clone $this;
-        $new->items = [...$new->items, ...$cells];
+        $new->items = array_merge($new->items, $cells);
         return $new;
     }
 

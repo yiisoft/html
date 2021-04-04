@@ -51,7 +51,7 @@ final class Table extends NormalTag
     public function addColumnGroups(Colgroup ...$columnGroups): self
     {
         $new = clone $this;
-        $new->columnGroups = [...$new->columnGroups, ...$columnGroups];
+        $new->columnGroups = array_merge($new->columnGroups, $columnGroups);
         return $new;
     }
 
@@ -71,7 +71,7 @@ final class Table extends NormalTag
     public function addColumns(Col ...$columns): self
     {
         $new = clone $this;
-        $new->columns = [...$new->columns, ...$columns];
+        $new->columns = array_merge($new->columns, $columns);
         return $new;
     }
 
@@ -98,7 +98,7 @@ final class Table extends NormalTag
     public function addBody(Tbody ...$body): self
     {
         $new = clone $this;
-        $new->body = [...$new->body, ...$body];
+        $new->body = array_merge($new->body, $body);
         return $new;
     }
 
@@ -118,7 +118,7 @@ final class Table extends NormalTag
     public function addRows(Tr ...$rows): self
     {
         $new = clone $this;
-        $new->rows = [...$new->rows, ...$rows];
+        $new->rows = array_merge($new->rows, $rows);
         return $new;
     }
 
@@ -137,21 +137,21 @@ final class Table extends NormalTag
             $items[] = $this->caption;
         }
 
-        $items = [
-            ...$items,
-            ...$this->columnGroups,
-            ...$this->columns,
-        ];
+        $items = array_merge(
+            $items,
+            $this->columnGroups,
+            $this->columns,
+        );
 
         if ($this->header !== null) {
             $items[] = $this->header;
         }
 
-        $items = [
-            ...$items,
-            ...$this->body,
-            ...$this->rows,
-        ];
+        $items = array_merge(
+            $items,
+            $this->body,
+            $this->rows,
+        );
 
         if ($this->footer !== null) {
             $items[] = $this->footer;

@@ -30,7 +30,7 @@ abstract class TableRowsContainerTag extends NormalTag
     final public function addRows(Tr ...$rows): self
     {
         $new = clone $this;
-        $new->rows = [...$new->rows, ...$rows];
+        $new->rows = array_merge($new->rows, $rows);
         return $new;
     }
 
