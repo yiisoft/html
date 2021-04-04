@@ -48,9 +48,8 @@ final class Select extends NormalTag
      */
     public function value(...$value): self
     {
-        /** @psalm-var list<scalar|\Stringable> $value */
         $new = clone $this;
-        $new->values = array_map('\strval', $value);
+        $new->values = array_map('\strval', array_values($value));
         return $new;
     }
 

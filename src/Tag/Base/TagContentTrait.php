@@ -58,9 +58,8 @@ trait TagContentTrait
      */
     final public function content(...$content): self
     {
-        /** @psalm-var list<string|Stringable> $content */
         $new = clone $this;
-        $new->content = $content;
+        $new->content = array_values($content);
         return $new;
     }
 
@@ -71,9 +70,8 @@ trait TagContentTrait
      */
     final public function addContent(...$content): self
     {
-        /** @psalm-var list<string|Stringable> $content */
         $new = clone $this;
-        $new->content = [...$new->content, ...$content];
+        $new->content = array_merge($new->content, array_values($content));
         return $new;
     }
 
