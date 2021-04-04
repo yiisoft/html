@@ -1065,7 +1065,7 @@ final class Html
             $oldStyle = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
             $newStyle = is_array($style) ? $style : self::cssStyleToArray($style);
             if (!$overwrite) {
-                foreach ($newStyle as $property => $value) {
+                foreach ($newStyle as $property => $_value) {
                     if (isset($oldStyle[$property])) {
                         unset($newStyle[$property]);
                     }

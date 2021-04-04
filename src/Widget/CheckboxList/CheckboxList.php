@@ -105,17 +105,17 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param bool|float|int|string|\Stringable|null ...$value
+     * @param scalar|\Stringable ...$value
      */
     public function value(...$value): self
     {
         $new = clone $this;
-        $new->values = array_map('\strval', $value);
+        $new->values = array_map('\strval', array_values($value));
         return $new;
     }
 
     /**
-     * @psalm-param iterable<array-key, \Stringable|scalar|null> $values
+     * @psalm-param iterable<int, \Stringable|scalar> $values
      */
     public function values($values): self
     {
@@ -124,7 +124,7 @@ final class CheckboxList implements NoEncodeStringableInterface
             throw new InvalidArgumentException('$values should be iterable.');
         }
 
-        /** @psalm-var iterable<array-key, \Stringable|scalar|null> $values */
+        /** @psalm-var iterable<int, \Stringable|scalar> $values */
         $values = is_array($values) ? $values : iterator_to_array($values);
 
         return $this->value(...$values);

@@ -44,17 +44,17 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-param \Stringable|scalar|null ...$value One or more string values.
+     * @psalm-param \Stringable|scalar ...$value One or more string values.
      */
     public function value(...$value): self
     {
         $new = clone $this;
-        $new->values = array_map('\strval', $value);
+        $new->values = array_map('\strval', array_values($value));
         return $new;
     }
 
     /**
-     * @psalm-param iterable<array-key, \Stringable|scalar|null> $values A set of values.
+     * @psalm-param iterable<int, \Stringable|scalar> $values A set of values.
      */
     public function values($values): self
     {
@@ -63,7 +63,7 @@ final class Select extends NormalTag
             throw new InvalidArgumentException('$values should be iterable.');
         }
 
-        /** @psalm-var iterable<array-key, \Stringable|scalar|null> $values */
+        /** @psalm-var iterable<int, \Stringable|scalar> $values */
         $values = is_array($values) ? $values : iterator_to_array($values);
 
         return $this->value(...$values);
@@ -220,8 +220,6 @@ final class Select extends NormalTag
         if ($this->prompt) {
             array_unshift($items, $this->prompt);
         }
-
-        /** @var Optgroup[]|Option[] $items */
 
         $items = array_map(function ($item) {
             if ($item instanceof Option) {
