@@ -33,7 +33,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Yiisoft\\Html\\Tests\\": "tests"
+            "Yiisoft\\Html\\Tests\\": "tests/common",
+            "Yiisoft\\Html\\Tests\\Php8\\": "tests/php8"
         }
     },
     "config": {

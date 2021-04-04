@@ -15,7 +15,8 @@
 
     <testsuites>
         <testsuite name="Yii HTML tests">
-            <directory>./tests/</directory>
+            <directory>./tests/common</directory>
+            <directory phpVersion="8" phpVersionOperator=">=">./tests/php8</directory>
         </testsuite>
     </testsuites>
 
