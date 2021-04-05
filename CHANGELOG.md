@@ -1,10 +1,8 @@
 # Yii Html Change Log
 
-
 ## 1.0.2 under development
 
-- no changes in this release.
-
+- Enh #69: Add class for tag `Br` (vjik)
 
 ## 1.0.1 April 04, 2021
 

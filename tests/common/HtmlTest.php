@@ -454,6 +454,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<li>hello</li>', Html::li('hello')->render());
     }
 
+    public function testBr(): void
+    {
+        self::assertSame('<br>', Html::br()->render());
+    }
+
     public function dataRenderTagAttributes(): array
     {
         return [
