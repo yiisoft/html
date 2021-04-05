@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Caption;
 use Yiisoft\Html\Tag\Col;
 use Yiisoft\Html\Tag\Colgroup;
 use Yiisoft\Html\Tag\Table;
-use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Tbody;
 use Yiisoft\Html\Tag\Tfoot;
 use Yiisoft\Html\Tag\Thead;

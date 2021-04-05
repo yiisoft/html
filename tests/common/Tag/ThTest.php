@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
-use Yiisoft\Html\Tag\Th;
 use PHPUnit\Framework\TestCase;
+use Yiisoft\Html\Tag\Th;
 
 class ThTest extends TestCase
 {

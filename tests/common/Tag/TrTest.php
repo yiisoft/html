@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Td;
 use Yiisoft\Html\Tag\Th;
 use Yiisoft\Html\Tag\Tr;
-use PHPUnit\Framework\TestCase;
 
 class TrTest extends TestCase
 {

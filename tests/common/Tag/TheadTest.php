@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
-use Yiisoft\Html\Tag\Thead;
 use PHPUnit\Framework\TestCase;
+use Yiisoft\Html\Tag\Thead;
 use Yiisoft\Html\Tag\Tr;
 
 final class TheadTest extends TestCase
