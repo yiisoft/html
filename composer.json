@@ -20,11 +20,11 @@
         "yiisoft/json": "^1.0"
     },
     "require-dev": {
-        "maglnet/composer-require-checker": "^3.1",
+        "maglnet/composer-require-checker": "^3.2",
         "phpunit/phpunit": "^9.5",
         "roave/infection-static-analysis-plugin": "^1.7",
         "spatie/phpunit-watcher": "^1.23",
-        "vimeo/psalm": "^4.6"
+        "vimeo/psalm": "^4.7"
     },
     "autoload": {
         "psr-4": {
@@ -33,7 +33,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Yiisoft\\Html\\Tests\\": "tests"
+            "Yiisoft\\Html\\Tests\\": "tests/common",
+            "Yiisoft\\Html\\Tests\\Php8\\": "tests/php8"
         }
     },
     "config": {
