@@ -17,7 +17,7 @@
 
 The package provides:
 
-- tag classes `A`, `Button`, `Div`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`,
+- tag classes `A`, `Br`, `Button`, `Div`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`,
   `Meta`, `Ol`, `Optgroup`, `Option`, `P`, `Script`, `Select`, `Span`, `Style`, `Textarea`, `Ul`, `Table`,
   `Caption`, `Colgroup`, `Col`, `Thead`, `Tbody`, `Tfoot`, `Tr`, `Th`, `Td`;
 - `CustomTag` class that helps to generate custom tag with any attributes;
@@ -187,6 +187,7 @@ Overall the helper has the following method groups.
 - img
 - meta
 - p
+- br
 - script
 - span
 - style

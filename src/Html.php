@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use JsonException;
 use ValueError;
 use Yiisoft\Html\Tag\A;
+use Yiisoft\Html\Tag\Br;
 use Yiisoft\Html\Tag\Button;
 use Yiisoft\Html\Tag\Caption;
 use Yiisoft\Html\Tag\Col;
@@ -1005,6 +1006,14 @@ final class Html
             $tag = $tag->replaceAttributes($attributes);
         }
         return $tag;
+    }
+
+    /**
+     * Generates a {@see Br} tag.
+     */
+    public static function br(): Br
+    {
+        return Br::tag();
     }
 
     /**
