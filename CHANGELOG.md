@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 1.0.2 under development
+## 1.1.0 April 09, 2021
 
 - Enh #65: Add classes for table tags `Table`, `Caption`, `Colgroup`, `Col`, `Thead`, `Tbody`, `Tfoot`, `Tr`, `Th`, `Td` (vjik)
 - Enh #69: Add class for tag `Br` (vjik)
