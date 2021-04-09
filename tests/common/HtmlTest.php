@@ -454,6 +454,72 @@ final class HtmlTest extends TestCase
         $this->assertSame('<li>hello</li>', Html::li('hello')->render());
     }
 
+    public function testCaption(): void
+    {
+        $this->assertSame('<caption></caption>', Html::caption()->render());
+        $this->assertSame('<caption>Hello</caption>', Html::caption('Hello')->render());
+        $this->assertSame(
+            '<caption class="red">Hello</caption>',
+            Html::caption('Hello', ['class' => 'red'])->render()
+        );
+    }
+
+    public function testCol(): void
+    {
+        $this->assertSame('<col>', Html::col()->render());
+        $this->assertSame('<col class="red">', Html::col(['class' => 'red'])->render());
+    }
+
+    public function testColgroup(): void
+    {
+        $this->assertSame('<colgroup></colgroup>', Html::colgroup()->render());
+        $this->assertSame('<colgroup class="red"></colgroup>', Html::colgroup(['class' => 'red'])->render());
+    }
+
+    public function testTable(): void
+    {
+        $this->assertSame('<table></table>', Html::table()->render());
+        $this->assertSame('<table class="red"></table>', Html::table(['class' => 'red'])->render());
+    }
+
+    public function testThead(): void
+    {
+        $this->assertSame('<thead></thead>', Html::thead()->render());
+        $this->assertSame('<thead class="red"></thead>', Html::thead(['class' => 'red'])->render());
+    }
+
+    public function testTbody(): void
+    {
+        $this->assertSame('<tbody></tbody>', Html::tbody()->render());
+        $this->assertSame('<tbody class="red"></tbody>', Html::tbody(['class' => 'red'])->render());
+    }
+
+    public function testTfoot(): void
+    {
+        $this->assertSame('<tfoot></tfoot>', Html::tfoot()->render());
+        $this->assertSame('<tfoot class="red"></tfoot>', Html::tfoot(['class' => 'red'])->render());
+    }
+
+    public function testTr(): void
+    {
+        $this->assertSame('<tr></tr>', Html::tr()->render());
+        $this->assertSame('<tr class="red"></tr>', Html::tr(['class' => 'red'])->render());
+    }
+
+    public function testTd(): void
+    {
+        $this->assertSame('<td></td>', Html::td()->render());
+        $this->assertSame('<td>Hello</td>', Html::td('Hello')->render());
+        $this->assertSame('<td class="red">Hello</td>', Html::td('Hello', ['class' => 'red'])->render());
+    }
+
+    public function testTh(): void
+    {
+        $this->assertSame('<th></th>', Html::th()->render());
+        $this->assertSame('<th>Hello</th>', Html::th('Hello')->render());
+        $this->assertSame('<th class="red">Hello</th>', Html::th('Hello', ['class' => 'red'])->render());
+    }
+
     public function testBr(): void
     {
         self::assertSame('<br>', Html::br()->render());

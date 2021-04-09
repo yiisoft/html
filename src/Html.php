@@ -10,6 +10,9 @@ use ValueError;
 use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Br;
 use Yiisoft\Html\Tag\Button;
+use Yiisoft\Html\Tag\Caption;
+use Yiisoft\Html\Tag\Col;
+use Yiisoft\Html\Tag\Colgroup;
 use Yiisoft\Html\Tag\CustomTag;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Img;
@@ -28,7 +31,14 @@ use Yiisoft\Html\Tag\Script;
 use Yiisoft\Html\Tag\Select;
 use Yiisoft\Html\Tag\Span;
 use Yiisoft\Html\Tag\Style;
+use Yiisoft\Html\Tag\Table;
+use Yiisoft\Html\Tag\Tbody;
+use Yiisoft\Html\Tag\Td;
 use Yiisoft\Html\Tag\Textarea;
+use Yiisoft\Html\Tag\Tfoot;
+use Yiisoft\Html\Tag\Th;
+use Yiisoft\Html\Tag\Thead;
+use Yiisoft\Html\Tag\Tr;
 use Yiisoft\Html\Tag\Ul;
 use Yiisoft\Html\Widget\CheckboxList\CheckboxList;
 use Yiisoft\Html\Widget\RadioList\RadioList;
@@ -865,6 +875,137 @@ final class Html
     {
         $tag = Li::tag();
         return empty($content) ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Caption} tag.
+     *
+     * @param string $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function caption(string $content = '', array $attributes = []): Caption
+    {
+        $tag = Caption::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if ($attributes !== []) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Col} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function col(array $attributes = []): Col
+    {
+        $tag = Col::tag();
+        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+    }
+
+    /**
+     * Generates a {@see Colgroup} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function colgroup(array $attributes = []): Colgroup
+    {
+        $tag = Colgroup::tag();
+        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+    }
+
+    /**
+     * Generates a {@see Table} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function table(array $attributes = []): Table
+    {
+        $tag = Table::tag();
+        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+    }
+
+    /**
+     * Generates a {@see Thead} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function thead(array $attributes = []): Thead
+    {
+        $tag = Thead::tag();
+        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+    }
+
+    /**
+     * Generates a {@see Tbody} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function tbody(array $attributes = []): Tbody
+    {
+        $tag = Tbody::tag();
+        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+    }
+
+    /**
+     * Generates a {@see Tfoot} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function tfoot(array $attributes = []): Tfoot
+    {
+        $tag = Tfoot::tag();
+        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+    }
+
+    /**
+     * Generates a {@see Tr} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function tr(array $attributes = []): Tr
+    {
+        $tag = Tr::tag();
+        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+    }
+
+    /**
+     * Generates a {@see Td} tag.
+     *
+     * @param string $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function td(string $content = '', array $attributes = []): Td
+    {
+        $tag = Td::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if ($attributes !== []) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Th} tag.
+     *
+     * @param string $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function th(string $content = '', array $attributes = []): Th
+    {
+        $tag = Th::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if ($attributes !== []) {
+            $tag = $tag->replaceAttributes($attributes);
+        }
+        return $tag;
     }
 
     /**

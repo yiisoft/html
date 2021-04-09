@@ -17,8 +17,9 @@
 
 The package provides:
 
-- tag classes `A`, `Br`, `Button`, `Div`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`, `Meta`, `Ol`,
-  `Optgroup`, `Option`, `P`, `Script`, `Select`, `Span`, `Style`, `Textarea`, `Ul`;
+- tag classes `A`, `Br`, `Button`, `Div`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`,
+  `Meta`, `Ol`, `Optgroup`, `Option`, `P`, `Script`, `Select`, `Span`, `Style`, `Textarea`, `Ul`, `Table`,
+  `Caption`, `Colgroup`, `Col`, `Thead`, `Tbody`, `Tfoot`, `Tr`, `Th`, `Td`;
 - `CustomTag` class that helps to generate custom tag with any attributes;
 - HTML widgets `CheckboxList` and `RadioList`;
 - `Html` helper that has static methods to generate HTML, create tag and HTML widget objects.
@@ -228,6 +229,19 @@ Overall the helper has the following method groups.
 - submitInput
 - textInput
 - textarea
+
+#### Table tags
+
+- table
+- caption
+- colgroup
+- col
+- thead
+- tbody
+- tfoot
+- tr
+- th
+- td
 
 ### Generating tag parts
 
