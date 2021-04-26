@@ -6,6 +6,7 @@ namespace Yiisoft\Html;
 
 use InvalidArgumentException;
 use JsonException;
+use Stringable;
 use ValueError;
 use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Br;
@@ -254,15 +255,15 @@ final class Html
      * @see CustomTag
      *
      * @param string $name The tag name.
-     * @param string $content The tag content.
+     * @param string|Stringable $content The tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param non-empty-string $name
      */
-    public static function tag(string $name, string $content = '', array $attributes = []): CustomTag
+    public static function tag(string $name, $content = '', array $attributes = []): CustomTag
     {
         $tag = CustomTag::name($name);
-        if (!empty($content)) {
+        if ($content !== '') {
             $tag = $tag->content($content);
         }
         if (!empty($attributes)) {
@@ -277,15 +278,15 @@ final class Html
      * @see CustomTag
      *
      * @param string $name The tag name.
-     * @param string $content The tag content.
+     * @param string|Stringable $content The tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param non-empty-string $name
      */
-    public static function normalTag(string $name, string $content = '', array $attributes = []): CustomTag
+    public static function normalTag(string $name, $content = '', array $attributes = []): CustomTag
     {
         $tag = CustomTag::name($name)->normal();
-        if (!empty($content)) {
+        if ($content !== '') {
             $tag = $tag->content($content);
         }
         if (!empty($attributes)) {
@@ -451,13 +452,14 @@ final class Html
     /**
      * Generates a hyperlink tag.
      *
+     * @param string|Stringable $content The tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      *
      * @see A
      */
-    public static function a(string $content = '', ?string $url = null, array $attributes = []): A
+    public static function a($content = '', ?string $url = null, array $attributes = []): A
     {
         $tag = A::tag();
         if ($content !== '') {
@@ -512,11 +514,11 @@ final class Html
     /**
      * Generates a {@see Label} tag.
      *
-     * @param string $content Label text.
+     * @param string|Stringable $content Label text.
      * @param string|null $for The ID of the HTML element that this label is associated with.
      * If this is null, the "for" attribute will not be generated.
      */
-    public static function label(string $content = '', ?string $for = null): Label
+    public static function label($content = '', ?string $for = null): Label
     {
         $tag = Label::tag();
         if ($for !== null) {
@@ -590,7 +592,7 @@ final class Html
      *
      * @param string $type The type attribute.
      * @param string|null $name The name attribute. If it is `null`, the name attribute will not be generated.
-     * @param bool|float|int|string|\Stringable|null $value The value attribute. If it is `null`, the value
+     * @param bool|float|int|string|Stringable|null $value The value attribute. If it is `null`, the value
      * attribute will not be generated.
      */
     public static function input(string $type, ?string $name = null, $value = null): Input
@@ -645,7 +647,7 @@ final class Html
      * Generates a text {@see Input} field.
      *
      * @param string|null $name The name attribute.
-     * @param bool|float|int|string|\Stringable|null $value The value attribute.
+     * @param bool|float|int|string|Stringable|null $value The value attribute.
      */
     public static function textInput(?string $name = null, $value = null): Input
     {
@@ -658,7 +660,7 @@ final class Html
      * @see Input::hidden()
      *
      * @param string|null $name The name attribute.
-     * @param bool|float|int|string|\Stringable|null $value The value attribute.
+     * @param bool|float|int|string|Stringable|null $value The value attribute.
      */
     public static function hiddenInput(?string $name = null, $value = null): Input
     {
@@ -671,7 +673,7 @@ final class Html
      * @see Input::password()
      *
      * @param string|null $name The name attribute.
-     * @param bool|float|int|string|\Stringable|null $value The value attribute.
+     * @param bool|float|int|string|Stringable|null $value The value attribute.
      */
     public static function passwordInput(?string $name = null, $value = null): Input
     {
@@ -688,7 +690,7 @@ final class Html
      * @see Input::file()
      *
      * @param string|null $name The name attribute.
-     * @param bool|float|int|string|\Stringable|null $value The value attribute.
+     * @param bool|float|int|string|Stringable|null $value The value attribute.
      */
     public static function fileInput(?string $name = null, $value = null): Input
     {
@@ -701,7 +703,7 @@ final class Html
      * @see Input::radio()
      *
      * @param string|null $name The name attribute.
-     * @param bool|float|int|string|\Stringable|null $value The value attribute.
+     * @param bool|float|int|string|Stringable|null $value The value attribute.
      */
     public static function radio(?string $name = null, $value = null): Radio
     {
@@ -714,7 +716,7 @@ final class Html
      * @see Input::checkbox()
      *
      * @param string|null $name The name attribute.
-     * @param bool|float|int|string|\Stringable|null $value The value attribute.
+     * @param bool|float|int|string|Stringable|null $value The value attribute.
      */
     public static function checkbox(?string $name = null, $value = null): Checkbox
     {
@@ -764,10 +766,10 @@ final class Html
     /**
      * Generates a {@see Option} tag.
      *
-     * @param string $content Tag content.
-     * @param bool|float|int|string|\Stringable|null $value The value attribute.
+     * @param string|Stringable $content Tag content.
+     * @param bool|float|int|string|Stringable|null $value The value attribute.
      */
-    public static function option(string $content = '', $value = null): Option
+    public static function option($content = '', $value = null): Option
     {
         $tag = Option::tag();
         if ($content !== '') {
@@ -802,52 +804,52 @@ final class Html
     /**
      * Generates a {@see Div} tag.
      *
-     * @param string $content Tag content.
+     * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function div(string $content = '', array $attributes = []): Div
+    public static function div($content = '', array $attributes = []): Div
     {
         $tag = Div::tag();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
-        return empty($content) ? $tag : $tag->content($content);
+        return $content === '' ? $tag : $tag->content($content);
     }
 
     /**
      * Generates a {@see Span} tag.
      *
-     * @param string $content Tag content.
+     * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function span(string $content = '', array $attributes = []): Span
+    public static function span($content = '', array $attributes = []): Span
     {
         $tag = Span::tag();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
-        return empty($content) ? $tag : $tag->content($content);
+        return $content === '' ? $tag : $tag->content($content);
     }
 
     /**
      * Generates a {@see P} tag.
      *
-     * @param string $content Tag content.
+     * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
-    public static function p(string $content = '', array $attributes = []): P
+    public static function p($content = '', array $attributes = []): P
     {
         $tag = P::tag();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
-        return empty($content) ? $tag : $tag->content($content);
+        return $content === '' ? $tag : $tag->content($content);
     }
 
     /**
@@ -869,21 +871,21 @@ final class Html
     /**
      * Generates a {@see Li} tag.
      *
-     * @param string $content Tag content.
+     * @param string|Stringable $content Tag content.
      */
-    public static function li(string $content = ''): Li
+    public static function li($content = ''): Li
     {
         $tag = Li::tag();
-        return empty($content) ? $tag : $tag->content($content);
+        return $content === '' ? $tag : $tag->content($content);
     }
 
     /**
      * Generates a {@see Caption} tag.
      *
-     * @param string $content Tag content.
+     * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function caption(string $content = '', array $attributes = []): Caption
+    public static function caption($content = '', array $attributes = []): Caption
     {
         $tag = Caption::tag();
         if ($content !== '') {
@@ -975,10 +977,10 @@ final class Html
     /**
      * Generates a {@see Td} tag.
      *
-     * @param string $content Tag content.
+     * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function td(string $content = '', array $attributes = []): Td
+    public static function td($content = '', array $attributes = []): Td
     {
         $tag = Td::tag();
         if ($content !== '') {
@@ -993,10 +995,10 @@ final class Html
     /**
      * Generates a {@see Th} tag.
      *
-     * @param string $content Tag content.
+     * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function th(string $content = '', array $attributes = []): Th
+    public static function th($content = '', array $attributes = []): Th
     {
         $tag = Th::tag();
         if ($content !== '') {
