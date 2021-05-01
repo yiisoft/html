@@ -6,6 +6,7 @@
 - Enh #70: Add support `\Stringable` as content in methods `Html::tag()`, `Html::normalTag()`, `Html::a()`,
   `Html::label()`, `Html::option()`, `Html::div()`, `Html::span()`, `Html::p()`, `Html::li()`, `Html::caption()`,
   `Html::td()`, `Html::th()` (vjik)
+- Enh #71: Add methods `Script::getContent()` and `Style::getContent()` (vjik)
 
 ## 1.1.0 April 09, 2021
 

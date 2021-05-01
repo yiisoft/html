@@ -25,6 +25,11 @@ final class Style extends NormalTag
         return $new;
     }
 
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
     public function media(?string $media): self
     {
         $new = clone $this;

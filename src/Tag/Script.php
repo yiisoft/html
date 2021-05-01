@@ -27,6 +27,11 @@ final class Script extends NormalTag
         return $new;
     }
 
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
     /**
      * Alias for {@see src}
      */
