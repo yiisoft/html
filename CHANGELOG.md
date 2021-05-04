@@ -1,7 +1,7 @@
 # Yii HTML Change Log
 
 
-## 1.1.1 under development
+## 1.2.0 May 04, 2021
 
 - Enh #70: Add support `\Stringable` as content in methods `Html::tag()`, `Html::normalTag()`, `Html::a()`,
   `Html::label()`, `Html::option()`, `Html::div()`, `Html::span()`, `Html::p()`, `Html::li()`, `Html::caption()`,
