@@ -19,10 +19,11 @@ final class StyleTest extends TestCase
 
     public function testContent(): void
     {
-        $this->assertSame(
-            '<style>body { display: block }</style>',
-            Style::tag()->content('body { display: block }')->render()
-        );
+        $content = 'body { display: block }';
+        $tag = Style::tag()->content($content);
+
+        $this->assertSame($content, $tag->getContent());
+        $this->assertSame('<style>' . $content . '</style>', $tag->render());
     }
 
     public function dataMedia(): array

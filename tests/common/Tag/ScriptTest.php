@@ -19,10 +19,11 @@ final class ScriptTest extends TestCase
 
     public function testContent(): void
     {
-        $this->assertSame(
-            '<script>alert("4 > 2");</script>',
-            Script::tag()->content('alert("4 > 2");')->render()
-        );
+        $content = 'alert("4 > 2");';
+        $tag = Script::tag()->content($content);
+
+        $this->assertSame($content, $tag->getContent());
+        $this->assertSame('<script>' . $content . '</script>', $tag->render());
     }
 
     public function dataUrl(): array
