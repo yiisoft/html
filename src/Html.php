@@ -9,6 +9,7 @@ use JsonException;
 use Stringable;
 use ValueError;
 use Yiisoft\Html\Tag\A;
+use Yiisoft\Html\Tag\B;
 use Yiisoft\Html\Tag\Br;
 use Yiisoft\Html\Tag\Button;
 use Yiisoft\Html\Tag\Caption;
@@ -16,6 +17,8 @@ use Yiisoft\Html\Tag\Col;
 use Yiisoft\Html\Tag\Colgroup;
 use Yiisoft\Html\Tag\CustomTag;
 use Yiisoft\Html\Tag\Div;
+use Yiisoft\Html\Tag\Em;
+use Yiisoft\Html\Tag\I;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
 use Yiisoft\Html\Tag\Input\Checkbox;
@@ -31,6 +34,7 @@ use Yiisoft\Html\Tag\P;
 use Yiisoft\Html\Tag\Script;
 use Yiisoft\Html\Tag\Select;
 use Yiisoft\Html\Tag\Span;
+use Yiisoft\Html\Tag\Strong;
 use Yiisoft\Html\Tag\Style;
 use Yiisoft\Html\Tag\Table;
 use Yiisoft\Html\Tag\Tbody;
@@ -829,6 +833,74 @@ final class Html
     public static function span($content = '', array $attributes = []): Span
     {
         $tag = Span::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Em} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function em($content = '', array $attributes = []): Em
+    {
+        $tag = Em::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Strong} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function strong($content = '', array $attributes = []): Strong
+    {
+        $tag = Strong::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see B} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function b($content = '', array $attributes = []): B
+    {
+        $tag = B::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see I} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function i($content = '', array $attributes = []): I
+    {
+        $tag = I::tag();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }

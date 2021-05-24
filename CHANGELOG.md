@@ -1,10 +1,8 @@
 # Yii HTML Change Log
 
-
 ## 1.2.1 under development
 
-- no changes in this release.
-
+- Enh #74: Add classes for tags `Em`, `Strong`, `B` and `I` (vjik)
 
 ## 1.2.0 May 04, 2021
 
