@@ -3,6 +3,7 @@
 ## 1.2.1 under development
 
 - Enh #74: Add classes for tags `Em`, `Strong`, `B` and `I` (vjik)
+- Enh #75: Add methods `as()` and `preload()` to the `Link` tag (vjik)
 
 ## 1.2.0 May 04, 2021
 

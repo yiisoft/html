@@ -77,6 +77,31 @@ final class Link extends VoidTag
         return $new;
     }
 
+    /**
+     * @link https://www.w3.org/TR/preload/#as-attribute
+     */
+    public function as(?string $value): self
+    {
+        $new = clone $this;
+        $new->attributes['as'] = $value;
+        return $new;
+    }
+
+    /**
+     * @link https://www.w3.org/TR/preload/#link-type-preload
+     * @link https://www.w3.org/TR/preload/#as-attribute
+     */
+    public function preload(string $url, string $as = null): self
+    {
+        $new = clone $this;
+        $new->attributes['rel'] = 'preload';
+        $new->attributes['href'] = $url;
+        if ($as !== null) {
+            $new->attributes['as'] = $as;
+        }
+        return $new;
+    }
+
     protected function getName(): string
     {
         return 'link';
