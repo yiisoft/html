@@ -110,6 +110,43 @@ final class LinkTest extends TestCase
         $this->assertSame($expected, (string)Link::tag()->crossOrigin($crossOrigin));
     }
 
+    public function dataTestAs(): array
+    {
+        return [
+            ['<link>', null],
+            ['<link as="">', ''],
+            ['<link as="video">', 'video'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataTestAs
+     */
+    public function testAs(string $expected, ?string $as): void
+    {
+        $this->assertSame($expected, (string)Link::tag()->as($as));
+    }
+
+    public function dataPreload(): array
+    {
+        return [
+            ['<link href="/main.css" rel="preload">', '/main.css'],
+            ['<link href="/main.css" rel="preload" as="style">', '/main.css', 'style'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataPreload
+     */
+    public function testPreload(string $expected, string $url, string $as = null): void
+    {
+        $tag = $as === null
+            ? Link::tag()->preload($url)
+            : Link::tag()->preload($url, $as);
+
+        $this->assertSame($expected, $tag->render());
+    }
+
     public function testImmutability(): void
     {
         $link = Link::tag();
@@ -119,5 +156,7 @@ final class LinkTest extends TestCase
         $this->assertNotSame($link, $link->type(null));
         $this->assertNotSame($link, $link->title(null));
         $this->assertNotSame($link, $link->crossOrigin(null));
+        $this->assertNotSame($link, $link->as(null));
+        $this->assertNotSame($link, $link->preload(''));
     }
 }
