@@ -164,6 +164,8 @@ final class TagTest extends TestCase
     {
         return [
             ['<test>', []],
+            ['<test>', [null]],
+            ['<test class="">', ['']],
             ['<test class="main">', ['main']],
             ['<test class="main bold">', ['main bold']],
             ['<test class="main bold">', ['main', 'bold']],
@@ -177,7 +179,7 @@ final class TagTest extends TestCase
      */
     public function testReplaceClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->replaceClass(...$class));
+        $this->assertSame($expected, (string)TestTag::tag()->class('red')->replaceClass(...$class));
     }
 
     public function testImmutability(): void
