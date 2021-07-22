@@ -4,6 +4,7 @@
 
 - New #74: Add classes for tags `Em`, `Strong`, `B` and `I` (vjik)
 - New #75: Add methods `as()` and `preload()` to the `Link` tag (vjik)
+- New #78: Allow pass `null` argument to methods `Tag::class()` and `Tag::replaceClass()` (vjik)
 
 ## 1.2.0 May 04, 2021
 
