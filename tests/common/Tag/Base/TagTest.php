@@ -20,6 +20,8 @@ final class TagTest extends TestCase
                 '<test checked disabled required="yes">',
                 ['checked' => true, 'disabled' => true, 'hidden' => false, 'required' => 'yes'],
             ],
+            ['<test class="">', ['class' => '']],
+            ['<test class="red">', ['class' => 'red']],
             ['<test class="first second">', ['class' => ['first', 'second']]],
             ['<test>', ['class' => []]],
             ['<test style="width: 100px; height: 200px;">', ['style' => ['width' => '100px', 'height' => '200px']]],
@@ -139,6 +141,23 @@ final class TagTest extends TestCase
     public function testClass(string $expected, array $class): void
     {
         $this->assertSame($expected, (string)TestTag::tag()->class('main')->class(...$class));
+    }
+
+    public function dataNewClass(): array
+    {
+        return [
+            ['<test>', null],
+            ['<test class="">', ''],
+            ['<test class="red">', 'red'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataNewClass
+     */
+    public function testNewClass(string $expected, ?string $class): void
+    {
+        $this->assertSame($expected, (string)TestTag::tag()->class($class));
     }
 
     public function dataReplaceClass(): array
