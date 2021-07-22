@@ -1156,7 +1156,10 @@ final class Html
                     if (empty($value)) {
                         continue;
                     }
-                    /** @psalm-var array<string, string> $value */
+                    /**
+                     * @psalm-suppress UnnecessaryVarAnnotation
+                     * @psalm-var array<string, string> $value
+                     */
                     $html .= " $name=\"" . self::encodeAttribute(self::cssStyleFromArray($value)) . '"';
                 } else {
                     $html .= " $name='" . Json::htmlEncode($value) . "'";
