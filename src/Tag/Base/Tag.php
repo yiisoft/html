@@ -75,29 +75,32 @@ abstract class Tag implements NoEncodeStringableInterface
     /**
      * Add one or more CSS classes to the tag.
      *
-     * @param string ...$class One or many CSS classes.
+     * @param string|null ...$class One or many CSS classes.
      *
      * @return static
      */
-    final public function class(string ...$class): self
+    final public function class(?string ...$class): self
     {
         $new = clone $this;
         /** @psalm-suppress MixedArgumentTypeCoercion */
-        Html::addCssClass($new->attributes, $class);
+        Html::addCssClass(
+            $new->attributes,
+            array_filter($class, static fn ($c) => $c !== null),
+        );
         return $new;
     }
 
     /**
      * Replace current tag CSS classes with a new set of classes.
      *
-     * @param string ...$class One or many CSS classes.
+     * @param string|null ...$class One or many CSS classes.
      *
      * @return static
      */
-    final public function replaceClass(string ...$class): self
+    final public function replaceClass(?string ...$class): self
     {
         $new = clone $this;
-        $new->attributes['class'] = $class;
+        $new->attributes['class'] = array_filter($class, static fn ($c) => $c !== null);
         return $new;
     }
 

@@ -35,12 +35,12 @@ abstract class BooleanInputTag extends InputTag
     /**
      * Label that is wraps around attribute when rendered.
      *
-     * @param string $label Input label.
+     * @param string|null $label Input label.
      * @param array $attributes Name-value set of label attributes.
      *
      * @return static
      */
-    final public function label(string $label, array $attributes = []): self
+    final public function label(?string $label, array $attributes = []): self
     {
         $new = clone $this;
         $new->label = $label;
@@ -51,12 +51,12 @@ abstract class BooleanInputTag extends InputTag
     /**
      * Label that is rendered separately and is referring input by ID.
      *
-     * @param string $label Input label.
+     * @param string|null $label Input label.
      * @param array $attributes Name-value set of label attributes.
      *
      * @return static
      */
-    final public function sideLabel(string $label, array $attributes = []): self
+    final public function sideLabel(?string $label, array $attributes = []): self
     {
         $new = clone $this;
         $new->label = $label;
@@ -96,7 +96,9 @@ abstract class BooleanInputTag extends InputTag
 
     final protected function before(): string
     {
-        $this->attributes['id'] ??= $this->labelWrap ? null : Html::generateId();
+        $this->attributes['id'] ??= ($this->labelWrap || $this->label === null)
+            ? null
+            : Html::generateId();
 
         return $this->renderUncheckInput() .
             ($this->labelWrap ? $this->renderLabelOpenTag($this->labelAttributes) : '');
@@ -141,13 +143,13 @@ abstract class BooleanInputTag extends InputTag
             return '';
         }
 
-        $html = ' ';
-
-        if (!$this->labelWrap) {
+        if ($this->labelWrap) {
+            $html = $this->label === '' ? '' : ' ';
+        } else {
             $labelAttributes = array_merge($this->labelAttributes, [
                 'for' => $this->attributes['id'],
             ]);
-            $html .= $this->renderLabelOpenTag($labelAttributes);
+            $html = ' ' . $this->renderLabelOpenTag($labelAttributes);
         }
 
         $html .= $this->labelEncode ? Html::encode($this->label) : $this->label;

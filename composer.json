@@ -20,11 +20,11 @@
         "yiisoft/json": "^1.0"
     },
     "require-dev": {
-        "maglnet/composer-require-checker": "^3.2",
+        "maglnet/composer-require-checker": "^3.3",
         "phpunit/phpunit": "^9.5",
-        "roave/infection-static-analysis-plugin": "^1.7",
+        "roave/infection-static-analysis-plugin": "^1.9",
         "spatie/phpunit-watcher": "^1.23",
-        "vimeo/psalm": "^4.7"
+        "vimeo/psalm": "^4.8"
     },
     "autoload": {
         "psr-4": {
