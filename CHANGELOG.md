@@ -1,10 +1,11 @@
 # Yii HTML Change Log
 
-## 1.2.1 under development
+## 1.3.0 under development
 
 - New #74: Add classes for tags `Em`, `Strong`, `B` and `I` (vjik)
 - New #75: Add methods `as()` and `preload()` to the `Link` tag (vjik)
-- New #78: Allow pass `null` argument to methods `Tag::class()` and `Tag::replaceClass()` (vjik)
+- New #78: Allow pass `null` argument to methods `Tag::class()`, `Tag::replaceClass()`, `BooleanInputTag::label()` and
+  `BooleanInputTag::sideLabel()` (vjik)
 
 ## 1.2.0 May 04, 2021
 
