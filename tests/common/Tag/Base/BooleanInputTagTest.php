@@ -34,13 +34,23 @@ final class BooleanInputTagTest extends TestCase
                 'One',
                 ['class' => 'red'],
             ],
+            [
+                '<label><input type="test"></label>',
+                '',
+                [],
+            ],
+            [
+                '<input type="test">',
+                null,
+                [],
+            ],
         ];
     }
 
     /**
      * @dataProvider dataLabel
      */
-    public function testLabel(string $expected, string $label, array $attributes): void
+    public function testLabel(string $expected, ?string $label, array $attributes): void
     {
         $this->assertSame(
             $expected,
@@ -61,6 +71,22 @@ final class BooleanInputTagTest extends TestCase
         $this->assertMatchesRegularExpression(
             '~<input type="test" id="i(\d*?)"> <label for="i\1">One</label>~',
             TestBooleanInputTag::tag()->sideLabel('One')->render()
+        );
+    }
+
+    public function testSideLabelEmpty(): void
+    {
+        $this->assertMatchesRegularExpression(
+            '~<input type="test" id="i(\d*?)"> <label for="i\1"></label>~',
+            TestBooleanInputTag::tag()->sideLabel('')->render()
+        );
+    }
+
+    public function testSideLabelNull(): void
+    {
+        $this->assertSame(
+            '<input type="test">',
+            TestBooleanInputTag::tag()->sideLabel(null)->render()
         );
     }
 
