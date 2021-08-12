@@ -1154,13 +1154,10 @@ final class Html
                     }
                     $html .= " $name=\"" . self::encodeAttribute(implode(' ', $value)) . '"';
                 } elseif ($name === 'style') {
+                    /** @psalm-var array<string,string> $value */
                     if (empty($value)) {
                         continue;
                     }
-                    /**
-                     * @psalm-suppress UnnecessaryVarAnnotation
-                     * @psalm-var array<string, string> $value
-                     */
                     $html .= " $name=\"" . self::encodeAttribute(self::cssStyleFromArray($value)) . '"';
                 } else {
                     $html .= " $name='" . Json::htmlEncode($value) . "'";
