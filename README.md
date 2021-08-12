@@ -122,7 +122,7 @@ For change this behavior use method `encode()`, which supported values:
 - `true`: any content is encoded;
 - `false`: nothing is encoded.
  
-> Note: all tag objects implemented the `\Yiisoft\Html\NoEncodeStringableInterface` interface and not encoded.
+> Note: all tag objects implemented the `\Yiisoft\Html\NoEncodeStringableInterface` interface and not encoded by default.
 
 Examples:
 
