@@ -22,6 +22,7 @@ The package provides:
   `Caption`, `Colgroup`, `Col`, `Thead`, `Tbody`, `Tfoot`, `Tr`, `Th`, `Td`;
 - `CustomTag` class that helps to generate custom tag with any attributes;
 - HTML widgets `CheckboxList` and `RadioList`;
+- `NoEncode` class is designed for use as non-encoded content in HTML tags;
 - `Html` helper that has static methods to generate HTML, create tag and HTML widget objects.
 
 ## Requirements
@@ -109,6 +110,41 @@ echo \Yiisoft\Html\Tag\CustomTag::name('b')
 
 ```html
 <b title="Important">text</b>
+```
+
+### Encoding content of tags
+
+Encoding behavior for tag content by default: stringable objects that implement
+interface `\Yiisoft\Html\NoEncodeStringableInterface` are not encoded, everything else is encoded.
+
+For change this behavior use method `encode()`, which supported values:
+- `null`: default behavior;
+- `true`: any content is encoded;
+- `false`: nothing is encoded.
+ 
+> Note: all tag objects implemented the `\Yiisoft\Html\NoEncodeStringableInterface` interface and not encoded.
+
+Examples:
+
+```php
+// <b>&amp;lt;i&amp;gt;hello&amp;lt;/i&amp;gt;</b>
+echo Html::b('<i>hello</i>');
+
+// <b><i>hello</i></b>
+echo Html::b('<i>hello</i>')->encode(false);
+
+// <b><i>hello</i></b>
+echo Html::b(Html::i('hello'));
+
+// <b>&amp;lt;i&amp;gt;hello&amp;lt;/i&amp;gt;</b>
+echo Html::b(Html::i('hello'))->encode(true);
+```
+
+Additional method for not encode string in tag content is using of the `NoEncode` class:
+
+```php
+// <b><i>hello</i></b>
+echo Html::b(NoEncode::string('<i>hello</i>'));
 ```
 
 ## HTML widgets usage
