@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
+/**
+ * The `NoEncode` class is designed for use as non-encoded content in HTML tags.
+ * For example:
+ *
+ * ```php
+ * // Will be printed "<b><i>hello</i></b>"
+ * echo Html:b(NoEncode::string('<i>hello</i>'));
+ * ```
+ */
 final class NoEncode implements NoEncodeStringableInterface
 {
     private string $string;
