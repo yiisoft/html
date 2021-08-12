@@ -127,7 +127,7 @@ For change this behavior use method `encode()`, which supported values:
 Examples:
 
 ```php
-// <b>&amp;lt;i&amp;gt;hello&amp;lt;/i&amp;gt;</b>
+// <b>&lt;i&gt;hello&lt;/i&gt;</b>
 echo Html::b('<i>hello</i>');
 
 // <b><i>hello</i></b>
@@ -136,7 +136,7 @@ echo Html::b('<i>hello</i>')->encode(false);
 // <b><i>hello</i></b>
 echo Html::b(Html::i('hello'));
 
-// <b>&amp;lt;i&amp;gt;hello&amp;lt;/i&amp;gt;</b>
+// <b>&lt;i&gt;hello&lt;/i&gt;</b>
 echo Html::b(Html::i('hello'))->encode(true);
 ```
 
