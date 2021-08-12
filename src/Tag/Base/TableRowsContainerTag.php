@@ -8,6 +8,9 @@ use Yiisoft\Html\Tag\Tr;
 
 abstract class TableRowsContainerTag extends NormalTag
 {
+    /**
+     * @var Tr[]
+     */
     private array $rows = [];
 
     /**

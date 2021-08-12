@@ -1148,6 +1148,7 @@ final class Html
                         }
                     }
                 } elseif ($name === 'class') {
+                    /** @var string[] $value */
                     if (empty($value)) {
                         continue;
                     }
@@ -1229,6 +1230,7 @@ final class Html
                     $options['class'] = $classes;
                 }
             } else {
+                /** @var string[] */
                 $classes = preg_split('/\s+/', (string)$options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $classes = array_diff($classes, (array)$class);
                 if (empty($classes)) {
