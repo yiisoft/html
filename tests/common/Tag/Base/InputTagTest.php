@@ -54,7 +54,7 @@ final class InputTagTest extends TestCase
     {
         return [
             ['<input>', null],
-            ['<input form="">', ''],
+            ['<input form>', ''],
             ['<input form="post">', 'post'],
         ];
     }

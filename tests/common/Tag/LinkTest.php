@@ -114,7 +114,7 @@ final class LinkTest extends TestCase
     {
         return [
             ['<link>', null],
-            ['<link as="">', ''],
+            ['<link as>', ''],
             ['<link as="video">', 'video'],
         ];
     }

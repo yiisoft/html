@@ -224,8 +224,8 @@ final class RadioListTest extends TestCase
             ],
             [
                 '<div>' . "\n" .
-                '<label><input type="radio" name="test" value="1" form=""> One</label>' . "\n" .
-                '<label><input type="radio" name="test" value="2" form=""> Two</label>' . "\n" .
+                '<label><input type="radio" name="test" value="1" form> One</label>' . "\n" .
+                '<label><input type="radio" name="test" value="2" form> Two</label>' . "\n" .
                 '</div>',
                 '',
             ],

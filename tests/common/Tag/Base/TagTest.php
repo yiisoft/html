@@ -20,7 +20,7 @@ final class TagTest extends TestCase
                 '<test checked disabled required="yes">',
                 ['checked' => true, 'disabled' => true, 'hidden' => false, 'required' => 'yes'],
             ],
-            ['<test class="">', ['class' => '']],
+            ['<test class>', ['class' => '']],
             ['<test class="red">', ['class' => 'red']],
             ['<test class="first second">', ['class' => ['first', 'second']]],
             ['<test>', ['class' => []]],
@@ -147,7 +147,7 @@ final class TagTest extends TestCase
     {
         return [
             ['<test>', null],
-            ['<test class="">', ''],
+            ['<test class>', ''],
             ['<test class="red">', 'red'],
         ];
     }
@@ -165,7 +165,7 @@ final class TagTest extends TestCase
         return [
             ['<test>', []],
             ['<test>', [null]],
-            ['<test class="">', ['']],
+            ['<test class>', ['']],
             ['<test class="main">', ['main']],
             ['<test class="main bold">', ['main bold']],
             ['<test class="main bold">', ['main', 'bold']],
