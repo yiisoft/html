@@ -140,7 +140,7 @@ echo Html::b(Html::i('hello'));
 echo Html::b(Html::i('hello'))->encode(true);
 ```
 
-Additional method for not encode string in tag content is using of the `NoEncode` class:
+Additional method for not encode string in tag content is using of the `\Yiisoft\Html\NoEncode` class:
 
 ```php
 // <b><i>hello</i></b>
