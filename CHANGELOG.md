@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 1.3.0 under development
+## 2.0.0 under development
 
 - New #74: Add classes for tags `Em`, `Strong`, `B` and `I` (vjik)
 - New #75: Add methods `as()` and `preload()` to the `Link` tag (vjik)
