@@ -6,7 +6,7 @@
 - New #75: Add methods `as()` and `preload()` to the `Link` tag (vjik)
 - New #78: Allow pass `null` argument to methods `Tag::class()`, `Tag::replaceClass()`, `BooleanInputTag::label()` and
   `BooleanInputTag::sideLabel()` (vjik)
-- New #76: Add `NoEncode` class designed to use as non-encoded content in HTML tags (vjik)
+- New #76: Add `NoEncode` class designed to wrap content that should not be encoded in HTML tags (vjik)
 
 ## 1.2.0 May 04, 2021
 
