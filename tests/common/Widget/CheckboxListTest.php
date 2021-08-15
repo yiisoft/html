@@ -254,8 +254,8 @@ final class CheckboxListTest extends TestCase
             ],
             [
                 '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1" form=""> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2" form=""> Two</label>' . "\n" .
+                '<label><input type="checkbox" name="test[]" value="1" form> One</label>' . "\n" .
+                '<label><input type="checkbox" name="test[]" value="2" form> Two</label>' . "\n" .
                 '</div>',
                 '',
             ],

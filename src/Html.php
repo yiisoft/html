@@ -1131,41 +1131,40 @@ final class Html
         }
 
         $html = '';
-        /** @var mixed */
+        /**
+         * @var string $name
+         * @var mixed $value
+         */
         foreach ($attributes as $name => $value) {
             if (is_bool($value)) {
                 if ($value) {
-                    $html .= " $name";
+                    $html .= self::renderAttribute($name);
                 }
             } elseif (is_array($value)) {
                 if (in_array($name, self::DATA_ATTRIBUTES, true)) {
                     /** @psalm-var array<array-key, array|string|\Stringable|null> $value */
                     foreach ($value as $n => $v) {
-                        if (is_array($v)) {
-                            $html .= " $name-$n='" . Json::htmlEncode($v) . "'";
-                        } else {
-                            $html .= " $name-$n=\"" . self::encodeAttribute($v) . '"';
-                        }
+                        $html .= is_array($v)
+                            ? self::renderAttribute($name . '-' . $n, Json::htmlEncode($v), '\'')
+                            : self::renderAttribute($name . '-' . $n, self::encodeAttribute($v));
                     }
                 } elseif ($name === 'class') {
+                    /** @var string[] $value */
                     if (empty($value)) {
                         continue;
                     }
-                    $html .= " $name=\"" . self::encodeAttribute(implode(' ', $value)) . '"';
+                    $html .= self::renderAttribute($name, self::encodeAttribute(implode(' ', $value)));
                 } elseif ($name === 'style') {
+                    /** @psalm-var array<string,string> $value */
                     if (empty($value)) {
                         continue;
                     }
-                    /**
-                     * @psalm-suppress UnnecessaryVarAnnotation
-                     * @psalm-var array<string, string> $value
-                     */
-                    $html .= " $name=\"" . self::encodeAttribute(self::cssStyleFromArray($value)) . '"';
+                    $html .= self::renderAttribute($name, self::encodeAttribute(self::cssStyleFromArray($value)));
                 } else {
-                    $html .= " $name='" . Json::htmlEncode($value) . "'";
+                    $html .= self::renderAttribute($name, Json::htmlEncode($value), '\'');
                 }
             } elseif ($value !== null) {
-                $html .= " $name=\"" . self::encodeAttribute($value) . '"';
+                $html .= self::renderAttribute($name, self::encodeAttribute($value));
             }
         }
 
@@ -1229,6 +1228,7 @@ final class Html
                     $options['class'] = $classes;
                 }
             } else {
+                /** @var string[] */
                 $classes = preg_split('/\s+/', (string)$options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $classes = array_diff($classes, (array)$class);
                 if (empty($classes)) {
@@ -1446,5 +1446,20 @@ final class Html
     public static function getNonArrayableName(string $name): string
     {
         return substr($name, -2) === '[]' ? substr($name, 0, -2) : $name;
+    }
+
+    /**
+     * Render attribute in HTML tag.
+     *
+     * @link https://html.spec.whatwg.org/#a-quick-introduction-to-html
+     */
+    private static function renderAttribute(string $name, string $encodedValue = '', string $quote = '"'): string
+    {
+        // The value, along with the "=" character, can be omitted altogether if the value is the empty string.
+        if ($encodedValue === '') {
+            return ' ' . $name;
+        }
+
+        return ' ' . $name . '=' . $quote . $encodedValue . $quote;
     }
 }

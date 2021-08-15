@@ -11,6 +11,9 @@ use Yiisoft\Html\Tag\Base\NormalTag;
  */
 final class Colgroup extends NormalTag
 {
+    /**
+     * @var Col[]
+     */
     private array $columns = [];
 
     /**

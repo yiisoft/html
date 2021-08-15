@@ -56,7 +56,7 @@ final class MetaTest extends TestCase
     {
         return [
             ['<meta>', null],
-            ['<meta name="">', ''],
+            ['<meta name>', ''],
             ['<meta name="keywords">', 'keywords'],
         ];
     }
@@ -73,7 +73,7 @@ final class MetaTest extends TestCase
     {
         return [
             ['<meta>', null],
-            ['<meta http-equiv="">', ''],
+            ['<meta http-equiv>', ''],
             ['<meta http-equiv="refresh">', 'refresh'],
         ];
     }
@@ -90,7 +90,7 @@ final class MetaTest extends TestCase
     {
         return [
             ['<meta>', null],
-            ['<meta content="">', ''],
+            ['<meta content>', ''],
             ['<meta content="Yii">', 'Yii'],
         ];
     }
@@ -107,7 +107,7 @@ final class MetaTest extends TestCase
     {
         return [
             ['<meta>', null],
-            ['<meta charset="">', ''],
+            ['<meta charset>', ''],
             ['<meta charset="utf-8">', 'utf-8'],
         ];
     }

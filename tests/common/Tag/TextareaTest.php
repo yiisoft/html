@@ -87,7 +87,7 @@ final class TextareaTest extends TestCase
     {
         return [
             ['<textarea></textarea>', null],
-            ['<textarea form=""></textarea>', ''],
+            ['<textarea form></textarea>', ''],
             ['<textarea form="post"></textarea>', 'post'],
         ];
     }

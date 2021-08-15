@@ -12,6 +12,9 @@ use Yiisoft\Html\Tag\Base\TableCellTag;
  */
 final class Tr extends NormalTag
 {
+    /**
+     * @var TableCellTag[]
+     */
     private array $items = [];
 
     /**

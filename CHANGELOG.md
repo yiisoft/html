@@ -1,11 +1,12 @@
 # Yii HTML Change Log
 
-## 1.3.0 under development
+## 2.0.0 under development
 
 - New #74: Add classes for tags `Em`, `Strong`, `B` and `I` (vjik)
 - New #75: Add methods `as()` and `preload()` to the `Link` tag (vjik)
 - New #78: Allow pass `null` argument to methods `Tag::class()`, `Tag::replaceClass()`, `BooleanInputTag::label()` and
   `BooleanInputTag::sideLabel()` (vjik)
+- Chg #79: Do not add empty attribute value for empty strings (vjik)
 - New #76: Add `NoEncode` class designed to wrap content that should not be encoded in HTML tags (vjik)
 
 ## 1.2.0 May 04, 2021

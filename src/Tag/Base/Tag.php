@@ -82,7 +82,6 @@ abstract class Tag implements NoEncodeStringableInterface
     final public function class(?string ...$class): self
     {
         $new = clone $this;
-        /** @psalm-suppress MixedArgumentTypeCoercion */
         Html::addCssClass(
             $new->attributes,
             array_filter($class, static fn ($c) => $c !== null),

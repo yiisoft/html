@@ -35,14 +35,14 @@ final class SelectTest extends TestCase
     {
         return [
             ['<select multiple></select>', null],
-            ['<select name="" multiple></select>', ''],
+            ['<select name multiple></select>', ''],
             [
-                '<input type="hidden" name="age" value="">' . "\n" .
+                '<input type="hidden" name="age" value>' . "\n" .
                 '<select name="age[]" multiple></select>',
                 'age',
             ],
             [
-                '<input type="hidden" name="place" value="">' . "\n" .
+                '<input type="hidden" name="place" value>' . "\n" .
                 '<select name="place[]" multiple></select>',
                 'place[]',
             ],
@@ -164,7 +164,7 @@ final class SelectTest extends TestCase
     {
         return [
             ['<select></select>', null],
-            ['<select form=""></select>', ''],
+            ['<select form></select>', ''],
             ['<select form="post"></select>', 'post'],
         ];
     }
@@ -275,7 +275,7 @@ final class SelectTest extends TestCase
             ],
             [
                 '<select>' . "\n" .
-                '<option value="">Please select...</option>' . "\n" .
+                '<option value>Please select...</option>' . "\n" .
                 '<option value="1">One</option>' . "\n" .
                 '</select>',
                 'Please select...',

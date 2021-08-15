@@ -11,6 +11,9 @@ use Yiisoft\Html\Tag\Li;
  */
 abstract class ListTag extends NormalTag
 {
+    /**
+     * @var Li[]
+     */
     private array $items = [];
 
     /**
