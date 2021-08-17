@@ -8,6 +8,7 @@
   `BooleanInputTag::sideLabel()` (vjik)
 - Chg #79: Do not add empty attribute value for empty strings (vjik)
 - New #76: Add `NoEncode` class designed to wrap content that should not be encoded in HTML tags (vjik)
+- Chg #83: Fix constant order `ATTRIBUTE_ORDER` html attributes. (terabytesoftw)
 
 ## 1.2.0 May 04, 2021
 
