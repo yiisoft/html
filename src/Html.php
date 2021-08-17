@@ -101,6 +101,7 @@ final class Html
 
         'size',
         'maxlength',
+        'minlength',
         'width',
         'height',
         'rows',
