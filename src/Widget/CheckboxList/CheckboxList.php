@@ -21,6 +21,12 @@ final class CheckboxList implements NoEncodeStringableInterface
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
     private array $checkboxAttributes = [];
+
+    /**
+     * @var array[]
+     */
+    private array $individualInputAttributes = [];
+
     private ?string $uncheckValue = null;
     private string $separator = "\n";
     private bool $encodeLabels = true;
@@ -87,6 +93,26 @@ final class CheckboxList implements NoEncodeStringableInterface
     {
         $new = clone $this;
         $new->checkboxAttributes = $attributes;
+        return $new;
+    }
+
+    /**
+     * @param array[] $attributes
+     */
+    public function individualInputAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->individualInputAttributes = array_replace($new->individualInputAttributes, $attributes);
+        return $new;
+    }
+
+    /**
+     * @param array[] $attributes
+     */
+    public function replaceIndividualInputAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->individualInputAttributes = $attributes;
         return $new;
     }
 
@@ -199,10 +225,11 @@ final class CheckboxList implements NoEncodeStringableInterface
                 $name,
                 $value,
                 ArrayHelper::isIn($value, $this->values),
-                array_merge($this->checkboxAttributes, [
-                    'name' => $name,
-                    'value' => $value,
-                ]),
+                array_merge(
+                    $this->checkboxAttributes,
+                    $this->individualInputAttributes[$value] ?? [],
+                    ['name' => $name, 'value' => $value]
+                ),
                 $label,
                 $this->encodeLabels,
             );
@@ -229,21 +256,22 @@ final class CheckboxList implements NoEncodeStringableInterface
 
     private function renderUncheckInput(): string
     {
-        $input = Input::hidden(
-            Html::getNonArrayableName($this->name),
-            $this->uncheckValue
-        );
-
-        // Make sure disabled input is not sending any value
-        if (!empty($this->checkboxAttributes['disabled'])) {
-            $input = $input->attribute('disabled', $this->checkboxAttributes['disabled']);
-        }
-
-        if (!empty($this->checkboxAttributes['form'])) {
-            $input = $input->attribute('form', $this->checkboxAttributes['form']);
-        }
-
-        return $input->render();
+        return
+            Input::hidden(
+                Html::getNonArrayableName($this->name),
+                $this->uncheckValue
+            )
+                ->attributes(
+                    array_merge(
+                        [
+                            // Make sure disabled input is not sending any value
+                            'disabled' => $this->checkboxAttributes['disabled'] ?? null,
+                            'form' => $this->checkboxAttributes['form'] ?? null,
+                        ],
+                        $this->individualInputAttributes[$this->uncheckValue] ?? []
+                    )
+                )
+                ->render();
     }
 
     private function formatItem(CheckboxItem $item): string
