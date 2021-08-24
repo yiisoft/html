@@ -1,5 +1,10 @@
 # Yii HTML Change Log
 
+
+## 2.0.1 under development
+
+- no changes in this release.
+
 ## 2.0.0 August 24, 2021
 
 - Bug #83: Fix `Html::ATTRIBUTE_ORDER` values (terabytesoftw)
