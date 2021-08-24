@@ -67,7 +67,8 @@ final class Optgroup extends NormalTag
     }
 
     /**
-     * @psalm-param \Stringable|scalar|null ...$value Values of options that are selected.
+     * @param mixed|null ...$value Values of options that are selected.
+     * @psalm-param \Stringable|scalar|null ...$value
      *
      * @return self
      */

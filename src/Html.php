@@ -59,7 +59,7 @@ use function strlen;
 /**
  * Html provides a set of static methods for generating commonly used HTML tags.
  *
- * Nearly all of the methods in this class allow setting additional HTML attributes for the HTML tags they generate.
+ * Nearly all the methods in this class allow setting additional HTML attributes for the HTML tags they generate.
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
  *
@@ -502,7 +502,8 @@ final class Html
     /**
      * Generates an {@see Img} tag.
      *
-     * @param string $src The image URL.
+     * @param string|null $url The image URL.
+     * @param string|null $alt Alt text.
      */
     public static function img(?string $url = null, ?string $alt = ''): Img
     {
@@ -625,7 +626,7 @@ final class Html
     }
 
     /**
-     * Generates a submit {@see Input} button.
+     * Generates submit {@see Input} button.
      *
      * @see Input::submitButton()
      *
@@ -1104,7 +1105,7 @@ final class Html
      * "expanded" and a list data attributes will be rendered. For example, if `'data' => ['id' => 1, 'name' => 'yii']`
      * then this will be rendered `data-id="1" data-name="yii"`.
      *
-     * Additionally `'data' => ['params' => ['id' => 1, 'name' => 'yii'], 'status' => 'ok']` will be rendered as:
+     * Additionally, `'data' => ['params' => ['id' => 1, 'name' => 'yii'], 'status' => 'ok']` will be rendered as:
      * `data-params='{"id":1,"name":"yii"}' data-status="ok"`.
      *
      * @param array $attributes Attributes to be rendered. The attribute values will be HTML-encoded using
@@ -1265,7 +1266,7 @@ final class Html
     }
 
     /**
-     * Adds the specified CSS style to the HTML options.
+     * Adds the specified CSS styles to the HTML options.
      *
      * If the options already contain a `style` element, the new style will be merged
      * with the existing one. If a CSS property exists in both the new and the old styles,
@@ -1305,7 +1306,7 @@ final class Html
     }
 
     /**
-     * Removes the specified CSS style from the HTML options.
+     * Removes the specified CSS styles from the HTML options.
      *
      * For example,
      *

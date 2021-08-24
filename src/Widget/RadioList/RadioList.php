@@ -178,7 +178,8 @@ final class RadioList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param Closure(RadioItem):string|null $formatter
+     * @param Closure|null $formatter
+     * @psalm-param Closure(RadioItem):string|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self
     {

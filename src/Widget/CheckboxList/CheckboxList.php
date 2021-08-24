@@ -204,7 +204,8 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param Closure(CheckboxItem):string|null $formatter
+     * @param Closure|null $formatter
+     * @psalm-param Closure(CheckboxItem):string|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self
     {
