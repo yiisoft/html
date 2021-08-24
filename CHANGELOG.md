@@ -1,14 +1,11 @@
 # Yii HTML Change Log
 
-
 ## 2.0.1 under development
 
 - no changes in this release.
 
 ## 2.0.0 August 24, 2021
 
-- Bug #83: Fix `Html::ATTRIBUTE_ORDER` values (terabytesoftw)
-- Chg #79: Do not add empty attribute value for empty strings (vjik)
 - New #74: Add classes for tags `Em`, `Strong`, `B` and `I` (vjik)
 - New #75: Add methods `as()` and `preload()` to the `Link` tag (vjik)
 - New #76: Add `NoEncode` class designed to wrap content that should not be encoded in HTML tags (vjik)
@@ -17,6 +14,8 @@
 - New #82: Add support individual attributes for inputs in `CheckboxList` and `RadioList` widgets via methods 
   `CheckboxList::individualInputAttributes()`, `CheckboxList::replaceIndividualInputAttributes()`,
   `RadioList::individualInputAttributes()` and `RadioList::replaceIndividualInputAttributes()` (vjik)
+- Chg #79: Do not add empty attribute value for empty strings (vjik)
+- Bug #83: Fix `Html::ATTRIBUTE_ORDER` values (terabytesoftw)
 
 ## 1.2.0 May 04, 2021
 
