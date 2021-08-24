@@ -15,15 +15,17 @@
 [![static analysis](https://github.com/yiisoft/html/workflows/static%20analysis/badge.svg)](https://github.com/yiisoft/html/actions?query=workflow%3A%22static+analysis%22)
 [![type-coverage](https://shepherd.dev/github/yiisoft/html/coverage.svg)](https://shepherd.dev/github/yiisoft/html)
 
-The package provides:
+The package provides various tools to help with dynamic server-side generation of HTML:
 
-- tag classes `A`, `B`, `Br`, `Button`, `Div`, `Em`, `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`,
+- Tag classes `A`, `B`, `Br`, `Button`, `Div`, `Em`, `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`), `Label`, `Li`, `Link`,
   `Meta`, `Ol`, `Optgroup`, `Option`, `P`, `Script`, `Select`, `Span`, `Strong`, `Style`, `Textarea`, `Ul`, `Table`,
   `Caption`, `Colgroup`, `Col`, `Thead`, `Tbody`, `Tfoot`, `Tr`, `Th`, `Td`;
 - `CustomTag` class that helps to generate custom tag with any attributes;
 - HTML widgets `CheckboxList` and `RadioList`;
-- `NoEncode` class is designed to wrap content that should not be encoded in HTML tags;
-- `Html` helper that has static methods to generate HTML, create tag and HTML widget objects.
+- All tags content is automatically HTML-encoded. There is`NoEncode` class designed to wrap content that should not be encoded;
+- `Html` helper that has static methods to generate HTML, create tags and HTML widget objects.
+
+Note that for simple static-HTML cases, it is preferred to use HTML directly.
 
 ## Requirements
 
