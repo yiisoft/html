@@ -2,8 +2,8 @@
 
 ## 2.1.0 under development
 
-- New #88: Add class for tag `Noscript` and ability define him for tag `Script` via methods 
-  `Script::noscript()`, `Script::noscriptTag()` and `Script::noscriptPosition()` (vjik) 
+- New #88: Add class for tag `Noscript` and ability define him for tag `Script` via methods
+  `Script::noscript()`, `Script::noscriptTag()` and `Script::noscriptPosition()` (vjik)
 
 ## 2.0.0 August 24, 2021
 
