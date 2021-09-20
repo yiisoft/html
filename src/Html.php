@@ -27,6 +27,7 @@ use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
 use Yiisoft\Html\Tag\Meta;
+use Yiisoft\Html\Tag\Noscript;
 use Yiisoft\Html\Tag\Ol;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
@@ -382,6 +383,17 @@ final class Html
             $tag = $tag->replaceAttributes($attributes);
         }
         return $tag;
+    }
+
+    /**
+     * Generates a {@see Noscript} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     */
+    public static function noscript($content = ''): Noscript
+    {
+        $tag = Noscript::tag();
+        return $content === '' ? $tag : $tag->content($content);
     }
 
     /**

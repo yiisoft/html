@@ -7,6 +7,8 @@ namespace Yiisoft\Html\Tests;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
+use Yiisoft\Html\Tag\Div;
+
 use function array_key_exists;
 
 final class HtmlTest extends TestCase
@@ -113,6 +115,13 @@ final class HtmlTest extends TestCase
             '<script id="main">alert(15)</script>',
             Html::script('alert(15)', ['id' => 'main'])->render()
         );
+    }
+
+    public function testNoscript(): void
+    {
+        $this->assertSame('<noscript></noscript>', Html::noscript()->render());
+        $this->assertSame('<noscript>hello</noscript>', Html::noscript('hello')->render());
+        $this->assertSame('<noscript><div></div></noscript>', Html::noscript(Div::tag())->render());
     }
 
     public function testMeta(): void
