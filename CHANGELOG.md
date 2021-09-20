@@ -1,8 +1,9 @@
 # Yii HTML Change Log
 
-## 2.0.1 under development
+## 2.1.0 under development
 
-- no changes in this release.
+- New #88: Add class for tag `Noscript` and ability define him for tag `Script` via methods 
+  `Script::noscript()`, `Script::noscriptTag()` and `Script::noscriptPosition()` (vjik) 
 
 ## 2.0.0 August 24, 2021
 
