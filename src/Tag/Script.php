@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
 
 /**
@@ -11,7 +12,12 @@ use Yiisoft\Html\Tag\Base\NormalTag;
  */
 final class Script extends NormalTag
 {
+    public const NOSCRIPT_BEFORE = false;
+    public const NOSCRIPT_AFTER = true;
+
     private string $content = '';
+    private ?Noscript $noscript = null;
+    private bool $noscriptPosition = self::NOSCRIPT_AFTER;
 
     /**
      * @link https://www.w3.org/TR/html52/semantics-scripting.html#script-content-restrictions
@@ -90,6 +96,32 @@ final class Script extends NormalTag
         return $new;
     }
 
+    /**
+     * @param string|Stringable|null $content
+     */
+    public function noscript($content, bool $position = self::NOSCRIPT_AFTER): self
+    {
+        $new = clone $this;
+        $new->noscript = $content === null ? null : Noscript::tag()->content($content);
+        $new->noscriptPosition = $position;
+        return $new;
+    }
+
+    public function noscriptTag(?Noscript $noscript, bool $position = self::NOSCRIPT_AFTER): self
+    {
+        $new = clone $this;
+        $new->noscript = $noscript;
+        $new->noscriptPosition = $position;
+        return $new;
+    }
+
+    public function noscriptPosition(bool $position = self::NOSCRIPT_AFTER): self
+    {
+        $new = clone $this;
+        $new->noscriptPosition = $position;
+        return $new;
+    }
+
     protected function getName(): string
     {
         return 'script';
@@ -101,5 +133,19 @@ final class Script extends NormalTag
     protected function generateContent(): string
     {
         return $this->content;
+    }
+
+    protected function before(): string
+    {
+        return ($this->noscriptPosition === self::NOSCRIPT_BEFORE && $this->noscript !== null)
+            ? (string)$this->noscript
+            : '';
+    }
+
+    protected function after(): string
+    {
+        return ($this->noscriptPosition === self::NOSCRIPT_AFTER && $this->noscript !== null)
+            ? (string)$this->noscript
+            : '';
     }
 }
