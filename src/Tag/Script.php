@@ -115,7 +115,7 @@ final class Script extends NormalTag
         return $new;
     }
 
-    public function noscriptPosition(bool $position = self::NOSCRIPT_AFTER): self
+    public function noscriptPosition(bool $position): self
     {
         $new = clone $this;
         $new->noscriptPosition = $position;
