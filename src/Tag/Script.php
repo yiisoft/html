@@ -99,19 +99,23 @@ final class Script extends NormalTag
     /**
      * @param string|Stringable|null $content
      */
-    public function noscript($content, bool $position = self::NOSCRIPT_AFTER): self
+    public function noscript($content, bool $position = null): self
     {
         $new = clone $this;
         $new->noscript = $content === null ? null : Noscript::tag()->content($content);
-        $new->noscriptPosition = $position;
+        if ($position !== null) {
+            $new->noscriptPosition = $position;
+        }
         return $new;
     }
 
-    public function noscriptTag(?Noscript $noscript, bool $position = self::NOSCRIPT_AFTER): self
+    public function noscriptTag(?Noscript $noscript, bool $position = null): self
     {
         $new = clone $this;
         $new->noscript = $noscript;
-        $new->noscriptPosition = $position;
+        if ($position !== null) {
+            $new->noscriptPosition = $position;
+        }
         return $new;
     }
 

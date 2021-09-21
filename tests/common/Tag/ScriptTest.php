@@ -148,6 +148,31 @@ final class ScriptTest extends TestCase
         );
     }
 
+    public function testNoscriptPositionBeforeNoscript(): void
+    {
+        $this->assertSame(
+            '<script></script><noscript>hello</noscript>',
+            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_AFTER)->noscript('hello'),
+        );
+        $this->assertSame(
+            '<noscript>hello</noscript><script></script>',
+            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_BEFORE)->noscript('hello'),
+        );
+    }
+
+    public function testNoscriptPositionBeforeNoscriptTag(): void
+    {
+        $noscriptTag = Noscript::tag()->content('hello');
+        $this->assertSame(
+            '<script></script><noscript>hello</noscript>',
+            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_AFTER)->noscriptTag($noscriptTag),
+        );
+        $this->assertSame(
+            '<noscript>hello</noscript><script></script>',
+            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_BEFORE)->noscriptTag($noscriptTag),
+        );
+    }
+
     public function testImmutability(): void
     {
         $script = Script::tag();
