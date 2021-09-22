@@ -12,12 +12,8 @@ use Yiisoft\Html\Tag\Base\NormalTag;
  */
 final class Script extends NormalTag
 {
-    public const NOSCRIPT_BEFORE = false;
-    public const NOSCRIPT_AFTER = true;
-
     private string $content = '';
     private ?Noscript $noscript = null;
-    private bool $noscriptPosition = self::NOSCRIPT_AFTER;
 
     /**
      * @link https://www.w3.org/TR/html52/semantics-scripting.html#script-content-restrictions
@@ -99,30 +95,17 @@ final class Script extends NormalTag
     /**
      * @param string|Stringable|null $content
      */
-    public function noscript($content, bool $position = null): self
+    public function noscript($content): self
     {
         $new = clone $this;
         $new->noscript = $content === null ? null : Noscript::tag()->content($content);
-        if ($position !== null) {
-            $new->noscriptPosition = $position;
-        }
         return $new;
     }
 
-    public function noscriptTag(?Noscript $noscript, bool $position = null): self
+    public function noscriptTag(?Noscript $noscript): self
     {
         $new = clone $this;
         $new->noscript = $noscript;
-        if ($position !== null) {
-            $new->noscriptPosition = $position;
-        }
-        return $new;
-    }
-
-    public function noscriptPosition(bool $position): self
-    {
-        $new = clone $this;
-        $new->noscriptPosition = $position;
         return $new;
     }
 
@@ -139,17 +122,8 @@ final class Script extends NormalTag
         return $this->content;
     }
 
-    protected function before(): string
-    {
-        return ($this->noscriptPosition === self::NOSCRIPT_BEFORE && $this->noscript !== null)
-            ? (string)$this->noscript
-            : '';
-    }
-
     protected function after(): string
     {
-        return ($this->noscriptPosition === self::NOSCRIPT_AFTER && $this->noscript !== null)
-            ? (string)$this->noscript
-            : '';
+        return $this->noscript !== null ? (string)$this->noscript : '';
     }
 }

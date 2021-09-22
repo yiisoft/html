@@ -102,14 +102,6 @@ final class ScriptTest extends TestCase
             (string)Script::tag()->noscript(Div::tag()),
         );
         $this->assertSame(
-            '<noscript>hello</noscript><script></script>',
-            (string)Script::tag()->noscript('hello', Script::NOSCRIPT_BEFORE),
-        );
-        $this->assertSame(
-            '<script></script><noscript>hello</noscript>',
-            (string)Script::tag()->noscript('hello', Script::NOSCRIPT_AFTER),
-        );
-        $this->assertSame(
             '<script></script>',
             (string)Script::tag()->noscript(null),
         );
@@ -123,53 +115,8 @@ final class ScriptTest extends TestCase
             (string)Script::tag()->noscriptTag($noscriptTag),
         );
         $this->assertSame(
-            '<noscript>hello</noscript><script></script>',
-            (string)Script::tag()->noscriptTag($noscriptTag, Script::NOSCRIPT_BEFORE),
-        );
-        $this->assertSame(
-            '<script></script><noscript>hello</noscript>',
-            (string)Script::tag()->noscriptTag($noscriptTag, Script::NOSCRIPT_AFTER),
-        );
-        $this->assertSame(
             '<script></script>',
             (string)Script::tag()->noscriptTag(null),
-        );
-    }
-
-    public function testNoscriptPosition(): void
-    {
-        $this->assertSame(
-            '<script></script><noscript>hello</noscript>',
-            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_AFTER),
-        );
-        $this->assertSame(
-            '<noscript>hello</noscript><script></script>',
-            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_BEFORE),
-        );
-    }
-
-    public function testNoscriptPositionBeforeNoscript(): void
-    {
-        $this->assertSame(
-            '<script></script><noscript>hello</noscript>',
-            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_AFTER)->noscript('hello'),
-        );
-        $this->assertSame(
-            '<noscript>hello</noscript><script></script>',
-            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_BEFORE)->noscript('hello'),
-        );
-    }
-
-    public function testNoscriptPositionBeforeNoscriptTag(): void
-    {
-        $noscriptTag = Noscript::tag()->content('hello');
-        $this->assertSame(
-            '<script></script><noscript>hello</noscript>',
-            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_AFTER)->noscriptTag($noscriptTag),
-        );
-        $this->assertSame(
-            '<noscript>hello</noscript><script></script>',
-            (string)Script::tag()->noscript('hello')->noscriptPosition(Script::NOSCRIPT_BEFORE)->noscriptTag($noscriptTag),
         );
     }
 
@@ -185,6 +132,5 @@ final class ScriptTest extends TestCase
         $this->assertNotSame($script, $script->defer());
         $this->assertNotSame($script, $script->noscript(null));
         $this->assertNotSame($script, $script->noscriptTag(null));
-        $this->assertNotSame($script, $script->noscriptPosition(Script::NOSCRIPT_AFTER));
     }
 }
