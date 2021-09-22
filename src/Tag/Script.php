@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
 
 /**
@@ -12,6 +13,7 @@ use Yiisoft\Html\Tag\Base\NormalTag;
 final class Script extends NormalTag
 {
     private string $content = '';
+    private ?Noscript $noscript = null;
 
     /**
      * @link https://www.w3.org/TR/html52/semantics-scripting.html#script-content-restrictions
@@ -90,6 +92,23 @@ final class Script extends NormalTag
         return $new;
     }
 
+    /**
+     * @param string|Stringable|null $content
+     */
+    public function noscript($content): self
+    {
+        $new = clone $this;
+        $new->noscript = $content === null ? null : Noscript::tag()->content($content);
+        return $new;
+    }
+
+    public function noscriptTag(?Noscript $noscript): self
+    {
+        $new = clone $this;
+        $new->noscript = $noscript;
+        return $new;
+    }
+
     protected function getName(): string
     {
         return 'script';
@@ -101,5 +120,10 @@ final class Script extends NormalTag
     protected function generateContent(): string
     {
         return $this->content;
+    }
+
+    protected function after(): string
+    {
+        return $this->noscript !== null ? (string)$this->noscript : '';
     }
 }

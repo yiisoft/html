@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\TestCase;
+use Yiisoft\Html\Tag\Div;
+use Yiisoft\Html\Tag\Noscript;
 use Yiisoft\Html\Tag\Script;
 
 final class ScriptTest extends TestCase
@@ -89,6 +91,35 @@ final class ScriptTest extends TestCase
         $this->assertSame('<script></script>', (string)Script::tag()->defer(true)->defer(false));
     }
 
+    public function testNoscript(): void
+    {
+        $this->assertSame(
+            '<script></script><noscript>hello</noscript>',
+            (string)Script::tag()->noscript('hello'),
+        );
+        $this->assertSame(
+            '<script></script><noscript><div></div></noscript>',
+            (string)Script::tag()->noscript(Div::tag()),
+        );
+        $this->assertSame(
+            '<script></script>',
+            (string)Script::tag()->noscript(null),
+        );
+    }
+
+    public function testNoscriptTag(): void
+    {
+        $noscriptTag = Noscript::tag()->content('hello');
+        $this->assertSame(
+            '<script></script><noscript>hello</noscript>',
+            (string)Script::tag()->noscriptTag($noscriptTag),
+        );
+        $this->assertSame(
+            '<script></script>',
+            (string)Script::tag()->noscriptTag(null),
+        );
+    }
+
     public function testImmutability(): void
     {
         $script = Script::tag();
@@ -99,5 +130,7 @@ final class ScriptTest extends TestCase
         $this->assertNotSame($script, $script->charset(null));
         $this->assertNotSame($script, $script->async());
         $this->assertNotSame($script, $script->defer());
+        $this->assertNotSame($script, $script->noscript(null));
+        $this->assertNotSame($script, $script->noscriptTag(null));
     }
 }
