@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 2.1.0 under development
+## 2.1.0 September 23, 2021
 
 - New #88: Add `Noscript` tag support and shortcuts for `Script` tag via methods `Script::noscript()` 
   and `Script::noscriptTag()` (vjik)
