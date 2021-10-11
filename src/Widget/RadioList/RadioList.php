@@ -120,13 +120,23 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    public function itemsAsValues(array $values, bool $encodeLabels = true): self
+    {
+        $values = array_map('\strval', $values);
+
+        return $this->items(
+            array_combine($values, $values),
+            $encodeLabels
+        );
+    }
+
     /**
      * @param bool|float|int|string|\Stringable|null $value
      */
     public function value($value): self
     {
         $new = clone $this;
-        $new->value = $value === null ? null : (string)$value;
+        $new->value = $value === null ? null : (string) $value;
         return $new;
     }
 
@@ -166,7 +176,7 @@ final class RadioList implements NoEncodeStringableInterface
     public function uncheckValue($value): self
     {
         $new = clone $this;
-        $new->uncheckValue = $value === null ? null : (string)$value;
+        $new->uncheckValue = $value === null ? null : (string) $value;
         return $new;
     }
 
@@ -179,6 +189,7 @@ final class RadioList implements NoEncodeStringableInterface
 
     /**
      * @param Closure|null $formatter
+     *
      * @psalm-param Closure(RadioItem):string|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self
