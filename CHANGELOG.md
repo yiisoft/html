@@ -1,9 +1,9 @@
 # Yii HTML Change Log
 
+## 2.2.0 under development
 
-## 2.1.1 under development
-
-- no changes in this release.
+- New #90: Add method `itemsAsValues()` to widgets `RadioList` and `CheckboxList` that set items with labels equal
+  to values (vjik)
 
 ## 2.1.0 September 23, 2021
 
