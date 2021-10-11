@@ -642,6 +642,7 @@ final class CheckboxListTest extends TestCase
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->replaceIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->items([]));
+        $this->assertNotSame($widget, $widget->itemsAsValues([]));
         $this->assertNotSame($widget, $widget->value());
         $this->assertNotSame($widget, $widget->values([]));
         $this->assertNotSame($widget, $widget->form(''));
