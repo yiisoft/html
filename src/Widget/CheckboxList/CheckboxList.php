@@ -131,7 +131,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param string[]|\Stringable[]|int[]|float[]|bool[] $values
+     * @param bool[]|float[]|int[]|string[]|\Stringable[] $values
      * @param bool $encodeLabels Whether labels should be encoded.
      */
     public function itemsAsValues(array $values, bool $encodeLabels = true): self
