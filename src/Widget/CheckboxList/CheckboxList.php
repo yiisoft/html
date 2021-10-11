@@ -130,6 +130,16 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    public function itemsAsValues(array $values, bool $encodeLabels = true): self
+    {
+        $values = array_map('\strval', $values);
+
+        return $this->items(
+            array_combine($values, $values),
+            $encodeLabels
+        );
+    }
+
     /**
      * @param scalar|\Stringable ...$value
      */
@@ -192,7 +202,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     public function uncheckValue($value): self
     {
         $new = clone $this;
-        $new->uncheckValue = $value === null ? null : (string)$value;
+        $new->uncheckValue = $value === null ? null : (string) $value;
         return $new;
     }
 
@@ -205,6 +215,7 @@ final class CheckboxList implements NoEncodeStringableInterface
 
     /**
      * @param Closure|null $formatter
+     *
      * @psalm-param Closure(CheckboxItem):string|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self

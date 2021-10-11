@@ -255,6 +255,56 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function dataItemsAsValues(): array
+    {
+        return [
+            [
+                '<label><input type="checkbox" name="test[]" value="1"> 1</label>' . "\n" .
+                '<label><input type="checkbox" name="test[]" value="2"> 2</label>',
+                [1, 2],
+            ],
+            [
+                '<label><input type="checkbox" name="test[]" value="One"> One</label>' . "\n" .
+                '<label><input type="checkbox" name="test[]" value="&lt;b&gt;Two&lt;/b&gt;"> &lt;b&gt;Two&lt;/b&gt;</label>',
+                ['One', '<b>Two</b>'],
+            ],
+            [
+                '<label><input type="checkbox" name="test[]" value="1"> 1</label>' . "\n" .
+                '<label><input type="checkbox" name="test[]" value></label>',
+                [true, false],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataItemsAsValues
+     */
+    public function testItemsAsValues(string $expected, array $values): void
+    {
+        $this->assertSame(
+            $expected,
+            CheckboxList::create('test')
+                ->itemsAsValues($values)
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
+    public function testItemsAsValuesWithoutEncodeLabel(): void
+    {
+        $this->assertSame(
+            '<label><input type="checkbox" name="test[]" value="One"> One</label>' . "\n" .
+            '<label><input type="checkbox" name="test[]" value="&lt;b&gt;Two&lt;/b&gt;"> <b>Two</b></label>',
+            CheckboxList::create('test')
+                ->itemsAsValues([
+                    'One',
+                    '<b>Two</b>',
+                ], false)
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
     public function dataValue(): array
     {
         return [
@@ -577,7 +627,7 @@ final class CheckboxListTest extends TestCase
     {
         $this->assertSame(
             "<div>\n</div>",
-            (string)CheckboxList::create('test'),
+            (string) CheckboxList::create('test'),
         );
     }
 
