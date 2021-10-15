@@ -84,6 +84,21 @@ final class ATest extends TestCase
         $this->assertSame($expected, (string)A::tag()->rel($rel));
     }
 
+    public function dataNofollow(): array
+    {
+        return [
+            ['<a rel="nofollow"></a>', 'nofollow'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataNofollow
+     */
+    public function testNofollow(string $expected, ?string $rel): void
+    {
+        $this->assertSame($expected, (string)A::tag()->nofollow($rel));
+    }
+
     public function dataTarget(): array
     {
         return [

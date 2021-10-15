@@ -510,6 +510,23 @@ final class Html
         }
         return $tag;
     }
+    
+    /**
+     * Generates a hyperlink tag with nofollow attribute.
+     *
+     * @param string|Stringable $content The tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     *
+     * @see A
+     */
+    public static function nofollow($content = '', ?string $url = null, array $attributes = []): A
+    {
+        $tag = self::a($content, $url, $attributes);
+        $tag = $tag->nofollow();
+        return $tag;
+    }
 
     /**
      * Generates an {@see Img} tag.
