@@ -37,7 +37,7 @@ final class A extends NormalTag
         return $this->href($mail === null ? null : 'mailto:' . $mail);
     }
 
-    public function nofollow()
+    public function nofollow(): self
     {
         return $this->rel('nofollow');
     }
