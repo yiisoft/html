@@ -510,7 +510,7 @@ final class Html
         }
         return $tag;
     }
-    
+
     /**
      * Generates a hyperlink tag with nofollow attribute.
      *
