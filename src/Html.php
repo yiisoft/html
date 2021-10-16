@@ -666,10 +666,14 @@ final class Html
      *
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes $attributes
      */
-    public static function textInput(?string $name = null, $value = null): Input
+    public static function textInput(?string $name = null, $value = null, array $attributes = []): Input
     {
-        return Input::text($name, $value);
+        $tag = Input::text($name, $value);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -679,10 +683,14 @@ final class Html
      *
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes $attributes
      */
-    public static function hiddenInput(?string $name = null, $value = null): Input
+    public static function hiddenInput(?string $name = null, $value = null, array $attributes = []): Input
     {
-        return Input::hidden($name, $value);
+        $tag = Input::hidden($name, $value);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -692,10 +700,14 @@ final class Html
      *
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes $attributes
      */
-    public static function passwordInput(?string $name = null, $value = null): Input
+    public static function passwordInput(?string $name = null, $value = null, array $attributes = []): Input
     {
-        return Input::password($name, $value);
+        $tag = Input::password($name, $value);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -709,10 +721,14 @@ final class Html
      *
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes $attributes
      */
-    public static function fileInput(?string $name = null, $value = null): Input
+    public static function fileInput(?string $name = null, $value = null, array $attributes = []): Input
     {
-        return Input::file($name, $value);
+        $tag = Input::file($name, $value);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -722,10 +738,14 @@ final class Html
      *
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes $attributes
      */
-    public static function radio(?string $name = null, $value = null): Radio
+    public static function radio(?string $name = null, $value = null, array $attributes = []): Radio
     {
-        return Input::radio($name, $value);
+        $tag = Input::radio($name, $value);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -735,10 +755,14 @@ final class Html
      *
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes $attributes
      */
-    public static function checkbox(?string $name = null, $value = null): Checkbox
+    public static function checkbox(?string $name = null, $value = null, array $attributes = []): Checkbox
     {
-        return Input::checkbox($name, $value);
+        $tag = Input::checkbox($name, $value);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -746,8 +770,11 @@ final class Html
      *
      * @param string|null $name The input name.
      * @param string|null $value The input value.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes $attributes
      */
-    public static function textarea(?string $name = null, ?string $value = null): Textarea
+    public static function textarea(?string $name = null, ?string $value = null, array $attributes = []): Textarea
     {
         $tag = Textarea::tag();
         if ($name !== null) {
@@ -756,7 +783,7 @@ final class Html
         if (!empty($value)) {
             $tag = $tag->value($value);
         }
-        return $tag;
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**

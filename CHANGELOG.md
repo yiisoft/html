@@ -3,7 +3,9 @@
 
 ## 2.1.1 under development
 
-- no changes in this release.
+- New #92: A third optional argument `$attributes` containing tag attributes in terms of name-value pairs has been
+  added to methods `Html::textInput()`, `Html::hiddenInput()`, `Html::passwordInput()`, `Html::fileInput()`,
+  `Html::radio()`, `Html::checkbox()`, `Html::textarea()` (vjik)
 
 ## 2.1.0 September 23, 2021
 
