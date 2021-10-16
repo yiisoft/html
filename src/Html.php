@@ -510,7 +510,7 @@ final class Html
         }
         return $tag;
     }
-    
+
     /**
      * Generates a hyperlink tag with nofollow attribute.
      *
@@ -524,8 +524,7 @@ final class Html
     public static function nofollow($content = '', ?string $url = null, array $attributes = []): A
     {
         $tag = self::a($content, $url, $attributes);
-        $tag = $tag->nofollow();
-        return $tag;
+        return $tag->nofollow();
     }
 
     /**
