@@ -204,14 +204,6 @@ final class HtmlTest extends TestCase
         );
     }
 
-    public function testNofollow(): void
-    {
-        $this->assertSame(
-            '<a href="https://example.com" rel="nofollow">Link Text</a>',
-            Html::nofollow('Link Text', 'https://example.com')->render()
-        );
-    }
-
     public function testImg(): void
     {
         $this->assertSame('<img alt>', Html::img()->render());
