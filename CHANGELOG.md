@@ -3,7 +3,7 @@
 
 ## 2.1.1 under development
 
-- no changes in this release.
+- New #89: Add method `nofollow()` to the `A` tag (soodssr)
 
 ## 2.1.0 September 23, 2021
 
