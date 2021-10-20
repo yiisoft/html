@@ -304,6 +304,10 @@ final class HtmlTest extends TestCase
             '<input type="text" name="test" value="43">',
             Html::textInput('test', '43')->render(),
         );
+        $this->assertSame(
+            '<input type="text" name="test" value="43" required>',
+            Html::textInput('test', '43', ['required' => true])->render(),
+        );
     }
 
     public function testHiddenInput(): void
@@ -315,6 +319,10 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="test" value="43">',
             Html::hiddenInput('test', '43')->render(),
+        );
+        $this->assertSame(
+            '<input type="hidden" id="ABC" name="test" value="43">',
+            Html::hiddenInput('test', '43', ['id' => 'ABC'])->render(),
         );
     }
 
@@ -328,6 +336,10 @@ final class HtmlTest extends TestCase
             '<input type="password" name="test" value="43">',
             Html::passwordInput('test', '43')->render(),
         );
+        $this->assertSame(
+            '<input type="password" name="test" value="43" data-key="7">',
+            Html::passwordInput('test', '43', ['data-key' => '7'])->render(),
+        );
     }
 
     public function testFileInput(): void
@@ -339,6 +351,10 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<input type="file" name="test" value="43">',
             Html::fileInput('test', '43')->render(),
+        );
+        $this->assertSame(
+            '<input type="file" class="photo" name="test" value="43">',
+            Html::fileInput('test', '43', ['class' => 'photo'])->render(),
         );
     }
 
@@ -352,6 +368,10 @@ final class HtmlTest extends TestCase
             '<input type="radio" name="test" value="43">',
             Html::radio('test', '43')->render(),
         );
+        $this->assertSame(
+            '<input type="radio" name="test" value="43" readonly>',
+            Html::radio('test', '43', ['readonly' => true])->render(),
+        );
     }
 
     public function testCheckbox(): void
@@ -363,6 +383,10 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<input type="checkbox" name="test" value="43">',
             Html::checkbox('test', '43')->render(),
+        );
+        $this->assertSame(
+            '<input type="checkbox" name="test" value="43" readonly>',
+            Html::checkbox('test', '43', ['readonly' => true])->render(),
         );
     }
 
@@ -393,6 +417,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<textarea name></textarea>', Html::textarea('')->render());
         $this->assertSame('<textarea name="test"></textarea>', Html::textarea('test')->render());
         $this->assertSame('<textarea name="test">body</textarea>', Html::textarea('test', 'body')->render());
+        $this->assertSame(
+            '<textarea name="test" readonly>body</textarea>',
+            Html::textarea('test', 'body', ['readonly' => true])->render()
+        );
     }
 
     public function testCheckboxList(): void
