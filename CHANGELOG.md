@@ -4,6 +4,10 @@
 
 - New #90: Add method `itemsAsValues()` to widgets `RadioList` and `CheckboxList` that set items with labels equal
   to values (vjik)
+- New #92: A third optional argument `$attributes` containing tag attributes in terms of name-value pairs has been
+  added to methods `Html::textInput()`, `Html::hiddenInput()`, `Html::passwordInput()`, `Html::fileInput()`,
+  `Html::radio()`, `Html::checkbox()`, `Html::textarea()` (vjik)
+- New #89: Add method `nofollow()` to the `A` tag (soodssr)
 
 ## 2.1.0 September 23, 2021
 
