@@ -1,13 +1,13 @@
 # Yii HTML Change Log
 
-## 2.2.0 under development
+## 2.2.0 October 20, 2021
 
+- New #89: Add method `nofollow()` to the `A` tag (soodssr)
 - New #90: Add method `itemsFromValues()` to widgets `RadioList` and `CheckboxList` that set items with labels equal
   to values (vjik)
 - New #92: A third optional argument `$attributes` containing tag attributes in terms of name-value pairs has been
   added to methods `Html::textInput()`, `Html::hiddenInput()`, `Html::passwordInput()`, `Html::fileInput()`,
   `Html::radio()`, `Html::checkbox()`, `Html::textarea()` (vjik)
-- New #89: Add method `nofollow()` to the `A` tag (soodssr)
 
 ## 2.1.0 September 23, 2021
 
