@@ -122,10 +122,12 @@ final class RadioList implements NoEncodeStringableInterface
     }
 
     /**
+     * Fills items from an array provided. Array values are used for both input labels and input values.
+     *
      * @param bool[]|float[]|int[]|string[]|\Stringable[] $values
      * @param bool $encodeLabels Whether labels should be encoded.
      */
-    public function itemsAsValues(array $values, bool $encodeLabels = true): self
+    public function itemsFromValues(array $values, bool $encodeLabels = true): self
     {
         $values = array_map('\strval', $values);
 

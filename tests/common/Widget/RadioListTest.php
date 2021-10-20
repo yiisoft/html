@@ -252,7 +252,7 @@ final class RadioListTest extends TestCase
         );
     }
 
-    public function dataItemsAsValues(): array
+    public function dataItemsFromValues(): array
     {
         return [
             [
@@ -274,26 +274,26 @@ final class RadioListTest extends TestCase
     }
 
     /**
-     * @dataProvider dataItemsAsValues
+     * @dataProvider dataItemsFromValues
      */
-    public function testItemsAsValues(string $expected, array $values): void
+    public function testItemsFromValues(string $expected, array $values): void
     {
         $this->assertSame(
             $expected,
             RadioList::create('test')
-                ->itemsAsValues($values)
+                ->itemsFromValues($values)
                 ->withoutContainer()
                 ->render(),
         );
     }
 
-    public function testItemsAsValuesWithoutEncodeLabel(): void
+    public function testItemsFromValuesWithoutEncodeLabel(): void
     {
         $this->assertSame(
             '<label><input type="radio" name="test" value="One"> One</label>' . "\n" .
             '<label><input type="radio" name="test" value="&lt;b&gt;Two&lt;/b&gt;"> <b>Two</b></label>',
             RadioList::create('test')
-                ->itemsAsValues([
+                ->itemsFromValues([
                     'One',
                     '<b>Two</b>',
                 ], false)
@@ -612,7 +612,7 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->replaceIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->items([]));
-        $this->assertNotSame($widget, $widget->itemsAsValues([]));
+        $this->assertNotSame($widget, $widget->itemsFromValues([]));
         $this->assertNotSame($widget, $widget->value(null));
         $this->assertNotSame($widget, $widget->form(''));
         $this->assertNotSame($widget, $widget->readonly());

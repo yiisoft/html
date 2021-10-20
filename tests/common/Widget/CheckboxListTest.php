@@ -255,7 +255,7 @@ final class CheckboxListTest extends TestCase
         );
     }
 
-    public function dataItemsAsValues(): array
+    public function dataItemsFromValues(): array
     {
         return [
             [
@@ -277,26 +277,26 @@ final class CheckboxListTest extends TestCase
     }
 
     /**
-     * @dataProvider dataItemsAsValues
+     * @dataProvider dataItemsFromValues
      */
-    public function testItemsAsValues(string $expected, array $values): void
+    public function testItemsFromValues(string $expected, array $values): void
     {
         $this->assertSame(
             $expected,
             CheckboxList::create('test')
-                ->itemsAsValues($values)
+                ->itemsFromValues($values)
                 ->withoutContainer()
                 ->render(),
         );
     }
 
-    public function testItemsAsValuesWithoutEncodeLabel(): void
+    public function testItemsFromValuesWithoutEncodeLabel(): void
     {
         $this->assertSame(
             '<label><input type="checkbox" name="test[]" value="One"> One</label>' . "\n" .
             '<label><input type="checkbox" name="test[]" value="&lt;b&gt;Two&lt;/b&gt;"> <b>Two</b></label>',
             CheckboxList::create('test')
-                ->itemsAsValues([
+                ->itemsFromValues([
                     'One',
                     '<b>Two</b>',
                 ], false)
@@ -642,7 +642,7 @@ final class CheckboxListTest extends TestCase
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->replaceIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->items([]));
-        $this->assertNotSame($widget, $widget->itemsAsValues([]));
+        $this->assertNotSame($widget, $widget->itemsFromValues([]));
         $this->assertNotSame($widget, $widget->value());
         $this->assertNotSame($widget, $widget->values([]));
         $this->assertNotSame($widget, $widget->form(''));
