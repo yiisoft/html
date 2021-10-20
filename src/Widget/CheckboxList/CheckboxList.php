@@ -131,6 +131,22 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
+     * Fills items from an array provided. Array values are used for both input labels and input values.
+     *
+     * @param bool[]|float[]|int[]|string[]|\Stringable[] $values
+     * @param bool $encodeLabels Whether labels should be encoded.
+     */
+    public function itemsFromValues(array $values, bool $encodeLabels = true): self
+    {
+        $values = array_map('\strval', $values);
+
+        return $this->items(
+            array_combine($values, $values),
+            $encodeLabels
+        );
+    }
+
+    /**
      * @param scalar|\Stringable ...$value
      */
     public function value(...$value): self
@@ -192,7 +208,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     public function uncheckValue($value): self
     {
         $new = clone $this;
-        $new->uncheckValue = $value === null ? null : (string)$value;
+        $new->uncheckValue = $value === null ? null : (string) $value;
         return $new;
     }
 
@@ -205,6 +221,7 @@ final class CheckboxList implements NoEncodeStringableInterface
 
     /**
      * @param Closure|null $formatter
+     *
      * @psalm-param Closure(CheckboxItem):string|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self
