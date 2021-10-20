@@ -1,5 +1,10 @@
 # Yii HTML Change Log
 
+
+## 2.2.1 under development
+
+- no changes in this release.
+
 ## 2.2.0 October 20, 2021
 
 - New #89: Add method `nofollow()` to the `A` tag (soodssr)
