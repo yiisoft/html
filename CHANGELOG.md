@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 2.2.1 under development
+## 2.2.1 October 24, 2021
 
 - Enh #93: Add support for `yiisoft/arrays` version `^2.0` (vjik)
 
