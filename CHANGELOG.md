@@ -1,9 +1,8 @@
 # Yii HTML Change Log
 
-
 ## 2.2.2 under development
 
-- no changes in this release.
+- New #95: Add class for tag `Title` and method `Html::title()` (vjik)
 
 ## 2.2.1 October 24, 2021
 

@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Div;
 
+use Yiisoft\Html\Tests\Objects\StringableObject;
+
 use function array_key_exists;
 
 final class HtmlTest extends TestCase
@@ -122,6 +124,14 @@ final class HtmlTest extends TestCase
         $this->assertSame('<noscript></noscript>', Html::noscript()->render());
         $this->assertSame('<noscript>hello</noscript>', Html::noscript('hello')->render());
         $this->assertSame('<noscript><div></div></noscript>', Html::noscript(Div::tag())->render());
+    }
+
+    public function testTitle(): void
+    {
+        $this->assertSame('<title></title>', Html::title()->render());
+        $this->assertSame('<title>hello</title>', Html::title('hello')->render());
+        $this->assertSame('<title id="main">hello</title>', Html::title('hello', ['id' => 'main'])->render());
+        $this->assertSame('<title>hello</title>', Html::title(new StringableObject('hello'))->render());
     }
 
     public function testMeta(): void
