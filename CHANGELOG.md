@@ -1,9 +1,9 @@
 # Yii HTML Change Log
 
-
 ## 2.2.2 under development
 
-- no changes in this release.
+- New #96: Add classes for heading tags `H1-6` and methods `Html::h1()`, `Html::h2()`, `Html::h3()`, `Html::h4()`,
+  `Html::h5()`, `Html::h6()` (vjik)
 
 ## 2.2.1 October 24, 2021
 
