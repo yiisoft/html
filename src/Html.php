@@ -50,6 +50,7 @@ use Yiisoft\Html\Tag\Textarea;
 use Yiisoft\Html\Tag\Tfoot;
 use Yiisoft\Html\Tag\Th;
 use Yiisoft\Html\Tag\Thead;
+use Yiisoft\Html\Tag\Title;
 use Yiisoft\Html\Tag\Tr;
 use Yiisoft\Html\Tag\Ul;
 use Yiisoft\Html\Widget\CheckboxList\CheckboxList;
@@ -399,6 +400,23 @@ final class Html
     public static function noscript($content = ''): Noscript
     {
         $tag = Noscript::tag();
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Title} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function title($content = '', array $attributes = []): Title
+    {
+        $tag = Title::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
         return $content === '' ? $tag : $tag->content($content);
     }
 
