@@ -8,7 +8,6 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Div;
-
 use Yiisoft\Html\Tests\Objects\StringableObject;
 
 use function array_key_exists;
