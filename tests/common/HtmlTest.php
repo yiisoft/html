@@ -516,6 +516,54 @@ final class HtmlTest extends TestCase
         $this->assertSame('<i><span>Hello</span></i>', Html::i(Html::span('Hello'))->render());
     }
 
+    public function testH1(): void
+    {
+        $this->assertSame('<h1></h1>', Html::h1()->render());
+        $this->assertSame('<h1>hello</h1>', Html::h1('hello')->render());
+        $this->assertSame('<h1 id="main">hello</h1>', Html::h1('hello', ['id' => 'main'])->render());
+        $this->assertSame('<h1><span>Hello</span></h1>', Html::h1(Html::span('Hello'))->render());
+    }
+
+    public function testH2(): void
+    {
+        $this->assertSame('<h2></h2>', Html::h2()->render());
+        $this->assertSame('<h2>hello</h2>', Html::h2('hello')->render());
+        $this->assertSame('<h2 id="main">hello</h2>', Html::h2('hello', ['id' => 'main'])->render());
+        $this->assertSame('<h2><span>Hello</span></h2>', Html::h2(Html::span('Hello'))->render());
+    }
+
+    public function testH3(): void
+    {
+        $this->assertSame('<h3></h3>', Html::h3()->render());
+        $this->assertSame('<h3>hello</h3>', Html::h3('hello')->render());
+        $this->assertSame('<h3 id="main">hello</h3>', Html::h3('hello', ['id' => 'main'])->render());
+        $this->assertSame('<h3><span>Hello</span></h3>', Html::h3(Html::span('Hello'))->render());
+    }
+
+    public function testH4(): void
+    {
+        $this->assertSame('<h4></h4>', Html::h4()->render());
+        $this->assertSame('<h4>hello</h4>', Html::h4('hello')->render());
+        $this->assertSame('<h4 id="main">hello</h4>', Html::h4('hello', ['id' => 'main'])->render());
+        $this->assertSame('<h4><span>Hello</span></h4>', Html::h4(Html::span('Hello'))->render());
+    }
+
+    public function testH5(): void
+    {
+        $this->assertSame('<h5></h5>', Html::h5()->render());
+        $this->assertSame('<h5>hello</h5>', Html::h5('hello')->render());
+        $this->assertSame('<h5 id="main">hello</h5>', Html::h5('hello', ['id' => 'main'])->render());
+        $this->assertSame('<h5><span>Hello</span></h5>', Html::h5(Html::span('Hello'))->render());
+    }
+
+    public function testH6(): void
+    {
+        $this->assertSame('<h6></h6>', Html::h6()->render());
+        $this->assertSame('<h6>hello</h6>', Html::h6('hello')->render());
+        $this->assertSame('<h6 id="main">hello</h6>', Html::h6('hello', ['id' => 'main'])->render());
+        $this->assertSame('<h6><span>Hello</span></h6>', Html::h6(Html::span('Hello'))->render());
+    }
+
     public function testP(): void
     {
         $this->assertSame('<p></p>', Html::p()->render());

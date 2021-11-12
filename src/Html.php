@@ -18,6 +18,12 @@ use Yiisoft\Html\Tag\Colgroup;
 use Yiisoft\Html\Tag\CustomTag;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Em;
+use Yiisoft\Html\Tag\H1;
+use Yiisoft\Html\Tag\H2;
+use Yiisoft\Html\Tag\H3;
+use Yiisoft\Html\Tag\H4;
+use Yiisoft\Html\Tag\H5;
+use Yiisoft\Html\Tag\H6;
 use Yiisoft\Html\Tag\I;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
@@ -960,6 +966,108 @@ final class Html
     public static function i($content = '', array $attributes = []): I
     {
         $tag = I::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see H1} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function h1($content = '', array $attributes = []): H1
+    {
+        $tag = H1::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see H2} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function h2($content = '', array $attributes = []): H2
+    {
+        $tag = H2::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see H3} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function h3($content = '', array $attributes = []): H3
+    {
+        $tag = H3::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see H4} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function h4($content = '', array $attributes = []): H4
+    {
+        $tag = H4::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see H5} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function h5($content = '', array $attributes = []): H5
+    {
+        $tag = H5::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see H6} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
+     */
+    public static function h6($content = '', array $attributes = []): H6
+    {
+        $tag = H6::tag();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
