@@ -32,4 +32,11 @@ final class NormalTagTest extends TestCase
             TestNormalTag::tag()->id('main')->close(),
         );
     }
+
+    public function testGetContent(): void
+    {
+        $tag = TestNormalTag::tag();
+
+        $this->assertSame('content', $tag->getContent());
+    }
 }

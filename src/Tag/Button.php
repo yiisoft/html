@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\NormalTag;
-use Yiisoft\Html\Tag\Base\TagContentTrait;
+use Yiisoft\Html\Tag\Base\ContentTag;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-button-element
  */
-final class Button extends NormalTag
+final class Button extends ContentTag
 {
-    use TagContentTrait;
-
     public static function button(string $content): self
     {
         $button = self::tag()->content($content);

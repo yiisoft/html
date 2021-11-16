@@ -75,6 +75,11 @@ trait TagContentTrait
         return $new;
     }
 
+    final public function getContent(): string
+    {
+        return $this->generateContent();
+    }
+
     /**
      * @return string Obtain tag content considering encoding options {@see encode()}.
      */

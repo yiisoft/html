@@ -118,6 +118,18 @@ abstract class Tag implements NoEncodeStringableInterface
     {
     }
 
+    /**
+     * @param mixed $default
+     *
+     * @return mixed
+     */
+    final public function getAttribute(string $name, $default = null)
+    {
+        return $this->attributes[$name] ?? $default;
+    }
+
+    abstract public function getContent(): string;
+
     final public function render(): string
     {
         return $this->before() . $this->renderTag() . $this->after();

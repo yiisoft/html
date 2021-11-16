@@ -42,5 +42,10 @@ abstract class NormalTag extends Tag
         return '</' . $this->getName() . '>';
     }
 
+    public function getContent(): string
+    {
+        return $this->generateContent();
+    }
+
     abstract protected function generateContent(): string;
 }

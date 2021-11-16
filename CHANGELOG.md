@@ -5,6 +5,8 @@
 - New #95: Add class for tag `Title` and method `Html::title()` (vjik)
 - New #96: Add classes for heading tags `H1-6` and methods `Html::h1()`, `Html::h2()`, `Html::h3()`, `Html::h4()`,
   `Html::h5()`, `Html::h6()` (vjik)
+- New #98: Add methods `Tag::getAttribute()` and `Tag::getContent()` (vjik)
+- New #98: Add new interface `ContentTagInterface` and abstract class `ContentTag` that implement him (vjik)
 
 ## 2.2.1 October 24, 2021
 

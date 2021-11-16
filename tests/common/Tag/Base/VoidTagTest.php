@@ -16,4 +16,11 @@ final class VoidTagTest extends TestCase
             TestVoidTag::tag()->id('main')->render()
         );
     }
+
+    public function testGetContent(): void
+    {
+        $tag = TestVoidTag::tag();
+
+        $this->assertSame('', $tag->getContent());
+    }
 }

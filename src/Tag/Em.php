@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\NormalTag;
-use Yiisoft\Html\Tag\Base\TagContentTrait;
+use Yiisoft\Html\Tag\Base\ContentTag;
 
 /**
  * @link https://www.w3.org/TR/html52/textlevel-semantics.html#the-em-element
  */
-final class Em extends NormalTag
+final class Em extends ContentTag
 {
-    use TagContentTrait;
-
     protected function getName(): string
     {
         return 'em';

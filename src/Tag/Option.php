@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Arrays\ArrayHelper;
-use Yiisoft\Html\Tag\Base\NormalTag;
-use Yiisoft\Html\Tag\Base\TagContentTrait;
+use Yiisoft\Html\Tag\Base\ContentTag;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-option-element
  */
-final class Option extends NormalTag
+final class Option extends ContentTag
 {
-    use TagContentTrait;
-
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-option-value
      *
-     * @param bool|float|int|string|\Stringable|null $value Value of the option.
+     * @param bool|float|int|string|Stringable|null $value Value of the option.
      */
     public function value($value): self
     {

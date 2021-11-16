@@ -179,7 +179,32 @@ final class TagTest extends TestCase
      */
     public function testReplaceClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->class('red')->replaceClass(...$class));
+        $this->assertSame($expected, (string) TestTag::tag()->class('red')->replaceClass(...$class));
+    }
+
+    public function dataGetAttribute(): array
+    {
+        return [
+            [42, 'number'],
+            [null, 'non-exists'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataGetAttribute
+     */
+    public function testGetAttribute($expected, $attribute): void
+    {
+        $tag = TestTag::tag()->attributes(['number' => 42]);
+
+        $this->assertSame($expected, $tag->getAttribute($attribute));
+    }
+
+    public function testGetAttributeWithDefault(): void
+    {
+        $tag = TestTag::tag()->attributes(['number' => 42]);
+
+        $this->assertSame(7, $tag->getAttribute('non-exists', 7));
     }
 
     public function testImmutability(): void

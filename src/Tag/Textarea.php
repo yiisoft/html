@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use Yiisoft\Html\Tag\Base\NormalTag;
-use Yiisoft\Html\Tag\Base\TagContentTrait;
+use Yiisoft\Html\Tag\Base\ContentTag;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-textarea-element
  */
-final class Textarea extends NormalTag
+final class Textarea extends ContentTag
 {
-    use TagContentTrait;
-
     public function name(?string $name): self
     {
         $new = clone $this;

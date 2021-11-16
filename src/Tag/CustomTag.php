@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\Tag;
+use Yiisoft\Html\Tag\Base\ContentTagInterface;
 use Yiisoft\Html\Tag\Base\TagContentTrait;
 
 /**
  * Custom HTML tag.
  */
-final class CustomTag extends Tag
+final class CustomTag extends Tag implements ContentTagInterface
 {
     use TagContentTrait;
 

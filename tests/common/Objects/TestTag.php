@@ -13,6 +13,11 @@ final class TestTag extends Tag
         return new self();
     }
 
+    public function getContent(): string
+    {
+        return '';
+    }
+
     protected function getName(): string
     {
         return 'test';
