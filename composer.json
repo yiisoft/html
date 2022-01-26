@@ -12,6 +12,7 @@
         "forum": "https://forum.yiiframework.com/",
         "wiki": "https://www.yiiframework.com/wiki/",
         "irc": "irc://irc.freenode.net/yii",
+        "chat": "https://t.me/yii3en",
         "source": "https://github.com/yiisoft/html"
     },
     "funding": [
@@ -32,9 +33,9 @@
     "require-dev": {
         "maglnet/composer-require-checker": "^3.3",
         "phpunit/phpunit": "^9.5",
-        "roave/infection-static-analysis-plugin": "^1.14",
+        "roave/infection-static-analysis-plugin": "^1.16",
         "spatie/phpunit-watcher": "^1.23",
-        "vimeo/psalm": "^4.10"
+        "vimeo/psalm": "^4.18"
     },
     "autoload": {
         "psr-4": {
