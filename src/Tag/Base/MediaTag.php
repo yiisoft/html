@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
-use Stringable;
 use InvalidArgumentException;
+use Stringable;
+use Yiisoft\Html\Tag\Base\TagSourceTrait;
+use Yiisoft\Html\Tag\Media\Track;
 use Yiisoft\Html\Tag\Source;
 
-abstract class EmbeddedTag extends NormalTag
+abstract class MediaTag extends NormalTag
 {
-    protected ?string $fallback = null;
-    protected array $sources = [];
+    use TagSourceTrait;
+
+    private ?string $fallback = null;
+    private array $tracks = [];
 
     /**
+     * Content for browser who doesn't supported media tags
      *
-     * @param null|string|Stringable $content
+     * @param string|Stringable|null $fallback
      *
      * @return static
      */
@@ -31,18 +36,18 @@ abstract class EmbeddedTag extends NormalTag
         return $new;
     }
 
-    public function sources(?Source ...$sources): self
+    public function tracks(?Track ...$tracks): self
     {
         $new = clone $this;
-        $new->sources = array_filter($sources, static fn ($source) => $source !== null);
+        $new->tracks = array_filter($tracks, static fn ($track) => $track !== null);
 
         return $new;
     }
 
-    public function addSource(Source $source): self
+    public function addTrack(Track $track): self
     {
         $new = clone $this;
-        $new->sources[] = $source;
+        $new->tracks[] = $track;
 
         return $new;
     }
@@ -62,36 +67,43 @@ abstract class EmbeddedTag extends NormalTag
         return $this->attribute('preload', $preload);
     }
 
-    public function muted(bool $muted): self
+    public function muted(bool $muted = true): self
     {
         return $this->attribute('muted', $muted);
     }
 
-    public function loop(bool $loop): self
+    public function loop(bool $loop = true): self
     {
         return $this->attribute('loop', $loop);
     }
 
-    public function autoplay(bool $autoplay): self
+    public function autoplay(bool $autoplay = true): self
     {
         return $this->attribute('autoplay', $autoplay);
     }
 
-    public function controls(bool $controls): self
+    public function controls(bool $controls= true): self
     {
         return $this->attribute('controls', $controls);
     }
 
-    protected function generateContent(): string
+    final protected function generateContent(): string
     {
         $content = '';
 
-        foreach ($this->sources as $source) {
-            $content .= $source->render();
+        if (!isset($this->attributes['src'])) {
+            /** @var array<array-key, Source> $this->sources */
+            foreach ($this->sources as $source) {
+                $content .= $source->render();
+            }
+        }
+        /** @var array<array-key, Track> $this->tracks */
+        foreach ($this->tracks as $track) {
+            $content .= $track->render();
         }
 
         if ($this->fallback) {
-            $content = $this->fallback;
+            $content .= $this->fallback;
         }
 
         return $content;

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tag;
+namespace Yiisoft\Html\Tag\Media;
 
 use Yiisoft\Html\Tag\Base\VoidTag;
 
 final class Track extends VoidTag
 {
-    public function default(bool $default): self
+    public function default(bool $default = true): self
     {
         return $this->attribute('default', $default);
     }

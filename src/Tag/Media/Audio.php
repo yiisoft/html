@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tag\Embedded;
+namespace Yiisoft\Html\Tag\Media;
 
-use Yiisoft\Html\Tag\Base\EmbeddedTag;
+use Yiisoft\Html\Tag\Base\MediaTag;
 
 /**
  * @link https://html.spec.whatwg.org/multipage/media.html#the-audio-element
  */
-final class Audio extends EmbeddedTag
+final class Audio extends MediaTag
 {
     protected function getName(): string
     {

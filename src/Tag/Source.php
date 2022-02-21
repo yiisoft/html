@@ -31,7 +31,7 @@ final class Source extends VoidTag
 
     public function sizes(?string ...$sizes): self
     {
-        $items = array_diff($srcsets, ['']);
+        $items = array_diff($sizes, ['']);
 
         return $this->attribute('sizes', $items ? implode(',', $items) : null);
     }
