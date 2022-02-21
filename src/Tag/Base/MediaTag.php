@@ -89,16 +89,25 @@ abstract class MediaTag extends NormalTag
     final protected function generateContent(): string
     {
         $content = '';
+        $hasDefaultTrack = false;
 
         if (!isset($this->attributes['src'])) {
             /** @var array<array-key, Source> $this->sources */
             foreach ($this->sources as $source) {
-                $content .= $source->render();
+                $content .= $source;
             }
         }
         /** @var array<array-key, Track> $this->tracks */
         foreach ($this->tracks as $track) {
-            $content .= $track->render();
+            if ($hasDefaultTrack && $track->isDefault()) {
+                $content .= $track->default(false);
+            } else {
+                $content .= $track;
+
+                if (!$hasDefaultTrack) {
+                    $hasDefaultTrack = $track->isDefault();
+                }
+            }
         }
 
         if ($this->fallback) {

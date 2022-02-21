@@ -6,8 +6,20 @@ namespace Yiisoft\Html\Tag\Media;
 
 use Yiisoft\Html\Tag\Base\VoidTag;
 
+/**
+ * @link https://html.spec.whatwg.org/multipage/media.html#the-track-element
+ */
 final class Track extends VoidTag
 {
+    public function isDefault(): bool
+    {
+        if (isset($this->attributes['default'])) {
+            return $this->attributes['default'] !== false;
+        }
+
+        return false;
+    }
+
     public function default(bool $default = true): self
     {
         return $this->attribute('default', $default);
