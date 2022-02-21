@@ -6,7 +6,6 @@ namespace Yiisoft\Html\Tag\Base;
 
 use InvalidArgumentException;
 use Stringable;
-use Yiisoft\Html\Tag\Base\TagSourceTrait;
 use Yiisoft\Html\Tag\Media\Track;
 use Yiisoft\Html\Tag\Source;
 
@@ -82,7 +81,7 @@ abstract class MediaTag extends NormalTag
         return $this->attribute('autoplay', $autoplay);
     }
 
-    public function controls(bool $controls= true): self
+    public function controls(bool $controls = true): self
     {
         return $this->attribute('controls', $controls);
     }

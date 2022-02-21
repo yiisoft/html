@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tag\Embedded;
+namespace Yiisoft\Html\Tag\Media;
 
 use InvalidArgumentException;
 use Yiisoft\Html\Tag\Base\MediaTag;
@@ -18,7 +18,7 @@ final class Video extends MediaTag
     }
 
     /**
-     * @param null|int|string $width
+     * @param int|string|null $width
      *
      * @throws InvalidArgumentException
      *
@@ -34,7 +34,7 @@ final class Video extends MediaTag
     }
 
     /**
-     * @param null|int|string $height
+     * @param int|string|null $height
      *
      * @throws InvalidArgumentException
      *

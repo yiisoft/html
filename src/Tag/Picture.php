@@ -7,7 +7,6 @@ namespace Yiisoft\Html\Tag;
 use InvalidArgumentException;
 use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TagSourceTrait;
-use Yiisoft\Html\Tag\Img;
 
 /**
  * @link https://html.spec.whatwg.org/multipage/embedded-content.html#the-picture-element
@@ -36,7 +35,6 @@ final class Picture extends NormalTag
     }
 
     /**
-     *
      * @param string $name
      * @param mixed $value
      *
@@ -65,7 +63,7 @@ final class Picture extends NormalTag
     }
 
     /**
-     * @param null|int|string $width
+     * @param int|string|null $width
      *
      * @throws InvalidArgumentException
      *
@@ -81,7 +79,7 @@ final class Picture extends NormalTag
     }
 
     /**
-     * @param null|int|string $height
+     * @param int|string|null $height
      *
      * @throws InvalidArgumentException
      *
@@ -111,7 +109,6 @@ final class Picture extends NormalTag
 
         return $content;
     }
-
 
     protected function getName(): string
     {
