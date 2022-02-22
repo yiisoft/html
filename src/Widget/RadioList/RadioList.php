@@ -111,6 +111,7 @@ final class RadioList implements NoEncodeStringableInterface
 
     /**
      * @param string[] $items
+     * @param bool $encodeLabels Whether labels should be encoded.
      */
     public function items(array $items, bool $encodeLabels = true): self
     {
@@ -121,12 +122,28 @@ final class RadioList implements NoEncodeStringableInterface
     }
 
     /**
+     * Fills items from an array provided. Array values are used for both input labels and input values.
+     *
+     * @param bool[]|float[]|int[]|string[]|\Stringable[] $values
+     * @param bool $encodeLabels Whether labels should be encoded.
+     */
+    public function itemsFromValues(array $values, bool $encodeLabels = true): self
+    {
+        $values = array_map('\strval', $values);
+
+        return $this->items(
+            array_combine($values, $values),
+            $encodeLabels
+        );
+    }
+
+    /**
      * @param bool|float|int|string|\Stringable|null $value
      */
     public function value($value): self
     {
         $new = clone $this;
-        $new->value = $value === null ? null : (string)$value;
+        $new->value = $value === null ? null : (string) $value;
         return $new;
     }
 
@@ -166,7 +183,7 @@ final class RadioList implements NoEncodeStringableInterface
     public function uncheckValue($value): self
     {
         $new = clone $this;
-        $new->uncheckValue = $value === null ? null : (string)$value;
+        $new->uncheckValue = $value === null ? null : (string) $value;
         return $new;
     }
 
@@ -179,6 +196,7 @@ final class RadioList implements NoEncodeStringableInterface
 
     /**
      * @param Closure|null $formatter
+     *
      * @psalm-param Closure(RadioItem):string|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self

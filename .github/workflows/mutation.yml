@@ -1,8 +1,21 @@
 on:
   pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - '.gitignore'
+      - '.gitattributes'
+      - 'psalm.xml'
+
   push:
-  schedule:
-    - cron: '0 0 * * *'
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - '.gitignore'
+      - '.gitattributes'
+      - 'psalm.xml'
 
 name: mutation test
 
@@ -18,7 +31,7 @@ jobs:
           - ubuntu-latest
 
         php:
-          - "7.4"
+          - 8.1
 
     steps:
       - name: Checkout
@@ -27,9 +40,9 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "${{ matrix.php }}"
+          php-version: ${{ matrix.php }}
           ini-values: memory_limit=-1
-          coverage: "pcov"
+          coverage: pcov
           tools: composer:v2
 
       - name: Determine composer cache directory
@@ -51,7 +64,6 @@ jobs:
 
       - name: Run infection
         run: |
-          git fetch --depth=1 origin $GITHUB_BASE_REF
-          vendor/bin/roave-infection-static-analysis-plugin -j2 --git-diff-filter=A --git-diff-base=origin/$GITHUB_BASE_REF --logger-github --ignore-msi-with-no-mutations --only-covered
+          vendor/bin/roave-infection-static-analysis-plugin -j2 --ignore-msi-with-no-mutations --only-covered
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}

@@ -1,9 +1,24 @@
 # Yii HTML Change Log
 
+## 2.2.2 under development
 
-## 2.1.1 under development
+- New #95: Add class for tag `Title` and method `Html::title()` (vjik)
+- New #96: Add classes for heading tags `H1-6` and methods `Html::h1()`, `Html::h2()`, `Html::h3()`, `Html::h4()`,
+  `Html::h5()`, `Html::h6()` (vjik)
 
 - New #89: Add method `nofollow()` to the `A` tag (soodssr)
+## 2.2.1 October 24, 2021
+
+- Enh #93: Add support for `yiisoft/arrays` version `^2.0` (vjik)
+
+## 2.2.0 October 20, 2021
+
+- New #89: Add method `nofollow()` to the `A` tag (soodssr)
+- New #90: Add method `itemsFromValues()` to widgets `RadioList` and `CheckboxList` that set items with labels equal
+  to values (vjik)
+- New #92: A third optional argument `$attributes` containing tag attributes in terms of name-value pairs has been
+  added to methods `Html::textInput()`, `Html::hiddenInput()`, `Html::passwordInput()`, `Html::fileInput()`,
+  `Html::radio()`, `Html::checkbox()`, `Html::textarea()` (vjik)
 
 ## 2.1.0 September 23, 2021
 

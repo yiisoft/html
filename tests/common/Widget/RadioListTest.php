@@ -252,6 +252,56 @@ final class RadioListTest extends TestCase
         );
     }
 
+    public function dataItemsFromValues(): array
+    {
+        return [
+            [
+                '<label><input type="radio" name="test" value="1"> 1</label>' . "\n" .
+                '<label><input type="radio" name="test" value="2"> 2</label>',
+                [1, 2],
+            ],
+            [
+                '<label><input type="radio" name="test" value="One"> One</label>' . "\n" .
+                '<label><input type="radio" name="test" value="&lt;b&gt;Two&lt;/b&gt;"> &lt;b&gt;Two&lt;/b&gt;</label>',
+                ['One', '<b>Two</b>'],
+            ],
+            [
+                '<label><input type="radio" name="test" value="1"> 1</label>' . "\n" .
+                '<label><input type="radio" name="test" value></label>',
+                [true, false],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataItemsFromValues
+     */
+    public function testItemsFromValues(string $expected, array $values): void
+    {
+        $this->assertSame(
+            $expected,
+            RadioList::create('test')
+                ->itemsFromValues($values)
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
+    public function testItemsFromValuesWithoutEncodeLabel(): void
+    {
+        $this->assertSame(
+            '<label><input type="radio" name="test" value="One"> One</label>' . "\n" .
+            '<label><input type="radio" name="test" value="&lt;b&gt;Two&lt;/b&gt;"> <b>Two</b></label>',
+            RadioList::create('test')
+                ->itemsFromValues([
+                    'One',
+                    '<b>Two</b>',
+                ], false)
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
     public function dataValue(): array
     {
         return [
@@ -547,7 +597,7 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             "<div>\n</div>",
-            (string)RadioList::create('test'),
+            (string) RadioList::create('test'),
         );
     }
 
@@ -562,6 +612,7 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->replaceIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->items([]));
+        $this->assertNotSame($widget, $widget->itemsFromValues([]));
         $this->assertNotSame($widget, $widget->value(null));
         $this->assertNotSame($widget, $widget->form(''));
         $this->assertNotSame($widget, $widget->readonly());
