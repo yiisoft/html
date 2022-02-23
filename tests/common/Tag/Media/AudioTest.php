@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Media\Audio;
 use Yiisoft\Html\Tag\Source;
 use Yiisoft\Html\Tag\Media\Track;
+use Yiisoft\Html\Html;
 
 final class AudioTest extends TestCase
 {
@@ -55,7 +56,7 @@ final class AudioTest extends TestCase
             ->loop(false)
             ->muted(false)
             ->controls()
-            ->fallback('Your browser does not support the audio element.')
+            ->fallback(Html::p('Your browser does not support the audio element.'))
             ->sources(
                 Source::tag()->src('myAudio.mp3')->type('audio/mpeg'),
                 Source::tag()->src('myAudio.ogg')->type('audio/ogg')
@@ -65,7 +66,9 @@ final class AudioTest extends TestCase
         <audio controls>
         <source type="audio/mpeg" src="myAudio.mp3">
         <source type="audio/ogg" src="myAudio.ogg">
-        Your browser does not support the audio element.</audio>
+        <p>
+        Your browser does not support the audio element.</p>
+        </audio>
         HTML;
 
         $this->assertSame($expected, $html);

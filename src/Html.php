@@ -1263,7 +1263,7 @@ final class Html
     }
 
     /**
-     * Generates video {@see Video} tag.
+     * Generates a {@see Video} tag.
      */
     public static function video(): Video
     {
@@ -1271,7 +1271,7 @@ final class Html
     }
 
     /**
-     * Generates audio {@see Audio} tag.
+     * Generates a {@see Audio} tag.
      */
     public static function audio(): Audio
     {
@@ -1279,15 +1279,19 @@ final class Html
     }
 
     /**
-     * Generates track {@see Track} tag.
+     * Generates a {@see Track} tag.
+     *
+     * @param string|null $src
+     *
+     * @return Track
      */
-    public static function track(): Track
+    public static function track(?string $src = null): Track
     {
-        return Track::tag();
+        return $src ? Track::tag()->src($src) : Track::tag();
     }
 
     /**
-     * Generates picture {@see Picture} tag.
+     * Generates a {@see Picture} tag.
      */
     public static function picture(): Picture
     {
@@ -1295,7 +1299,7 @@ final class Html
     }
 
     /**
-     * Generates source {@see Source} tag.
+     * Generates a {@see Source} tag.
      */
     public static function source(): Source
     {

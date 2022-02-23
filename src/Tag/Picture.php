@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use InvalidArgumentException;
 use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TagSourceTrait;
 
@@ -65,46 +64,29 @@ final class Picture extends NormalTag
     /**
      * @param int|string|null $width
      *
-     * @throws InvalidArgumentException
-     *
      * @return self
      */
     public function width($width): self
     {
-        if ($width !== null && !is_numeric($width)) {
-            throw new InvalidArgumentException('Width must be null or numeric. "' . gettype($width) . '" given.');
-        }
-
         return $this->imageAttribute('width', $width);
     }
 
     /**
      * @param int|string|null $height
      *
-     * @throws InvalidArgumentException
-     *
      * @return self
      */
     public function height($height): self
     {
-        if ($height !== null && !is_numeric($height)) {
-            throw new InvalidArgumentException('Width must be null or numeric. "' . gettype($height) . '" given.');
-        }
-
         return $this->imageAttribute('height', $height);
     }
 
     protected function generateContent(): string
     {
-        $content = '';
-
-        /** @var array<array-key, Source> $this->sources */
-        foreach ($this->sources as $source) {
-            $content .= $source->render();
-        }
+        $content = implode('', $this->sources);
 
         if ($this->image) {
-            $content .= $this->image->attributes($this->imageAttributes)->render();
+            $content .= $this->image->attributes($this->imageAttributes);
         }
 
         return $content;

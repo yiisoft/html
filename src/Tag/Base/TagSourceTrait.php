@@ -11,12 +11,13 @@ use Yiisoft\Html\Tag\Source;
  */
 trait TagSourceTrait
 {
+    /** @var array<array-key, Source> $sources */
     private array $sources = [];
 
-    public function sources(?Source ...$sources): self
+    public function sources(Source ...$sources): self
     {
         $new = clone $this;
-        $new->sources = array_filter($sources, static fn ($source) => $source !== null);
+        $new->sources = $sources;
 
         return $new;
     }

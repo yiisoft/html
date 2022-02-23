@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Media;
 
-use InvalidArgumentException;
 use Yiisoft\Html\Tag\Base\MediaTag;
 
 /**
@@ -12,6 +11,13 @@ use Yiisoft\Html\Tag\Base\MediaTag;
  */
 final class Video extends MediaTag
 {
+    /**
+     * @param string|null $poster
+     *
+     * @link https://html.spec.whatwg.org/multipage/media.html#attr-video-poster
+     *
+     * @return self
+     */
     public function poster(?string $poster): self
     {
         return $this->attribute('poster', $poster);
@@ -20,32 +26,24 @@ final class Video extends MediaTag
     /**
      * @param int|string|null $width
      *
-     * @throws InvalidArgumentException
+     * @link https://html.spec.whatwg.org/multipage/embedded-content-other.html#attr-dim-width
      *
      * @return self
      */
     public function width($width): self
     {
-        if ($width !== null && !is_numeric($width)) {
-            throw new InvalidArgumentException('Width must be null or numeric. "' . gettype($width) . '" given.');
-        }
-
         return $this->attribute('width', $width);
     }
 
     /**
      * @param int|string|null $height
      *
-     * @throws InvalidArgumentException
+     * @link https://html.spec.whatwg.org/multipage/embedded-content-other.html#attr-dim-height
      *
      * @return self
      */
     public function height($height): self
     {
-        if ($height !== null && !is_numeric($height)) {
-            throw new InvalidArgumentException('Height must be null or numeric. "' . gettype($height) . '" given.');
-        }
-
         return $this->attribute('height', $height);
     }
 
