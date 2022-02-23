@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Media\Audio;
 use Yiisoft\Html\Tag\Source;
 use Yiisoft\Html\Tag\Media\Track;
-use Yiisoft\Html\Html;
 
 final class AudioTest extends TestCase
 {
@@ -56,7 +55,7 @@ final class AudioTest extends TestCase
             ->loop(false)
             ->muted(false)
             ->controls()
-            ->fallback(Html::p('Your browser does not support the audio element.'))
+            ->fallback('<p>Your browser does not support the audio element.</p>')
             ->sources(
                 Source::tag()->src('myAudio.mp3')->type('audio/mpeg'),
                 Source::tag()->src('myAudio.ogg')->type('audio/ogg')
