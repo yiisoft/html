@@ -1280,14 +1280,11 @@ final class Html
 
     /**
      * Generates a {@see Track} tag.
-     *
-     * @param string|null $src
-     *
-     * @return Track
      */
     public static function track(?string $src = null): Track
     {
-        return $src ? Track::tag()->src($src) : Track::tag();
+        $tag = Track::tag();
+        return $src === null ? $tag : $tag->src($src);
     }
 
     /**

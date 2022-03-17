@@ -19,19 +19,11 @@ final class Track extends VoidTag
 
     public function isDefault(): bool
     {
-        if (isset($this->attributes['default'])) {
-            return $this->attributes['default'] !== false;
-        }
-
-        return false;
+        return (bool) ($this->attributes['default'] ?? false);
     }
 
     /**
-     * @param bool $default
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-track-default
-     *
-     * @return self
      */
     public function default(bool $default = true): self
     {
@@ -39,11 +31,13 @@ final class Track extends VoidTag
     }
 
     /**
-     * @param string|null $kind
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-track-kind
      *
-     * @return self
+     * @see self::SUBTITLES
+     * @see self::CAPTIONS
+     * @see self::DESCRIPTIONS
+     * @see self::CHAPTERS
+     * @see self::METADATA
      */
     public function kind(?string $kind): self
     {
@@ -51,11 +45,7 @@ final class Track extends VoidTag
     }
 
     /**
-     * @param string|null $label
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-track-label
-     *
-     * @return self
      */
     public function label(?string $label): self
     {
@@ -63,11 +53,7 @@ final class Track extends VoidTag
     }
 
     /**
-     * @param string $src
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-track-src
-     *
-     * @return self
      */
     public function src(string $src): self
     {
@@ -75,11 +61,7 @@ final class Track extends VoidTag
     }
 
     /**
-     * @param string|null $srclang
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-track-srclang
-     *
-     * @return self
      */
     public function srclang(?string $srclang): self
     {
