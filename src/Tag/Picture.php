@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\NormalTag;
-use Yiisoft\Html\Tag\Base\TagSourceTrait;
+use Yiisoft\Html\Tag\Base\TagSourcesTrait;
 
 /**
  * @link https://html.spec.whatwg.org/multipage/embedded-content.html#the-picture-element
  */
 final class Picture extends NormalTag
 {
-    use TagSourceTrait;
+    use TagSourcesTrait;
 
     private ?Img $image = null;
     private array $imageAttributes = [];

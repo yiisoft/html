@@ -10,7 +10,7 @@ use Yiisoft\Html\Tag\Track;
 
 abstract class MediaTag extends NormalTag
 {
-    use TagSourceTrait;
+    use TagSourcesTrait;
 
     /**
      * Preload allowed values
