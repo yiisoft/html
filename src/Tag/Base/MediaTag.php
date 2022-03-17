@@ -6,7 +6,7 @@ namespace Yiisoft\Html\Tag\Base;
 
 use InvalidArgumentException;
 use Stringable;
-use Yiisoft\Html\Tag\Media\Track;
+use Yiisoft\Html\Tag\Track;
 
 abstract class MediaTag extends NormalTag
 {

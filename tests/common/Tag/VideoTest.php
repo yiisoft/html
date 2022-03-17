@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tests\Tag\Media;
+namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\TestCase;
-use Yiisoft\Html\Tag\Media\Video;
-use Yiisoft\Html\Tag\Media\Track;
+use Yiisoft\Html\Tag\Video;
+use Yiisoft\Html\Tag\Track;
 use Yiisoft\Html\Tag\Source;
 
 final class VideoTest extends TestCase

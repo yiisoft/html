@@ -6,7 +6,7 @@ namespace Yiisoft\Html\Tests\Php8\Tag\Media;
 
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Tag\Media\Audio;
+use Yiisoft\Html\Tag\Audio;
 
 final class MediaTest extends TestCase
 {

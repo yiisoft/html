@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tag\Media;
+namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\VoidTag;
 

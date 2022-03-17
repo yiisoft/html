@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Yiisoft\Html\Tests\Tag\Media;
+namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\TestCase;
-use Yiisoft\Html\Tag\Media\Audio;
+use Yiisoft\Html\Tag\Audio;
 use Yiisoft\Html\Tag\Source;
-use Yiisoft\Html\Tag\Media\Track;
+use Yiisoft\Html\Tag\Track;
 
 final class AudioTest extends TestCase
 {
