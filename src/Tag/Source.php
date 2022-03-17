@@ -12,11 +12,7 @@ use Yiisoft\Html\Tag\Base\VoidTag;
 final class Source extends VoidTag
 {
     /**
-     * @param string|null $type
-     *
      * @link https://html.spec.whatwg.org/multipage/embedded-content.html#attr-source-type
-     *
-     * @return self
      */
     public function type(?string $type): self
     {
@@ -24,11 +20,7 @@ final class Source extends VoidTag
     }
 
     /**
-     * @param string|null $src
-     *
      * @link https://html.spec.whatwg.org/multipage/embedded-content.html#attr-source-src
-     *
-     * @return self
      */
     public function src(?string $src): self
     {
@@ -36,39 +28,27 @@ final class Source extends VoidTag
     }
 
     /**
-     * @param string|null $srcsets
-     *
      * @link https://html.spec.whatwg.org/multipage/embedded-content.html#attr-source-srcset
-     *
-     * @return self
      */
     public function srcset(?string ...$srcsets): self
     {
-        $items = array_diff($srcsets, ['']);
+        $items = array_diff($srcsets, [null]);
 
         return $this->attribute('srcset', $items ? implode(',', $items) : null);
     }
 
     /**
-     * @param string|null $sizes
-     *
      * @link https://html.spec.whatwg.org/multipage/embedded-content.html#attr-source-sizes
-     *
-     * @return self
      */
     public function sizes(?string ...$sizes): self
     {
-        $items = array_diff($sizes, ['']);
+        $items = array_diff($sizes, [null]);
 
         return $this->attribute('sizes', $items ? implode(',', $items) : null);
     }
 
     /**
-     * @param string|null $media
-     *
      * @link https://html.spec.whatwg.org/multipage/embedded-content.html#attr-source-media
-     *
-     * @return self
      */
     public function media(?string $media): self
     {
@@ -79,8 +59,6 @@ final class Source extends VoidTag
      * @param int|string|null $width
      *
      * @link https://html.spec.whatwg.org/multipage/embedded-content-other.html#attr-dim-width
-     *
-     * @return self
      */
     public function width($width): self
     {
@@ -91,8 +69,6 @@ final class Source extends VoidTag
      * @param int|string|null $height
      *
      * @link https://html.spec.whatwg.org/multipage/embedded-content-other.html#attr-dim-height
-     *
-     * @return self
      */
     public function height($height): self
     {
