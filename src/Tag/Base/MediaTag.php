@@ -151,7 +151,7 @@ abstract class MediaTag extends NormalTag
 
     final protected function generateContent(): string
     {
-        $items = isset($this->attributes['src']) ? [] : $this->sources;
+        $items = $this->sources;
 
         $hasDefaultTrack = false;
         foreach ($this->tracks as $track) {

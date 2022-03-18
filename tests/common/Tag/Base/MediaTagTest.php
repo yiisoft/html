@@ -156,4 +156,19 @@ final class MediaTagTest extends TestCase
         $this->assertSame('<test></test>', (string) TestMediaTag::tag()->controls(false));
         $this->assertSame('<test></test>', (string) TestMediaTag::tag()->controls(true)->controls(false));
     }
+
+    public function testImmutability(): void
+    {
+        $tag = TestMediaTag::tag();
+        $this->assertNotSame($tag, $tag->fallback(null));
+        $this->assertNotSame($tag, $tag->tracks());
+        $this->assertNotSame($tag, $tag->addTrack(Track::tag()));
+        $this->assertNotSame($tag, $tag->src(null));
+        $this->assertNotSame($tag, $tag->crossOrigin(null));
+        $this->assertNotSame($tag, $tag->preload(null));
+        $this->assertNotSame($tag, $tag->muted());
+        $this->assertNotSame($tag, $tag->loop());
+        $this->assertNotSame($tag, $tag->autoplay());
+        $this->assertNotSame($tag, $tag->controls());
+    }
 }

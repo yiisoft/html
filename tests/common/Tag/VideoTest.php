@@ -9,148 +9,80 @@ use Yiisoft\Html\Tag\Video;
 use Yiisoft\Html\Tag\Track;
 use Yiisoft\Html\Tag\Source;
 
-final class VideoTest/* extends TestCase*/
+final class VideoTest extends TestCase
 {
-    public function testSimpleVideo(): void
+    public function testBase(): void
     {
-        $video = Video::tag()->src('sample.mp4')->render();
-        $expected = '<video src="sample.mp4"></video>';
-
-        $this->assertSame($expected, $video);
+        $this->assertSame(
+            '<video controls>' . "\n" .
+            '<source src="a.mp4">' . "\n" .
+            '<source src="b.avi">' . "\n" .
+            '<track src="c.mp4">' . "\n" .
+            'Your browser does not support video.' . "\n" .
+            '</video>',
+            (string) Video::tag()
+                ->controls()
+                ->sources(Source::tag()->src('a.mp4'), Source::tag()->src('b.avi'))
+                ->tracks(Track::tag()->src('c.mp4'))
+                ->fallback('Your browser does not support video.')
+        );
     }
 
-    public function testVideoAttributes(): void
+    public function dataPoster(): array
     {
-        $video = Video::tag()
-            ->src('sample.mp4')
-            ->width('640')
-            ->height(480)
-            ->poster('poster.jpg')
-            ->autoplay(false)
-            ->controls(true)
-            ->render();
-        $expected = '<video src="sample.mp4" width="640" height="480" poster="poster.jpg" controls></video>';
-
-        $this->assertSame($expected, $video);
+        return [
+            ['<video></video>', null],
+            ['<video poster="face.jpg"></video>', 'face.jpg'],
+        ];
     }
 
-    public function testVideoSources(): void
+    /**
+     * @dataProvider dataPoster
+     */
+    public function testPoster(string $expected, ?string $poster): void
     {
-        $video = Video::tag()
-            ->width('640')
-            ->height(480)
-            ->poster('poster.jpg')
-            ->autoplay(false)
-            ->controls(true)
-            ->loop(true)
-            ->fallback("I'm sorry; your browser doesn't support HTML5 video.")
-            ->sources(
-                Source::tag()->src('foo.webm')->type('video/webm'),
-                Source::tag()->src('foo.ogg')->type('video/ogg'),
-                Source::tag()->src('foo.mov')->type('video/quicktime')
-            )->render();
-        $html = trim(str_replace('>', ">\n", $video));
-        $expected = <<<'HTML'
-        <video width="640" height="480" poster="poster.jpg" controls loop>
-        <source type="video/webm" src="foo.webm">
-        <source type="video/ogg" src="foo.ogg">
-        <source type="video/quicktime" src="foo.mov">
-        I'm sorry; your browser doesn't support HTML5 video.</video>
-        HTML;
-
-        $this->assertSame($expected, $html);
+        $this->assertSame($expected, (string) Video::tag()->poster($poster));
     }
 
-    public function testVideoTracks(): void
+    public function dataWidth(): array
     {
-        $video = Video::tag()
-            ->width('640')
-            ->height(480)
-            ->poster('poster.jpg')
-            ->autoplay(false)
-            ->controls(true)
-            ->loop(true)
-            ->fallback("I'm sorry; your browser doesn't support HTML5 video.")
-            ->sources(
-                Source::tag()->src('foo.webm')->type('video/webm'),
-                Source::tag()->src('foo.ogg')->type('video/ogg'),
-                Source::tag()->src('foo.mov')->type('video/quicktime')
-            )->tracks(
-                Track::tag()->kind('captions')->src('sampleCaptions.vtt')->srclang('en'),
-                Track::tag()->kind('descriptions')->src('sampleDescriptions.vtt')->srclang('de'),
-                Track::tag()->kind('chapters')->src('sampleChapters.vtt')->srclang('ja')->default()
-            )->render();
-        $html = trim(str_replace('>', ">\n", $video));
-        $expected = <<<'HTML'
-        <video width="640" height="480" poster="poster.jpg" controls loop>
-        <source type="video/webm" src="foo.webm">
-        <source type="video/ogg" src="foo.ogg">
-        <source type="video/quicktime" src="foo.mov">
-        <track src="sampleCaptions.vtt" kind="captions" srclang="en">
-        <track src="sampleDescriptions.vtt" kind="descriptions" srclang="de">
-        <track src="sampleChapters.vtt" kind="chapters" srclang="ja" default>
-        I'm sorry; your browser doesn't support HTML5 video.</video>
-        HTML;
-
-        $this->assertSame($expected, $html);
+        return [
+            ['<video></video>', null],
+            ['<video width="300"></video>', 300],
+            ['<video width="50%"></video>', '50%'],
+        ];
     }
 
-    public function testWrongTrackDefault(): void
+    /**
+     * @dataProvider dataWidth
+     */
+    public function testWidth(string $expected, $width): void
     {
-        $video = Video::tag()
-            ->width('640')
-            ->height(480)
-            ->poster('poster.jpg')
-            ->autoplay(false)
-            ->controls(true)
-            ->loop(true)
-            ->fallback("I'm sorry; your browser doesn't support HTML5 video.")
-            ->sources(
-                Source::tag()->src('foo.webm')->type('video/webm'),
-                Source::tag()->src('foo.ogg')->type('video/ogg'),
-                Source::tag()->src('foo.mov')->type('video/quicktime')
-            )->tracks(
-                Track::tag()->kind('captions')->src('sampleCaptions.vtt')->srclang('en')->default(),
-                Track::tag()->kind('descriptions')->src('sampleDescriptions.vtt')->srclang('de'),
-                Track::tag()->kind('chapters')->src('sampleChapters.vtt')->srclang('ja')->default()
-            )->render();
-        $html = trim(str_replace('>', ">\n", $video));
-        $expected = <<<'HTML'
-        <video width="640" height="480" poster="poster.jpg" controls loop>
-        <source type="video/webm" src="foo.webm">
-        <source type="video/ogg" src="foo.ogg">
-        <source type="video/quicktime" src="foo.mov">
-        <track src="sampleCaptions.vtt" kind="captions" srclang="en" default>
-        <track src="sampleDescriptions.vtt" kind="descriptions" srclang="de">
-        <track src="sampleChapters.vtt" kind="chapters" srclang="ja">
-        I'm sorry; your browser doesn't support HTML5 video.</video>
-        HTML;
-
-        $this->assertSame($expected, $html);
+        $this->assertSame($expected, (string) Video::tag()->width($width));
     }
 
-    public function testSrcWithSource(): void
+    public function dataHeight(): array
     {
-        $video = Video::tag()
-            ->src('video.mp4')
-            ->width(640)
-            ->height('480')
-            ->poster('poster.jpg')
-            ->autoplay(false)
-            ->controls(true)
-            ->loop(true)
-            ->fallback("I'm sorry; your browser doesn't support HTML5 video.")
-            ->sources(
-                Source::tag()->src('foo.webm')->type('video/webm'),
-                Source::tag()->src('foo.ogg')->type('video/ogg'),
-                Source::tag()->src('foo.mov')->type('video/quicktime')
-            )->render();
-        $html = trim(str_replace('>', ">\n", $video));
-        $expected = <<<'HTML'
-        <video src="video.mp4" width="640" height="480" poster="poster.jpg" controls loop>
-        I'm sorry; your browser doesn't support HTML5 video.</video>
-        HTML;
+        return [
+            ['<video></video>', null],
+            ['<video height="300"></video>', 300],
+            ['<video height="50%"></video>', '50%'],
+        ];
+    }
 
-        $this->assertSame($expected, $html);
+    /**
+     * @dataProvider dataHeight
+     */
+    public function testHeight(string $expected, $height): void
+    {
+        $this->assertSame($expected, (string) Video::tag()->height($height));
+    }
+
+    public function testImmutability(): void
+    {
+        $tag = Video::tag();
+        $this->assertNotSame($tag, $tag->poster(null));
+        $this->assertNotSame($tag, $tag->width(null));
+        $this->assertNotSame($tag, $tag->height(null));
     }
 }

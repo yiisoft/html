@@ -12,11 +12,7 @@ use Yiisoft\Html\Tag\Base\MediaTag;
 final class Video extends MediaTag
 {
     /**
-     * @param string|null $poster
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-video-poster
-     *
-     * @return self
      */
     public function poster(?string $poster): self
     {
@@ -27,8 +23,6 @@ final class Video extends MediaTag
      * @param int|string|null $width
      *
      * @link https://html.spec.whatwg.org/multipage/embedded-content-other.html#attr-dim-width
-     *
-     * @return self
      */
     public function width($width): self
     {
@@ -39,8 +33,6 @@ final class Video extends MediaTag
      * @param int|string|null $height
      *
      * @link https://html.spec.whatwg.org/multipage/embedded-content-other.html#attr-dim-height
-     *
-     * @return self
      */
     public function height($height): self
     {
