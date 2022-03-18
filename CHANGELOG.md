@@ -5,7 +5,7 @@
 - New #95: Add class for tag `Title` and method `Html::title()` (vjik)
 - New #96: Add classes for heading tags `H1-6` and methods `Html::h1()`, `Html::h2()`, `Html::h3()`, `Html::h4()`,
   `Html::h5()`, `Html::h6()` (vjik)
-- New #100 Add classes for tags `Picture`, `Audio`, `Video`, `Source` and `Track` (Gerych1984)
+- New #100 Add classes for tags `Picture`, `Audio`, `Video`, `Source` and `Track` (Gerych1984, vjik)
 
 ## 2.2.1 October 24, 2021
 
