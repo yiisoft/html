@@ -15,81 +15,23 @@ final class Picture extends NormalTag
     use TagSourcesTrait;
 
     private ?Img $image = null;
-    private array $imageAttributes = [];
 
     public function image(?Img $image): self
     {
         $new = clone $this;
         $new->image = $image;
-
         return $new;
-    }
-
-    public function imageAttributes(array $attributes): self
-    {
-        $new = clone $this;
-        $new->imageAttributes = $attributes;
-
-        return $new;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $value
-     *
-     * @return self
-     */
-    public function imageAttribute(string $name, $value): self
-    {
-        $new = clone $this;
-        $new->imageAttributes[$name] = $value;
-
-        return $new;
-    }
-
-    public function src(?string $src): self
-    {
-        if ($src) {
-            return $this->image(Img::tag()->src($src));
-        }
-
-        return $this->image(null);
-    }
-
-    public function alt(string $alt): self
-    {
-        return $this->imageAttribute('alt', $alt);
-    }
-
-    /**
-     * @param int|string|null $width
-     *
-     * @return self
-     */
-    public function width($width): self
-    {
-        return $this->imageAttribute('width', $width);
-    }
-
-    /**
-     * @param int|string|null $height
-     *
-     * @return self
-     */
-    public function height($height): self
-    {
-        return $this->imageAttribute('height', $height);
     }
 
     protected function generateContent(): string
     {
-        $content = implode('', $this->sources);
+        $items = $this->sources;
 
-        if ($this->image) {
-            $content .= $this->image->attributes($this->imageAttributes);
+        if ($this->image !== null) {
+            $items[] = $this->image;
         }
 
-        return $content;
+        return $items ? "\n" . implode("\n", $items) . "\n" : '';
     }
 
     protected function getName(): string

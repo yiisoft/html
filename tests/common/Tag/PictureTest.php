@@ -11,65 +11,47 @@ use Yiisoft\Html\Tag\Source;
 
 final class PictureTest extends TestCase
 {
-    public function testSimplePicture(): void
+    public function testBase(): void
     {
-        $img = Img::tag()->src('image.jpg')->width(100)->height(100);
-
-        $this->assertSame(
-            '<picture><img src="image.jpg" width="100" height="100"></picture>',
-            Picture::tag()->image($img)->render()
-        );
-
-        $this->assertSame(
-            '<picture><img src="image.jpg"></picture>',
-            Picture::tag()->src('image.jpg')->render()
-        );
-    }
-
-    public function testSourcePicture(): void
-    {
-        $img = Img::tag()->src('img_orange_flowers.jpg')->alt('Flowers');
-        $pink = Source::tag()->media('(min-width:650px)')->srcset('img_pink_flowers.jpg')->type('image/jpeg');
-        $white = Source::tag()->media('(min-width:465px)')->srcset('img_white_flower.jpg')->type('image/jpeg');
-        $picture = Picture::tag()->image($img)->sources($pink, $white);
-        $html = trim(str_replace('>', ">\n", $picture->render()));
-
-        $expected = <<<'HTML'
-        <picture>
-        <source type="image/jpeg" srcset="img_pink_flowers.jpg" media="(min-width:650px)">
-        <source type="image/jpeg" srcset="img_white_flower.jpg" media="(min-width:465px)">
-        <img src="img_orange_flowers.jpg" alt="Flowers">
-        </picture>
-        HTML;
-
-        $this->assertSame($expected, $html);
-    }
-
-    public function testPictureAttributes(): void
-    {
-        $pink = Source::tag()
-            ->media('(min-width:650px)')
-            ->srcset('img_pink_flowers.jpg')
-            ->width(200)
-            ->height(200)
-            ->type('image/jpeg');
-        $white = Source::tag()->media('(min-width:465px)')->srcset('img_white_flower.jpg')->type('image/jpeg');
         $picture = Picture::tag()
-            ->src('img_orange_flowers.jpg')
-            ->alt('Flowers')
-            ->width(100)
-            ->height(100)
-            ->sources($pink, $white);
-        $html = trim(str_replace('>', ">\n", $picture->render()));
+            ->image(Img::tag()->src('img_orange_flowers.jpg')->alt('Flowers'))
+            ->sources(
+                Source::tag()->media('(min-width:650px)')->srcset('img_pink_flowers.jpg')->type('image/jpeg'),
+                Source::tag()->media('(min-width:465px)')->srcset('img_white_flower.jpg')->type('image/jpeg')
+            );
 
-        $expected = <<<'HTML'
-        <picture>
-        <source type="image/jpeg" srcset="img_pink_flowers.jpg" width="200" height="200" media="(min-width:650px)">
-        <source type="image/jpeg" srcset="img_white_flower.jpg" media="(min-width:465px)">
-        <img src="img_orange_flowers.jpg" width="100" height="100" alt="Flowers">
-        </picture>
-        HTML;
+        $this->assertSame(
+            '<picture>' . "\n" .
+            '<source type="image/jpeg" srcset="img_pink_flowers.jpg" media="(min-width:650px)">' . "\n" .
+            '<source type="image/jpeg" srcset="img_white_flower.jpg" media="(min-width:465px)">' . "\n" .
+            '<img src="img_orange_flowers.jpg" alt="Flowers">' . "\n" .
+            '</picture>',
+            $picture->render()
+        );
+    }
 
-        $this->assertSame($expected, $html);
+    public function dataImg(): array
+    {
+        return [
+            ['<picture></picture>', null],
+            [
+                '<picture>' . "\n" . '<img src="image.jpg" width="100" height="100">' . "\n" . '</picture>',
+                Img::tag()->src('image.jpg')->width(100)->height(100),
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataImg
+     */
+    public function testImg(string $expected, ?Img $img): void
+    {
+        $this->assertSame($expected, Picture::tag()->image($img)->render());
+    }
+
+    public function testImmutability(): void
+    {
+        $tag = Picture::tag();
+        $this->assertNotSame($tag, $tag->image(null));
     }
 }
