@@ -663,6 +663,32 @@ final class HtmlTest extends TestCase
         self::assertSame('<br>', Html::br()->render());
     }
 
+    public function testVideo(): void
+    {
+        $this->assertSame('<video></video>', Html::video()->render());
+    }
+
+    public function testAudio(): void
+    {
+        $this->assertSame('<audio></audio>', Html::audio()->render());
+    }
+
+    public function testTrack(): void
+    {
+        $this->assertSame('<track>', Html::track()->render());
+        $this->assertSame('<track src="hi.png">', Html::track('hi.png')->render());
+    }
+
+    public function testPicture(): void
+    {
+        $this->assertSame('<picture></picture>', Html::picture()->render());
+    }
+
+    public function testSource(): void
+    {
+        $this->assertSame('<source>', Html::source()->render());
+    }
+
     public function dataRenderTagAttributes(): array
     {
         return [

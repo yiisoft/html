@@ -157,6 +157,24 @@ final class MediaTagTest extends TestCase
         $this->assertSame('<test></test>', (string) TestMediaTag::tag()->controls(true)->controls(false));
     }
 
+    public function testWrongTrackDefault(): void
+    {
+        $tag = TestMediaTag::tag()->tracks(
+            Track::tag()->kind('captions')->src('sampleCaptions.vtt')->srclang('en')->default(),
+            Track::tag()->kind('descriptions')->src('sampleDescriptions.vtt')->srclang('de'),
+            Track::tag()->kind('chapters')->src('sampleChapters.vtt')->srclang('ja')->default()
+        );
+
+        $this->assertSame(
+            '<test>' . "\n" .
+            '<track src="sampleCaptions.vtt" kind="captions" srclang="en" default>' . "\n" .
+            '<track src="sampleDescriptions.vtt" kind="descriptions" srclang="de">' . "\n" .
+            '<track src="sampleChapters.vtt" kind="chapters" srclang="ja">' . "\n" .
+            '</test>',
+            $tag->render()
+        );
+    }
+
     public function testImmutability(): void
     {
         $tag = TestMediaTag::tag();
