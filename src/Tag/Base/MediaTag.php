@@ -8,163 +8,158 @@ use InvalidArgumentException;
 use Stringable;
 use Yiisoft\Html\Tag\Track;
 
+use function get_class;
+use function gettype;
+use function is_object;
+use function is_string;
+
 abstract class MediaTag extends NormalTag
 {
     use TagSourcesTrait;
 
     /**
-     * Preload allowed values
+     * The "preload" attribute allowed values.
      */
     public const PRELOAD_NONE = 'none';
     public const PRELOAD_METADATA = 'metadata';
     public const PRELOAD_AUTO = 'auto';
 
     /**
-     * Crossorigin allowed values
+     * The "crossorigin" attribute allowed values.
      */
     public const CROSSORIGIN_ANONYMOUS = 'anonymous';
     public const CROSSORIGIN_CREDENTIALS = 'use-credentials';
 
     private ?string $fallback = null;
-    /** @var array<array-key, Track> $tracks */
+
+    /**
+     * @var Track[]
+     */
     private array $tracks = [];
 
     /**
-     * Content for browser that doesn't support media tags
+     * Content for browser that doesn't support media tags.
      *
-     * @param mixed $fallback
+     * @param string|Stringable|null $fallback
      *
      * @return static
      */
-    public function fallback($fallback): self
+    final public function fallback($fallback): self
     {
-        if ($fallback !== null && !\is_string($fallback) && !$fallback instanceof Stringable) {
-            $value = \is_object($fallback) ? \get_class($fallback) : \gettype($fallback);
-            throw new InvalidArgumentException('Fallback content  must be null, string or Stringable. "' . $value . ' given');
+        if ($fallback !== null && !is_string($fallback) && !$fallback instanceof Stringable) {
+            /** @psalm-suppress RedundantConditionGivenDocblockType,DocblockTypeContradiction */
+            $value = is_object($fallback) ? get_class($fallback) : gettype($fallback);
+            throw new InvalidArgumentException(
+                'Fallback content must be null, string or Stringable. "' . $value . '" given.'
+            );
         }
 
         $new = clone $this;
-        $new->fallback = $fallback ? (string) $fallback : null;
-
-        return $new;
-    }
-
-    public function tracks(Track ...$tracks): self
-    {
-        $new = clone $this;
-        $new->tracks = $tracks;
-
-        return $new;
-    }
-
-    public function addTrack(Track $track): self
-    {
-        $new = clone $this;
-        $new->tracks[] = $track;
-
+        $new->fallback = $fallback === null ? null : (string) $fallback;
         return $new;
     }
 
     /**
-     * @param string|null $src
-     *
-     * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-src
+     * @return static
+     */
+    final public function tracks(Track ...$tracks): self
+    {
+        $new = clone $this;
+        $new->tracks = $tracks;
+        return $new;
+    }
+
+    /**
+     * @return static
+     */
+    final public function addTrack(Track $track): self
+    {
+        $new = clone $this;
+        $new->tracks[] = $track;
+        return $new;
+    }
+
+    /**
+     *s @link https://html.spec.whatwg.org/multipage/media.html#attr-media-src
      *
      * @return static
      */
-    public function src(?string $src): self
+    final public function src(?string $src): self
     {
         return $this->attribute('src', $src);
     }
 
     /**
-     * @param string|null $crossorigin
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-crossorigin
      *
      * @return static
      */
-    public function crossorigin(?string $crossorigin): self
+    final public function crossOrigin(?string $value): self
     {
-        return $this->attribute('crossorigin', $crossorigin);
+        return $this->attribute('crossorigin', $value);
     }
 
     /**
-     * @param string|null $preload
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-preload
      *
      * @return static
      */
-    public function preload(?string $preload): self
+    final public function preload(?string $preload): self
     {
         return $this->attribute('preload', $preload);
     }
 
     /**
-     * @param bool $muted
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-muted
      *
      * @return static
      */
-    public function muted(bool $muted = true): self
+    final public function muted(bool $muted = true): self
     {
         return $this->attribute('muted', $muted);
     }
 
     /**
-     * @param bool $loop
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-loop
      *
      * @return static
      */
-    public function loop(bool $loop = true): self
+    final public function loop(bool $loop = true): self
     {
         return $this->attribute('loop', $loop);
     }
 
     /**
-     * @param bool $autoplay
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-autoplay
      *
      * @return static
      */
-    public function autoplay(bool $autoplay = true): self
+    final public function autoplay(bool $autoplay = true): self
     {
         return $this->attribute('autoplay', $autoplay);
     }
 
     /**
-     * @param bool $controls
-     *
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-autoplay
      *
      * @return static
      */
-    public function controls(bool $controls = true): self
+    final public function controls(bool $controls = true): self
     {
         return $this->attribute('controls', $controls);
     }
 
     final protected function generateContent(): string
     {
-        $content = '';
+        $items = isset($this->attributes['src']) ? [] : $this->sources;
+
         $hasDefaultTrack = false;
-
-        if (!isset($this->attributes['src'])) {
-            $content .= implode('', $this->sources);
-        }
-
         foreach ($this->tracks as $track) {
             $isDefault = $track->isDefault();
             if ($hasDefaultTrack && $isDefault) {
-                $content .= $track->default(false);
+                $items[] = $track->default(false);
             } else {
-                $content .= $track;
-
+                $items[] = $track;
                 if (!$hasDefaultTrack) {
                     $hasDefaultTrack = $isDefault;
                 }
@@ -172,9 +167,9 @@ abstract class MediaTag extends NormalTag
         }
 
         if ($this->fallback) {
-            $content .= $this->fallback;
+            $items[] = $this->fallback;
         }
 
-        return $content;
+        return $items ? "\n" . implode("\n", $items) . "\n" : '';
     }
 }

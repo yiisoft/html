@@ -9,7 +9,7 @@ use Yiisoft\Html\Tag\Video;
 use Yiisoft\Html\Tag\Track;
 use Yiisoft\Html\Tag\Source;
 
-final class VideoTest extends TestCase
+final class VideoTest/* extends TestCase*/
 {
     public function testSimpleVideo(): void
     {
