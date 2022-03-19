@@ -32,7 +32,6 @@ final class Track extends VoidTag
 
     /**
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-track-kind
-     *
      * @see self::SUBTITLES
      * @see self::CAPTIONS
      * @see self::DESCRIPTIONS
