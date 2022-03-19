@@ -32,14 +32,19 @@ use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
+use Yiisoft\Html\Tag\Audio;
+use Yiisoft\Html\Tag\Track;
+use Yiisoft\Html\Tag\Video;
 use Yiisoft\Html\Tag\Meta;
 use Yiisoft\Html\Tag\Noscript;
 use Yiisoft\Html\Tag\Ol;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
 use Yiisoft\Html\Tag\P;
+use Yiisoft\Html\Tag\Picture;
 use Yiisoft\Html\Tag\Script;
 use Yiisoft\Html\Tag\Select;
+use Yiisoft\Html\Tag\Source;
 use Yiisoft\Html\Tag\Span;
 use Yiisoft\Html\Tag\Strong;
 use Yiisoft\Html\Tag\Style;
@@ -1255,6 +1260,47 @@ final class Html
     public static function br(): Br
     {
         return Br::tag();
+    }
+
+    /**
+     * Generates a {@see Video} tag.
+     */
+    public static function video(): Video
+    {
+        return Video::tag();
+    }
+
+    /**
+     * Generates a {@see Audio} tag.
+     */
+    public static function audio(): Audio
+    {
+        return Audio::tag();
+    }
+
+    /**
+     * Generates a {@see Track} tag.
+     */
+    public static function track(?string $src = null): Track
+    {
+        $tag = Track::tag();
+        return $src === null ? $tag : $tag->src($src);
+    }
+
+    /**
+     * Generates a {@see Picture} tag.
+     */
+    public static function picture(): Picture
+    {
+        return Picture::tag();
+    }
+
+    /**
+     * Generates a {@see Source} tag.
+     */
+    public static function source(): Source
+    {
+        return Source::tag();
     }
 
     /**
