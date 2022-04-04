@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 2.3.1 under development
+## 2.4.0 under development
 
 - New #103: Add class for tag `Form` and method `Html::form()` (vjik)
 
