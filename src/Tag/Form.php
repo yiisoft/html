@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TagContentTrait;
 
@@ -13,6 +14,9 @@ use Yiisoft\Html\Tag\Base\TagContentTrait;
 final class Form extends NormalTag
 {
     use TagContentTrait;
+
+    private ?string $csrfToken = null;
+    private ?string $csrfName = null;
 
     public function get(?string $url = null): self
     {
@@ -31,6 +35,17 @@ final class Form extends NormalTag
         if ($url !== null) {
             $new->attributes['action'] = $url;
         }
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable|null $token
+     */
+    public function csrf($token, string $name = '_csrf'): self
+    {
+        $new = clone $this;
+        $new->csrfToken = $token === null ? null : (string)$token;
+        $new->csrfName = $name;
         return $new;
     }
 
@@ -121,6 +136,13 @@ final class Form extends NormalTag
         $new = clone $this;
         $new->attributes['target'] = $target;
         return $new;
+    }
+
+    protected function prepend(): string
+    {
+        return $this->csrfToken !== null
+            ? PHP_EOL . Input::hidden($this->csrfName, $this->csrfToken)
+            : '';
     }
 
     protected function getName(): string

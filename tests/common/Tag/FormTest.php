@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Button;
 use Yiisoft\Html\Tag\Form;
 use Yiisoft\Html\Tag\Input;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 
 final class FormTest extends TestCase
 {
@@ -60,6 +61,41 @@ final class FormTest extends TestCase
         $this->assertSame(
             '<form method="POST"></form>',
             Form::tag()->post()->render()
+        );
+    }
+
+    public function testCsrf(): void
+    {
+        $tag = Form::tag()->csrf('abc', 'csrf-token');
+
+        $this->assertSame(
+            '<form>' . PHP_EOL .
+            '<input type="hidden" name="csrf-token" value="abc">',
+            $tag->open()
+        );
+
+        $this->assertSame(
+            '<form>' . PHP_EOL .
+            '<input type="hidden" name="csrf-token" value="abc"></form>',
+            $tag->render()
+        );
+    }
+
+    public function testCsrfDefaultName(): void
+    {
+        $this->assertSame(
+            '<form>' . PHP_EOL .
+            '<input type="hidden" name="_csrf" value="abc"></form>',
+            Form::tag()->csrf('abc')->render()
+        );
+    }
+
+    public function testStringableCsrfToken(): void
+    {
+        $this->assertSame(
+            '<form>' . PHP_EOL .
+            '<input type="hidden" name="_csrf" value="abc"></form>',
+            Form::tag()->csrf(new StringableObject('abc'))->render()
         );
     }
 
