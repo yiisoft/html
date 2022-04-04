@@ -2,7 +2,7 @@
 
 ## 2.3.1 under development
 
-- no changes in this release.
+- New #103: Add class for tag `Form` and method `Html::form()` (vjik)
 
 ## 2.3.0 March 25, 2022
 

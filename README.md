@@ -278,6 +278,7 @@ Overall the helper has the following method groups.
 - buttonInput
 - checkbox
 - fileInput
+- form
 - hiddenInput
 - input
 - label
