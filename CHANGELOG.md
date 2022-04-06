@@ -2,7 +2,7 @@
 
 ## 2.3.1 under development
 
-- no changes in this release.
+- Enh #106: Add option groups support to method `Select::optionsData()` (vjik)
 
 ## 2.3.0 March 25, 2022
 
