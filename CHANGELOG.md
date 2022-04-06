@@ -1,8 +1,9 @@
 # Yii HTML Change Log
 
-## 2.3.1 under development
+## 3.0.0 under development
 
-- no changes in this release.
+- New #105: Add specialized class `File` for an input tag with type `file` (vjik)
+- Chg #105: Rename `Html::fileInput()` to `Html::file()`, `Html::file()` and `Input::file()` returns `File` (vjik)
 
 ## 2.3.0 March 25, 2022
 
