@@ -221,6 +221,26 @@ final class HtmlTest extends TestCase
         $this->assertSame('<img src="face.png" alt="My Face">', Html::img('face.png', 'My Face')->render());
     }
 
+    public function testForm(): void
+    {
+        $this->assertSame(
+            '<form></form>',
+            Html::form()->render()
+        );
+        $this->assertSame(
+            '<form action="https://example.com/send"></form>',
+            Html::form('https://example.com/send')->render()
+        );
+        $this->assertSame(
+            '<form action="https://example.com/send" method="GET"></form>',
+            Html::form('https://example.com/send', 'GET')->render()
+        );
+        $this->assertSame(
+            '<form class="red-form" action="https://example.com/send" method="GET"></form>',
+            Html::form('https://example.com/send', 'GET', ['class' => 'red-form'])->render()
+        );
+    }
+
     public function testLabel(): void
     {
         $this->assertSame('<label></label>', Html::label()->render());

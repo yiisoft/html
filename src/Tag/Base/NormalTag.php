@@ -31,7 +31,12 @@ abstract class NormalTag extends Tag
      */
     final public function open(): string
     {
-        return '<' . $this->getName() . $this->renderAttributes() . '>';
+        return '<' . $this->getName() . $this->renderAttributes() . '>' . $this->prepend();
+    }
+
+    protected function prepend(): string
+    {
+        return '';
     }
 
     /**
