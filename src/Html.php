@@ -28,6 +28,7 @@ use Yiisoft\Html\Tag\I;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
 use Yiisoft\Html\Tag\Input\Checkbox;
+use Yiisoft\Html\Tag\Input\File;
 use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Li;
@@ -754,7 +755,7 @@ final class Html
      *
      * @psalm-param HtmlAttributes $attributes
      */
-    public static function fileInput(?string $name = null, $value = null, array $attributes = []): Input
+    public static function file(?string $name = null, $value = null, array $attributes = []): File
     {
         $tag = Input::file($name, $value);
         return $attributes === [] ? $tag : $tag->attributes($attributes);

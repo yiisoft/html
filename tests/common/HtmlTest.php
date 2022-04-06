@@ -351,19 +351,19 @@ final class HtmlTest extends TestCase
         );
     }
 
-    public function testFileInput(): void
+    public function testFile(): void
     {
-        $this->assertSame('<input type="file">', Html::fileInput()->render());
-        $this->assertSame('<input type="file" name>', Html::fileInput('')->render());
-        $this->assertSame('<input type="file" value>', Html::fileInput(null, '')->render());
-        $this->assertSame('<input type="file" name="test">', Html::fileInput('test')->render());
+        $this->assertSame('<input type="file">', Html::file()->render());
+        $this->assertSame('<input type="file" name>', Html::file('')->render());
+        $this->assertSame('<input type="file" value>', Html::file(null, '')->render());
+        $this->assertSame('<input type="file" name="test">', Html::file('test')->render());
         $this->assertSame(
             '<input type="file" name="test" value="43">',
-            Html::fileInput('test', '43')->render(),
+            Html::file('test', '43')->render(),
         );
         $this->assertSame(
             '<input type="file" class="photo" name="test" value="43">',
-            Html::fileInput('test', '43', ['class' => 'photo'])->render(),
+            Html::file('test', '43', ['class' => 'photo'])->render(),
         );
     }
 

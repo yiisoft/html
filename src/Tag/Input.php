@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\InputTag;
 use Yiisoft\Html\Tag\Input\Checkbox;
+use Yiisoft\Html\Tag\Input\File;
 use Yiisoft\Html\Tag\Input\Radio;
 
 /**
@@ -80,14 +81,17 @@ final class Input extends InputTag
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
      *
-     * @return self
+     * @return File
      */
-    public static function file(?string $name = null, $value = null): self
+    public static function file(?string $name = null, $value = null): File
     {
-        $input = self::tag();
-        $input->attributes['type'] = 'file';
-        $input->attributes['name'] = $name;
-        $input->attributes['value'] = $value;
+        $input = File::tag();
+        if ($name !== null) {
+            $input = $input->name($name);
+        }
+        if ($value !== null) {
+            $input = $input->value($value);
+        }
         return $input;
     }
 
