@@ -2,11 +2,9 @@
 
 ## 3.0.0 under development
 
+- New #103: Add class for tag `Form` and method `Html::form()` (vjik)
 - New #105: Add specialized class `File` for an input tag with type `file` (vjik)
 - Chg #105: Rename `Html::fileInput()` to `Html::file()`, `Html::file()` and `Input::file()` returns `File` (vjik)
-## 2.4.0 under development
-
-- New #103: Add class for tag `Form` and method `Html::form()` (vjik)
 - Enh #106: Add option groups support to method `Select::optionsData()` (vjik)
 
 ## 2.3.0 March 25, 2022
