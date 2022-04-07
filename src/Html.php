@@ -18,6 +18,7 @@ use Yiisoft\Html\Tag\Colgroup;
 use Yiisoft\Html\Tag\CustomTag;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Em;
+use Yiisoft\Html\Tag\Form;
 use Yiisoft\Html\Tag\H1;
 use Yiisoft\Html\Tag\H2;
 use Yiisoft\Html\Tag\H3;
@@ -526,6 +527,28 @@ final class Html
         }
         if ($alt !== null) {
             $tag = $tag->alt($alt);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Form} tag.
+     *
+     * @param string|null $action The URL to use for form submission.
+     * @param string|null $method The method attribute value.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function form(?string $action = null, ?string $method = null, array $attributes = []): Form
+    {
+        $tag = Form::tag();
+        if ($action !== null) {
+            $attributes['action'] = $action;
+        }
+        if ($method !== null) {
+            $attributes['method'] = $method;
+        }
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
