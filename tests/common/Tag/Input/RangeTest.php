@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag\Input;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Input\Range;
 use Yiisoft\Html\Tests\Objects\StringableObject;
+use Yiisoft\Html\Tests\Support\AssertTrait;
 
 final class RangeTest extends TestCase
 {
+    use AssertTrait;
+
     public function testBase(): void
     {
         $tag = Range::tag()
@@ -108,6 +112,93 @@ final class RangeTest extends TestCase
         $this->assertSame($expected, $tag->render());
     }
 
+    public function testShowOutput(): void
+    {
+        $tag = Range::tag()->showOutput();
+
+        $this->assertMatchesRegularExpression(
+            '~' .
+            '<input type="range" oninput="(?<id>rangeOutput\d*)\.innerHTML=this\.value">' .
+            "\n" .
+            '<span id="(?P=id)">-</span>' .
+            '~',
+            $tag->render()
+        );
+    }
+
+    public function testOutputWithCustomId(): void
+    {
+        $tag = Range::tag()
+            ->showOutput()
+            ->outputTagAttributes(['id' => 'UID']);
+
+        $this->assertMatchesRegularExpression(
+            '~' .
+            '<input type="range" oninput="UID.innerHTML=this\.value">' .
+            "\n" .
+            '<span id="UID">-</span>' .
+            '~',
+            $tag->render()
+        );
+    }
+
+    public function testOutputWithCustomTagName(): void
+    {
+        $tag = Range::tag()
+            ->showOutput()
+            ->outputTagName('b');
+
+        $this->assertMatchesRegularExpression(
+            '~' .
+            '<input type="range" oninput="(?<id>rangeOutput\d*)\.innerHTML=this\.value">' .
+            "\n" .
+            '<b id="(?P=id)">-</b>' .
+            '~',
+            $tag->render()
+        );
+    }
+
+    public function testOutputWithCustomTagAttributes(): void
+    {
+        $tag = Range::tag()
+            ->showOutput()
+            ->outputTagAttributes(['class' => 'red']);
+
+        $this->assertMatchesRegularExpression(
+            '~' .
+            '<input type="range" oninput="(?<id>rangeOutput\d*)\.innerHTML=this\.value">' .
+            "\n" .
+            '<span id="(?P=id)" class="red">-</span>' .
+            '~',
+            $tag->render()
+        );
+    }
+
+    public function testOutputWithValue(): void
+    {
+        $tag = Range::tag()
+            ->showOutput()
+            ->value(10);
+
+        $this->assertMatchesRegularExpression(
+            '~' .
+            '<input type="range" value="10" oninput="(?<id>rangeOutput\d*)\.innerHTML=this\.value">' .
+            "\n" .
+            '<span id="(?P=id)">10</span>' .
+            '~',
+            $tag->render()
+        );
+    }
+
+    public function testEmptyOutputTagName(): void
+    {
+        $tag = Range::tag();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The output tag name it cannot be empty value.');
+        $tag->outputTagName('');
+    }
+
     public function testImmutability(): void
     {
         $tag = Range::tag();
@@ -115,5 +206,9 @@ final class RangeTest extends TestCase
         $this->assertNotSame($tag, $tag->min(null));
         $this->assertNotSame($tag, $tag->max(null));
         $this->assertNotSame($tag, $tag->step(null));
+        $this->assertNotSame($tag, $tag->list(null));
+        $this->assertNotSame($tag, $tag->showOutput());
+        $this->assertNotSame($tag, $tag->outputTagName('b'));
+        $this->assertNotSame($tag, $tag->outputTagAttributes([]));
     }
 }

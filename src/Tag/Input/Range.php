@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Input;
 
+use InvalidArgumentException;
+use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\InputTag;
+use Yiisoft\Html\Tag\CustomTag;
 
 /**
  * An imprecise control for setting the element’s value to a string representing a number.
@@ -13,6 +16,15 @@ use Yiisoft\Html\Tag\Base\InputTag;
  */
 final class Range extends InputTag
 {
+    private bool $showOutput = false;
+
+    /**
+     * @psalm-var non-empty-string
+     */
+    private string $outputTagName = 'span';
+    private array $outputTagAttributes = [];
+    private ?string $outputTagId = null;
+
     /**
      * Maximum value.
      *
@@ -67,8 +79,51 @@ final class Range extends InputTag
         return $new;
     }
 
+    public function showOutput(bool $show = true): self
+    {
+        $new = clone $this;
+        $new->showOutput = $show;
+        return $new;
+    }
+
+    public function outputTagName(string $tagName): self
+    {
+        if ($tagName === '') {
+            throw new InvalidArgumentException('The output tag name it cannot be empty value.');
+        }
+
+        $new = clone $this;
+        $new->outputTagName = $tagName;
+        return $new;
+    }
+
+    public function outputTagAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->outputTagAttributes = $attributes;
+        return $new;
+    }
+
     protected function prepareAttributes(): void
     {
         $this->attributes['type'] = 'range';
+
+        if ($this->showOutput) {
+            $this->outputTagId = (string) ($this->outputTagAttributes['id'] ?? Html::generateId('rangeOutput'));
+            $this->attributes['oninput'] = $this->outputTagId . '.innerHTML=this.value';
+        }
+    }
+
+    protected function after(): string
+    {
+        if (!$this->showOutput) {
+            return '';
+        }
+
+        return "\n" . CustomTag::name($this->outputTagName)
+                ->attributes($this->outputTagAttributes)
+                ->content((string) ($this->attributes['value'] ?? '-'))
+                ->id($this->outputTagId)
+                ->render();
     }
 }
