@@ -279,7 +279,6 @@ Overall the helper has the following method groups.
 - checkbox
 - file
 - datalist
-- fileInput
 - form
 - hiddenInput
 - input
