@@ -99,9 +99,43 @@ final class Select extends NormalTag
     }
 
     /**
-     * @param array $data
+     * @param array $data Options data. The array keys are option values, and the array values are the corresponding
+     * option labels. The array can also be nested (i.e. some array values are arrays too). For each sub-array,
+     * an option group will be generated whose label is the key associated with the sub-array.
+     *
+     * Example:
+     * ```php
+     * [
+     *     '1' => 'Santiago',
+     *     '2' => 'Concepcion',
+     *     '3' => 'Chillan',
+     *     '4' => 'Moscow'
+     *     '5' => 'San Petersburg',
+     *     '6' => 'Novosibirsk',
+     *     '7' => 'Ekaterinburg'
+     * ];
+     * ```
+     *
+     * Example with options groups:
+     * ```php
+     * [
+     *     '1' => [
+     *         '1' => 'Santiago',
+     *         '2' => 'Concepcion',
+     *         '3' => 'Chillan',
+     *     ],
+     *     '2' => [
+     *         '4' => 'Moscow',
+     *         '5' => 'San Petersburg',
+     *         '6' => 'Novosibirsk',
+     *         '7' => 'Ekaterinburg'
+     *     ],
+     * ];
+     * ```
+     *
      * @param bool $encode Whether option content should be HTML-encoded.
-     * @param array[] $optionsAttributes
+     * @param array[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
+     * @param array[] $groupsAttributes Array of group attribute sets indexed by group labels from {@see $data}.
      *
      * @psalm-param array<array-key, string|array<array-key,string>> $data
      *
@@ -110,13 +144,15 @@ final class Select extends NormalTag
     public function optionsData(
         array $data,
         bool $encode = true,
-        array $optionsAttributes = []
+        array $optionsAttributes = [],
+        array $groupsAttributes = []
     ): self {
         $items = [];
         foreach ($data as $value => $content) {
             if (is_array($content)) {
                 $items[] = Optgroup::tag()
                     ->label((string) $value)
+                    ->attributes($groupsAttributes[$value] ?? [])
                     ->optionsData($content, $encode, $optionsAttributes);
             } else {
                 $items[] = Option::tag()

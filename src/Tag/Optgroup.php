@@ -28,7 +28,7 @@ final class Optgroup extends NormalTag
      *
      * @param string[] $data Value-content set of options.
      * @param bool $encode Whether to encode option content.
-     * @param array[] $optionsAttributes
+     * @param array[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
      *
      * @return self
      */
