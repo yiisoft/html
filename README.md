@@ -17,8 +17,8 @@
 
 The package provides various tools to help with dynamic server-side generation of HTML:
 
-- Tag classes `A`, `Audio`, `B`, `Br`, `Button`, `Caption`, `Col`, `Colgroup`, `Div`, `Em`, `Form`, `H1`, `H2`, `H3`,
- `H4`, `H5`, `H6` `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`, `File`), `Label`, `Li`, `Link`, `Meta`, 
+- Tag classes `A`, `Audio`, `B`, `Br`, `Button`, `Caption`, `Col`, `Colgroup`, `Datalist`, `Div`, `Em`, `Form`, `H1`, `H2`, `H3`,
+ `H4`, `H5`, `H6` `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`, `Range`, `File`), `Label`, `Li`, `Link`, `Meta`, 
  `Noscript`, `Ol`, `Optgroup`, `Option`, `P`, `Picture`, `Script`, `Select`, `Source`, `Span`, `Strong`, `Style`, 
  `Table`, `Tbody`, `Td`, `Textarea`, `Tfoot`, `Th`, `Thead`, `Title`, `Tr`, `Track`, `Ul`, `Video`.
 - `CustomTag` class that helps to generate custom tag with any attributes.
@@ -278,6 +278,8 @@ Overall the helper has the following method groups.
 - buttonInput
 - checkbox
 - file
+- datalist
+- fileInput
 - form
 - hiddenInput
 - input

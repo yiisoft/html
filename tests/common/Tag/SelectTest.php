@@ -292,6 +292,49 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testOptionsAndGroupsAttributes(): void
+    {
+        $tag = Select::tag()
+            ->optionsData(
+                [
+                    1 => 'One',
+                    'Group A' => [
+                        2 => 'Two',
+                        3 => 'Three',
+                    ],
+                    'Group B' => [
+                        4 => 'Four',
+                        5 => 'Five',
+                    ],
+                ],
+                true,
+                [
+                    1 => ['data-key' => 42],
+                    3 => ['id' => 'UniqueOption'],
+                ],
+                [
+                    'Group B' => ['label' => 'Custom Label', 'data-id' => 'Group B'],
+                ]
+            );
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            <<<HTML
+            <select>
+            <option value="1" data-key="42">One</option>
+            <optgroup label="Group A">
+            <option value="2">Two</option>
+            <option id="UniqueOption" value="3">Three</option>
+            </optgroup>
+            <optgroup label="Custom Label" data-id="Group B">
+            <option value="4">Four</option>
+            <option value="5">Five</option>
+            </optgroup>
+            </select>
+            HTML,
+            $tag->render()
+        );
+    }
+
     public function dataPrompt(): array
     {
         return [

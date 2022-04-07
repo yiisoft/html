@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\NormalTag;
+
 use function in_array;
 
 /**
@@ -27,14 +28,16 @@ final class Optgroup extends NormalTag
      *
      * @param string[] $data Value-content set of options.
      * @param bool $encode Whether to encode option content.
+     * @param array[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
      *
      * @return self
      */
-    public function optionsData(array $data, bool $encode = true): self
+    public function optionsData(array $data, bool $encode = true, array $optionsAttributes = []): self
     {
         $options = [];
         foreach ($data as $value => $content) {
             $options[] = Option::tag()
+                ->attributes($optionsAttributes[$value] ?? [])
                 ->value($value)
                 ->content($content)
                 ->encode($encode);
