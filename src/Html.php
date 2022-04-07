@@ -1354,8 +1354,10 @@ final class Html
     {
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
+                /** @psalm-var string[] $options['class'] */
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
+                /** @psalm-var string $options['class'] */
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $options['class'] = implode(' ', self::mergeCssClasses($classes, (array)$class));
             }
@@ -1441,6 +1443,7 @@ final class Html
     public static function addCssStyle(array &$options, $style, bool $overwrite = true): void
     {
         if (!empty($options['style'])) {
+            /** @psalm-var array<string,string>|string $options['style'] */
             $oldStyle = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
             $newStyle = is_array($style) ? $style : self::cssStyleToArray($style);
             if (!$overwrite) {
@@ -1473,6 +1476,7 @@ final class Html
     public static function removeCssStyle(array &$options, $properties): void
     {
         if (!empty($options['style'])) {
+            /** @psalm-var array<string,string>|string $options['style'] */
             $style = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
             foreach ((array)$properties as $property) {
                 unset($style[$property]);
