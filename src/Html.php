@@ -76,16 +76,6 @@ use function strlen;
  * Nearly all the methods in this class allow setting additional HTML attributes for the HTML tags they generate.
  * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
  * documentation of the {@see tag()} method for more details.
- *
- * @psalm-type HtmlAttributes = array<string, mixed>&array{
- *   id?: string|null,
- *   class?: string[]|string|null,
- *   style?: array<string, string>|string|null,
- *   data?: array<array-key, array|string|null>|string|null,
- *   data-ng?: array<array-key, array|string|null>|string|null,
- *   ng?: array<array-key, array|string|null>|string|null,
- *   aria?: array<array-key, array|string|null>|string|null,
- * }
  */
 final class Html
 {
@@ -363,8 +353,6 @@ final class Html
      *
      * @param string $content The style content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function style(string $content = '', array $attributes = []): Style
     {
@@ -383,8 +371,6 @@ final class Html
      *
      * @param string $content The script content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function script(string $content = '', array $attributes = []): Script
     {
@@ -414,8 +400,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function title($content = '', array $attributes = []): Title
     {
@@ -430,8 +414,6 @@ final class Html
      * Generates a {@see Meta} tag.
      *
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function meta(array $attributes = []): Meta
     {
@@ -447,8 +429,6 @@ final class Html
      *
      * @param string|null $url The destination of the link.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function link(?string $url = null, array $attributes = []): Link
     {
@@ -467,8 +447,6 @@ final class Html
      *
      * @param string $url The URL of the CSS file.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function cssFile(string $url, array $attributes = []): Link
     {
@@ -484,8 +462,6 @@ final class Html
      *
      * @param string $url The URL of the JavaScript file.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function javaScriptFile(string $url, array $attributes = []): Script
     {
@@ -501,8 +477,6 @@ final class Html
      *
      * @param string|Stringable $content The tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      *
      * @see A
      */
@@ -525,8 +499,6 @@ final class Html
      * Generates a mailto hyperlink tag.
      *
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      *
      * @see A
      */
@@ -607,8 +579,6 @@ final class Html
      *
      * @param string $content The content enclosed within the button tag.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function button(string $content = 'Button', array $attributes = []): Button
     {
@@ -626,8 +596,6 @@ final class Html
      *
      * @param string $content The content enclosed within the button tag.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function submitButton(string $content = 'Submit', array $attributes = []): Button
     {
@@ -645,8 +613,6 @@ final class Html
      *
      * @param string $content The content enclosed within the button tag.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function resetButton(string $content = 'Reset', array $attributes = []): Button
     {
@@ -719,8 +685,6 @@ final class Html
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes $attributes
      */
     public static function textInput(?string $name = null, $value = null, array $attributes = []): Input
     {
@@ -736,8 +700,6 @@ final class Html
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes $attributes
      */
     public static function hiddenInput(?string $name = null, $value = null, array $attributes = []): Input
     {
@@ -753,8 +715,6 @@ final class Html
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes $attributes
      */
     public static function passwordInput(?string $name = null, $value = null, array $attributes = []): Input
     {
@@ -774,8 +734,6 @@ final class Html
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes $attributes
      */
     public static function fileInput(?string $name = null, $value = null, array $attributes = []): Input
     {
@@ -791,8 +749,6 @@ final class Html
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes $attributes
      */
     public static function radio(?string $name = null, $value = null, array $attributes = []): Radio
     {
@@ -808,8 +764,6 @@ final class Html
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes $attributes
      */
     public static function checkbox(?string $name = null, $value = null, array $attributes = []): Checkbox
     {
@@ -823,8 +777,6 @@ final class Html
      * @param string|null $name The input name.
      * @param string|null $value The input value.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes $attributes
      */
     public static function textarea(?string $name = null, ?string $value = null, array $attributes = []): Textarea
     {
@@ -903,8 +855,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function div($content = '', array $attributes = []): Div
     {
@@ -920,8 +870,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function span($content = '', array $attributes = []): Span
     {
@@ -937,8 +885,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function em($content = '', array $attributes = []): Em
     {
@@ -954,8 +900,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function strong($content = '', array $attributes = []): Strong
     {
@@ -971,8 +915,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function b($content = '', array $attributes = []): B
     {
@@ -988,8 +930,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function i($content = '', array $attributes = []): I
     {
@@ -1005,8 +945,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function h1($content = '', array $attributes = []): H1
     {
@@ -1022,8 +960,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function h2($content = '', array $attributes = []): H2
     {
@@ -1039,8 +975,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function h3($content = '', array $attributes = []): H3
     {
@@ -1056,8 +990,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function h4($content = '', array $attributes = []): H4
     {
@@ -1073,8 +1005,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function h5($content = '', array $attributes = []): H5
     {
@@ -1090,8 +1020,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function h6($content = '', array $attributes = []): H6
     {
@@ -1107,8 +1035,6 @@ final class Html
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
      */
     public static function p($content = '', array $attributes = []): P
     {
@@ -1345,8 +1271,6 @@ final class Html
      * @param array $attributes Attributes to be rendered. The attribute values will be HTML-encoded using
      * {@see encodeAttribute()}.
      *
-     * @psalm-param HtmlAttributes|array<empty, empty> $attributes
-     *
      * @throws JsonException
      *
      * @return string The rendering result. If the attributes are not empty, they will be rendered into a string
@@ -1425,16 +1349,15 @@ final class Html
      *
      * @param array $options The options to be modified.
      * @param string|string[] $class The CSS class(es) to be added.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function addCssClass(array &$options, $class): void
     {
-        /** @psalm-var HtmlAttributes $options */
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
+                /** @psalm-var string[] $options['class'] */
                 $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
             } else {
+                /** @psalm-var string $options['class'] */
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $options['class'] = implode(' ', self::mergeCssClasses($classes, (array)$class));
             }
@@ -1450,8 +1373,6 @@ final class Html
      *
      * @param array $options The options to be modified.
      * @param string|string[] $class The CSS class(es) to be removed.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function removeCssClass(array &$options, $class): void
     {
@@ -1518,13 +1439,11 @@ final class Html
      * @param array<string, string>|string $style The new style string (e.g. `'width: 100px; height: 200px'`) or array
      * (e.g. `['width' => '100px', 'height' => '200px']`).
      * @param bool $overwrite Whether to overwrite existing CSS properties if the new style contain them too.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function addCssStyle(array &$options, $style, bool $overwrite = true): void
     {
-        /** @psalm-var HtmlAttributes $options */
         if (!empty($options['style'])) {
+            /** @psalm-var array<string,string>|string $options['style'] */
             $oldStyle = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
             $newStyle = is_array($style) ? $style : self::cssStyleToArray($style);
             if (!$overwrite) {
@@ -1553,13 +1472,11 @@ final class Html
      * @param array $options The HTML options to be modified.
      * @param string|string[] $properties The CSS properties to be removed. You may use a string if you are removing a
      * single property.
-     *
-     * @psalm-param HtmlAttributes|array<empty, empty> $options
      */
     public static function removeCssStyle(array &$options, $properties): void
     {
-        /** @psalm-var HtmlAttributes $options */
         if (!empty($options['style'])) {
+            /** @psalm-var array<string,string>|string $options['style'] */
             $style = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
             foreach ((array)$properties as $property) {
                 unset($style[$property]);

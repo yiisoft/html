@@ -4,6 +4,7 @@
 
 - New #103: Add class for tag `Form` and method `Html::form()` (vjik)
 - Enh #106: Add option groups support to method `Select::optionsData()` (vjik)
+- Enh #102: Remove psalm type `HtmlAttributes`, too obsessive for package users (vjik)
 
 ## 2.3.0 March 25, 2022
 
