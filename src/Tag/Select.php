@@ -101,22 +101,27 @@ final class Select extends NormalTag
     /**
      * @param array $data
      * @param bool $encode Whether option content should be HTML-encoded.
+     * @param array[] $optionsAttributes
      *
      * @psalm-param array<array-key, string|array<array-key,string>> $data
      *
      * @return self
      */
-    public function optionsData(array $data, bool $encode = true): self
-    {
+    public function optionsData(
+        array $data,
+        bool $encode = true,
+        array $optionsAttributes = []
+    ): self {
         $items = [];
         foreach ($data as $value => $content) {
             if (is_array($content)) {
                 $items[] = Optgroup::tag()
-                    ->label((string)$value)
-                    ->optionsData($content, $encode);
+                    ->label((string) $value)
+                    ->optionsData($content, $encode, $optionsAttributes);
             } else {
                 $items[] = Option::tag()
-                    ->value((string)$value)
+                    ->attributes($optionsAttributes[$value] ?? [])
+                    ->value($value)
                     ->content($content)
                     ->encode($encode);
             }
