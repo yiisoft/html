@@ -110,7 +110,7 @@ final class Range extends InputTag
 
         if ($this->showOutput) {
             $this->outputTagId = (string) ($this->outputTagAttributes['id'] ?? Html::generateId('rangeOutput'));
-            $this->attributes['oninput'] = $this->outputTagId . '.innerHTML=this.value';
+            $this->attributes['oninput'] = 'document.getElementById("' . $this->outputTagId . '").innerHTML=this.value';
         }
     }
 
