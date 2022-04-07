@@ -16,6 +16,7 @@ use Yiisoft\Html\Tag\Caption;
 use Yiisoft\Html\Tag\Col;
 use Yiisoft\Html\Tag\Colgroup;
 use Yiisoft\Html\Tag\CustomTag;
+use Yiisoft\Html\Tag\Datalist;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Em;
 use Yiisoft\Html\Tag\Form;
@@ -30,6 +31,7 @@ use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
 use Yiisoft\Html\Tag\Input\Checkbox;
 use Yiisoft\Html\Tag\Input\Radio;
+use Yiisoft\Html\Tag\Input\Range;
 use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
@@ -757,6 +759,21 @@ final class Html
     }
 
     /**
+     * Generates a range {@see Range}.
+     *
+     * @see Input::range()
+     *
+     * @param string|null $name The name attribute.
+     * @param float|int|string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function range(?string $name = null, $value = null, array $attributes = []): Range
+    {
+        $tag = Input::range($name, $value);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
+    }
+
+    /**
      * Generates a checkbox {@see Input}.
      *
      * @see Input::checkbox()
@@ -1070,6 +1087,21 @@ final class Html
     {
         $tag = Li::tag();
         return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Datalist} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function datalist(array $attributes = []): Datalist
+    {
+        $tag = Datalist::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**

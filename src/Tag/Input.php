@@ -7,6 +7,7 @@ namespace Yiisoft\Html\Tag;
 use Yiisoft\Html\Tag\Base\InputTag;
 use Yiisoft\Html\Tag\Input\Checkbox;
 use Yiisoft\Html\Tag\Input\Radio;
+use Yiisoft\Html\Tag\Input\Range;
 
 /**
  * HTML input.
@@ -126,6 +127,26 @@ final class Input extends InputTag
     public static function radio(?string $name = null, $value = null): Radio
     {
         $input = Radio::tag();
+        if ($name !== null) {
+            $input = $input->name($name);
+        }
+        if ($value !== null) {
+            $input = $input->value($value);
+        }
+        return $input;
+    }
+
+    /**
+     * Range.
+     *
+     * @link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range)
+     *
+     * @param string|null $name Name of the input.
+     * @param float|int|string|\Stringable|null $value Value of the input.
+     */
+    public static function range(?string $name = null, $value = null): Range
+    {
+        $input = Range::tag();
         if ($name !== null) {
             $input = $input->name($name);
         }
