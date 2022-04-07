@@ -16,6 +16,7 @@ use Yiisoft\Html\Tag\Caption;
 use Yiisoft\Html\Tag\Col;
 use Yiisoft\Html\Tag\Colgroup;
 use Yiisoft\Html\Tag\CustomTag;
+use Yiisoft\Html\Tag\Datalist;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Em;
 use Yiisoft\Html\Tag\Form;
@@ -1086,6 +1087,21 @@ final class Html
     {
         $tag = Li::tag();
         return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Datalist} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function datalist(array $attributes = []): Datalist
+    {
+        $tag = Datalist::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**

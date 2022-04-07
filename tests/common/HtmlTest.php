@@ -625,6 +625,12 @@ final class HtmlTest extends TestCase
         $this->assertSame('<li><span>Hello</span></li>', Html::li(Html::span('Hello'))->render());
     }
 
+    public function testDatalist(): void
+    {
+        $this->assertSame('<datalist></datalist>', Html::datalist()->render());
+        $this->assertSame('<datalist id="numbers"></datalist>', Html::datalist(['id' => 'numbers'])->render());
+    }
+
     public function testCaption(): void
     {
         $this->assertSame('<caption></caption>', Html::caption()->render());
