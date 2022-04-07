@@ -30,6 +30,7 @@ use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
 use Yiisoft\Html\Tag\Input\Checkbox;
 use Yiisoft\Html\Tag\Input\Radio;
+use Yiisoft\Html\Tag\Input\Range;
 use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
@@ -753,6 +754,21 @@ final class Html
     public static function radio(?string $name = null, $value = null, array $attributes = []): Radio
     {
         $tag = Input::radio($name, $value);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
+    }
+
+    /**
+     * Generates a range {@see Range}.
+     *
+     * @see Input::range()
+     *
+     * @param string|null $name The name attribute.
+     * @param float|int|string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function range(?string $name = null, $value = null, array $attributes = []): Range
+    {
+        $tag = Input::range($name, $value);
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 

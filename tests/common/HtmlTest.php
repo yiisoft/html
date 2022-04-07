@@ -419,6 +419,22 @@ final class HtmlTest extends TestCase
         );
     }
 
+    public function testRange(): void
+    {
+        $this->assertSame('<input type="range">', Html::range()->render());
+        $this->assertSame('<input type="range" name>', Html::range('')->render());
+        $this->assertSame('<input type="range" value>', Html::range(null, '')->render());
+        $this->assertSame('<input type="range" name="test">', Html::range('test')->render());
+        $this->assertSame(
+            '<input type="range" name="test" value="43">',
+            Html::range('test', '43')->render(),
+        );
+        $this->assertSame(
+            '<input type="range" name="test" value="43" readonly>',
+            Html::range('test', '43', ['readonly' => true])->render(),
+        );
+    }
+
     public function testSelect(): void
     {
         $this->assertSame('<select></select>', Html::select()->render());
