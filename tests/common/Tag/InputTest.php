@@ -65,6 +65,14 @@ final class InputTest extends TestCase
         );
     }
 
+    public function testRange(): void
+    {
+        $this->assertSame(
+            '<input type="range" name="count" value="10">',
+            (string) Input::range('count', 10)
+        );
+    }
+
     public function testButton(): void
     {
         $this->assertSame(
