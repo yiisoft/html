@@ -14,6 +14,8 @@ use Yiisoft\Html\Tag\Base\InputTag;
 final class Range extends InputTag
 {
     /**
+     * Maximum value.
+     *
      * @param float|int|string|\Stringable|null $value
      *
      * @link https://html.spec.whatwg.org/multipage/input.html#attr-input-max
@@ -26,6 +28,8 @@ final class Range extends InputTag
     }
 
     /**
+     * Minimum value.
+     *
      * @param float|int|string|\Stringable|null $value
      *
      * @link https://html.spec.whatwg.org/multipage/input.html#attr-input-min
@@ -38,6 +42,8 @@ final class Range extends InputTag
     }
 
     /**
+     * Granularity to be matched by the form control's value.
+     *
      * @param float|int|string|\Stringable|null $value
      *
      * @link https://html.spec.whatwg.org/multipage/input.html#attr-input-step
@@ -46,6 +52,18 @@ final class Range extends InputTag
     {
         $new = clone $this;
         $new->attributes['step'] = $value;
+        return $new;
+    }
+
+    /**
+     * ID of element that lists predefined options suggested to the user.
+     *
+     * @link https://html.spec.whatwg.org/multipage/input.html#the-list-attribute
+     */
+    public function list(?string $id): self
+    {
+        $new = clone $this;
+        $new->attributes['list'] = $id;
         return $new;
     }
 

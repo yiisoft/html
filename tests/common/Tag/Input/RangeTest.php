@@ -90,6 +90,24 @@ final class RangeTest extends TestCase
         $this->assertSame($expected, $tag->render());
     }
 
+    public function dataList(): array
+    {
+        return [
+            ['<input type="range">', null],
+            ['<input type="range" list="DataList">', 'DataList'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataList
+     */
+    public function testList(string $expected, $value): void
+    {
+        $tag = Range::tag()->list($value);
+
+        $this->assertSame($expected, $tag->render());
+    }
+
     public function testImmutability(): void
     {
         $tag = Range::tag();
