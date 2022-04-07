@@ -117,7 +117,6 @@ final class RangeTest extends TestCase
         $tag = Range::tag()->showOutput();
 
         $this->assertMatchesRegularExpression(
-
             '~<input type="range" ' .
             'oninput="document.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
             "\n" . '<span id="(?P=id)">-</span>~',
