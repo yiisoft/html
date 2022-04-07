@@ -3,6 +3,8 @@
 ## 2.4.0 under development
 
 - New #103: Add class for tag `Form` and method `Html::form()` (vjik)
+- New #109: Add class for tag `Datalist` and method `Html::datalist()` (vjik)
+- New #109: Add specialized class for input tag with type `Range` and methods `Html::range()`, `Input::range()` (vjik)
 - Enh #106: Add option groups support to method `Select::optionsData()` (vjik)
 - Enh #102: Remove psalm type `HtmlAttributes`, too obsessive for package users (vjik)
 
