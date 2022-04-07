@@ -132,7 +132,6 @@ final class Select extends NormalTag
      *     ],
      * ];
      * ```
-     *
      * @param bool $encode Whether option content should be HTML-encoded.
      * @param array[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
      * @param array[] $groupsAttributes Array of group attribute sets indexed by group labels from {@see $data}.
