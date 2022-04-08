@@ -297,6 +297,10 @@ final class HtmlTest extends TestCase
             '<input type="text" name="test" value="43">',
             Html::input('text', 'test', '43')->render(),
         );
+        $this->assertSame(
+            '<input type="text" name="test" value="43" data-key="x101">',
+            Html::input('text', 'test', '43', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testButtonInput(): void
@@ -305,6 +309,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="button">', Html::buttonInput(null)->render());
         $this->assertSame('<input type="button" value>', Html::buttonInput('')->render());
         $this->assertSame('<input type="button" value="Go">', Html::buttonInput('Go')->render());
+        $this->assertSame(
+            '<input type="button" value="Go" data-key="x101">',
+            Html::buttonInput('Go', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testSubmitInput(): void
@@ -313,6 +321,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="submit">', Html::submitInput(null)->render());
         $this->assertSame('<input type="submit" value>', Html::submitInput('')->render());
         $this->assertSame('<input type="submit" value="Go">', Html::submitInput('Go')->render());
+        $this->assertSame(
+            '<input type="submit" value="Go" data-key="x101">',
+            Html::submitInput('Go', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testResetInput(): void
@@ -321,6 +333,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="reset">', Html::resetInput(null)->render());
         $this->assertSame('<input type="reset" value>', Html::resetInput('')->render());
         $this->assertSame('<input type="reset" value="Go">', Html::resetInput('Go')->render());
+        $this->assertSame(
+            '<input type="reset" value="Go" data-key="x101">',
+            Html::resetInput('Go', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testTextInput(): void

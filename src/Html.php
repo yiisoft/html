@@ -632,8 +632,9 @@ final class Html
      * @param string|null $name The name attribute. If it is `null`, the name attribute will not be generated.
      * @param bool|float|int|string|Stringable|null $value The value attribute. If it is `null`, the value
      * attribute will not be generated.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function input(string $type, ?string $name = null, $value = null): Input
+    public static function input(string $type, ?string $name = null, $value = null, array $attributes = []): Input
     {
         $tag = Input::tag()->type($type);
         if ($name !== null) {
@@ -641,6 +642,9 @@ final class Html
         }
         if ($value !== null) {
             $tag = $tag->value($value);
+        }
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -651,10 +655,15 @@ final class Html
      * @see Input::button()
      *
      * @param string|null $label The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function buttonInput(?string $label = 'Button'): Input
+    public static function buttonInput(?string $label = 'Button', array $attributes = []): Input
     {
-        return Input::button($label);
+        $tag = Input::button($label);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
@@ -663,10 +672,15 @@ final class Html
      * @see Input::submitButton()
      *
      * @param string|null $label The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function submitInput(?string $label = 'Submit'): Input
+    public static function submitInput(?string $label = 'Submit', array $attributes = []): Input
     {
-        return Input::submitButton($label);
+        $tag = Input::submitButton($label);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
@@ -675,10 +689,15 @@ final class Html
      * @see Input::resetButton()
      *
      * @param string|null $label The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function resetInput(?string $label = 'Reset'): Input
+    public static function resetInput(?string $label = 'Reset', array $attributes = []): Input
     {
-        return Input::resetButton($label);
+        $tag = Input::resetButton($label);
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
