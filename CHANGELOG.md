@@ -8,6 +8,8 @@
 - Enh #106: Add option groups support to method `Select::optionsData()` (vjik)
 - Enh #108: Add individual attributes of options and option groups support to method `Select::optionsData()` (vjik)
 - Enh #102: Remove psalm type `HtmlAttributes`, too obsessive for package users (vjik)
+- Enh #104: Add parameter `$attributes` to methods `Html::input()`, `Html::buttonInput()`, `Html::submitInput()` 
+  and `Html::resetInput()` (vjik)
 
 ## 2.3.0 March 25, 2022
 
