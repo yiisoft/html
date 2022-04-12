@@ -105,7 +105,7 @@ final class ButtonGroup implements NoEncodeStringableInterface
         } else {
             $lines = [];
             foreach ($this->buttons as $button) {
-                $lines[] = $button->attributes($this->buttonAttributes);
+                $lines[] = $button->unionAttributes($this->buttonAttributes);
             }
         }
 

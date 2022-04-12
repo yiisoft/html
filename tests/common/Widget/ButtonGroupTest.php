@@ -147,6 +147,26 @@ final class ButtonGroupTest extends TestCase
         );
     }
 
+    public function testUnionButtonAttributes(): void
+    {
+        $widget = ButtonGroup::create()
+            ->buttons(
+                Html::button('Show')->class('red'),
+                Html::button('Hide'),
+            )
+            ->buttonAttributes(['class' => 'base']);
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            <<<HTML
+            <div>
+            <button type="button" class="red">Show</button>
+            <button type="button" class="base">Hide</button>
+            </div>
+            HTML,
+            $widget->render(),
+        );
+    }
+
     public function testReplaceButtonAttributes(): void
     {
         $widget = ButtonGroup::create()
