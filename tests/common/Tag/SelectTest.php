@@ -11,9 +11,12 @@ use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
 use Yiisoft\Html\Tag\Select;
+use Yiisoft\Html\Tests\Support\AssertTrait;
 
 final class SelectTest extends TestCase
 {
+    use AssertTrait;
+
     public function dataName(): array
     {
         return [
@@ -261,6 +264,74 @@ final class SelectTest extends TestCase
         $this->assertSame(
             "<select>\n<option value=\"1\"><b>One</b></option>\n</select>",
             (string)Select::tag()->optionsData(['1' => '<b>One</b>'], false)
+        );
+    }
+
+    public function testOptionsDataWithGroups(): void
+    {
+        $tag = Select::tag()
+            ->optionsData([
+                1 => 'One',
+                'Test Group' => [
+                    2 => 'Two',
+                    3 => 'Three',
+                ],
+            ]);
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            <<<HTML
+            <select>
+            <option value="1">One</option>
+            <optgroup label="Test Group">
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            </optgroup>
+            </select>
+            HTML,
+            $tag->render()
+        );
+    }
+
+    public function testOptionsAndGroupsAttributes(): void
+    {
+        $tag = Select::tag()
+            ->optionsData(
+                [
+                    1 => 'One',
+                    'Group A' => [
+                        2 => 'Two',
+                        3 => 'Three',
+                    ],
+                    'Group B' => [
+                        4 => 'Four',
+                        5 => 'Five',
+                    ],
+                ],
+                true,
+                [
+                    1 => ['data-key' => 42],
+                    3 => ['id' => 'UniqueOption'],
+                ],
+                [
+                    'Group B' => ['label' => 'Custom Label', 'data-id' => 'Group B'],
+                ]
+            );
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            <<<HTML
+            <select>
+            <option value="1" data-key="42">One</option>
+            <optgroup label="Group A">
+            <option value="2">Two</option>
+            <option id="UniqueOption" value="3">Three</option>
+            </optgroup>
+            <optgroup label="Custom Label" data-id="Group B">
+            <option value="4">Four</option>
+            <option value="5">Five</option>
+            </optgroup>
+            </select>
+            HTML,
+            $tag->render()
         );
     }
 

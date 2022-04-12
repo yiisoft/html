@@ -1,10 +1,22 @@
 # Yii HTML Change Log
 
-## 2.2.2 under development
+## 2.4.0 under development
+
+- New #103: Add class for tag `Form` and method `Html::form()` (vjik)
+- New #109: Add class for tag `Datalist` and method `Html::datalist()` (vjik)
+- New #109: Add specialized class for input tag with type `Range` and methods `Html::range()`, `Input::range()` (vjik)
+- Enh #106: Add option groups support to method `Select::optionsData()` (vjik)
+- Enh #108: Add individual attributes of options and option groups support to method `Select::optionsData()` (vjik)
+- Enh #102: Remove psalm type `HtmlAttributes`, too obsessive for package users (vjik)
+- Enh #104: Add parameter `$attributes` to methods `Html::input()`, `Html::buttonInput()`, `Html::submitInput()` 
+  and `Html::resetInput()` (vjik)
+
+## 2.3.0 March 25, 2022
 
 - New #95: Add class for tag `Title` and method `Html::title()` (vjik)
 - New #96: Add classes for heading tags `H1-6` and methods `Html::h1()`, `Html::h2()`, `Html::h3()`, `Html::h4()`,
   `Html::h5()`, `Html::h6()` (vjik)
+- New #100: Add classes for tags `Picture`, `Audio`, `Video`, `Source` and `Track` (Gerych1984, vjik)
 
 - New #89: Add method `nofollow()` to the `A` tag (soodssr)
 ## 2.2.1 October 24, 2021
@@ -22,7 +34,7 @@
 
 ## 2.1.0 September 23, 2021
 
-- New #88: Add `Noscript` tag support and shortcuts for `Script` tag via methods `Script::noscript()` 
+- New #88: Add `Noscript` tag support and shortcuts for `Script` tag via methods `Script::noscript()`
   and `Script::noscriptTag()` (vjik)
 
 ## 2.0.0 August 24, 2021
@@ -32,7 +44,7 @@
 - New #76: Add `NoEncode` class designed to wrap content that should not be encoded in HTML tags (vjik)
 - New #78: Allow pass `null` argument to methods `Tag::class()`, `Tag::replaceClass()`, `BooleanInputTag::label()` and
   `BooleanInputTag::sideLabel()` (vjik)
-- New #82: Add support individual attributes for inputs in `CheckboxList` and `RadioList` widgets via methods 
+- New #82: Add support individual attributes for inputs in `CheckboxList` and `RadioList` widgets via methods
   `CheckboxList::individualInputAttributes()`, `CheckboxList::replaceIndividualInputAttributes()`,
   `RadioList::individualInputAttributes()` and `RadioList::replaceIndividualInputAttributes()` (vjik)
 - Chg #79: Do not add empty attribute value for empty strings (vjik)

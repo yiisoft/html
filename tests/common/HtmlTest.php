@@ -221,6 +221,26 @@ final class HtmlTest extends TestCase
         $this->assertSame('<img src="face.png" alt="My Face">', Html::img('face.png', 'My Face')->render());
     }
 
+    public function testForm(): void
+    {
+        $this->assertSame(
+            '<form></form>',
+            Html::form()->render()
+        );
+        $this->assertSame(
+            '<form action="https://example.com/send"></form>',
+            Html::form('https://example.com/send')->render()
+        );
+        $this->assertSame(
+            '<form action="https://example.com/send" method="GET"></form>',
+            Html::form('https://example.com/send', 'GET')->render()
+        );
+        $this->assertSame(
+            '<form class="red-form" action="https://example.com/send" method="GET"></form>',
+            Html::form('https://example.com/send', 'GET', ['class' => 'red-form'])->render()
+        );
+    }
+
     public function testLabel(): void
     {
         $this->assertSame('<label></label>', Html::label()->render());
@@ -277,6 +297,10 @@ final class HtmlTest extends TestCase
             '<input type="text" name="test" value="43">',
             Html::input('text', 'test', '43')->render(),
         );
+        $this->assertSame(
+            '<input type="text" name="test" value="43" data-key="x101">',
+            Html::input('text', 'test', '43', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testButtonInput(): void
@@ -285,6 +309,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="button">', Html::buttonInput(null)->render());
         $this->assertSame('<input type="button" value>', Html::buttonInput('')->render());
         $this->assertSame('<input type="button" value="Go">', Html::buttonInput('Go')->render());
+        $this->assertSame(
+            '<input type="button" value="Go" data-key="x101">',
+            Html::buttonInput('Go', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testSubmitInput(): void
@@ -293,6 +321,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="submit">', Html::submitInput(null)->render());
         $this->assertSame('<input type="submit" value>', Html::submitInput('')->render());
         $this->assertSame('<input type="submit" value="Go">', Html::submitInput('Go')->render());
+        $this->assertSame(
+            '<input type="submit" value="Go" data-key="x101">',
+            Html::submitInput('Go', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testResetInput(): void
@@ -301,6 +333,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="reset">', Html::resetInput(null)->render());
         $this->assertSame('<input type="reset" value>', Html::resetInput('')->render());
         $this->assertSame('<input type="reset" value="Go">', Html::resetInput('Go')->render());
+        $this->assertSame(
+            '<input type="reset" value="Go" data-key="x101">',
+            Html::resetInput('Go', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testTextInput(): void
@@ -396,6 +432,22 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<input type="checkbox" name="test" value="43" readonly>',
             Html::checkbox('test', '43', ['readonly' => true])->render(),
+        );
+    }
+
+    public function testRange(): void
+    {
+        $this->assertSame('<input type="range">', Html::range()->render());
+        $this->assertSame('<input type="range" name>', Html::range('')->render());
+        $this->assertSame('<input type="range" value>', Html::range(null, '')->render());
+        $this->assertSame('<input type="range" name="test">', Html::range('test')->render());
+        $this->assertSame(
+            '<input type="range" name="test" value="43">',
+            Html::range('test', '43')->render(),
+        );
+        $this->assertSame(
+            '<input type="range" name="test" value="43" readonly>',
+            Html::range('test', '43', ['readonly' => true])->render(),
         );
     }
 
@@ -589,6 +641,12 @@ final class HtmlTest extends TestCase
         $this->assertSame('<li><span>Hello</span></li>', Html::li(Html::span('Hello'))->render());
     }
 
+    public function testDatalist(): void
+    {
+        $this->assertSame('<datalist></datalist>', Html::datalist()->render());
+        $this->assertSame('<datalist id="numbers"></datalist>', Html::datalist(['id' => 'numbers'])->render());
+    }
+
     public function testCaption(): void
     {
         $this->assertSame('<caption></caption>', Html::caption()->render());
@@ -661,6 +719,32 @@ final class HtmlTest extends TestCase
     public function testBr(): void
     {
         self::assertSame('<br>', Html::br()->render());
+    }
+
+    public function testVideo(): void
+    {
+        $this->assertSame('<video></video>', Html::video()->render());
+    }
+
+    public function testAudio(): void
+    {
+        $this->assertSame('<audio></audio>', Html::audio()->render());
+    }
+
+    public function testTrack(): void
+    {
+        $this->assertSame('<track>', Html::track()->render());
+        $this->assertSame('<track src="hi.png">', Html::track('hi.png')->render());
+    }
+
+    public function testPicture(): void
+    {
+        $this->assertSame('<picture></picture>', Html::picture()->render());
+    }
+
+    public function testSource(): void
+    {
+        $this->assertSame('<source>', Html::source()->render());
     }
 
     public function dataRenderTagAttributes(): array
