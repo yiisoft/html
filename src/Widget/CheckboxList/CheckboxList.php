@@ -14,7 +14,7 @@ use Yiisoft\Html\Tag\Input;
 use function is_array;
 
 /**
- * CheckboxList represents a list of checkboxes and their corresponding labels.
+ * `CheckboxList` represents a list of checkboxes and their corresponding labels.
  */
 final class CheckboxList implements NoEncodeStringableInterface
 {

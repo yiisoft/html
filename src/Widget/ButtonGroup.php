@@ -12,6 +12,9 @@ use Yiisoft\Html\Tag\Button;
 use function is_array;
 use function is_string;
 
+/**
+ * `ButtonGroup` represents a group of buttons.
+ */
 final class ButtonGroup implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
@@ -55,6 +58,20 @@ final class ButtonGroup implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array $data Array of buttons. Each button is an array with label as first element and additional
+     * name-value pairs as attrbiutes of button.
+     *
+     * Example:
+     * ```php
+     * [
+     *     ['Reset', 'type' => 'reset', 'class' => 'default'],
+     *     ['Send', 'type' => 'submit', 'class' => 'primary'],
+     * ]
+     * ```
+     *
+     * @param bool $encode Whether button content should be HTML-encoded.
+     */
     public function buttonsData(array $data, bool $encode = true): self
     {
         $buttons = [];
