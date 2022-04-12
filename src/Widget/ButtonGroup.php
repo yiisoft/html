@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Widget;
 
+use InvalidArgumentException;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Button;
+
+use function is_array;
+use function is_string;
 
 final class ButtonGroup implements NoEncodeStringableInterface
 {
@@ -49,6 +53,23 @@ final class ButtonGroup implements NoEncodeStringableInterface
         $new = clone $this;
         $new->buttons = $buttons;
         return $new;
+    }
+
+    public function buttonsData(array $data, bool $encode = true): self
+    {
+        $buttons = [];
+        foreach ($data as $row) {
+            if (!is_array($row) || !isset($row[0]) || !is_string($row[0])) {
+                throw new InvalidArgumentException(
+                    'Invalid buttons data. A data row must be array with label as first element ' .
+                    'and additional name-value pairs as attrbiutes of button.'
+                );
+            }
+            $label = $row[0];
+            unset($row[0]);
+            $buttons[] = Html::button($label, $row)->encode($encode);
+        }
+        return $this->buttons(...$buttons);
     }
 
     public function buttonAttributes(array $attributes): self

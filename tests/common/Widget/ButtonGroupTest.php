@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Widget;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tests\Support\AssertTrait;
@@ -35,6 +36,70 @@ final class ButtonGroupTest extends TestCase
     public function testWithoutButtons(): void
     {
         $this->assertSame('', ButtonGroup::create()->render());
+    }
+
+    public function testButtonsData(): void
+    {
+        $widget = ButtonGroup::create()
+            ->buttonsData([
+                ['Reset Data', 'type' => 'reset'],
+                ['Send >', 'type' => 'submit', 'class' => 'primary'],
+            ]);
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            <<<HTML
+            <div>
+            <button type="reset">Reset Data</button>
+            <button type="submit" class="primary">Send &gt;</button>
+            </div>
+            HTML,
+            $widget->render(),
+        );
+    }
+
+    public function dataButtonsDataEncode(): array
+    {
+        return [
+            [
+                '<button type="button">Go &gt;</button>',
+                'Go >',
+                true,
+            ],
+            [
+                '<button type="button"><b>Go</b></button>',
+                '<b>Go</b>',
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataButtonsDataEncode
+     */
+    public function testButtonsDataEncode(string $expected, string $label, ?bool $encode): void
+    {
+        $widget = ButtonGroup::create()
+            ->buttonsData(
+                [
+                    [$label],
+                ],
+                $encode
+            )
+            ->withoutContainer();
+
+        $this->assertStringContainsStringIgnoringLineEndings($expected, $widget->render());
+    }
+
+    public function testInvalidButtonsData(): void
+    {
+        $widget = ButtonGroup::create();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid buttons data. A data row must be array with label as first element ' .
+            'and additional name-value pairs as attrbiutes of button.'
+        );
+        $widget->buttonsData([[42]]);
     }
 
     public function testWithoutContainer(): void
@@ -305,6 +370,7 @@ final class ButtonGroupTest extends TestCase
         $this->assertNotSame($widget, $widget->containerTag(null));
         $this->assertNotSame($widget, $widget->containerAttributes([]));
         $this->assertNotSame($widget, $widget->buttons());
+        $this->assertNotSame($widget, $widget->buttonsData([]));
         $this->assertNotSame($widget, $widget->buttonAttributes([]));
         $this->assertNotSame($widget, $widget->replaceButtonAttributes([]));
         $this->assertNotSame($widget, $widget->disabled());
