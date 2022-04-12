@@ -69,7 +69,6 @@ final class ButtonGroup implements NoEncodeStringableInterface
      *     ['Send', 'type' => 'submit', 'class' => 'primary'],
      * ]
      * ```
-     *
      * @param bool $encode Whether button content should be HTML-encoded.
      */
     public function buttonsData(array $data, bool $encode = true): self
