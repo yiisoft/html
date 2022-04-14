@@ -59,7 +59,7 @@ final class FieldsetTest extends TestCase
                 </fieldset>
                 HTML,
                 'Hello',
-                ['id' => 'MyLegend']
+                ['id' => 'MyLegend'],
             ],
         ];
     }
@@ -101,7 +101,6 @@ final class FieldsetTest extends TestCase
 
         $this->assertSame($expected, $tag->render());
     }
-
 
     public function dataDisabled(): array
     {
