@@ -250,6 +250,22 @@ final class HtmlTest extends TestCase
         $this->assertSame('<label><span>Hello</span></label>', Html::label(Html::span('Hello'))->render());
     }
 
+    public function testLegend(): void
+    {
+        $this->assertSame(
+            '<legend></legend>',
+            Html::legend()->render()
+        );
+        $this->assertSame(
+            '<legend>Your data</legend>',
+            Html::legend('Your data')->render()
+        );
+        $this->assertSame(
+            '<legend id="MyLegend">Your data</legend>',
+            Html::legend('Your data', ['id' => 'MyLegend'])->render()
+        );
+    }
+
     public function testButton(): void
     {
         $this->assertSame(

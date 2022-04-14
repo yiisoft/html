@@ -33,6 +33,7 @@ use Yiisoft\Html\Tag\Input\Checkbox;
 use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Input\Range;
 use Yiisoft\Html\Tag\Label;
+use Yiisoft\Html\Tag\Legend;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
 use Yiisoft\Html\Tag\Audio;
@@ -570,6 +571,24 @@ final class Html
         }
         if ($content !== '') {
             $tag = $tag->content($content);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Legend} tag.
+     *
+     * @param string|Stringable $content The tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function legend($content = '', array $attributes = []): Legend
+    {
+        $tag = Legend::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
