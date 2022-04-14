@@ -19,6 +19,7 @@ use Yiisoft\Html\Tag\CustomTag;
 use Yiisoft\Html\Tag\Datalist;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Em;
+use Yiisoft\Html\Tag\Fieldset;
 use Yiisoft\Html\Tag\Form;
 use Yiisoft\Html\Tag\H1;
 use Yiisoft\Html\Tag\H2;
@@ -530,6 +531,20 @@ final class Html
         }
         if ($alt !== null) {
             $tag = $tag->alt($alt);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Fieldset} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function fieldset(array $attributes = []): Fieldset
+    {
+        $tag = Fieldset::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }

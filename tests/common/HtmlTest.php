@@ -221,6 +221,18 @@ final class HtmlTest extends TestCase
         $this->assertSame('<img src="face.png" alt="My Face">', Html::img('face.png', 'My Face')->render());
     }
 
+    public function testFieldset(): void
+    {
+        $this->assertSame(
+            '<fieldset></fieldset>',
+            Html::fieldset()->render()
+        );
+        $this->assertSame(
+            '<fieldset id="MyFields"></fieldset>',
+            Html::fieldset(['id' => 'MyFields'])->render()
+        );
+    }
+
     public function testForm(): void
     {
         $this->assertSame(
