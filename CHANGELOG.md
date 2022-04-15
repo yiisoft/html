@@ -10,6 +10,7 @@
 - Enh #102: Remove psalm type `HtmlAttributes`, too obsessive for package users (vjik)
 - Enh #104: Add parameter `$attributes` to methods `Html::input()`, `Html::buttonInput()`, `Html::submitInput()` 
   and `Html::resetInput()` (vjik)
+- Enh #114: Allow use `CheckboxList` and `RadioList` widgets without name attribute (vjik)
 
 ## 2.3.0 March 25, 2022
 
