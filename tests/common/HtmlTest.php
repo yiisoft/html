@@ -221,6 +221,18 @@ final class HtmlTest extends TestCase
         $this->assertSame('<img src="face.png" alt="My Face">', Html::img('face.png', 'My Face')->render());
     }
 
+    public function testFieldset(): void
+    {
+        $this->assertSame(
+            '<fieldset></fieldset>',
+            Html::fieldset()->render()
+        );
+        $this->assertSame(
+            '<fieldset id="MyFields"></fieldset>',
+            Html::fieldset(['id' => 'MyFields'])->render()
+        );
+    }
+
     public function testForm(): void
     {
         $this->assertSame(
@@ -248,6 +260,22 @@ final class HtmlTest extends TestCase
         $this->assertSame('<label for>Name</label>', Html::label('Name', '')->render());
         $this->assertSame('<label for="fieldName">Name</label>', Html::label('Name', 'fieldName')->render());
         $this->assertSame('<label><span>Hello</span></label>', Html::label(Html::span('Hello'))->render());
+    }
+
+    public function testLegend(): void
+    {
+        $this->assertSame(
+            '<legend></legend>',
+            Html::legend()->render()
+        );
+        $this->assertSame(
+            '<legend>Your data</legend>',
+            Html::legend('Your data')->render()
+        );
+        $this->assertSame(
+            '<legend id="MyLegend">Your data</legend>',
+            Html::legend('Your data', ['id' => 'MyLegend'])->render()
+        );
     }
 
     public function testButton(): void
