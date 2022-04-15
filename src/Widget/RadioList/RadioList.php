@@ -10,7 +10,7 @@ use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Input;
 
 /**
- * RadioList represents a list of radios and their corresponding labels.
+ * `RadioList` represents a list of radios and their corresponding labels.
  */
 final class RadioList implements NoEncodeStringableInterface
 {

@@ -89,6 +89,17 @@ final class TagTest extends TestCase
         );
     }
 
+    public function testUnionAttributes(): void
+    {
+        $this->assertSame(
+            '<test id="color" class="red">',
+            TestTag::tag()
+                ->class('red')
+                ->unionAttributes(['class' => 'green', 'id' => 'color'])
+                ->render(),
+        );
+    }
+
     public function dataAttribute(): array
     {
         return [
@@ -187,6 +198,7 @@ final class TagTest extends TestCase
         $tag = TestTag::tag();
         $this->assertNotSame($tag, $tag->attributes([]));
         $this->assertNotSame($tag, $tag->replaceAttributes([]));
+        $this->assertNotSame($tag, $tag->unionAttributes([]));
         $this->assertNotSame($tag, $tag->attribute('id', null));
         $this->assertNotSame($tag, $tag->id(null));
         $this->assertNotSame($tag, $tag->class('test'));

@@ -6,6 +6,8 @@
 - New #109: Add class for tag `Datalist` and method `Html::datalist()` (vjik)
 - New #109: Add specialized class for input tag with type `Range` and methods `Html::range()`, `Input::range()` (vjik)
 - New #113: Add class for tag `Legend`, class for tag `Fieldset`, methods `Html::legend()` and `Html::fieldset()` (vjik)
+- New #111: Add widget `ButtonGroup` (vjik)
+- New #111: Add method `Tag::unionAttributes()` that available for all tags (vjik)
 - Enh #106: Add option groups support to method `Select::optionsData()` (vjik)
 - Enh #108: Add individual attributes of options and option groups support to method `Select::optionsData()` (vjik)
 - Enh #102: Remove psalm type `HtmlAttributes`, too obsessive for package users (vjik)

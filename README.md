@@ -23,7 +23,7 @@ The package provides various tools to help with dynamic server-side generation o
  `Span`, `Strong`, `Style`, `Table`, `Tbody`, `Td`, `Textarea`, `Tfoot`, `Th`, `Thead`, `Title`, `Tr`, `Track`, `Ul`,
  `Video`.
 - `CustomTag` class that helps to generate custom tag with any attributes.
-- HTML widgets `CheckboxList` and `RadioList`.
+- HTML widgets `ButtonGroup`, `CheckboxList` and `RadioList`.
 - All tags content is automatically HTML-encoded. There is `NoEncode` class designed to wrap content that should not be encoded.
 - `Html` helper that has static methods to generate HTML, create tags and HTML widget objects.
 
@@ -156,6 +156,29 @@ echo Html::b(NoEncode::string('<i>hello</i>'));
 
 There are multiple widgets that do not directly represent any HTML tag, but a set of tags. These help to express
 complex HTML in simple PHP.
+
+### `ButtonGroup`
+
+Represents a group of buttons.
+
+```php
+echo \Yiisoft\Html\Widget\ButtonGroup::create()
+	->buttons(
+	    \Yiisoft\Html\Html::resetButton('Reset Data'),
+	    \Yiisoft\Html\Html::resetButton('Send'),
+	)
+	->containerAttributes(['class' => 'actions'])
+	->buttonAttributes(['form' => 'CreatePost']);
+```
+
+Result will be:
+
+```html
+<div class="actions">
+<button type="reset" form="CreatePost">Reset Data</button>
+<button type="reset" class="primary" form="CreatePost">Send</button>
+</div>
+```
 
 ### `CheckboxList`
 
