@@ -32,10 +32,7 @@ final class RadioList implements NoEncodeStringableInterface
      */
     private array $items = [];
 
-    /**
-     * @psalm-param non-empty-string
-     */
-    private string $name;
+    private ?string $name;
 
     private ?string $value = null;
 
@@ -44,12 +41,12 @@ final class RadioList implements NoEncodeStringableInterface
      */
     private ?Closure $itemFormatter = null;
 
-    private function __construct(string $name)
+    private function __construct(?string $name)
     {
         $this->name = $name;
     }
 
-    public static function create(string $name): self
+    public static function create(?string $name = null): self
     {
         return new self($name);
     }
@@ -249,7 +246,7 @@ final class RadioList implements NoEncodeStringableInterface
     {
         return
             Input::hidden(
-                Html::getNonArrayableName($this->name),
+                $this->name === null ? null : Html::getNonArrayableName($this->name),
                 $this->uncheckValue
             )
                 ->attributes(

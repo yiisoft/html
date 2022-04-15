@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Widget\RadioList;
 
+use Stringable;
+
 final class RadioItem
 {
     public int $index;
-    public string $name;
+    public ?string $name;
 
     /**
-     * @var bool|float|int|string|\Stringable|null
+     * @var bool|float|int|string|Stringable|null
      */
     public $value;
 
@@ -20,11 +22,11 @@ final class RadioItem
     public bool $encodeLabel;
 
     /**
-     * @param bool|float|int|string|\Stringable|null $value
+     * @param bool|float|int|string|Stringable|null $value
      */
     public function __construct(
         int $index,
-        string $name,
+        ?string $name,
         $value,
         bool $checked,
         array $radioAttributes,
