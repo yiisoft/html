@@ -32,9 +32,6 @@ final class RadioList implements NoEncodeStringableInterface
      */
     private array $items = [];
 
-    /**
-     * @psalm-param non-empty-string
-     */
     private string $name;
 
     private ?string $value = null;
@@ -52,6 +49,13 @@ final class RadioList implements NoEncodeStringableInterface
     public static function create(string $name): self
     {
         return new self($name);
+    }
+
+    public function name(string $name): self
+    {
+        $new = clone $this;
+        $new->name = $name;
+        return $new;
     }
 
     public function withoutContainer(): self
