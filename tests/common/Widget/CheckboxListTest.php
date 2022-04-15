@@ -32,6 +32,24 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testWithoutName(): void
+    {
+        $this->assertSame(
+            '<input type="hidden" value="0">' . "\n" .
+            '<div id="main">' . "\n" .
+            '<label><input type="checkbox" value="1"> One</label>' . "\n" .
+            '<label><input type="checkbox" value="2" checked> Two</label>' . "\n" .
+            '<label><input type="checkbox" value="5" checked> Five</label>' . "\n" .
+            '</div>',
+            CheckboxList::create()
+                ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
+                ->uncheckValue(0)
+                ->value(2, 5)
+                ->containerAttributes(['id' => 'main'])
+                ->render(),
+        );
+    }
+
     public function testWithoutContainer(): void
     {
         $this->assertSame(

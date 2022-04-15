@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Widget\CheckboxList;
 
 use Closure;
 use InvalidArgumentException;
+use Stringable;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
@@ -36,10 +37,7 @@ final class CheckboxList implements NoEncodeStringableInterface
      */
     private array $items = [];
 
-    /**
-     * @psalm-param non-empty-string
-     */
-    private string $name;
+    private ?string $name;
 
     /**
      * @psalm-var list<string>
@@ -51,12 +49,12 @@ final class CheckboxList implements NoEncodeStringableInterface
      */
     private ?Closure $itemFormatter = null;
 
-    private function __construct(string $name)
+    private function __construct(?string $name)
     {
         $this->name = $name;
     }
 
-    public static function create(string $name): self
+    public static function create(?string $name = null): self
     {
         return new self($name);
     }
@@ -133,7 +131,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     /**
      * Fills items from an array provided. Array values are used for both input labels and input values.
      *
-     * @param bool[]|float[]|int[]|string[]|\Stringable[] $values
+     * @param bool[]|float[]|int[]|string[]|Stringable[] $values
      * @param bool $encodeLabels Whether labels should be encoded.
      */
     public function itemsFromValues(array $values, bool $encodeLabels = true): self
@@ -147,7 +145,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param scalar|\Stringable ...$value
+     * @param scalar|Stringable ...$value
      */
     public function value(...$value): self
     {
@@ -157,7 +155,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @psalm-param iterable<int, \Stringable|scalar> $values
+     * @psalm-param iterable<int, Stringable|scalar> $values
      */
     public function values($values): self
     {
@@ -166,7 +164,7 @@ final class CheckboxList implements NoEncodeStringableInterface
             throw new InvalidArgumentException('$values should be iterable.');
         }
 
-        /** @psalm-var iterable<int, \Stringable|scalar> $values */
+        /** @psalm-var iterable<int, Stringable|scalar> $values */
         $values = is_array($values) ? $values : iterator_to_array($values);
 
         return $this->value(...$values);
@@ -203,7 +201,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param bool|float|int|string|\Stringable|null $value
+     * @param bool|float|int|string|Stringable|null $value
      */
     public function uncheckValue($value): self
     {
@@ -233,7 +231,9 @@ final class CheckboxList implements NoEncodeStringableInterface
 
     public function render(): string
     {
-        $name = Html::getArrayableName($this->name);
+        $name = $this->name === null
+            ? null
+            : Html::getArrayableName($this->name);
 
         $lines = [];
         $index = 0;
@@ -276,7 +276,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     {
         return
             Input::hidden(
-                Html::getNonArrayableName($this->name),
+                $this->name === null ? null : Html::getNonArrayableName($this->name),
                 $this->uncheckValue
             )
                 ->attributes(
