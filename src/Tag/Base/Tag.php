@@ -44,6 +44,20 @@ abstract class Tag implements NoEncodeStringableInterface
     }
 
     /**
+     * Union attributes with a new set.
+     *
+     * @param array $attributes Name-value set of attributes.
+     *
+     * @return static
+     */
+    final public function unionAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->attributes += $attributes;
+        return $new;
+    }
+
+    /**
      * Set attribute value.
      *
      * @param string $name Name of the attribute.

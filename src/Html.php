@@ -19,6 +19,7 @@ use Yiisoft\Html\Tag\CustomTag;
 use Yiisoft\Html\Tag\Datalist;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Em;
+use Yiisoft\Html\Tag\Fieldset;
 use Yiisoft\Html\Tag\Form;
 use Yiisoft\Html\Tag\H1;
 use Yiisoft\Html\Tag\H2;
@@ -33,6 +34,7 @@ use Yiisoft\Html\Tag\Input\Checkbox;
 use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Input\Range;
 use Yiisoft\Html\Tag\Label;
+use Yiisoft\Html\Tag\Legend;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
 use Yiisoft\Html\Tag\Audio;
@@ -534,6 +536,20 @@ final class Html
     }
 
     /**
+     * Generates a {@see Fieldset} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function fieldset(array $attributes = []): Fieldset
+    {
+        $tag = Fieldset::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
+    }
+
+    /**
      * Generates a {@see Form} tag.
      *
      * @param string|null $action The URL to use for form submission.
@@ -570,6 +586,24 @@ final class Html
         }
         if ($content !== '') {
             $tag = $tag->content($content);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Legend} tag.
+     *
+     * @param string|Stringable $content The tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function legend($content = '', array $attributes = []): Legend
+    {
+        $tag = Legend::tag();
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }

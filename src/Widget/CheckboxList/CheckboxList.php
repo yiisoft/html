@@ -14,7 +14,7 @@ use Yiisoft\Html\Tag\Input;
 use function is_array;
 
 /**
- * CheckboxList represents a list of checkboxes and their corresponding labels.
+ * `CheckboxList` represents a list of checkboxes and their corresponding labels.
  */
 final class CheckboxList implements NoEncodeStringableInterface
 {
@@ -36,9 +36,6 @@ final class CheckboxList implements NoEncodeStringableInterface
      */
     private array $items = [];
 
-    /**
-     * @psalm-param non-empty-string
-     */
     private string $name;
 
     /**
@@ -59,6 +56,13 @@ final class CheckboxList implements NoEncodeStringableInterface
     public static function create(string $name): self
     {
         return new self($name);
+    }
+
+    public function name(string $name): self
+    {
+        $new = clone $this;
+        $new->name = $name;
+        return $new;
     }
 
     public function withoutContainer(): self
