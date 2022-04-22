@@ -795,7 +795,6 @@ final class Html
      */
     public static function fileInput(?string $name = null, $value = null, array $attributes = []): Input
     {
-        /** @psalm-suppress DeprecatedMethod */
         $tag = Input::file($name, $value);
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
@@ -815,6 +814,7 @@ final class Html
      */
     public static function file(?string $name = null, $value = null, array $attributes = []): File
     {
+        /** @psalm-suppress DeprecatedMethod */
         $tag = Input::fileControl($name, $value);
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }

@@ -83,8 +83,6 @@ final class Input extends InputTag
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
      *
      * @return self
-     *
-     * @deprecated In favour {@see fileControl()}.
      */
     public static function file(?string $name = null, $value = null): self
     {
@@ -104,6 +102,8 @@ final class Input extends InputTag
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
      *
      * @return File
+     *
+     * @deprecated
      */
     public static function fileControl(?string $name = null, $value = null): File
     {
