@@ -221,6 +221,18 @@ final class HtmlTest extends TestCase
         $this->assertSame('<img src="face.png" alt="My Face">', Html::img('face.png', 'My Face')->render());
     }
 
+    public function testFieldset(): void
+    {
+        $this->assertSame(
+            '<fieldset></fieldset>',
+            Html::fieldset()->render()
+        );
+        $this->assertSame(
+            '<fieldset id="MyFields"></fieldset>',
+            Html::fieldset(['id' => 'MyFields'])->render()
+        );
+    }
+
     public function testForm(): void
     {
         $this->assertSame(
@@ -248,6 +260,22 @@ final class HtmlTest extends TestCase
         $this->assertSame('<label for>Name</label>', Html::label('Name', '')->render());
         $this->assertSame('<label for="fieldName">Name</label>', Html::label('Name', 'fieldName')->render());
         $this->assertSame('<label><span>Hello</span></label>', Html::label(Html::span('Hello'))->render());
+    }
+
+    public function testLegend(): void
+    {
+        $this->assertSame(
+            '<legend></legend>',
+            Html::legend()->render()
+        );
+        $this->assertSame(
+            '<legend>Your data</legend>',
+            Html::legend('Your data')->render()
+        );
+        $this->assertSame(
+            '<legend id="MyLegend">Your data</legend>',
+            Html::legend('Your data', ['id' => 'MyLegend'])->render()
+        );
     }
 
     public function testButton(): void
@@ -297,6 +325,10 @@ final class HtmlTest extends TestCase
             '<input type="text" name="test" value="43">',
             Html::input('text', 'test', '43')->render(),
         );
+        $this->assertSame(
+            '<input type="text" name="test" value="43" data-key="x101">',
+            Html::input('text', 'test', '43', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testButtonInput(): void
@@ -305,6 +337,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="button">', Html::buttonInput(null)->render());
         $this->assertSame('<input type="button" value>', Html::buttonInput('')->render());
         $this->assertSame('<input type="button" value="Go">', Html::buttonInput('Go')->render());
+        $this->assertSame(
+            '<input type="button" value="Go" data-key="x101">',
+            Html::buttonInput('Go', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testSubmitInput(): void
@@ -313,6 +349,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="submit">', Html::submitInput(null)->render());
         $this->assertSame('<input type="submit" value>', Html::submitInput('')->render());
         $this->assertSame('<input type="submit" value="Go">', Html::submitInput('Go')->render());
+        $this->assertSame(
+            '<input type="submit" value="Go" data-key="x101">',
+            Html::submitInput('Go', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testResetInput(): void
@@ -321,6 +361,10 @@ final class HtmlTest extends TestCase
         $this->assertSame('<input type="reset">', Html::resetInput(null)->render());
         $this->assertSame('<input type="reset" value>', Html::resetInput('')->render());
         $this->assertSame('<input type="reset" value="Go">', Html::resetInput('Go')->render());
+        $this->assertSame(
+            '<input type="reset" value="Go" data-key="x101">',
+            Html::resetInput('Go', ['data-key' => 'x101'])->render(),
+        );
     }
 
     public function testTextInput(): void

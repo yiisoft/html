@@ -32,6 +32,20 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testName(): void
+    {
+        $widget = CheckboxList::create('a')
+            ->items([1 => 'One'])
+            ->name('b');
+
+        $this->assertSame(
+            '<div>' . "\n" .
+            '<label><input type="checkbox" name="b[]" value="1"> One</label>' . "\n" .
+            '</div>',
+            $widget->render()
+        );
+    }
+
     public function testWithoutContainer(): void
     {
         $this->assertSame(
@@ -634,6 +648,7 @@ final class CheckboxListTest extends TestCase
     public function testImmutability(): void
     {
         $widget = CheckboxList::create('test');
+        $this->assertNotSame($widget, $widget->name('test'));
         $this->assertNotSame($widget, $widget->withoutContainer());
         $this->assertNotSame($widget, $widget->containerTag(''));
         $this->assertNotSame($widget, $widget->containerAttributes([]));
