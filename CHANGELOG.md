@@ -1,10 +1,11 @@
 # Yii HTML Change Log
 
-## 3.0.0 under development
+## 2.4.0 under development
 
 - New #103: Add class for tag `Form` and method `Html::form()` (vjik)
-- New #105: Add specialized class `File` for an input tag with type `file` (vjik)
-- Chg #105: Rename `Html::fileInput()` to `Html::file()`, `Html::file()` and `Input::file()` returns `File` (vjik)
+- New #105: Add specialized class `File` for an input tag with type `file` and methods `Html::file()` and
+  `Input::fileControl()`, methods `Html::fileInput()` and `Input::file()` marked as deprecated (vjik)
+- Chg #105: `Input::file()` returns `File` (vjik)
 - New #109: Add class for tag `Datalist` and method `Html::datalist()` (vjik)
 - New #109: Add specialized class for input tag with type `Range` and methods `Html::range()`, `Input::range()` (vjik)
 - New #113: Add class for tag `Legend`, class for tag `Fieldset`, methods `Html::legend()` and `Html::fieldset()` (vjik)

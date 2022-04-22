@@ -790,10 +790,31 @@ final class Html
      * @param string|null $name The name attribute.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
+     *
+     * @deprecated In favour {@see file()}.
+     */
+    public static function fileInput(?string $name = null, $value = null, array $attributes = []): Input
+    {
+        $tag = Input::file($name, $value);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
+    }
+
+    /**
+     * Generates a file input field.
+     *
+     * To use a file input field, you should set the enclosing form's "enctype" attribute to be "multipart/form-data".
+     * After the form is submitted, the uploaded file information can be obtained via $_FILES[$name]
+     * (see PHP documentation).
+     *
+     * @see Input::file()
+     *
+     * @param string|null $name The name attribute.
+     * @param bool|float|int|string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
     public static function file(?string $name = null, $value = null, array $attributes = []): File
     {
-        $tag = Input::file($name, $value);
+        $tag = Input::fileControl($name, $value);
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 

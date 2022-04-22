@@ -82,9 +82,30 @@ final class Input extends InputTag
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
      *
+     * @return self
+     *
+     * @deprecated In favour {@see fileControl()}.
+     */
+    public static function file(?string $name = null, $value = null): self
+    {
+        $input = self::tag();
+        $input->attributes['type'] = 'file';
+        $input->attributes['name'] = $name;
+        $input->attributes['value'] = $value;
+        return $input;
+    }
+
+    /**
+     * File input.
+     *
+     * @link https://www.w3.org/TR/html52/sec-forms.html#file-upload-state-typefile
+     *
+     * @param string|null $name Name of the input.
+     * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     *
      * @return File
      */
-    public static function file(?string $name = null, $value = null): File
+    public static function fileControl(?string $name = null, $value = null): File
     {
         $input = File::tag();
         if ($name !== null) {
