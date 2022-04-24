@@ -1051,6 +1051,103 @@ final class HtmlTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         Html::normalizeRegexpPattern($regexp, $delimiter);
     }
+
+    public function testBody(): void
+    {
+        $this->assertSame('<body></body>', Html::body()->render());
+        $this->assertSame('<body>Welcome</body>', Html::body('Welcome')->render());
+        $this->assertSame('<body id="main">Welcome</body>', Html::body('Welcome', ['id' => 'main'])->render());
+        $this->assertSame('<body><h1>Welcome</h1></body>', Html::body(Html::h1('Welcome'))->render());
+    }
+
+    public function testArticle(): void
+    {
+        $this->assertSame('<article></article>', Html::article()->render());
+        $this->assertSame(
+            '<article><header><h1>Heading 1</h1></header></article>',
+            Html::article(Html::header(Html::h1('Heading 1')))->render()
+        );
+    }
+
+    public function testSection(): void
+    {
+        $this->assertSame('<section></section>', Html::section()->render());
+        $this->assertSame(
+            '<section><p>Section Content</p></section>',
+            Html::section(Html::p('Section Content'))->render()
+        );
+    }
+
+    public function testNav(): void
+    {
+        $this->assertSame('<nav></nav>', Html::nav()->render());
+        $this->assertSame(
+            "<nav><ul>\n<li>Home</li>\n<li>About Us</li>\n<li>Contact Us</li>\n</ul></nav>",
+            Html::nav(Html::ul()->items(
+                Html::li('Home'),
+                Html::li('About Us'),
+                Html::li('Contact Us'),
+            ))->render()
+        );
+    }
+
+    public function testAside(): void
+    {
+        $this->assertSame('<aside></aside>', Html::aside()->render());
+        $this->assertSame(
+            '<aside><h2>Hello</h2></aside>',
+            Html::aside(Html::h2('Hello'))->render()
+        );
+    }
+
+    public function testHgroup(): void
+    {
+        $this->assertSame('<hgroup></hgroup>', Html::hgroup()->render());
+        $this->assertSame(
+            '<hgroup><h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3></hgroup>',
+            Html::hgroup(
+                Html::h1('Heading 1')
+                . Html::h2('Heading 2')
+                . Html::h3('Heading 3')
+            )->encode(false)->render()
+        );
+    }
+
+    public function testHeader(): void
+    {
+        $this->assertSame('<header></header>', Html::header()->render());
+        $this->assertSame(
+            '<header><h1>Heading 1</h1><i>Hello Text</i></header>',
+            Html::header(
+                Html::h1('Heading 1')
+                . Html::i('Hello Text')
+            )->encode(false)->render()
+        );
+    }
+
+    public function testFooter(): void
+    {
+        $this->assertSame('<footer></footer>', Html::footer()->render());
+        $this->assertSame(
+            '<footer><h3>Heading 3</h3><p>Hello Text</p></footer>',
+            Html::footer(
+                Html::h3('Heading 3')
+                . Html::p('Hello Text')
+            )->encode(false)->render()
+        );
+    }
+
+    public function testAddress(): void
+    {
+        $this->assertSame('<address></address>', Html::address()->render());
+        $this->assertSame(
+            '<address>Street 111, Mount View Town. Contact: <a href="tel:xx-xx-xxxx">xx-xx-xxxx</a></address>',
+            Html::address(
+                'Street 111, Mount View Town. Contact: '
+                . Html::a('xx-xx-xxxx', 'tel:xx-xx-xxxx')
+            )->encode(false)->render()
+        );
+    }
 }
 
 namespace Yiisoft\Html;
