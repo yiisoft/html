@@ -791,7 +791,7 @@ final class Html
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
-     * @deprecated In favour {@see file()}.
+     * @deprecated In favour of {@see file()}.
      */
     public static function fileInput(?string $name = null, $value = null, array $attributes = []): Input
     {
