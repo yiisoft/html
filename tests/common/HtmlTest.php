@@ -431,6 +431,22 @@ final class HtmlTest extends TestCase
         );
     }
 
+    public function testFile(): void
+    {
+        $this->assertSame('<input type="file">', Html::file()->render());
+        $this->assertSame('<input type="file" name>', Html::file('')->render());
+        $this->assertSame('<input type="file" value>', Html::file(null, '')->render());
+        $this->assertSame('<input type="file" name="test">', Html::file('test')->render());
+        $this->assertSame(
+            '<input type="file" name="test" value="43">',
+            Html::file('test', '43')->render(),
+        );
+        $this->assertSame(
+            '<input type="file" class="photo" name="test" value="43">',
+            Html::file('test', '43', ['class' => 'photo'])->render(),
+        );
+    }
+
     public function testRadio(): void
     {
         $this->assertSame('<input type="radio">', Html::radio()->render());
