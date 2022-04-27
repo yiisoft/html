@@ -17,6 +17,9 @@
 - Enh #104: Add parameter `$attributes` to methods `Html::input()`, `Html::buttonInput()`, `Html::submitInput()` 
   and `Html::resetInput()` (vjik)
 - Enh #115: Add methods `CheckboxList::name()` and `RadioList::name()` (vjik)
+- New #97: Add classes for tags `Body`, `Article`, `Section`, `Nav`, `Aside`, `Hgroup`, `Header`, `Footer`, `Address`
+  and methods `Html::body()`, `Html::article()`, `Html::section()`, `Html::nav()`, `Html::aside()`, `Html::hgroup()`,
+  `Html::header()`, `Html::footer()`, `Html::address()` (soodssr)
 
 ## 2.3.0 March 25, 2022
 

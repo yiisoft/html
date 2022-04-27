@@ -1067,6 +1067,118 @@ final class HtmlTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         Html::normalizeRegexpPattern($regexp, $delimiter);
     }
+
+    public function testBody(): void
+    {
+        $this->assertSame('<body></body>', Html::body()->render());
+        $this->assertSame('<body>Welcome</body>', Html::body('Welcome')->render());
+        $this->assertSame('<body id="main">Welcome</body>', Html::body('Welcome', ['id' => 'main'])->render());
+        $this->assertSame('<body><h1>Welcome</h1></body>', Html::body(Html::h1('Welcome'))->render());
+    }
+
+    public function testArticle(): void
+    {
+        $this->assertSame('<article></article>', Html::article()->render());
+        $this->assertSame(
+            '<article>Body</article>',
+            Html::article('Body')->render()
+        );
+        $this->assertSame(
+            '<article class="red">Body</article>',
+            Html::article('Body', ['class' => 'red'])->render()
+        );
+    }
+
+    public function testSection(): void
+    {
+        $this->assertSame('<section></section>', Html::section()->render());
+        $this->assertSame(
+            '<section>Section Content</section>',
+            Html::section('Section Content')->render()
+        );
+        $this->assertSame(
+            '<section class="red">Section Content</section>',
+            Html::section('Section Content', ['class' => 'red'])->render()
+        );
+    }
+
+    public function testNav(): void
+    {
+        $this->assertSame('<nav></nav>', Html::nav()->render());
+        $this->assertSame(
+            '<nav>Navigation</nav>',
+            Html::nav('Navigation')->render()
+        );
+        $this->assertSame(
+            '<nav class="red">Navigation</nav>',
+            Html::nav('Navigation', ['class' => 'red'])->render()
+        );
+    }
+
+    public function testAside(): void
+    {
+        $this->assertSame('<aside></aside>', Html::aside()->render());
+        $this->assertSame(
+            '<aside>Hello</aside>',
+            Html::aside('Hello')->render()
+        );
+        $this->assertSame(
+            '<aside class="red">Hello</aside>',
+            Html::aside('Hello', ['class' => 'red'])->render()
+        );
+    }
+
+    public function testHgroup(): void
+    {
+        $this->assertSame('<hgroup></hgroup>', Html::hgroup()->render());
+        $this->assertSame(
+            '<hgroup>Headings</hgroup>',
+            Html::hgroup('Headings')->render()
+        );
+        $this->assertSame(
+            '<hgroup class="red">Headings</hgroup>',
+            Html::hgroup('Headings', ['class' => 'red'])->render()
+        );
+    }
+
+    public function testHeader(): void
+    {
+        $this->assertSame('<header></header>', Html::header()->render());
+        $this->assertSame(
+            '<header>The header.</header>',
+            Html::header('The header.')->render()
+        );
+        $this->assertSame(
+            '<header class="red">The header.</header>',
+            Html::header('The header.', ['class' => 'red'])->render()
+        );
+    }
+
+    public function testFooter(): void
+    {
+        $this->assertSame('<footer></footer>', Html::footer()->render());
+        $this->assertSame(
+            '<footer>The footer.</footer>',
+            Html::footer('The footer.')->render()
+        );
+        $this->assertSame(
+            '<footer class="red">The footer.</footer>',
+            Html::footer('The footer.', ['class' => 'red'])->render()
+        );
+    }
+
+    public function testAddress(): void
+    {
+        $this->assertSame('<address></address>', Html::address()->render());
+        $this->assertSame(
+            '<address>Street 111, Mount View Town.</address>',
+            Html::address('Street 111, Mount View Town.')->render()
+        );
+        $this->assertSame(
+            '<address class="red">Street 111, Mount View Town.</address>',
+            Html::address('Street 111, Mount View Town.', ['class' => 'red'])->render()
+        );
+    }
 }
 
 namespace Yiisoft\Html;
