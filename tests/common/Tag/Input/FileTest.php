@@ -68,6 +68,22 @@ final class FileTest extends TestCase
         );
     }
 
+    public function testUncheckInputTagAttributes(): void
+    {
+        $result = File::tag()
+            ->name('avatar')
+            ->uncheckValue(7)
+            ->uncheckInputTagAttributes(['id' => 'FileHidden', 'data-key' => '100'])
+            ->form('post')
+            ->render();
+
+        $this->assertSame(
+            '<input type="hidden" id="FileHidden" name="avatar" value="7" form="post" data-key="100">' .
+            '<input type="file" name="avatar" form="post">',
+            $result
+        );
+    }
+
     public function dataAccept(): array
     {
         return [
@@ -96,10 +112,6 @@ final class FileTest extends TestCase
     public function dataMultiple(): array
     {
         return [
-            [
-                '<input type="file" name="avatar">',
-                null,
-            ],
             [
                 '<input type="file" name="avatar" multiple>',
                 true,
