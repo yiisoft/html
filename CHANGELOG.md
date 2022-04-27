@@ -3,8 +3,11 @@
 ## 2.4.0 under development
 
 - New #103: Add class for tag `Form` and method `Html::form()` (vjik)
+- New #105: Add specialized class `File` for an input tag with type `file` and methods `Html::file()` and
+  `Input::fileControl()` (vjik)
 - New #109: Add class for tag `Datalist` and method `Html::datalist()` (vjik)
-- New #109: Add specialized class for input tag with type `Range` and methods `Html::range()`, `Input::range()` (vjik)
+- New #109, #117: Add specialized class for input tag with type `Range` and methods `Html::range()`,
+ `Input::range()` (vjik)
 - New #113: Add class for tag `Legend`, class for tag `Fieldset`, methods `Html::legend()` and `Html::fieldset()` (vjik)
 - New #111: Add widget `ButtonGroup` (vjik)
 - New #111: Add method `Tag::unionAttributes()` that available for all tags (vjik)

@@ -18,10 +18,10 @@
 The package provides various tools to help with dynamic server-side generation of HTML:
 
 - Tag classes `A`, `Audio`, `B`, `Br`, `Button`, `Caption`, `Col`, `Colgroup`, `Datalist`, `Div`, `Em`, `Fieldset`,
- `Form`, `H1`, `H2`, `H3`, `H4`, `H5`, `H6` `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`, `Range`), `Label`,
- `Legend`, `Li`, `Link`, `Meta`, `Noscript`, `Ol`, `Optgroup`, `Option`, `P`, `Picture`, `Script`, `Select`, `Source`, 
- `Span`, `Strong`, `Style`, `Table`, `Tbody`, `Td`, `Textarea`, `Tfoot`, `Th`, `Thead`, `Title`, `Tr`, `Track`, `Ul`,
- `Video`.
+ `Form`, `H1`, `H2`, `H3`, `H4`, `H5`, `H6` `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`, `Range`, `File`),
+ `Label`, `Legend`, `Li`, `Link`, `Meta`, `Noscript`, `Ol`, `Optgroup`, `Option`, `P`, `Picture`, `Script`, `Select`,
+ `Source`, `Span`, `Strong`, `Style`, `Table`, `Tbody`, `Td`, `Textarea`, `Tfoot`, `Th`, `Thead`, `Title`, `Tr`,
+ `Track`, `Ul`, `Video`.
 - `CustomTag` class that helps to generate custom tag with any attributes.
 - HTML widgets `ButtonGroup`, `CheckboxList` and `RadioList`.
 - All tags content is automatically HTML-encoded. There is `NoEncode` class designed to wrap content that should not be encoded.
@@ -301,6 +301,7 @@ Overall the helper has the following method groups.
 - button
 - buttonInput
 - checkbox
+- file
 - datalist
 - fieldset
 - fileInput

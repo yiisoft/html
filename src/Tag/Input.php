@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\InputTag;
 use Yiisoft\Html\Tag\Input\Checkbox;
+use Yiisoft\Html\Tag\Input\File;
 use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Input\Range;
 
@@ -89,6 +90,30 @@ final class Input extends InputTag
         $input->attributes['type'] = 'file';
         $input->attributes['name'] = $name;
         $input->attributes['value'] = $value;
+        return $input;
+    }
+
+    /**
+     * File input.
+     *
+     * @link https://www.w3.org/TR/html52/sec-forms.html#file-upload-state-typefile
+     *
+     * @param string|null $name Name of the input.
+     * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     *
+     * @return File
+     *
+     * @deprecated
+     */
+    public static function fileControl(?string $name = null, $value = null): File
+    {
+        $input = File::tag();
+        if ($name !== null) {
+            $input = $input->name($name);
+        }
+        if ($value !== null) {
+            $input = $input->value($value);
+        }
         return $input;
     }
 
