@@ -14,6 +14,7 @@ use Yiisoft\Html\Tag\Base\InputTag;
 final class File extends InputTag
 {
     private ?string $uncheckValue = null;
+    private array $uncheckInputTagAttributes = [];
 
     /**
      * @param bool|float|int|string|Stringable|null $value
@@ -21,7 +22,14 @@ final class File extends InputTag
     public function uncheckValue($value): self
     {
         $new = clone $this;
-        $new->uncheckValue = $value === null ? null : (string)$value;
+        $new->uncheckValue = $value === null ? null : (string) $value;
+        return $new;
+    }
+
+    public function uncheckInputTagAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->uncheckInputTagAttributes = $attributes;
         return $new;
     }
 
@@ -44,7 +52,7 @@ final class File extends InputTag
      *
      * @param bool $multiple Whether to allow selecting multiple files.
      */
-    public function multiple(?bool $multiple = true): self
+    public function multiple(bool $multiple = true): self
     {
         $new = clone $this;
         $new->attributes['multiple'] = $multiple;
@@ -74,7 +82,8 @@ final class File extends InputTag
 
         $input = Html::hiddenInput(
             Html::getNonArrayableName($name),
-            $this->uncheckValue
+            $this->uncheckValue,
+            $this->uncheckInputTagAttributes
         );
 
         // Make sure disabled input is not sending any value.
