@@ -1080,8 +1080,12 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<article></article>', Html::article()->render());
         $this->assertSame(
-            '<article><header><h1>Heading 1</h1></header></article>',
-            Html::article(Html::header(Html::h1('Heading 1')))->render()
+            '<article>Body</article>',
+            Html::article('Body')->render()
+        );
+        $this->assertSame(
+            '<article class="red">Body</article>',
+            Html::article('Body', ['class' => 'red'])->render()
         );
     }
 
@@ -1089,8 +1093,12 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<section></section>', Html::section()->render());
         $this->assertSame(
-            '<section><p>Section Content</p></section>',
-            Html::section(Html::p('Section Content'))->render()
+            '<section>Section Content</section>',
+            Html::section('Section Content')->render()
+        );
+        $this->assertSame(
+            '<section class="red">Section Content</section>',
+            Html::section('Section Content', ['class' => 'red'])->render()
         );
     }
 
@@ -1098,12 +1106,12 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<nav></nav>', Html::nav()->render());
         $this->assertSame(
-            "<nav><ul>\n<li>Home</li>\n<li>About Us</li>\n<li>Contact Us</li>\n</ul></nav>",
-            Html::nav(Html::ul()->items(
-                Html::li('Home'),
-                Html::li('About Us'),
-                Html::li('Contact Us'),
-            ))->render()
+            '<nav>Navigation</nav>',
+            Html::nav('Navigation')->render()
+        );
+        $this->assertSame(
+            '<nav class="red">Navigation</nav>',
+            Html::nav('Navigation', ['class' => 'red'])->render()
         );
     }
 
@@ -1111,8 +1119,12 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<aside></aside>', Html::aside()->render());
         $this->assertSame(
-            '<aside><h2>Hello</h2></aside>',
-            Html::aside(Html::h2('Hello'))->render()
+            '<aside>Hello</aside>',
+            Html::aside('Hello')->render()
+        );
+        $this->assertSame(
+            '<aside class="red">Hello</aside>',
+            Html::aside('Hello', ['class' => 'red'])->render()
         );
     }
 
@@ -1120,12 +1132,12 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<hgroup></hgroup>', Html::hgroup()->render());
         $this->assertSame(
-            '<hgroup><h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3></hgroup>',
-            Html::hgroup(
-                Html::h1('Heading 1')
-                . Html::h2('Heading 2')
-                . Html::h3('Heading 3')
-            )->encode(false)->render()
+            '<hgroup>Headings</hgroup>',
+            Html::hgroup('Headings')->render()
+        );
+        $this->assertSame(
+            '<hgroup class="red">Headings</hgroup>',
+            Html::hgroup('Headings', ['class' => 'red'])->render()
         );
     }
 
@@ -1133,11 +1145,12 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<header></header>', Html::header()->render());
         $this->assertSame(
-            '<header><h1>Heading 1</h1><i>Hello Text</i></header>',
-            Html::header(
-                Html::h1('Heading 1')
-                . Html::i('Hello Text')
-            )->encode(false)->render()
+            '<header>The header.</header>',
+            Html::header('The header.')->render()
+        );
+        $this->assertSame(
+            '<header class="red">The header.</header>',
+            Html::header('The header.', ['class' => 'red'])->render()
         );
     }
 
@@ -1145,11 +1158,12 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<footer></footer>', Html::footer()->render());
         $this->assertSame(
-            '<footer><h3>Heading 3</h3><p>Hello Text</p></footer>',
-            Html::footer(
-                Html::h3('Heading 3')
-                . Html::p('Hello Text')
-            )->encode(false)->render()
+            '<footer>The footer.</footer>',
+            Html::footer('The footer.')->render()
+        );
+        $this->assertSame(
+            '<footer class="red">The footer.</footer>',
+            Html::footer('The footer.', ['class' => 'red'])->render()
         );
     }
 
@@ -1157,11 +1171,12 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<address></address>', Html::address()->render());
         $this->assertSame(
-            '<address>Street 111, Mount View Town. Contact: <a href="tel:xx-xx-xxxx">xx-xx-xxxx</a></address>',
-            Html::address(
-                'Street 111, Mount View Town. Contact: '
-                . Html::a('xx-xx-xxxx', 'tel:xx-xx-xxxx')
-            )->encode(false)->render()
+            '<address>Street 111, Mount View Town.</address>',
+            Html::address('Street 111, Mount View Town.')->render()
+        );
+        $this->assertSame(
+            '<address class="red">Street 111, Mount View Town.</address>',
+            Html::address('Street 111, Mount View Town.', ['class' => 'red'])->render()
         );
     }
 }

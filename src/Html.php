@@ -1370,6 +1370,141 @@ final class Html
     }
 
     /**
+     * Generates a {@see Body} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function body($content = '', array $attributes = []): Body
+    {
+        $tag = Body::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Article} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function article($content = '', array $attributes = []): Article
+    {
+        $tag = Article::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Section} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function section($content = '', array $attributes = []): Section
+    {
+        $tag = Section::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Nav} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function nav($content = '', array $attributes = []): Nav
+    {
+        $tag = Nav::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Aside} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function aside($content = '', array $attributes = []): Aside
+    {
+        $tag = Aside::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Hgroup} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function hgroup($content = '', array $attributes = []): Hgroup
+    {
+        $tag = Hgroup::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Header} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function header($content = '', array $attributes = []): Header
+    {
+        $tag = Header::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Footer} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function footer($content = '', array $attributes = []): Footer
+    {
+        $tag = Footer::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Address} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function address($content = '', array $attributes = []): Address
+    {
+        $tag = Address::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
      * Renders the HTML tag attributes.
      *
      * Attributes whose values are of boolean type will be treated as
@@ -1731,140 +1866,5 @@ final class Html
         }
 
         return ' ' . $name . '=' . $quote . $encodedValue . $quote;
-    }
-
-    /**
-     * Generates a {@see Body} tag.
-     *
-     * @param string|Stringable $content Tag content.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    public static function body($content = '', array $attributes = []): Body
-    {
-        $tag = Body::tag();
-        if (!empty($attributes)) {
-            $tag = $tag->attributes($attributes);
-        }
-        return $content === '' ? $tag : $tag->content($content);
-    }
-
-    /**
-     * Generates a {@see Article} tag.
-     *
-     * @param string|Stringable $content Tag content.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    public static function article($content = '', array $attributes = []): Article
-    {
-        $tag = Article::tag();
-        if (!empty($attributes)) {
-            $tag = $tag->attributes($attributes);
-        }
-        return $content === '' ? $tag : $tag->content($content);
-    }
-
-    /**
-     * Generates a {@see Section} tag.
-     *
-     * @param string|Stringable $content Tag content.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    public static function section($content = '', array $attributes = []): Section
-    {
-        $tag = Section::tag();
-        if (!empty($attributes)) {
-            $tag = $tag->attributes($attributes);
-        }
-        return $content === '' ? $tag : $tag->content($content);
-    }
-
-    /**
-     * Generates a {@see Nav} tag.
-     *
-     * @param string|Stringable $content Tag content.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    public static function nav($content = '', array $attributes = []): Nav
-    {
-        $tag = Nav::tag();
-        if (!empty($attributes)) {
-            $tag = $tag->attributes($attributes);
-        }
-        return $content === '' ? $tag : $tag->content($content);
-    }
-
-    /**
-     * Generates a {@see Aside} tag.
-     *
-     * @param string|Stringable $content Tag content.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    public static function aside($content = '', array $attributes = []): Aside
-    {
-        $tag = Aside::tag();
-        if (!empty($attributes)) {
-            $tag = $tag->attributes($attributes);
-        }
-        return $content === '' ? $tag : $tag->content($content);
-    }
-
-    /**
-     * Generates a {@see Hgroup} tag.
-     *
-     * @param string|Stringable $content Tag content.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    public static function hgroup($content = '', array $attributes = []): Hgroup
-    {
-        $tag = Hgroup::tag();
-        if (!empty($attributes)) {
-            $tag = $tag->attributes($attributes);
-        }
-        return $content === '' ? $tag : $tag->content($content);
-    }
-
-    /**
-     * Generates a {@see Header} tag.
-     *
-     * @param string|Stringable $content Tag content.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    public static function header($content = '', array $attributes = []): Header
-    {
-        $tag = Header::tag();
-        if (!empty($attributes)) {
-            $tag = $tag->attributes($attributes);
-        }
-        return $content === '' ? $tag : $tag->content($content);
-    }
-
-    /**
-     * Generates a {@see Footer} tag.
-     *
-     * @param string|Stringable $content Tag content.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    public static function footer($content = '', array $attributes = []): Footer
-    {
-        $tag = Footer::tag();
-        if (!empty($attributes)) {
-            $tag = $tag->attributes($attributes);
-        }
-        return $content === '' ? $tag : $tag->content($content);
-    }
-
-    /**
-     * Generates a {@see Address} tag.
-     *
-     * @param string|Stringable $content Tag content.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    public static function address($content = '', array $attributes = []): Address
-    {
-        $tag = Address::tag();
-        if (!empty($attributes)) {
-            $tag = $tag->attributes($attributes);
-        }
-        return $content === '' ? $tag : $tag->content($content);
     }
 }

@@ -17,7 +17,9 @@
 - Enh #104: Add parameter `$attributes` to methods `Html::input()`, `Html::buttonInput()`, `Html::submitInput()` 
   and `Html::resetInput()` (vjik)
 - Enh #115: Add methods `CheckboxList::name()` and `RadioList::name()` (vjik)
-- New #97: Add classes for tags `Body`, `Article`, `Section`, `Nav`, `Aside`, `Hgroup`, `Header`, `Footer`, `Address` and methods `Html::body()`, `Html::article()`, `Html::section()`, `Html::nav()`, `Html::aside()`, `Html::hgroup()`, `Html::header()`, `Html::footer()`, `Html::address()` (soodssr)
+- New #97: Add classes for tags `Body`, `Article`, `Section`, `Nav`, `Aside`, `Hgroup`, `Header`, `Footer`, `Address`
+  and methods `Html::body()`, `Html::article()`, `Html::section()`, `Html::nav()`, `Html::aside()`, `Html::hgroup()`,
+  `Html::header()`, `Html::footer()`, `Html::address()` (soodssr)
 
 ## 2.3.0 March 25, 2022
 
@@ -25,7 +27,6 @@
 - New #96: Add classes for heading tags `H1-6` and methods `Html::h1()`, `Html::h2()`, `Html::h3()`, `Html::h4()`,
   `Html::h5()`, `Html::h6()` (vjik)
 - New #100: Add classes for tags `Picture`, `Audio`, `Video`, `Source` and `Track` (Gerych1984, vjik)
-- New #89: Add method `nofollow()` to the `A` tag (soodssr)
 
 ## 2.2.1 October 24, 2021
 

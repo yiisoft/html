@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
@@ -8,7 +8,7 @@ use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TagContentTrait;
 
 /**
- * @link https://html.spec.whatwg.org/multipage/sections.html#the-section-element
+ * @link https://html.spec.whatwg.org/multipage/sections.html#the-article-element
  */
 final class Article extends NormalTag
 {
