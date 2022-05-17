@@ -100,6 +100,13 @@ final class Range extends InputTag
     public function outputAttributes(array $attributes): self
     {
         $new = clone $this;
+        $new->outputAttributes = array_merge($this->outputAttributes, $attributes);
+        return $new;
+    }
+
+    public function replaceOutputAttributes(array $attributes): self
+    {
+        $new = clone $this;
         $new->outputAttributes = $attributes;
         return $new;
     }
