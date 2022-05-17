@@ -21,7 +21,7 @@ final class Range extends InputTag
     /**
      * @psalm-var non-empty-string
      */
-    private string $outputTagName = 'span';
+    private string $outputTag = 'span';
     private array $outputAttributes = [];
     private ?string $outputId = null;
 
@@ -86,14 +86,14 @@ final class Range extends InputTag
         return $new;
     }
 
-    public function outputTagName(string $tagName): self
+    public function outputTag(string $tagName): self
     {
         if ($tagName === '') {
             throw new InvalidArgumentException('The output tag name it cannot be empty value.');
         }
 
         $new = clone $this;
-        $new->outputTagName = $tagName;
+        $new->outputTag = $tagName;
         return $new;
     }
 
@@ -120,7 +120,7 @@ final class Range extends InputTag
             return '';
         }
 
-        return "\n" . CustomTag::name($this->outputTagName)
+        return "\n" . CustomTag::name($this->outputTag)
                 ->attributes($this->outputAttributes)
                 ->content((string) ($this->attributes['value'] ?? '-'))
                 ->id($this->outputId)

@@ -138,11 +138,11 @@ final class RangeTest extends TestCase
         );
     }
 
-    public function testOutputWithCustomTagName(): void
+    public function testOutputWithCustomTag(): void
     {
         $tag = Range::tag()
             ->showOutput()
-            ->outputTagName('b');
+            ->outputTag('b');
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" ' .
@@ -180,13 +180,13 @@ final class RangeTest extends TestCase
         );
     }
 
-    public function testEmptyOutputTagName(): void
+    public function testEmptyOutputTag(): void
     {
         $tag = Range::tag();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The output tag name it cannot be empty value.');
-        $tag->outputTagName('');
+        $tag->outputTag('');
     }
 
     public function testImmutability(): void
@@ -198,7 +198,7 @@ final class RangeTest extends TestCase
         $this->assertNotSame($tag, $tag->step(null));
         $this->assertNotSame($tag, $tag->list(null));
         $this->assertNotSame($tag, $tag->showOutput());
-        $this->assertNotSame($tag, $tag->outputTagName('b'));
+        $this->assertNotSame($tag, $tag->outputTag('b'));
         $this->assertNotSame($tag, $tag->outputAttributes([]));
     }
 }
