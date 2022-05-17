@@ -128,7 +128,7 @@ final class RangeTest extends TestCase
     {
         $tag = Range::tag()
             ->showOutput()
-            ->outputTagAttributes(['id' => 'UID']);
+            ->outputAttributes(['id' => 'UID']);
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" ' .
@@ -152,11 +152,11 @@ final class RangeTest extends TestCase
         );
     }
 
-    public function testOutputWithCustomTagAttributes(): void
+    public function testOutputWithCustomAttributes(): void
     {
         $tag = Range::tag()
             ->showOutput()
-            ->outputTagAttributes(['class' => 'red']);
+            ->outputAttributes(['class' => 'red']);
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" ' .
@@ -199,6 +199,6 @@ final class RangeTest extends TestCase
         $this->assertNotSame($tag, $tag->list(null));
         $this->assertNotSame($tag, $tag->showOutput());
         $this->assertNotSame($tag, $tag->outputTagName('b'));
-        $this->assertNotSame($tag, $tag->outputTagAttributes([]));
+        $this->assertNotSame($tag, $tag->outputAttributes([]));
     }
 }

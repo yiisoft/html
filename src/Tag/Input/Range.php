@@ -22,8 +22,8 @@ final class Range extends InputTag
      * @psalm-var non-empty-string
      */
     private string $outputTagName = 'span';
-    private array $outputTagAttributes = [];
-    private ?string $outputTagId = null;
+    private array $outputAttributes = [];
+    private ?string $outputId = null;
 
     /**
      * Maximum value.
@@ -97,10 +97,10 @@ final class Range extends InputTag
         return $new;
     }
 
-    public function outputTagAttributes(array $attributes): self
+    public function outputAttributes(array $attributes): self
     {
         $new = clone $this;
-        $new->outputTagAttributes = $attributes;
+        $new->outputAttributes = $attributes;
         return $new;
     }
 
@@ -109,8 +109,8 @@ final class Range extends InputTag
         $this->attributes['type'] = 'range';
 
         if ($this->showOutput) {
-            $this->outputTagId = (string) ($this->outputTagAttributes['id'] ?? Html::generateId('rangeOutput'));
-            $this->attributes['oninput'] = 'document.getElementById("' . $this->outputTagId . '").innerHTML=this.value';
+            $this->outputId = (string) ($this->outputAttributes['id'] ?? Html::generateId('rangeOutput'));
+            $this->attributes['oninput'] = 'document.getElementById("' . $this->outputId . '").innerHTML=this.value';
         }
     }
 
@@ -121,9 +121,9 @@ final class Range extends InputTag
         }
 
         return "\n" . CustomTag::name($this->outputTagName)
-                ->attributes($this->outputTagAttributes)
+                ->attributes($this->outputAttributes)
                 ->content((string) ($this->attributes['value'] ?? '-'))
-                ->id($this->outputTagId)
+                ->id($this->outputId)
                 ->render();
     }
 }

@@ -68,12 +68,12 @@ final class FileTest extends TestCase
         );
     }
 
-    public function testUncheckInputTagAttributes(): void
+    public function testUncheckInputAttributes(): void
     {
         $result = File::tag()
             ->name('avatar')
             ->uncheckValue(7)
-            ->uncheckInputTagAttributes(['id' => 'FileHidden', 'data-key' => '100'])
+            ->uncheckInputAttributes(['id' => 'FileHidden', 'data-key' => '100'])
             ->form('post')
             ->render();
 
