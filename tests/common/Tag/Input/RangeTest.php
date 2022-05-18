@@ -118,8 +118,38 @@ final class RangeTest extends TestCase
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" ' .
-            'oninput="document.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
+            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
             "\n" . '<span id="(?P=id)">-</span>~',
+            $tag->render()
+        );
+    }
+
+    public function testOutputAttributes(): void
+    {
+        $tag = Range::tag()
+            ->showOutput()
+            ->outputAttributes(['class' => 'red'])
+            ->outputAttributes(['id' => 'UID']);
+
+        $this->assertSame(
+            '<input type="range" ' .
+            'oninput="document.getElementById(&quot;UID&quot;).innerHTML=this.value">' .
+            "\n" . '<span id="UID" class="red">-</span>',
+            $tag->render()
+        );
+    }
+
+    public function testReplaceOutputAttributes(): void
+    {
+        $tag = Range::tag()
+            ->showOutput()
+            ->outputAttributes(['class' => 'red'])
+            ->replaceOutputAttributes(['id' => 'UID']);
+
+        $this->assertSame(
+            '<input type="range" ' .
+            'oninput="document.getElementById(&quot;UID&quot;).innerHTML=this.value">' .
+            "\n" . '<span id="UID">-</span>',
             $tag->render()
         );
     }
@@ -128,7 +158,7 @@ final class RangeTest extends TestCase
     {
         $tag = Range::tag()
             ->showOutput()
-            ->outputTagAttributes(['id' => 'UID']);
+            ->outputAttributes(['id' => 'UID']);
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" ' .
@@ -138,29 +168,29 @@ final class RangeTest extends TestCase
         );
     }
 
-    public function testOutputWithCustomTagName(): void
+    public function testOutputWithCustomTag(): void
     {
         $tag = Range::tag()
             ->showOutput()
-            ->outputTagName('b');
+            ->outputTag('b');
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" ' .
-            'oninput="document.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
+            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
             "\n" . '<b id="(?P=id)">-</b>~',
             $tag->render()
         );
     }
 
-    public function testOutputWithCustomTagAttributes(): void
+    public function testOutputWithCustomAttributes(): void
     {
         $tag = Range::tag()
             ->showOutput()
-            ->outputTagAttributes(['class' => 'red']);
+            ->outputAttributes(['class' => 'red']);
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" ' .
-            'oninput="document.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
+            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
             "\n" . '<span id="(?P=id)" class="red">-</span>~',
             $tag->render()
         );
@@ -174,19 +204,19 @@ final class RangeTest extends TestCase
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" value="10" ' .
-            'oninput="document.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
+            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
             "\n" . '<span id="(?P=id)">10</span>~',
             $tag->render()
         );
     }
 
-    public function testEmptyOutputTagName(): void
+    public function testEmptyOutputTag(): void
     {
         $tag = Range::tag();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The output tag name it cannot be empty value.');
-        $tag->outputTagName('');
+        $tag->outputTag('');
     }
 
     public function testImmutability(): void
@@ -198,7 +228,8 @@ final class RangeTest extends TestCase
         $this->assertNotSame($tag, $tag->step(null));
         $this->assertNotSame($tag, $tag->list(null));
         $this->assertNotSame($tag, $tag->showOutput());
-        $this->assertNotSame($tag, $tag->outputTagName('b'));
-        $this->assertNotSame($tag, $tag->outputTagAttributes([]));
+        $this->assertNotSame($tag, $tag->outputTag('b'));
+        $this->assertNotSame($tag, $tag->outputAttributes([]));
+        $this->assertNotSame($tag, $tag->replaceOutputAttributes([]));
     }
 }

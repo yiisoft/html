@@ -21,9 +21,9 @@ final class Range extends InputTag
     /**
      * @psalm-var non-empty-string
      */
-    private string $outputTagName = 'span';
-    private array $outputTagAttributes = [];
-    private ?string $outputTagId = null;
+    private string $outputTag = 'span';
+    private array $outputAttributes = [];
+    private ?string $outputId = null;
 
     /**
      * Maximum value.
@@ -86,21 +86,28 @@ final class Range extends InputTag
         return $new;
     }
 
-    public function outputTagName(string $tagName): self
+    public function outputTag(string $tagName): self
     {
         if ($tagName === '') {
             throw new InvalidArgumentException('The output tag name it cannot be empty value.');
         }
 
         $new = clone $this;
-        $new->outputTagName = $tagName;
+        $new->outputTag = $tagName;
         return $new;
     }
 
-    public function outputTagAttributes(array $attributes): self
+    public function outputAttributes(array $attributes): self
     {
         $new = clone $this;
-        $new->outputTagAttributes = $attributes;
+        $new->outputAttributes = array_merge($this->outputAttributes, $attributes);
+        return $new;
+    }
+
+    public function replaceOutputAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->outputAttributes = $attributes;
         return $new;
     }
 
@@ -109,8 +116,8 @@ final class Range extends InputTag
         $this->attributes['type'] = 'range';
 
         if ($this->showOutput) {
-            $this->outputTagId = (string) ($this->outputTagAttributes['id'] ?? Html::generateId('rangeOutput'));
-            $this->attributes['oninput'] = 'document.getElementById("' . $this->outputTagId . '").innerHTML=this.value';
+            $this->outputId = (string) ($this->outputAttributes['id'] ?? Html::generateId('rangeOutput'));
+            $this->attributes['oninput'] = 'document.getElementById("' . $this->outputId . '").innerHTML=this.value';
         }
     }
 
@@ -120,10 +127,10 @@ final class Range extends InputTag
             return '';
         }
 
-        return "\n" . CustomTag::name($this->outputTagName)
-                ->attributes($this->outputTagAttributes)
+        return "\n" . CustomTag::name($this->outputTag)
+                ->attributes($this->outputAttributes)
                 ->content((string) ($this->attributes['value'] ?? '-'))
-                ->id($this->outputTagId)
+                ->id($this->outputId)
                 ->render();
     }
 }

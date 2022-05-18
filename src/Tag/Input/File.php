@@ -14,7 +14,7 @@ use Yiisoft\Html\Tag\Base\InputTag;
 final class File extends InputTag
 {
     private ?string $uncheckValue = null;
-    private array $uncheckInputTagAttributes = [];
+    private array $uncheckInputAttributes = [];
 
     /**
      * @param bool|float|int|string|Stringable|null $value
@@ -26,10 +26,17 @@ final class File extends InputTag
         return $new;
     }
 
-    public function uncheckInputTagAttributes(array $attributes): self
+    public function uncheckInputAttributes(array $attributes): self
     {
         $new = clone $this;
-        $new->uncheckInputTagAttributes = $attributes;
+        $new->uncheckInputAttributes = array_merge($new->uncheckInputAttributes, $attributes);
+        return $new;
+    }
+
+    public function replaceUncheckInputAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->uncheckInputAttributes = $attributes;
         return $new;
     }
 
@@ -83,7 +90,7 @@ final class File extends InputTag
         $input = Html::hiddenInput(
             Html::getNonArrayableName($name),
             $this->uncheckValue,
-            $this->uncheckInputTagAttributes
+            $this->uncheckInputAttributes
         );
 
         // Make sure disabled input is not sending any value.
