@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 2.4.1 under development
+
+- no changes in this release.
+
 ## 2.4.0 May 19, 2022
 
 - New #97: Add classes for tags `Body`, `Article`, `Section`, `Nav`, `Aside`, `Hgroup`, `Header`, `Footer`, `Address`
