@@ -1,25 +1,25 @@
 # Yii HTML Change Log
 
-## 2.4.0 under development
+## 2.4.0 May 19, 2022
 
+- New #97: Add classes for tags `Body`, `Article`, `Section`, `Nav`, `Aside`, `Hgroup`, `Header`, `Footer`, `Address`
+  and methods `Html::body()`, `Html::article()`, `Html::section()`, `Html::nav()`, `Html::aside()`, `Html::hgroup()`,
+  `Html::header()`, `Html::footer()`, `Html::address()` (soodssr)
 - New #103: Add class for tag `Form` and method `Html::form()` (vjik)
 - New #105: Add specialized class `File` for an input tag with type `file` and methods `Html::file()` and
   `Input::fileControl()` (vjik)
 - New #109: Add class for tag `Datalist` and method `Html::datalist()` (vjik)
 - New #109, #117: Add specialized class for input tag with type `Range` and methods `Html::range()`,
  `Input::range()` (vjik)
-- New #113: Add class for tag `Legend`, class for tag `Fieldset`, methods `Html::legend()` and `Html::fieldset()` (vjik)
 - New #111: Add widget `ButtonGroup` (vjik)
 - New #111: Add method `Tag::unionAttributes()` that available for all tags (vjik)
-- Enh #106: Add option groups support to method `Select::optionsData()` (vjik)
-- Enh #108: Add individual attributes of options and option groups support to method `Select::optionsData()` (vjik)
+- New #113: Add class for tag `Legend`, class for tag `Fieldset`, methods `Html::legend()` and `Html::fieldset()` (vjik)
 - Enh #102: Remove psalm type `HtmlAttributes`, too obsessive for package users (vjik)
 - Enh #104: Add parameter `$attributes` to methods `Html::input()`, `Html::buttonInput()`, `Html::submitInput()` 
   and `Html::resetInput()` (vjik)
+- Enh #106: Add option groups support to method `Select::optionsData()` (vjik)
+- Enh #108: Add individual attributes of options and option groups support to method `Select::optionsData()` (vjik)
 - Enh #115: Add methods `CheckboxList::name()` and `RadioList::name()` (vjik)
-- New #97: Add classes for tags `Body`, `Article`, `Section`, `Nav`, `Aside`, `Hgroup`, `Header`, `Footer`, `Address`
-  and methods `Html::body()`, `Html::article()`, `Html::section()`, `Html::nav()`, `Html::aside()`, `Html::hgroup()`,
-  `Html::header()`, `Html::footer()`, `Html::address()` (soodssr)
 
 ## 2.3.0 March 25, 2022
 
