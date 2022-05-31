@@ -18,7 +18,10 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test id="main">&lt;b&gt;hello &amp;gt; world!&lt;/b&gt;</test>',
-            TestTagContentTrait::tag()->id('main')->content('<b>hello &gt; world!</b>')->render()
+            TestTagContentTrait::tag()
+                ->id('main')
+                ->content('<b>hello &gt; world!</b>')
+                ->render()
         );
     }
 
@@ -26,7 +29,9 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test><b>hello</b></test>',
-            (string)TestTagContentTrait::tag()->content('<b>hello</b>')->encode(false)
+            (string)TestTagContentTrait::tag()
+                ->content('<b>hello</b>')
+                ->encode(false)
         );
     }
 
@@ -34,7 +39,9 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string)TestTagContentTrait::tag()->content('<b>A &gt; B</b>')->doubleEncode(false)
+            (string)TestTagContentTrait::tag()
+                ->content('<b>A &gt; B</b>')
+                ->doubleEncode(false)
         );
     }
 

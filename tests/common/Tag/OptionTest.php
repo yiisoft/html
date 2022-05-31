@@ -13,7 +13,9 @@ final class OptionTest extends TestCase
     {
         $this->assertSame(
             '<option value="1">One</option>',
-            (string)Option::tag()->value('1')->content('One')
+            (string)Option::tag()
+                ->value('1')
+                ->content('One')
         );
     }
 
@@ -37,14 +39,18 @@ final class OptionTest extends TestCase
     {
         $this->assertSame('<option selected></option>', (string)Option::tag()->selected());
         $this->assertSame('<option></option>', (string)Option::tag()->selected(false));
-        $this->assertSame('<option></option>', (string)Option::tag()->selected(true)->selected(false));
+        $this->assertSame('<option></option>', (string)Option::tag()
+            ->selected(true)
+            ->selected(false));
     }
 
     public function testDisabled(): void
     {
         $this->assertSame('<option disabled></option>', (string)Option::tag()->disabled());
         $this->assertSame('<option></option>', (string)Option::tag()->disabled(false));
-        $this->assertSame('<option></option>', (string)Option::tag()->disabled(true)->disabled(false));
+        $this->assertSame('<option></option>', (string)Option::tag()
+            ->disabled(true)
+            ->disabled(false));
     }
 
     public function dataGetValue(): array

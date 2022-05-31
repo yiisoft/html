@@ -25,14 +25,20 @@ final class TrackTest extends TestCase
     {
         $this->assertSame('<track default>', (string) Track::tag()->default());
         $this->assertSame('<track>', (string) Track::tag()->default(false));
-        $this->assertSame('<track>', (string) Track::tag()->default(true)->default(false));
+        $this->assertSame('<track>', (string) Track::tag()
+            ->default(true)
+            ->default(false));
     }
 
     public function testIsDefault(): void
     {
         $this->assertFalse(Track::tag()->isDefault());
-        $this->assertFalse(Track::tag()->default(false)->isDefault());
-        $this->assertTrue(Track::tag()->default()->isDefault());
+        $this->assertFalse(Track::tag()
+            ->default(false)
+            ->isDefault());
+        $this->assertTrue(Track::tag()
+            ->default()
+            ->isDefault());
     }
 
     public function dataKind(): array

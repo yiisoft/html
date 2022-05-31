@@ -13,7 +13,9 @@ final class ImgTest extends TestCase
     {
         $this->assertSame(
             '<img src="logo.png" alt="Great Company">',
-            (string)Img::tag()->url('logo.png')->alt('Great Company')
+            (string)Img::tag()
+                ->url('logo.png')
+                ->alt('Great Company')
         );
     }
 

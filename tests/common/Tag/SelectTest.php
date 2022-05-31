@@ -57,7 +57,9 @@ final class SelectTest extends TestCase
      */
     public function testNameForMultiple(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string)Select::tag()->multiple()->name($name));
+        $this->assertSame($expected, (string)Select::tag()
+            ->multiple()
+            ->name($name));
     }
 
     public function dataValue(): array
@@ -70,7 +72,9 @@ final class SelectTest extends TestCase
                 '<option value="1"></option>' . "\n" .
                 '<option value="2"></option>' . "\n" .
                 '</select>',
-                [Option::tag()->value('1'), Option::tag()->value('2')->selected()],
+                [Option::tag()->value('1'), Option::tag()
+                    ->value('2')
+                    ->selected()],
                 [],
             ],
             [
@@ -114,10 +118,16 @@ final class SelectTest extends TestCase
                 '</optgroup>' . "\n" .
                 '</select>',
                 [
-                    Option::tag()->value('1')->content('One'),
+                    Option::tag()
+                        ->value('1')
+                        ->content('One'),
                     Optgroup::tag()->options(
-                        Option::tag()->value('1.1')->content('One.One'),
-                        Option::tag()->value('1.2')->content('One.Two'),
+                        Option::tag()
+                            ->value('1.1')
+                            ->content('One.One'),
+                        Option::tag()
+                            ->value('1.2')
+                            ->content('One.Two'),
                     ),
                 ],
                 [],
@@ -131,10 +141,16 @@ final class SelectTest extends TestCase
                 '</optgroup>' . "\n" .
                 '</select>',
                 [
-                    Option::tag()->value('1')->content('One'),
+                    Option::tag()
+                        ->value('1')
+                        ->content('One'),
                     Optgroup::tag()->options(
-                        Option::tag()->value('1.1')->content('One.One'),
-                        Option::tag()->value('1.2')->content('One.Two'),
+                        Option::tag()
+                            ->value('1.1')
+                            ->content('One.One'),
+                        Option::tag()
+                            ->value('1.2')
+                            ->content('One.Two'),
                     ),
                 ],
                 ['1', '1.1'],
@@ -149,11 +165,15 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string)Select::tag()->items(...$items)->value(...$value),
+            (string)Select::tag()
+                ->items(...$items)
+                ->value(...$value),
         );
         $this->assertSame(
             $expected,
-            (string)Select::tag()->items(...$items)->values($value),
+            (string)Select::tag()
+                ->items(...$items)
+                ->values($value),
         );
     }
 
@@ -177,7 +197,9 @@ final class SelectTest extends TestCase
      */
     public function testForm(string $expected, ?string $formId): void
     {
-        $this->assertSame($expected, Select::tag()->form($formId)->render());
+        $this->assertSame($expected, Select::tag()
+            ->form($formId)
+            ->render());
     }
 
     public function dataItems(): array
@@ -193,8 +215,12 @@ final class SelectTest extends TestCase
                 '<option value="2">Two</option>' . "\n" .
                 '</select>',
                 [
-                    Option::tag()->value('1')->content('One'),
-                    Option::tag()->value('2')->content('Two'),
+                    Option::tag()
+                        ->value('1')
+                        ->content('One'),
+                    Option::tag()
+                        ->value('2')
+                        ->content('Two'),
                 ],
             ],
             [
@@ -206,10 +232,16 @@ final class SelectTest extends TestCase
                 '</optgroup>' . "\n" .
                 '</select>',
                 [
-                    Option::tag()->value('1')->content('One'),
+                    Option::tag()
+                        ->value('1')
+                        ->content('One'),
                     Optgroup::tag()->options(
-                        Option::tag()->value('1.1')->content('One.One'),
-                        Option::tag()->value('1.2')->content('One.Two'),
+                        Option::tag()
+                            ->value('1.1')
+                            ->content('One.One'),
+                        Option::tag()
+                            ->value('1.2')
+                            ->content('One.Two'),
                     ),
                 ],
             ],
@@ -228,7 +260,9 @@ final class SelectTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Incorrect item into Select.');
-        Select::tag()->items(Li::tag())->render();
+        Select::tag()
+            ->items(Li::tag())
+            ->render();
     }
 
     public function testOptions(): void
@@ -237,8 +271,12 @@ final class SelectTest extends TestCase
             "<select>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</select>",
             (string)Select::tag()
                 ->options(
-                    Option::tag()->value('1')->content('One'),
-                    Option::tag()->value('2')->content('Two'),
+                    Option::tag()
+                        ->value('1')
+                        ->content('One'),
+                    Option::tag()
+                        ->value('2')
+                        ->content('Two'),
                 )
         );
     }
@@ -363,7 +401,9 @@ final class SelectTest extends TestCase
             $expected,
             (string)Select::tag()
                 ->prompt($text)
-                ->options(Option::tag()->value('1')->content('One'))
+                ->options(Option::tag()
+                    ->value('1')
+                    ->content('One'))
         );
     }
 
@@ -395,7 +435,9 @@ final class SelectTest extends TestCase
             $expected,
             (string)Select::tag()
                 ->promptOption($option)
-                ->options(Option::tag()->value('1')->content('One'))
+                ->options(Option::tag()
+                    ->value('1')
+                    ->content('One'))
         );
     }
 
@@ -403,21 +445,27 @@ final class SelectTest extends TestCase
     {
         $this->assertSame('<select disabled></select>', (string)Select::tag()->disabled());
         $this->assertSame('<select></select>', (string)Select::tag()->disabled(false));
-        $this->assertSame('<select></select>', (string)Select::tag()->disabled(true)->disabled(false));
+        $this->assertSame('<select></select>', (string)Select::tag()
+            ->disabled(true)
+            ->disabled(false));
     }
 
     public function testMultiple(): void
     {
         $this->assertSame('<select multiple></select>', (string)Select::tag()->multiple());
         $this->assertSame('<select></select>', (string)Select::tag()->multiple(false));
-        $this->assertSame('<select></select>', (string)Select::tag()->multiple(true)->multiple(false));
+        $this->assertSame('<select></select>', (string)Select::tag()
+            ->multiple(true)
+            ->multiple(false));
     }
 
     public function testRequired(): void
     {
         $this->assertSame('<select required></select>', (string)Select::tag()->required());
         $this->assertSame('<select></select>', (string)Select::tag()->required(false));
-        $this->assertSame('<select></select>', (string)Select::tag()->required(true)->required(false));
+        $this->assertSame('<select></select>', (string)Select::tag()
+            ->required(true)
+            ->required(false));
     }
 
     public function dataSize(): array
@@ -467,7 +515,10 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Select::tag()->name($name)->unselectValue($value)->render()
+            Select::tag()
+                ->name($name)
+                ->unselectValue($value)
+                ->render()
         );
     }
 
@@ -476,7 +527,11 @@ final class SelectTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="test" value="7" disabled>' . "\n" .
             '<select name="test" disabled></select>',
-            Select::tag()->name('test')->unselectValue(7)->disabled()->render()
+            Select::tag()
+                ->name('test')
+                ->unselectValue(7)
+                ->disabled()
+                ->render()
         );
     }
 
@@ -485,7 +540,11 @@ final class SelectTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="test" value="7" form="post">' . "\n" .
             '<select name="test" form="post"></select>',
-            Select::tag()->name('test')->unselectValue(7)->form('post')->render()
+            Select::tag()
+                ->name('test')
+                ->unselectValue(7)
+                ->form('post')
+                ->render()
         );
     }
 
@@ -494,7 +553,11 @@ final class SelectTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="test" value="7">' . "\n" .
             '<select name="test[]" multiple></select>',
-            Select::tag()->name('test')->unselectValue(7)->multiple()->render()
+            Select::tag()
+                ->name('test')
+                ->unselectValue(7)
+                ->multiple()
+                ->render()
         );
     }
 

@@ -13,7 +13,9 @@ final class H6Test extends TestCase
     {
         $this->assertSame(
             '<h6 class="red">Hello</h6>',
-            (string) H6::tag()->class('red')->content('Hello')
+            (string) H6::tag()
+                ->class('red')
+                ->content('Hello')
         );
     }
 }

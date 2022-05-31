@@ -21,8 +21,12 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->columns(
                     Col::tag(),
-                    Col::tag()->span(2)->class('red'),
-                    Col::tag()->span(2)->class('blue'),
+                    Col::tag()
+                        ->span(2)
+                        ->class('red'),
+                    Col::tag()
+                        ->span(2)
+                        ->class('blue'),
                 )
                 ->render()
         );
@@ -80,7 +84,9 @@ final class ColgroupTest extends TestCase
      */
     public function testSpan(string $expected, ?int $span): void
     {
-        $this->assertSame($expected, Colgroup::tag()->span($span)->render());
+        $this->assertSame($expected, Colgroup::tag()
+            ->span($span)
+            ->render());
     }
 
     public function testImmutability(): void

@@ -64,7 +64,9 @@ use Yiisoft\Html\Tag\Meta;
 <?= Html::openTag('footer', ['class' => 'footer']) ?>
     <?= Html::openTag('div', ['class' => 'container flex-fill']) ?>
         <?= Html::p('', ['class' => 'float-left']) ?>
-        <?= Html::p()->class('float-right')->content(
+        <?= Html::p()
+            ->class('float-right')
+            ->content(
                 'Powered by ',
                 Html::a(
                     'Yii Framework',

@@ -97,7 +97,9 @@ final class TextareaTest extends TestCase
      */
     public function testForm(string $expected, ?string $formId): void
     {
-        $this->assertSame($expected, Textarea::tag()->form($formId)->render());
+        $this->assertSame($expected, Textarea::tag()
+            ->form($formId)
+            ->render());
     }
 
     public function testImmutability(): void

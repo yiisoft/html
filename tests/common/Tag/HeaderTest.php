@@ -19,7 +19,8 @@ final class HeaderTest extends TestCase
                 ->content(
                     H1::tag()->content('Heading 1')
                     . I::tag()->content('Hello Text')
-                )->encode(false)
+                )
+                ->encode(false)
         );
     }
 }

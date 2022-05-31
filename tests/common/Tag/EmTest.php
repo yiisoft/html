@@ -13,7 +13,9 @@ final class EmTest extends TestCase
     {
         $this->assertSame(
             '<em class="red">Hello</em>',
-            (string)Em::tag()->class('red')->content('Hello')
+            (string)Em::tag()
+                ->class('red')
+                ->content('Hello')
         );
     }
 }

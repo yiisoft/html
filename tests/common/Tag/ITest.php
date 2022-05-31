@@ -13,7 +13,9 @@ final class ITest extends TestCase
     {
         $this->assertSame(
             '<i class="red">Hello</i>',
-            (string)I::tag()->class('red')->content('Hello')
+            (string)I::tag()
+                ->class('red')
+                ->content('Hello')
         );
     }
 }

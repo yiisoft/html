@@ -36,7 +36,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form action="https://example.com/send" method="GET"></form>',
-            Form::tag()->get('https://example.com/send')->render()
+            Form::tag()
+                ->get('https://example.com/send')
+                ->render()
         );
     }
 
@@ -44,7 +46,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form method="GET"></form>',
-            Form::tag()->get()->render()
+            Form::tag()
+                ->get()
+                ->render()
         );
     }
 
@@ -52,7 +56,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form action="https://example.com/send" method="POST"></form>',
-            Form::tag()->post('https://example.com/send')->render()
+            Form::tag()
+                ->post('https://example.com/send')
+                ->render()
         );
     }
 
@@ -60,7 +66,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form method="POST"></form>',
-            Form::tag()->post()->render()
+            Form::tag()
+                ->post()
+                ->render()
         );
     }
 
@@ -86,7 +94,9 @@ final class FormTest extends TestCase
         $this->assertSame(
             '<form>' . PHP_EOL .
             '<input type="hidden" name="_csrf" value="abc"></form>',
-            Form::tag()->csrf('abc')->render()
+            Form::tag()
+                ->csrf('abc')
+                ->render()
         );
     }
 
@@ -95,7 +105,9 @@ final class FormTest extends TestCase
         $this->assertSame(
             '<form>' . PHP_EOL .
             '<input type="hidden" name="_csrf" value="abc"></form>',
-            Form::tag()->csrf(new StringableObject('abc'))->render()
+            Form::tag()
+                ->csrf(new StringableObject('abc'))
+                ->render()
         );
     }
 
@@ -114,7 +126,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()->acceptCharset($charset)->render()
+            Form::tag()
+                ->acceptCharset($charset)
+                ->render()
         );
     }
 
@@ -133,7 +147,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()->action($action)->render()
+            Form::tag()
+                ->action($action)
+                ->render()
         );
     }
 
@@ -152,7 +168,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()->autocomplete($value)->render()
+            Form::tag()
+                ->autocomplete($value)
+                ->render()
         );
     }
 
@@ -160,7 +178,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form autocomplete="on"></form>',
-            Form::tag()->autocomplete()->render()
+            Form::tag()
+                ->autocomplete()
+                ->render()
         );
     }
 
@@ -179,7 +199,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()->enctype($enctype)->render()
+            Form::tag()
+                ->enctype($enctype)
+                ->render()
         );
     }
 
@@ -198,7 +220,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()->method($method)->render()
+            Form::tag()
+                ->method($method)
+                ->render()
         );
     }
 
@@ -217,7 +241,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()->noValidate($noValidate)->render()
+            Form::tag()
+                ->noValidate($noValidate)
+                ->render()
         );
     }
 
@@ -225,7 +251,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form novalidate></form>',
-            Form::tag()->noValidate()->render()
+            Form::tag()
+                ->noValidate()
+                ->render()
         );
     }
 
@@ -244,7 +272,9 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()->target($target)->render()
+            Form::tag()
+                ->target($target)
+                ->render()
         );
     }
 

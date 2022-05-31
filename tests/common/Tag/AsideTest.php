@@ -15,10 +15,12 @@ final class AsideTest extends TestCase
     {
         $this->assertSame(
             '<aside><h2>Hello</h2><p>Aside Tag Content</p></aside>',
-            (string) Aside::tag()->content(
-                H2::tag()->content('Hello')
-                . P::tag()->content('Aside Tag Content')
-            )->encode(false)
+            (string) Aside::tag()
+                ->content(
+                    H2::tag()->content('Hello')
+                    . P::tag()->content('Aside Tag Content')
+                )
+                ->encode(false)
         );
     }
 }

@@ -14,10 +14,18 @@ final class PictureTest extends TestCase
     public function testBase(): void
     {
         $picture = Picture::tag()
-            ->image(Img::tag()->src('img_orange_flowers.jpg')->alt('Flowers'))
+            ->image(Img::tag()
+                ->src('img_orange_flowers.jpg')
+                ->alt('Flowers'))
             ->sources(
-                Source::tag()->media('(min-width:650px)')->srcset('img_pink_flowers.jpg')->type('image/jpeg'),
-                Source::tag()->media('(min-width:465px)')->srcset('img_white_flower.jpg')->type('image/jpeg')
+                Source::tag()
+                    ->media('(min-width:650px)')
+                    ->srcset('img_pink_flowers.jpg')
+                    ->type('image/jpeg'),
+                Source::tag()
+                    ->media('(min-width:465px)')
+                    ->srcset('img_white_flower.jpg')
+                    ->type('image/jpeg')
             );
 
         $this->assertSame(
@@ -36,7 +44,10 @@ final class PictureTest extends TestCase
             ['<picture></picture>', null],
             [
                 '<picture>' . "\n" . '<img src="image.jpg" width="100" height="100">' . "\n" . '</picture>',
-                Img::tag()->src('image.jpg')->width(100)->height(100),
+                Img::tag()
+                    ->src('image.jpg')
+                    ->width(100)
+                    ->height(100),
             ],
         ];
     }
@@ -46,7 +57,9 @@ final class PictureTest extends TestCase
      */
     public function testImg(string $expected, ?Img $img): void
     {
-        $this->assertSame($expected, Picture::tag()->image($img)->render());
+        $this->assertSame($expected, Picture::tag()
+            ->image($img)
+            ->render());
     }
 
     public function testImmutability(): void
