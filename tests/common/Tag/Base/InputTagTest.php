@@ -64,28 +64,36 @@ final class InputTagTest extends TestCase
      */
     public function testForm(string $expected, ?string $formId): void
     {
-        $this->assertSame($expected, TestInputTag::tag()->form($formId)->render());
+        $this->assertSame($expected, TestInputTag::tag()
+            ->form($formId)
+            ->render());
     }
 
     public function testReadonly(): void
     {
         $this->assertSame('<input readonly>', (string)TestInputTag::tag()->readonly());
         $this->assertSame('<input>', (string)TestInputTag::tag()->readonly(false));
-        $this->assertSame('<input>', (string)TestInputTag::tag()->readonly(true)->readonly(false));
+        $this->assertSame('<input>', (string)TestInputTag::tag()
+            ->readonly(true)
+            ->readonly(false));
     }
 
     public function testRequired(): void
     {
         $this->assertSame('<input required>', (string)TestInputTag::tag()->required());
         $this->assertSame('<input>', (string)TestInputTag::tag()->required(false));
-        $this->assertSame('<input>', (string)TestInputTag::tag()->required(true)->required(false));
+        $this->assertSame('<input>', (string)TestInputTag::tag()
+            ->required(true)
+            ->required(false));
     }
 
     public function testDisabled(): void
     {
         $this->assertSame('<input disabled>', (string)TestInputTag::tag()->disabled());
         $this->assertSame('<input>', (string)TestInputTag::tag()->disabled(false));
-        $this->assertSame('<input>', (string)TestInputTag::tag()->disabled(true)->disabled(false));
+        $this->assertSame('<input>', (string)TestInputTag::tag()
+            ->disabled(true)
+            ->disabled(false));
     }
 
     public function testImmutability(): void

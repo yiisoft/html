@@ -13,7 +13,10 @@ final class ColTest extends TestCase
     {
         $this->assertSame(
             '<col span="2" style="background-color:#f00;">',
-            Col::tag()->span(2)->attribute('style', 'background-color:#f00;')->render()
+            Col::tag()
+                ->span(2)
+                ->attribute('style', 'background-color:#f00;')
+                ->render()
         );
     }
 
@@ -30,7 +33,9 @@ final class ColTest extends TestCase
      */
     public function testSpan(string $expected, ?int $span): void
     {
-        $this->assertSame($expected, Col::tag()->span($span)->render());
+        $this->assertSame($expected, Col::tag()
+            ->span($span)
+            ->render());
     }
 
     public function testImmutability(): void

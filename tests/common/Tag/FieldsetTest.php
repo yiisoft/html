@@ -87,7 +87,9 @@ final class FieldsetTest extends TestCase
                 <legend id="MyLegend">Hello</legend>
                 </fieldset>
                 HTML,
-                Legend::tag()->content('Hello')->attributes(['id' => 'MyLegend']),
+                Legend::tag()
+                    ->content('Hello')
+                    ->attributes(['id' => 'MyLegend']),
             ],
         ];
     }

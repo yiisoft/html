@@ -19,8 +19,12 @@ final class OptgroupTest extends TestCase
             '</optgroup>',
             (string)Optgroup::tag()
                 ->options(
-                    Option::tag()->value('1')->content('One'),
-                    Option::tag()->value('2')->content('Two'),
+                    Option::tag()
+                        ->value('1')
+                        ->content('One'),
+                    Option::tag()
+                        ->value('2')
+                        ->content('Two'),
                 )
                 ->label('Count')
         );
@@ -32,8 +36,12 @@ final class OptgroupTest extends TestCase
             "<optgroup>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</optgroup>",
             (string)Optgroup::tag()
                 ->options(
-                    Option::tag()->value('1')->content('One'),
-                    Option::tag()->value('2')->content('Two'),
+                    Option::tag()
+                        ->value('1')
+                        ->content('One'),
+                    Option::tag()
+                        ->value('2')
+                        ->content('Two'),
                 )
         );
     }
@@ -82,7 +90,9 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame('<optgroup disabled></optgroup>', (string)Optgroup::tag()->disabled());
         $this->assertSame('<optgroup></optgroup>', (string)Optgroup::tag()->disabled(false));
-        $this->assertSame('<optgroup></optgroup>', (string)Optgroup::tag()->disabled(true)->disabled(false));
+        $this->assertSame('<optgroup></optgroup>', (string)Optgroup::tag()
+            ->disabled(true)
+            ->disabled(false));
     }
 
     public function dataSelection(): array
@@ -95,7 +105,9 @@ final class OptgroupTest extends TestCase
                 '<option value="1"></option>' . "\n" .
                 '<option value="2"></option>' . "\n" .
                 '</optgroup>',
-                [Option::tag()->value('1'), Option::tag()->value('2')->selected()],
+                [Option::tag()->value('1'), Option::tag()
+                    ->value('2')
+                    ->selected()],
                 [],
             ],
             [
@@ -140,7 +152,9 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string)Optgroup::tag()->options(...$options)->selection(...$selection),
+            (string)Optgroup::tag()
+                ->options(...$options)
+                ->selection(...$selection),
         );
     }
 

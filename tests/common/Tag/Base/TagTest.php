@@ -114,7 +114,9 @@ final class TagTest extends TestCase
      */
     public function testAttribute(string $expected, $value): void
     {
-        $this->assertSame($expected, TestTag::tag()->attribute('key', $value)->render());
+        $this->assertSame($expected, TestTag::tag()
+            ->attribute('key', $value)
+            ->render());
     }
 
     public function dataId(): array
@@ -151,7 +153,9 @@ final class TagTest extends TestCase
      */
     public function testClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->class('main')->class(...$class));
+        $this->assertSame($expected, (string)TestTag::tag()
+            ->class('main')
+            ->class(...$class));
     }
 
     public function dataNewClass(): array
@@ -190,7 +194,9 @@ final class TagTest extends TestCase
      */
     public function testReplaceClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->class('red')->replaceClass(...$class));
+        $this->assertSame($expected, (string)TestTag::tag()
+            ->class('red')
+            ->replaceClass(...$class));
     }
 
     public function testImmutability(): void

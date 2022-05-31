@@ -133,36 +133,55 @@ final class MediaTagTest extends TestCase
     {
         $this->assertSame('<test muted></test>', (string) TestMediaTag::tag()->muted());
         $this->assertSame('<test></test>', (string) TestMediaTag::tag()->muted(false));
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()->muted(true)->muted(false));
+        $this->assertSame('<test></test>', (string) TestMediaTag::tag()
+            ->muted(true)
+            ->muted(false));
     }
 
     public function testLoop(): void
     {
         $this->assertSame('<test loop></test>', (string) TestMediaTag::tag()->loop());
         $this->assertSame('<test></test>', (string) TestMediaTag::tag()->loop(false));
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()->loop(true)->loop(false));
+        $this->assertSame('<test></test>', (string) TestMediaTag::tag()
+            ->loop(true)
+            ->loop(false));
     }
 
     public function testAutoplay(): void
     {
         $this->assertSame('<test autoplay></test>', (string) TestMediaTag::tag()->autoplay());
         $this->assertSame('<test></test>', (string) TestMediaTag::tag()->autoplay(false));
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()->autoplay(true)->autoplay(false));
+        $this->assertSame('<test></test>', (string) TestMediaTag::tag()
+            ->autoplay(true)
+            ->autoplay(false));
     }
 
     public function testControls(): void
     {
         $this->assertSame('<test controls></test>', (string) TestMediaTag::tag()->controls());
         $this->assertSame('<test></test>', (string) TestMediaTag::tag()->controls(false));
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()->controls(true)->controls(false));
+        $this->assertSame('<test></test>', (string) TestMediaTag::tag()
+            ->controls(true)
+            ->controls(false));
     }
 
     public function testWrongTrackDefault(): void
     {
         $tag = TestMediaTag::tag()->tracks(
-            Track::tag()->kind('captions')->src('sampleCaptions.vtt')->srclang('en')->default(),
-            Track::tag()->kind('descriptions')->src('sampleDescriptions.vtt')->srclang('de'),
-            Track::tag()->kind('chapters')->src('sampleChapters.vtt')->srclang('ja')->default()
+            Track::tag()
+                ->kind('captions')
+                ->src('sampleCaptions.vtt')
+                ->srclang('en')
+                ->default(),
+            Track::tag()
+                ->kind('descriptions')
+                ->src('sampleDescriptions.vtt')
+                ->srclang('de'),
+            Track::tag()
+                ->kind('chapters')
+                ->src('sampleChapters.vtt')
+                ->srclang('ja')
+                ->default()
         );
 
         $this->assertSame(

@@ -173,7 +173,9 @@ final class Select extends NormalTag
     public function prompt(?string $text): self
     {
         $new = clone $this;
-        $new->prompt = $text === null ? null : Option::tag()->value('')->content($text);
+        $new->prompt = $text === null ? null : Option::tag()
+            ->value('')
+            ->content($text);
         return $new;
     }
 

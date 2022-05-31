@@ -81,14 +81,18 @@ final class ScriptTest extends TestCase
     {
         $this->assertSame('<script async></script>', (string)Script::tag()->async());
         $this->assertSame('<script></script>', (string)Script::tag()->async(false));
-        $this->assertSame('<script></script>', (string)Script::tag()->async(true)->async(false));
+        $this->assertSame('<script></script>', (string)Script::tag()
+            ->async(true)
+            ->async(false));
     }
 
     public function testDefer(): void
     {
         $this->assertSame('<script defer></script>', (string)Script::tag()->defer());
         $this->assertSame('<script></script>', (string)Script::tag()->defer(false));
-        $this->assertSame('<script></script>', (string)Script::tag()->defer(true)->defer(false));
+        $this->assertSame('<script></script>', (string)Script::tag()
+            ->defer(true)
+            ->defer(false));
     }
 
     public function testNoscript(): void

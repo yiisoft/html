@@ -13,7 +13,9 @@ final class H2Test extends TestCase
     {
         $this->assertSame(
             '<h2 class="red">Hello</h2>',
-            (string) H2::tag()->class('red')->content('Hello')
+            (string) H2::tag()
+                ->class('red')
+                ->content('Hello')
         );
     }
 }

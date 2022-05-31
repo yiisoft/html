@@ -13,7 +13,9 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame(
             '<button type="submit">Send</button>',
-            (string)Button::tag()->type('submit')->content('Send')
+            (string)Button::tag()
+                ->type('submit')
+                ->content('Send')
         );
     }
 
@@ -61,7 +63,9 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame('<button disabled></button>', (string)Button::tag()->disabled());
         $this->assertSame('<button></button>', (string)Button::tag()->disabled(false));
-        $this->assertSame('<button></button>', (string)Button::tag()->disabled(true)->disabled(false));
+        $this->assertSame('<button></button>', (string)Button::tag()
+            ->disabled(true)
+            ->disabled(false));
     }
 
     public function testImmutability(): void

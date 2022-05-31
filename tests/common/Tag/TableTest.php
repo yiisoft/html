@@ -34,14 +34,18 @@ class TableTest extends TestCase
      */
     public function testCaption(string $expected, ?Caption $caption): void
     {
-        $this->assertSame($expected, Table::tag()->caption($caption)->render());
+        $this->assertSame($expected, Table::tag()
+            ->caption($caption)
+            ->render());
     }
 
     public function testCaptionString(): void
     {
         $this->assertSame(
             "<table>\n<caption>Hello</caption>\n</table>",
-            Table::tag()->captionString('Hello')->render()
+            Table::tag()
+                ->captionString('Hello')
+                ->render()
         );
     }
 
@@ -49,7 +53,9 @@ class TableTest extends TestCase
     {
         $this->assertSame(
             "<table>\n<caption>&lt;b&gt;Hello&lt;/b&gt;</caption>\n</table>",
-            Table::tag()->captionString('<b>Hello</b>')->render()
+            Table::tag()
+                ->captionString('<b>Hello</b>')
+                ->render()
         );
     }
 
@@ -57,7 +63,9 @@ class TableTest extends TestCase
     {
         $this->assertSame(
             "<table>\n<caption><b>Hello</b></caption>\n</table>",
-            Table::tag()->captionString('<b>Hello</b>', false)->render()
+            Table::tag()
+                ->captionString('<b>Hello</b>', false)
+                ->render()
         );
     }
 
@@ -162,7 +170,9 @@ class TableTest extends TestCase
      */
     public function testHeader(string $expected, ?Thead $header): void
     {
-        $this->assertSame($expected, Table::tag()->header($header)->render());
+        $this->assertSame($expected, Table::tag()
+            ->header($header)
+            ->render());
     }
 
     public function testBody(): void
@@ -267,7 +277,9 @@ class TableTest extends TestCase
      */
     public function testFooter(string $expected, ?Tfoot $footer): void
     {
-        $this->assertSame($expected, Table::tag()->footer($footer)->render());
+        $this->assertSame($expected, Table::tag()
+            ->footer($footer)
+            ->render());
     }
 
     public function dataItemsOrder(): array

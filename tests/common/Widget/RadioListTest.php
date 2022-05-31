@@ -47,7 +47,10 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             '<label><input type="radio" name="test" value="1"> One</label>',
-            RadioList::create('test')->items([1 => 'One'])->withoutContainer()->render(),
+            RadioList::create('test')
+                ->items([1 => 'One'])
+                ->withoutContainer()
+                ->render(),
         );
     }
 
@@ -78,7 +81,10 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            RadioList::create('test')->items([1 => 'One'])->containerTag($name)->render(),
+            RadioList::create('test')
+                ->items([1 => 'One'])
+                ->containerTag($name)
+                ->render(),
         );
     }
 
@@ -88,7 +94,10 @@ final class RadioListTest extends TestCase
             '<div id="main">' . "\n" .
             '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
             '</div>',
-            RadioList::create('test')->items([1 => 'One'])->containerAttributes(['id' => 'main'])->render(),
+            RadioList::create('test')
+                ->items([1 => 'One'])
+                ->containerAttributes(['id' => 'main'])
+                ->render(),
         );
     }
 
@@ -366,7 +375,10 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            RadioList::create('test')->items($items)->value($value)->render(),
+            RadioList::create('test')
+                ->items($items)
+                ->value($value)
+                ->render(),
         );
     }
 
@@ -427,7 +439,9 @@ final class RadioListTest extends TestCase
             '<label><input type="radio" name="test" value="1" readonly> One</label>' . "\n" .
             '<label><input type="radio" name="test" value="2" readonly> Two</label>' . "\n" .
             '</div>',
-            $checkbox->readonly()->render()
+            $checkbox
+                ->readonly()
+                ->render()
         );
 
         $this->assertSame(
@@ -435,14 +449,19 @@ final class RadioListTest extends TestCase
             '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
             '<label><input type="radio" name="test" value="2"> Two</label>' . "\n" .
             '</div>',
-            $checkbox->readonly(false)->render()
+            $checkbox
+                ->readonly(false)
+                ->render()
         );
         $this->assertSame(
             '<div>' . "\n" .
             '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
             '<label><input type="radio" name="test" value="2"> Two</label>' . "\n" .
             '</div>',
-            $checkbox->readonly(true)->readonly(false)->render()
+            $checkbox
+                ->readonly(true)
+                ->readonly(false)
+                ->render()
         );
     }
 
@@ -459,7 +478,9 @@ final class RadioListTest extends TestCase
             '<label><input type="radio" name="test" value="1" disabled> One</label>' . "\n" .
             '<label><input type="radio" name="test" value="2" disabled> Two</label>' . "\n" .
             '</div>',
-            $checkbox->disabled()->render()
+            $checkbox
+                ->disabled()
+                ->render()
         );
 
         $this->assertSame(
@@ -467,14 +488,19 @@ final class RadioListTest extends TestCase
             '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
             '<label><input type="radio" name="test" value="2"> Two</label>' . "\n" .
             '</div>',
-            $checkbox->disabled(false)->render()
+            $checkbox
+                ->disabled(false)
+                ->render()
         );
         $this->assertSame(
             '<div>' . "\n" .
             '<label><input type="radio" name="test" value="1"> One</label>' . "\n" .
             '<label><input type="radio" name="test" value="2"> Two</label>' . "\n" .
             '</div>',
-            $checkbox->disabled(true)->disabled(false)->render()
+            $checkbox
+                ->disabled(true)
+                ->disabled(false)
+                ->render()
         );
     }
 
@@ -580,7 +606,10 @@ final class RadioListTest extends TestCase
             '<label><input type="radio" name="test" value="1"> One</label><br>' .
             '<label><input type="radio" name="test" value="2"> Two</label>' . "\n" .
             '</div>',
-            RadioList::create('test')->items([1 => 'One', 2 => 'Two'])->separator('<br>')->render(),
+            RadioList::create('test')
+                ->items([1 => 'One', 2 => 'Two'])
+                ->separator('<br>')
+                ->render(),
         );
     }
 

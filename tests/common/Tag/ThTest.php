@@ -13,7 +13,9 @@ class ThTest extends TestCase
     {
         $this->assertSame(
             '<th>hello</th>',
-            Th::tag()->content('hello')->render()
+            Th::tag()
+                ->content('hello')
+                ->render()
         );
     }
 }
