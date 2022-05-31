@@ -74,7 +74,7 @@ final class SelectTest extends TestCase
                 '</select>',
                 [Option::tag()->value('1'), Option::tag()
                     ->value('2')
-                    ->selected()],
+                    ->selected(), ],
                 [],
             ],
             [

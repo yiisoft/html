@@ -107,7 +107,7 @@ final class OptgroupTest extends TestCase
                 '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()
                     ->value('2')
-                    ->selected()],
+                    ->selected(), ],
                 [],
             ],
             [
