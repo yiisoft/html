@@ -20,7 +20,7 @@ final class BodyTest extends TestCase
     public function testAttributes(): void
     {
         $this->assertSame(
-            '<body onafterprint="alert(123);" style="font-size:20px;">Welcome Back!</body>',
+            '<body onafterprint="alert(123);" style="font-size: 20px;">Welcome Back!</body>',
             (string) Body::tag()
                 ->attributes([
                     'onafterprint' => 'alert(123);',

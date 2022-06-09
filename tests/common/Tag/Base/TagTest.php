@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tests\Tag\Base;
 
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tests\Objects\TestTag;
+use InvalidArgumentException;
 
 final class TagTest extends TestCase
 {
@@ -27,7 +28,7 @@ final class TagTest extends TestCase
             ['<test style="width: 100px; height: 200px;">', ['style' => ['width' => '100px', 'height' => '200px']]],
             ['<test name="position" value="42">', ['value' => 42, 'name' => 'position']],
             [
-                '<test id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'>',
+                '<test id="x" class="a b" data-a="1" data-b="2" any=\'[1,2]\' style="width: 100px;">',
                 [
                     'id' => 'x',
                     'class' => ['a', 'b'],
@@ -209,5 +210,54 @@ final class TagTest extends TestCase
         $this->assertNotSame($tag, $tag->id(null));
         $this->assertNotSame($tag, $tag->class('test'));
         $this->assertNotSame($tag, $tag->replaceClass('test'));
+    }
+
+    public function dataAddStyle(): array
+    {
+        return [
+            ['<test style="display: block;">', ['display' => 'block']],
+            ['<test style="display: none;">', ['display' => 'block'], ['display' => 'none']],
+            ['<test style="font-weight: bold; color: red;">', ['font-weight' => 'bold'], ['color' => 'red']],
+        ];
+    }
+
+    public function dataImmutableStyle(): array
+    {
+        return [
+            ['<test class="some" style="color: black;">', ['class' => 'some'], ['color' => 'black']],
+        ];
+    }
+
+    /**
+     * @dataProvider dataAddStyle
+     */
+    public function testAddStyle(string $expected, array $style, ?array $additional = null): void
+    {
+        $tag = TestTag::tag()->addStyle($style);
+
+        if ($additional) {
+            $tag = $tag->addStyle($additional, false);
+        }
+
+        $this->assertSame($expected, (string) $tag);
+    }
+
+    public function testStyleException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        TestTag::tag()->addStyle(new \stdClass());
+    }
+
+    /**
+     * @dataProvider dataImmutableStyle
+     */
+    public function testImmutableStyle(string $expected, array $attributes, array $style): void
+    {
+        $tag = TestTag::tag()
+                ->addStyle($style)
+                ->addAttributes($attributes);
+
+        $this->assertSame($expected, (string) $tag);
     }
 }

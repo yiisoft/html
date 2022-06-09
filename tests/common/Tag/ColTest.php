@@ -12,7 +12,7 @@ final class ColTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<col span="2" style="background-color:#f00;">',
+            '<col span="2" style="background-color: #f00;">',
             Col::tag()
                 ->span(2)
                 ->attribute('style', 'background-color:#f00;')
