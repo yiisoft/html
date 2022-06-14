@@ -16,7 +16,6 @@ use Yiisoft\Html\NoEncodeStringableInterface;
 abstract class Tag implements NoEncodeStringableInterface
 {
     protected array $attributes = [];
-    protected array $style = [];
 
     /**
      * @deprecated use addAttributes instead
@@ -50,10 +49,10 @@ abstract class Tag implements NoEncodeStringableInterface
     /**
      * Add or replace attributes with a new set
      *
-     * @param array $attributes
-     * @param bool $replace
+     * @param array $attributes Name-value set of attributes.
+     * @param bool $replace replace or add $attributes
      *
-     * @return self
+     * @return static
      */
     final public function addAttributes(array $attributes, bool $replace = true): self
     {
@@ -65,38 +64,26 @@ abstract class Tag implements NoEncodeStringableInterface
             $new->attributes = array_merge($new->attributes, $attributes);
         }
 
-        $style = ArrayHelper::remove($new->attributes, 'style');
-
-        return $style !== null ? $new->addStyle($style) : $new;
+        return $new;
     }
 
     /**
      * Add or replace/remove style attribute with a new set/string
      *
      * @param mixed $style
-     * @param bool $replace
      *
-     * @return self
+     * @return static
      */
-    final public function addStyle($style, bool $replace = true): self
+    final public function addStyle($style): self
     {
-        $isString = is_string($style) || $style instanceof Stringable;
-
-        if ($isString) {
-            $style = Html::cssStyleToArray($style);
-        } elseif ($style !== null && !is_array($style)) {
+        if ($style !== null && !is_array($style) && !is_string($style) && !$style instanceof Stringable) {
             $type = is_object($style) ? get_class($style) : gettype($style);
 
             throw new InvalidArgumentException('$style must be null, string, array or Stringable instance. ' . $type . ' given.');
         }
 
         $new = clone $this;
-
-        if ($replace || $style === null) {
-            $new->style = $style ?? [];
-        } else {
-            $new->style = array_merge($new->style, $style);
-        }
+        $new->attributes['style'] = $style;
 
         return $new;
     }
@@ -107,12 +94,20 @@ abstract class Tag implements NoEncodeStringableInterface
      * @param string $name
      * @param mixed $value
      *
-     * @return self
+     * @return static
      */
-    final public function style(string $name, $value): self
+    final public function styleParam(string $name, $value): self
     {
         $new = clone $this;
-        $new->style[$name] = $value;
+
+        if (empty($new->attributes['style'])) {
+            $new->attributes['style'] = [];
+        } elseif (!is_array($new->attributes['style'])) {
+            /** @var string|Stringable $new->attributes['style'] */
+            $new->attributes['style'] = Html::cssStyleToArray($new->attributes['style']);
+        }
+
+        $new->attributes['style'][$name] = $value;
 
         return $new;
     }
@@ -164,6 +159,13 @@ abstract class Tag implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     *  Add one or more CSS classes to the tag.
+     *
+     * @param string|null $class
+     *
+     * @return self
+     */
     final public function addClass(?string ...$class): self
     {
         $new = clone $this;
@@ -218,9 +220,6 @@ abstract class Tag implements NoEncodeStringableInterface
 
     protected function prepareAttributes(): void
     {
-        if ($this->style) {
-            $this->attributes['style'] = $this->style;
-        }
     }
 
     final public function render(): string

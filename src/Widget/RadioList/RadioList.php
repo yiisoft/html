@@ -256,7 +256,7 @@ final class RadioList implements NoEncodeStringableInterface
                 Html::getNonArrayableName($this->name),
                 $this->uncheckValue
             )
-                ->attributes(
+                ->addAttributes(
                     array_merge(
                         [
                             // Make sure disabled input is not sending any value
@@ -264,7 +264,8 @@ final class RadioList implements NoEncodeStringableInterface
                             'form' => $this->radioAttributes['form'] ?? null,
                         ],
                         $this->individualInputAttributes[$this->uncheckValue] ?? []
-                    )
+                    ),
+                    false
                 )
                 ->render();
     }
@@ -275,8 +276,7 @@ final class RadioList implements NoEncodeStringableInterface
             return ($this->itemFormatter)($item);
         }
 
-        $radio = Html::radio($item->name, $item->value)
-            ->attributes($item->radioAttributes)
+        $radio = Html::radio($item->name, $item->value, $item->radioAttributes)
             ->checked($item->checked)
             ->label($item->label)
             ->labelEncode($item->encodeLabel);

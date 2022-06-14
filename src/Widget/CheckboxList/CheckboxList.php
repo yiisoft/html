@@ -283,7 +283,7 @@ final class CheckboxList implements NoEncodeStringableInterface
                 Html::getNonArrayableName($this->name),
                 $this->uncheckValue
             )
-                ->attributes(
+                ->addAttributes(
                     array_merge(
                         [
                             // Make sure disabled input is not sending any value
@@ -291,7 +291,8 @@ final class CheckboxList implements NoEncodeStringableInterface
                             'form' => $this->checkboxAttributes['form'] ?? null,
                         ],
                         $this->individualInputAttributes[$this->uncheckValue] ?? []
-                    )
+                    ),
+                    false
                 )
                 ->render();
     }
@@ -302,8 +303,7 @@ final class CheckboxList implements NoEncodeStringableInterface
             return ($this->itemFormatter)($item);
         }
 
-        $checkbox = Html::checkbox($item->name, $item->value)
-            ->attributes($item->checkboxAttributes)
+        $checkbox = Html::checkbox($item->name, $item->value, $item->checkboxAttributes)
             ->checked($item->checked)
             ->label($item->label)
             ->labelEncode($item->encodeLabel);

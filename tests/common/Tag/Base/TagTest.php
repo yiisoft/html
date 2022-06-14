@@ -28,7 +28,7 @@ final class TagTest extends TestCase
             ['<test style="width: 100px; height: 200px;">', ['style' => ['width' => '100px', 'height' => '200px']]],
             ['<test name="position" value="42">', ['value' => 42, 'name' => 'position']],
             [
-                '<test id="x" class="a b" data-a="1" data-b="2" any=\'[1,2]\' style="width: 100px;">',
+                '<test id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'>',
                 [
                     'id' => 'x',
                     'class' => ['a', 'b'],
@@ -221,22 +221,15 @@ final class TagTest extends TestCase
         ];
     }
 
-    public function dataImmutableStyle(): array
-    {
-        return [
-            ['<test class="some" style="color: black;">', ['class' => 'some'], ['color' => 'black']],
-        ];
-    }
-
     /**
      * @dataProvider dataAddStyle
      */
-    public function testAddStyle(string $expected, array $style, ?array $additional = null): void
+    public function testAddStyle(string $expected, array $style, array $additional = []): void
     {
         $tag = TestTag::tag()->addStyle($style);
 
-        if ($additional) {
-            $tag = $tag->addStyle($additional, false);
+        foreach ($additional as $name => $value) {
+            $tag = $tag->styleParam($name, $value);
         }
 
         $this->assertSame($expected, (string) $tag);
@@ -247,17 +240,5 @@ final class TagTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         TestTag::tag()->addStyle(new \stdClass());
-    }
-
-    /**
-     * @dataProvider dataImmutableStyle
-     */
-    public function testImmutableStyle(string $expected, array $attributes, array $style): void
-    {
-        $tag = TestTag::tag()
-                ->addStyle($style)
-                ->addAttributes($attributes);
-
-        $this->assertSame($expected, (string) $tag);
     }
 }

@@ -67,7 +67,7 @@ final class Tr extends NormalTag
         return array_map(static function (string $string) use ($attributes, $encode) {
             return Td::tag()
                 ->content($string)
-                ->attributes($attributes)
+                ->addAttributes($attributes)
                 ->encode($encode);
         }, $strings);
     }
@@ -102,7 +102,7 @@ final class Tr extends NormalTag
         return array_map(static function (string $string) use ($attributes, $encode) {
             return Th::tag()
                 ->content($string)
-                ->attributes($attributes)
+                ->addAttributes($attributes)
                 ->encode($encode);
         }, $strings);
     }

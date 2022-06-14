@@ -24,7 +24,7 @@ final class BodyTest extends TestCase
             (string) Body::tag()
                 ->attributes([
                     'onafterprint' => 'alert(123);',
-                    'style' => 'font-size:20px;',
+                    'style' => 'font-size: 20px;',
                 ])
                 ->content('Welcome Back!')
         );

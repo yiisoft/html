@@ -15,7 +15,7 @@ final class ColTest extends TestCase
             '<col span="2" style="background-color: #f00;">',
             Col::tag()
                 ->span(2)
-                ->attribute('style', 'background-color:#f00;')
+                ->attribute('style', 'background-color: #f00;')
                 ->render()
         );
     }

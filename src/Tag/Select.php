@@ -151,14 +151,14 @@ final class Select extends NormalTag
             if (is_array($content)) {
                 $items[] = Optgroup::tag()
                     ->label((string) $value)
-                    ->attributes($groupsAttributes[$value] ?? [])
-                    ->optionsData($content, $encode, $optionsAttributes);
+                    ->optionsData($content, $encode, $optionsAttributes)
+                    ->addAttributes($groupsAttributes[$value] ?? [], false);
             } else {
                 $items[] = Option::tag()
-                    ->attributes($optionsAttributes[$value] ?? [])
                     ->value($value)
                     ->content($content)
-                    ->encode($encode);
+                    ->encode($encode)
+                    ->addAttributes($optionsAttributes[$value] ?? [], false);
             }
         }
         return $this->items(...$items);

@@ -1179,6 +1179,29 @@ final class HtmlTest extends TestCase
             Html::address('Street 111, Mount View Town.', ['class' => 'red'])->render()
         );
     }
+
+
+    public function dataHtmlStyle(): array
+    {
+        return [
+            'external' => [
+                'background: url(https://example.com/_.gif) no-repeat left center;',
+                [
+                    'background' => 'url(https://example.com/_.gif) no-repeat left center',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataHtmlStyle
+     */
+    public function testStyleParser(string $style, array $expected): void
+    {
+        $css = Html::cssStyleToArray($style);
+
+        $this->assertSame($expected, $css);
+    }
 }
 
 namespace Yiisoft\Html;
