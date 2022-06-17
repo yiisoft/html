@@ -22,7 +22,8 @@ final class ArticleTest extends TestCase
                     Header::tag()->content(H1::tag()->content('Heading 1'))
                     . P::tag()->content('Article content')
                     . Footer::tag()->content('Footer')
-                )->encode(false)
+                )
+                ->encode(false)
         );
     }
 }
