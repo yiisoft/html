@@ -101,16 +101,31 @@ final class Form extends NormalTag
         return $new;
     }
 
+    /**
+     * All characters are encoded before sent.
+     *
+     * @link https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#form-submission-algorithm:attr-fs-enctype-urlencoded
+     */
     public function enctypeApplicationXWwwFormUrlencoded(): self
     {
         return $this->enctype(self::ENCTYPE_APPLICATION_X_WWW_FORM_URLENCODED);
     }
 
+    /**
+     * The type that allows file <input> element(s) to upload file data.
+     *
+     * @link https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#form-submission-algorithm:attr-fs-enctype-formdata
+     */
     public function enctypeMultipartFormData(): self
     {
         return $this->enctype(self::ENCTYPE_MULTIPART_FORM_DATA);
     }
 
+    /**
+     * Sends data without any encoding at all. Not recommended.
+     *
+     * @link https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#form-submission-algorithm:attr-fs-enctype-text
+     */
     public function enctypeTextPlain(): self
     {
         return $this->enctype(self::ENCTYPE_TEXT_PLAIN);
