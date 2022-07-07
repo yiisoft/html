@@ -2,8 +2,9 @@
 
 ## 2.4.1 under development
 
-- New #122: Add `Tag::addAttributes()`, `ButtonGroup::addButtonAttributes()`, `RadioList::addRadioAttributes()` and 
-  deprecate `Tag::attributes()`, `ButtonGroup::buttonAttributes()`, `RadioList::radioAttributes()` (@vjik)
+- New #122: Add `Tag::addAttributes()`, `ButtonGroup::addButtonAttributes()`, `RadioList::addRadioAttributes()`,
+ `RadioList::addIndividualInputAttributes()` and deprecate `Tag::attributes()`, `ButtonGroup::buttonAttributes()`, 
+ `RadioList::radioAttributes()`, `RadioList::individualInputAttributes()` (@vjik)
 
 ## 2.4.0 May 19, 2022
 
