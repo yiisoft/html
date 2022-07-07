@@ -128,7 +128,7 @@ final class Range extends InputTag
         }
 
         return "\n" . CustomTag::name($this->outputTag)
-                ->attributes($this->outputAttributes)
+                ->replaceAttributes($this->outputAttributes)
                 ->content((string) ($this->attributes['value'] ?? '-'))
                 ->id($this->outputId)
                 ->render();

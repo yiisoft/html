@@ -2,7 +2,7 @@
 
 ## 2.4.1 under development
 
-- no changes in this release.
+- New #122: Add `Tag::addAttributes()` and deprecate `Tag::attributes()` (@vjik)
 
 ## 2.4.0 May 19, 2022
 

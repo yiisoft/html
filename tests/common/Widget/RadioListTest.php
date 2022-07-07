@@ -625,8 +625,11 @@ final class RadioListTest extends TestCase
                 ->itemFormatter(function (RadioItem $item): string {
                     return '<div>' .
                         $item->index . ') ' .
-                        Html::radio($item->radioAttributes['name'], $item->radioAttributes['value'])
-                            ->attributes($item->radioAttributes)
+                        Html::radio(
+                            $item->radioAttributes['name'],
+                            $item->radioAttributes['value'],
+                            $item->radioAttributes
+                        )
                             ->checked($item->checked)
                             ->label($item->label) .
                         '</div>';

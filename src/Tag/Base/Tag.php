@@ -21,8 +21,24 @@ abstract class Tag implements NoEncodeStringableInterface
      * @param array $attributes Name-value set of attributes.
      *
      * @return static
+     *
+     * @deprecated Use {@see addAttributes()} or {@see replaceAttributes} instead. Please note that in next major
+     * version method `replaceAttributes()` will be renamed to `attributes()`.
      */
     final public function attributes(array $attributes): self
+    {
+        return $this->addAttributes($attributes);
+    }
+
+    /**
+     * Add a set of attributes to existing tag attributes.
+     * Same named attributes are replaced.
+     *
+     * @param array $attributes Name-value set of attributes.
+     *
+     * @return static
+     */
+    final public function addAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->attributes = array_merge($new->attributes, $attributes);
@@ -98,7 +114,7 @@ abstract class Tag implements NoEncodeStringableInterface
         $new = clone $this;
         Html::addCssClass(
             $new->attributes,
-            array_filter($class, static fn ($c) => $c !== null),
+            array_filter($class, static fn($c) => $c !== null),
         );
         return $new;
     }
@@ -113,7 +129,7 @@ abstract class Tag implements NoEncodeStringableInterface
     final public function replaceClass(?string ...$class): self
     {
         $new = clone $this;
-        $new->attributes['class'] = array_filter($class, static fn ($c) => $c !== null);
+        $new->attributes['class'] = array_filter($class, static fn($c) => $c !== null);
         return $new;
     }
 

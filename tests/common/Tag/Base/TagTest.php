@@ -61,7 +61,7 @@ final class TagTest extends TestCase
      */
     public function testAttributes(string $expected, array $attributes): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->attributes($attributes));
+        $this->assertSame($expected, (string)TestTag::tag()->addAttributes($attributes));
         $this->assertSame($expected, (string)TestTag::tag()->replaceAttributes($attributes));
     }
 
@@ -72,7 +72,7 @@ final class TagTest extends TestCase
             TestTag::tag()
                 ->id('color')
                 ->class('red')
-                ->attributes(['class' => 'green'])
+                ->addAttributes(['class' => 'green'])
                 ->render(),
         );
     }
@@ -203,6 +203,7 @@ final class TagTest extends TestCase
     {
         $tag = TestTag::tag();
         $this->assertNotSame($tag, $tag->attributes([]));
+        $this->assertNotSame($tag, $tag->addAttributes([]));
         $this->assertNotSame($tag, $tag->replaceAttributes([]));
         $this->assertNotSame($tag, $tag->unionAttributes([]));
         $this->assertNotSame($tag, $tag->attribute('id', null));

@@ -151,11 +151,11 @@ final class Select extends NormalTag
             if (is_array($content)) {
                 $items[] = Optgroup::tag()
                     ->label((string) $value)
-                    ->attributes($groupsAttributes[$value] ?? [])
+                    ->addAttributes($groupsAttributes[$value] ?? [])
                     ->optionsData($content, $encode, $optionsAttributes);
             } else {
                 $items[] = Option::tag()
-                    ->attributes($optionsAttributes[$value] ?? [])
+                    ->replaceAttributes($optionsAttributes[$value] ?? [])
                     ->value($value)
                     ->content($content)
                     ->encode($encode);
