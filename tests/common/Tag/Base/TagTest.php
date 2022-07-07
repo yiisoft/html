@@ -71,7 +71,7 @@ final class TagTest extends TestCase
             '<test id="color" class="green">',
             TestTag::tag()
                 ->id('color')
-                ->class('red')
+                ->replaceClass('red')
                 ->attributes(['class' => 'green'])
                 ->render(),
         );
@@ -83,7 +83,7 @@ final class TagTest extends TestCase
             '<test class="green">',
             TestTag::tag()
                 ->id('color')
-                ->class('red')
+                ->replaceClass('red')
                 ->replaceAttributes(['class' => 'green'])
                 ->render(),
         );
@@ -94,7 +94,7 @@ final class TagTest extends TestCase
         $this->assertSame(
             '<test id="color" class="red">',
             TestTag::tag()
-                ->class('red')
+                ->replaceClass('red')
                 ->unionAttributes(['class' => 'green', 'id' => 'color'])
                 ->render(),
         );
@@ -195,7 +195,7 @@ final class TagTest extends TestCase
     public function testReplaceClass(string $expected, array $class): void
     {
         $this->assertSame($expected, (string)TestTag::tag()
-            ->class('red')
+            ->replaceClass('red')
             ->replaceClass(...$class));
     }
 

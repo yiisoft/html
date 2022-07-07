@@ -216,7 +216,7 @@ final class ButtonGroupTest extends TestCase
     {
         $widget = ButtonGroup::create()
             ->buttons(
-                Html::button('Show')->class('red'),
+                Html::button('Show')->replaceClass('red'),
                 Html::button('Hide'),
             )
             ->buttonAttributes(['class' => 'base']);

@@ -24,7 +24,7 @@ final class TbodyTest extends TestCase
             '</tr>' . "\n" .
             '</tbody>',
             Tbody::tag()
-                ->class('gray')
+                ->replaceClass('gray')
                 ->rows(
                     Tr::tag()->dataStrings(['A', 'B']),
                     Tr::tag()->dataStrings(['C', 'D']),

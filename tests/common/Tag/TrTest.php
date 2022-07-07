@@ -20,7 +20,7 @@ class TrTest extends TestCase
             '<td class="cell">Three</td>' . "\n" .
             '</tr>',
             Tr::tag()
-                ->class('row')
+                ->replaceClass('row')
                 ->dataStrings(['One', 'Two', 'Three'], ['class' => 'cell'])
                 ->render()
         );

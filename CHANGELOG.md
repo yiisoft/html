@@ -2,7 +2,7 @@
 
 ## 2.4.1 under development
 
-- New #123: Add `Tag::addClass()` and deprecate `Tag::class()` and `Tag::replaceClass()` (@vjik)
+- New #123: Add `Tag::addClass()` and deprecate `Tag::class()` (@vjik)
 
 ## 2.4.0 May 19, 2022
 
