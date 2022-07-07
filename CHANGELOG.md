@@ -2,7 +2,8 @@
 
 ## 2.4.1 under development
 
-- New #122: Add `Tag::addAttributes()` and deprecate `Tag::attributes()` (@vjik)
+- New #122: Add `Tag::addAttributes()`, `ButtonGroup::addButtonAttributes()` and deprecate `Tag::attributes()`,
+  `ButtonGroup::buttonAttributes()` (@vjik)
 
 ## 2.4.0 May 19, 2022
 

@@ -170,7 +170,7 @@ echo \Yiisoft\Html\Widget\ButtonGroup::create()
 	    \Yiisoft\Html\Html::resetButton('Send'),
 	)
 	->containerAttributes(['class' => 'actions'])
-	->buttonAttributes(['form' => 'CreatePost']);
+	->replaceButtonAttributes(['form' => 'CreatePost']);
 ```
 
 Result will be:
