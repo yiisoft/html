@@ -79,7 +79,16 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @deprecated Use {@see addRadioAttributes()} or {@see replaceRadioAttributes} instead. Please note that in
+     * next major version method `replaceRadioAttributes()` will be renamed to `radioAttributes()`.
+     */
     public function radioAttributes(array $attributes): self
+    {
+        return $this->addRadioAttributes($attributes);
+    }
+
+    public function addRadioAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->radioAttributes = array_merge($new->radioAttributes, $attributes);
