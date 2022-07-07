@@ -112,7 +112,7 @@ final class Form extends NormalTag
     }
 
     /**
-     * The type that allows file <input> element(s) to upload file data.
+     * The type that allows file `<input>` element(s) to upload file data.
      *
      * @link https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#form-submission-algorithm:attr-fs-enctype-formdata
      */
