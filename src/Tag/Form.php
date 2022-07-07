@@ -15,6 +15,10 @@ final class Form extends NormalTag
 {
     use TagContentTrait;
 
+    public const ENCTYPE_APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
+    public const ENCTYPE_MULTIPART_FORM_DATA = 'multipart/form-data';
+    public const ENCTYPE_TEXT_PLAIN = 'text/plain';
+
     private ?string $csrfToken = null;
     private ?string $csrfName = null;
 
@@ -95,6 +99,21 @@ final class Form extends NormalTag
         $new = clone $this;
         $new->attributes['enctype'] = $enctype;
         return $new;
+    }
+
+    public function enctypeApplicationXWwwFormUrlencoded(): self
+    {
+        return $this->enctype(self::ENCTYPE_APPLICATION_X_WWW_FORM_URLENCODED);
+    }
+
+    public function enctypeMultipartFormData(): self
+    {
+        return $this->enctype(self::ENCTYPE_MULTIPART_FORM_DATA);
+    }
+
+    public function enctypeTextPlain(): self
+    {
+        return $this->enctype(self::ENCTYPE_TEXT_PLAIN);
     }
 
     /**
