@@ -102,7 +102,7 @@ final class Form extends NormalTag
     }
 
     /**
-     * All characters are encoded before sent.
+     * All characters are encoded before sending.
      *
      * @link https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#form-submission-algorithm:attr-fs-enctype-urlencoded
      */
