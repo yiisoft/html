@@ -151,11 +151,11 @@ final class TagTest extends TestCase
      *
      * @param string[] $class
      */
-    public function testClass(string $expected, array $class): void
+    public function testAddClass(string $expected, array $class): void
     {
         $this->assertSame($expected, (string)TestTag::tag()
-            ->class('main')
-            ->class(...$class));
+            ->addClass('main')
+            ->addClass(...$class));
     }
 
     public function dataNewClass(): array
@@ -172,7 +172,7 @@ final class TagTest extends TestCase
      */
     public function testNewClass(string $expected, ?string $class): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->class($class));
+        $this->assertSame($expected, (string)TestTag::tag()->addClass($class));
     }
 
     public function dataReplaceClass(): array
@@ -208,6 +208,7 @@ final class TagTest extends TestCase
         $this->assertNotSame($tag, $tag->attribute('id', null));
         $this->assertNotSame($tag, $tag->id(null));
         $this->assertNotSame($tag, $tag->class('test'));
+        $this->assertNotSame($tag, $tag->addClass('test'));
         $this->assertNotSame($tag, $tag->replaceClass('test'));
     }
 }
