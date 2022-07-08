@@ -94,7 +94,7 @@ abstract class Tag implements NoEncodeStringableInterface
      * @return static
      *
      * @deprecated Use {@see addClass()} or {@see replaceClass()} instead. Please note that in next major
-     * version method `replaceClass()` will be renamed to `class()`.
+     * version `replaceClass()` method will be renamed to `class()`.
      */
     final public function class(?string ...$class): self
     {
