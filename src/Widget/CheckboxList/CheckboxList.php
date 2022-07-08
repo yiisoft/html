@@ -86,7 +86,16 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @deprecated Use {@see addCheckboxAttributes()} or {@see replaceCheckboxAttributes()} instead. In the next major
+     * version `replaceCheckboxAttributes()` method will be renamed to `checkboxAttributes()`.
+     */
     public function checkboxAttributes(array $attributes): self
+    {
+        return $this->addCheckboxAttributes($attributes);
+    }
+
+    public function addCheckboxAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->checkboxAttributes = array_merge($new->checkboxAttributes, $attributes);
