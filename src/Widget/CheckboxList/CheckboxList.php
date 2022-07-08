@@ -111,8 +111,20 @@ final class CheckboxList implements NoEncodeStringableInterface
 
     /**
      * @param array[] $attributes
+     *
+     * @deprecated Use {@see addIndividualInputAttributes()} or {@see replaceIndividualInputAttributes()} instead. In
+     * the next major version `replaceIndividualInputAttributes()` method will be renamed to
+     * `individualInputAttributes()`.
      */
     public function individualInputAttributes(array $attributes): self
+    {
+        return $this->addIndividualInputAttributes($attributes);
+    }
+
+    /**
+     * @param array[] $attributes
+     */
+    public function addIndividualInputAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->individualInputAttributes = array_replace($new->individualInputAttributes, $attributes);

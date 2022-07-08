@@ -3,9 +3,10 @@
 ## 2.4.1 under development
 
 - New #122: Add `Tag::addAttributes()`, `ButtonGroup::addButtonAttributes()`, `RadioList::addRadioAttributes()`,
- `RadioList::addIndividualInputAttributes()`, `CheckboxList::addCheckboxAttributes()` and deprecate `Tag::attributes()`,
- `ButtonGroup::buttonAttributes()`, `RadioList::radioAttributes()`, `RadioList::individualInputAttributes()`,
- `CheckboxList::checkboxAttributes()` (@vjik)
+ `RadioList::addIndividualInputAttributes()`, `CheckboxList::addCheckboxAttributes()`,
+ `CheckboxList::addIndividualInputAttributes()` and deprecate `Tag::attributes()`, `ButtonGroup::buttonAttributes()`, 
+ `RadioList::radioAttributes()`, `RadioList::individualInputAttributes()`, `CheckboxList::checkboxAttributes()`, 
+ `CheckboxList::individualInputAttributes()` (@vjik)
 
 ## 2.4.0 May 19, 2022
 
