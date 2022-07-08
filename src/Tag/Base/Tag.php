@@ -22,8 +22,8 @@ abstract class Tag implements NoEncodeStringableInterface
      *
      * @return static
      *
-     * @deprecated Use {@see addAttributes()} or {@see replaceAttributes} instead. Please note that in next major
-     * version method `replaceAttributes()` will be renamed to `attributes()`.
+     * @deprecated Use {@see addAttributes()} or {@see replaceAttributes()} instead. In the next major version
+     * `replaceAttributes()` method will be renamed to `attributes()`.
      */
     final public function attributes(array $attributes): self
     {

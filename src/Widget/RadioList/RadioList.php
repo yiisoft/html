@@ -80,8 +80,8 @@ final class RadioList implements NoEncodeStringableInterface
     }
 
     /**
-     * @deprecated Use {@see addRadioAttributes()} or {@see replaceRadioAttributes} instead. Please note that in
-     * next major version method `replaceRadioAttributes()` will be renamed to `radioAttributes()`.
+     * @deprecated Use {@see addRadioAttributes()} or {@see replaceRadioAttributes()} instead. In the next major version
+     * `replaceRadioAttributes()` method will be renamed to `radioAttributes()`.
      */
     public function radioAttributes(array $attributes): self
     {
@@ -105,8 +105,8 @@ final class RadioList implements NoEncodeStringableInterface
     /**
      * @param array[] $attributes
      *
-     * @deprecated Use {@see addIndividualInputAttributes()} or {@see replaceIndividualInputAttributes} instead. Please
-     * note that in next major version method `replaceIndividualInputAttributes()` will be renamed to
+     * @deprecated Use {@see addIndividualInputAttributes()} or {@see replaceIndividualInputAttributes()} instead. In
+     * the next major version `replaceIndividualInputAttributes()` method will be renamed to
      * `individualInputAttributes()`.
      */
     public function individualInputAttributes(array $attributes): self
