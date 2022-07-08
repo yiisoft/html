@@ -86,8 +86,8 @@ final class FileTest extends TestCase
         $result = File::tag()
             ->name('avatar')
             ->uncheckValue(7)
-            ->uncheckInputAttributes(['id' => 'FileHidden'])
-            ->uncheckInputAttributes(['data-key' => '100'])
+            ->addUncheckInputAttributes(['id' => 'FileHidden'])
+            ->addUncheckInputAttributes(['data-key' => '100'])
             ->form('post')
             ->render();
 
@@ -103,7 +103,7 @@ final class FileTest extends TestCase
         $result = File::tag()
             ->name('avatar')
             ->uncheckValue(7)
-            ->uncheckInputAttributes(['id' => 'FileHidden'])
+            ->addUncheckInputAttributes(['id' => 'FileHidden'])
             ->replaceUncheckInputAttributes(['data-key' => '100'])
             ->form('post')
             ->render();
@@ -188,6 +188,7 @@ final class FileTest extends TestCase
 
         $this->assertNotSame($tag, $tag->uncheckValue(null));
         $this->assertNotSame($tag, $tag->uncheckInputAttributes([]));
+        $this->assertNotSame($tag, $tag->addUncheckInputAttributes([]));
         $this->assertNotSame($tag, $tag->replaceUncheckInputAttributes([]));
         $this->assertNotSame($tag, $tag->accept(null));
         $this->assertNotSame($tag, $tag->multiple());
