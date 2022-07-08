@@ -205,6 +205,36 @@ final class FormTest extends TestCase
         );
     }
 
+    public function testEnctypeApplicationXWwwFormUrlencoded(): void
+    {
+        $this->assertSame(
+            '<form enctype="application/x-www-form-urlencoded"></form>',
+            Form::tag()
+                ->enctypeApplicationXWwwFormUrlencoded()
+                ->render()
+        );
+    }
+
+    public function testEnctypeMultipartFormData(): void
+    {
+        $this->assertSame(
+            '<form enctype="multipart/form-data"></form>',
+            Form::tag()
+                ->enctypeMultipartFormData()
+                ->render()
+        );
+    }
+
+    public function testEnctypeTextPlain(): void
+    {
+        $this->assertSame(
+            '<form enctype="text/plain"></form>',
+            Form::tag()
+                ->enctypeTextPlain()
+                ->render()
+        );
+    }
+
     public function dataMethod(): array
     {
         return [
@@ -288,6 +318,9 @@ final class FormTest extends TestCase
         $this->assertNotSame($tag, $tag->action(null));
         $this->assertNotSame($tag, $tag->autocomplete());
         $this->assertNotSame($tag, $tag->enctype(null));
+        $this->assertNotSame($tag, $tag->enctypeApplicationXWwwFormUrlencoded());
+        $this->assertNotSame($tag, $tag->enctypeMultipartFormData());
+        $this->assertNotSame($tag, $tag->enctypeTextPlain());
         $this->assertNotSame($tag, $tag->method(null));
         $this->assertNotSame($tag, $tag->noValidate());
         $this->assertNotSame($tag, $tag->target(null));
