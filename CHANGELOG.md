@@ -2,6 +2,7 @@
 
 ## 2.4.1 under development
 
+- New #123: Add `Tag::addClass()` and deprecate `Tag::class()` (@vjik)
 - New #129: Add methods `enctypeApplicationXWwwFormUrlencoded()`, `enctypeMultipartFormData()` and `enctypeTextPlain()`
   to `Form` tag class (@vjik) 
 
