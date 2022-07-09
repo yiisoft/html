@@ -88,7 +88,16 @@ final class ButtonGroup implements NoEncodeStringableInterface
         return $this->buttons(...$buttons);
     }
 
+    /**
+     * @deprecated Use {@see addButtonAttributes()} or {@see replaceButtonAttributes()} instead. In the next major
+     * version `replaceButtonAttributes()` method will be renamed to `buttonAttributes()`.
+     */
     public function buttonAttributes(array $attributes): self
+    {
+        return $this->addButtonAttributes($attributes);
+    }
+
+    public function addButtonAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->buttonAttributes = array_merge($new->buttonAttributes, $attributes);

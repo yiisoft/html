@@ -79,7 +79,16 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @deprecated Use {@see addRadioAttributes()} or {@see replaceRadioAttributes()} instead. In the next major version
+     * `replaceRadioAttributes()` method will be renamed to `radioAttributes()`.
+     */
     public function radioAttributes(array $attributes): self
+    {
+        return $this->addRadioAttributes($attributes);
+    }
+
+    public function addRadioAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->radioAttributes = array_merge($new->radioAttributes, $attributes);
@@ -95,8 +104,20 @@ final class RadioList implements NoEncodeStringableInterface
 
     /**
      * @param array[] $attributes
+     *
+     * @deprecated Use {@see addIndividualInputAttributes()} or {@see replaceIndividualInputAttributes()} instead. In
+     * the next major version `replaceIndividualInputAttributes()` method will be renamed to
+     * `individualInputAttributes()`.
      */
     public function individualInputAttributes(array $attributes): self
+    {
+        return $this->addIndividualInputAttributes($attributes);
+    }
+
+    /**
+     * @param array[] $attributes
+     */
+    public function addIndividualInputAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->individualInputAttributes = array_replace($new->individualInputAttributes, $attributes);
@@ -256,7 +277,7 @@ final class RadioList implements NoEncodeStringableInterface
                 Html::getNonArrayableName($this->name),
                 $this->uncheckValue
             )
-                ->attributes(
+                ->addAttributes(
                     array_merge(
                         [
                             // Make sure disabled input is not sending any value
@@ -275,8 +296,7 @@ final class RadioList implements NoEncodeStringableInterface
             return ($this->itemFormatter)($item);
         }
 
-        $radio = Html::radio($item->name, $item->value)
-            ->attributes($item->radioAttributes)
+        $radio = Html::radio($item->name, $item->value, $item->radioAttributes)
             ->checked($item->checked)
             ->label($item->label)
             ->labelEncode($item->encodeLabel);

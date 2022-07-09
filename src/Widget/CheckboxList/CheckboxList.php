@@ -86,7 +86,16 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @deprecated Use {@see addCheckboxAttributes()} or {@see replaceCheckboxAttributes()} instead. In the next major
+     * version `replaceCheckboxAttributes()` method will be renamed to `checkboxAttributes()`.
+     */
     public function checkboxAttributes(array $attributes): self
+    {
+        return $this->addCheckboxAttributes($attributes);
+    }
+
+    public function addCheckboxAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->checkboxAttributes = array_merge($new->checkboxAttributes, $attributes);
@@ -102,8 +111,20 @@ final class CheckboxList implements NoEncodeStringableInterface
 
     /**
      * @param array[] $attributes
+     *
+     * @deprecated Use {@see addIndividualInputAttributes()} or {@see replaceIndividualInputAttributes()} instead. In
+     * the next major version `replaceIndividualInputAttributes()` method will be renamed to
+     * `individualInputAttributes()`.
      */
     public function individualInputAttributes(array $attributes): self
+    {
+        return $this->addIndividualInputAttributes($attributes);
+    }
+
+    /**
+     * @param array[] $attributes
+     */
+    public function addIndividualInputAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->individualInputAttributes = array_replace($new->individualInputAttributes, $attributes);
@@ -283,7 +304,7 @@ final class CheckboxList implements NoEncodeStringableInterface
                 Html::getNonArrayableName($this->name),
                 $this->uncheckValue
             )
-                ->attributes(
+                ->addAttributes(
                     array_merge(
                         [
                             // Make sure disabled input is not sending any value
@@ -302,8 +323,7 @@ final class CheckboxList implements NoEncodeStringableInterface
             return ($this->itemFormatter)($item);
         }
 
-        $checkbox = Html::checkbox($item->name, $item->value)
-            ->attributes($item->checkboxAttributes)
+        $checkbox = Html::checkbox($item->name, $item->value, $item->checkboxAttributes)
             ->checked($item->checked)
             ->label($item->label)
             ->labelEncode($item->encodeLabel);

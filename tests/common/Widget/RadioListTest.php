@@ -111,7 +111,7 @@ final class RadioListTest extends TestCase
                     1 => 'One',
                     2 => 'Two',
                 ])
-                ->radioAttributes(['class' => 'red'])
+                ->replaceRadioAttributes(['class' => 'red'])
                 ->withoutContainer()
                 ->render(),
         );
@@ -128,7 +128,7 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->readonly()
-                ->radioAttributes(['class' => 'red'])
+                ->addRadioAttributes(['class' => 'red'])
                 ->withoutContainer()
                 ->render(),
         );
@@ -163,8 +163,8 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                     3 => 'Three',
                 ])
-                ->radioAttributes(['class' => 'red'])
-                ->individualInputAttributes([
+                ->replaceRadioAttributes(['class' => 'red'])
+                ->replaceIndividualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
                 ])
@@ -185,8 +185,8 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->uncheckValue(0)
-                ->radioAttributes(['class' => 'red'])
-                ->individualInputAttributes([
+                ->replaceRadioAttributes(['class' => 'red'])
+                ->replaceIndividualInputAttributes([
                     0 => ['class' => 'blue'],
                 ])
                 ->withoutContainer()
@@ -206,12 +206,12 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                     3 => 'Three',
                 ])
-                ->radioAttributes(['class' => 'red'])
-                ->individualInputAttributes([
+                ->replaceRadioAttributes(['class' => 'red'])
+                ->addIndividualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
                 ])
-                ->individualInputAttributes([
+                ->addIndividualInputAttributes([
                     1 => ['class' => 'yellow'],
                     2 => ['class' => 'cyan'],
                 ])
@@ -232,8 +232,8 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                     3 => 'Three',
                 ])
-                ->radioAttributes(['class' => 'red'])
-                ->individualInputAttributes([
+                ->replaceRadioAttributes(['class' => 'red'])
+                ->addIndividualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
                 ])
@@ -625,8 +625,11 @@ final class RadioListTest extends TestCase
                 ->itemFormatter(function (RadioItem $item): string {
                     return '<div>' .
                         $item->index . ') ' .
-                        Html::radio($item->radioAttributes['name'], $item->radioAttributes['value'])
-                            ->attributes($item->radioAttributes)
+                        Html::radio(
+                            $item->radioAttributes['name'],
+                            $item->radioAttributes['value'],
+                            $item->radioAttributes
+                        )
                             ->checked($item->checked)
                             ->label($item->label) .
                         '</div>';
@@ -652,8 +655,10 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->containerTag(''));
         $this->assertNotSame($widget, $widget->containerAttributes([]));
         $this->assertNotSame($widget, $widget->radioAttributes([]));
+        $this->assertNotSame($widget, $widget->addRadioAttributes([]));
         $this->assertNotSame($widget, $widget->replaceRadioAttributes([]));
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
+        $this->assertNotSame($widget, $widget->addIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->replaceIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->items([]));
         $this->assertNotSame($widget, $widget->itemsFromValues([]));

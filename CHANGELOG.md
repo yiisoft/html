@@ -2,6 +2,12 @@
 
 ## 2.4.1 under development
 
+- New #122: Add `Tag::addAttributes()`, `ButtonGroup::addButtonAttributes()`, `RadioList::addRadioAttributes()`,
+ `RadioList::addIndividualInputAttributes()`, `CheckboxList::addCheckboxAttributes()`,
+ `CheckboxList::addIndividualInputAttributes()`, `File::addUncheckInputAttributes()`, `Range::addOutputAttributes()` and 
+ deprecate `Tag::attributes()`, `ButtonGroup::buttonAttributes()`, `RadioList::radioAttributes()`,
+ `RadioList::individualInputAttributes()`, `CheckboxList::checkboxAttributes()`,
+ `CheckboxList::individualInputAttributes()`, `File::uncheckInputAttributes()`, `Range::outputAttributes()` (@vjik)
 - New #123: Add `Tag::addClass()` and deprecate `Tag::class()` (@vjik)
 - New #129: Add methods `enctypeApplicationXWwwFormUrlencoded()`, `enctypeMultipartFormData()` and `enctypeTextPlain()`
   to `Form` tag class (@vjik) 

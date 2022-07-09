@@ -170,14 +170,14 @@ final class ButtonGroupTest extends TestCase
         );
     }
 
-    public function testButtonAttributes(): void
+    public function testAddNewButtonAttributes(): void
     {
         $widget = ButtonGroup::create()
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
             )
-            ->buttonAttributes(['class' => 'base']);
+            ->addButtonAttributes(['class' => 'base']);
 
         $this->assertStringContainsStringIgnoringLineEndings(
             <<<HTML
@@ -197,8 +197,8 @@ final class ButtonGroupTest extends TestCase
                 Html::button('Show'),
                 Html::button('Hide'),
             )
-            ->buttonAttributes(['class' => 'base'])
-            ->buttonAttributes(['data-key' => '42'])
+            ->addButtonAttributes(['class' => 'base'])
+            ->addButtonAttributes(['data-key' => '42'])
             ->disabled();
 
         $this->assertStringContainsStringIgnoringLineEndings(
@@ -219,7 +219,7 @@ final class ButtonGroupTest extends TestCase
                 Html::button('Show')->replaceClass('red'),
                 Html::button('Hide'),
             )
-            ->buttonAttributes(['class' => 'base']);
+            ->replaceButtonAttributes(['class' => 'base']);
 
         $this->assertStringContainsStringIgnoringLineEndings(
             <<<HTML
@@ -372,6 +372,7 @@ final class ButtonGroupTest extends TestCase
         $this->assertNotSame($widget, $widget->buttons());
         $this->assertNotSame($widget, $widget->buttonsData([]));
         $this->assertNotSame($widget, $widget->buttonAttributes([]));
+        $this->assertNotSame($widget, $widget->addButtonAttributes([]));
         $this->assertNotSame($widget, $widget->replaceButtonAttributes([]));
         $this->assertNotSame($widget, $widget->disabled());
         $this->assertNotSame($widget, $widget->form(null));
