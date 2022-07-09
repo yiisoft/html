@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 2.5.1 under development
+
+- no changes in this release.
+
 ## 2.5.0 July 09, 2022
 
 - New #122: Add `Tag::addAttributes()`, `ButtonGroup::addButtonAttributes()`, `RadioList::addRadioAttributes()`,
