@@ -8,6 +8,7 @@
  deprecate `Tag::attributes()`, `ButtonGroup::buttonAttributes()`, `RadioList::radioAttributes()`,
  `RadioList::individualInputAttributes()`, `CheckboxList::checkboxAttributes()`,
  `CheckboxList::individualInputAttributes()`, `File::uncheckInputAttributes()`, `Range::outputAttributes()` (@vjik)
+- New #123: Add `Tag::addClass()` and deprecate `Tag::class()` (@vjik)
 - New #129: Add methods `enctypeApplicationXWwwFormUrlencoded()`, `enctypeMultipartFormData()` and `enctypeTextPlain()`
   to `Form` tag class (@vjik) 
 

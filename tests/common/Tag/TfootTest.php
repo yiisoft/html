@@ -24,7 +24,7 @@ final class TfootTest extends TestCase
             '</tr>' . "\n" .
             '</tfoot>',
             Tfoot::tag()
-                ->class('gray')
+                ->replaceClass('gray')
                 ->rows(
                     Tr::tag()->dataStrings(['A', 'B']),
                     Tr::tag()->dataStrings(['C', 'D']),

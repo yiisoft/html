@@ -14,7 +14,7 @@ final class DivTest extends TestCase
         $this->assertSame(
             '<div class="red">Hello</div>',
             (string)Div::tag()
-                ->class('red')
+                ->replaceClass('red')
                 ->content('Hello')
         );
     }

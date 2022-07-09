@@ -65,7 +65,7 @@ use Yiisoft\Html\Tag\Meta;
     <?= Html::openTag('div', ['class' => 'container flex-fill']) ?>
         <?= Html::p('', ['class' => 'float-left']) ?>
         <?= Html::p()
-            ->class('float-right')
+            ->replaceClass('float-right')
             ->content(
                 'Powered by ',
                 Html::a(
@@ -93,7 +93,7 @@ echo \Yiisoft\Html\Tag\Div::tag()
     )
     ->encode(false)
     ->id('ContactEmail')
-    ->class('red');
+    ->replaceClass('red');
 ```
 
 ... will generate the following HTML:
