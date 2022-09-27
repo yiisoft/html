@@ -16,7 +16,7 @@ use function is_array;
 /**
  * `CheckboxList` represents a list of checkboxes and their corresponding labels.
  */
-final class CheckboxList implements NoEncodeStringableInterface
+final class CheckboxList implements NoEncodeStringableInterface, \Stringable
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
@@ -36,8 +36,6 @@ final class CheckboxList implements NoEncodeStringableInterface
      */
     private array $items = [];
 
-    private string $name;
-
     /**
      * @psalm-var list<string>
      */
@@ -48,9 +46,8 @@ final class CheckboxList implements NoEncodeStringableInterface
      */
     private ?Closure $itemFormatter = null;
 
-    private function __construct(string $name)
+    private function __construct(private string $name)
     {
-        $this->name = $name;
     }
 
     public static function create(string $name): self
@@ -144,8 +141,6 @@ final class CheckboxList implements NoEncodeStringableInterface
     /**
      * @param string[] $items
      * @param bool $encodeLabels Whether labels should be encoded.
-     *
-     * @return self
      */
     public function items(array $items, bool $encodeLabels = true): self
     {
@@ -171,10 +166,7 @@ final class CheckboxList implements NoEncodeStringableInterface
         );
     }
 
-    /**
-     * @param scalar|\Stringable ...$value
-     */
-    public function value(...$value): self
+    public function value(bool|string|int|float|\Stringable ...$value): self
     {
         $new = clone $this;
         $new->values = array_map('\strval', array_values($value));
@@ -245,8 +237,6 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param Closure|null $formatter
-     *
      * @psalm-param Closure(CheckboxItem):string|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self

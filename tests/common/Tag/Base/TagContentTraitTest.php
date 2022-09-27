@@ -63,7 +63,7 @@ final class TagContentTraitTest extends TestCase
      *
      * @param string|string[]|Stringable|Stringable[] $content
      */
-    public function testContent(string $expected, $content): void
+    public function testContent(string $expected, string|array|Stringable $content): void
     {
         $tag = TestTagContentTrait::tag();
         $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);

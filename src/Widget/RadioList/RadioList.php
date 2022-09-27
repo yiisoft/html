@@ -12,7 +12,7 @@ use Yiisoft\Html\Tag\Input;
 /**
  * `RadioList` represents a list of radios and their corresponding labels.
  */
-final class RadioList implements NoEncodeStringableInterface
+final class RadioList implements NoEncodeStringableInterface, \Stringable
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
@@ -32,8 +32,6 @@ final class RadioList implements NoEncodeStringableInterface
      */
     private array $items = [];
 
-    private string $name;
-
     private ?string $value = null;
 
     /**
@@ -41,9 +39,8 @@ final class RadioList implements NoEncodeStringableInterface
      */
     private ?Closure $itemFormatter = null;
 
-    private function __construct(string $name)
+    private function __construct(private string $name)
     {
-        $this->name = $name;
     }
 
     public static function create(string $name): self
@@ -220,8 +217,6 @@ final class RadioList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param Closure|null $formatter
-     *
      * @psalm-param Closure(RadioItem):string|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self

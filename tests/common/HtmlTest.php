@@ -52,11 +52,8 @@ final class HtmlTest extends TestCase
 
     /**
      * @dataProvider dataEscapeJavaScriptStringValue
-     *
-     * @param mixed $value
-     * @param string $expected
      */
-    public function testEscapeJavaScriptStringValue($value, string $expected): void
+    public function testEscapeJavaScriptStringValue(mixed $value, string $expected): void
     {
         $this->assertSame($expected, Html::escapeJavaScriptStringValue($value));
     }
@@ -1033,10 +1030,6 @@ final class HtmlTest extends TestCase
 
     /**
      * @dataProvider dataNormalizeRegexpPattern
-     *
-     * @param string $expected
-     * @param string $regexp
-     * @param string|null $delimiter
      */
     public function testNormalizeRegexpPattern(string $expected, string $regexp, ?string $delimiter = null): void
     {
@@ -1058,9 +1051,6 @@ final class HtmlTest extends TestCase
 
     /**
      * @dataProvider dataNormalizeRegexpPatternInvalid
-     *
-     * @param string $regexp
-     * @param string|null $delimiter
      */
     public function testNormalizeRegexpPatternInvalid(string $regexp, ?string $delimiter = null): void
     {

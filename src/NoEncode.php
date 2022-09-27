@@ -13,13 +13,10 @@ namespace Yiisoft\Html;
  * echo Html:b(NoEncode::string('<i>hello</i>'));
  * ```
  */
-final class NoEncode implements NoEncodeStringableInterface
+final class NoEncode implements NoEncodeStringableInterface, \Stringable
 {
-    private string $string;
-
-    private function __construct(string $string)
+    private function __construct(private string $string)
     {
-        $this->string = $string;
     }
 
     public static function string(string $value): self

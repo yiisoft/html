@@ -29,8 +29,6 @@ final class Optgroup extends NormalTag
      * @param string[] $data Value-content set of options.
      * @param bool $encode Whether to encode option content.
      * @param array[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
-     *
-     * @return self
      */
     public function optionsData(array $data, bool $encode = true, array $optionsAttributes = []): self
     {
@@ -47,10 +45,6 @@ final class Optgroup extends NormalTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-optgroup-label
-     *
-     * @param string|null $label
-     *
-     * @return self
      */
     public function label(?string $label): self
     {
@@ -72,8 +66,6 @@ final class Optgroup extends NormalTag
     /**
      * @param mixed|null ...$value Values of options that are selected.
      * @psalm-param \Stringable|scalar|null ...$value
-     *
-     * @return self
      */
     public function selection(...$value): self
     {
@@ -84,9 +76,7 @@ final class Optgroup extends NormalTag
 
     protected function generateContent(): string
     {
-        $options = array_map(function (Option $option) {
-            return $option->selected(in_array($option->getValue(), $this->selection, true));
-        }, $this->options);
+        $options = array_map(fn (Option $option) => $option->selected(in_array($option->getValue(), $this->selection, true)), $this->options);
 
         return $options
             ? "\n" . implode("\n", $options) . "\n"

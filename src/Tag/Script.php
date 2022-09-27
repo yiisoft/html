@@ -19,8 +19,6 @@ final class Script extends NormalTag
      * @link https://www.w3.org/TR/html52/semantics-scripting.html#script-content-restrictions
      *
      * @param string $content Tag content.
-     *
-     * @return static
      */
     public function content(string $content): self
     {
