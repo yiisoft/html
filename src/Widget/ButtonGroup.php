@@ -15,7 +15,7 @@ use function is_string;
 /**
  * `ButtonGroup` represents a group of buttons.
  */
-final class ButtonGroup implements NoEncodeStringableInterface
+final class ButtonGroup implements NoEncodeStringableInterface, \Stringable
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];

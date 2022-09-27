@@ -37,12 +37,10 @@ abstract class ListTag extends NormalTag
      */
     public function strings(array $strings, array $attributes = [], bool $encode = true): self
     {
-        $items = array_map(static function (string $string) use ($attributes, $encode) {
-            return Li::tag()
-                ->content($string)
-                ->replaceAttributes($attributes)
-                ->encode($encode);
-        }, $strings);
+        $items = array_map(static fn(string $string) => Li::tag()
+            ->content($string)
+            ->replaceAttributes($attributes)
+            ->encode($encode), $strings);
         return $this->items(...$items);
     }
 

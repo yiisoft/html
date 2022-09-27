@@ -56,7 +56,7 @@ trait TagContentTrait
      *
      * @return static
      */
-    final public function content(...$content): self
+    final public function content(string|\Stringable ...$content): self
     {
         $new = clone $this;
         $new->content = array_values($content);
@@ -68,7 +68,7 @@ trait TagContentTrait
      *
      * @return static
      */
-    final public function addContent(...$content): self
+    final public function addContent(string|\Stringable ...$content): self
     {
         $new = clone $this;
         $new->content = array_merge($new->content, array_values($content));

@@ -85,11 +85,8 @@ final class EncodeTest extends TestCase
 
     /**
      * @dataProvider dataEncode
-     *
-     * @param mixed $content
-     * @param string $expected
      */
-    public function testEncode($content, string $expected): void
+    public function testEncode(mixed $content, string $expected): void
     {
         $this->assertSame($expected, Html::encode($content));
     }
@@ -106,11 +103,8 @@ final class EncodeTest extends TestCase
 
     /**
      * @dataProvider dataEncodeUnquotedAttribute
-     *
-     * @param mixed $content
-     * @param string $expected
      */
-    public function testEncodeUnquotedAttribute($content, string $expected): void
+    public function testEncodeUnquotedAttribute(mixed $content, string $expected): void
     {
         $this->assertSame($expected, Html::encodeUnquotedAttribute($content));
     }
@@ -127,11 +121,8 @@ final class EncodeTest extends TestCase
 
     /**
      * @dataProvider dataEncodeAttribute
-     *
-     * @param mixed $content
-     * @param string $expected
      */
-    public function testEncodeAttribute($content, string $expected): void
+    public function testEncodeAttribute(mixed $content, string $expected): void
     {
         $this->assertSame($expected, Html::encodeAttribute($content));
     }

@@ -15,8 +15,6 @@ final class Style extends NormalTag
 
     /**
      * @param string $content Tag content.
-     *
-     * @return static
      */
     public function content(string $content): self
     {

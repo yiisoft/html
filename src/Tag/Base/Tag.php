@@ -10,7 +10,7 @@ use Yiisoft\Html\NoEncodeStringableInterface;
 /**
  * HTML tag. Base class for all tags.
  */
-abstract class Tag implements NoEncodeStringableInterface
+abstract class Tag implements NoEncodeStringableInterface, \Stringable
 {
     protected array $attributes = [];
 
@@ -81,7 +81,7 @@ abstract class Tag implements NoEncodeStringableInterface
      *
      * @return static
      */
-    final public function attribute(string $name, $value): self
+    final public function attribute(string $name, mixed $value): self
     {
         $new = clone $this;
         $new->attributes[$name] = $value;

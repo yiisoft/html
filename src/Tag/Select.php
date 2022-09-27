@@ -33,8 +33,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-name
      *
      * @param string|null $name Name of the select input.
-     *
-     * @return Select
      */
     public function name(?string $name): self
     {
@@ -73,8 +71,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
      *
      * @param string|null $formId ID of the form the select belongs to.
-     *
-     * @return self
      */
     public function form(?string $formId): self
     {
@@ -86,7 +82,7 @@ final class Select extends NormalTag
     /**
      * @param Optgroup|Option ...$items Select options or option groups.
      */
-    public function items(Tag ...$items): self
+    public function items(\Yiisoft\Html\Tag\Optgroup|\Yiisoft\Html\Tag\Option ...$items): self
     {
         $new = clone $this;
         $new->items = $items;
@@ -137,8 +133,6 @@ final class Select extends NormalTag
      * @param array[] $groupsAttributes Array of group attribute sets indexed by group labels from {@see $data}.
      *
      * @psalm-param array<array-key, string|array<array-key,string>> $data
-     *
-     * @return self
      */
     public function optionsData(
         array $data,
@@ -167,8 +161,6 @@ final class Select extends NormalTag
     /**
      * @param string|null $text Text of the option that has dummy value and is rendered
      * as an invitation to select a value.
-     *
-     * @return self
      */
     public function prompt(?string $text): self
     {
@@ -181,8 +173,6 @@ final class Select extends NormalTag
 
     /**
      * @param Option|null $option Option that has dummy value and is rendered as an invitation to select a value.
-     *
-     * @return self
      */
     public function promptOption(?Option $option): self
     {
@@ -195,8 +185,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-disabledformelements-disabled
      *
      * @param bool $disabled Whether select input is disabled.
-     *
-     * @return self
      */
     public function disabled(bool $disabled = true): self
     {
@@ -209,8 +197,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-multiple
      *
      * @param bool $multiple Whether to allow selecting multiple values.
-     *
-     * @return self
      */
     public function multiple(bool $multiple = true): self
     {
@@ -223,8 +209,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-required
      *
      * @param bool $required Whether select input is required.
-     *
-     * @return self
      */
     public function required(bool $required = true): self
     {
@@ -237,8 +221,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-size
      *
      * @param int|null $size The number of options to show to the user.
-     *
-     * @return self
      */
     public function size(?int $size): self
     {
