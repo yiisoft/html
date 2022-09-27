@@ -64,7 +64,7 @@ final class Tr extends NormalTag
      */
     private function makeDataCells(array $strings, array $attributes, bool $encode): array
     {
-        return array_map(static fn(string $string) => Td::tag()
+        return array_map(static fn (string $string) => Td::tag()
             ->content($string)
             ->replaceAttributes($attributes)
             ->encode($encode), $strings);
@@ -97,7 +97,7 @@ final class Tr extends NormalTag
      */
     private function makeHeaderCells(array $strings, array $attributes, bool $encode): array
     {
-        return array_map(static fn(string $string) => Th::tag()
+        return array_map(static fn (string $string) => Th::tag()
             ->content($string)
             ->replaceAttributes($attributes)
             ->encode($encode), $strings);

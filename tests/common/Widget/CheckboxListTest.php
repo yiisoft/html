@@ -661,7 +661,7 @@ final class CheckboxListTest extends TestCase
             '</div>',
             CheckboxList::create('test')
                 ->items([1 => 'One', 2 => 'Two'])
-                ->itemFormatter(fn(CheckboxItem $item): string => '<div>' .
+                ->itemFormatter(fn (CheckboxItem $item): string => '<div>' .
                     $item->index . ') ' .
                     Html::checkbox(
                         $item->checkboxAttributes['name'],

@@ -45,8 +45,6 @@ final class Optgroup extends NormalTag
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-optgroup-label
-     *
-     *
      */
     public function label(?string $label): self
     {
@@ -78,7 +76,7 @@ final class Optgroup extends NormalTag
 
     protected function generateContent(): string
     {
-        $options = array_map(fn(Option $option) => $option->selected(in_array($option->getValue(), $this->selection, true)), $this->options);
+        $options = array_map(fn (Option $option) => $option->selected(in_array($option->getValue(), $this->selection, true)), $this->options);
 
         return $options
             ? "\n" . implode("\n", $options) . "\n"

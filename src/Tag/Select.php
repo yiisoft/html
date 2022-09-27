@@ -8,7 +8,6 @@ use InvalidArgumentException;
 use RuntimeException;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\NormalTag;
-use Yiisoft\Html\Tag\Base\Tag;
 
 use function in_array;
 use function is_array;
@@ -82,7 +81,7 @@ final class Select extends NormalTag
     /**
      * @param Optgroup|Option ...$items Select options or option groups.
      */
-    public function items(\Yiisoft\Html\Tag\Optgroup|\Yiisoft\Html\Tag\Option ...$items): self
+    public function items(Optgroup|Option ...$items): self
     {
         $new = clone $this;
         $new->items = $items;

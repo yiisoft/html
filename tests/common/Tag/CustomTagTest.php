@@ -128,7 +128,7 @@ final class CustomTagTest extends TestCase
      *
      * @param string|string[]|Stringable|Stringable[] $content
      */
-    public function testContent(string $expected, string|array|\Stringable $content): void
+    public function testContent(string $expected, string|array|Stringable $content): void
     {
         $tag = CustomTag::name('test');
         $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);

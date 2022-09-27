@@ -8,9 +8,6 @@ use InvalidArgumentException;
 use Stringable;
 use Yiisoft\Html\Tag\Track;
 
-use function get_class;
-use function gettype;
-use function is_object;
 use function is_string;
 
 abstract class MediaTag extends NormalTag

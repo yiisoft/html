@@ -93,7 +93,6 @@ final class Input extends InputTag
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|\Stringable|null $value Value of the input.
      *
-     *
      * @deprecated
      */
     public static function fileControl(?string $name = null, $value = null): File

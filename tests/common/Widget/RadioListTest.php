@@ -622,7 +622,7 @@ final class RadioListTest extends TestCase
             '</div>',
             RadioList::create('test')
                 ->items([1 => 'One', 2 => 'Two'])
-                ->itemFormatter(fn(RadioItem $item): string => '<div>' .
+                ->itemFormatter(fn (RadioItem $item): string => '<div>' .
                     $item->index . ') ' .
                     Html::radio(
                         $item->radioAttributes['name'],
