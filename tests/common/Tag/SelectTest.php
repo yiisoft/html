@@ -6,8 +6,6 @@ namespace Yiisoft\Html\Tests\Tag;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
-use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
 use Yiisoft\Html\Tag\Select;

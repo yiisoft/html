@@ -7,7 +7,6 @@ namespace Yiisoft\Html;
 use InvalidArgumentException;
 use JsonException;
 use Stringable;
-use ValueError;
 use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Address;
 use Yiisoft\Html\Tag\Article;

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use InvalidArgumentException;
-use RuntimeException;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\NormalTag;
 
