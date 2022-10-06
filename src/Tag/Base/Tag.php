@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+use Stringable;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 
 /**
  * HTML tag. Base class for all tags.
  */
-abstract class Tag implements NoEncodeStringableInterface, \Stringable
+abstract class Tag implements NoEncodeStringableInterface, Stringable
 {
     protected array $attributes = [];
 

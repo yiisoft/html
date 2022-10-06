@@ -65,6 +65,7 @@ final class Optgroup extends NormalTag
 
     /**
      * @param mixed|null ...$value Values of options that are selected.
+     *
      * @psalm-param \Stringable|scalar|null ...$value
      */
     public function selection(...$value): self
@@ -76,7 +77,10 @@ final class Optgroup extends NormalTag
 
     protected function generateContent(): string
     {
-        $options = array_map(fn (Option $option) => $option->selected(in_array($option->getValue(), $this->selection, true)), $this->options);
+        $options = array_map(
+            fn (Option $option) => $option->selected(in_array($option->getValue(), $this->selection, true)),
+            $this->options
+        );
 
         return $options
             ? "\n" . implode("\n", $options) . "\n"

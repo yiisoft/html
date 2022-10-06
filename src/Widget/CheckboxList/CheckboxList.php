@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Widget\CheckboxList;
 
 use Closure;
 use InvalidArgumentException;
+use Stringable;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
@@ -16,7 +17,7 @@ use function is_array;
 /**
  * `CheckboxList` represents a list of checkboxes and their corresponding labels.
  */
-final class CheckboxList implements NoEncodeStringableInterface, \Stringable
+final class CheckboxList implements NoEncodeStringableInterface, Stringable
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
@@ -46,8 +47,9 @@ final class CheckboxList implements NoEncodeStringableInterface, \Stringable
      */
     private ?Closure $itemFormatter = null;
 
-    private function __construct(private string $name)
-    {
+    private function __construct(
+        private string $name
+    ) {
     }
 
     public static function create(string $name): self
@@ -153,7 +155,7 @@ final class CheckboxList implements NoEncodeStringableInterface, \Stringable
     /**
      * Fills items from an array provided. Array values are used for both input labels and input values.
      *
-     * @param bool[]|float[]|int[]|string[]|\Stringable[] $values
+     * @param bool[]|float[]|int[]|string[]|Stringable[] $values
      * @param bool $encodeLabels Whether labels should be encoded.
      */
     public function itemsFromValues(array $values, bool $encodeLabels = true): self
@@ -166,7 +168,7 @@ final class CheckboxList implements NoEncodeStringableInterface, \Stringable
         );
     }
 
-    public function value(bool|string|int|float|\Stringable ...$value): self
+    public function value(bool|string|int|float|Stringable ...$value): self
     {
         $new = clone $this;
         $new->values = array_map('\strval', array_values($value));
@@ -174,7 +176,7 @@ final class CheckboxList implements NoEncodeStringableInterface, \Stringable
     }
 
     /**
-     * @psalm-param iterable<int, \Stringable|scalar> $values
+     * @psalm-param iterable<int, Stringable|scalar> $values
      */
     public function values($values): self
     {
@@ -183,7 +185,7 @@ final class CheckboxList implements NoEncodeStringableInterface, \Stringable
             throw new InvalidArgumentException('$values should be iterable.');
         }
 
-        /** @psalm-var iterable<int, \Stringable|scalar> $values */
+        /** @psalm-var iterable<int, Stringable|scalar> $values */
         $values = is_array($values) ? $values : iterator_to_array($values);
 
         return $this->value(...$values);
@@ -220,12 +222,12 @@ final class CheckboxList implements NoEncodeStringableInterface, \Stringable
     }
 
     /**
-     * @param bool|float|int|string|\Stringable|null $value
+     * @param bool|float|int|string|Stringable|null $value
      */
     public function uncheckValue($value): self
     {
         $new = clone $this;
-        $new->uncheckValue = $value === null ? null : (string) $value;
+        $new->uncheckValue = $value === null ? null : (string)$value;
         return $new;
     }
 

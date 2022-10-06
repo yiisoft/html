@@ -44,8 +44,9 @@ final class CustomTag extends Tag
 
     private int $type = self::TYPE_AUTO;
 
-    private function __construct(private string $name)
-    {
+    private function __construct(
+        private string $name
+    ) {
     }
 
     /**

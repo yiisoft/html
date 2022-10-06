@@ -1831,7 +1831,7 @@ final class Html
 
         try {
             $endPosition = strrpos($pattern, $delimiter, 1);
-        } catch (ValueError) { // For PHP 8
+        } catch (ValueError) {
             $endPosition = false;
         }
         if ($endPosition === false) {

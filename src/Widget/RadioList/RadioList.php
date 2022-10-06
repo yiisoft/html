@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Widget\RadioList;
 
 use Closure;
+use Stringable;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Input;
@@ -12,7 +13,7 @@ use Yiisoft\Html\Tag\Input;
 /**
  * `RadioList` represents a list of radios and their corresponding labels.
  */
-final class RadioList implements NoEncodeStringableInterface, \Stringable
+final class RadioList implements NoEncodeStringableInterface, Stringable
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
@@ -39,8 +40,9 @@ final class RadioList implements NoEncodeStringableInterface, \Stringable
      */
     private ?Closure $itemFormatter = null;
 
-    private function __construct(private string $name)
-    {
+    private function __construct(
+        private string $name
+    ) {
     }
 
     public static function create(string $name): self
@@ -146,7 +148,7 @@ final class RadioList implements NoEncodeStringableInterface, \Stringable
     /**
      * Fills items from an array provided. Array values are used for both input labels and input values.
      *
-     * @param bool[]|float[]|int[]|string[]|\Stringable[] $values
+     * @param bool[]|float[]|int[]|string[]|Stringable[] $values
      * @param bool $encodeLabels Whether labels should be encoded.
      */
     public function itemsFromValues(array $values, bool $encodeLabels = true): self
@@ -160,12 +162,12 @@ final class RadioList implements NoEncodeStringableInterface, \Stringable
     }
 
     /**
-     * @param bool|float|int|string|\Stringable|null $value
+     * @param bool|float|int|string|Stringable|null $value
      */
     public function value($value): self
     {
         $new = clone $this;
-        $new->value = $value === null ? null : (string) $value;
+        $new->value = $value === null ? null : (string)$value;
         return $new;
     }
 
@@ -200,12 +202,12 @@ final class RadioList implements NoEncodeStringableInterface, \Stringable
     }
 
     /**
-     * @param bool|float|int|string|\Stringable|null $value
+     * @param bool|float|int|string|Stringable|null $value
      */
     public function uncheckValue($value): self
     {
         $new = clone $this;
-        $new->uncheckValue = $value === null ? null : (string) $value;
+        $new->uncheckValue = $value === null ? null : (string)$value;
         return $new;
     }
 
