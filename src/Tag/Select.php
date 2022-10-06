@@ -19,6 +19,9 @@ use function is_array;
  */
 final class Select extends NormalTag
 {
+    /**
+     * @var Optgroup[]|Option[]
+     */
     private array $items = [];
     private ?Option $prompt = null;
     private ?string $unselectValue = null;
@@ -234,14 +237,14 @@ final class Select extends NormalTag
     public function unselectValue($value): self
     {
         $new = clone $this;
-        $new->unselectValue = $value === null ? null : (string)$value;
+        $new->unselectValue = $value === null ? null : (string) $value;
         return $new;
     }
 
     protected function prepareAttributes(): void
     {
         if (!empty($this->attributes['multiple']) && !empty($this->attributes['name'])) {
-            $this->attributes['name'] = Html::getArrayableName((string)$this->attributes['name']);
+            $this->attributes['name'] = Html::getArrayableName((string) $this->attributes['name']);
         }
     }
 
@@ -252,15 +255,17 @@ final class Select extends NormalTag
             array_unshift($items, $this->prompt);
         }
 
-        $items = array_map(function ($item) {
-            if ($item instanceof Option) {
-                return $item->selected(in_array($item->getValue(), $this->values, true));
-            }
-            if ($item instanceof Optgroup) {
-                return $item->selection(...$this->values);
-            }
-            throw new RuntimeException('Incorrect item into Select.');
-        }, $items);
+        $items = array_map(
+            function ($item) {
+                if ($item instanceof Option) {
+                    return $item->selected(in_array($item->getValue(), $this->values, true));
+                }
+                if ($item instanceof Optgroup) {
+                    return $item->selection(...$this->values);
+                }
+            },
+            $items
+        );
 
         return $items
             ? "\n" . implode("\n", $items) . "\n"
@@ -269,7 +274,7 @@ final class Select extends NormalTag
 
     protected function before(): string
     {
-        $name = (string)($this->attributes['name'] ?? '');
+        $name = (string) ($this->attributes['name'] ?? '');
         if (
             empty($name) ||
             (
@@ -282,7 +287,7 @@ final class Select extends NormalTag
 
         $input = Input::hidden(
             Html::getNonArrayableName($name),
-            (string)$this->unselectValue
+            (string) $this->unselectValue
         );
 
         // Make sure disabled input is not sending any value.

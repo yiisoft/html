@@ -256,15 +256,6 @@ final class SelectTest extends TestCase
         $this->assertSame($expected, (string)Select::tag()->items(...$items));
     }
 
-    public function testIncorrectItems(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Incorrect item into Select.');
-        Select::tag()
-            ->items(Li::tag())
-            ->render();
-    }
-
     public function testOptions(): void
     {
         $this->assertSame(
