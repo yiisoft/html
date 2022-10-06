@@ -105,6 +105,18 @@ final class TagContentTraitTest extends TestCase
         );
     }
 
+    public function testNamedParametersContent(): void
+    {
+        $this->assertSame(
+            '<test>123</test>',
+            TestTagContentTrait::tag()
+                ->content(content: '1')
+                ->addContent(content: '2')
+                ->addContent(content: '3')
+                ->render()
+        );
+    }
+
     public function testImmutability(): void
     {
         $tag = TestTagContentTrait::tag();
