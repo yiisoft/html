@@ -256,14 +256,9 @@ final class Select extends NormalTag
         }
 
         $items = array_map(
-            function ($item) {
-                if ($item instanceof Option) {
-                    return $item->selected(in_array($item->getValue(), $this->values, true));
-                }
-                if ($item instanceof Optgroup) {
-                    return $item->selection(...$this->values);
-                }
-            },
+            fn ($item) => $item instanceof Optgroup
+                ? $item->selection(...$this->values)
+                : $item->selected(in_array($item->getValue(), $this->values, true)),
             $items
         );
 
