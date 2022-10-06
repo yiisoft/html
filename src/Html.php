@@ -177,7 +177,7 @@ final class Html
     public static function encode(mixed $content, bool $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
         return htmlspecialchars(
-            (string)$content,
+            (string) $content,
             ENT_NOQUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             $encoding,
             $doubleEncode
@@ -199,10 +199,13 @@ final class Html
      * @link https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
      * @link https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
      */
-    public static function encodeUnquotedAttribute(mixed $value, bool $doubleEncode = true, string $encoding = 'UTF-8'): string
-    {
+    public static function encodeUnquotedAttribute(
+        mixed $value,
+        bool $doubleEncode = true,
+        string $encoding = 'UTF-8'
+    ): string {
         $value = htmlspecialchars(
-            (string)$value,
+            (string) $value,
             ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             $encoding,
             $doubleEncode
@@ -236,7 +239,7 @@ final class Html
     public static function encodeAttribute(mixed $value, bool $doubleEncode = true, string $encoding = 'UTF-8'): string
     {
         $value = htmlspecialchars(
-            (string)$value,
+            (string) $value,
             ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             $encoding,
             $doubleEncode
@@ -262,7 +265,7 @@ final class Html
      */
     public static function escapeJavaScriptStringValue(mixed $value): string
     {
-        return strtr((string)$value, [
+        return strtr((string) $value, [
             '/' => '\/',
             '"' => '\"',
             "'" => "\'",
@@ -1605,11 +1608,11 @@ final class Html
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
                 /** @psalm-var string[] $options['class'] */
-                $options['class'] = self::mergeCssClasses($options['class'], (array)$class);
+                $options['class'] = self::mergeCssClasses($options['class'], (array) $class);
             } else {
                 /** @psalm-var string $options['class'] */
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
-                $options['class'] = implode(' ', self::mergeCssClasses($classes, (array)$class));
+                $options['class'] = implode(' ', self::mergeCssClasses($classes, (array) $class));
             }
         } else {
             $options['class'] = $class;
@@ -1628,7 +1631,7 @@ final class Html
     {
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
-                $classes = array_diff($options['class'], (array)$class);
+                $classes = array_diff($options['class'], (array) $class);
                 if (empty($classes)) {
                     unset($options['class']);
                 } else {
@@ -1636,8 +1639,8 @@ final class Html
                 }
             } else {
                 /** @var string[] */
-                $classes = preg_split('/\s+/', (string)$options['class'], -1, PREG_SPLIT_NO_EMPTY);
-                $classes = array_diff($classes, (array)$class);
+                $classes = preg_split('/\s+/', (string) $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+                $classes = array_diff($classes, (array) $class);
                 if (empty($classes)) {
                     unset($options['class']);
                 } else {
@@ -1728,7 +1731,7 @@ final class Html
         if (!empty($options['style'])) {
             /** @psalm-var array<string,string>|string $options['style'] */
             $style = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
-            foreach ((array)$properties as $property) {
+            foreach ((array) $properties as $property) {
                 unset($style[$property]);
             }
             $options['style'] = self::cssStyleFromArray($style);
@@ -1785,7 +1788,7 @@ final class Html
     public static function cssStyleToArray(string|Stringable $style): array
     {
         $result = [];
-        foreach (explode(';', (string)$style) as $property) {
+        foreach (explode(';', (string) $style) as $property) {
             $property = explode(':', $property);
             if (count($property) > 1) {
                 $result[trim($property[0])] = trim($property[1]);
@@ -1829,11 +1832,7 @@ final class Html
             throw new InvalidArgumentException('Incorrect delimiter.');
         }
 
-        try {
-            $endPosition = strrpos($pattern, $delimiter, 1);
-        } catch (ValueError) {
-            $endPosition = false;
-        }
+        $endPosition = strrpos($pattern, $delimiter, 1);
         if ($endPosition === false) {
             throw new InvalidArgumentException('Incorrect regular expression.');
         }
