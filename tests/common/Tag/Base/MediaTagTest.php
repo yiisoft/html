@@ -54,7 +54,7 @@ final class MediaTagTest extends TestCase
         $tag = TestMediaTag::tag();
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Fallback content must be null, string or Stringable. "integer" given.');
+        $this->expectExceptionMessage('Fallback content must be null, string or Stringable. "int" given.');
         $tag->fallback(12);
     }
 

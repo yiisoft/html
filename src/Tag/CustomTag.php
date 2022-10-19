@@ -43,11 +43,10 @@ final class CustomTag extends Tag
     private const TYPE_VOID = 2;
 
     private int $type = self::TYPE_AUTO;
-    private string $name;
 
-    private function __construct(string $name)
-    {
-        $this->name = $name;
+    private function __construct(
+        private string $name
+    ) {
     }
 
     /**
@@ -56,8 +55,6 @@ final class CustomTag extends Tag
      * @param string $name Name of the tag.
      *
      * @psalm-param non-empty-string $name
-     *
-     * @return self
      */
     public static function name(string $name): self
     {
@@ -67,8 +64,6 @@ final class CustomTag extends Tag
     /**
      * Set type of the tag as normal.
      * Normal tags have both open and close parts.
-     *
-     * @return self
      */
     public function normal(): self
     {
@@ -80,8 +75,6 @@ final class CustomTag extends Tag
     /**
      * Set type of the tag as void.
      * Void tags should be self-closed right away.
-     *
-     * @return self
      */
     public function void(): self
     {

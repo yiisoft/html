@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
+use Stringable;
+
 /**
  * The `NoEncode` class is designed to wrap content that should not be encoded in HTML tags.
  * For example:
@@ -13,13 +15,11 @@ namespace Yiisoft\Html;
  * echo Html:b(NoEncode::string('<i>hello</i>'));
  * ```
  */
-final class NoEncode implements NoEncodeStringableInterface
+final class NoEncode implements NoEncodeStringableInterface, Stringable
 {
-    private string $string;
-
-    private function __construct(string $string)
-    {
-        $this->string = $string;
+    private function __construct(
+        private string $string
+    ) {
     }
 
     public static function string(string $value): self

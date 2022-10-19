@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use InvalidArgumentException;
-use RuntimeException;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\NormalTag;
-use Yiisoft\Html\Tag\Base\Tag;
 
 use function in_array;
 use function is_array;
@@ -20,6 +18,9 @@ use function is_array;
  */
 final class Select extends NormalTag
 {
+    /**
+     * @var Optgroup[]|Option[]
+     */
     private array $items = [];
     private ?Option $prompt = null;
     private ?string $unselectValue = null;
@@ -33,8 +34,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-name
      *
      * @param string|null $name Name of the select input.
-     *
-     * @return Select
      */
     public function name(?string $name): self
     {
@@ -73,8 +72,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
      *
      * @param string|null $formId ID of the form the select belongs to.
-     *
-     * @return self
      */
     public function form(?string $formId): self
     {
@@ -86,7 +83,7 @@ final class Select extends NormalTag
     /**
      * @param Optgroup|Option ...$items Select options or option groups.
      */
-    public function items(Tag ...$items): self
+    public function items(Optgroup|Option ...$items): self
     {
         $new = clone $this;
         $new->items = $items;
@@ -137,8 +134,6 @@ final class Select extends NormalTag
      * @param array[] $groupsAttributes Array of group attribute sets indexed by group labels from {@see $data}.
      *
      * @psalm-param array<array-key, string|array<array-key,string>> $data
-     *
-     * @return self
      */
     public function optionsData(
         array $data,
@@ -167,8 +162,6 @@ final class Select extends NormalTag
     /**
      * @param string|null $text Text of the option that has dummy value and is rendered
      * as an invitation to select a value.
-     *
-     * @return self
      */
     public function prompt(?string $text): self
     {
@@ -181,8 +174,6 @@ final class Select extends NormalTag
 
     /**
      * @param Option|null $option Option that has dummy value and is rendered as an invitation to select a value.
-     *
-     * @return self
      */
     public function promptOption(?Option $option): self
     {
@@ -195,8 +186,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-disabledformelements-disabled
      *
      * @param bool $disabled Whether select input is disabled.
-     *
-     * @return self
      */
     public function disabled(bool $disabled = true): self
     {
@@ -209,8 +198,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-multiple
      *
      * @param bool $multiple Whether to allow selecting multiple values.
-     *
-     * @return self
      */
     public function multiple(bool $multiple = true): self
     {
@@ -223,8 +210,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-required
      *
      * @param bool $required Whether select input is required.
-     *
-     * @return self
      */
     public function required(bool $required = true): self
     {
@@ -237,8 +222,6 @@ final class Select extends NormalTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-select-size
      *
      * @param int|null $size The number of options to show to the user.
-     *
-     * @return self
      */
     public function size(?int $size): self
     {
@@ -253,14 +236,14 @@ final class Select extends NormalTag
     public function unselectValue($value): self
     {
         $new = clone $this;
-        $new->unselectValue = $value === null ? null : (string)$value;
+        $new->unselectValue = $value === null ? null : (string) $value;
         return $new;
     }
 
     protected function prepareAttributes(): void
     {
         if (!empty($this->attributes['multiple']) && !empty($this->attributes['name'])) {
-            $this->attributes['name'] = Html::getArrayableName((string)$this->attributes['name']);
+            $this->attributes['name'] = Html::getArrayableName((string) $this->attributes['name']);
         }
     }
 
@@ -271,15 +254,12 @@ final class Select extends NormalTag
             array_unshift($items, $this->prompt);
         }
 
-        $items = array_map(function ($item) {
-            if ($item instanceof Option) {
-                return $item->selected(in_array($item->getValue(), $this->values, true));
-            }
-            if ($item instanceof Optgroup) {
-                return $item->selection(...$this->values);
-            }
-            throw new RuntimeException('Incorrect item into Select.');
-        }, $items);
+        $items = array_map(
+            fn ($item) => $item instanceof Optgroup
+                ? $item->selection(...$this->values)
+                : $item->selected(in_array($item->getValue(), $this->values, true)),
+            $items
+        );
 
         return $items
             ? "\n" . implode("\n", $items) . "\n"
@@ -288,7 +268,7 @@ final class Select extends NormalTag
 
     protected function before(): string
     {
-        $name = (string)($this->attributes['name'] ?? '');
+        $name = (string) ($this->attributes['name'] ?? '');
         if (
             empty($name) ||
             (
@@ -301,7 +281,7 @@ final class Select extends NormalTag
 
         $input = Input::hidden(
             Html::getNonArrayableName($name),
-            (string)$this->unselectValue
+            (string) $this->unselectValue
         );
 
         // Make sure disabled input is not sending any value.

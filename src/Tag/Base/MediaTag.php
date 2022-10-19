@@ -8,9 +8,6 @@ use InvalidArgumentException;
 use Stringable;
 use Yiisoft\Html\Tag\Track;
 
-use function get_class;
-use function gettype;
-use function is_object;
 use function is_string;
 
 abstract class MediaTag extends NormalTag
@@ -48,7 +45,7 @@ abstract class MediaTag extends NormalTag
     {
         if ($fallback !== null && !is_string($fallback) && !$fallback instanceof Stringable) {
             /** @psalm-suppress RedundantConditionGivenDocblockType,DocblockTypeContradiction */
-            $value = is_object($fallback) ? get_class($fallback) : gettype($fallback);
+            $value = get_debug_type($fallback);
             throw new InvalidArgumentException(
                 'Fallback content must be null, string or Stringable. "' . $value . '" given.'
             );

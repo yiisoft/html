@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Widget;
 
 use InvalidArgumentException;
+use Stringable;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Button;
@@ -15,7 +16,7 @@ use function is_string;
 /**
  * `ButtonGroup` represents a group of buttons.
  */
-final class ButtonGroup implements NoEncodeStringableInterface
+final class ButtonGroup implements NoEncodeStringableInterface, Stringable
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
