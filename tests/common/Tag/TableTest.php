@@ -179,7 +179,7 @@ class TableTest extends TestCase
     {
         $tag = Table::tag()->body(
             Tbody::tag(),
-            Tbody::tag()->replaceClass('red'),
+            Tbody::tag()->class('red'),
         );
 
         $this->assertSame(
@@ -198,8 +198,8 @@ class TableTest extends TestCase
                 Tbody::tag(),
             )
             ->addBody(
-                Tbody::tag()->replaceClass('red'),
-                Tbody::tag()->replaceClass('green'),
+                Tbody::tag()->class('red'),
+                Tbody::tag()->class('green'),
             );
 
         $this->assertSame(

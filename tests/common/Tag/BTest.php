@@ -14,7 +14,7 @@ final class BTest extends TestCase
         $this->assertSame(
             '<b class="red">Hello</b>',
             (string)B::tag()
-                ->replaceClass('red')
+                ->class('red')
                 ->content('Hello')
         );
     }

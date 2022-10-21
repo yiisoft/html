@@ -14,7 +14,7 @@ final class LiTest extends TestCase
         $this->assertSame(
             '<li class="red">Hello</li>',
             (string)Li::tag()
-                ->replaceClass('red')
+                ->class('red')
                 ->content('Hello')
         );
     }

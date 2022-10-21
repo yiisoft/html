@@ -23,10 +23,10 @@ final class ColgroupTest extends TestCase
                     Col::tag(),
                     Col::tag()
                         ->span(2)
-                        ->replaceClass('red'),
+                        ->class('red'),
                     Col::tag()
                         ->span(2)
-                        ->replaceClass('blue'),
+                        ->class('blue'),
                 )
                 ->render()
         );

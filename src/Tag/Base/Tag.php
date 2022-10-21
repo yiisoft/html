@@ -109,21 +109,6 @@ abstract class Tag implements NoEncodeStringableInterface, Stringable
      * @param string|null ...$class One or many CSS classes.
      *
      * @return static
-     *
-     * @deprecated Use {@see addClass()} or {@see replaceClass()} instead. In the next major version `replaceClass()`
-     * method will be renamed to `class()`.
-     */
-    final public function class(?string ...$class): self
-    {
-        return $this->addClass(...$class);
-    }
-
-    /**
-     * Add one or more CSS classes to the tag.
-     *
-     * @param string|null ...$class One or many CSS classes.
-     *
-     * @return static
      */
     final public function addClass(?string ...$class): self
     {
@@ -142,7 +127,7 @@ abstract class Tag implements NoEncodeStringableInterface, Stringable
      *
      * @return static
      */
-    final public function replaceClass(?string ...$class): self
+    final public function class(?string ...$class): self
     {
         $new = clone $this;
         $new->attributes['class'] = array_filter($class, static fn ($c) => $c !== null);

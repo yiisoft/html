@@ -14,7 +14,7 @@ final class H1Test extends TestCase
         $this->assertSame(
             '<h1 class="red">Hello</h1>',
             (string) H1::tag()
-                ->replaceClass('red')
+                ->class('red')
                 ->content('Hello')
         );
     }

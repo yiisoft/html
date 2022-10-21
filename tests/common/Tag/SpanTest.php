@@ -14,7 +14,7 @@ final class SpanTest extends TestCase
         $this->assertSame(
             '<span class="red">Hello</span>',
             (string)Span::tag()
-                ->replaceClass('red')
+                ->class('red')
                 ->content('Hello')
         );
     }
