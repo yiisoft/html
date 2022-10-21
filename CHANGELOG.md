@@ -2,7 +2,7 @@
 
 ## 2.5.1 under development
 
-- no changes in this release.
+- Chg #136: Remove `Tag::class()` and rename `Tag::replaceClass()` to `Tag::class()` (@vjik)
 
 ## 2.5.0 July 09, 2022
 
