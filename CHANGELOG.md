@@ -2,7 +2,7 @@
 
 ## 2.5.1 under development
 
-- no changes in this release.
+- Chg #135: Raise `yiisoft/arrays` version to `^2.0` (@vjik)
 
 ## 2.5.0 July 09, 2022
 
@@ -15,7 +15,6 @@
 - New #123: Add `Tag::addClass()` and deprecate `Tag::class()` (@vjik)
 - New #129: Add methods `enctypeApplicationXWwwFormUrlencoded()`, `enctypeMultipartFormData()` and `enctypeTextPlain()`
   to `Form` tag class (@vjik)
-- Chg #135: Raise `yiisoft/arrays` version to `^2.0` (@vjik)
 
 ## 2.4.0 May 19, 2022
 
