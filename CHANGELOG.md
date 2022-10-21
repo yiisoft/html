@@ -14,7 +14,8 @@
  `CheckboxList::individualInputAttributes()`, `File::uncheckInputAttributes()`, `Range::outputAttributes()` (@vjik)
 - New #123: Add `Tag::addClass()` and deprecate `Tag::class()` (@vjik)
 - New #129: Add methods `enctypeApplicationXWwwFormUrlencoded()`, `enctypeMultipartFormData()` and `enctypeTextPlain()`
-  to `Form` tag class (@vjik) 
+  to `Form` tag class (@vjik)
+- Chg #135: Raise `yiisoft/arrays` version to `^2.0` (@vjik)
 
 ## 2.4.0 May 19, 2022
 
