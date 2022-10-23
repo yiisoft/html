@@ -24,7 +24,7 @@ final class TheadTest extends TestCase
             '</tr>' . "\n" .
             '</thead>',
             Thead::tag()
-                ->replaceClass('gray')
+                ->class('gray')
                 ->rows(
                     Tr::tag()->dataStrings(['A', 'B']),
                     Tr::tag()->dataStrings(['C', 'D']),
