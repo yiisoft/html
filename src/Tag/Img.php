@@ -87,6 +87,13 @@ final class Img extends VoidTag
         return $new;
     }
 
+    public function loading(?string $loading): self
+    {
+        $new = clone $this;
+        $new->attributes['loading'] = $loading;
+        return $new;
+    }
+
     protected function getName(): string
     {
         return 'img';

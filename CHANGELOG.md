@@ -2,6 +2,7 @@
 
 ## 2.5.1 under development
 
+- Chg #139: Add `loading()` method to `Img` tag (@jacobbudin)
 - Chg #136: Remove `Tag::class()` and rename `Tag::replaceClass()` to `Tag::class()` (@vjik)
 - Chg #135: Raise `yiisoft/arrays` version to `^2.0` (@vjik)
 - Enh #133: Raise minimum PHP version to 8.0 and refactor code (@xepozz, @vjik)
