@@ -5,6 +5,7 @@
 - Chg #136: Remove `Tag::class()` and rename `Tag::replaceClass()` to `Tag::class()` (@vjik)
 - Chg #135: Raise `yiisoft/arrays` version to `^2.0` (@vjik)
 - Enh #133: Raise minimum PHP version to 8.0 and refactor code (@xepozz, @vjik)
+- Chg #140: Remove `Html::fileInput()` and `Input::file()`. Rename `Input::fileControl()` to `Input::file()` (@vjik)
 
 ## 2.5.0 July 09, 2022
 
