@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Tag\Base\InputTag;
 use Yiisoft\Html\Tag\Input\Checkbox;
 use Yiisoft\Html\Tag\Input\File;
@@ -23,7 +24,7 @@ final class Input extends InputTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#hidden-state-typehidden
      *
      * @param string|null $name Name of the input.
-     * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
     public static function hidden(?string $name = null, $value = null): self
     {
@@ -40,7 +41,7 @@ final class Input extends InputTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#text-typetext-state-and-search-state-typesearch
      *
      * @param string|null $name Name of the input.
-     * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
     public static function text(?string $name = null, $value = null): self
     {
@@ -57,7 +58,7 @@ final class Input extends InputTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#password-state-typepassword
      *
      * @param string|null $name Name of the input.
-     * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
     public static function password(?string $name = null, $value = null): self
     {
@@ -74,28 +75,9 @@ final class Input extends InputTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#file-upload-state-typefile
      *
      * @param string|null $name Name of the input.
-     * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
-    public static function file(?string $name = null, $value = null): self
-    {
-        $input = self::tag();
-        $input->attributes['type'] = 'file';
-        $input->attributes['name'] = $name;
-        $input->attributes['value'] = $value;
-        return $input;
-    }
-
-    /**
-     * File input.
-     *
-     * @link https://www.w3.org/TR/html52/sec-forms.html#file-upload-state-typefile
-     *
-     * @param string|null $name Name of the input.
-     * @param bool|float|int|string|\Stringable|null $value Value of the input.
-     *
-     * @deprecated
-     */
-    public static function fileControl(?string $name = null, $value = null): File
+    public static function file(?string $name = null, bool|float|int|string|Stringable|null $value = null): File
     {
         $input = File::tag();
         if ($name !== null) {
@@ -113,7 +95,7 @@ final class Input extends InputTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#checkbox-state-typecheckbox
      *
      * @param string|null $name Name of the input.
-     * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
     public static function checkbox(?string $name = null, $value = null): Checkbox
     {
@@ -133,7 +115,7 @@ final class Input extends InputTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#radio-button-state-typeradio
      *
      * @param string|null $name Name of the input.
-     * @param bool|float|int|string|\Stringable|null $value Value of the input.
+     * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
     public static function radio(?string $name = null, $value = null): Radio
     {
@@ -153,7 +135,7 @@ final class Input extends InputTag
      * @link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range)
      *
      * @param string|null $name Name of the input.
-     * @param float|int|string|\Stringable|null $value Value of the input.
+     * @param float|int|string|Stringable|null $value Value of the input.
      */
     public static function range(?string $name = null, $value = null): Range
     {

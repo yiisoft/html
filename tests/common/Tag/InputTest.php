@@ -52,14 +52,6 @@ final class InputTest extends TestCase
         );
     }
 
-    public function testFileControl(): void
-    {
-        $this->assertSame(
-            '<input type="file" name="photo" value="c:\path\">',
-            (string) Input::fileControl('photo', 'c:\\path\\')
-        );
-    }
-
     public function testCheckbox(): void
     {
         $this->assertSame(
