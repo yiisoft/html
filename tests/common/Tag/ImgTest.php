@@ -145,6 +145,23 @@ final class ImgTest extends TestCase
         $this->assertSame($expected, (string)Img::tag()->size($width, $height));
     }
 
+    public function dataLoading(): array
+    {
+        return [
+            ['<img>', null],
+            ['<img loading="eager">', 'eager'],
+            ['<img loading="lazy">', 'lazy'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataLoading
+     */
+    public function testLoading(string $expected, ?string $loading): void
+    {
+        $this->assertSame($expected, (string)Img::tag()->loading($loading));
+    }
+
     public function testImmutability(): void
     {
         $img = Img::tag();
@@ -156,5 +173,6 @@ final class ImgTest extends TestCase
         $this->assertNotSame($img, $img->width(null));
         $this->assertNotSame($img, $img->height(null));
         $this->assertNotSame($img, $img->size(null, null));
+        $this->assertNotSame($img, $img->loading(null));
     }
 }
