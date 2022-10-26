@@ -114,7 +114,7 @@ final class CheckboxListTest extends TestCase
                     1 => 'One',
                     2 => 'Two',
                 ])
-                ->replaceCheckboxAttributes(['class' => 'red'])
+                ->checkboxAttributes(['class' => 'red'])
                 ->withoutContainer()
                 ->render(),
         );
@@ -148,7 +148,7 @@ final class CheckboxListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->readonly()
-                ->replaceCheckboxAttributes(['class' => 'red'])
+                ->checkboxAttributes(['class' => 'red'])
                 ->withoutContainer()
                 ->render(),
         );
@@ -166,7 +166,7 @@ final class CheckboxListTest extends TestCase
                     2 => 'Two',
                     3 => 'Three',
                 ])
-                ->replaceCheckboxAttributes(['class' => 'red'])
+                ->checkboxAttributes(['class' => 'red'])
                 ->addIndividualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
@@ -188,7 +188,7 @@ final class CheckboxListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->uncheckValue(0)
-                ->replaceCheckboxAttributes(['class' => 'red'])
+                ->checkboxAttributes(['class' => 'red'])
                 ->replaceIndividualInputAttributes([
                     0 => ['class' => 'blue'],
                 ])
@@ -209,7 +209,7 @@ final class CheckboxListTest extends TestCase
                     2 => 'Two',
                     3 => 'Three',
                 ])
-                ->replaceCheckboxAttributes(['class' => 'red'])
+                ->checkboxAttributes(['class' => 'red'])
                 ->addIndividualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
@@ -235,7 +235,7 @@ final class CheckboxListTest extends TestCase
                     2 => 'Two',
                     3 => 'Three',
                 ])
-                ->replaceCheckboxAttributes(['class' => 'red'])
+                ->checkboxAttributes(['class' => 'red'])
                 ->addIndividualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
@@ -691,9 +691,8 @@ final class CheckboxListTest extends TestCase
         $this->assertNotSame($widget, $widget->withoutContainer());
         $this->assertNotSame($widget, $widget->containerTag(''));
         $this->assertNotSame($widget, $widget->containerAttributes([]));
-        $this->assertNotSame($widget, $widget->checkboxAttributes([]));
         $this->assertNotSame($widget, $widget->addCheckboxAttributes([]));
-        $this->assertNotSame($widget, $widget->replaceCheckboxAttributes([]));
+        $this->assertNotSame($widget, $widget->checkboxAttributes([]));
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->addIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->replaceIndividualInputAttributes([]));
