@@ -6,7 +6,20 @@
 - Chg #136: Remove `Tag::class()` and rename `Tag::replaceClass()` to `Tag::class()` (@vjik)
 - Chg #135: Raise `yiisoft/arrays` version to `^2.0` (@vjik)
 - Enh #133: Raise minimum PHP version to 8.0 and refactor code (@xepozz, @vjik)
-- Chg #140: Remove `Html::fileInput()` and `Input::file()`. Rename `Input::fileControl()` to `Input::file()` (@vjik)
+- Chg #140: Remove `Html::fileInput()` and `Input::file()`, rename `Input::fileControl()` to `Input::file()` (@vjik)
+- Chg #141: `Tag` class: remove `attributes()` method and rename `replaceAttributes()` to `attributes()` (@vjik)
+- Chg #141: `Range` class: remove `outputAttributes()` method and rename `replaceOutputAttributes()` 
+  to `outputAttributes()` (@vjik)
+- Chg #141: `File` class: remove `uncheckInputAttributes()` method and rename `replaceUncheckInputAttributes()` 
+  to `uncheckInputAttributes()` (@vjik)
+- Chg #141: `ButtonGroup` class: remove `buttonAttributes()` method and rename `replaceButtonAttributes()`
+  to `buttonAttributes()` (@vjik)
+- Chg #141: `CheckboxList`: remove `individualInputAttributes()` and `checkboxAttributes()` methods,
+  rename `replaceIndividualInputAttributes()` to `individualInputAttributes()` and `replaceCheckboxAttributes()`
+  to `checkboxAttributes()` (@vjik)
+- Chg #141: `RadioList` class: remove `individualInputAttributes()` and `radioAttributes()` methods, 
+  rename `replaceIndividualInputAttributes()` to `individualInputAttributes()` and `replaceRadioAttributes()` 
+  to `radioAttributes()` (@vjik)
 
 ## 2.5.0 July 09, 2022
 
