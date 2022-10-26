@@ -94,18 +94,6 @@ final class RadioList implements NoEncodeStringableInterface, Stringable
 
     /**
      * @param array[] $attributes
-     *
-     * @deprecated Use {@see addIndividualInputAttributes()} or {@see replaceIndividualInputAttributes()} instead. In
-     * the next major version `replaceIndividualInputAttributes()` method will be renamed to
-     * `individualInputAttributes()`.
-     */
-    public function individualInputAttributes(array $attributes): self
-    {
-        return $this->addIndividualInputAttributes($attributes);
-    }
-
-    /**
-     * @param array[] $attributes
      */
     public function addIndividualInputAttributes(array $attributes): self
     {
@@ -117,7 +105,7 @@ final class RadioList implements NoEncodeStringableInterface, Stringable
     /**
      * @param array[] $attributes
      */
-    public function replaceIndividualInputAttributes(array $attributes): self
+    public function individualInputAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->individualInputAttributes = $attributes;

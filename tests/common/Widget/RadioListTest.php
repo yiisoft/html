@@ -164,7 +164,7 @@ final class RadioListTest extends TestCase
                     3 => 'Three',
                 ])
                 ->radioAttributes(['class' => 'red'])
-                ->replaceIndividualInputAttributes([
+                ->individualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
                 ])
@@ -186,7 +186,7 @@ final class RadioListTest extends TestCase
                 ])
                 ->uncheckValue(0)
                 ->radioAttributes(['class' => 'red'])
-                ->replaceIndividualInputAttributes([
+                ->individualInputAttributes([
                     0 => ['class' => 'blue'],
                 ])
                 ->withoutContainer()
@@ -237,7 +237,7 @@ final class RadioListTest extends TestCase
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
                 ])
-                ->replaceIndividualInputAttributes([
+                ->individualInputAttributes([
                     1 => ['class' => 'yellow'],
                 ])
                 ->withoutContainer()
@@ -654,9 +654,8 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->containerAttributes([]));
         $this->assertNotSame($widget, $widget->addRadioAttributes([]));
         $this->assertNotSame($widget, $widget->radioAttributes([]));
-        $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->addIndividualInputAttributes([]));
-        $this->assertNotSame($widget, $widget->replaceIndividualInputAttributes([]));
+        $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->items([]));
         $this->assertNotSame($widget, $widget->itemsFromValues([]));
         $this->assertNotSame($widget, $widget->value(null));
