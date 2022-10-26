@@ -104,7 +104,7 @@ final class FileTest extends TestCase
             ->name('avatar')
             ->uncheckValue(7)
             ->addUncheckInputAttributes(['id' => 'FileHidden'])
-            ->replaceUncheckInputAttributes(['data-key' => '100'])
+            ->uncheckInputAttributes(['data-key' => '100'])
             ->form('post')
             ->render();
 
@@ -187,9 +187,8 @@ final class FileTest extends TestCase
         $tag = File::tag();
 
         $this->assertNotSame($tag, $tag->uncheckValue(null));
-        $this->assertNotSame($tag, $tag->uncheckInputAttributes([]));
         $this->assertNotSame($tag, $tag->addUncheckInputAttributes([]));
-        $this->assertNotSame($tag, $tag->replaceUncheckInputAttributes([]));
+        $this->assertNotSame($tag, $tag->uncheckInputAttributes([]));
         $this->assertNotSame($tag, $tag->accept(null));
         $this->assertNotSame($tag, $tag->multiple());
     }

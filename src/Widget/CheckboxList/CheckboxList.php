@@ -85,15 +85,6 @@ final class CheckboxList implements NoEncodeStringableInterface, Stringable
         return $new;
     }
 
-    /**
-     * @deprecated Use {@see addCheckboxAttributes()} or {@see replaceCheckboxAttributes()} instead. In the next major
-     * version `replaceCheckboxAttributes()` method will be renamed to `checkboxAttributes()`.
-     */
-    public function checkboxAttributes(array $attributes): self
-    {
-        return $this->addCheckboxAttributes($attributes);
-    }
-
     public function addCheckboxAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -101,23 +92,11 @@ final class CheckboxList implements NoEncodeStringableInterface, Stringable
         return $new;
     }
 
-    public function replaceCheckboxAttributes(array $attributes): self
+    public function checkboxAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->checkboxAttributes = $attributes;
         return $new;
-    }
-
-    /**
-     * @param array[] $attributes
-     *
-     * @deprecated Use {@see addIndividualInputAttributes()} or {@see replaceIndividualInputAttributes()} instead. In
-     * the next major version `replaceIndividualInputAttributes()` method will be renamed to
-     * `individualInputAttributes()`.
-     */
-    public function individualInputAttributes(array $attributes): self
-    {
-        return $this->addIndividualInputAttributes($attributes);
     }
 
     /**
@@ -133,7 +112,7 @@ final class CheckboxList implements NoEncodeStringableInterface, Stringable
     /**
      * @param array[] $attributes
      */
-    public function replaceIndividualInputAttributes(array $attributes): self
+    public function individualInputAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->individualInputAttributes = $attributes;

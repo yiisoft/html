@@ -26,15 +26,6 @@ final class File extends InputTag
         return $new;
     }
 
-    /**
-     * @deprecated Use {@see addUncheckInputAttributes()} or {@see replaceUncheckInputAttributes()} instead. In the next
-     * major version `replaceUncheckInputAttributes()` method will be renamed to `uncheckInputAttributes()`.
-     */
-    public function uncheckInputAttributes(array $attributes): self
-    {
-        return $this->addUncheckInputAttributes($attributes);
-    }
-
     public function addUncheckInputAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -42,7 +33,7 @@ final class File extends InputTag
         return $new;
     }
 
-    public function replaceUncheckInputAttributes(array $attributes): self
+    public function uncheckInputAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->uncheckInputAttributes = $attributes;

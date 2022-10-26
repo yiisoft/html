@@ -89,7 +89,7 @@ final class FieldsetTest extends TestCase
                 HTML,
                 Legend::tag()
                     ->content('Hello')
-                    ->replaceAttributes(['id' => 'MyLegend']),
+                    ->attributes(['id' => 'MyLegend']),
             ],
         ];
     }

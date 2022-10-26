@@ -89,15 +89,6 @@ final class ButtonGroup implements NoEncodeStringableInterface, Stringable
         return $this->buttons(...$buttons);
     }
 
-    /**
-     * @deprecated Use {@see addButtonAttributes()} or {@see replaceButtonAttributes()} instead. In the next major
-     * version `replaceButtonAttributes()` method will be renamed to `buttonAttributes()`.
-     */
-    public function buttonAttributes(array $attributes): self
-    {
-        return $this->addButtonAttributes($attributes);
-    }
-
     public function addButtonAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -105,7 +96,7 @@ final class ButtonGroup implements NoEncodeStringableInterface, Stringable
         return $new;
     }
 
-    public function replaceButtonAttributes(array $attributes): self
+    public function buttonAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->buttonAttributes = $attributes;

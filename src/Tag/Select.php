@@ -150,7 +150,7 @@ final class Select extends NormalTag
                     ->optionsData($content, $encode, $optionsAttributes);
             } else {
                 $items[] = Option::tag()
-                    ->replaceAttributes($optionsAttributes[$value] ?? [])
+                    ->attributes($optionsAttributes[$value] ?? [])
                     ->value($value)
                     ->content($content)
                     ->encode($encode);

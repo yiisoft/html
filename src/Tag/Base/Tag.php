@@ -22,22 +22,6 @@ abstract class Tag implements NoEncodeStringableInterface, Stringable
      * @param array $attributes Name-value set of attributes.
      *
      * @return static
-     *
-     * @deprecated Use {@see addAttributes()} or {@see replaceAttributes()} instead. In the next major version
-     * `replaceAttributes()` method will be renamed to `attributes()`.
-     */
-    final public function attributes(array $attributes): self
-    {
-        return $this->addAttributes($attributes);
-    }
-
-    /**
-     * Add a set of attributes to existing tag attributes.
-     * Same named attributes are replaced.
-     *
-     * @param array $attributes Name-value set of attributes.
-     *
-     * @return static
      */
     final public function addAttributes(array $attributes): self
     {
@@ -53,7 +37,7 @@ abstract class Tag implements NoEncodeStringableInterface, Stringable
      *
      * @return static
      */
-    final public function replaceAttributes(array $attributes): self
+    final public function attributes(array $attributes): self
     {
         $new = clone $this;
         $new->attributes = $attributes;
