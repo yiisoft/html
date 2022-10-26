@@ -97,15 +97,6 @@ final class Range extends InputTag
         return $new;
     }
 
-    /**
-     * @deprecated Use {@see addOutputAttributes()} or {@see replaceOutputAttributes()} instead. In the next major
-     * version `replaceOutputAttributes()` method will be renamed to `outputAttributes()`.
-     */
-    public function outputAttributes(array $attributes): self
-    {
-        return $this->addOutputAttributes($attributes);
-    }
-
     public function addOutputAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -113,7 +104,7 @@ final class Range extends InputTag
         return $new;
     }
 
-    public function replaceOutputAttributes(array $attributes): self
+    public function outputAttributes(array $attributes): self
     {
         $new = clone $this;
         $new->outputAttributes = $attributes;
