@@ -111,7 +111,7 @@ final class RadioListTest extends TestCase
                     1 => 'One',
                     2 => 'Two',
                 ])
-                ->replaceRadioAttributes(['class' => 'red'])
+                ->radioAttributes(['class' => 'red'])
                 ->withoutContainer()
                 ->render(),
         );
@@ -145,7 +145,7 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->readonly()
-                ->replaceRadioAttributes(['class' => 'red'])
+                ->radioAttributes(['class' => 'red'])
                 ->withoutContainer()
                 ->render(),
         );
@@ -163,7 +163,7 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                     3 => 'Three',
                 ])
-                ->replaceRadioAttributes(['class' => 'red'])
+                ->radioAttributes(['class' => 'red'])
                 ->replaceIndividualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
@@ -185,7 +185,7 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->uncheckValue(0)
-                ->replaceRadioAttributes(['class' => 'red'])
+                ->radioAttributes(['class' => 'red'])
                 ->replaceIndividualInputAttributes([
                     0 => ['class' => 'blue'],
                 ])
@@ -206,7 +206,7 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                     3 => 'Three',
                 ])
-                ->replaceRadioAttributes(['class' => 'red'])
+                ->radioAttributes(['class' => 'red'])
                 ->addIndividualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
@@ -232,7 +232,7 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                     3 => 'Three',
                 ])
-                ->replaceRadioAttributes(['class' => 'red'])
+                ->radioAttributes(['class' => 'red'])
                 ->addIndividualInputAttributes([
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
@@ -652,9 +652,8 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->withoutContainer());
         $this->assertNotSame($widget, $widget->containerTag(''));
         $this->assertNotSame($widget, $widget->containerAttributes([]));
-        $this->assertNotSame($widget, $widget->radioAttributes([]));
         $this->assertNotSame($widget, $widget->addRadioAttributes([]));
-        $this->assertNotSame($widget, $widget->replaceRadioAttributes([]));
+        $this->assertNotSame($widget, $widget->radioAttributes([]));
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->addIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->replaceIndividualInputAttributes([]));
