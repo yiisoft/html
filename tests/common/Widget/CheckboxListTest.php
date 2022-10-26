@@ -189,7 +189,7 @@ final class CheckboxListTest extends TestCase
                 ])
                 ->uncheckValue(0)
                 ->checkboxAttributes(['class' => 'red'])
-                ->replaceIndividualInputAttributes([
+                ->individualInputAttributes([
                     0 => ['class' => 'blue'],
                 ])
                 ->withoutContainer()
@@ -240,7 +240,7 @@ final class CheckboxListTest extends TestCase
                     2 => ['class' => 'blue'],
                     3 => ['class' => 'green'],
                 ])
-                ->replaceIndividualInputAttributes([
+                ->individualInputAttributes([
                     1 => ['class' => 'yellow'],
                 ])
                 ->withoutContainer()
@@ -693,9 +693,8 @@ final class CheckboxListTest extends TestCase
         $this->assertNotSame($widget, $widget->containerAttributes([]));
         $this->assertNotSame($widget, $widget->addCheckboxAttributes([]));
         $this->assertNotSame($widget, $widget->checkboxAttributes([]));
-        $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->addIndividualInputAttributes([]));
-        $this->assertNotSame($widget, $widget->replaceIndividualInputAttributes([]));
+        $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->items([]));
         $this->assertNotSame($widget, $widget->itemsFromValues([]));
         $this->assertNotSame($widget, $widget->value());
