@@ -35,7 +35,7 @@ final class Optgroup extends NormalTag
         $options = [];
         foreach ($data as $value => $content) {
             $options[] = Option::tag()
-                ->replaceAttributes($optionsAttributes[$value] ?? [])
+                ->attributes($optionsAttributes[$value] ?? [])
                 ->value($value)
                 ->content($content)
                 ->encode($encode);

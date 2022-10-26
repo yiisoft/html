@@ -40,7 +40,7 @@ abstract class ListTag extends NormalTag
         $items = array_map(
             static fn (string $string) => Li::tag()
                 ->content($string)
-                ->replaceAttributes($attributes)
+                ->attributes($attributes)
                 ->encode($encode),
             $strings
         );

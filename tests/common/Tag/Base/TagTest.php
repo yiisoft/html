@@ -61,8 +61,8 @@ final class TagTest extends TestCase
      */
     public function testAttributes(string $expected, array $attributes): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->addAttributes($attributes));
-        $this->assertSame($expected, (string)TestTag::tag()->replaceAttributes($attributes));
+        $this->assertSame($expected, (string) TestTag::tag()->addAttributes($attributes));
+        $this->assertSame($expected, (string) TestTag::tag()->attributes($attributes));
     }
 
     public function testAttributesMerge(): void
@@ -84,7 +84,7 @@ final class TagTest extends TestCase
             TestTag::tag()
                 ->id('color')
                 ->class('red')
-                ->replaceAttributes(['class' => 'green'])
+                ->attributes(['class' => 'green'])
                 ->render(),
         );
     }
@@ -202,9 +202,8 @@ final class TagTest extends TestCase
     public function testImmutability(): void
     {
         $tag = TestTag::tag();
-        $this->assertNotSame($tag, $tag->attributes([]));
         $this->assertNotSame($tag, $tag->addAttributes([]));
-        $this->assertNotSame($tag, $tag->replaceAttributes([]));
+        $this->assertNotSame($tag, $tag->attributes([]));
         $this->assertNotSame($tag, $tag->unionAttributes([]));
         $this->assertNotSame($tag, $tag->attribute('id', null));
         $this->assertNotSame($tag, $tag->id(null));

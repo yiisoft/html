@@ -290,7 +290,7 @@ final class Html
             $tag = $tag->content($content);
         }
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -313,7 +313,7 @@ final class Html
             $tag = $tag->content($content);
         }
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -332,7 +332,7 @@ final class Html
     {
         $tag = CustomTag::name($name)->void();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -375,7 +375,7 @@ final class Html
             $tag = $tag->content($content);
         }
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -393,7 +393,7 @@ final class Html
             $tag = $tag->content($content);
         }
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -419,7 +419,7 @@ final class Html
     {
         $tag = Title::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -433,7 +433,7 @@ final class Html
     {
         $tag = Meta::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -448,7 +448,7 @@ final class Html
     {
         $tag = Link::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         if ($url !== null) {
             $tag = $tag->url($url);
@@ -498,7 +498,7 @@ final class Html
     {
         $tag = A::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         if ($content !== '') {
             $tag = $tag->content($content);
@@ -554,7 +554,7 @@ final class Html
     {
         $tag = Fieldset::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -576,7 +576,7 @@ final class Html
             $attributes['method'] = $method;
         }
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -613,7 +613,7 @@ final class Html
             $tag = $tag->content($content);
         }
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -940,7 +940,7 @@ final class Html
     {
         $tag = Div::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -955,7 +955,7 @@ final class Html
     {
         $tag = Span::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -970,7 +970,7 @@ final class Html
     {
         $tag = Em::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -985,7 +985,7 @@ final class Html
     {
         $tag = Strong::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1000,7 +1000,7 @@ final class Html
     {
         $tag = B::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1015,7 +1015,7 @@ final class Html
     {
         $tag = I::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1030,7 +1030,7 @@ final class Html
     {
         $tag = H1::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1045,7 +1045,7 @@ final class Html
     {
         $tag = H2::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1060,7 +1060,7 @@ final class Html
     {
         $tag = H3::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1075,7 +1075,7 @@ final class Html
     {
         $tag = H4::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1090,7 +1090,7 @@ final class Html
     {
         $tag = H5::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1105,7 +1105,7 @@ final class Html
     {
         $tag = H6::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1120,7 +1120,7 @@ final class Html
     {
         $tag = P::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1162,7 +1162,7 @@ final class Html
     {
         $tag = Datalist::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -1180,7 +1180,7 @@ final class Html
             $tag = $tag->content($content);
         }
         if ($attributes !== []) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -1193,7 +1193,7 @@ final class Html
     public static function col(array $attributes = []): Col
     {
         $tag = Col::tag();
-        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -1204,7 +1204,7 @@ final class Html
     public static function colgroup(array $attributes = []): Colgroup
     {
         $tag = Colgroup::tag();
-        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -1215,7 +1215,7 @@ final class Html
     public static function table(array $attributes = []): Table
     {
         $tag = Table::tag();
-        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -1226,7 +1226,7 @@ final class Html
     public static function thead(array $attributes = []): Thead
     {
         $tag = Thead::tag();
-        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -1237,7 +1237,7 @@ final class Html
     public static function tbody(array $attributes = []): Tbody
     {
         $tag = Tbody::tag();
-        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -1248,7 +1248,7 @@ final class Html
     public static function tfoot(array $attributes = []): Tfoot
     {
         $tag = Tfoot::tag();
-        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -1259,7 +1259,7 @@ final class Html
     public static function tr(array $attributes = []): Tr
     {
         $tag = Tr::tag();
-        return $attributes === [] ? $tag : $tag->replaceAttributes($attributes);
+        return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
     /**
@@ -1275,7 +1275,7 @@ final class Html
             $tag = $tag->content($content);
         }
         if ($attributes !== []) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -1293,7 +1293,7 @@ final class Html
             $tag = $tag->content($content);
         }
         if ($attributes !== []) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $tag;
     }
@@ -1357,7 +1357,7 @@ final class Html
     {
         $tag = Body::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1372,7 +1372,7 @@ final class Html
     {
         $tag = Article::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1387,7 +1387,7 @@ final class Html
     {
         $tag = Section::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1402,7 +1402,7 @@ final class Html
     {
         $tag = Nav::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1417,7 +1417,7 @@ final class Html
     {
         $tag = Aside::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1432,7 +1432,7 @@ final class Html
     {
         $tag = Hgroup::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1447,7 +1447,7 @@ final class Html
     {
         $tag = Header::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1462,7 +1462,7 @@ final class Html
     {
         $tag = Footer::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
@@ -1477,7 +1477,7 @@ final class Html
     {
         $tag = Address::tag();
         if (!empty($attributes)) {
-            $tag = $tag->replaceAttributes($attributes);
+            $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
     }
