@@ -17,7 +17,7 @@ use function is_array;
 /**
  * `CheckboxList` represents a list of checkboxes and their corresponding labels.
  */
-final class CheckboxList implements NoEncodeStringableInterface, Stringable
+final class CheckboxList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
