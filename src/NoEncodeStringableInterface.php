@@ -11,5 +11,4 @@ use Stringable;
  */
 interface NoEncodeStringableInterface extends Stringable
 {
-    public function __toString(): string;
 }
