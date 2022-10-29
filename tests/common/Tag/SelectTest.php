@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;

@@ -65,7 +65,7 @@ final class Optgroup extends NormalTag
     }
 
     /**
-     * @param float|int|string|bool|Stringable|null ...$value Values of options that are selected.
+     * @param bool|float|int|string|Stringable|null ...$value Values of options that are selected.
      */
     public function selection(float|int|string|bool|Stringable|null ...$value): self
     {
