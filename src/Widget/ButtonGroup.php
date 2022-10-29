@@ -60,7 +60,7 @@ final class ButtonGroup implements NoEncodeStringableInterface
 
     /**
      * @param array $data Array of buttons. Each button is an array with label as first element and additional
-     * name-value pairs as attrbiutes of button.
+     * name-value pairs as attributes of button.
      *
      * Example:
      * ```php
@@ -78,7 +78,7 @@ final class ButtonGroup implements NoEncodeStringableInterface
             if (!is_array($row) || !isset($row[0]) || !is_string($row[0])) {
                 throw new InvalidArgumentException(
                     'Invalid buttons data. A data row must be array with label as first element ' .
-                    'and additional name-value pairs as attrbiutes of button.'
+                    'and additional name-value pairs as attributes of button.'
                 );
             }
             $label = $row[0];

@@ -21,6 +21,7 @@
   rename `replaceIndividualInputAttributes()` to `individualInputAttributes()` and `replaceRadioAttributes()` 
   to `radioAttributes()` (@vjik)
 - Enh #142: Make `NoEncodeStringableInterface` extend from `Stringable` interface (@vjik)
+- Bug #143: Fix typo in exception message that throws on invalid buttons data in `ButtonGroup` widget (@vjik)
 
 ## 2.5.0 July 09, 2022
 
