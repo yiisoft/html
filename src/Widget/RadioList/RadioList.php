@@ -13,7 +13,7 @@ use Yiisoft\Html\Tag\Input;
 /**
  * `RadioList` represents a list of radios and their corresponding labels.
  */
-final class RadioList implements NoEncodeStringableInterface, Stringable
+final class RadioList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
