@@ -415,12 +415,6 @@ final class CheckboxListTest extends TestCase
         );
     }
 
-    public function testIncorrectValues(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        CheckboxList::create('test')->values(42);
-    }
-
     public function dataForm(): array
     {
         return [

@@ -157,13 +157,8 @@ final class CheckboxList implements NoEncodeStringableInterface
     /**
      * @psalm-param iterable<int, Stringable|scalar> $values
      */
-    public function values($values): self
+    public function values(iterable $values): self
     {
-        /** @var mixed $values */
-        if (!is_iterable($values)) {
-            throw new InvalidArgumentException('$values should be iterable.');
-        }
-
         /** @psalm-var iterable<int, Stringable|scalar> $values */
         $values = is_array($values) ? $values : iterator_to_array($values);
 
