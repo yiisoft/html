@@ -138,8 +138,7 @@ final class Html
     private const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng', 'aria'];
 
     /**
-     * @var array
-     * @psalm-var array<string, int>
+     * @var array<string, int>
      */
     private static array $generateIdCounter = [];
 
@@ -678,8 +677,12 @@ final class Html
      * attribute will not be generated.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function input(string $type, ?string $name = null, $value = null, array $attributes = []): Input
-    {
+    public static function input(
+        string $type,
+        ?string $name = null,
+        bool|float|int|string|Stringable|null $value = null,
+        array $attributes = []
+    ): Input {
         $tag = Input::tag()->type($type);
         if ($name !== null) {
             $tag = $tag->name($name);
@@ -751,8 +754,11 @@ final class Html
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function textInput(?string $name = null, $value = null, array $attributes = []): Input
-    {
+    public static function textInput(
+        ?string $name = null,
+        bool|float|int|string|Stringable|null $value = null,
+        array $attributes = []
+    ): Input {
         $tag = Input::text($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
     }
@@ -766,8 +772,11 @@ final class Html
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function hiddenInput(?string $name = null, $value = null, array $attributes = []): Input
-    {
+    public static function hiddenInput(
+        ?string $name = null,
+        bool|float|int|string|Stringable|null $value = null,
+        array $attributes = []
+    ): Input {
         $tag = Input::hidden($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
     }
@@ -781,8 +790,11 @@ final class Html
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function passwordInput(?string $name = null, $value = null, array $attributes = []): Input
-    {
+    public static function passwordInput(
+        ?string $name = null,
+        bool|float|int|string|Stringable|null $value = null,
+        array $attributes = []
+    ): Input {
         $tag = Input::password($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
     }
@@ -800,8 +812,11 @@ final class Html
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function file(?string $name = null, $value = null, array $attributes = []): File
-    {
+    public static function file(
+        ?string $name = null,
+        bool|float|int|string|Stringable|null $value = null,
+        array $attributes = []
+    ): File {
         $tag = Input::file($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
     }
@@ -815,8 +830,11 @@ final class Html
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function radio(?string $name = null, $value = null, array $attributes = []): Radio
-    {
+    public static function radio(
+        ?string $name = null,
+        bool|float|int|string|Stringable|null $value = null,
+        array $attributes = []
+    ): Radio {
         $tag = Input::radio($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
     }
@@ -830,8 +848,11 @@ final class Html
      * @param float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function range(?string $name = null, $value = null, array $attributes = []): Range
-    {
+    public static function range(
+        ?string $name = null,
+        float|int|string|Stringable|null $value = null,
+        array $attributes = []
+    ): Range {
         $tag = Input::range($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
     }
@@ -845,8 +866,11 @@ final class Html
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function checkbox(?string $name = null, $value = null, array $attributes = []): Checkbox
-    {
+    public static function checkbox(
+        ?string $name = null,
+        bool|float|int|string|Stringable|null $value = null,
+        array $attributes = []
+    ): Checkbox {
         $tag = Input::checkbox($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
     }
@@ -898,8 +922,10 @@ final class Html
      * @param string|Stringable $content Tag content.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      */
-    public static function option(string|Stringable $content = '', $value = null): Option
-    {
+    public static function option(
+        string|Stringable $content = '',
+        bool|float|int|string|Stringable|null $value = null
+    ): Option {
         $tag = Option::tag();
         if ($content !== '') {
             $tag = $tag->content($content);
@@ -1155,7 +1181,6 @@ final class Html
     /**
      * Generates a {@see Datalist} tag.
      *
-     * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
     public static function datalist(array $attributes = []): Datalist
