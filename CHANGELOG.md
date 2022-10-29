@@ -20,7 +20,7 @@
 - Chg #141: `RadioList` class: remove `individualInputAttributes()` and `radioAttributes()` methods, 
   rename `replaceIndividualInputAttributes()` to `individualInputAttributes()` and `replaceRadioAttributes()` 
   to `radioAttributes()` (@vjik)
-- Enh #142: `NoEncodeStringableInterface` extend `Stringable` interface (@vjik)
+- Enh #142: Make `NoEncodeStringableInterface` extend from `Stringable` interface (@vjik)
 
 ## 2.5.0 July 09, 2022
 
