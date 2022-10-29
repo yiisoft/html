@@ -200,10 +200,7 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
-    /**
-     * @param bool|float|int|string|Stringable|null $value
-     */
-    public function uncheckValue($value): self
+    public function uncheckValue(bool|float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
         $new->uncheckValue = $value === null ? null : (string)$value;

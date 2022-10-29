@@ -140,13 +140,10 @@ final class RadioList implements NoEncodeStringableInterface
         );
     }
 
-    /**
-     * @param bool|float|int|string|Stringable|null $value
-     */
-    public function value($value): self
+    public function value(bool|float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
-        $new->value = $value === null ? null : (string)$value;
+        $new->value = $value === null ? null : (string) $value;
         return $new;
     }
 
@@ -180,13 +177,10 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
-    /**
-     * @param bool|float|int|string|Stringable|null $value
-     */
-    public function uncheckValue($value): self
+    public function uncheckValue(bool|float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
-        $new->uncheckValue = $value === null ? null : (string)$value;
+        $new->uncheckValue = $value === null ? null : (string) $value;
         return $new;
     }
 
