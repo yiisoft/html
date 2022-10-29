@@ -13,10 +13,7 @@ abstract class NormalTag extends Tag
     {
     }
 
-    /**
-     * @return static
-     */
-    final public static function tag(): self
+    final public static function tag(): static
     {
         return new static();
     }

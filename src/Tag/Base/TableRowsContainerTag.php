@@ -15,10 +15,8 @@ abstract class TableRowsContainerTag extends NormalTag
 
     /**
      * @param Tr ...$rows One or more rows ({@see Tr}).
-     *
-     * @return static
      */
-    final public function rows(Tr ...$rows): self
+    final public function rows(Tr ...$rows): static
     {
         $new = clone $this;
         $new->rows = $rows;
@@ -27,10 +25,8 @@ abstract class TableRowsContainerTag extends NormalTag
 
     /**
      * @param Tr ...$rows One or more rows ({@see Tr}).
-     *
-     * @return static
      */
-    final public function addRows(Tr ...$rows): self
+    final public function addRows(Tr ...$rows): static
     {
         $new = clone $this;
         $new->rows = array_merge($new->rows, $rows);

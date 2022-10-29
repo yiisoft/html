@@ -49,15 +49,6 @@ final class MediaTagTest extends TestCase
         $this->assertSame('<test>' . "\n" . $fallback . "\n" . '</test>', (string) $tag);
     }
 
-    public function testInvalidFallback(): void
-    {
-        $tag = TestMediaTag::tag();
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Fallback content must be null, string or Stringable. "int" given.');
-        $tag->fallback(12);
-    }
-
     public function testTracks(): void
     {
         $tag = TestMediaTag::tag()->tracks(
