@@ -15,10 +15,7 @@ final class Fieldset extends NormalTag
 
     private ?Legend $legend = null;
 
-    /**
-     * @param string|Stringable|null $content
-     */
-    public function legend($content, array $attributes = []): self
+    public function legend(string|Stringable|null $content, array $attributes = []): self
     {
         $new = clone $this;
         $new->legend = $content === null ? null : Html::legend($content, $attributes);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TagContentTrait;
@@ -18,9 +19,9 @@ final class Option extends NormalTag
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-option-value
      *
-     * @param bool|float|int|string|\Stringable|null $value Value of the option.
+     * @param bool|float|int|string|Stringable|null $value Value of the option.
      */
-    public function value($value): self
+    public function value(bool|float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
         $new->attributes['value'] = $value;

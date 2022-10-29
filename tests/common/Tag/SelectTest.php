@@ -175,12 +175,6 @@ final class SelectTest extends TestCase
         );
     }
 
-    public function testIncorrectValues(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        Select::tag()->values('42');
-    }
-
     public function dataForm(): array
     {
         return [

@@ -26,7 +26,7 @@ final class Input extends InputTag
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
-    public static function hidden(?string $name = null, $value = null): self
+    public static function hidden(?string $name = null, bool|float|int|string|Stringable|null $value = null): self
     {
         $input = self::tag();
         $input->attributes['type'] = 'hidden';
@@ -43,7 +43,7 @@ final class Input extends InputTag
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
-    public static function text(?string $name = null, $value = null): self
+    public static function text(?string $name = null, bool|float|int|string|Stringable|null $value = null): self
     {
         $input = self::tag();
         $input->attributes['type'] = 'text';
@@ -60,7 +60,7 @@ final class Input extends InputTag
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
-    public static function password(?string $name = null, $value = null): self
+    public static function password(?string $name = null, bool|float|int|string|Stringable|null $value = null): self
     {
         $input = self::tag();
         $input->attributes['type'] = 'password';
@@ -97,7 +97,7 @@ final class Input extends InputTag
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
-    public static function checkbox(?string $name = null, $value = null): Checkbox
+    public static function checkbox(?string $name = null, bool|float|int|string|Stringable|null $value = null): Checkbox
     {
         $input = Checkbox::tag();
         if ($name !== null) {
@@ -117,7 +117,7 @@ final class Input extends InputTag
      * @param string|null $name Name of the input.
      * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
-    public static function radio(?string $name = null, $value = null): Radio
+    public static function radio(?string $name = null, bool|float|int|string|Stringable|null $value = null): Radio
     {
         $input = Radio::tag();
         if ($name !== null) {
@@ -137,7 +137,7 @@ final class Input extends InputTag
      * @param string|null $name Name of the input.
      * @param float|int|string|Stringable|null $value Value of the input.
      */
-    public static function range(?string $name = null, $value = null): Range
+    public static function range(?string $name = null, float|int|string|Stringable|null $value = null): Range
     {
         $input = Range::tag();
         if ($name !== null) {

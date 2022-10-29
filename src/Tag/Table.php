@@ -12,11 +12,29 @@ use Yiisoft\Html\Tag\Base\NormalTag;
 final class Table extends NormalTag
 {
     private ?Caption $caption = null;
+
+    /**
+     * @var Colgroup[]
+     */
     private array $columnGroups = [];
+
+    /**
+     * @var Col[]
+     */
     private array $columns = [];
+
     private ?Thead $header = null;
+
+    /**
+     * @var Tbody[]
+     */
     private array $body = [];
+
+    /**
+     * @var Tr[]
+     */
     private array $rows = [];
+
     private ?Tfoot $footer = null;
 
     public function caption(?Caption $caption): self
@@ -156,8 +174,6 @@ final class Table extends NormalTag
         if ($this->footer !== null) {
             $items[] = $this->footer;
         }
-
-        /** @var string[]|\Stringable[] $items */
 
         return $items
             ? "\n" . implode("\n", $items) . "\n"

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
 
 use function in_array;
@@ -64,11 +65,9 @@ final class Optgroup extends NormalTag
     }
 
     /**
-     * @param mixed|null ...$value Values of options that are selected.
-     *
-     * @psalm-param \Stringable|scalar|null ...$value
+     * @param float|int|string|bool|Stringable|null ...$value Values of options that are selected.
      */
-    public function selection(...$value): self
+    public function selection(float|int|string|bool|Stringable|null ...$value): self
     {
         $new = clone $this;
         $new->selection = array_map('\strval', $value);
