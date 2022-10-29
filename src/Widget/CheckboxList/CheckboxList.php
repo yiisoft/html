@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Widget\CheckboxList;
 
 use Closure;
-use InvalidArgumentException;
 use Stringable;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Html;
