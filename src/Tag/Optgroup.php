@@ -67,7 +67,7 @@ final class Optgroup extends NormalTag
     /**
      * @param bool|float|int|string|Stringable|null ...$value Values of options that are selected.
      */
-    public function selection(float|int|string|bool|Stringable|null ...$value): self
+    public function selection(bool|float|int|string|Stringable|null ...$value): self
     {
         $new = clone $this;
         $new->selection = array_map('\strval', $value);
