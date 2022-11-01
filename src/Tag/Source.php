@@ -56,21 +56,17 @@ final class Source extends VoidTag
     }
 
     /**
-     * @param int|string|null $width
-     *
      * @link https://html.spec.whatwg.org/multipage/embedded-content-other.html#attr-dim-width
      */
-    public function width($width): self
+    public function width(int|string|null $width): self
     {
         return $this->attribute('width', $width);
     }
 
     /**
-     * @param int|string|null $height
-     *
      * @link https://html.spec.whatwg.org/multipage/embedded-content-other.html#attr-dim-height
      */
-    public function height($height): self
+    public function height(int|string|null $height): self
     {
         return $this->attribute('height', $height);
     }

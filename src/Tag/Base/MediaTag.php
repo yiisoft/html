@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
-use InvalidArgumentException;
 use Stringable;
 use Yiisoft\Html\Tag\Track;
-
-use function is_string;
 
 abstract class MediaTag extends NormalTag
 {
@@ -36,40 +33,22 @@ abstract class MediaTag extends NormalTag
 
     /**
      * Content for browser that doesn't support media tags.
-     *
-     * @param string|Stringable|null $fallback
-     *
-     * @return static
      */
-    final public function fallback($fallback): self
+    final public function fallback(string|Stringable|null $fallback): static
     {
-        if ($fallback !== null && !is_string($fallback) && !$fallback instanceof Stringable) {
-            /** @psalm-suppress RedundantConditionGivenDocblockType,DocblockTypeContradiction */
-            $value = get_debug_type($fallback);
-            throw new InvalidArgumentException(
-                'Fallback content must be null, string or Stringable. "' . $value . '" given.'
-            );
-        }
-
         $new = clone $this;
         $new->fallback = $fallback === null ? null : (string) $fallback;
         return $new;
     }
 
-    /**
-     * @return static
-     */
-    final public function tracks(Track ...$tracks): self
+    final public function tracks(Track ...$tracks): static
     {
         $new = clone $this;
         $new->tracks = $tracks;
         return $new;
     }
 
-    /**
-     * @return static
-     */
-    final public function addTrack(Track $track): self
+    final public function addTrack(Track $track): static
     {
         $new = clone $this;
         $new->tracks[] = $track;
@@ -77,71 +56,57 @@ abstract class MediaTag extends NormalTag
     }
 
     /**
-     *s @link https://html.spec.whatwg.org/multipage/media.html#attr-media-src
-     *
-     * @return static
+     * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-src
      */
-    final public function src(?string $src): self
+    final public function src(?string $src): static
     {
         return $this->attribute('src', $src);
     }
 
     /**
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-crossorigin
-     *
-     * @return static
      */
-    final public function crossOrigin(?string $value): self
+    final public function crossOrigin(?string $value): static
     {
         return $this->attribute('crossorigin', $value);
     }
 
     /**
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-preload
-     *
-     * @return static
      */
-    final public function preload(?string $preload): self
+    final public function preload(?string $preload): static
     {
         return $this->attribute('preload', $preload);
     }
 
     /**
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-muted
-     *
-     * @return static
      */
-    final public function muted(bool $muted = true): self
+    final public function muted(bool $muted = true): static
     {
         return $this->attribute('muted', $muted);
     }
 
     /**
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-loop
-     *
-     * @return static
      */
-    final public function loop(bool $loop = true): self
+    final public function loop(bool $loop = true): static
     {
         return $this->attribute('loop', $loop);
     }
 
     /**
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-autoplay
-     *
-     * @return static
      */
-    final public function autoplay(bool $autoplay = true): self
+    final public function autoplay(bool $autoplay = true): static
     {
         return $this->attribute('autoplay', $autoplay);
     }
 
     /**
      * @link https://html.spec.whatwg.org/multipage/media.html#attr-media-autoplay
-     *
-     * @return static
      */
-    final public function controls(bool $controls = true): self
+    final public function controls(bool $controls = true): static
     {
         return $this->attribute('controls', $controls);
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests\Widget;
 
 use ArrayObject;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tests\Objects\IterableObject;
@@ -413,12 +412,6 @@ final class CheckboxListTest extends TestCase
                 ->values(new IterableObject($value))
                 ->render(),
         );
-    }
-
-    public function testIncorrectValues(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        CheckboxList::create('test')->values(42);
     }
 
     public function dataForm(): array

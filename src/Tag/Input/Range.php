@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag\Input;
 
 use InvalidArgumentException;
+use Stringable;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\InputTag;
 use Yiisoft\Html\Tag\CustomTag;
@@ -28,11 +29,9 @@ final class Range extends InputTag
     /**
      * Maximum value.
      *
-     * @param float|int|string|\Stringable|null $value
-     *
      * @link https://html.spec.whatwg.org/multipage/input.html#attr-input-max
      */
-    public function max($value): self
+    public function max(float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
         $new->attributes['max'] = $value;
@@ -42,11 +41,9 @@ final class Range extends InputTag
     /**
      * Minimum value.
      *
-     * @param float|int|string|\Stringable|null $value
-     *
      * @link https://html.spec.whatwg.org/multipage/input.html#attr-input-min
      */
-    public function min($value): self
+    public function min(float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
         $new->attributes['min'] = $value;
@@ -56,11 +53,9 @@ final class Range extends InputTag
     /**
      * Granularity to be matched by the form control's value.
      *
-     * @param float|int|string|\Stringable|null $value
-     *
      * @link https://html.spec.whatwg.org/multipage/input.html#attr-input-step
      */
-    public function step($value): self
+    public function step(float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
         $new->attributes['step'] = $value;

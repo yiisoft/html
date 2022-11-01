@@ -10,10 +10,8 @@ abstract class TableCellTag extends NormalTag
 
     /**
      * Number of columns that the cell is to span.
-     *
-     * @return static
      */
-    final public function colSpan(?int $number): self
+    final public function colSpan(?int $number): static
     {
         $new = clone $this;
         $new->attributes['colspan'] = $number;
@@ -22,10 +20,8 @@ abstract class TableCellTag extends NormalTag
 
     /**
      * Number of rows that the cell is to span.
-     *
-     * @return static
      */
-    final public function rowSpan(?int $number): self
+    final public function rowSpan(?int $number): static
     {
         $new = clone $this;
         $new->attributes['rowspan'] = $number;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
-use InvalidArgumentException;
+use Stringable;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\NormalTag;
 
@@ -43,9 +43,9 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-param \Stringable|scalar ...$value One or more string values.
+     * @psalm-param Stringable|bool|float|int|string ...$value One or more string values.
      */
-    public function value(...$value): self
+    public function value(Stringable|bool|float|int|string ...$value): self
     {
         $new = clone $this;
         $new->values = array_map('\strval', array_values($value));
@@ -53,16 +53,10 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-param iterable<int, \Stringable|scalar> $values A set of values.
+     * @psalm-param iterable<int, Stringable|scalar> $values A set of values.
      */
-    public function values($values): self
+    public function values(iterable $values): self
     {
-        /** @var mixed $values */
-        if (!is_iterable($values)) {
-            throw new InvalidArgumentException('$values should be iterable.');
-        }
-
-        /** @psalm-var iterable<int, \Stringable|scalar> $values */
         $values = is_array($values) ? $values : iterator_to_array($values);
 
         return $this->value(...$values);
@@ -231,9 +225,9 @@ final class Select extends NormalTag
     }
 
     /**
-     * @param bool|float|int|string|\Stringable|null $value
+     * @param bool|float|int|string|Stringable|null $value
      */
-    public function unselectValue($value): self
+    public function unselectValue(bool|float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
         $new->unselectValue = $value === null ? null : (string) $value;

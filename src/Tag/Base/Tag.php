@@ -19,10 +19,8 @@ abstract class Tag implements NoEncodeStringableInterface
      * Same named attributes are replaced.
      *
      * @param array $attributes Name-value set of attributes.
-     *
-     * @return static
      */
-    final public function addAttributes(array $attributes): self
+    final public function addAttributes(array $attributes): static
     {
         $new = clone $this;
         $new->attributes = array_merge($new->attributes, $attributes);
@@ -33,10 +31,8 @@ abstract class Tag implements NoEncodeStringableInterface
      * Replace attributes with a new set.
      *
      * @param array $attributes Name-value set of attributes.
-     *
-     * @return static
      */
-    final public function attributes(array $attributes): self
+    final public function attributes(array $attributes): static
     {
         $new = clone $this;
         $new->attributes = $attributes;
@@ -47,10 +43,8 @@ abstract class Tag implements NoEncodeStringableInterface
      * Union attributes with a new set.
      *
      * @param array $attributes Name-value set of attributes.
-     *
-     * @return static
      */
-    final public function unionAttributes(array $attributes): self
+    final public function unionAttributes(array $attributes): static
     {
         $new = clone $this;
         $new->attributes += $attributes;
@@ -62,10 +56,8 @@ abstract class Tag implements NoEncodeStringableInterface
      *
      * @param string $name Name of the attribute.
      * @param mixed $value Value of the attribute.
-     *
-     * @return static
      */
-    final public function attribute(string $name, mixed $value): self
+    final public function attribute(string $name, mixed $value): static
     {
         $new = clone $this;
         $new->attributes[$name] = $value;
@@ -76,10 +68,8 @@ abstract class Tag implements NoEncodeStringableInterface
      * Set tag ID.
      *
      * @param string|null $id Tag ID.
-     *
-     * @return static
      */
-    final public function id(?string $id): self
+    final public function id(?string $id): static
     {
         $new = clone $this;
         $new->attributes['id'] = $id;
@@ -90,10 +80,8 @@ abstract class Tag implements NoEncodeStringableInterface
      * Add one or more CSS classes to the tag.
      *
      * @param string|null ...$class One or many CSS classes.
-     *
-     * @return static
      */
-    final public function addClass(?string ...$class): self
+    final public function addClass(?string ...$class): static
     {
         $new = clone $this;
         Html::addCssClass(
@@ -107,10 +95,8 @@ abstract class Tag implements NoEncodeStringableInterface
      * Replace current tag CSS classes with a new set of classes.
      *
      * @param string|null ...$class One or many CSS classes.
-     *
-     * @return static
      */
-    final public function class(?string ...$class): self
+    final public function class(?string ...$class): static
     {
         $new = clone $this;
         $new->attributes['class'] = array_filter($class, static fn ($c) => $c !== null);

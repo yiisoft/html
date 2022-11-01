@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
@@ -173,12 +172,6 @@ final class SelectTest extends TestCase
                 ->items(...$items)
                 ->values($value),
         );
-    }
-
-    public function testIncorrectValues(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        Select::tag()->values('42');
     }
 
     public function dataForm(): array

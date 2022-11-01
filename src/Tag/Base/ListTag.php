@@ -18,10 +18,8 @@ abstract class ListTag extends NormalTag
 
     /**
      * @param Li ...$items One or more list items.
-     *
-     * @return static
      */
-    public function items(Li ...$items): self
+    public function items(Li ...$items): static
     {
         $new = clone $this;
         $new->items = $items;
@@ -32,10 +30,8 @@ abstract class ListTag extends NormalTag
      * @param string[] $strings Array of list items as strings.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
-     *
-     * @return static
      */
-    public function strings(array $strings, array $attributes = [], bool $encode = true): self
+    public function strings(array $strings, array $attributes = [], bool $encode = true): static
     {
         $items = array_map(
             static fn (string $string) => Li::tag()

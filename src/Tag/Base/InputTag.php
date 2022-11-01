@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+use Stringable;
+
 /**
  * Base for all input tags.
  */
@@ -13,10 +15,8 @@ abstract class InputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-name
      *
      * @param string|null $name Name of the input.
-     *
-     * @return static
      */
-    public function name(?string $name): self
+    public function name(?string $name): static
     {
         $new = clone $this;
         $new->attributes['name'] = $name;
@@ -26,11 +26,9 @@ abstract class InputTag extends VoidTag
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-value
      *
-     * @param bool|float|int|string|\Stringable|null $value Value of the input.
-     *
-     * @return static
+     * @param bool|float|int|string|Stringable|null $value Value of the input.
      */
-    public function value($value): self
+    public function value(bool|float|int|string|Stringable|null $value): static
     {
         $new = clone $this;
         $new->attributes['value'] = $value;
@@ -41,10 +39,8 @@ abstract class InputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-formelements-form
      *
      * @param string|null $formId ID of the form input belongs to.
-     *
-     * @return static
      */
-    public function form(?string $formId): self
+    public function form(?string $formId): static
     {
         $new = clone $this;
         $new->attributes['form'] = $formId;
@@ -55,10 +51,8 @@ abstract class InputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#the-readonly-attribute
      *
      * @param bool $readOnly Whether input is read only.
-     *
-     * @return static
      */
-    public function readonly(bool $readOnly = true): self
+    public function readonly(bool $readOnly = true): static
     {
         $new = clone $this;
         $new->attributes['readonly'] = $readOnly;
@@ -69,10 +63,8 @@ abstract class InputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#the-required-attribute
      *
      * @param bool $required Whether input is required.
-     *
-     * @return static
      */
-    public function required(bool $required = true): self
+    public function required(bool $required = true): static
     {
         $new = clone $this;
         $new->attributes['required'] = $required;
@@ -83,10 +75,8 @@ abstract class InputTag extends VoidTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-disabledformelements-disabled
      *
      * @param bool $disabled Whether input is disabled.
-     *
-     * @return static
      */
-    public function disabled(bool $disabled = true): self
+    public function disabled(bool $disabled = true): static
     {
         $new = clone $this;
         $new->attributes['disabled'] = $disabled;

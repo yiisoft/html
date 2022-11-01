@@ -16,10 +16,7 @@ final class File extends InputTag
     private ?string $uncheckValue = null;
     private array $uncheckInputAttributes = [];
 
-    /**
-     * @param bool|float|int|string|Stringable|null $value
-     */
-    public function uncheckValue($value): self
+    public function uncheckValue(bool|float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
         $new->uncheckValue = $value === null ? null : (string) $value;

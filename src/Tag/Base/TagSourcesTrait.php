@@ -16,20 +16,14 @@ trait TagSourcesTrait
      */
     private array $sources = [];
 
-    /**
-     * @return static
-     */
-    public function sources(Source ...$sources): self
+    public function sources(Source ...$sources): static
     {
         $new = clone $this;
         $new->sources = $sources;
         return $new;
     }
 
-    /**
-     * @return static
-     */
-    public function addSource(Source $source): self
+    public function addSource(Source $source): static
     {
         $new = clone $this;
         $new->sources[] = $source;

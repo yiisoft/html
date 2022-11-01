@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag\Base;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Source;
 use Yiisoft\Html\Tag\Track;
@@ -47,15 +46,6 @@ final class MediaTagTest extends TestCase
     {
         $tag = TestMediaTag::tag()->fallback($fallback);
         $this->assertSame('<test>' . "\n" . $fallback . "\n" . '</test>', (string) $tag);
-    }
-
-    public function testInvalidFallback(): void
-    {
-        $tag = TestMediaTag::tag();
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Fallback content must be null, string or Stringable. "int" given.');
-        $tag->fallback(12);
     }
 
     public function testTracks(): void

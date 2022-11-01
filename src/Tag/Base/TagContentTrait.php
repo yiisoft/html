@@ -28,10 +28,8 @@ trait TagContentTrait
      *  - `true`: any content is encoded;
      *  - `false`: nothing is encoded.
      * Defaults to `null`.
-     *
-     * @return static
      */
-    final public function encode(?bool $encode): self
+    final public function encode(?bool $encode): static
     {
         $new = clone $this;
         $new->encode = $encode;
@@ -41,10 +39,8 @@ trait TagContentTrait
     /**
      * @param bool $doubleEncode Whether already encoded HTML entities in tag content should be encoded.
      * Defaults to `true`.
-     *
-     * @return static
      */
-    final public function doubleEncode(bool $doubleEncode): self
+    final public function doubleEncode(bool $doubleEncode): static
     {
         $new = clone $this;
         $new->doubleEncode = $doubleEncode;
@@ -53,10 +49,8 @@ trait TagContentTrait
 
     /**
      * @param string|Stringable ...$content Tag content.
-     *
-     * @return static
      */
-    final public function content(string|Stringable ...$content): self
+    final public function content(string|Stringable ...$content): static
     {
         $new = clone $this;
         $new->content = array_values($content);
@@ -65,10 +59,8 @@ trait TagContentTrait
 
     /**
      * @param string|Stringable ...$content Tag content.
-     *
-     * @return static
      */
-    final public function addContent(string|Stringable ...$content): self
+    final public function addContent(string|Stringable ...$content): static
     {
         $new = clone $this;
         $new->content = array_merge($new->content, array_values($content));

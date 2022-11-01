@@ -90,10 +90,7 @@ final class Script extends NormalTag
         return $new;
     }
 
-    /**
-     * @param string|Stringable|null $content
-     */
-    public function noscript($content): self
+    public function noscript(string|Stringable|null $content): self
     {
         $new = clone $this;
         $new->noscript = $content === null ? null : Noscript::tag()->content($content);
@@ -122,6 +119,6 @@ final class Script extends NormalTag
 
     protected function after(): string
     {
-        return $this->noscript !== null ? (string)$this->noscript : '';
+        return $this->noscript !== null ? (string) $this->noscript : '';
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+use Stringable;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Input;
 
@@ -22,10 +23,8 @@ abstract class BooleanInputTag extends InputTag
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-checked
      *
      * @param bool $checked Whether input it checked.
-     *
-     * @return static
      */
-    final public function checked(bool $checked = true): self
+    final public function checked(bool $checked = true): static
     {
         $new = clone $this;
         $new->attributes['checked'] = $checked;
@@ -37,10 +36,8 @@ abstract class BooleanInputTag extends InputTag
      *
      * @param string|null $label Input label.
      * @param array $attributes Name-value set of label attributes.
-     *
-     * @return static
      */
-    final public function label(?string $label, array $attributes = []): self
+    final public function label(?string $label, array $attributes = []): static
     {
         $new = clone $this;
         $new->label = $label;
@@ -53,10 +50,8 @@ abstract class BooleanInputTag extends InputTag
      *
      * @param string|null $label Input label.
      * @param array $attributes Name-value set of label attributes.
-     *
-     * @return static
      */
-    final public function sideLabel(?string $label, array $attributes = []): self
+    final public function sideLabel(?string $label, array $attributes = []): static
     {
         $new = clone $this;
         $new->label = $label;
@@ -67,10 +62,8 @@ abstract class BooleanInputTag extends InputTag
 
     /**
      * @param bool $encode Whether to encode label content. Defaults to `true`.
-     *
-     * @return static
      */
-    final public function labelEncode(bool $encode): self
+    final public function labelEncode(bool $encode): static
     {
         $new = clone $this;
         $new->labelEncode = $encode;
@@ -78,14 +71,12 @@ abstract class BooleanInputTag extends InputTag
     }
 
     /**
-     * @param bool|float|int|string|\Stringable|null $value Value that corresponds to "unchecked" state of the input.
-     *
-     * @return static
+     * @param bool|float|int|string|Stringable|null $value Value that corresponds to "unchecked" state of the input.
      */
-    final public function uncheckValue($value): self
+    final public function uncheckValue(bool|float|int|string|Stringable|null $value): static
     {
         $new = clone $this;
-        $new->uncheckValue = $value === null ? null : (string)$value;
+        $new->uncheckValue = $value === null ? null : (string) $value;
         return $new;
     }
 

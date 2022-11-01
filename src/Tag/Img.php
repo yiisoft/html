@@ -55,31 +55,21 @@ final class Img extends VoidTag
         return $new;
     }
 
-    /**
-     * @param int|string|null $width
-     */
-    public function width($width): self
+    public function width(int|string|null $width): self
     {
         $new = clone $this;
         $new->attributes['width'] = $width;
         return $new;
     }
 
-    /**
-     * @param int|string|null $height
-     */
-    public function height($height): self
+    public function height(int|string|null $height): self
     {
         $new = clone $this;
         $new->attributes['height'] = $height;
         return $new;
     }
 
-    /**
-     * @param int|string|null $width
-     * @param int|string|null $height
-     */
-    public function size($width, $height): self
+    public function size(int|string|null $width, int|string|null $height): self
     {
         $new = clone $this;
         $new->attributes['width'] = $width;

@@ -42,13 +42,10 @@ final class Form extends NormalTag
         return $new;
     }
 
-    /**
-     * @param string|Stringable|null $token
-     */
-    public function csrf($token, string $name = '_csrf'): self
+    public function csrf(string|Stringable|null $token, string $name = '_csrf'): self
     {
         $new = clone $this;
-        $new->csrfToken = $token === null ? null : (string)$token;
+        $new->csrfToken = $token === null ? null : (string) $token;
         $new->csrfName = $name;
         return $new;
     }
@@ -134,7 +131,7 @@ final class Form extends NormalTag
     /**
      * The method content attribute specifies how the form-data should be submitted.
      *
-     * @param string $method The method attribute value.
+     * @param string|null $method The method attribute value.
      *
      * @link https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fs-method
      */

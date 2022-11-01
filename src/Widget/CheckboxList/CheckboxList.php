@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Widget\CheckboxList;
 
 use Closure;
-use InvalidArgumentException;
 use Stringable;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Html;
@@ -157,13 +156,8 @@ final class CheckboxList implements NoEncodeStringableInterface
     /**
      * @psalm-param iterable<int, Stringable|scalar> $values
      */
-    public function values($values): self
+    public function values(iterable $values): self
     {
-        /** @var mixed $values */
-        if (!is_iterable($values)) {
-            throw new InvalidArgumentException('$values should be iterable.');
-        }
-
         /** @psalm-var iterable<int, Stringable|scalar> $values */
         $values = is_array($values) ? $values : iterator_to_array($values);
 
@@ -200,10 +194,7 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
-    /**
-     * @param bool|float|int|string|Stringable|null $value
-     */
-    public function uncheckValue($value): self
+    public function uncheckValue(bool|float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
         $new->uncheckValue = $value === null ? null : (string)$value;
