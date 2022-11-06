@@ -224,9 +224,6 @@ final class Select extends NormalTag
         return $new;
     }
 
-    /**
-     * @param bool|float|int|string|Stringable|null $value
-     */
     public function unselectValue(bool|float|int|string|Stringable|null $value): self
     {
         $new = clone $this;
