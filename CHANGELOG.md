@@ -1,11 +1,10 @@
 # Yii HTML Change Log
 
-## 2.5.1 under development
+## 3.0.0 November 06, 2022
 
 - New #139: Add `loading()` method to `Img` tag (@jacobbudin)
-- Chg #136: Remove `Tag::class()` and rename `Tag::replaceClass()` to `Tag::class()` (@vjik)
 - Chg #135: Raise `yiisoft/arrays` version to `^2.0` (@vjik)
-- Enh #133: Raise minimum PHP version to 8.0 and refactor code (@xepozz, @vjik)
+- Chg #136: Remove `Tag::class()` and rename `Tag::replaceClass()` to `Tag::class()` (@vjik)
 - Chg #140: Remove `Html::fileInput()` and `Input::file()`, rename `Input::fileControl()` to `Input::file()` (@vjik)
 - Chg #141: `Tag` class: remove `attributes()` method and rename `replaceAttributes()` to `attributes()` (@vjik)
 - Chg #141: `Range` class: remove `outputAttributes()` method and rename `replaceOutputAttributes()` 
@@ -20,9 +19,10 @@
 - Chg #141: `RadioList` class: remove `individualInputAttributes()` and `radioAttributes()` methods, 
   rename `replaceIndividualInputAttributes()` to `individualInputAttributes()` and `replaceRadioAttributes()` 
   to `radioAttributes()` (@vjik)
+- Enh #133: Raise minimum PHP version to 8.0 and refactor code (@xepozz, @vjik)
 - Enh #142: Make `NoEncodeStringableInterface` extend from `Stringable` interface (@vjik)
-- Bug #143: Fix a typo in the message of exception that thrown on invalid buttons' data in `ButtonGroup` widget (@vjik)
 - Enh #143: Minor type hinting improvements (@vjik)
+- Bug #143: Fix a typo in the message of exception that thrown on invalid buttons' data in `ButtonGroup` widget (@vjik)
 
 ## 2.5.0 July 09, 2022
 
