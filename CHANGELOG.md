@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.0.1 under development
+
+- no changes in this release.
+
 ## 3.0.0 November 06, 2022
 
 - New #139: Add `loading()` method to `Img` tag (@jacobbudin)
