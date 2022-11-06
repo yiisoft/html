@@ -117,6 +117,13 @@ final class TagContentTraitTest extends TestCase
         );
     }
 
+    public function testContentArray(): void
+    {
+        $tag = TestTagContentTrait::tag()->content(a: '1', b: '2');
+
+        $this->assertSame(['1', '2'], $tag->getContentArray());
+    }
+
     public function testImmutability(): void
     {
         $tag = TestTagContentTrait::tag();
