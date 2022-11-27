@@ -13,6 +13,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/yiisoft/html/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/yiisoft/html/?branch=master)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fyiisoft%2Fhtml%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/yiisoft/html/master)
 [![static analysis](https://github.com/yiisoft/html/workflows/static%20analysis/badge.svg)](https://github.com/yiisoft/html/actions?query=workflow%3A%22static+analysis%22)
+[![psalm-level](https://shepherd.dev/github/yiisoft/html/level.svg)](https://shepherd.dev/github/yiisoft/html)
 [![type-coverage](https://shepherd.dev/github/yiisoft/html/coverage.svg)](https://shepherd.dev/github/yiisoft/html)
 
 The package provides various tools to help with dynamic server-side generation of HTML:
@@ -36,7 +37,7 @@ Note that for simple static-HTML cases, it is preferred to use HTML directly.
 ## Installation
 
 ```shell
-composer require yiisoft/html --prefer-dist
+composer require yiisoft/html
 ```
 
 ## General usage
