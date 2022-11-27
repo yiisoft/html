@@ -36,7 +36,7 @@ Note that for simple static-HTML cases, it is preferred to use HTML directly.
 ## Installation
 
 ```shell
-composer require yiisoft/html --prefer-dist
+composer require yiisoft/html
 ```
 
 ## General usage
