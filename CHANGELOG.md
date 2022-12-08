@@ -2,7 +2,7 @@
 
 ## 3.0.1 under development
 
-- Add $attributes parameter to Html::img()
+- new #137: Add $attributes parameter to Html::img()
 
 ## 3.0.0 November 06, 2022
 
