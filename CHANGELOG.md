@@ -2,7 +2,7 @@
 
 ## 3.0.1 under development
 
-- no changes in this release.
+- Add $attributes parameter to Html::img()
 
 ## 3.0.0 November 06, 2022
 
