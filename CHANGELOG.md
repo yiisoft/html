@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 3.0.1 under development
+## 3.1.0 under development
 
 - New #137: Add `$attributes` parameter to `Html::img()` (@alien-art)
 
