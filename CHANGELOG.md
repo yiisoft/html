@@ -2,7 +2,7 @@
 
 ## 3.0.1 under development
 
-- new #137: Add $attributes parameter to Html::img()
+- New #137: Add `$attributes` parameter to `Html::img()` (@alien-art)
 
 ## 3.0.0 November 06, 2022
 
