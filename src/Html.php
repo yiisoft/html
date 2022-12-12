@@ -533,7 +533,7 @@ final class Html
      * @param string|null $alt Alt text.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function img(?string $url = null, ?string $alt = '',  array $attributes = []): Img
+    public static function img(?string $url = null, ?string $alt = '', array $attributes = []): Img
     {
         $tag = Img::tag();
         if (!empty($attributes)) {
