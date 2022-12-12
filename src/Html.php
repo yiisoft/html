@@ -531,10 +531,14 @@ final class Html
      *
      * @param string|null $url The image URL.
      * @param string|null $alt Alt text.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function img(?string $url = null, ?string $alt = ''): Img
+    public static function img(?string $url = null, ?string $alt = '', array $attributes = []): Img
     {
         $tag = Img::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
         if ($url !== null) {
             $tag = $tag->src($url);
         }
