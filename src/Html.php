@@ -45,6 +45,7 @@ use Yiisoft\Html\Tag\Body;
 use Yiisoft\Html\Tag\Footer;
 use Yiisoft\Html\Tag\Header;
 use Yiisoft\Html\Tag\Hgroup;
+use Yiisoft\Html\Tag\Small;
 use Yiisoft\Html\Tag\Track;
 use Yiisoft\Html\Tag\Video;
 use Yiisoft\Html\Tag\Meta;
@@ -1014,6 +1015,21 @@ final class Html
     public static function strong(string|Stringable $content = '', array $attributes = []): Strong
     {
         $tag = Strong::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Small} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function small(string|Stringable $content = '', array $attributes = []): Small
+    {
+        $tag = Small::tag();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
