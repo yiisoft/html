@@ -578,6 +578,14 @@ final class HtmlTest extends TestCase
         $this->assertSame('<strong><span>Hello</span></strong>', Html::strong(Html::span('Hello'))->render());
     }
 
+    public function testSmall(): void
+    {
+        $this->assertSame('<small></small>', Html::small()->render());
+        $this->assertSame('<small>hello</small>', Html::small('hello')->render());
+        $this->assertSame('<small id="main">hello</small>', Html::small('hello', ['id' => 'main'])->render());
+        $this->assertSame('<small><span>Hello</span></small>', Html::small(Html::span('Hello'))->render());
+    }
+
     public function testB(): void
     {
         $this->assertSame('<b></b>', Html::b()->render());
