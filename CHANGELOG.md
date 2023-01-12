@@ -4,6 +4,7 @@
 
 - New #137: Add `$attributes` parameter to `Html::img()` (@alien-art)
 - New #150: Add class for tag `small` and method `Html::small()` (@dood-)
+- Enh #153: Add support of `yiisoft/arrays` version `^3.0` (@vjik)
 
 ## 3.0.0 November 06, 2022
 
