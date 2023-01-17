@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 3.1.0 under development
+## 3.1.0 January 17, 2023
 
 - New #137: Add `$attributes` parameter to `Html::img()` (@alien-art)
 - New #150: Add class for tag `small` and method `Html::small()` (@dood-)
