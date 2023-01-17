@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.1.1 under development
+
+- no changes in this release.
+
 ## 3.1.0 January 17, 2023
 
 - New #137: Add `$attributes` parameter to `Html::img()` (@alien-art)
