@@ -10,6 +10,7 @@ use Yiisoft\Html\Tag\P;
 use Yiisoft\Html\Tag\Span;
 use Yiisoft\Html\Tests\Objects\StringableObject;
 use Yiisoft\Html\Tests\Objects\TestTagContentTrait;
+
 use function is_array;
 
 final class TagContentTraitTest extends TestCase
