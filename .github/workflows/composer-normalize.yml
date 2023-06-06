@@ -21,9 +21,9 @@ jobs:
         uses: docker://ergebnis/composer-normalize-action:latest
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@v9
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          add: composer.json
-          message: "Normalize composer.json (CI) "
+          file_pattern: composer.json
+          commit_message: "Normalize composer.json (CI)"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
