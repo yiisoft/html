@@ -24,6 +24,6 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           add: composer.json
-          message: "Normalize composer.json (CI)"
+          message: "Normalize composer.json (CI) "
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
