@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
+          token: ${{ secrets.YIISOFT_TOKEN }}
 
       - name: Composer normalize
         uses: docker://ergebnis/composer-normalize-action:latest
@@ -27,5 +28,3 @@ jobs:
         with:
           file_pattern: composer.json
           commit_message: "Normalize composer.json (CI)"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
