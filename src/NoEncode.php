@@ -17,8 +17,9 @@ final class NoEncode implements NoEncodeStringableInterface
 {
     private string $string;
 
-    private function __construct(string $string)
-    {
+    private function __construct(
+        string $string
+    ) {
         $this->string = $string;
     }
 
