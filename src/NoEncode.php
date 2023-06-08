@@ -15,8 +15,12 @@ namespace Yiisoft\Html;
  */
 final class NoEncode implements NoEncodeStringableInterface
 {
-    private function __construct(private string $string)
-    {
+    private string $string;
+
+    private function __construct(
+        string $string
+    ) {
+        $this->string = $string;
     }
 
     public static function string(string $value): self
