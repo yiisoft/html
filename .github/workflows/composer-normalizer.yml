@@ -8,5 +8,5 @@ on:
 jobs:
   normalize:
     uses: yiisoft/actions/.github/workflows/composer-normalizer.yml@composer-normalizer
-    secrets:
-      token: ${{ secrets.YIISOFT_GITHUB_TOKEN }}
+#    secrets:
+#      token: ${{ secrets.YIISOFT_GITHUB_TOKEN }}
