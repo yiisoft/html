@@ -6,7 +6,7 @@ on:
       - 'composer.json'
 
 jobs:
-  composer-normalize:
+  normalize:
     uses: yiisoft/actions/.github/workflows/composer-normalizer.yml@composer-normalizer
     secrets:
       token: ${{ secrets.YIISOFT_TOKEN }}
