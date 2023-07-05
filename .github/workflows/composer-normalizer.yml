@@ -1,0 +1,12 @@
+name: "composer.json normalizer"
+
+on:
+  pull_request:
+    paths:
+      - 'composer.json'
+
+jobs:
+  composer-normalize:
+    uses: yiisoft/actions/.github/workflows/composer-normalizer.yml@composer-normalizer
+    secrets:
+      token: ${{ secrets.YIISOFT_TOKEN }}
