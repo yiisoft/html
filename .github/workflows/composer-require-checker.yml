@@ -23,6 +23,7 @@ on:
 
 name: Composer require checker
 
+
 jobs:
   composer-require-checker:
     uses: yiisoft/actions/.github/workflows/composer-require-checker.yml@master
