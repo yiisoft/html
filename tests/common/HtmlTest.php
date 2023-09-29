@@ -905,6 +905,20 @@ final class HtmlTest extends TestCase
         $this->assertSame(['persistent' => 'test1', 'additional' => 'test2'], $options['class']);
     }
 
+    public function testAddCssClassArrayToString(): void
+    {
+        $options = ['class' => 'test'];
+
+        Html::addCssClass($options, ['test1', 'test2']);
+
+        $this->assertSame(
+            [
+                'class' => ['test', 'test1', 'test2'],
+            ],
+            $options,
+        );
+    }
+
     public function testAddCssClassWithKeyToString(): void
     {
         $options = ['class' => 'test_class'];
