@@ -883,12 +883,6 @@ final class HtmlTest extends TestCase
         $this->assertSame(['class' => ['test', 'test2', 'test3']], $options);
 
         $options = [
-            'class' => 'test',
-        ];
-        Html::addCssClass($options, ['test1', 'test2']);
-        $this->assertSame(['class' => 'test test1 test2'], $options);
-
-        $options = [
             'class' => 'test test',
         ];
         Html::addCssClass($options, 'test2');
@@ -909,6 +903,73 @@ final class HtmlTest extends TestCase
         $this->assertSame(['persistent' => 'test1'], $options['class']);
         Html::addCssClass($options, ['additional' => 'test2']);
         $this->assertSame(['persistent' => 'test1', 'additional' => 'test2'], $options['class']);
+    }
+
+    public function testAddCssClassArrayToString(): void
+    {
+        $options = ['class' => 'test'];
+
+        Html::addCssClass($options, ['test1', 'test2']);
+
+        $this->assertSame(
+            [
+                'class' => ['test', 'test1', 'test2'],
+            ],
+            $options,
+        );
+    }
+
+    public function testAddCssClassWithKeyToString(): void
+    {
+        $options = ['class' => 'test_class'];
+
+        Html::addCssClass($options, ['widget' => 'some_widget_class']);
+        Html::addCssClass($options, ['widget' => 'some_other_widget_class_2']);
+
+        $this->assertSame(
+            [
+                'class' => [
+                    'test_class',
+                    'widget' => 'some_widget_class',
+                ],
+            ],
+            $options,
+        );
+    }
+
+    public function testAddCssClassWithKeyToArray(): void
+    {
+        $options = ['class' => ['test_class']];
+
+        Html::addCssClass($options, ['widget' => 'some_widget_class']);
+        Html::addCssClass($options, ['widget' => 'some_other_widget_class_2']);
+
+        $this->assertSame(
+            [
+                'class' => [
+                    'test_class',
+                    'widget' => 'some_widget_class',
+                ],
+            ],
+            $options,
+        );
+    }
+
+    public function testAddCssClassWithKeyToKeyArray(): void
+    {
+        $options = ['class' => ['widget' => 'test_class']];
+
+        Html::addCssClass($options, ['widget' => 'some_widget_class']);
+        Html::addCssClass($options, ['widget' => 'some_other_widget_class_2']);
+
+        $this->assertSame(
+            [
+                'class' => [
+                    'widget' => 'test_class',
+                ],
+            ],
+            $options,
+        );
     }
 
     public function testRemoveCssClass(): void
