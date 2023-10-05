@@ -1634,7 +1634,8 @@ final class Html
             } else {
                 /** @psalm-var string $options['class'] */
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
-                $options['class'] = implode(' ', self::mergeCssClasses($classes, (array) $class));
+                $classes = self::mergeCssClasses($classes, (array) $class);
+                $options['class'] = is_array($class) ? $classes : implode(' ', $classes);
             }
         } else {
             $options['class'] = $class;
@@ -1680,7 +1681,7 @@ final class Html
      * @param string[] $existingClasses Already existing CSS classes.
      * @param string[] $additionalClasses CSS classes to be added.
      *
-     * @return string[] merge result.
+     * @return string[] The merge result.
      */
     private static function mergeCssClasses(array $existingClasses, array $additionalClasses): array
     {

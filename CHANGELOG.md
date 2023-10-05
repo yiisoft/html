@@ -2,7 +2,7 @@
 
 ## 3.1.1 under development
 
-- no changes in this release.
+- Bug #171: Fix loss of keys for named class in `Html::addCssClass()` when class in passed options is a string (@vjik)
 
 ## 3.1.0 January 17, 2023
 
