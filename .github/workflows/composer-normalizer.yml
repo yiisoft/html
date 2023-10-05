@@ -6,7 +6,6 @@ on:
       - 'composer.json'
 
 jobs:
-  if: github.event.repository.fork == true || github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
   normalize:
     uses: yiisoft/actions/.github/workflows/composer-normalizer.yml@composer-normalizer
     secrets:
