@@ -1173,6 +1173,8 @@ final class Html
 
     /**
      * Generates a {@see Ul} tag.
+     * 
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
     public static function ul(array $attributes = []): Ul
     {
@@ -1185,6 +1187,8 @@ final class Html
 
     /**
      * Generates a {@see Ol} tag.
+     * 
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
     public static function ol(array $attributes = []): Ol
     {
