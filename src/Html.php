@@ -1174,17 +1174,25 @@ final class Html
     /**
      * Generates a {@see Ul} tag.
      */
-    public static function ul(): Ul
+    public static function ul(array $attributes = []): Ul
     {
-        return Ul::tag();
+        $tag = Ul::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
      * Generates a {@see Ol} tag.
      */
-    public static function ol(): Ol
+    public static function ol(array $attributes = []): Ol
     {
-        return Ol::tag();
+        $tag = Ol::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
