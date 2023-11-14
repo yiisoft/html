@@ -663,7 +663,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<ul></ul>', Html::ul()->render());
         $this->assertSame('<ul id="main"></ul>', Html::ul(['id' => 'main'])->render());
         $this->assertSame(
-            "<ul id=\"main\">\n<li>item 1</li>\n</ul>", 
+            "<ul id=\"main\">\n<li>item 1</li>\n</ul>",
             Html::ul(['id' => 'main'])
                 ->items(Html::li('item 1'))
                 ->render()
@@ -675,7 +675,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<ol></ol>', Html::ol()->render());
         $this->assertSame('<ol id="main"></ol>', Html::ol(['id' => 'main'])->render());
         $this->assertSame(
-            "<ol id=\"main\">\n<li>item 1</li>\n</ol>", 
+            "<ol id=\"main\">\n<li>item 1</li>\n</ol>",
             Html::ol(['id' => 'main'])
                 ->items(Html::li('item 1'))
                 ->render()
