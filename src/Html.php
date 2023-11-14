@@ -1173,18 +1173,30 @@ final class Html
 
     /**
      * Generates a {@see Ul} tag.
+     * 
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function ul(): Ul
+    public static function ul(array $attributes = []): Ul
     {
-        return Ul::tag();
+        $tag = Ul::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
      * Generates a {@see Ol} tag.
+     * 
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function ol(): Ol
+    public static function ol(array $attributes = []): Ol
     {
-        return Ol::tag();
+        $tag = Ol::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**

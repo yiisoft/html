@@ -3,6 +3,7 @@
 ## 3.1.1 under development
 
 - Bug #171: Fix loss of keys for named class in `Html::addCssClass()` when class in passed options is a string (@vjik)
+- New #174: Add `$attributes` parameter to `Html::ul()` and `Html::ol()` (@AmolKumarGupta)
 
 ## 3.1.0 January 17, 2023
 
