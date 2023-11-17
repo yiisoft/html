@@ -1635,7 +1635,7 @@ final class Html
      * @see removeCssClass()
      *
      * @param array $options The options to be modified.
-     * @param string|null|string[]|null[] $class The CSS class(es) to be added. Null values will be ignored.
+     * @param null[]|string|string[]|null $class The CSS class(es) to be added. Null values will be ignored.
      *
      * @psalm-param string|array<array-key,string|null> $class
      */
@@ -1697,7 +1697,7 @@ final class Html
      * This method provides the priority for named existing classes over additional.
      *
      * @param string[] $existingClasses Already existing CSS classes.
-     * @param string[]|null[] $additionalClasses CSS classes to be added.
+     * @param null[]|string[] $additionalClasses CSS classes to be added.
      *
      * @return string[] The merge result.
      *
