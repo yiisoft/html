@@ -868,39 +868,33 @@ final class HtmlTest extends TestCase
         $this->assertSame($expected, Html::renderTagAttributes($attributes));
     }
 
-    public function testAddCssClass(): void
+    public function dataAddCssClass(): array
     {
-        $options = [];
-        Html::addCssClass($options, 'test');
-        $this->assertSame(['class' => 'test'], $options);
-        Html::addCssClass($options, 'test');
-        $this->assertSame(['class' => 'test'], $options);
-        Html::addCssClass($options, 'test2');
-        $this->assertSame(['class' => 'test test2'], $options);
-        Html::addCssClass($options, 'test');
-        $this->assertSame(['class' => 'test test2'], $options);
-        Html::addCssClass($options, 'test2');
-        $this->assertSame(['class' => 'test test2'], $options);
-        Html::addCssClass($options, 'test3');
-        $this->assertSame(['class' => 'test test2 test3'], $options);
-        Html::addCssClass($options, 'test2');
-        $this->assertSame(['class' => 'test test2 test3'], $options);
-
-        $options = [
-            'class' => ['test'],
+        return [
+            0 => [['class' => 'test'], [], 'test'],
+            1 => [['class' => 'test'], ['class' => 'test'], 'test'],
+            2 => [['class' => 'test test2'], ['class' => 'test'], 'test2'],
+            3 => [['class' => 'test test2'], ['class' => 'test test2'], 'test'],
+            4 => [['class' => 'test test2'], ['class' => 'test test2'], 'test2'],
+            5 => [['class' => 'test test2 test3'], ['class' => 'test test2'], 'test3'],
+            6 => [['class' => 'test test2 test3'], ['class' => 'test test2 test3'], 'test2'],
+            7 => [['class' => ['test', 'test2']], ['class' => ['test']], 'test2'],
+            8 => [['class' => ['test', 'test2']], ['class' => ['test', 'test2']], 'test2'],
+            9 => [['class' => ['test', 'test2', 'test3']], ['class' => ['test', 'test2']], ['test3']],
+            10 => [['class' => 'test test2'], ['class' => 'test test'], 'test2'],
+            11 => [['class' => 'test test2'], ['class' => 'test test2'], null],
+            12 => [['class' => ['test', 'test2']], ['class' => 'test test2'], [null]],
+            13 => [['class' => ['t1', 't2', 't3', 't4']], ['class' => 't1 t2'], ['t3', null, 't4']],
         ];
-        Html::addCssClass($options, 'test2');
-        $this->assertSame(['class' => ['test', 'test2']], $options);
-        Html::addCssClass($options, 'test2');
-        $this->assertSame(['class' => ['test', 'test2']], $options);
-        Html::addCssClass($options, ['test3']);
-        $this->assertSame(['class' => ['test', 'test2', 'test3']], $options);
+    }
 
-        $options = [
-            'class' => 'test test',
-        ];
-        Html::addCssClass($options, 'test2');
-        $this->assertSame(['class' => 'test test2'], $options);
+    /**
+     * @dataProvider dataAddCssClass
+     */
+    public function testAddCssClass(array $expected, array $options, array|string|null $class): void
+    {
+        Html::addCssClass($options, $class);
+        $this->assertSame($expected, $options);
     }
 
     /**

@@ -1635,10 +1635,16 @@ final class Html
      * @see removeCssClass()
      *
      * @param array $options The options to be modified.
-     * @param string|string[] $class The CSS class(es) to be added.
+     * @param null[]|string|string[]|null $class The CSS class(es) to be added. Null values will be ignored.
+     *
+     * @psalm-param string|array<array-key,string|null> $class
      */
-    public static function addCssClass(array &$options, string|array $class): void
+    public static function addCssClass(array &$options, string|array|null $class): void
     {
+        if ($class === null) {
+            return;
+        }
+
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
                 /** @psalm-var string[] $options['class'] */
@@ -1691,13 +1697,18 @@ final class Html
      * This method provides the priority for named existing classes over additional.
      *
      * @param string[] $existingClasses Already existing CSS classes.
-     * @param string[] $additionalClasses CSS classes to be added.
+     * @param null[]|string[] $additionalClasses CSS classes to be added.
      *
      * @return string[] The merge result.
+     *
+     * @psalm-param array<array-key,string|null> $additionalClasses
      */
     private static function mergeCssClasses(array $existingClasses, array $additionalClasses): array
     {
         foreach ($additionalClasses as $key => $class) {
+            if ($class === null) {
+                continue;
+            }
             if (is_int($key) && !in_array($class, $existingClasses, true)) {
                 $existingClasses[] = $class;
             } elseif (!isset($existingClasses[$key])) {
