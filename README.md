@@ -18,7 +18,7 @@
 
 The package provides various tools to help with dynamic server-side generation of HTML:
 
-- Tag classes `A`, `Address`, `Article`, `Aside`, `Audio`, `B`, `Body`, `Br`, `Button`, `Caption`, `Col`, `Colgroup`,
+- Tag classes `A`, `Address`, `Article`, `Aside`, `Audio`, `B`, `Html` `Body`, `Br`, `Button`, `Caption`, `Col`, `Colgroup`,
  `Datalist`, `Div`, `Em`, `Fieldset`, `Footer`, `Form`, `H1`, `H2`, `H3`, `H4`, `H5`, `H6`, `Header`, `Hgroup`, `I`,
  `Img`, `Input` (and specialized `Checkbox`, `Radio`, `Range`, `File`), `Label`, `Legend`, `Li`, `Link`, `Meta`, `Nav`, 
  `Noscript`, `Ol`, `Optgroup`, `Option`, `P`, `Picture`, `Script`, `Section`, `Select`, `Small`, `Source`, `Span`,
@@ -285,6 +285,7 @@ Overall the helper has the following method groups.
 
 #### Section tags
 
+- html
 - body
 - article
 - section

@@ -2,7 +2,7 @@
 
 ## 3.2.1 under development
 
-- no changes in this release.
+- New #173: Add class for tag 'html' (@dood-)
 
 ## 3.2.0 November 21, 2023
 

@@ -1120,6 +1120,15 @@ final class HtmlTest extends TestCase
         Html::normalizeRegexpPattern($regexp, $delimiter);
     }
 
+    public function testHtml(): void
+    {
+        $this->assertSame('<html></html>', Html::html()->render());
+        $this->assertSame('<html>Welcome</html>', Html::html('Welcome')->render());
+        $this->assertSame('<html lang="en">Welcome</html>', Html::html('Welcome', 'en')->render());
+        $this->assertSame('<html id="main" lang="en">Welcome</html>', Html::html('Welcome', 'en', ['id' => 'main'])->render());
+        $this->assertSame('<html><body>Welcome</body></html>', Html::html(Html::body('Welcome'))->render());
+    }
+
     public function testBody(): void
     {
         $this->assertSame('<body></body>', Html::body()->render());
