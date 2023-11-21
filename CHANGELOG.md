@@ -1,10 +1,10 @@
 # Yii HTML Change Log
 
-## 3.1.1 under development
+## 3.2.0 November 21, 2023
 
-- Bug #171: Fix loss of keys for named class in `Html::addCssClass()` when class in passed options is a string (@vjik)
 - New #174: Add `$attributes` parameter to `Html::ul()` and `Html::ol()` (@AmolKumarGupta)
 - Enh #176: Allow pass `null` as class to `Html::addCssClass()`, nulled classes will be ignored (@vjik)
+- Bug #171: Fix loss of keys for named class in `Html::addCssClass()` when class in passed options is a string (@vjik)
 
 ## 3.1.0 January 17, 2023
 
