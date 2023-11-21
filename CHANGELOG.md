@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.2.1 under development
+
+- no changes in this release.
+
 ## 3.2.0 November 21, 2023
 
 - New #174: Add `$attributes` parameter to `Html::ul()` and `Html::ol()` (@AmolKumarGupta)
