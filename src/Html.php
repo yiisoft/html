@@ -1405,6 +1405,28 @@ final class Html
     }
 
     /**
+     * Generates a {@see Html} tag.
+     *
+     * @param string|Stringable $content Tag content.
+     * @param string|null $lang The document language.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function html(string|Stringable $content = '', ?string $lang = null, array $attributes = []): Tag\Html
+    {
+        $tag = Tag\Html::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        if ($content !== '') {
+            $tag = $tag->content($content);
+        }
+        if ($lang !== null) {
+            $tag = $tag->lang($lang);
+        }
+        return $tag;
+    }
+
+    /**
      * Generates a {@see Body} tag.
      *
      * @param string|Stringable $content Tag content.
