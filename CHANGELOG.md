@@ -2,7 +2,7 @@
 
 ## 3.2.1 under development
 
-- New #173: Add class for tag 'html' (@dood-)
+- New #173: Add class for tag 'html' and method `Html::html()` (@dood-)
 
 ## 3.2.0 November 21, 2023
 

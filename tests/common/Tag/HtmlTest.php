@@ -45,4 +45,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame($expected, (string)Html::tag()->lang($href));
     }
+
+    public function testImmutability(): void
+    {
+        $tag = Html::tag();
+
+        $this->assertNotSame($tag, $tag->lang(null));
+    }
 }
