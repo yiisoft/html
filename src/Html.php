@@ -1667,7 +1667,7 @@ final class Html
             return;
         }
         if (is_array($class)) {
-            $class = array_filter($class, static fn ($c) => $c !== null);
+            $class = array_filter($class, static fn (mixed $c): bool => $c !== null);
             if (empty($class)) {
                 return;
             }
