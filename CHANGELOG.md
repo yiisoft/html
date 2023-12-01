@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.3.1 under development
+
+- no changes in this release.
+
 ## 3.3.0 December 01, 2023
 
 - New #173: Add class for tag `html` and method `Html::html()` (@dood-)
