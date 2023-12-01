@@ -883,8 +883,12 @@ final class HtmlTest extends TestCase
             9 => [['class' => ['test', 'test2', 'test3']], ['class' => ['test', 'test2']], ['test3']],
             10 => [['class' => 'test test2'], ['class' => 'test test'], 'test2'],
             11 => [['class' => 'test test2'], ['class' => 'test test2'], null],
-            12 => [['class' => ['test', 'test2']], ['class' => 'test test2'], [null]],
+            12 => [['class' => 'test test2'], ['class' => 'test test2'], [null]],
             13 => [['class' => ['t1', 't2', 't3', 't4']], ['class' => 't1 t2'], ['t3', null, 't4']],
+            14 => [['id' => 'w2'], ['id' => 'w2'], null],
+            15 => [['id' => 'w2'], ['id' => 'w2'], [null]],
+            16 => [['id' => 'w2', 'class' => 't1'], ['id' => 'w2'], 't1'],
+            17 => [['id' => 'w2', 'class' => ['t3', 2 => 't4']], ['id' => 'w2'], ['t3', null, 't4']],
         ];
     }
 

@@ -1665,6 +1665,11 @@ final class Html
     {
         if ($class === null) {
             return;
+        } elseif (is_array($class)) {
+            $class = array_filter($class, static fn ($c) => $c !== null);
+            if (empty($class)) {
+                return;
+            }
         }
 
         if (isset($options['class'])) {
@@ -1723,14 +1728,11 @@ final class Html
      *
      * @return string[] The merge result.
      *
-     * @psalm-param array<array-key,string|null> $additionalClasses
+     * @psalm-param array<array-key,string> $additionalClasses
      */
     private static function mergeCssClasses(array $existingClasses, array $additionalClasses): array
     {
         foreach ($additionalClasses as $key => $class) {
-            if ($class === null) {
-                continue;
-            }
             if (is_int($key) && !in_array($class, $existingClasses, true)) {
                 $existingClasses[] = $class;
             } elseif (!isset($existingClasses[$key])) {
