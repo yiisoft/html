@@ -172,7 +172,7 @@ final class Form extends NormalTag
     protected function prepend(): string
     {
         return $this->csrfToken !== null
-            ? PHP_EOL . Input::hidden($this->csrfName, $this->csrfToken)
+            ? "\n" . Input::hidden($this->csrfName, $this->csrfToken)
             : '';
     }
 

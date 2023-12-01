@@ -3,6 +3,7 @@
 ## 3.2.1 under development
 
 - New #173: Add class for tag 'html' and method `Html::html()` (@dood-)
+- Chg #179: Replace constant `PHP_EOL` to `"\n"` (@vjik) 
 
 ## 3.2.0 November 21, 2023
 
