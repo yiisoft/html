@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 3.2.1 under development
+## 3.3.0 December 01, 2023
 
 - New #173: Add class for tag `html` and method `Html::html()` (@dood-)
 - Chg #179: Replace constant `PHP_EOL` to `"\n"` (@vjik)
