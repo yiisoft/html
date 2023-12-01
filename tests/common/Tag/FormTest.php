@@ -77,13 +77,13 @@ final class FormTest extends TestCase
         $tag = Form::tag()->csrf('abc', 'csrf-token');
 
         $this->assertSame(
-            '<form>' . PHP_EOL .
+            '<form>' . "\n" .
             '<input type="hidden" name="csrf-token" value="abc">',
             $tag->open()
         );
 
         $this->assertSame(
-            '<form>' . PHP_EOL .
+            '<form>' . "\n" .
             '<input type="hidden" name="csrf-token" value="abc"></form>',
             $tag->render()
         );
@@ -92,7 +92,7 @@ final class FormTest extends TestCase
     public function testCsrfDefaultName(): void
     {
         $this->assertSame(
-            '<form>' . PHP_EOL .
+            '<form>' . "\n" .
             '<input type="hidden" name="_csrf" value="abc"></form>',
             Form::tag()
                 ->csrf('abc')
@@ -103,7 +103,7 @@ final class FormTest extends TestCase
     public function testStringableCsrfToken(): void
     {
         $this->assertSame(
-            '<form>' . PHP_EOL .
+            '<form>' . "\n" .
             '<input type="hidden" name="_csrf" value="abc"></form>',
             Form::tag()
                 ->csrf(new StringableObject('abc'))
