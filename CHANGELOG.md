@@ -2,7 +2,7 @@
 
 ## 3.2.1 under development
 
-- New #173: Add class for tag 'html' and method `Html::html()` (@dood-)
+- New #173: Add class for tag `html` and method `Html::html()` (@dood-)
 - Chg #179: Replace constant `PHP_EOL` to `"\n"` (@vjik)
 - Enh #180: Don't add attribute "class" if passed array of nulled classes in `Html::addCssClass()` (@vjik)
 
