@@ -1665,7 +1665,8 @@ final class Html
     {
         if ($class === null) {
             return;
-        } elseif (is_array($class)) {
+        }
+        if (is_array($class)) {
             $class = array_filter($class, static fn ($c) => $c !== null);
             if (empty($class)) {
                 return;
