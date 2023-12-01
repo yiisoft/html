@@ -889,6 +889,7 @@ final class HtmlTest extends TestCase
             15 => [['id' => 'w2'], ['id' => 'w2'], [null]],
             16 => [['id' => 'w2', 'class' => 't1'], ['id' => 'w2'], 't1'],
             17 => [['id' => 'w2', 'class' => ['t3', 2 => 't4']], ['id' => 'w2'], ['t3', null, 't4']],
+            18 => [['id' => 'w2', 'class' => ['t3', 2 => 't4']], ['id' => 'w2'], ['t3', null, 't4', null]],
         ];
     }
 
