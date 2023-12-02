@@ -2,7 +2,7 @@
 
 ## 3.3.1 under development
 
-- no changes in this release.
+- Enh #181: Add `\n` after hidden input in checkbox and radio HTML code (@vjik)
 
 ## 3.3.0 December 01, 2023
 

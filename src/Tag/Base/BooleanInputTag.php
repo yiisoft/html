@@ -116,7 +116,7 @@ abstract class BooleanInputTag extends InputTag
             $input = $input->attribute('form', $this->attributes['form']);
         }
 
-        return $input->render();
+        return $input->render() . "\n";
     }
 
     private function renderLabelOpenTag(array $attributes): string

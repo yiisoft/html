@@ -154,12 +154,18 @@ final class BooleanInputTagTest extends TestCase
             ['<input type="test" name="color">', 'color', null],
             ['<input type="test" name="color[]">', 'color[]', null],
             [
-                '<input type="hidden" name="color" value="7"><input type="test" name="color">',
+                <<<HTML
+                <input type="hidden" name="color" value="7">
+                <input type="test" name="color">
+                HTML,
                 'color',
                 7,
             ],
             [
-                '<input type="hidden" name="color" value="7"><input type="test" name="color[]">',
+                <<<HTML
+                <input type="hidden" name="color" value="7">
+                <input type="test" name="color[]">
+                HTML,
                 'color[]',
                 7,
             ],
@@ -185,8 +191,10 @@ final class BooleanInputTagTest extends TestCase
     public function testUncheckValueDisabled(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="color" value="7" disabled>' .
-            '<input type="test" name="color" disabled>',
+            <<<HTML
+            <input type="hidden" name="color" value="7" disabled>
+            <input type="test" name="color" disabled>
+            HTML,
             TestBooleanInputTag::tag()
                 ->name('color')
                 ->uncheckValue(7)
@@ -198,8 +206,10 @@ final class BooleanInputTagTest extends TestCase
     public function testUncheckValueForm(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="color" value="7" form="post">' .
-            '<input type="test" name="color" form="post">',
+            <<<HTML
+            <input type="hidden" name="color" value="7" form="post">
+            <input type="test" name="color" form="post">
+            HTML,
             TestBooleanInputTag::tag()
                 ->name('color')
                 ->uncheckValue(7)
@@ -211,8 +221,10 @@ final class BooleanInputTagTest extends TestCase
     public function testUncheckValueWithLabel(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="color" value="7">' .
-            '<label><input type="test" name="color"> Seven</label>',
+            <<<HTML
+            <input type="hidden" name="color" value="7">
+            <label><input type="test" name="color"> Seven</label>
+            HTML,
             TestBooleanInputTag::tag()
                 ->name('color')
                 ->uncheckValue(7)
