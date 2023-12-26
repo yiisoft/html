@@ -151,6 +151,33 @@ final class RadioListTest extends TestCase
         );
     }
 
+    public function testRadioLabelAttributes(): void
+    {
+        $this->assertSame(
+            '<label class="red"><input type="radio" name="test" value="1"> One</label>' . "\n" .
+            '<label class="red"><input type="radio" name="test" value="2"> Two</label>',
+            RadioList::create('test')
+                ->items([1 => 'One', 2 => 'Two'])
+                ->radioLabelAttributes(['class' => 'red'])
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
+    public function testRadioLabelAttributesMerge(): void
+    {
+        $this->assertSame(
+            '<label class="red" data-type="label"><input type="radio" name="test" value="1"> One</label>' . "\n" .
+            '<label class="red" data-type="label"><input type="radio" name="test" value="2"> Two</label>',
+            RadioList::create('test')
+                ->items([1 => 'One', 2 => 'Two'])
+                ->radioLabelAttributes(['class' => 'red'])
+                ->addRadioLabelAttributes(['data-type' => 'label'])
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
     public function testIndividualInputAttributes(): void
     {
         $this->assertSame(

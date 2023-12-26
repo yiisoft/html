@@ -15,7 +15,8 @@ final class RadioItem
         public bool $checked,
         public array $radioAttributes,
         public string $label,
-        public bool $encodeLabel
+        public bool $encodeLabel,
+        public array $labelAttributes = [],
     ) {
     }
 }
