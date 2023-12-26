@@ -24,6 +24,7 @@ on:
 
 name: Composer require checker
 
+
 jobs:
   composer-require-checker:
     uses: yiisoft/actions/.github/workflows/composer-require-checker.yml@master
@@ -31,4 +32,4 @@ jobs:
       os: >-
         ['ubuntu-latest']
       php: >-
-        ['8.0', '8.1', '8.2']
+        ['8.2']
