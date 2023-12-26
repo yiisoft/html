@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 3.3.1 under development
+## 3.4.0 December 26, 2023
 
 - New #182: Add ability set attributes for label of items in widgets `CheckboxList` and `RadioList` (@vjik)
 
