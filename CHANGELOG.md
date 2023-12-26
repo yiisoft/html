@@ -2,7 +2,7 @@
 
 ## 3.3.1 under development
 
-- no changes in this release.
+- New #182: Add ability set attributes for label of items in widgets `CheckboxList` and `RadioList` (@vjik)
 
 ## 3.3.0 December 01, 2023
 

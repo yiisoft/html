@@ -21,6 +21,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
     private array $checkboxAttributes = [];
+    private array $checkboxLabelAttributes = [];
 
     /**
      * @var array[]
@@ -95,6 +96,20 @@ final class CheckboxList implements NoEncodeStringableInterface
     {
         $new = clone $this;
         $new->checkboxAttributes = $attributes;
+        return $new;
+    }
+
+    public function addCheckboxLabelAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->checkboxLabelAttributes = array_merge($new->checkboxLabelAttributes, $attributes);
+        return $new;
+    }
+
+    public function checkboxLabelAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->checkboxLabelAttributes = $attributes;
         return $new;
     }
 
@@ -237,6 +252,7 @@ final class CheckboxList implements NoEncodeStringableInterface
                 ),
                 $label,
                 $this->encodeLabels,
+                $this->checkboxLabelAttributes,
             );
             $lines[] = $this->formatItem($item);
             $index++;
@@ -287,7 +303,7 @@ final class CheckboxList implements NoEncodeStringableInterface
 
         $checkbox = Html::checkbox($item->name, $item->value, $item->checkboxAttributes)
             ->checked($item->checked)
-            ->label($item->label)
+            ->label($item->label, $item->labelAttributes)
             ->labelEncode($item->encodeLabel);
 
         return $checkbox->render();
