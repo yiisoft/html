@@ -57,7 +57,6 @@ final class Option extends NormalTag
      */
     public function getValue(): ?string
     {
-        /** @var mixed $value */
         $value = ArrayHelper::getValue($this->attributes, 'value');
         return $value === null ? null : (string)$value;
     }

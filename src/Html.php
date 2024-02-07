@@ -1592,7 +1592,6 @@ final class Html
             $sorted = [];
             foreach (self::ATTRIBUTE_ORDER as $name) {
                 if (isset($attributes[$name])) {
-                    /** @var mixed */
                     $sorted[$name] = $attributes[$name];
                 }
             }
@@ -1602,7 +1601,6 @@ final class Html
         $html = '';
         /**
          * @var string $name
-         * @var mixed $value
          */
         foreach ($attributes as $name => $value) {
             if (is_bool($value)) {
