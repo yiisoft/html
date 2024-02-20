@@ -1565,7 +1565,7 @@ final class Html
      * Renders the HTML tag attributes.
      *
      * Attributes whose values are of boolean type will be treated as
-     * [boolean attributes](http://www.w3.org/TR/html5/infrastructure.html#boolean-attributes).
+     * [boolean attributes](https://www.w3.org/TR/html5/infrastructure.html#boolean-attributes).
      *
      * Attributes whose values are null will not be rendered. The values of attributes will be HTML-encoded using
      * {@see encodeAttribute()}.
