@@ -17,7 +17,7 @@ final class CustomTag extends Tag
     /**
      * List of void elements. These only have a start tag; end tags must not be specified.
      *
-     * {@see http://www.w3.org/TR/html-markup/syntax.html#void-element}
+     * {@see https://www.w3.org/TR/html-markup/syntax.html#void-element}
      */
     private const VOID_ELEMENTS = [
         'area' => 1,
