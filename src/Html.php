@@ -1535,7 +1535,7 @@ final class Html
     /**
      * Generates a {@see Hr} tag.
      */
-    public static function hr(): Hr
+    public static function hr(array $attributes = []): Hr
     {
         return Hr::tag();
     }
