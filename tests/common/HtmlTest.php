@@ -771,7 +771,11 @@ final class HtmlTest extends TestCase
 
     public function testHr(): void
     {
-        self::assertSame('<hr>', Html::hr()->render());
+        $this->assertSame('<hr>', Html::hr()->render());
+        $this->assertSame(
+            '<hr class="red">',
+            Html::hr(['class' => 'red'])->render()
+        );
     }
 
     public function testVideo(): void
