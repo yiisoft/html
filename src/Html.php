@@ -1537,7 +1537,11 @@ final class Html
      */
     public static function hr(array $attributes = []): Hr
     {
-        return Hr::tag();
+        $tag = Hr::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
