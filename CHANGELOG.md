@@ -2,7 +2,7 @@
 
 ## 3.4.1 under development
 
-- no changes in this release.
+- New #192: Add class for tag `hr` and method `Html::hr()` (@abdulmannans)
 
 ## 3.4.0 December 26, 2023
 

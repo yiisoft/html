@@ -19,11 +19,11 @@
 The package provides various tools to help with dynamic server-side generation of HTML:
 
 - Tag classes `A`, `Address`, `Article`, `Aside`, `Audio`, `B`, `Body`, `Br`, `Button`, `Caption`, `Col`, `Colgroup`,
- `Datalist`, `Div`, `Em`, `Fieldset`, `Footer`, `Form`, `H1`, `H2`, `H3`, `H4`, `H5`, `H6`, `Header`, `Hr`, `Hgroup`, `Html`,
- `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`, `Range`, `File`), `Label`, `Legend`, `Li`, `Link`, `Meta`,
- `Nav`, `Noscript`, `Ol`, `Optgroup`, `Option`, `P`, `Picture`, `Script`, `Section`, `Select`, `Small`, `Source`,
- `Span`, `Strong`, `Style`, `Table`, `Tbody`, `Td`, `Textarea`, `Tfoot`, `Th`, `Thead`, `Title`, `Tr`, `Track`, `Ul`,
- `Video`.
+ `Datalist`, `Div`, `Em`, `Fieldset`, `Footer`, `Form`, `H1`, `H2`, `H3`, `H4`, `H5`, `H6`, `Header`, `Hr`, `Hgroup`, 
+ `Html`, `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`, `Range`, `File`), `Label`, `Legend`, `Li`, `Link`,
+ `Meta`, `Nav`, `Noscript`, `Ol`, `Optgroup`, `Option`, `P`, `Picture`, `Script`, `Section`, `Select`, `Small`,
+ `Source`, `Span`, `Strong`, `Style`, `Table`, `Tbody`, `Td`, `Textarea`, `Tfoot`, `Th`, `Thead`, `Title`, `Tr`,
+ `Track`, `Ul`, `Video`.
 - `CustomTag` class that helps to generate custom tag with any attributes.
 - HTML widgets `ButtonGroup`, `CheckboxList` and `RadioList`.
 - All tags content is automatically HTML-encoded. There is `NoEncode` class designed to wrap content that should not be encoded.
