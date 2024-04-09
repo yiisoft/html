@@ -45,6 +45,7 @@ use Yiisoft\Html\Tag\Body;
 use Yiisoft\Html\Tag\Footer;
 use Yiisoft\Html\Tag\Header;
 use Yiisoft\Html\Tag\Hgroup;
+use Yiisoft\Html\Tag\Hr;
 use Yiisoft\Html\Tag\Small;
 use Yiisoft\Html\Tag\Track;
 use Yiisoft\Html\Tag\Video;
@@ -1529,6 +1530,18 @@ final class Html
             $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Hr} tag.
+     */
+    public static function hr(array $attributes = []): Hr
+    {
+        $tag = Hr::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
     }
 
     /**
