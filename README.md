@@ -168,12 +168,12 @@ Represents a group of buttons.
 
 ```php
 echo \Yiisoft\Html\Widget\ButtonGroup::create()
- ->buttons(
-     \Yiisoft\Html\Html::resetButton('Reset Data'),
-     \Yiisoft\Html\Html::resetButton('Send'),
- )
- ->containerAttributes(['class' => 'actions'])
- ->buttonAttributes(['form' => 'CreatePost']);
+   ->buttons(
+       \Yiisoft\Html\Html::resetButton('Reset Data'),
+       \Yiisoft\Html\Html::resetButton('Send'),
+   )
+   ->containerAttributes(['class' => 'actions'])
+   ->buttonAttributes(['form' => 'CreatePost']);
 ```
 
 Result will be:
@@ -191,10 +191,10 @@ Represents a list of checkboxes.
 
 ```php
 echo \Yiisoft\Html\Widget\CheckboxList\CheckboxList::create('count')
- ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
- ->uncheckValue(0)
- ->value(2, 5)
- ->containerAttributes(['id' => 'main']);
+    ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
+    ->uncheckValue(0)
+    ->value(2, 5)
+    ->containerAttributes(['id' => 'main']);
 ```
 
 Result will be:
