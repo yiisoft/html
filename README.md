@@ -37,6 +37,8 @@ Note that for simple static-HTML cases, it is preferred to use HTML directly.
 
 ## Installation
 
+The package could be installed with [Composer](https://getcomposer.org):
+
 ```shell
 composer require yiisoft/html
 ```
@@ -396,6 +398,13 @@ Overall the helper has the following method groups.
 If you need help or have a question, the [Yii Forum](https://forum.yiiframework.com/c/yii-3-0/63) is a good place for
 that. You may also check out other [Yii Community Resources](https://www.yiiframework.com/community).
 
+## License
+
+The Yii HTML is free software. It is released under the terms of the BSD License.
+Please see [`LICENSE`](./LICENSE.md) for more information.
+
+Maintained by [Yii Software](https://www.yiiframework.com/).
+
 ## Support the project
 
 [![Open Collective](https://img.shields.io/badge/Open%20Collective-sponsor-7eadf1?logo=open%20collective&logoColor=7eadf1&labelColor=555555)](https://opencollective.com/yiisoft)
@@ -407,10 +416,3 @@ that. You may also check out other [Yii Community Resources](https://www.yiifram
 [![Telegram](https://img.shields.io/badge/telegram-join-1DA1F2?style=flat&logo=telegram)](https://t.me/yii3en)
 [![Facebook](https://img.shields.io/badge/facebook-join-1DA1F2?style=flat&logo=facebook&logoColor=ffffff)](https://www.facebook.com/groups/yiitalk)
 [![Slack](https://img.shields.io/badge/slack-join-1DA1F2?style=flat&logo=slack)](https://yiiframework.com/go/slack)
-
-## License
-
-The Yii HTML is free software. It is released under the terms of the BSD License.
-Please see [`LICENSE`](./LICENSE.md) for more information.
-
-Maintained by [Yii Software](https://www.yiiframework.com/).
