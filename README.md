@@ -37,7 +37,7 @@ Note that for simple static-HTML cases, it is preferred to use HTML directly.
 
 ## Installation
 
-The package could be installed via [composer](https://getcomposer.org/download/)
+The package could be installed with [Composer](https://getcomposer.org):
 
 ```shell
 composer require yiisoft/html
