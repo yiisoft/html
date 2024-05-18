@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://yiisoft.github.io/docs/images/yii_logo.svg" height="100px">
+        <img src="https://yiisoft.github.io/docs/images/yii_logo.svg" height="100px" alt="Yii">
     </a>
     <h1 align="center">Yii HTML</h1>
     <br>
@@ -47,10 +47,8 @@ composer require yiisoft/html
 
 ```php
 <?php
-
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Meta;
-
 ?>
 
 <?= Meta::pragmaDirective('X-UA-Compatible', 'IE=edge') ?>
