@@ -140,6 +140,13 @@ final class Html
     private const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng', 'aria'];
 
     /**
+     * List of tag attributes which values should be concatenated with space.
+     * In particular, if the value of the attribute with the name `attribute` is `['value1', 'value2']`, the result will
+     * be `attribute="value1 value2"`.
+     */
+    private const ATTRIBUTES_WITH_CONCATENATED_VALUES = ['class', 'aria-describedby'];
+
+    /**
      * @var array<string, int>
      */
     private static array $generateIdCounter = [];
@@ -1628,7 +1635,7 @@ final class Html
                             ? self::renderAttribute($name . '-' . $n, Json::htmlEncode($v), '\'')
                             : self::renderAttribute($name . '-' . $n, self::encodeAttribute($v));
                     }
-                } elseif ($name === 'class') {
+                } elseif (in_array($name, self::ATTRIBUTES_WITH_CONCATENATED_VALUES, true)) {
                     /** @var string[] $value */
                     if (empty($value)) {
                         continue;

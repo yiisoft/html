@@ -866,6 +866,10 @@ final class HtmlTest extends TestCase
                 ' src=\'{"a":1,"b":"It\\u0027s"}\'',
                 ['src' => ['a' => 1, 'b' => "It's"]],
             ],
+            'attributes with concatenated values' => [
+                ' aria-describedby="hint1 hint2"',
+                ['aria-describedby' => ['hint1', 'hint2']],
+            ],
         ];
     }
 
