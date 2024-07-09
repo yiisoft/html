@@ -12,16 +12,28 @@ abstract class MediaTag extends NormalTag
     use TagSourcesTrait;
 
     /**
-     * The "preload" attribute allowed values.
+     * @psalm-suppress MissingClassConstType
      */
     public const PRELOAD_NONE = 'none';
+
+    /**
+     * @psalm-suppress MissingClassConstType
+     */
     public const PRELOAD_METADATA = 'metadata';
+
+    /**
+     * @psalm-suppress MissingClassConstType
+     */
     public const PRELOAD_AUTO = 'auto';
 
     /**
-     * The "crossorigin" attribute allowed values.
+     * @psalm-suppress MissingClassConstType
      */
     public const CROSSORIGIN_ANONYMOUS = 'anonymous';
+
+    /**
+     * @psalm-suppress MissingClassConstType
+     */
     public const CROSSORIGIN_CREDENTIALS = 'use-credentials';
 
     private ?string $fallback = null;
