@@ -1629,7 +1629,7 @@ final class Html
                 }
             } elseif (is_array($value)) {
                 if (in_array($name, self::DATA_ATTRIBUTES, true)) {
-                    /** @psalm-var array<array-key, array|string|\Stringable|null> $value */
+                    /** @psalm-var array<array-key, scalar[]|string|Stringable|null> $value */
                     foreach ($value as $n => $v) {
                         $fullName = "$name-$n";
                         if (in_array($fullName, self::ATTRIBUTES_WITH_CONCATENATED_VALUES, true)) {
