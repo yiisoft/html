@@ -874,11 +874,11 @@ final class HtmlTest extends TestCase
                 ' aria-describedby="hint1 hint2"',
                 ['aria-describedby' => ['hint1', 'hint2']],
             ],
-            'attributes with concatated attributes, nested, value: string' => [
+            'attributes with concatenated attributes, nested, value: string' => [
                 ' aria-describedby="hint"',
                 ['aria' => ['describedby' => 'hint']],
             ],
-            'attributes with concatated attributes, nested, value: array' => [
+            'attributes with concatenated attributes, nested, value: array' => [
                 ' aria-describedby="hint1 hint2"',
                 ['aria' => ['describedby' => ['hint1', 'hint2']]],
             ],
