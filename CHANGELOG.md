@@ -3,6 +3,7 @@
 ## 3.4.1 under development
 
 - New #192: Add class for tag `hr` and method `Html::hr()` (@abdulmannans)
+- Enh #200: Add support for multiple elements in `aria-describedby` attribute (@arogachev)
 
 ## 3.4.0 December 26, 2023
 

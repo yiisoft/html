@@ -140,6 +140,13 @@ final class Html
     private const DATA_ATTRIBUTES = ['data', 'data-ng', 'ng', 'aria'];
 
     /**
+     * List of tag attributes which values should be concatenated with space.
+     * In particular, if the value of the attribute with the name `attribute` is `['value1', 'value2']`, the result will
+     * be `attribute="value1 value2"`.
+     */
+    private const ATTRIBUTES_WITH_CONCATENATED_VALUES = ['class', 'aria-describedby'];
+
+    /**
      * @var array<string, int>
      */
     private static array $generateIdCounter = [];
@@ -1622,13 +1629,23 @@ final class Html
                 }
             } elseif (is_array($value)) {
                 if (in_array($name, self::DATA_ATTRIBUTES, true)) {
-                    /** @psalm-var array<array-key, array|string|\Stringable|null> $value */
+                    /** @psalm-var array<array-key, scalar[]|string|Stringable|null> $value */
                     foreach ($value as $n => $v) {
-                        $html .= is_array($v)
-                            ? self::renderAttribute($name . '-' . $n, Json::htmlEncode($v), '\'')
-                            : self::renderAttribute($name . '-' . $n, self::encodeAttribute($v));
+                        $fullName = "$name-$n";
+                        if (in_array($fullName, self::ATTRIBUTES_WITH_CONCATENATED_VALUES, true)) {
+                            $html .= self::renderAttribute(
+                                $fullName,
+                                self::encodeAttribute(
+                                    is_array($v) ? implode(' ', $v) : $v,
+                                ),
+                            );
+                        } else {
+                            $html .= is_array($v)
+                                ? self::renderAttribute($fullName, Json::htmlEncode($v), '\'')
+                                : self::renderAttribute($fullName, self::encodeAttribute($v));
+                        }
                     }
-                } elseif ($name === 'class') {
+                } elseif (in_array($name, self::ATTRIBUTES_WITH_CONCATENATED_VALUES, true)) {
                     /** @var string[] $value */
                     if (empty($value)) {
                         continue;
