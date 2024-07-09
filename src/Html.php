@@ -1631,9 +1631,19 @@ final class Html
                 if (in_array($name, self::DATA_ATTRIBUTES, true)) {
                     /** @psalm-var array<array-key, array|string|\Stringable|null> $value */
                     foreach ($value as $n => $v) {
-                        $html .= is_array($v)
-                            ? self::renderAttribute($name . '-' . $n, Json::htmlEncode($v), '\'')
-                            : self::renderAttribute($name . '-' . $n, self::encodeAttribute($v));
+                        $fullName = "$name-$n";
+                        if (in_array($fullName, self::ATTRIBUTES_WITH_CONCATENATED_VALUES, true)) {
+                            $html .= self::renderAttribute(
+                                $fullName,
+                                self::encodeAttribute(
+                                    is_array($v) ? implode(' ', $v) : $v,
+                                ),
+                            );
+                        } else {
+                            $html .= is_array($v)
+                                ? self::renderAttribute($fullName, Json::htmlEncode($v), '\'')
+                                : self::renderAttribute($fullName, self::encodeAttribute($v));
+                        }
                     }
                 } elseif (in_array($name, self::ATTRIBUTES_WITH_CONCATENATED_VALUES, true)) {
                     /** @var string[] $value */
