@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.5.1 under development
+
+- no changes in this release.
+
 ## 3.5.0 July 11, 2024
 
 - New #192: Add class for tag `hr` and method `Html::hr()` (@abdulmannans)
