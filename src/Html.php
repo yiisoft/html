@@ -979,7 +979,6 @@ final class Html
     {
         $tag = Div::tag();
         if (!empty($attributes)) {
-            $attributes = self::filterNullAttributes($attributes);
             $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
@@ -1609,6 +1608,7 @@ final class Html
      */
     public static function renderTagAttributes(array $attributes): string
     {
+        $attributes = self::filterNullAttributes($attributes);
         if (count($attributes) > 1) {
             $sorted = [];
             foreach (self::ATTRIBUTE_ORDER as $name) {
@@ -1967,13 +1967,15 @@ final class Html
 
     /**
      * Removes array elements that are null or contain subarrays that contain null
-     * 
+     *
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
     private static function filterNullAttributes(array $attributes): array
     {
         return array_filter($attributes, function ($attribute) {
-            if (!isset($attribute)) return false;
+            if (!isset($attribute)) {
+                return false;
+            }
             if (is_array($attribute)) {
                 $containsNull = false;
                 array_walk_recursive($attribute, function ($attribute) use (&$containsNull) {

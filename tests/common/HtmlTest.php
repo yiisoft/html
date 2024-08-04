@@ -549,12 +549,6 @@ final class HtmlTest extends TestCase
     public function testDiv(): void
     {
         $this->assertSame('<div></div>', Html::div()->render());
-        $this->assertSame('<div></div>', Html::div(attributes: [
-            'data-test1' => null,
-            'data' => [
-                'test2' => null
-            ]
-        ])->render());
         $this->assertSame('<div>hello</div>', Html::div('hello')->render());
         $this->assertSame('<div id="main">hello</div>', Html::div('hello', ['id' => 'main'])->render());
         $this->assertSame('<div><span>Hello</span></div>', Html::div(Html::span('Hello'))->render());
@@ -851,6 +845,13 @@ final class HtmlTest extends TestCase
                         'foo' => [],
                     ],
                 ],
+            ],
+            [
+                '',
+                ['data-test1' => null,
+                'data' => [
+                    'test2' => null
+                ]]
             ],
             [
                 ' src="xyz" data-a="1" data-b="c"',
