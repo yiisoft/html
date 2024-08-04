@@ -216,8 +216,7 @@ echo \Yiisoft\Html\Widget\RadioList\RadioList::create('count')
     ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
     ->uncheckValue(0)
     ->value(2)
-    ->containerAttributes(['id' => 'main'])
-    ->render();
+    ->containerAttributes(['id' => 'main']);
 ```
 
 Result will be:
