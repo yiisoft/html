@@ -6,9 +6,9 @@
     <br>
 </p>
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/html/v/stable.png)](https://packagist.org/packages/yiisoft/html)
-[![Total Downloads](https://poser.pugx.org/yiisoft/html/downloads.png)](https://packagist.org/packages/yiisoft/html)
-[![Build Status](https://github.com/yiisoft/html/workflows/build/badge.svg)](https://github.com/yiisoft/html/actions)
+[![Latest Stable Version](https://poser.pugx.org/yiisoft/html/v)](https://packagist.org/packages/yiisoft/html)
+[![Total Downloads](https://poser.pugx.org/yiisoft/html/downloads)](https://packagist.org/packages/yiisoft/html)
+[![Build status](https://github.com/yiisoft/html/actions/workflows/build.yml/badge.svg)](https://github.com/yiisoft/html/actions/workflows/build.yml)
 [![Code Coverage](https://codecov.io/gh/yiisoft/html/branch/master/graph/badge.svg)](https://codecov.io/gh/yiisoft/html)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fyiisoft%2Fhtml%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/yiisoft/html/master)
 [![static analysis](https://github.com/yiisoft/html/workflows/static%20analysis/badge.svg)](https://github.com/yiisoft/html/actions?query=workflow%3A%22static+analysis%22)
