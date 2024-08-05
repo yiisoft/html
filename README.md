@@ -66,7 +66,7 @@ use Yiisoft\Html\Tag\Meta;
     <?= Html::openTag('div', ['class' => 'container flex-fill']) ?>
         <?= Html::p('', ['class' => 'float-left']) ?>
         <?= Html::p()
-            ->replaceClass('float-right')
+            ->class('float-right')
             ->content(
                 'Powered by ',
                 Html::a(
@@ -94,7 +94,7 @@ echo \Yiisoft\Html\Tag\Div::tag()
     )
     ->encode(false)
     ->id('ContactEmail')
-    ->replaceClass('red');
+    ->class('red');
 ```
 
 ... will generate the following HTML:
@@ -216,8 +216,7 @@ echo \Yiisoft\Html\Widget\RadioList\RadioList::create('count')
     ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
     ->uncheckValue(0)
     ->value(2)
-    ->containerAttributes(['id' => 'main'])
-    ->render();
+    ->containerAttributes(['id' => 'main']);
 ```
 
 Result will be:
