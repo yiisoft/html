@@ -1608,7 +1608,6 @@ final class Html
      */
     public static function renderTagAttributes(array $attributes): string
     {
-        $attributes = self::filterNullAttributes($attributes);
         if (count($attributes) > 1) {
             $sorted = [];
             foreach (self::ATTRIBUTE_ORDER as $name) {
@@ -1632,6 +1631,9 @@ final class Html
                 if (in_array($name, self::DATA_ATTRIBUTES, true)) {
                     /** @psalm-var array<array-key, scalar[]|string|Stringable|null> $value */
                     foreach ($value as $n => $v) {
+                        if (!isset($v)) {
+                            continue;
+                        }
                         $fullName = "$name-$n";
                         if (in_array($fullName, self::ATTRIBUTES_WITH_CONCATENATED_VALUES, true)) {
                             $html .= self::renderAttribute(
@@ -1963,37 +1965,5 @@ final class Html
         }
 
         return ' ' . $name . '=' . $quote . $encodedValue . $quote;
-    }
-
-    /**
-     * Removes attributes of self::DATA_ATTRIBUTES and self::ATTRIBUTES_WITH_CONCATENATED_VALUES
-     * that are null or contain a null in their subarray
-     *
-     * @param array $attributes The tag attributes in terms of name-value pairs.
-     */
-    private static function filterNullAttributes(array $attributes): array
-    {
-        return array_filter($attributes, function ($value, $attribute) {
-            if (
-                in_array($attribute, self::DATA_ATTRIBUTES) ||
-                in_array($attribute, self::ATTRIBUTES_WITH_CONCATENATED_VALUES)
-            ) {
-                if (!isset($value)) {
-                    return false;
-                }
-
-                if (is_array($value)) {
-                    $containsNull = false;
-                    array_walk_recursive($value, function ($value) use (&$containsNull) {
-                        if (!isset($value)) {
-                            $containsNull = true;
-                        }
-                    });
-                    return !$containsNull;
-                }
-            }
-
-            return true;
-        }, ARRAY_FILTER_USE_BOTH);
     }
 }
