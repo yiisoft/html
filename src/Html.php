@@ -1966,26 +1966,34 @@ final class Html
     }
 
     /**
-     * Removes array elements that are null or contain subarrays that contain null
+     * Removes attributes of self::DATA_ATTRIBUTES and self::ATTRIBUTES_WITH_CONCATENATED_VALUES
+     * that are null or contain a null in their subarray
      *
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
     private static function filterNullAttributes(array $attributes): array
     {
-        return array_filter($attributes, function ($attribute) {
-            if (!isset($attribute)) {
-                return false;
+        return array_filter($attributes, function ($value, $attribute) {
+            if (
+                in_array($attribute, self::DATA_ATTRIBUTES) ||
+                in_array($attribute, self::ATTRIBUTES_WITH_CONCATENATED_VALUES)
+            ) {
+                if (!isset($value)) {
+                    return false;
+                }
+
+                if (is_array($value)) {
+                    $containsNull = false;
+                    array_walk_recursive($value, function ($value) use (&$containsNull) {
+                        if (!isset($value)) {
+                            $containsNull = true;
+                        }
+                    });
+                    return !$containsNull;
+                }
             }
-            if (is_array($attribute)) {
-                $containsNull = false;
-                array_walk_recursive($attribute, function ($attribute) use (&$containsNull) {
-                    if (!isset($attribute)) {
-                        $containsNull = true;
-                    }
-                });
-                return !$containsNull;
-            }
+
             return true;
-        });
+        }, ARRAY_FILTER_USE_BOTH);
     }
 }
