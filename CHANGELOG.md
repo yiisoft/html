@@ -2,7 +2,8 @@
 
 ## 3.5.1 under development
 
-- no changes in this release.
+- Bug #209: Fix output of `null` value attributes in `Html::renderTagAttributes()` when attribute is in `Html::DATA_ATTRIBUTES` or `Html::ATTRIBUTES_WITH_CONCATENATED_VALUES` (@es-sayers)
+
 
 ## 3.5.0 July 11, 2024
 
