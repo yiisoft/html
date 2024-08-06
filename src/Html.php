@@ -1631,6 +1631,9 @@ final class Html
                 if (in_array($name, self::DATA_ATTRIBUTES, true)) {
                     /** @psalm-var array<array-key, scalar[]|string|Stringable|null> $value */
                     foreach ($value as $n => $v) {
+                        if (!isset($v)) {
+                            continue;
+                        }
                         $fullName = "$name-$n";
                         if (in_array($fullName, self::ATTRIBUTES_WITH_CONCATENATED_VALUES, true)) {
                             $html .= self::renderAttribute(
