@@ -848,10 +848,12 @@ final class HtmlTest extends TestCase
             ],
             [
                 '',
-                ['data-test1' => null,
-                'data' => [
-                    'test2' => null
-                ]]
+                [
+                    'data-test1' => null,
+                    'data' => [
+                        'test2' => null,
+                    ],
+                ],
             ],
             [
                 ' src="xyz" data-a="1" data-b="c"',
