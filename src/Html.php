@@ -893,10 +893,10 @@ final class Html
      * Generates a {@see Textarea} input.
      *
      * @param string|null $name The input name.
-     * @param string|null $value The input value.
+     * @param string|string[]|Stringable|null $value The input value.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function textarea(?string $name = null, ?string $value = null, array $attributes = []): Textarea
+    public static function textarea(?string $name = null, string|Stringable|array|null $value = null, array $attributes = []): Textarea
     {
         $tag = Textarea::tag();
         if ($name !== null) {

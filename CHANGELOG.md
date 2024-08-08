@@ -4,6 +4,7 @@
 
 - Bug #212: Add `ValueError Exception` in `Html::renderAttribute()` for illegal characters in `$name` (@es-sayers)
 - Bug #208: Fix output of `null` value attributes in `Html::renderTagAttributes()` (@es-sayers)
+- Enh #214: Add `Stringable` and array values support to textarea tag (@vjik) 
 
 ## 3.5.0 July 11, 2024
 
