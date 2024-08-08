@@ -4,6 +4,7 @@
 
 - Bug #212: Fix attribute name encoding in `Html::renderAttribute()` (@es-sayers)
 - Bug #208: Fix output of `null` value attributes in `Html::renderTagAttributes()` (@es-sayers)
+- Enh #214: Add `Stringable` and array values support to textarea tag (@vjik) 
 
 ## 3.5.0 July 11, 2024
 
