@@ -3,6 +3,7 @@
 ## 3.5.1 under development
 
 - Bug #208: Fix output of `null` value attributes in `Html::renderTagAttributes()` (@es-sayers)
+- Enh #214: Add `Stringable` and array values support to textarea tag (@vjik) 
 
 ## 3.5.0 July 11, 2024
 
