@@ -10,7 +10,6 @@ use Yiisoft\Html\Tag\Base\TagContentTrait;
 
 use function implode;
 use function is_array;
-use function is_string;
 
 /**
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-textarea-element
@@ -41,7 +40,7 @@ final class Textarea extends NormalTag
     }
 
     /**
-     * @param string|Stringable|string[]|null $value
+     * @param string|string[]|Stringable|null $value
      */
     public function value(string|Stringable|array|null $value): self
     {

@@ -85,7 +85,7 @@ final class TextareaTest extends TestCase
 
                 d</textarea>
                 HTML,
-                ['a', 'b', null, 'c', '', 'd']
+                ['a', 'b', null, 'c', '', 'd'],
             ],
         ];
     }
