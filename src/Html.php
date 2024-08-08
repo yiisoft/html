@@ -1964,6 +1964,6 @@ final class Html
             return ' ' . $name;
         }
 
-        return ' ' . $name . '=' . $quote . $encodedValue . $quote;
+        return ' ' . self::encodeUnquotedAttribute($name) . '=' . $quote . $encodedValue . $quote;
     }
 }

@@ -891,6 +891,14 @@ final class HtmlTest extends TestCase
                 ' aria-describedby="hint1 hint2"',
                 ['aria' => ['describedby' => ['hint1', 'hint2']]],
             ],
+            'attributes with html characters in attribute name' => [
+                ' &gt;&quot;&lt;="&gt;"',
+                ['>"<' => '>']
+            ],
+            'data attributes with html characters in attribute name' => [
+                ' data-&gt;&quot;&lt;="&gt;"',
+                ['data' => ['>"<' => '>']]
+            ],
         ];
     }
 
