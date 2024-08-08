@@ -85,7 +85,7 @@ final class TextareaTest extends TestCase
 
                 d</textarea>
                 HTML,
-                ['a', new StringableObject('b'), null, 'c', '', 'd']
+                ['a', new StringableObject('b'), null, 'c', '', 'd'],
             ],
         ];
     }
