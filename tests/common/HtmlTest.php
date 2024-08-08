@@ -903,7 +903,7 @@ final class HtmlTest extends TestCase
         $this->assertSame($expected, Html::renderTagAttributes($attributes));
     }
 
-    public function dataRenderTagAttributesThrowsInvalidArgumentException()
+    public function dataRenderTagAttributesThrowsValueError()
     {
         return
         [
@@ -917,9 +917,9 @@ final class HtmlTest extends TestCase
     }
 
     /**
-     * @dataProvider dataRenderTagAttributesThrowsInvalidArgumentException
+     * @dataProvider dataRenderTagAttributesThrowsValueError
      */
-    public function testRenderTagAttributesThrowsInvalidArgumentException(array $attributes): void
+    public function testRenderTagAttributesThrowsValueError(array $attributes): void
     {
         $this->expectException(ValueError::class);
         Html::renderTagAttributes($attributes);
