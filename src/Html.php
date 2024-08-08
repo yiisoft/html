@@ -7,6 +7,7 @@ namespace Yiisoft\Html;
 use InvalidArgumentException;
 use JsonException;
 use Stringable;
+use ValueError;
 use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Address;
 use Yiisoft\Html\Tag\Article;
@@ -1956,14 +1957,21 @@ final class Html
      * Render attribute in HTML tag.
      *
      * @link https://html.spec.whatwg.org/#a-quick-introduction-to-html
+     * @throws ValueError When name contains any of the following: SPACE " ' > / =
      */
     private static function renderAttribute(string $name, string $encodedValue = '', string $quote = '"'): string
     {
+        if (preg_match('/[\s"\'>\/\=]/', $name) > 0) {
+            throw new ValueError(
+                'Name "' . $name . '" contains invalid character(s). Attribute name must not contain: [SPACE, ", \', >, /, =]'
+            );
+        }
+
         // The value, along with the "=" character, can be omitted altogether if the value is the empty string.
         if ($encodedValue === '') {
             return ' ' . $name;
         }
 
-        return ' ' . self::encodeUnquotedAttribute($name) . '=' . $quote . $encodedValue . $quote;
+        return ' ' . $name . '=' . $quote . $encodedValue . $quote;
     }
 }

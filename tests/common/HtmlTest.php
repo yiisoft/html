@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tests;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use ValueError;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tests\Objects\StringableObject;
@@ -890,15 +891,7 @@ final class HtmlTest extends TestCase
             'attributes with concatenated attributes, nested, value: array' => [
                 ' aria-describedby="hint1 hint2"',
                 ['aria' => ['describedby' => ['hint1', 'hint2']]],
-            ],
-            'attributes with html characters in attribute name' => [
-                ' &gt;&quot;&lt;="&gt;"',
-                ['>"<' => '>']
-            ],
-            'data attributes with html characters in attribute name' => [
-                ' data-&gt;&quot;&lt;="&gt;"',
-                ['data' => ['>"<' => '>']]
-            ],
+            ]
         ];
     }
 
@@ -910,6 +903,27 @@ final class HtmlTest extends TestCase
         $this->assertSame($expected, Html::renderTagAttributes($attributes));
     }
 
+    public function dataRenderTagAttributesThrowsInvalidArgumentException()
+    {
+        return
+        [
+            [[' ' => '0']],
+            [['"' => '0']],
+            [["'" => '0']],
+            [[">" => '0']],
+            [['/' => '0']],
+            [['=' => '0']],
+        ];
+    }
+
+    /**
+     * @dataProvider dataRenderTagAttributesThrowsInvalidArgumentException
+     */
+    public function testRenderTagAttributesThrowsInvalidArgumentException(array $attributes): void
+    {
+        $this->expectException(ValueError::class);
+        Html::renderTagAttributes($attributes);
+    }
     public function dataAddCssClass(): array
     {
         return [
