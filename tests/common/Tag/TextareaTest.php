@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Textarea;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 
 final class TextareaTest extends TestCase
 {
@@ -71,14 +72,28 @@ final class TextareaTest extends TestCase
     {
         return [
             ['<textarea></textarea>', null],
+            ['<textarea></textarea>', ''],
+            ['<textarea></textarea>', new StringableObject('')],
             ['<textarea>content</textarea>', 'content'],
+            ['<textarea>content</textarea>', new StringableObject('content')],
+            [
+                <<<HTML
+                <textarea>a
+                b
+
+                c
+
+                d</textarea>
+                HTML,
+                ['a', 'b', null, 'c', '', 'd']
+            ],
         ];
     }
 
     /**
      * @dataProvider dataValue
      */
-    public function testValue(string $expected, ?string $value): void
+    public function testValue(string $expected, mixed $value): void
     {
         $this->assertSame($expected, (string)Textarea::tag()->value($value));
     }
