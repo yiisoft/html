@@ -2,6 +2,7 @@
 
 ## 3.5.1 under development
 
+- Bug #212: Fix attribute name encoding in `Html::renderTagAttributes()` (@es-sayers)
 - Bug #208: Fix output of `null` value attributes in `Html::renderTagAttributes()` (@es-sayers)
 
 ## 3.5.0 July 11, 2024
