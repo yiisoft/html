@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Widget\CheckboxList;
 
+use BackedEnum;
 use Closure;
 use Stringable;
 use Yiisoft\Arrays\ArrayHelper;
@@ -161,21 +162,22 @@ final class CheckboxList implements NoEncodeStringableInterface
         );
     }
 
-    public function value(bool|string|int|float|Stringable ...$value): self
+    public function value(bool|string|int|float|Stringable|BackedEnum ...$value): self
     {
         $new = clone $this;
-        $new->values = array_map('\strval', array_values($value));
+        $new->values = array_map(
+            static fn ($v): string => (string) ($v instanceof BackedEnum ? $v->value : $v),
+            array_values($value)
+        );
         return $new;
     }
 
     /**
-     * @psalm-param iterable<int, Stringable|scalar> $values
+     * @psalm-param iterable<int, Stringable|scalar|BackedEnum> $values
      */
     public function values(iterable $values): self
     {
-        /** @psalm-var iterable<int, Stringable|scalar> $values */
         $values = is_array($values) ? $values : iterator_to_array($values);
-
         return $this->value(...$values);
     }
 
