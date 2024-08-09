@@ -6,7 +6,6 @@ namespace Yiisoft\Html\Tests;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use ValueError;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tests\Objects\StringableObject;
@@ -903,7 +902,7 @@ final class HtmlTest extends TestCase
         $this->assertSame($expected, Html::renderTagAttributes($attributes));
     }
 
-    public function dataRenderTagAttributesThrowsValueError()
+    public function dataRenderTagAttributesThrowsInvalidArgumentException()
     {
         return
         [
@@ -917,11 +916,11 @@ final class HtmlTest extends TestCase
     }
 
     /**
-     * @dataProvider dataRenderTagAttributesThrowsValueError
+     * @dataProvider dataRenderTagAttributesThrowsInvalidArgumentException
      */
-    public function testRenderTagAttributesThrowsValueError(array $attributes): void
+    public function testRenderTagAttributesThrowsInvalidArgumentException(array $attributes): void
     {
-        $this->expectException(ValueError::class);
+        $this->expectException(InvalidArgumentException::class);
         Html::renderTagAttributes($attributes);
     }
     public function dataAddCssClass(): array
