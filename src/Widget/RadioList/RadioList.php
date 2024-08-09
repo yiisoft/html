@@ -156,6 +156,9 @@ final class RadioList implements NoEncodeStringableInterface
         );
     }
 
+    /**
+     * @psalm-suppress UndefinedClass,MixedInferredReturnType Remove it after update to PHP 8.1
+     */
     public function value(bool|float|int|string|Stringable|BackedEnum|null $value): self
     {
         $new = clone $this;

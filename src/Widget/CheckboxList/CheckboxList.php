@@ -162,6 +162,9 @@ final class CheckboxList implements NoEncodeStringableInterface
         );
     }
 
+    /**
+     * @psalm-suppress UndefinedClass,MixedInferredReturnType Remove it after update to PHP 8.1
+     */
     public function value(bool|string|int|float|Stringable|BackedEnum ...$value): self
     {
         $new = clone $this;
@@ -173,6 +176,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
+     * @psalm-suppress UndefinedDocblockClass,MixedInferredReturnType Remove it after update to PHP 8.1
      * @psalm-param iterable<int, Stringable|scalar|BackedEnum> $values
      */
     public function values(iterable $values): self
