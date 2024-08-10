@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Widget\RadioList;
 
+use BackedEnum;
 use Closure;
 use Stringable;
 use Yiisoft\Html\Html;
@@ -155,10 +156,15 @@ final class RadioList implements NoEncodeStringableInterface
         );
     }
 
-    public function value(bool|float|int|string|Stringable|null $value): self
+    /**
+     * @psalm-suppress UndefinedClass,MixedInferredReturnType Remove it after update to PHP 8.1
+     */
+    public function value(bool|float|int|string|Stringable|BackedEnum|null $value): self
     {
         $new = clone $this;
-        $new->value = $value === null ? null : (string) $value;
+        $new->value = $value === null
+            ? null
+            : (string) ($value instanceof BackedEnum ? $value->value : $value);
         return $new;
     }
 
