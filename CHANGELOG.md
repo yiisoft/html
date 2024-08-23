@@ -1,12 +1,12 @@
 # Yii HTML Change Log
 
-## 3.5.1 under development
+## 3.6.0 August 23, 2024
 
 - Enh #212: Throw `InvalidArgumentException` in `Html::renderAttribute()` when attribute name is empty or contains 
   forbidden symbols (@es-sayers, @vjik)
-- Bug #208: Fix output of `null` value attributes in `Html::renderTagAttributes()` (@es-sayers)
 - Enh #214: Add `Stringable` and array values support to textarea tag (@vjik)
 - Enh #217: Add backed enumeration value support to `CheckboxList` and `RadioList` widgets (@vjik)
+- Bug #208: Fix output of `null` value attributes in `Html::renderTagAttributes()` (@es-sayers)
 
 ## 3.5.0 July 11, 2024
 
