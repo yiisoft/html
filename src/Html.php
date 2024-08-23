@@ -1956,9 +1956,37 @@ final class Html
      * Render attribute in HTML tag.
      *
      * @link https://html.spec.whatwg.org/#a-quick-introduction-to-html
+     * @link https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
+     *
+     * @throws InvalidArgumentException When attribute name is empty or contains forbidden symbols:
+     *   - range U+0000 NULL to U+001F INFORMATION SEPARATOR ONE
+     *   - range U+007F DELETE to U+009F APPLICATION PROGRAM COMMAND
+     *   - U+0020 SPACE
+     *   - U+0022 (")
+     *   - U+0027 (')
+     *   - U+003E (>)
+     *   - U+002F (/)
+     *   - U+003D (=)
+     *   - range U+FDD0 to U+FDEF
+     *   - U+FFFE, U+FFFF, U+1FFFE, U+1FFFF, U+2FFFE, U+2FFFF, U+3FFFE, U+3FFFF, U+4FFFE, U+4FFFF, U+5FFFE, U+5FFFF,
+     *     U+6FFFE, U+6FFFF, U+7FFFE, U+7FFFF, U+8FFFE, U+8FFFF, U+9FFFE, U+9FFFF, U+AFFFE, U+AFFFF, U+BFFFE,
+     *     U+BFFFF, U+CFFFE, U+CFFFF, U+DFFFE, U+DFFFF, U+EFFFE, U+EFFFF, U+FFFFE, U+FFFFF, U+10FFFE, or U+10FFFF
      */
     private static function renderAttribute(string $name, string $encodedValue = '', string $quote = '"'): string
     {
+        if ($name === '') {
+            throw new InvalidArgumentException('Attribute name is empty.');
+        }
+
+        if (
+            preg_match(
+                '~[\x{0000}-\x{001F}\x{007F}-\x{009F}\x{FDD0}-\x{FDEF}\x{FFFE}\x{FFFF}\x{1FFFE}\x{1FFFF}\x{2FFFE}\x{2FFFF}\x{3FFFE}\x{3FFFF}\x{4FFFE}\x{4FFFF}\x{5FFFE}\x{5FFFF}\x{6FFFE}\x{6FFFF}\x{7FFFE}\x{7FFFF}\x{8FFFE}\x{8FFFF}\x{9FFFE}\x{9FFFF}\x{AFFFE}\x{AFFFF}\x{BFFFE}\x{BFFFF}\x{CFFFE}\x{CFFFF}\x{DFFFE}\x{DFFFF}\x{EFFFE}\x{EFFFF}\x{FFFFE}\x{FFFFF}\x{10FFFE}\x{10FFFF} "\'>/=]~u',
+                $name
+            ) > 0
+        ) {
+            throw new InvalidArgumentException('Attribute name "' . $name . '" contains invalid character(s).');
+        }
+
         // The value, along with the "=" character, can be omitted altogether if the value is the empty string.
         if ($encodedValue === '') {
             return ' ' . $name;

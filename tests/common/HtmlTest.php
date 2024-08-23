@@ -902,6 +902,45 @@ final class HtmlTest extends TestCase
         $this->assertSame($expected, Html::renderTagAttributes($attributes));
     }
 
+    public static function dataRenderTagAttributesWithForbiddenSymbols(): iterable
+    {
+        return
+        [
+            [' '],
+            ['"'],
+            ["'"],
+            ['>'],
+            ['/'],
+            ['='],
+            ["\u{0000}"],
+            ["\u{0001}"],
+            ["\u{007F}"],
+            ["\u{0080}"],
+            ["\u{FDD0}"],
+            ["\u{FDD1}"],
+            ["\u{FFFE}"],
+            ["\u{FFFFE}"],
+            ["\u{10FFFF}"],
+        ];
+    }
+
+    /**
+     * @dataProvider dataRenderTagAttributesWithForbiddenSymbols
+     */
+    public function testRenderTagAttributesWithForbiddenSymbols(string $name): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Attribute name "' . $name . '" contains invalid character(s).');
+        Html::renderTagAttributes([$name => 'test']);
+    }
+
+    public function testRenderTagAttributeWithEmptyName(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Attribute name is empty.');
+        Html::renderTagAttributes(['' => 'test']);
+    }
+
     public function dataAddCssClass(): array
     {
         return [
