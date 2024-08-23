@@ -890,7 +890,7 @@ final class HtmlTest extends TestCase
             'attributes with concatenated attributes, nested, value: array' => [
                 ' aria-describedby="hint1 hint2"',
                 ['aria' => ['describedby' => ['hint1', 'hint2']]],
-            ]
+            ],
         ];
     }
 
