@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.6.1 under development
+
+- no changes in this release.
+
 ## 3.6.0 August 23, 2024
 
 - Enh #212: Throw `InvalidArgumentException` in `Html::renderAttribute()` when attribute name is empty or contains 
