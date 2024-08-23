@@ -4,7 +4,8 @@
 
 - Bug #212: Add `InvalidArgumentException` in `Html::renderAttribute()` for illegal characters in `$name` (@es-sayers)
 - Bug #208: Fix output of `null` value attributes in `Html::renderTagAttributes()` (@es-sayers)
-- Enh #214: Add `Stringable` and array values support to textarea tag (@vjik) 
+- Enh #214: Add `Stringable` and array values support to textarea tag (@vjik)
+- Enh #217: Add backed enumeration value support to `CheckboxList` and `RadioList` widgets (@vjik)
 
 ## 3.5.0 July 11, 2024
 
