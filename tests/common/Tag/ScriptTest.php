@@ -136,5 +136,49 @@ final class ScriptTest extends TestCase
         $this->assertNotSame($script, $script->defer());
         $this->assertNotSame($script, $script->noscript(null));
         $this->assertNotSame($script, $script->noscriptTag(null));
+        $this->assertNotSame($script, $script->nonce(true));
+    }
+
+    public static function nonceDataProvider(): array
+    {
+        return [
+            [
+                true,
+                'nonce-',
+            ],
+            [
+                false,
+                null,
+            ],
+            [
+                '',
+                null,
+            ],
+            [
+                'test-nonce',
+                'test-nonce',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider nonceDataProvider
+     */
+    public function testNonce(bool|string $nonce, ?string $expected): void
+    {
+        $script = Script::tag()->nonce($nonce);
+
+        if ($expected === null) {
+            $this->assertStringNotContainsString('nonce="', (string)$script);
+            $this->assertNull($script->getNonce());
+        } else {
+            $this->assertStringContainsString('nonce="' . $expected, (string)$script);
+
+            if ($nonce === true) {
+                $this->assertStringStartsWith($expected, $script->getNonce());
+            } else {
+                $this->assertSame($expected, $script->getNonce());
+            }
+        }
     }
 }

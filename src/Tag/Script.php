@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use Stringable;
+use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\NormalTag;
+
+use function is_string;
 
 /**
  * @link https://www.w3.org/TR/html52/semantics-scripting.html#the-script-element
@@ -30,6 +33,31 @@ final class Script extends NormalTag
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    /**
+     * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce
+     */
+    public function nonce(bool|string $nonce): self
+    {
+        $new = clone $this;
+
+        if (!$nonce) {
+            unset($new->attributes['nonce']);
+        } elseif ($nonce === true) {
+            $new->attributes['nonce'] = Html::generateId('nonce-');
+        } else {
+            $new->attributes['nonce'] = $nonce;
+        }
+
+        return $new;
+    }
+
+    public function getNonce(): ?string
+    {
+        $nonce = $this->attributes['nonce'] ?? null;
+
+        return is_string($nonce) ? $nonce : null;
     }
 
     /**

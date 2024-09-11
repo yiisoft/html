@@ -2,7 +2,7 @@
 
 ## 3.6.1 under development
 
-- no changes in this release.
+- New: Add method `Script::nonce()` and `Script::getNonce` for CSP (@Gerych1984)
 
 ## 3.6.0 August 23, 2024
 
