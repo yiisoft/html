@@ -136,49 +136,63 @@ final class ScriptTest extends TestCase
         $this->assertNotSame($script, $script->defer());
         $this->assertNotSame($script, $script->noscript(null));
         $this->assertNotSame($script, $script->noscriptTag(null));
-        $this->assertNotSame($script, $script->nonce(true));
+        $this->assertNotSame($script, $script->nonce(null));
+        $this->assertNotSame($script, $script->generateNonce());
     }
 
     public static function nonceDataProvider(): array
     {
         return [
-            [
-                true,
-                'nonce-',
-            ],
-            [
-                false,
-                null,
-            ],
-            [
-                '',
-                null,
-            ],
-            [
-                'test-nonce',
-                'test-nonce',
-            ],
+            [null],
+            [''],
+            ['test-nonce'],
+            ['0'],
         ];
     }
 
     /**
      * @dataProvider nonceDataProvider
      */
-    public function testNonce(bool|string $nonce, ?string $expected): void
+    public function testNonce(?string $nonce): void
     {
         $script = Script::tag()->nonce($nonce);
 
-        if ($expected === null) {
-            $this->assertStringNotContainsString('nonce="', (string)$script);
+        if ($nonce === null) {
+            $this->assertStringNotContainsString(' nonce="', (string)$script);
             $this->assertNull($script->getNonce());
         } else {
-            $this->assertStringContainsString('nonce="' . $expected, (string)$script);
 
-            if ($nonce === true) {
-                $this->assertStringStartsWith($expected, $script->getNonce());
+            $this->assertSame($nonce, $script->getNonce());
+
+            if ($nonce === '') {
+                $this->assertStringContainsString(' nonce', (string)$script);
             } else {
-                $this->assertSame($expected, $script->getNonce());
+                $this->assertStringContainsString(' nonce="' . $nonce . '"', (string)$script);
             }
+        }
+    }
+
+    public static function noncePrefixDataProvider(): array
+    {
+        return [
+            ['nonce-'],
+            ['test'],
+            [''],
+            [null],
+        ];
+    }
+
+    /**
+     * @dataProvider noncePrefixDataProvider
+     */
+    public function testGenerateNonce(?string $prefix): void
+    {
+        $script = Script::tag()->generateNonce($prefix);
+
+        $this->assertNotNull($script->getNonce());
+
+        if ($prefix) {
+            $this->assertStringStartsWith($prefix, $script->getNonce());
         }
     }
 }
