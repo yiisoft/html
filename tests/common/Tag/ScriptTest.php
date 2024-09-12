@@ -137,62 +137,23 @@ final class ScriptTest extends TestCase
         $this->assertNotSame($script, $script->noscript(null));
         $this->assertNotSame($script, $script->noscriptTag(null));
         $this->assertNotSame($script, $script->nonce(null));
-        $this->assertNotSame($script, $script->generateNonce());
     }
 
-    public static function nonceDataProvider(): array
+    public static function dataNonce(): iterable
     {
-        return [
-            [null],
-            [''],
-            ['test-nonce'],
-            ['0'],
-        ];
+        yield ['<script nonce="test-nonce"></script>', 'test-nonce'];
+        yield ['<script></script>', null];
+        yield ['<script nonce></script>', ''];
+        yield ['<script nonce="0"></script>', '0'];
     }
 
     /**
-     * @dataProvider nonceDataProvider
+     * @dataProvider dataNonce
      */
-    public function testNonce(?string $nonce): void
+    public function testNonce(string $expectedHtml, ?string $nonce): void
     {
         $script = Script::tag()->nonce($nonce);
 
-        if ($nonce === null) {
-            $this->assertStringNotContainsString(' nonce="', (string)$script);
-            $this->assertNull($script->getNonce());
-        } else {
-
-            $this->assertSame($nonce, $script->getNonce());
-
-            if ($nonce === '') {
-                $this->assertStringContainsString(' nonce', (string)$script);
-            } else {
-                $this->assertStringContainsString(' nonce="' . $nonce . '"', (string)$script);
-            }
-        }
-    }
-
-    public static function noncePrefixDataProvider(): array
-    {
-        return [
-            ['nonce-'],
-            ['test'],
-            [''],
-            [null],
-        ];
-    }
-
-    /**
-     * @dataProvider noncePrefixDataProvider
-     */
-    public function testGenerateNonce(?string $prefix): void
-    {
-        $script = Script::tag()->generateNonce($prefix);
-
-        $this->assertNotNull($script->getNonce());
-
-        if ($prefix) {
-            $this->assertStringStartsWith($prefix, $script->getNonce());
-        }
+        $this->assertSame($expectedHtml, (string) $script);
     }
 }

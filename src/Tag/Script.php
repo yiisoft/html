@@ -35,11 +35,6 @@ final class Script extends NormalTag
         return $this->content;
     }
 
-    public function generateNonce(?string $prefix = null): self
-    {
-        return $this->nonce(Html::generateId($prefix ?? ''));
-    }
-
     /**
      * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce
      */
@@ -54,13 +49,6 @@ final class Script extends NormalTag
         }
 
         return $new;
-    }
-
-    public function getNonce(): ?string
-    {
-        $nonce = $this->attributes['nonce'] ?? null;
-
-        return is_string($nonce) ? $nonce : null;
     }
 
     /**

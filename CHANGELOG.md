@@ -2,7 +2,7 @@
 
 ## 3.6.1 under development
 
-- New #218: Add methods `Script::nonce()`, `Script::generateNonce()` and `Script::getNonce()` for CSP (@Gerych1984)
+- New #218: Add method `Script::nonce()` for CSP (@Gerych1984, @vjik)
 
 ## 3.6.0 August 23, 2024
 
