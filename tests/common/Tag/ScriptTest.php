@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Noscript;
@@ -136,5 +137,42 @@ final class ScriptTest extends TestCase
         $this->assertNotSame($script, $script->defer());
         $this->assertNotSame($script, $script->noscript(null));
         $this->assertNotSame($script, $script->noscriptTag(null));
+        $this->assertNotSame($script, $script->nonce(null));
+    }
+
+    public static function dataNonce(): iterable
+    {
+        yield ['<script nonce="test-nonce"></script>', 'test-nonce'];
+        yield ['<script></script>', null];
+        yield ['<script nonce></script>', ''];
+        yield ['<script nonce="0"></script>', '0'];
+    }
+
+    /**
+     * @dataProvider dataNonce
+     */
+    public function testNonce(string $expectedHtml, ?string $nonce): void
+    {
+        $script = Script::tag()->nonce($nonce);
+
+        $this->assertSame($expectedHtml, (string) $script);
+        $this->assertSame($nonce, $script->getNonce());
+    }
+
+    public function testNonceWithoutValue(): void
+    {
+        $script = Script::tag();
+
+        $this->assertSame('<script></script>', (string) $script);
+        $this->assertNull($script->getNonce());
+    }
+
+    public function testInvalidNonce(): void
+    {
+        $script = Script::tag()->attribute('nonce', []);
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Nonce should be string or null. Got array.');
+        $script->getNonce();
     }
 }
