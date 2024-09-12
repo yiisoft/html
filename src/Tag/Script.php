@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag;
 
 use Stringable;
-use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\NormalTag;
-
-use function is_string;
 
 /**
  * @link https://www.w3.org/TR/html52/semantics-scripting.html#the-script-element
