@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag;
 
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Noscript;
@@ -155,5 +156,23 @@ final class ScriptTest extends TestCase
         $script = Script::tag()->nonce($nonce);
 
         $this->assertSame($expectedHtml, (string) $script);
+        $this->assertSame($nonce, $script->getNonce());
+    }
+
+    public function testNonceWithoutValue(): void
+    {
+        $script = Script::tag();
+
+        $this->assertSame('<script></script>', (string) $script);
+        $this->assertNull($script->getNonce());
+    }
+
+    public function testInvalidNonce(): void
+    {
+        $script = Script::tag()->attribute('nonce', []);
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Nonce should be string or null. Got array.');
+        $script->getNonce();
     }
 }

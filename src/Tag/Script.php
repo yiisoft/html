@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use LogicException;
 use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
+
+use function get_debug_type;
+use function is_string;
+use function sprintf;
 
 /**
  * @link https://www.w3.org/TR/html52/semantics-scripting.html#the-script-element
@@ -46,6 +51,22 @@ final class Script extends NormalTag
         }
 
         return $new;
+    }
+
+    public function getNonce(): ?string
+    {
+        $nonce = $this->attributes['nonce'] ?? null;
+
+        if (is_string($nonce) || $nonce === null) {
+            return $nonce;
+        }
+
+        throw new LogicException(
+            sprintf(
+                'Nonce should be string or null. Got %s.',
+                get_debug_type($nonce)
+            )
+        );
     }
 
     /**
