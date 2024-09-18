@@ -12,8 +12,6 @@ use Yiisoft\Html\TestsPhp81\Support\StringEnum;
 
 final class SelectTest extends TestCase
 {
-
-
     public function dataValue(): array
     {
         return [
