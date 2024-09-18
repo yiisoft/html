@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.7.1 under development
+
+- no changes in this release.
+
 ## 3.7.0 September 18, 2024
 
 - New #218: Add methods `Script::nonce()` and `Script::getNonce()` for CSP (@Gerych1984, @vjik)
