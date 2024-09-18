@@ -50,9 +50,7 @@ final class Select extends NormalTag
     {
         $new = clone $this;
         $new->values = array_map(
-            static function (Stringable|bool|float|int|string|BackedEnum $v): string {
-                return (string) ($v instanceof BackedEnum ? $v->value : $v);
-            },
+            static fn(Stringable|bool|float|int|string|BackedEnum $v): string => (string) ($v instanceof BackedEnum ? $v->value : $v),
             array_values($value)
         );
         return $new;
