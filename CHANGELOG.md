@@ -3,6 +3,7 @@
 ## 3.6.1 under development
 
 - New #218: Add methods `Script::nonce()` and `Script::getNonce()` for CSP (@Gerych1984, @vjik)
+- Enh #219: Add backed enumeration value support to `Select` tag (@vjik)
 
 ## 3.6.0 August 23, 2024
 

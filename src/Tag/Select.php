@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use BackedEnum;
 use Stringable;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Base\NormalTag;
@@ -43,17 +44,24 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-param Stringable|bool|float|int|string ...$value One or more string values.
+     * @psalm-suppress UndefinedClass,MixedInferredReturnType Need for PHP 8.0 only
+     * @psalm-param Stringable|scalar|BackedEnum ...$value One or more string values.
      */
-    public function value(Stringable|bool|float|int|string ...$value): self
+    public function value(Stringable|bool|float|int|string|BackedEnum ...$value): self
     {
         $new = clone $this;
-        $new->values = array_map('\strval', array_values($value));
+        $new->values = array_map(
+            static function (Stringable|bool|float|int|string|BackedEnum $v): string {
+                return (string) ($v instanceof BackedEnum ? $v->value : $v);
+            },
+            array_values($value)
+        );
         return $new;
     }
 
     /**
-     * @psalm-param iterable<int, Stringable|scalar> $values A set of values.
+     * @psalm-suppress UndefinedClass,MixedInferredReturnType Need for PHP 8.0 only
+     * @psalm-param iterable<int, Stringable|scalar|BackedEnum> $values A set of values.
      */
     public function values(iterable $values): self
     {
