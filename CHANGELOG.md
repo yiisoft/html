@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 3.6.1 under development
+## 3.7.0 September 18, 2024
 
 - New #218: Add methods `Script::nonce()` and `Script::getNonce()` for CSP (@Gerych1984, @vjik)
 - Enh #219: Add backed enumeration value support to `Select` tag (@vjik)
