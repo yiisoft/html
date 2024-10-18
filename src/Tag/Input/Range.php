@@ -24,6 +24,10 @@ final class Range extends InputTag
      */
     private string $outputTag = 'span';
     private array $outputAttributes = [];
+
+    /**
+     * @psalm-var non-empty-string|null
+     */
     private ?string $outputId = null;
 
     /**
@@ -111,7 +115,7 @@ final class Range extends InputTag
         $this->attributes['type'] = 'range';
 
         if ($this->showOutput) {
-            $this->outputId = (string) ($this->outputAttributes['id'] ?? Html::generateId('rangeOutput'));
+            $this->fillOutputId();
             $this->attributes['oninput'] = 'document.getElementById("' . $this->outputId . '").innerHTML=this.value';
         }
     }
@@ -127,5 +131,14 @@ final class Range extends InputTag
                 ->content((string) ($this->attributes['value'] ?? '-'))
                 ->id($this->outputId)
                 ->render();
+    }
+
+    /**
+     * @psalm-assert non-empty-string $this->outputId
+     */
+    private function fillOutputId(): void
+    {
+        $id = (string) ($this->outputAttributes['id'] ?? '');
+        $this->outputId = $id === '' ? Html::generateId('rangeOutput') : $id;
     }
 }
