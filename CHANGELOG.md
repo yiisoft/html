@@ -4,6 +4,7 @@
 
 - Enh #220: Add `non-empty-string` psalm type of `Html::generateId()` method result (@vjik)
 - Enh #220: Add `non-empty-string|null` psalm type of `Tag::id()` method parameter (@vjik)
+- Enh #222: Bump minimal PHP version to 8.1 and refactor (@vjik)
 
 ## 3.7.0 September 18, 2024
 
