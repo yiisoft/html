@@ -14,27 +14,27 @@ abstract class MediaTag extends NormalTag
     /**
      * @psalm-suppress MissingClassConstType
      */
-    public const PRELOAD_NONE = 'none';
+    final public const PRELOAD_NONE = 'none';
 
     /**
      * @psalm-suppress MissingClassConstType
      */
-    public const PRELOAD_METADATA = 'metadata';
+    final public const PRELOAD_METADATA = 'metadata';
 
     /**
      * @psalm-suppress MissingClassConstType
      */
-    public const PRELOAD_AUTO = 'auto';
+    final public const PRELOAD_AUTO = 'auto';
 
     /**
      * @psalm-suppress MissingClassConstType
      */
-    public const CROSSORIGIN_ANONYMOUS = 'anonymous';
+    final public const CROSSORIGIN_ANONYMOUS = 'anonymous';
 
     /**
      * @psalm-suppress MissingClassConstType
      */
-    public const CROSSORIGIN_CREDENTIALS = 'use-credentials';
+    final public const CROSSORIGIN_CREDENTIALS = 'use-credentials';
 
     private ?string $fallback = null;
 

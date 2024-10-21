@@ -44,7 +44,6 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-suppress UndefinedClass,MixedInferredReturnType Need for PHP 8.0 only
      * @psalm-param Stringable|scalar|BackedEnum ...$value One or more string values.
      */
     public function value(Stringable|bool|float|int|string|BackedEnum ...$value): self
@@ -60,7 +59,6 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-suppress UndefinedClass,MixedInferredReturnType Need for PHP 8.0 only
      * @psalm-param iterable<int, Stringable|scalar|BackedEnum> $values A set of values.
      */
     public function values(iterable $values): self
