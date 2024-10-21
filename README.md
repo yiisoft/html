@@ -32,7 +32,7 @@ Note that for simple static-HTML cases, it is preferred to use HTML directly.
 
 ## Requirements
 
-- PHP 8.0 or higher.
+- PHP 8.1 or higher.
 
 ## Installation
 
