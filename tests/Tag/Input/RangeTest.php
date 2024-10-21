@@ -78,7 +78,7 @@ final class RangeTest extends TestCase
         ];
     }
 
-   #[DataProvider('dataStep')]
+    #[DataProvider('dataStep')]
     public function testStep(string $expected, $value): void
     {
         $tag = Range::tag()->step($value);

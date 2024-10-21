@@ -450,7 +450,7 @@ final class CheckboxListTest extends TestCase
                 '</div>',
                 [IntegerEnum::A->value => 'One', IntegerEnum::B->value => 'Two', IntegerEnum::C->value => 'Three'],
                 [IntegerEnum::B, IntegerEnum::C],
-            ]
+            ],
         ];
     }
 
