@@ -7,17 +7,33 @@ namespace Yiisoft\Html\Tag\Base;
 use Stringable;
 use Yiisoft\Html\Tag\Track;
 
-/**
- * @psalm-suppress MissingClassConstType
- */
 abstract class MediaTag extends NormalTag
 {
     use TagSourcesTrait;
 
+    /**
+     * @psalm-suppress MissingClassConstType
+     */
     final public const PRELOAD_NONE = 'none';
+
+    /**
+     * @psalm-suppress MissingClassConstType
+     */
     final public const PRELOAD_METADATA = 'metadata';
+
+    /**
+     * @psalm-suppress MissingClassConstType
+     */
     final public const PRELOAD_AUTO = 'auto';
+
+    /**
+     * @psalm-suppress MissingClassConstType
+     */
     final public const CROSSORIGIN_ANONYMOUS = 'anonymous';
+
+    /**
+     * @psalm-suppress MissingClassConstType
+     */
     final public const CROSSORIGIN_CREDENTIALS = 'use-credentials';
 
     private ?string $fallback = null;
