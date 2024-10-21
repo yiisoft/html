@@ -33,7 +33,7 @@
     "require-dev": {
         "infection/infection": "^0.27",
         "maglnet/composer-require-checker": "^4.7",
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^10.5",
         "rector/rector": "^1.2",
         "spatie/phpunit-watcher": "^1.24",
         "vimeo/psalm": "^5.26"
@@ -45,8 +45,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Yiisoft\\Html\\Tests\\": "tests/common",
-            "Yiisoft\\Html\\TestsPhp81\\": "tests/php81"
+            "Yiisoft\\Html\\Tests\\": "tests"
         }
     },
     "config": {
