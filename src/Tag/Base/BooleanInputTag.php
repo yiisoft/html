@@ -37,7 +37,7 @@ abstract class BooleanInputTag extends InputTag
      * @param string|null $label Input label.
      * @param array $attributes Name-value set of label attributes.
      * @param bool $wrap Whether to wrap input with label tag. If set to `false`, label will be rendered side on side
-     * input.
+     * with input.
      */
     final public function label(
         ?string $label,
