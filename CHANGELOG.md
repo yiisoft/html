@@ -5,7 +5,8 @@
 - Enh #220: Add `non-empty-string` psalm type of `Html::generateId()` method result (@vjik)
 - Enh #220: Add `non-empty-string|null` psalm type of `Tag::id()` method parameter (@vjik)
 - Enh #222: Bump minimal PHP version to 8.1 and refactor (@vjik)
-- New #224: Add optional `wrap` parameter to `BooleanInputTag::label()` method that controls whether to wrap input tag with label tag or place them side by side. (@vjik)  
+- New #224: Add optional `wrap` parameter to `BooleanInputTag::label()` method that controls whether to wrap input tag
+  with label tag or place them aside (@vjik)  
 
 ## 3.7.0 September 18, 2024
 
