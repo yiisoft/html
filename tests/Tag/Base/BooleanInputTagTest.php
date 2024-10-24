@@ -61,6 +61,16 @@ final class BooleanInputTagTest extends TestCase
         );
     }
 
+    public function testLabelNoWrap(): void
+    {
+        $this->assertSame(
+            '<input type="test" id="ID"> <label for="ID">Voronezh</label>',
+            (string) TestBooleanInputTag::tag()
+                ->id('ID')
+                ->label('Voronezh', wrap: false),
+        );
+    }
+
     public function testLabelWithId(): void
     {
         $this->assertSame(
