@@ -17,6 +17,7 @@ final class RadioItem
         public string $label,
         public bool $encodeLabel,
         public array $labelAttributes = [],
+        public bool $labelWrap = true,
     ) {
     }
 }
