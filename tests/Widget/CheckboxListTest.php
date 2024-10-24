@@ -736,6 +736,28 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testDisableCheckboxLabelWrap(): void
+    {
+        $html = CheckboxList::create('test')
+            ->items([1 => 'One', 2 => 'Two'])
+            ->addIndividualInputAttributes([
+                1 => ['id' => 'id1'],
+                2 => ['id' => 'id2'],
+            ])
+            ->checkboxLabelWrap(false)
+            ->render();
+
+        $this->assertSame(
+            <<<HTML
+            <div>
+            <input type="checkbox" id="id1" name="test[]" value="1"> <label for="id1">One</label>
+            <input type="checkbox" id="id2" name="test[]" value="2"> <label for="id2">Two</label>
+            </div>
+            HTML,
+            $html,
+        );
+    }
+
     public function testStringable(): void
     {
         $this->assertSame(
@@ -755,6 +777,7 @@ final class CheckboxListTest extends TestCase
         $this->assertNotSame($widget, $widget->checkboxAttributes([]));
         $this->assertNotSame($widget, $widget->addCheckboxLabelAttributes([]));
         $this->assertNotSame($widget, $widget->checkboxLabelAttributes([]));
+        $this->assertNotSame($widget, $widget->checkboxLabelWrap(false));
         $this->assertNotSame($widget, $widget->addIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->items([]));

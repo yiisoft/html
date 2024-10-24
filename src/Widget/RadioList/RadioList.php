@@ -20,6 +20,7 @@ final class RadioList implements NoEncodeStringableInterface
     private array $containerAttributes = [];
     private array $radioAttributes = [];
     private array $radioLabelAttributes = [];
+    private bool $radioLabelWrap = true;
 
     /**
      * @var array[]
@@ -105,6 +106,13 @@ final class RadioList implements NoEncodeStringableInterface
     {
         $new = clone $this;
         $new->radioLabelAttributes = $attributes;
+        return $new;
+    }
+
+    public function radioLabelWrap(bool $wrap): self
+    {
+        $new = clone $this;
+        $new->radioLabelWrap = $wrap;
         return $new;
     }
 
@@ -237,6 +245,7 @@ final class RadioList implements NoEncodeStringableInterface
                 $label,
                 $this->encodeLabels,
                 $this->radioLabelAttributes,
+                $this->radioLabelWrap,
             );
             $lines[] = $this->formatItem($item);
             $index++;
@@ -287,7 +296,7 @@ final class RadioList implements NoEncodeStringableInterface
 
         $radio = Html::radio($item->name, $item->value, $item->radioAttributes)
             ->checked($item->checked)
-            ->label($item->label, $item->labelAttributes)
+            ->label($item->label, $item->labelAttributes, $item->labelWrap)
             ->labelEncode($item->encodeLabel);
 
         return $radio->render();
