@@ -686,6 +686,28 @@ final class RadioListTest extends TestCase
         );
     }
 
+    public function testDisableRadioLabelWrap(): void
+    {
+        $html = RadioList::create('test')
+            ->items([1 => 'One', 2 => 'Two'])
+            ->addIndividualInputAttributes([
+                1 => ['id' => 'id1'],
+                2 => ['id' => 'id2'],
+            ])
+            ->radioLabelWrap(false)
+            ->render();
+
+        $this->assertSame(
+            <<<HTML
+            <div>
+            <input type="radio" id="id1" name="test" value="1"> <label for="id1">One</label>
+            <input type="radio" id="id2" name="test" value="2"> <label for="id2">Two</label>
+            </div>
+            HTML,
+            $html,
+        );
+    }
+
     public function testStringable(): void
     {
         $this->assertSame(
@@ -703,6 +725,7 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->containerAttributes([]));
         $this->assertNotSame($widget, $widget->addRadioAttributes([]));
         $this->assertNotSame($widget, $widget->radioAttributes([]));
+        $this->assertNotSame($widget, $widget->radioLabelWrap(false));
         $this->assertNotSame($widget, $widget->addIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
         $this->assertNotSame($widget, $widget->items([]));
