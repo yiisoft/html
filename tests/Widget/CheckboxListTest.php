@@ -758,6 +758,29 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testCheckboxWrap(): void
+    {
+        $html = CheckboxList::create('test')
+            ->items([1 => 'One', 2 => 'Two'])
+            ->checkboxWrapTag('div')
+            ->checkboxWrapAttributes(['class' => 'form-check'])
+            ->render();
+
+        $this->assertSame(
+            <<<HTML
+            <div>
+            <div class="form-check">
+            <label><input type="checkbox" name="test[]" value="1"> One</label>
+            </div>
+            <div class="form-check">
+            <label><input type="checkbox" name="test[]" value="2"> Two</label>
+            </div>
+            </div>
+            HTML,
+            $html,
+        );
+    }
+
     public function testStringable(): void
     {
         $this->assertSame(
@@ -773,6 +796,8 @@ final class CheckboxListTest extends TestCase
         $this->assertNotSame($widget, $widget->withoutContainer());
         $this->assertNotSame($widget, $widget->containerTag(''));
         $this->assertNotSame($widget, $widget->containerAttributes([]));
+        $this->assertNotSame($widget, $widget->checkboxWrapTag('div'));
+        $this->assertNotSame($widget, $widget->checkboxWrapAttributes([]));
         $this->assertNotSame($widget, $widget->addCheckboxAttributes([]));
         $this->assertNotSame($widget, $widget->checkboxAttributes([]));
         $this->assertNotSame($widget, $widget->addCheckboxLabelAttributes([]));

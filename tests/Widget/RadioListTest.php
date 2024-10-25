@@ -708,6 +708,29 @@ final class RadioListTest extends TestCase
         );
     }
 
+    public function testRadioWrap(): void
+    {
+        $html = RadioList::create('test')
+            ->items([1 => 'One', 2 => 'Two'])
+            ->radioWrapTag('div')
+            ->radioWrapAttributes(['class' => 'form-check'])
+            ->render();
+
+        $this->assertSame(
+            <<<HTML
+            <div>
+            <div class="form-check">
+            <label><input type="radio" name="test" value="1"> One</label>
+            </div>
+            <div class="form-check">
+            <label><input type="radio" name="test" value="2"> Two</label>
+            </div>
+            </div>
+            HTML,
+            $html,
+        );
+    }
+
     public function testStringable(): void
     {
         $this->assertSame(
@@ -723,6 +746,8 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->withoutContainer());
         $this->assertNotSame($widget, $widget->containerTag(''));
         $this->assertNotSame($widget, $widget->containerAttributes([]));
+        $this->assertNotSame($widget, $widget->radioWrapTag('div'));
+        $this->assertNotSame($widget, $widget->radioWrapAttributes([]));
         $this->assertNotSame($widget, $widget->addRadioAttributes([]));
         $this->assertNotSame($widget, $widget->radioAttributes([]));
         $this->assertNotSame($widget, $widget->radioLabelWrap(false));

@@ -18,6 +18,10 @@ final class RadioList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
+
+    private ?string $radioWrapTag = null;
+    private array $radioWrapAttributes = [];
+
     private array $radioAttributes = [];
     private array $radioLabelAttributes = [];
     private bool $radioLabelWrap = true;
@@ -78,6 +82,20 @@ final class RadioList implements NoEncodeStringableInterface
     {
         $new = clone $this;
         $new->containerAttributes = $attributes;
+        return $new;
+    }
+
+    public function radioWrapTag(?string $name): self
+    {
+        $new = clone $this;
+        $new->radioWrapTag = $name;
+        return $new;
+    }
+
+    public function radioWrapAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->radioWrapAttributes = $attributes;
         return $new;
     }
 
@@ -229,6 +247,14 @@ final class RadioList implements NoEncodeStringableInterface
 
     public function render(): string
     {
+        if ($this->radioWrapTag === null) {
+            $beforeRadio = '';
+            $afterRadio = '';
+        } else {
+            $beforeRadio = Html::openTag($this->radioWrapTag, $this->radioWrapAttributes) . "\n";
+            $afterRadio = "\n" . Html::closeTag($this->radioWrapTag);
+        }
+
         $lines = [];
         $index = 0;
         foreach ($this->items as $value => $label) {
@@ -247,7 +273,7 @@ final class RadioList implements NoEncodeStringableInterface
                 $this->radioLabelAttributes,
                 $this->radioLabelWrap,
             );
-            $lines[] = $this->formatItem($item);
+            $lines[] = $beforeRadio . $this->formatItem($item) . $afterRadio;
             $index++;
         }
 
