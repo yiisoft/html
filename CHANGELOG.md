@@ -9,7 +9,7 @@
   with label tag or place them aside (@vjik)
 - New #225: Add `CheckboxList::checkboxLabelWrap()` and `RadioList::radioLabelWrap()` methods (@vjik)
 - New #227: Add ability to wrap items in checkbox and radio lists by methods `CheckboxList::checkboxWrapTag()`,
-  `CheckboxList::checkboxWrapAttributes()`, `RadioList::radioWrapTag()` and `RadioList::radioWrapAttributes()`. 
+  `CheckboxList::checkboxWrapAttributes()`, `RadioList::radioWrapTag()` and `RadioList::radioWrapAttributes()` (@vjik)
 
 ## 3.7.0 September 18, 2024
 
