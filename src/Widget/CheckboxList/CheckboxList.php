@@ -21,6 +21,10 @@ final class CheckboxList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
+
+    private ?string $checkboxWrapTag = null;
+    private array $checkboxWrapAttributes = [];
+
     private array $checkboxAttributes = [];
     private array $checkboxLabelAttributes = [];
     private bool $checkboxLabelWrap = true;
@@ -84,6 +88,20 @@ final class CheckboxList implements NoEncodeStringableInterface
     {
         $new = clone $this;
         $new->containerAttributes = $attributes;
+        return $new;
+    }
+
+    public function checkboxWrapTag(?string $name): self
+    {
+        $new = clone $this;
+        $new->checkboxWrapTag = $name;
+        return $new;
+    }
+
+    public function checkboxWrapAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->checkboxWrapAttributes = $attributes;
         return $new;
     }
 
@@ -247,6 +265,14 @@ final class CheckboxList implements NoEncodeStringableInterface
     {
         $name = Html::getArrayableName($this->name);
 
+        if ($this->checkboxWrapTag === null) {
+            $beforeCheckbox = '';
+            $afterCheckbox = '';
+        } else {
+            $beforeCheckbox = Html::openTag($this->checkboxWrapTag, $this->checkboxWrapAttributes) . "\n";
+            $afterCheckbox = "\n" . Html::closeTag($this->checkboxWrapTag);
+        }
+
         $lines = [];
         $index = 0;
         foreach ($this->items as $value => $label) {
@@ -265,7 +291,7 @@ final class CheckboxList implements NoEncodeStringableInterface
                 $this->checkboxLabelAttributes,
                 $this->checkboxLabelWrap,
             );
-            $lines[] = $this->formatItem($item);
+            $lines[] = $beforeCheckbox . $this->formatItem($item) . $afterCheckbox;
             $index++;
         }
 
