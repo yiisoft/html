@@ -782,7 +782,6 @@ final class RadioListTest extends TestCase
     #[DataProvider('dataAddRadioWrapClass')]
     public function testAddRadioWrapClass(string $expected, array $class): void
     {
-
         $html = RadioList::create('test')
             ->items([1 => 'One', 2 => 'Two'])
             ->radioWrapTag('div')
