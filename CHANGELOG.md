@@ -8,8 +8,10 @@
 - New #224: Add optional `wrap` parameter to `BooleanInputTag::label()` method that controls whether to wrap input tag
   with label tag or place them aside (@vjik)
 - New #225: Add `CheckboxList::checkboxLabelWrap()` and `RadioList::radioLabelWrap()` methods (@vjik)
-- New #227: Add ability to wrap items in checkbox and radio lists by methods `CheckboxList::checkboxWrapTag()`,
-  `CheckboxList::checkboxWrapAttributes()`, `RadioList::radioWrapTag()` and `RadioList::radioWrapAttributes()` (@vjik)
+- New #227, #228: Add ability to wrap items in checkbox and radio lists by methods `CheckboxList::checkboxWrapTag()`,
+  `CheckboxList::checkboxWrapAttributes()`, `CheckboxList::checkboxWrapClass()`, `CheckboxList::addCheckboxWrapClass()`,
+  `RadioList::radioWrapTag()`, `RadioList::radioWrapAttributes()`, `RadioList::radioWrapClass()` and
+  `RadioList::addRadioWrapClass()` (@vjik)
 
 ## 3.7.0 September 18, 2024
 
