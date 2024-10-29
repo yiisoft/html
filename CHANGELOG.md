@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.8.1 under development
+
+- no changes in this release.
+
 ## 3.8.0 October 29, 2024
 
 - New #224: Add optional `wrap` parameter to `BooleanInputTag::label()` method that controls whether to wrap input tag
