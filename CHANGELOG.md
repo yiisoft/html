@@ -1,10 +1,7 @@
 # Yii HTML Change Log
 
-## 3.7.1 under development
+## 3.8.0 October 29, 2024
 
-- Enh #220: Add `non-empty-string` psalm type of `Html::generateId()` method result (@vjik)
-- Enh #220: Add `non-empty-string|null` psalm type of `Tag::id()` method parameter (@vjik)
-- Enh #222: Bump minimal PHP version to 8.1 and refactor (@vjik)
 - New #224: Add optional `wrap` parameter to `BooleanInputTag::label()` method that controls whether to wrap input tag
   with label tag or place them aside (@vjik)
 - New #225: Add `CheckboxList::checkboxLabelWrap()` and `RadioList::radioLabelWrap()` methods (@vjik)
@@ -12,6 +9,9 @@
   `CheckboxList::checkboxWrapTag()`, `CheckboxList::checkboxWrapAttributes()`, `CheckboxList::checkboxWrapClass()`,  
   `CheckboxList::addCheckboxWrapClass()`, `RadioList::radioWrapTag()`, `RadioList::radioWrapAttributes()`,
   `RadioList::radioWrapClass()` and `RadioList::addRadioWrapClass()` (@vjik)
+- Enh #220: Add `non-empty-string` psalm type of `Html::generateId()` method result (@vjik)
+- Enh #220: Add `non-empty-string|null` psalm type of `Tag::id()` method parameter (@vjik)
+- Enh #222: Bump minimal PHP version to 8.1 and refactor (@vjik)
 
 ## 3.7.0 September 18, 2024
 
