@@ -105,6 +105,23 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    public function checkboxWrapClass(?string ...$class): self
+    {
+        $new = clone $this;
+        $new->checkboxWrapAttributes['class'] = array_filter($class, static fn ($c) => $c !== null);
+        return $new;
+    }
+
+    public function addCheckboxWrapClass(?string ...$class): self
+    {
+        $new = clone $this;
+        Html::addCssClass(
+            $new->checkboxWrapAttributes,
+            array_filter($class, static fn ($c) => $c !== null),
+        );
+        return $new;
+    }
+
     public function addCheckboxAttributes(array $attributes): self
     {
         $new = clone $this;

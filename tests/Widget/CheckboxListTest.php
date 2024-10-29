@@ -781,6 +781,79 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public static function dataCheckboxWrapClass(): array
+    {
+        return [
+            ['', []],
+            ['', [null]],
+            [' class', ['']],
+            [' class="main"', ['main']],
+            [' class="main bold"', ['main bold']],
+            [' class="main bold"', ['main', 'bold']],
+        ];
+    }
+
+    #[DataProvider('dataCheckboxWrapClass')]
+    public function testCheckboxWrapClass(string $expected, array $class): void
+    {
+        $html = CheckboxList::create('test')
+            ->items([1 => 'One', 2 => 'Two'])
+            ->checkboxWrapTag('div')
+            ->checkboxWrapAttributes(['class' => 'form-check'])
+            ->checkboxWrapClass(...$class)
+            ->render();
+
+        $this->assertSame(
+            <<<HTML
+            <div>
+            <div$expected>
+            <label><input type="checkbox" name="test[]" value="1"> One</label>
+            </div>
+            <div$expected>
+            <label><input type="checkbox" name="test[]" value="2"> Two</label>
+            </div>
+            </div>
+            HTML,
+            $html,
+        );
+    }
+
+    public static function dataAddCheckboxWrapClass(): array
+    {
+        return [
+            [' class="form-check"', []],
+            [' class="form-check"', [null]],
+            [' class="form-check main"', ['main']],
+            [' class="form-check main bold"', ['main bold']],
+            [' class="form-check main bold"', ['main', 'bold']],
+        ];
+    }
+
+    #[DataProvider('dataAddCheckboxWrapClass')]
+    public function testAddCheckboxWrapClass(string $expected, array $class): void
+    {
+        $html = CheckboxList::create('test')
+            ->items([1 => 'One', 2 => 'Two'])
+            ->checkboxWrapTag('div')
+            ->checkboxWrapAttributes(['class' => 'form-check'])
+            ->addCheckboxWrapClass(...$class)
+            ->render();
+
+        $this->assertSame(
+            <<<HTML
+            <div>
+            <div$expected>
+            <label><input type="checkbox" name="test[]" value="1"> One</label>
+            </div>
+            <div$expected>
+            <label><input type="checkbox" name="test[]" value="2"> Two</label>
+            </div>
+            </div>
+            HTML,
+            $html,
+        );
+    }
+
     public function testStringable(): void
     {
         $this->assertSame(
@@ -798,6 +871,8 @@ final class CheckboxListTest extends TestCase
         $this->assertNotSame($widget, $widget->containerAttributes([]));
         $this->assertNotSame($widget, $widget->checkboxWrapTag('div'));
         $this->assertNotSame($widget, $widget->checkboxWrapAttributes([]));
+        $this->assertNotSame($widget, $widget->checkboxWrapClass());
+        $this->assertNotSame($widget, $widget->addCheckboxWrapClass());
         $this->assertNotSame($widget, $widget->addCheckboxAttributes([]));
         $this->assertNotSame($widget, $widget->checkboxAttributes([]));
         $this->assertNotSame($widget, $widget->addCheckboxLabelAttributes([]));

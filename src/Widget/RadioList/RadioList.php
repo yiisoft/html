@@ -99,6 +99,23 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    public function radioWrapClass(?string ...$class): self
+    {
+        $new = clone $this;
+        $new->radioWrapAttributes['class'] = array_filter($class, static fn ($c) => $c !== null);
+        return $new;
+    }
+
+    public function addRadioWrapClass(?string ...$class): self
+    {
+        $new = clone $this;
+        Html::addCssClass(
+            $new->radioWrapAttributes,
+            array_filter($class, static fn ($c) => $c !== null),
+        );
+        return $new;
+    }
+
     public function addRadioAttributes(array $attributes): self
     {
         $new = clone $this;
