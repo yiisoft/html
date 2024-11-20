@@ -553,6 +553,19 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testOnChange(): void
+    {
+        $baseSelect = Select::tag();
+
+        $select = Select::tag()->onChange('console.log(42)');
+
+        $this->assertNotSame($baseSelect, $select);
+        $this->assertSame(
+            '<select onchange="console.log(42)"></select>',
+            (string) $select,
+        );
+    }
+
     public function testImmutability(): void
     {
         $select = Select::tag();

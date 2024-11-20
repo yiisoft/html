@@ -2,7 +2,7 @@
 
 ## 3.8.1 under development
 
-- no changes in this release.
+- New #229: Add `Select::onChange()` method (@vjik) 
 
 ## 3.8.0 October 29, 2024
 

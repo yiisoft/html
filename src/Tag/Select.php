@@ -90,6 +90,19 @@ final class Select extends NormalTag
         return $new;
     }
 
+    /**
+     * @see https://html.spec.whatwg.org/multipage/webappapis.html#handler-onchange
+     * @see https://html.spec.whatwg.org/multipage/indices.html#event-change
+     *
+     * @param string $value The script to be run when select value is changed.
+     */
+    public function onChange(string $value): self
+    {
+        $new = clone $this;
+        $new->attributes['onchange'] = $value;
+        return $new;
+    }
+
     public function options(Option ...$options): self
     {
         return $this->items(...$options);
