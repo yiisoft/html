@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tests\Objects\StringableObject;
+use Yiisoft\Html\Tests\Support\ClassEnum;
+use Yiisoft\Html\Tests\Support\IntegerEnum;
 
 use function array_key_exists;
 
@@ -966,6 +968,22 @@ final class HtmlTest extends TestCase
     {
         Html::addCssClass($options, $class);
         $this->assertSame($expected, $options);
+    }
+
+    public function testAddCssClassWithBackedEnum(): void
+    {
+        $options = ['class' => 'test'];
+        Html::addCssClass($options, ClassEnum::TEST_CLASS_2);
+        $this->assertSame(['class' => 'test test-class-2'], $options);
+
+        Html::addCssClass($options, IntegerEnum::A);
+        $this->assertSame(['class' => 'test test-class-2'], $options);
+
+        Html::addCssClass($options, ClassEnum::TEST_CLASS_1);
+        $this->assertSame(['class' => 'test test-class-2 test-class-1'], $options);
+
+        Html::addCssClass($options, IntegerEnum::B);
+        $this->assertSame(['class' => 'test test-class-2 test-class-1'], $options);
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
+use BackedEnum;
 use InvalidArgumentException;
 use JsonException;
 use Stringable;
@@ -1690,17 +1691,34 @@ final class Html
      * @see removeCssClass()
      *
      * @param array $options The options to be modified.
-     * @param null[]|string|string[]|null $class The CSS class(es) to be added. Null values will be ignored.
+     * @param BackedEnum|null[]|string|string[]|null $class The CSS class(es) to be added. Null values will be ignored.
      *
      * @psalm-param string|array<array-key,string|null> $class
      */
-    public static function addCssClass(array &$options, string|array|null $class): void
+    public static function addCssClass(array &$options, BackedEnum|array|string|null $class): void
     {
         if ($class === null) {
             return;
         }
+
+        if ($class instanceof BackedEnum) {
+            $class = is_string($class->value) ? $class->value : null;
+        }
+
         if (is_array($class)) {
+            $class = array_map(
+                static function ($item) {
+                    if ($item instanceof BackedEnum) {
+                        return is_string($item->value) ? $item->value : null;
+                    }
+
+                    return $item;
+                },
+                $class
+            );
+
             $class = array_filter($class, static fn (mixed $c): bool => $c !== null);
+
             if (empty($class)) {
                 return;
             }
