@@ -175,7 +175,7 @@ final class TagTest extends TestCase
             ['<test class="main">', ['main']],
             ['<test class="main bold">', ['main bold']],
             ['<test class="main bold">', ['main', 'bold']],
-            ['<test class="test-class-1 test-class-2">', [ClassEnum::TEST_CLASS_1, ClassEnum::TEST_CLASS_2]]
+            ['<test class="test-class-1 test-class-2">', [ClassEnum::TEST_CLASS_1, ClassEnum::TEST_CLASS_2]],
         ];
     }
 
