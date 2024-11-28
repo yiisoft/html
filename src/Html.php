@@ -1707,22 +1707,20 @@ final class Html
         }
 
         if (is_array($class)) {
-            $class = array_map(
-                static function ($item) {
-                    if ($item instanceof BackedEnum) {
-                        return is_string($item->value) ? $item->value : null;
-                    }
+            $filteredClass = [];
+            foreach ($class as $key => $value) {
+                if ($value instanceof BackedEnum) {
+                    $value = is_string($value->value) ? $value->value : null;
+                }
 
-                    return $item;
-                },
-                $class
-            );
-
-            $class = array_filter($class, static fn (mixed $c): bool => $c !== null);
-
-            if (empty($class)) {
+                if ($value !== null) {
+                    $filteredClass[$key] = $value;
+                }
+            }
+            if (empty($filteredClass)) {
                 return;
             }
+            $class = $filteredClass;
         }
 
         if (isset($options['class'])) {
