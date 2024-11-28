@@ -89,7 +89,10 @@ abstract class Tag implements NoEncodeStringableInterface
         $new = clone $this;
         foreach ($class as $c) {
             if ($c !== null) {
-                Html::addCssClass($new->attributes, $c instanceof BackedEnum ? $c->value : $c);
+                if ($c instanceof BackedEnum) {
+                    $c = is_string($c->value) ? $c->value : null;
+                }
+                Html::addCssClass($new->attributes, $c);
             }
         }
         return $new;
@@ -106,7 +109,10 @@ abstract class Tag implements NoEncodeStringableInterface
         $processClass = [];
         foreach ($class as $c) {
             if ($c !== null) {
-                $processClass[] = $c instanceof BackedEnum ? $c->value : $c;
+                if ($c instanceof BackedEnum) {
+                    $c = is_string($c->value) ? $c->value : null;
+                }
+                $processClass[] = $c;
             }
         }
         unset($new->attributes['class']);
