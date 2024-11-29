@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.9.1 under development
+
+- no changes in this release.
+
 ## 3.9.0 November 29, 2024
 
 - Enh #230: Add backed enumeration value support to `Html::addCssClass()`, `Tag::addClass()` and `Tag::class()`
