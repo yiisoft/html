@@ -1694,7 +1694,7 @@ final class Html
      * @param BackedEnum|BackedEnum[]|null[]|string|string[]|null $class The CSS class(es) to be added. Null values will
      * be ignored.
      *
-     * @psalm-param BackedEnum|string|array<array-key,BackedEnum|string|null> $class
+     * @psalm-param BackedEnum|string|array<array-key,BackedEnum|string|null>|null $class
      */
     public static function addCssClass(array &$options, BackedEnum|array|string|null $class): void
     {
