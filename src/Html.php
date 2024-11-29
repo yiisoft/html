@@ -1713,7 +1713,7 @@ final class Html
             $filteredClass = [];
             foreach ($class as $key => $value) {
                 if ($value instanceof BackedEnum) {
-                    $value = is_string($value->value) ? $value->value : null;
+                    $value = \is_string($value->value) ? $value->value : null;
                 }
 
                 if ($value !== null) {
