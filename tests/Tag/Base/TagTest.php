@@ -7,6 +7,8 @@ namespace Yiisoft\Html\Tests\Tag\Base;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tests\Objects\TestTag;
+use Yiisoft\Html\Tests\Support\ClassEnum;
+use Yiisoft\Html\Tests\Support\IntegerEnum;
 
 final class TagTest extends TestCase
 {
@@ -138,6 +140,11 @@ final class TagTest extends TestCase
             ['<test class="main bold">', ['bold']],
             ['<test class="main italic bold">', ['italic bold']],
             ['<test class="main italic bold">', ['italic', 'bold']],
+            ['<test class="main test-class-1 test-class-2">', [ClassEnum::TEST_CLASS_1, ClassEnum::TEST_CLASS_2]],
+            [
+                '<test class="main test-class-1 test-class-2">',
+                [IntegerEnum::A, ClassEnum::TEST_CLASS_1, IntegerEnum::B, ClassEnum::TEST_CLASS_2],
+            ],
         ];
     }
 
@@ -173,6 +180,11 @@ final class TagTest extends TestCase
             ['<test class="main">', ['main']],
             ['<test class="main bold">', ['main bold']],
             ['<test class="main bold">', ['main', 'bold']],
+            ['<test class="test-class-1 test-class-2">', [ClassEnum::TEST_CLASS_1, ClassEnum::TEST_CLASS_2]],
+            [
+                '<test class="test-class-1 test-class-2">',
+                [IntegerEnum::A, ClassEnum::TEST_CLASS_1, IntegerEnum::B, ClassEnum::TEST_CLASS_2],
+            ],
         ];
     }
 

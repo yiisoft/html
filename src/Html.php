@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html;
 
+use BackedEnum;
 use InvalidArgumentException;
 use JsonException;
 use Stringable;
@@ -83,6 +84,7 @@ use function in_array;
 use function is_array;
 use function is_bool;
 use function is_int;
+use function is_string;
 use function strlen;
 
 /**
@@ -1690,20 +1692,39 @@ final class Html
      * @see removeCssClass()
      *
      * @param array $options The options to be modified.
-     * @param null[]|string|string[]|null $class The CSS class(es) to be added. Null values will be ignored.
+     * @param BackedEnum|BackedEnum[]|null[]|string|string[]|null $class The CSS class(es) to be added. Null values will
+     * be ignored.
      *
-     * @psalm-param string|array<array-key,string|null> $class
+     * @psalm-param BackedEnum|string|array<array-key,BackedEnum|string|null>|null $class
      */
-    public static function addCssClass(array &$options, string|array|null $class): void
+    public static function addCssClass(array &$options, BackedEnum|array|string|null $class): void
     {
         if ($class === null) {
             return;
         }
-        if (is_array($class)) {
-            $class = array_filter($class, static fn (mixed $c): bool => $c !== null);
-            if (empty($class)) {
+
+        if ($class instanceof BackedEnum) {
+            if (is_int($class->value)) {
                 return;
             }
+            $class = $class->value;
+        }
+
+        if (is_array($class)) {
+            $filteredClass = [];
+            foreach ($class as $key => $value) {
+                if ($value instanceof BackedEnum) {
+                    $value = is_string($value->value) ? $value->value : null;
+                }
+
+                if ($value !== null) {
+                    $filteredClass[$key] = $value;
+                }
+            }
+            if (empty($filteredClass)) {
+                return;
+            }
+            $class = $filteredClass;
         }
 
         if (isset($options['class'])) {

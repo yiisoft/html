@@ -2,7 +2,8 @@
 
 ## 3.8.1 under development
 
-- no changes in this release.
+- Enh #230: Add backed enumeration value support to `Html::addCssClass()`, `Tag::addClass()` and `Tag::class()`
+  methods (@terabytesoftw)
 
 ## 3.8.0 October 29, 2024
 
