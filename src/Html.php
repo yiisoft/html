@@ -84,6 +84,7 @@ use function in_array;
 use function is_array;
 use function is_bool;
 use function is_int;
+use function is_string;
 use function strlen;
 
 /**
@@ -1713,7 +1714,7 @@ final class Html
             $filteredClass = [];
             foreach ($class as $key => $value) {
                 if ($value instanceof BackedEnum) {
-                    $value = \is_string($value->value) ? $value->value : null;
+                    $value = is_string($value->value) ? $value->value : null;
                 }
 
                 if ($value !== null) {
