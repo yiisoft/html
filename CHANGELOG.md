@@ -2,7 +2,7 @@
 
 ## 3.8.1 under development
 
-- no changes in this release.
+- Enh #230: Add support `BackedEnum` value to `Html::addCssClass()` (@terabytesoftw)
 
 ## 3.8.0 October 29, 2024
 
