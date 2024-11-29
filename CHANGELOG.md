@@ -2,7 +2,8 @@
 
 ## 3.8.1 under development
 
-- Enh #230: Add support `BackedEnum` value to `Html::addCssClass()`, `Tag::addClass()` and `Tag::class()` methods (@terabytesoftw)
+- Enh #230: Add backed enumeration value support to `Html::addCssClass()`, `Tag::addClass()` and `Tag::class()`
+  methods (@terabytesoftw)
 
 ## 3.8.0 October 29, 2024
 
