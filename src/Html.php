@@ -1703,7 +1703,10 @@ final class Html
         }
 
         if ($class instanceof BackedEnum) {
-            $class = is_string($class->value) ? $class->value : null;
+            if (is_int($class->value)) {
+                return;
+            }
+            $class = $class->value;
         }
 
         if (is_array($class)) {
