@@ -2,7 +2,7 @@
 
 ## 3.9.1 under development
 
-- no changes in this release.
+- Enh #232: Render `loading` attribute before `src` (@samdark)
 
 ## 3.9.0 November 29, 2024
 
