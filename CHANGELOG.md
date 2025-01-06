@@ -2,7 +2,7 @@
 
 ## 3.9.1 under development
 
-- Enh #232: Render `loading` attribute before `src` (@samdark)
+- Bug #232: Render `loading` attribute before `src` (@samdark)
 
 ## 3.9.0 November 29, 2024
 
