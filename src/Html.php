@@ -108,6 +108,7 @@ final class Html
         'value',
 
         'href',
+        'loading',
         'src',
         'srcset',
         'form',
