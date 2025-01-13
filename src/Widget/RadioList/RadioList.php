@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Widget\RadioList;
 
+use BackedEnum;
 use Closure;
 use Stringable;
 use Yiisoft\Html\Html;
@@ -17,8 +18,13 @@ final class RadioList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
+
+    private ?string $radioWrapTag = null;
+    private array $radioWrapAttributes = [];
+
     private array $radioAttributes = [];
     private array $radioLabelAttributes = [];
+    private bool $radioLabelWrap = true;
 
     /**
      * @var array[]
@@ -79,6 +85,37 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    public function radioWrapTag(?string $name): self
+    {
+        $new = clone $this;
+        $new->radioWrapTag = $name;
+        return $new;
+    }
+
+    public function radioWrapAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->radioWrapAttributes = $attributes;
+        return $new;
+    }
+
+    public function radioWrapClass(?string ...$class): self
+    {
+        $new = clone $this;
+        $new->radioWrapAttributes['class'] = array_filter($class, static fn ($c) => $c !== null);
+        return $new;
+    }
+
+    public function addRadioWrapClass(?string ...$class): self
+    {
+        $new = clone $this;
+        Html::addCssClass(
+            $new->radioWrapAttributes,
+            array_filter($class, static fn ($c) => $c !== null),
+        );
+        return $new;
+    }
+
     public function addRadioAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -104,6 +141,13 @@ final class RadioList implements NoEncodeStringableInterface
     {
         $new = clone $this;
         $new->radioLabelAttributes = $attributes;
+        return $new;
+    }
+
+    public function radioLabelWrap(bool $wrap): self
+    {
+        $new = clone $this;
+        $new->radioLabelWrap = $wrap;
         return $new;
     }
 
@@ -155,10 +199,12 @@ final class RadioList implements NoEncodeStringableInterface
         );
     }
 
-    public function value(bool|float|int|string|Stringable|null $value): self
+    public function value(bool|float|int|string|Stringable|BackedEnum|null $value): self
     {
         $new = clone $this;
-        $new->value = $value === null ? null : (string) $value;
+        $new->value = $value === null
+            ? null
+            : (string) ($value instanceof BackedEnum ? $value->value : $value);
         return $new;
     }
 
@@ -218,6 +264,14 @@ final class RadioList implements NoEncodeStringableInterface
 
     public function render(): string
     {
+        if ($this->radioWrapTag === null) {
+            $beforeRadio = '';
+            $afterRadio = '';
+        } else {
+            $beforeRadio = Html::openTag($this->radioWrapTag, $this->radioWrapAttributes) . "\n";
+            $afterRadio = "\n" . Html::closeTag($this->radioWrapTag);
+        }
+
         $lines = [];
         $index = 0;
         foreach ($this->items as $value => $label) {
@@ -234,8 +288,9 @@ final class RadioList implements NoEncodeStringableInterface
                 $label,
                 $this->encodeLabels,
                 $this->radioLabelAttributes,
+                $this->radioLabelWrap,
             );
-            $lines[] = $this->formatItem($item);
+            $lines[] = $beforeRadio . $this->formatItem($item) . $afterRadio;
             $index++;
         }
 
@@ -284,7 +339,7 @@ final class RadioList implements NoEncodeStringableInterface
 
         $radio = Html::radio($item->name, $item->value, $item->radioAttributes)
             ->checked($item->checked)
-            ->label($item->label, $item->labelAttributes)
+            ->label($item->label, $item->labelAttributes, $item->labelWrap)
             ->labelEncode($item->encodeLabel);
 
         return $radio->render();

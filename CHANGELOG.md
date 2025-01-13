@@ -1,8 +1,39 @@
 # Yii HTML Change Log
 
-## 3.5.1 under development
+## 3.9.1 under development
 
-- no changes in this release.
+- Bug #232: Render `loading` attribute before `src` (@samdark)
+
+## 3.9.0 November 29, 2024
+
+- Enh #230: Add backed enumeration value support to `Html::addCssClass()`, `Tag::addClass()` and `Tag::class()`
+  methods (@terabytesoftw)
+
+## 3.8.0 October 29, 2024
+
+- New #224: Add optional `wrap` parameter to `BooleanInputTag::label()` method that controls whether to wrap input tag
+  with label tag or place them aside (@vjik)
+- New #225: Add `CheckboxList::checkboxLabelWrap()` and `RadioList::radioLabelWrap()` methods (@vjik)
+- New #227, #228: Add ability to wrap items in checkbox and radio lists by using methods
+  `CheckboxList::checkboxWrapTag()`, `CheckboxList::checkboxWrapAttributes()`, `CheckboxList::checkboxWrapClass()`,  
+  `CheckboxList::addCheckboxWrapClass()`, `RadioList::radioWrapTag()`, `RadioList::radioWrapAttributes()`,
+  `RadioList::radioWrapClass()` and `RadioList::addRadioWrapClass()` (@vjik)
+- Enh #220: Add `non-empty-string` psalm type of `Html::generateId()` method result (@vjik)
+- Enh #220: Add `non-empty-string|null` psalm type of `Tag::id()` method parameter (@vjik)
+- Enh #222: Bump minimal PHP version to 8.1 and refactor (@vjik)
+
+## 3.7.0 September 18, 2024
+
+- New #218: Add methods `Script::nonce()` and `Script::getNonce()` for CSP (@Gerych1984, @vjik)
+- Enh #219: Add backed enumeration value support to `Select` tag (@vjik)
+
+## 3.6.0 August 23, 2024
+
+- Enh #212: Throw `InvalidArgumentException` in `Html::renderAttribute()` when attribute name is empty or contains 
+  forbidden symbols (@es-sayers, @vjik)
+- Enh #214: Add `Stringable` and array values support to textarea tag (@vjik)
+- Enh #217: Add backed enumeration value support to `CheckboxList` and `RadioList` widgets (@vjik)
+- Bug #208: Fix output of `null` value attributes in `Html::renderTagAttributes()` (@es-sayers)
 
 ## 3.5.0 July 11, 2024
 

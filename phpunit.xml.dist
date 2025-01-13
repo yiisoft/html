@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-    backupGlobals="false"
-    colors="true"
-    verbose="true"
-    bootstrap="vendor/autoload.php"
-    failOnRisky="true"
-    failOnWarning="true"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheDirectory=".phpunit.cache"
+         requireCoverageMetadata="false"
+         beStrictAboutCoverageMetadata="true"
+         beStrictAboutOutputDuringTests="true"
+         executionOrder="random"
+         failOnRisky="true"
+         failOnWarning="true"
+         stopOnFailure="false"
+         colors="true"
+         displayDetailsOnPhpunitDeprecations="true"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -15,18 +19,13 @@
 
     <testsuites>
         <testsuite name="Yii HTML tests">
-            <directory>./tests/common</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
 
-    <coverage>
+    <source>
         <include>
-            <directory>./</directory>
+            <directory suffix=".php">./src</directory>
         </include>
-        <exclude>
-            <directory>./tests</directory>
-            <directory>./vendor</directory>
-            <file>./rector.php</file>
-        </exclude>
-    </coverage>
+    </source>
 </phpunit>
