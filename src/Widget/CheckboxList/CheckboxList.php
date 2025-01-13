@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Widget\CheckboxList;
 
+use BackedEnum;
 use Closure;
 use Stringable;
 use Yiisoft\Arrays\ArrayHelper;
@@ -20,8 +21,13 @@ final class CheckboxList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
     private array $containerAttributes = [];
+
+    private ?string $checkboxWrapTag = null;
+    private array $checkboxWrapAttributes = [];
+
     private array $checkboxAttributes = [];
     private array $checkboxLabelAttributes = [];
+    private bool $checkboxLabelWrap = true;
 
     /**
      * @var array[]
@@ -85,6 +91,37 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    public function checkboxWrapTag(?string $name): self
+    {
+        $new = clone $this;
+        $new->checkboxWrapTag = $name;
+        return $new;
+    }
+
+    public function checkboxWrapAttributes(array $attributes): self
+    {
+        $new = clone $this;
+        $new->checkboxWrapAttributes = $attributes;
+        return $new;
+    }
+
+    public function checkboxWrapClass(?string ...$class): self
+    {
+        $new = clone $this;
+        $new->checkboxWrapAttributes['class'] = array_filter($class, static fn ($c) => $c !== null);
+        return $new;
+    }
+
+    public function addCheckboxWrapClass(?string ...$class): self
+    {
+        $new = clone $this;
+        Html::addCssClass(
+            $new->checkboxWrapAttributes,
+            array_filter($class, static fn ($c) => $c !== null),
+        );
+        return $new;
+    }
+
     public function addCheckboxAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -110,6 +147,13 @@ final class CheckboxList implements NoEncodeStringableInterface
     {
         $new = clone $this;
         $new->checkboxLabelAttributes = $attributes;
+        return $new;
+    }
+
+    public function checkboxLabelWrap(bool $wrap): self
+    {
+        $new = clone $this;
+        $new->checkboxLabelWrap = $wrap;
         return $new;
     }
 
@@ -161,21 +205,22 @@ final class CheckboxList implements NoEncodeStringableInterface
         );
     }
 
-    public function value(bool|string|int|float|Stringable ...$value): self
+    public function value(bool|string|int|float|Stringable|BackedEnum ...$value): self
     {
         $new = clone $this;
-        $new->values = array_map('\strval', array_values($value));
+        $new->values = array_map(
+            static fn ($v): string => (string) ($v instanceof BackedEnum ? $v->value : $v),
+            array_values($value)
+        );
         return $new;
     }
 
     /**
-     * @psalm-param iterable<int, Stringable|scalar> $values
+     * @psalm-param iterable<int, Stringable|scalar|BackedEnum> $values
      */
     public function values(iterable $values): self
     {
-        /** @psalm-var iterable<int, Stringable|scalar> $values */
         $values = is_array($values) ? $values : iterator_to_array($values);
-
         return $this->value(...$values);
     }
 
@@ -237,6 +282,14 @@ final class CheckboxList implements NoEncodeStringableInterface
     {
         $name = Html::getArrayableName($this->name);
 
+        if ($this->checkboxWrapTag === null) {
+            $beforeCheckbox = '';
+            $afterCheckbox = '';
+        } else {
+            $beforeCheckbox = Html::openTag($this->checkboxWrapTag, $this->checkboxWrapAttributes) . "\n";
+            $afterCheckbox = "\n" . Html::closeTag($this->checkboxWrapTag);
+        }
+
         $lines = [];
         $index = 0;
         foreach ($this->items as $value => $label) {
@@ -253,8 +306,9 @@ final class CheckboxList implements NoEncodeStringableInterface
                 $label,
                 $this->encodeLabels,
                 $this->checkboxLabelAttributes,
+                $this->checkboxLabelWrap,
             );
-            $lines[] = $this->formatItem($item);
+            $lines[] = $beforeCheckbox . $this->formatItem($item) . $afterCheckbox;
             $index++;
         }
 
@@ -303,7 +357,7 @@ final class CheckboxList implements NoEncodeStringableInterface
 
         $checkbox = Html::checkbox($item->name, $item->value, $item->checkboxAttributes)
             ->checked($item->checked)
-            ->label($item->label, $item->labelAttributes)
+            ->label($item->label, $item->labelAttributes, $item->labelWrap)
             ->labelEncode($item->encodeLabel);
 
         return $checkbox->render();

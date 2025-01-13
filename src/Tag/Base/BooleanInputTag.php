@@ -36,12 +36,18 @@ abstract class BooleanInputTag extends InputTag
      *
      * @param string|null $label Input label.
      * @param array $attributes Name-value set of label attributes.
+     * @param bool $wrap Whether to wrap input with label tag. If set to `false`, label will be rendered aside with
+     * input.
      */
-    final public function label(?string $label, array $attributes = []): static
-    {
+    final public function label(
+        ?string $label,
+        array $attributes = [],
+        bool $wrap = true,
+    ): static {
         $new = clone $this;
         $new->label = $label;
         $new->labelAttributes = $attributes;
+        $new->labelWrap = $wrap;
         return $new;
     }
 

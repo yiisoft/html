@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+use BackedEnum;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 
@@ -68,6 +69,8 @@ abstract class Tag implements NoEncodeStringableInterface
      * Set tag ID.
      *
      * @param string|null $id Tag ID.
+     *
+     * @psalm-param non-empty-string|null $id
      */
     final public function id(?string $id): static
     {
@@ -79,27 +82,25 @@ abstract class Tag implements NoEncodeStringableInterface
     /**
      * Add one or more CSS classes to the tag.
      *
-     * @param string|null ...$class One or many CSS classes.
+     * @param BackedEnum|string|null ...$class One or many CSS classes.
      */
-    final public function addClass(?string ...$class): static
+    final public function addClass(BackedEnum|string|null ...$class): static
     {
         $new = clone $this;
-        Html::addCssClass(
-            $new->attributes,
-            array_filter($class, static fn ($c) => $c !== null),
-        );
+        Html::addCssClass($new->attributes, $class);
         return $new;
     }
 
     /**
      * Replace current tag CSS classes with a new set of classes.
      *
-     * @param string|null ...$class One or many CSS classes.
+     * @param BackedEnum|string|null ...$class One or many CSS classes.
      */
-    final public function class(?string ...$class): static
+    final public function class(BackedEnum|string|null ...$class): static
     {
         $new = clone $this;
-        $new->attributes['class'] = array_filter($class, static fn ($c) => $c !== null);
+        unset($new->attributes['class']);
+        Html::addCssClass($new->attributes, $class);
         return $new;
     }
 
