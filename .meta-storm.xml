@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<meta-storm xmlns="meta-storm">
+    <definitions>
+        <classMethod class="\Yiisoft\Html\Html" method="tag" argument="0">
+            <collection name="GLOBAL:html-tags"/>
+        </classMethod>
+        <classMethod class="\Yiisoft\Html\Html" method="normalTag" argument="0">
+            <collection name="GLOBAL:html-tags"/>
+        </classMethod>
+    </definitions>
+</meta-storm>
