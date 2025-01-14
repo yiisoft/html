@@ -3,6 +3,7 @@
 ## 3.9.1 under development
 
 - Bug #232: Render `loading` attribute before `src` (@samdark)
+- Chg #234: Remove tag attributes sorting
 
 ## 3.9.0 November 29, 2024
 
