@@ -18,7 +18,7 @@ final class FormTest extends TestCase
         $tag = Form::tag();
 
         $this->assertSame(
-            '<form action="https://example.com/send" method="GET">' .
+            '<form method="GET" action="https://example.com/send">' .
             '<input type="text" name="query">' .
             '<button type="submit">go</button>' .
             '</form>',
