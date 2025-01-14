@@ -757,10 +757,10 @@ final class RadioListTest extends TestCase
             <<<HTML
             <div>
             <div$expected>
-            <label><input type="radio" name="test" value="1"> One</label>
+            <label><input name="test" value="1" type="radio"> One</label>
             </div>
             <div$expected>
-            <label><input type="radio" name="test" value="2"> Two</label>
+            <label><input name="test" value="2" type="radio"> Two</label>
             </div>
             </div>
             HTML,

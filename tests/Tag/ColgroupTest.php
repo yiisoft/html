@@ -16,8 +16,8 @@ final class ColgroupTest extends TestCase
         $this->assertSame(
             '<colgroup>' . "\n" .
             '<col>' . "\n" .
-            '<col class="red" span="2">' . "\n" .
-            '<col class="blue" span="2">' . "\n" .
+            '<col span="2" class="red">' . "\n" .
+            '<col span="2" class="blue">' . "\n" .
             '</colgroup>',
             Colgroup::tag()
                 ->columns(

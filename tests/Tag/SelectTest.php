@@ -33,15 +33,15 @@ final class SelectTest extends TestCase
     {
         return [
             ['<select multiple></select>', null],
-            ['<select name multiple></select>', ''],
+            ['<select multiple name></select>', ''],
             [
                 '<input type="hidden" name="age" value>' . "\n" .
-                '<select name="age[]" multiple></select>',
+                '<select multiple name="age[]"></select>',
                 'age',
             ],
             [
                 '<input type="hidden" name="place" value>' . "\n" .
-                '<select name="place[]" multiple></select>',
+                '<select multiple name="place[]"></select>',
                 'place[]',
             ],
         ];
@@ -360,7 +360,7 @@ final class SelectTest extends TestCase
         $this->assertStringContainsStringIgnoringLineEndings(
             <<<HTML
             <select>
-            <option value="1" data-key="42">One</option>
+            <option data-key="42" value="1">One</option>
             <optgroup label="Group A">
             <option value="2">Two</option>
             <option id="UniqueOption" value="3">Three</option>
