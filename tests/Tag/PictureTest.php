@@ -31,8 +31,8 @@ final class PictureTest extends TestCase
 
         $this->assertSame(
             '<picture>' . "\n" .
-            '<source type="image/jpeg" srcset="img_pink_flowers.jpg" media="(min-width:650px)">' . "\n" .
-            '<source type="image/jpeg" srcset="img_white_flower.jpg" media="(min-width:465px)">' . "\n" .
+            '<source media="(min-width:650px)" srcset="img_pink_flowers.jpg" type="image/jpeg">' . "\n" .
+            '<source media="(min-width:465px)" srcset="img_white_flower.jpg" type="image/jpeg">' . "\n" .
             '<img src="img_orange_flowers.jpg" alt="Flowers">' . "\n" .
             '</picture>',
             $picture->render()

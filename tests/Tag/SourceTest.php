@@ -13,7 +13,7 @@ final class SourceTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<source type="audio/ogg; codecs=vorbis" src="audio.ogg">',
+            '<source src="audio.ogg" type="audio/ogg; codecs=vorbis">',
             (string) Source::tag()
                 ->src('audio.ogg')
                 ->type('audio/ogg; codecs=vorbis')

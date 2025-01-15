@@ -28,7 +28,7 @@ final class TagTest extends TestCase
             ['<test class="first second">', ['class' => ['first', 'second']]],
             ['<test>', ['class' => []]],
             ['<test style="width: 100px; height: 200px;">', ['style' => ['width' => '100px', 'height' => '200px']]],
-            ['<test name="position" value="42">', ['value' => 42, 'name' => 'position']],
+            ['<test value="42" name="position">', ['value' => 42, 'name' => 'position']],
             [
                 '<test id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'>',
                 [
@@ -93,7 +93,7 @@ final class TagTest extends TestCase
     public function testUnionAttributes(): void
     {
         $this->assertSame(
-            '<test id="color" class="red">',
+            '<test class="red" id="color">',
             TestTag::tag()
                 ->class('red')
                 ->unionAttributes(['class' => 'green', 'id' => 'color'])

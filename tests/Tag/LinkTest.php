@@ -13,7 +13,7 @@ final class LinkTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<link type="application/rss+xml" href="/rss" title="Новости компании" rel="alternate">',
+            '<link href="/rss" type="application/rss+xml" rel="alternate" title="Новости компании">',
             (string)Link::tag()
                 ->url('/rss')
                 ->type('application/rss+xml')
@@ -25,7 +25,7 @@ final class LinkTest extends TestCase
     public function testToCssFile(): void
     {
         $this->assertSame(
-            '<link href="main.css" rel="stylesheet">',
+            '<link rel="stylesheet" href="main.css">',
             (string)Link::toCssFile('main.css')
         );
     }
@@ -119,8 +119,8 @@ final class LinkTest extends TestCase
     public static function dataPreload(): array
     {
         return [
-            ['<link href="/main.css" rel="preload">', '/main.css'],
-            ['<link href="/main.css" rel="preload" as="style">', '/main.css', 'style'],
+            ['<link rel="preload" href="/main.css">', '/main.css'],
+            ['<link rel="preload" href="/main.css" as="style">', '/main.css', 'style'],
         ];
     }
 

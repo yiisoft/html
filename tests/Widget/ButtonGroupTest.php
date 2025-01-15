@@ -198,8 +198,8 @@ final class ButtonGroupTest extends TestCase
         $this->assertStringContainsStringIgnoringLineEndings(
             <<<HTML
             <div>
-            <button type="button" class="base" disabled data-key="42">Show</button>
-            <button type="button" class="base" disabled data-key="42">Hide</button>
+            <button type="button" class="base" data-key="42" disabled>Show</button>
+            <button type="button" class="base" data-key="42" disabled>Hide</button>
             </div>
             HTML,
             $widget->render(),

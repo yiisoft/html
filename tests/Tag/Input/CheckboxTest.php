@@ -12,7 +12,7 @@ final class CheckboxTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<input type="checkbox" name="number" value="42">',
+            '<input name="number" value="42" type="checkbox">',
             Checkbox::tag()
                 ->name('number')
                 ->value(42)
