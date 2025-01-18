@@ -28,6 +28,30 @@ final class ButtonTest extends TestCase
         );
     }
 
+    public function testButtonWithoutContent(): void
+    {
+        $this->assertSame(
+            '<button type="button"></button>',
+            (string)Button::button()
+        );
+    }
+
+    public function testSubmitWithoutContent(): void
+    {
+        $this->assertSame(
+            '<button type="button"></button>',
+            (string)Button::submit()
+        );
+    }
+
+    public function testResetWithoutContent(): void
+    {
+        $this->assertSame(
+            '<button type="button"></button>',
+            (string)Button::reset()
+        );
+    }
+
     public function testSubmit(): void
     {
         $this->assertSame(

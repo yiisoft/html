@@ -3,6 +3,7 @@
 ## 3.9.1 under development
 
 - Bug #232: Render `loading` attribute before `src` (@samdark)
+- New #223: Make `content` optional parameter (@FrankiFixx)
 
 ## 3.9.0 November 29, 2024
 
