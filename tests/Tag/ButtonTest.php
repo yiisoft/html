@@ -39,7 +39,7 @@ final class ButtonTest extends TestCase
     public function testSubmitWithoutContent(): void
     {
         $this->assertSame(
-            '<button type="button"></button>',
+            '<button type="submit"></button>',
             (string)Button::submit()
         );
     }
@@ -47,7 +47,7 @@ final class ButtonTest extends TestCase
     public function testResetWithoutContent(): void
     {
         $this->assertSame(
-            '<button type="button"></button>',
+            '<button type="reset"></button>',
             (string)Button::reset()
         );
     }
