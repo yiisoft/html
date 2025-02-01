@@ -6,6 +6,9 @@ namespace Yiisoft\Html\Tag\MathML;
 
 use Yiisoft\Html\Tag\Base\NormalTag;
 
+/**
+ * @link https://developer.mozilla.org/en-US/docs/Web/MathML/Element/mmultiscripts
+ */
 final class Mmultiscripts extends NormalTag implements MathItemInterface
 {
     private MathItemInterface $base;
@@ -49,11 +52,10 @@ final class Mmultiscripts extends NormalTag implements MathItemInterface
     public function post(MathItemInterface $item, MathItemInterface ...$items): self
     {
         $new = clone $this;
+        $new->post = [$item];
 
         if ($items) {
-            $new->post = [...[$item], ...$items];
-        } else {
-            $new->post = [$item];
+            $new->post = [...$new->post, ...$items];
         }
 
         return $new;

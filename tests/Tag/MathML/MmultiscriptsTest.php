@@ -38,6 +38,23 @@ final class MmultiscriptsTest extends TestCase
         );
     }
 
+    public function testPost(): void
+    {
+        $mmultiscripts = Mmultiscripts::tag()
+            ->base(Mi::tag()->identifier('X'))
+            ->post(
+                Mi::tag()->identifier('a'),
+            );
+
+        $this->assertSame(
+            '<mmultiscripts>' . "\n" .
+            '<mi>X</mi>' . "\n" .
+            '<mi>a</mi>' . "\n" .
+            '</mmultiscripts>',
+            (string) $mmultiscripts
+        );
+    }
+
     public function testWithoutPre(): void
     {
         $mmultiscripts = Mmultiscripts::tag()
