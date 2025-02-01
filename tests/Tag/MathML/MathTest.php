@@ -107,4 +107,12 @@ final class MathTest extends TestCase
             (string) $math
         );
     }
+
+    public function testImmutable(): void
+    {
+        $math = Math::tag();
+
+        $this->assertNotSame($math, $math->block());
+        $this->assertNotSame($math, $math->inline());
+    }
 }
