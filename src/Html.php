@@ -1733,7 +1733,11 @@ final class Html
                 /** @psalm-var string[] $options['class'] */
                 $options['class'] = self::mergeCssClasses($options['class'], (array) $class);
             } else {
-                /** @psalm-var string $options['class'] */
+                /**
+                 * @psalm-var string $options['class']
+                 * @var string[] $classes We assume that `$options['class']` is valid UTF-8 string, so `preg_split()`
+                 * never returns `false`.
+                 */
                 $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $classes = self::mergeCssClasses($classes, (array) $class);
                 $options['class'] = is_array($class) ? $classes : implode(' ', $classes);
@@ -1950,6 +1954,10 @@ final class Html
             throw new InvalidArgumentException('Incorrect regular expression.');
         }
 
+        /**
+         * @var string $pattern We assume that `$regexp` is valid UTF-8 string, so `preg_replace()` never returns
+         * `null`.
+         */
         $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
 
         if ($delimiter === null) {
