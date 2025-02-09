@@ -125,7 +125,7 @@ final class LinkTest extends TestCase
     }
 
     #[DataProvider('dataPreload')]
-    public function testPreload(string $expected, string $url, string $as = null): void
+    public function testPreload(string $expected, string $url, ?string $as = null): void
     {
         $tag = $as === null
             ? Link::tag()->preload($url)
