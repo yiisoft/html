@@ -1692,7 +1692,7 @@ final class Html
      *
      * @see removeCssClass()
      *
-     * @param array $options The options to be modified.
+     * @param array $options The options to be modified. All string values in the array must be valid UTF-8 strings.
      * @param BackedEnum|BackedEnum[]|null[]|string|string[]|null $class The CSS class(es) to be added. Null values will
      * be ignored.
      *
@@ -1941,7 +1941,7 @@ final class Html
      *
      * @link https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute
      *
-     * @param string $regexp PCRE regular expression.
+     * @param string $regexp PCRE regular expression. It must be valid UTF-8 string.
      * @param string|null $delimiter Regular expression delimiter.
      *
      * @throws InvalidArgumentException if incorrect regular expression or delimiter
