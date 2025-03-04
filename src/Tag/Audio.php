@@ -11,6 +11,7 @@ use Yiisoft\Html\Tag\Base\MediaTag;
  */
 final class Audio extends MediaTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'audio';

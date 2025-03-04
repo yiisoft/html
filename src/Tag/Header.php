@@ -14,6 +14,7 @@ final class Header extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'header';

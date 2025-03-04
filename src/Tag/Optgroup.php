@@ -86,6 +86,7 @@ final class Optgroup extends NormalTag
             : '';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'optgroup';

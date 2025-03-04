@@ -18,6 +18,7 @@ final class TestTagSourcesTrait extends NormalTag
             : '';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'test';

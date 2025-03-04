@@ -8,6 +8,7 @@ use Yiisoft\Html\Tag\Base\TableCellTag;
 
 final class TestTableCellTag extends TableCellTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'test';

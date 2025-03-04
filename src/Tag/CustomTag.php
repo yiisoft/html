@@ -83,6 +83,7 @@ final class CustomTag extends Tag
         return $new;
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return $this->name;

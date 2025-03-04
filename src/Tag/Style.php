@@ -42,11 +42,13 @@ final class Style extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'style';
     }
 
+    #[\Override]
     /**
      * @return string Obtain tag content.
      */

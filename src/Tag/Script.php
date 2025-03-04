@@ -141,11 +141,13 @@ final class Script extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'script';
     }
 
+    #[\Override]
     /**
      * @return string Obtain tag content.
      */
@@ -154,6 +156,7 @@ final class Script extends NormalTag
         return $this->content;
     }
 
+    #[\Override]
     protected function after(): string
     {
         return $this->noscript !== null ? (string) $this->noscript : '';

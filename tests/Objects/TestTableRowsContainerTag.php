@@ -8,6 +8,7 @@ use Yiisoft\Html\Tag\Base\TableRowsContainerTag;
 
 final class TestTableRowsContainerTag extends TableRowsContainerTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'test';

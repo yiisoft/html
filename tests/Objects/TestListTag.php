@@ -8,6 +8,7 @@ use Yiisoft\Html\Tag\Base\ListTag;
 
 final class TestListTag extends ListTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'test';

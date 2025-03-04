@@ -14,6 +14,7 @@ final class Caption extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'caption';

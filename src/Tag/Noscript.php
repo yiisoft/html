@@ -14,6 +14,7 @@ final class Noscript extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'noscript';

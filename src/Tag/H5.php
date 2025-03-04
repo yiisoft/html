@@ -14,6 +14,7 @@ final class H5 extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'h5';

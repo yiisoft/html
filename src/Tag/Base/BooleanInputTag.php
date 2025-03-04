@@ -86,11 +86,13 @@ abstract class BooleanInputTag extends InputTag
         return $new;
     }
 
+    #[\Override]
     final protected function prepareAttributes(): void
     {
         $this->attributes['type'] = $this->getType();
     }
 
+    #[\Override]
     final protected function before(): string
     {
         $this->attributes['id'] ??= ($this->labelWrap || $this->label === null)
@@ -134,6 +136,7 @@ abstract class BooleanInputTag extends InputTag
         return Html::openTag('label', $attributes);
     }
 
+    #[\Override]
     final protected function after(): string
     {
         if ($this->label === null) {

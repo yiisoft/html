@@ -14,6 +14,7 @@ final class Body extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'body';

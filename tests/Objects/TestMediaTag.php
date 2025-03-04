@@ -8,6 +8,7 @@ use Yiisoft\Html\Tag\Base\MediaTag;
 
 final class TestMediaTag extends MediaTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'test';

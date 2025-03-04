@@ -14,6 +14,7 @@ final class Pre extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'pre';

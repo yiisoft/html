@@ -14,6 +14,7 @@ final class Legend extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'legend';

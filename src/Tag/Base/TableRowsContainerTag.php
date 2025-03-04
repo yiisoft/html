@@ -33,6 +33,7 @@ abstract class TableRowsContainerTag extends NormalTag
         return $new;
     }
 
+    #[\Override]
     final protected function generateContent(): string
     {
         return $this->rows

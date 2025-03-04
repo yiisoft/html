@@ -53,6 +53,7 @@ final class Colgroup extends NormalTag
             : '';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'colgroup';

@@ -176,6 +176,7 @@ final class Form extends NormalTag
             : '';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'form';

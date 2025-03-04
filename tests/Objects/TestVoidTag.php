@@ -8,6 +8,7 @@ use Yiisoft\Html\Tag\Base\VoidTag;
 
 final class TestVoidTag extends VoidTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'test';

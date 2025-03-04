@@ -109,6 +109,7 @@ final class Tr extends NormalTag
         );
     }
 
+    #[\Override]
     protected function generateContent(): string
     {
         return $this->items
@@ -116,6 +117,7 @@ final class Tr extends NormalTag
             : '';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'tr';

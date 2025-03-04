@@ -67,6 +67,7 @@ final class Track extends VoidTag
         return $this->attribute('srclang', $srclang);
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'track';

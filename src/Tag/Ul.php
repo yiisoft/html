@@ -11,6 +11,7 @@ use Yiisoft\Html\Tag\Base\ListTag;
  */
 final class Ul extends ListTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'ul';

@@ -14,6 +14,7 @@ final class Strong extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'strong';
