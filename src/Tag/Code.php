@@ -8,15 +8,15 @@ use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TagContentTrait;
 
 /**
- * @link https://html.spec.whatwg.org/multipage/scripting.html#the-noscript-element
+ * @link https://www.w3.org/TR/html52/textlevel-semantics.html#the-code-element
  */
-final class Noscript extends NormalTag
+final class Code extends NormalTag
 {
     use TagContentTrait;
 
     #[\Override]
     protected function getName(): string
     {
-        return 'noscript';
+        return 'code';
     }
 }

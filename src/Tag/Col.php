@@ -21,6 +21,7 @@ final class Col extends VoidTag
         return $new;
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'col';

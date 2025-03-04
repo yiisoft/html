@@ -14,6 +14,7 @@ final class Datalist extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'datalist';

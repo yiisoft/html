@@ -14,6 +14,7 @@ final class Nav extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'nav';

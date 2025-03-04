@@ -55,6 +55,7 @@ final class Button extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'button';

@@ -14,6 +14,7 @@ final class Span extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'span';

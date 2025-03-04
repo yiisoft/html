@@ -11,6 +11,7 @@ use Yiisoft\Html\Tag\Base\BooleanInputTag;
  */
 final class Checkbox extends BooleanInputTag
 {
+    #[\Override]
     protected function getType(): string
     {
         return 'checkbox';

@@ -60,6 +60,7 @@ final class Textarea extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'textarea';

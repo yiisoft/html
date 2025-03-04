@@ -63,11 +63,13 @@ final class File extends InputTag
         return $new;
     }
 
+    #[\Override]
     protected function prepareAttributes(): void
     {
         $this->attributes['type'] = 'file';
     }
 
+    #[\Override]
     protected function before(): string
     {
         return $this->renderUncheckInput();

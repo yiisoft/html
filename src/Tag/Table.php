@@ -147,6 +147,7 @@ final class Table extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function generateContent(): string
     {
         $items = [];
@@ -180,6 +181,7 @@ final class Table extends NormalTag
             : '';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'table';

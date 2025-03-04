@@ -61,6 +61,7 @@ final class Fieldset extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function prepend(): string
     {
         if ($this->legend === null) {
@@ -70,6 +71,7 @@ final class Fieldset extends NormalTag
         return "\n" . $this->legend->render() . "\n";
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'fieldset';

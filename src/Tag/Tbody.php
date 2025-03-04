@@ -11,6 +11,7 @@ use Yiisoft\Html\Tag\Base\TableRowsContainerTag;
  */
 final class Tbody extends TableRowsContainerTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'tbody';

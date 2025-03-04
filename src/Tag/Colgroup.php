@@ -46,6 +46,7 @@ final class Colgroup extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function generateContent(): string
     {
         return $this->columns
@@ -53,6 +54,7 @@ final class Colgroup extends NormalTag
             : '';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'colgroup';

@@ -43,6 +43,7 @@ abstract class ListTag extends NormalTag
         return $this->items(...$items);
     }
 
+    #[\Override]
     protected function generateContent(): string
     {
         return $this->items

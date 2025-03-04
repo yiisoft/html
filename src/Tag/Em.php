@@ -14,6 +14,7 @@ final class Em extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'em';

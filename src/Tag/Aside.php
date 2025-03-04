@@ -14,6 +14,7 @@ final class Aside extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'aside';

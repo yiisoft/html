@@ -71,6 +71,7 @@ final class Source extends VoidTag
         return $this->attribute('height', $height);
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'source';

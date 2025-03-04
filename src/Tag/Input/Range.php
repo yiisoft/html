@@ -110,6 +110,7 @@ final class Range extends InputTag
         return $new;
     }
 
+    #[\Override]
     protected function prepareAttributes(): void
     {
         $this->attributes['type'] = 'range';
@@ -120,6 +121,7 @@ final class Range extends InputTag
         }
     }
 
+    #[\Override]
     protected function after(): string
     {
         if (!$this->showOutput) {

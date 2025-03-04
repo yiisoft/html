@@ -64,6 +64,7 @@ final class A extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'a';

@@ -237,6 +237,7 @@ final class Select extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function prepareAttributes(): void
     {
         if (!empty($this->attributes['multiple']) && !empty($this->attributes['name'])) {
@@ -244,6 +245,7 @@ final class Select extends NormalTag
         }
     }
 
+    #[\Override]
     protected function generateContent(): string
     {
         $items = $this->items;
@@ -263,6 +265,7 @@ final class Select extends NormalTag
             : '';
     }
 
+    #[\Override]
     protected function before(): string
     {
         $name = (string) ($this->attributes['name'] ?? '');
@@ -293,6 +296,7 @@ final class Select extends NormalTag
         return $input->render() . "\n";
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'select';

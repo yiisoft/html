@@ -74,6 +74,7 @@ final class Optgroup extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function generateContent(): string
     {
         $options = array_map(
@@ -86,6 +87,7 @@ final class Optgroup extends NormalTag
             : '';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'optgroup';

@@ -13,6 +13,7 @@ final class TestNormalTag extends NormalTag
         return 'content';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'test';

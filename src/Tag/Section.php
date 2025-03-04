@@ -14,6 +14,7 @@ final class Section extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'section';

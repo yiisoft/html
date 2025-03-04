@@ -13,6 +13,7 @@ final class TestTag extends Tag
         return new self();
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'test';

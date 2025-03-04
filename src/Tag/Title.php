@@ -14,6 +14,7 @@ final class Title extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'title';

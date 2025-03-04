@@ -18,6 +18,7 @@ abstract class NormalTag extends Tag
         return new static();
     }
 
+    #[\Override]
     final protected function renderTag(): string
     {
         return $this->open() . $this->generateContent() . $this->close();

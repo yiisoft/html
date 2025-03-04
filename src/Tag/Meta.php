@@ -94,6 +94,7 @@ final class Meta extends VoidTag
         return $new;
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'meta';

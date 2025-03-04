@@ -11,6 +11,7 @@ use Yiisoft\Html\Tag\Base\TableCellTag;
  */
 final class Th extends TableCellTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'th';

@@ -61,6 +61,7 @@ final class Option extends NormalTag
         return $value === null ? null : (string)$value;
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'option';

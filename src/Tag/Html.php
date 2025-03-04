@@ -14,6 +14,7 @@ final class Html extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'html';

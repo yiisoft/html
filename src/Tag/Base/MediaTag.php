@@ -123,6 +123,7 @@ abstract class MediaTag extends NormalTag
         return $this->attribute('controls', $controls);
     }
 
+    #[\Override]
     final protected function generateContent(): string
     {
         $items = $this->sources;

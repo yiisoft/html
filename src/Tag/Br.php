@@ -11,6 +11,7 @@ use Yiisoft\Html\Tag\Base\VoidTag;
  */
 final class Br extends VoidTag
 {
+    #[\Override]
     protected function getName(): string
     {
         return 'br';

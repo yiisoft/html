@@ -14,6 +14,7 @@ final class Footer extends NormalTag
 {
     use TagContentTrait;
 
+    #[\Override]
     protected function getName(): string
     {
         return 'footer';

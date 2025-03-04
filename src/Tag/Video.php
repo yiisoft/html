@@ -35,6 +35,7 @@ final class Video extends MediaTag
         return $this->attribute('height', $height);
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'video';

@@ -23,6 +23,7 @@ final class Picture extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function generateContent(): string
     {
         $items = $this->sources;
@@ -34,6 +35,7 @@ final class Picture extends NormalTag
         return $items ? "\n" . implode("\n", $items) . "\n" : '';
     }
 
+    #[\Override]
     protected function getName(): string
     {
         return 'picture';
