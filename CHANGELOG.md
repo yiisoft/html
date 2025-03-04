@@ -2,6 +2,7 @@
 
 ## 3.9.1 under development
 
+- New #237: Add classes for `Code` and `Pre` tags (@FrankiFixx)
 - Bug #232: Render `loading` attribute before `src` (@samdark)
 - Enh #223: Make `$content` parameter optional in `Button` factories (@FrankiFixx)
 - Chg #240: Change PHP constraint in `composer.json` to `~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0` (@vjik)
