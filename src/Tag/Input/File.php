@@ -69,6 +69,7 @@ final class File extends InputTag
         $this->attributes['type'] = 'file';
     }
 
+    #[\Override]
     protected function before(): string
     {
         return $this->renderUncheckInput();

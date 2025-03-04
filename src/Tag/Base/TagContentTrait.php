@@ -79,7 +79,7 @@ trait TagContentTrait
                 $item = Html::encode($item, $this->doubleEncode);
             }
 
-            $content .= $item;
+            $content .= (string) $item;
         }
 
         return $content;

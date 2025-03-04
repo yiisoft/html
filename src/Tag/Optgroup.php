@@ -74,6 +74,7 @@ final class Optgroup extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function generateContent(): string
     {
         $options = array_map(

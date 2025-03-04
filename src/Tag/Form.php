@@ -169,10 +169,11 @@ final class Form extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function prepend(): string
     {
         return $this->csrfToken !== null
-            ? "\n" . Input::hidden($this->csrfName, $this->csrfToken)
+            ? "\n" . (string) Input::hidden($this->csrfName, $this->csrfToken)
             : '';
     }
 

@@ -61,6 +61,7 @@ final class Fieldset extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function prepend(): string
     {
         if ($this->legend === null) {

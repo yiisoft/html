@@ -89,6 +89,7 @@ final class CustomTag extends Tag
         return $this->name;
     }
 
+    #[\Override]
     protected function renderTag(): string
     {
         $isVoid = $this->type === self::TYPE_VOID ||

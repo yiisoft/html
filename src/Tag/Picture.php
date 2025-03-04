@@ -23,6 +23,7 @@ final class Picture extends NormalTag
         return $new;
     }
 
+    #[\Override]
     protected function generateContent(): string
     {
         $items = $this->sources;
