@@ -4,7 +4,8 @@
 
 - Bug #232: Render `loading` attribute before `src` (@samdark)
 - Enh #223: Make `$content` parameter optional in `Button` factories (@FrankiFixx)
-- Chg #240: Change PHP constraint in `composer.json` to `~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0` (@vjik)
+- Chg #240, #242: Change PHP constraint in `composer.json` to `8.1 - 8.4` (@vjik)
+- Bug #242: Fix the nullable parameter declarations for compatibility with PHP 8.4 (@vjik)
 
 ## 3.9.0 November 29, 2024
 
