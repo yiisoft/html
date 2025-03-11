@@ -805,6 +805,22 @@ final class HtmlTest extends TestCase
         $this->assertSame('<source>', Html::source()->render());
     }
 
+    public function testCode(): void
+    {
+        $this->assertSame('<code></code>', Html::code()->render());
+        $this->assertSame('<code>Hello</code>', Html::code('Hello')->render());
+        $this->assertSame('<code class="red">Hello</code>', Html::code('Hello', ['class' => 'red'])->render());
+        $this->assertSame('<code><span>Hello</span></code>', Html::code(Html::span('Hello'))->render());
+    }
+
+    public function testPre(): void
+    {
+        $this->assertSame('<pre></pre>', Html::pre()->render());
+        $this->assertSame('<pre>Hello</pre>', Html::pre('Hello')->render());
+        $this->assertSame('<pre class="red">Hello</pre>', Html::pre('Hello', ['class' => 'red'])->render());
+        $this->assertSame('<pre><span>Hello</span></pre>', Html::pre(Html::span('Hello'))->render());
+    }
+
     public static function dataRenderTagAttributes(): array
     {
         return [
