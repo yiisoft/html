@@ -12,6 +12,8 @@ use Yiisoft\Html\Tag\Select;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
 use Yiisoft\Html\Tests\Support\StringEnum;
 
+use function PHPUnit\Framework\assertSame;
+
 final class SelectTest extends TestCase
 {
     public static function dataProviderName(): array
@@ -570,5 +572,40 @@ final class SelectTest extends TestCase
         $this->assertNotSame($select, $select->required());
         $this->assertNotSame($select, $select->size(0));
         $this->assertNotSame($select, $select->unselectValue(null));
+    }
+
+    public function testNullValue(): void
+    {
+        $select = Select::tag()
+            ->optionsData(['red' => 'RED', 'green' => 'GREEN'])
+            ->value(null);
+
+        assertSame(
+            <<<HTML
+            <select>
+            <option value="red">RED</option>
+            <option value="green">GREEN</option>
+            </select>
+            HTML,
+            $select->render()
+        );
+    }
+
+    public function testNullValueOverride(): void
+    {
+        $select = Select::tag()
+            ->optionsData(['red' => 'RED', 'green' => 'GREEN'])
+            ->value('red')
+            ->value(null);
+
+        assertSame(
+            <<<HTML
+            <select>
+            <option value="red">RED</option>
+            <option value="green">GREEN</option>
+            </select>
+            HTML,
+            $select->render()
+        );
     }
 }
