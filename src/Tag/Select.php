@@ -48,7 +48,7 @@ final class Select extends NormalTag
      */
     public function value(Stringable|bool|float|int|string|BackedEnum|null ...$value): self
     {
-        $values =  array_filter(
+        $values = array_filter(
             $value,
             static fn (mixed $v): bool => $v !== null,
         );
