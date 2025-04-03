@@ -27,7 +27,7 @@ final class Select extends NormalTag
     private ?string $unselectValue = null;
 
     /**
-     * @psalm-var list<string>
+     * @var string[]
      */
     private array $values = [];
 
@@ -44,17 +44,23 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-param Stringable|scalar|BackedEnum ...$value One or more string values.
+     * @psalm-param Stringable|scalar|BackedEnum|null ...$value One or more string values.
      */
-    public function value(Stringable|bool|float|int|string|BackedEnum ...$value): self
+    public function value(Stringable|bool|float|int|string|BackedEnum|null ...$value): self
     {
-        $new = clone $this;
-        $new->values = array_map(
+        $values = array_filter(
+            $value,
+            static fn (mixed $v): bool => $v !== null,
+        );
+        $values = array_map(
             static function (Stringable|bool|float|int|string|BackedEnum $v): string {
                 return (string) ($v instanceof BackedEnum ? $v->value : $v);
             },
-            array_values($value)
+            $values,
         );
+
+        $new = clone $this;
+        $new->values = $values;
         return $new;
     }
 

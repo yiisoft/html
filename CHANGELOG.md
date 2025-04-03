@@ -6,6 +6,7 @@
 - Enh #223: Make `$content` parameter optional in `Button` factories (@FrankiFixx)
 - Chg #240, #242: Change PHP constraint in `composer.json` to `8.1 - 8.4` (@vjik)
 - Bug #242: Fix the nullable parameter declarations for compatibility with PHP 8.4 (@vjik)
+- Enh #244: Allow to pass `null` to `Select::value()` method (@vjik)
 
 ## 3.9.0 November 29, 2024
 
