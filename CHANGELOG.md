@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.10.1 under development
+
+- no changes in this release.
+
 ## 3.10.0 April 03, 2025
 
 - Chg #240, #242: Change PHP constraint in `composer.json` to `8.1 - 8.4` (@vjik)
