@@ -1007,7 +1007,7 @@ final class Html
     }
 
     /**
-     * Generates a {@see Code} tag.
+     * Generates a {@see Pre} tag.
      *
      * @param string|Stringable $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
