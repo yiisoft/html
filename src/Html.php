@@ -994,7 +994,9 @@ final class Html
     /**
      * Generates a {@see Code} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable $content Tag content. If content includes HTML tags or special characters like `<`, `>`,
+     * or `&`, and you want them to be displayed as plain text, you need to enable encoding by calling `->encode(true)`.
+     * This ensures they are not interpreted as actual HTML.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
     public static function code(string|Stringable $content = '', array $attributes = []): Code
@@ -1009,7 +1011,9 @@ final class Html
     /**
      * Generates a {@see Pre} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable $content Tag content. If content includes HTML tags or special characters like `<`, `>`,
+     * or `&`, and you want them to be displayed as plain text, you need to enable encoding by calling `->encode(true)`.
+     * This ensures they are not interpreted as actual HTML.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
     public static function pre(string|Stringable $content = '', array $attributes = []): Pre
