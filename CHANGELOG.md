@@ -2,7 +2,7 @@
 
 ## 3.10.1 under development
 
-- no changes in this release.
+- New #237: Add classes for `Code` and `Pre` tags, `Html::code()` and `Html::pre()` methods (@FrankiFixx)
 
 ## 3.10.0 April 03, 2025
 

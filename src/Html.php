@@ -16,6 +16,7 @@ use Yiisoft\Html\Tag\B;
 use Yiisoft\Html\Tag\Br;
 use Yiisoft\Html\Tag\Button;
 use Yiisoft\Html\Tag\Caption;
+use Yiisoft\Html\Tag\Code;
 use Yiisoft\Html\Tag\Col;
 use Yiisoft\Html\Tag\Colgroup;
 use Yiisoft\Html\Tag\CustomTag;
@@ -47,6 +48,7 @@ use Yiisoft\Html\Tag\Footer;
 use Yiisoft\Html\Tag\Header;
 use Yiisoft\Html\Tag\Hgroup;
 use Yiisoft\Html\Tag\Hr;
+use Yiisoft\Html\Tag\Pre;
 use Yiisoft\Html\Tag\Small;
 use Yiisoft\Html\Tag\Track;
 use Yiisoft\Html\Tag\Video;
@@ -983,6 +985,40 @@ final class Html
     public static function div(string|Stringable $content = '', array $attributes = []): Div
     {
         $tag = Div::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Code} tag.
+     *
+     * @param string|Stringable $content Tag content. If content includes HTML tags or special characters like `<`, `>`,
+     * or `&`, and you want them to be displayed as plain text, you need to enable encoding by calling `->encode(true)`.
+     * This ensures they are not interpreted as actual HTML.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function code(string|Stringable $content = '', array $attributes = []): Code
+    {
+        $tag = Code::tag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Pre} tag.
+     *
+     * @param string|Stringable $content Tag content. If content includes HTML tags or special characters like `<`, `>`,
+     * or `&`, and you want them to be displayed as plain text, you need to enable encoding by calling `->encode(true)`.
+     * This ensures they are not interpreted as actual HTML.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function pre(string|Stringable $content = '', array $attributes = []): Pre
+    {
+        $tag = Pre::tag();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
