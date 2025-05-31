@@ -3,6 +3,7 @@
 ## 3.10.1 under development
 
 - New #237: Add classes for `Code` and `Pre` tags, `Html::code()` and `Html::pre()` methods (@FrankiFixx)
+- Bug #245: Explicitly marking parameters as nullable (@Tigrov)
 
 ## 3.10.0 April 03, 2025
 

@@ -91,7 +91,7 @@ final class Link extends VoidTag
      * @link https://www.w3.org/TR/preload/#link-type-preload
      * @link https://www.w3.org/TR/preload/#as-attribute
      */
-    public function preload(string $url, string $as = null): self
+    public function preload(string $url, ?string $as = null): self
     {
         $new = clone $this;
         $new->attributes['rel'] = 'preload';
