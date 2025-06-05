@@ -33,10 +33,10 @@
     "require-dev": {
         "infection/infection": "^0.27.11 || ^0.29.10",
         "maglnet/composer-require-checker": "^4.7.1",
-        "phpunit/phpunit": "^10.5.45",
-        "rector/rector": "^2.0.8",
+        "phpunit/phpunit": "^10.5.46",
+        "rector/rector": "^2.0.17",
         "spatie/phpunit-watcher": "^1.24",
-        "vimeo/psalm": "^5.26.1 || ^6.10.0"
+        "vimeo/psalm": "^5.26.1 || ^6.12"
     },
     "autoload": {
         "psr-4": {
