@@ -16,6 +16,8 @@ use function is_array;
  * The select element represents a control for selecting amongst a set of options.
  *
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-select-element
+ *
+ * @psalm-type OptionsData = array<array-key, string|array<array-key,string>>
  */
 final class Select extends NormalTag
 {
@@ -139,7 +141,7 @@ final class Select extends NormalTag
      * @param array[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
      * @param array[] $groupsAttributes Array of group attribute sets indexed by group labels from {@see $data}.
      *
-     * @psalm-param array<array-key, string|array<array-key,string>> $data
+     * @psalm-param OptionsData $data
      */
     public function optionsData(
         array $data,
