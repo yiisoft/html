@@ -1,10 +1,10 @@
 # Yii HTML Change Log
 
-## 3.10.1 under development
+## 3.11.0 June 10, 2025
 
 - New #237: Add classes for `Code` and `Pre` tags, `Html::code()` and `Html::pre()` methods (@FrankiFixx)
-- Bug #245: Explicitly marking parameters as nullable (@Tigrov)
 - Enh #246: Add psalm type `OptionsData` in `Select` class (@vjik)
+- Bug #245: Explicitly marking parameters as nullable (@Tigrov)
 
 ## 3.10.0 April 03, 2025
 
