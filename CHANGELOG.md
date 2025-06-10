@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.11.1 under development
+
+- no changes in this release.
+
 ## 3.11.0 June 10, 2025
 
 - New #237: Add classes for `Code` and `Pre` tags, `Html::code()` and `Html::pre()` methods (@FrankiFixx)
