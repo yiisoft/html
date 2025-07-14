@@ -1740,8 +1740,7 @@ final class Html
         array &$options,
         BackedEnum|array|string|null $class,
         bool $prepend = false,
-    ): void
-    {
+    ): void {
         if ($class === null) {
             return;
         }
