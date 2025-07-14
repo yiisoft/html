@@ -1731,10 +1731,16 @@ final class Html
      * @param array $options The options to be modified. All string values in the array must be valid UTF-8 strings.
      * @param BackedEnum|BackedEnum[]|null[]|string|string[]|null $class The CSS class(es) to be added. Null values will
      * be ignored.
+     * @param bool $prepend Whether to prepend the new CSS class(es) to the existing ones. Default is `false`, which
+     * means that the new class(es) will be appended to the existing ones.
      *
      * @psalm-param BackedEnum|string|array<array-key,BackedEnum|string|null>|null $class
      */
-    public static function addCssClass(array &$options, BackedEnum|array|string|null $class): void
+    public static function addCssClass(
+        array &$options,
+        BackedEnum|array|string|null $class,
+        bool $prepend = false,
+    ): void
     {
         if ($class === null) {
             return;
@@ -1767,20 +1773,26 @@ final class Html
         if (isset($options['class'])) {
             if (is_array($options['class'])) {
                 /** @psalm-var string[] $options['class'] */
-                $options['class'] = self::mergeCssClasses($options['class'], (array) $class);
-            } else {
-                /**
-                 * @psalm-var string $options['class']
-                 * @var string[] $classes We assume that `$options['class']` is valid UTF-8 string, so `preg_split()`
-                 * never returns `false`.
-                 */
-                $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
-                $classes = self::mergeCssClasses($classes, (array) $class);
-                $options['class'] = is_array($class) ? $classes : implode(' ', $classes);
+                $options['class'] = $prepend
+                    ? self::mergeCssClasses((array) $class, $options['class'])
+                    : self::mergeCssClasses($options['class'], (array) $class);
+                return;
             }
-        } else {
-            $options['class'] = $class;
+
+            /**
+             * @psalm-var string $options['class']
+             * @var string[] $classes We assume that `$options['class']` is valid UTF-8 string, so `preg_split()`
+             * never returns `false`.
+             */
+            $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+            $classes = $prepend
+                ? self::mergeCssClasses((array) $class, $classes)
+                : self::mergeCssClasses($classes, (array) $class);
+            $options['class'] = is_array($class) ? $classes : implode(' ', $classes);
+            return;
         }
+
+        $options['class'] = $class;
     }
 
     /**

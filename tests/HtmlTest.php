@@ -986,6 +986,41 @@ final class HtmlTest extends TestCase
         $this->assertSame($expected, $options);
     }
 
+    public static function dataAddCssClassWithPrepend(): array
+    {
+        return [
+            0 => [['class' => 'test'], [], 'test'],
+            1 => [['class' => 'test'], ['class' => 'test'], 'test'],
+            2 => [['class' => 'test2 test'], ['class' => 'test'], 'test2'],
+            3 => [['class' => 'test test2'], ['class' => 'test test2'], 'test'],
+            4 => [['class' => 'test2 test'], ['class' => 'test test2'], 'test2'],
+            5 => [['class' => 'test3 test test2'], ['class' => 'test test2'], 'test3'],
+            6 => [['class' => 'test2 test test3'], ['class' => 'test test2 test3'], 'test2'],
+            7 => [['class' => ['test2', 'test']], ['class' => ['test']], 'test2'],
+            8 => [['class' => ['test2', 'test']], ['class' => ['test', 'test2']], 'test2'],
+            9 => [['class' => ['test3', 'test', 'test2']], ['class' => ['test', 'test2']], ['test3']],
+            10 => [['class' => 'test2 test'], ['class' => 'test test'], 'test2'],
+            11 => [['class' => 'test test2'], ['class' => 'test test2'], null],
+            12 => [['class' => 'test test2'], ['class' => 'test test2'], [null]],
+            13 => [['class' => ['t3', 2 => 't4', 3 => 't1', 4 => 't2']], ['class' => 't1 t2'], ['t3', null, 't4']],
+            14 => [['id' => 'w2'], ['id' => 'w2'], null],
+            15 => [['id' => 'w2'], ['id' => 'w2'], [null]],
+            16 => [['id' => 'w2', 'class' => 't1'], ['id' => 'w2'], 't1'],
+            17 => [['id' => 'w2', 'class' => ['t3', 2 => 't4']], ['id' => 'w2'], ['t3', null, 't4']],
+            18 => [['id' => 'w2', 'class' => ['t3', 2 => 't4']], ['id' => 'w2'], ['t3', null, 't4', null]],
+        ];
+    }
+
+    #[DataProvider('dataAddCssClassWithPrepend')]
+    public function testAddCssClassWithPrepend(
+        array $expected,
+        array $attributes,
+        array|string|null $class,
+    ): void {
+        Html::addCssClass($attributes, $class, prepend: true);
+        $this->assertSame($expected, $attributes);
+    }
+
     public function testAddCssClassWithBackedEnum(): void
     {
         $options = ['class' => 'test'];
