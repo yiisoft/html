@@ -2,7 +2,7 @@
 
 ## 3.11.1 under development
 
-- New #248: Add `$prepend` optional property to `Html::addCssClass()` method that allows to prepend classes instead of
+- New #248: Add `$prepend` optional parameter to `Html::addCssClass()` method that allows to prepend classes instead of
   appending (@vjik)
 
 ## 3.11.0 June 10, 2025
