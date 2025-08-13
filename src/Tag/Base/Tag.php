@@ -109,7 +109,7 @@ abstract class Tag implements NoEncodeStringableInterface
      *
      * @see Html::addCssStyle()
      *
-     * @param string[]|string $style The new style string (e.g. `'width: 100px; height: 200px'`) or array
+     * @param string|string[] $style The new style string (e.g. `'width: 100px; height: 200px'`) or array
      * (e.g. `['width' => '100px', 'height' => '200px']`).
      * @param bool $overwrite Whether to overwrite existing CSS properties if the new style contain them too.
      *
