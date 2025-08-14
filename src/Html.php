@@ -1855,9 +1855,11 @@ final class Html
      * @see removeCssStyle()
      *
      * @param array $options The HTML options to be modified.
-     * @param array<string, string>|string $style The new style string (e.g. `'width: 100px; height: 200px'`) or array
+     * @param string|string[] $style The new style string (e.g. `'width: 100px; height: 200px'`) or array
      * (e.g. `['width' => '100px', 'height' => '200px']`).
      * @param bool $overwrite Whether to overwrite existing CSS properties if the new style contain them too.
+     *
+     * @psalm-param array<string, string>|string $style
      */
     public static function addCssStyle(array &$options, array|string $style, bool $overwrite = true): void
     {

@@ -196,6 +196,88 @@ final class TagTest extends TestCase
             ->class(...$class));
     }
 
+    public static function dataAddStyle(): iterable
+    {
+        yield ['<test style="width: 100px;">', 'width: 100px;'];
+        yield ['<test style="width: 100px; height: 200px;">', ['width' => '100px', 'height' => '200px']];
+        yield ['<test style="width: 100px;">', ['width' => '100px']];
+    }
+
+    #[DataProvider('dataAddStyle')]
+    public function testAddStyle(string $expected, array|string $style): void
+    {
+        $result = (string) TestTag::tag()->addStyle($style);
+        $this->assertSame($expected, $result);
+    }
+
+    public function testAddStyleMerging(): void
+    {
+        $tag = TestTag::tag()->addStyle('width: 100px;');
+
+        $result = (string) $tag->addStyle(['width' => '200px', 'height' => '300px']);
+
+        $this->assertSame(
+            '<test style="width: 200px; height: 300px;">',
+            $result,
+        );
+    }
+
+    public function testAddStyleMergingWithoutOverwrite(): void
+    {
+        $tag = TestTag::tag()->addStyle('width: 100px;');
+
+        $result = (string) $tag->addStyle(['width' => '200px', 'height' => '300px'], false);
+
+        $this->assertSame(
+            '<test style="width: 100px; height: 300px;">',
+            $result,
+        );
+    }
+
+    public function testAddStyleWithExistingAttribute(): void
+    {
+        $tag = TestTag::tag()->attribute('style', 'color: red;');
+
+        $result = (string) $tag->addStyle('width: 100px;');
+
+        $this->assertSame(
+            '<test style="color: red; width: 100px;">',
+            $result,
+        );
+    }
+
+    public static function dataRemoveStyle(): iterable
+    {
+        yield [
+            '<test>',
+            TestTag::tag(),
+            'width',
+        ];
+        yield [
+            '<test>',
+            TestTag::tag()->addStyle('width: 100px;'),
+            'width',
+        ];
+        yield [
+            '<test style="height: 100px;">',
+            TestTag::tag()->addStyle('height: 100px; width: 100px;'),
+            'width',
+        ];
+        yield [
+            '<test style="color: red;">',
+            TestTag::tag()->addStyle('height: 100px; width: 100px; color: red;'),
+            ['width', 'height'],
+        ];
+    }
+
+    #[DataProvider('dataRemoveStyle')]
+    public function testRemoveStyle(string $expected, TestTag $tag, string|array $properties): void
+    {
+        $result = (string) $tag->removeStyle($properties);
+
+        $this->assertSame($expected, $result);
+    }
+
     public function testImmutability(): void
     {
         $tag = TestTag::tag();
@@ -206,5 +288,7 @@ final class TagTest extends TestCase
         $this->assertNotSame($tag, $tag->id(null));
         $this->assertNotSame($tag, $tag->addClass('test'));
         $this->assertNotSame($tag, $tag->class('test'));
+        $this->assertNotSame($tag, $tag->addStyle('width: 100px;'));
+        $this->assertNotSame($tag, $tag->removeStyle('width'));
     }
 }

@@ -2,7 +2,7 @@
 
 ## 3.11.1 under development
 
-- no changes in this release.
+- New #249: Add `Tag::addStyle()` and `Tag::removeStyle()` methods (@vjik)
 
 ## 3.11.0 June 10, 2025
 
