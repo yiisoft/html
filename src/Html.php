@@ -784,7 +784,6 @@ final class Html
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
     }
 
-
     /**
      * Generates a hidden input field.
      *

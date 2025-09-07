@@ -8,7 +8,7 @@ use Yiisoft\Html\Tag\Base\InputTag;
 
 final class Color extends InputTag
 {
-    final protected function prepareAttributes(): void
+    protected function prepareAttributes(): void
     {
         $this->attributes['type'] = $this->getType();
     }
