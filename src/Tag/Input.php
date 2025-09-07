@@ -7,6 +7,7 @@ namespace Yiisoft\Html\Tag;
 use Stringable;
 use Yiisoft\Html\Tag\Base\InputTag;
 use Yiisoft\Html\Tag\Input\Checkbox;
+use Yiisoft\Html\Tag\Input\Color;
 use Yiisoft\Html\Tag\Input\File;
 use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Input\Range;
@@ -140,6 +141,26 @@ final class Input extends InputTag
     public static function range(?string $name = null, float|int|string|Stringable|null $value = null): Range
     {
         $input = Range::tag();
+        if ($name !== null) {
+            $input = $input->name($name);
+        }
+        if ($value !== null) {
+            $input = $input->value($value);
+        }
+        return $input;
+    }
+
+    /**
+     * Color.
+     *
+     * @link https://html.spec.whatwg.org/multipage/input.html#color-state-(type=color)
+     *
+     * @param string|null $name Name of the input.
+     * @param string|Stringable|null $value Value of the input.
+     */
+    public static function color(?string $name = null, string|Stringable|null $value = null): Color
+    {
+        $input = Color::tag();
         if ($name !== null) {
             $input = $input->name($name);
         }
