@@ -332,6 +332,7 @@ Overall the helper has the following method groups.
 - option
 - passwordInput
 - radio
+- color
 - resetButton
 - resetInput
 - select
