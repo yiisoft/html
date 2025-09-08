@@ -3,6 +3,7 @@
 ## 3.11.1 under development
 
 - New #249: Add `Tag::addStyle()` and `Tag::removeStyle()` methods (@vjik)
+- New #252: Add `Html::color()` and `Input::color()` methods (@razvbir)
 
 ## 3.11.0 June 10, 2025
 

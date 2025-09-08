@@ -384,17 +384,17 @@ final class HtmlTest extends TestCase
 
     public function testColorInput(): void
     {
-        $this->assertSame('<input type="color">', Html::colorInput()->render());
-        $this->assertSame('<input type="color" name>', Html::colorInput('')->render());
-        $this->assertSame('<input type="color" value>', Html::colorInput(null, '')->render());
-        $this->assertSame('<input type="color" name="test">', Html::colorInput('test')->render());
+        $this->assertSame('<input type="color">', Html::color()->render());
+        $this->assertSame('<input type="color" name>', Html::color('')->render());
+        $this->assertSame('<input type="color" value>', Html::color(null, '')->render());
+        $this->assertSame('<input type="color" name="test">', Html::color('test')->render());
         $this->assertSame(
             '<input type="color" name="test" value="#ff0000">',
-            Html::colorInput('test', '#ff0000')->render(),
+            Html::color('test', '#ff0000')->render(),
         );
         $this->assertSame(
             '<input type="color" name="test" value="#ff0000" required>',
-            Html::colorInput('test', '#ff0000', ['required' => true])->render(),
+            Html::color('test', '#ff0000', ['required' => true])->render(),
         );
     }
 

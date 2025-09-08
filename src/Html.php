@@ -887,7 +887,7 @@ final class Html
      * @param string|Stringable|null $value The value attribute.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function colorInput(
+    public static function color(
         ?string $name = null,
         string|Stringable|null $value = null,
         array $attributes = []
