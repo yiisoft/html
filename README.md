@@ -319,9 +319,10 @@ Overall the helper has the following method groups.
 - button
 - buttonInput
 - checkbox
-- file
+- color
 - datalist
 - fieldset
+- file
 - fileInput
 - form
 - hiddenInput
@@ -332,14 +333,14 @@ Overall the helper has the following method groups.
 - option
 - passwordInput
 - radio
-- color
+- range
 - resetButton
 - resetInput
 - select
 - submitButton
 - submitInput
-- textInput
 - textarea
+- textInput
 
 #### Table tags
 
