@@ -19,7 +19,7 @@ The package provides various tools to help with dynamic server-side generation o
 
 - Tag classes `A`, `Address`, `Article`, `Aside`, `Audio`, `B`, `Body`, `Br`, `Button`, `Caption`, `Col`, `Colgroup`,
  `Datalist`, `Div`, `Em`, `Fieldset`, `Footer`, `Form`, `H1`, `H2`, `H3`, `H4`, `H5`, `H6`, `Header`, `Hr`, `Hgroup`,
- `Html`, `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`, `Range`, `File`), `Label`, `Legend`, `Li`, `Link`,
+ `Html`, `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`, `Range`, `File`, `Color`), `Label`, `Legend`, `Li`, `Link`,
  `Meta`, `Nav`, `Noscript`, `Ol`, `Optgroup`, `Option`, `P`, `Picture`, `Script`, `Section`, `Select`, `Small`,
  `Source`, `Span`, `Strong`, `Style`, `Table`, `Tbody`, `Td`, `Textarea`, `Tfoot`, `Th`, `Thead`, `Title`, `Tr`,
  `Track`, `Ul`, `Video`.
@@ -319,9 +319,10 @@ Overall the helper has the following method groups.
 - button
 - buttonInput
 - checkbox
-- file
+- color
 - datalist
 - fieldset
+- file
 - fileInput
 - form
 - hiddenInput
@@ -332,13 +333,14 @@ Overall the helper has the following method groups.
 - option
 - passwordInput
 - radio
+- range
 - resetButton
 - resetInput
 - select
 - submitButton
 - submitInput
-- textInput
 - textarea
+- textInput
 
 #### Table tags
 

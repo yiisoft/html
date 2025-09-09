@@ -35,6 +35,7 @@ use Yiisoft\Html\Tag\I;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
 use Yiisoft\Html\Tag\Input\Checkbox;
+use Yiisoft\Html\Tag\Input\Color;
 use Yiisoft\Html\Tag\Input\File;
 use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Input\Range;
@@ -874,6 +875,24 @@ final class Html
         array $attributes = []
     ): Range {
         $tag = Input::range($name, $value);
+        return $attributes === [] ? $tag : $tag->addAttributes($attributes);
+    }
+
+    /**
+     * Generates a color {@see Input} field.
+     *
+     * @see Input::color()
+     *
+     * @param string|null $name The name attribute.
+     * @param string|Stringable|null $value The value attribute.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function color(
+        ?string $name = null,
+        string|Stringable|null $value = null,
+        array $attributes = []
+    ): Color {
+        $tag = Input::color($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
     }
 
