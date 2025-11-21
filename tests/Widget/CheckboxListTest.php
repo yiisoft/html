@@ -19,12 +19,12 @@ final class CheckboxListTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="test" value="0">' . "\n" .
-            '<div id="main">' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="5" checked> Five</label>' . "\n" .
-            '</div>',
+            '<input type="hidden" name="test" value="0">' . "\n"
+            . '<div id="main">' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="5" checked> Five</label>' . "\n"
+            . '</div>',
             CheckboxList::create('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
                 ->uncheckValue(0)
@@ -41,10 +41,10 @@ final class CheckboxListTest extends TestCase
             ->name('b');
 
         $this->assertSame(
-            '<div>' . "\n" .
-            '<label><input type="checkbox" name="b[]" value="1"> One</label>' . "\n" .
-            '</div>',
-            $widget->render()
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="b[]" value="1"> One</label>' . "\n"
+            . '</div>',
+            $widget->render(),
         );
     }
 
@@ -71,9 +71,9 @@ final class CheckboxListTest extends TestCase
                 '',
             ],
             [
-                '<section>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '</section>',
+                '<section>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '</section>',
                 'section',
             ],
         ];
@@ -94,9 +94,9 @@ final class CheckboxListTest extends TestCase
     public function testContainerAttributes(): void
     {
         $this->assertSame(
-            '<div id="main">' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '</div>',
+            '<div id="main">' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '</div>',
             CheckboxList::create('test')
                 ->items([1 => 'One'])
                 ->containerAttributes(['id' => 'main'])
@@ -107,8 +107,8 @@ final class CheckboxListTest extends TestCase
     public function testCheckboxAttributes(): void
     {
         $this->assertSame(
-            '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>',
+            '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -123,8 +123,8 @@ final class CheckboxListTest extends TestCase
     public function testCheckboxAttributesMerge(): void
     {
         $this->assertSame(
-            '<label><input type="checkbox" class="red" name="test[]" value="1" readonly> One</label>' . "\n" .
-            '<label><input type="checkbox" class="red" name="test[]" value="2" readonly> Two</label>',
+            '<label><input type="checkbox" class="red" name="test[]" value="1" readonly> One</label>' . "\n"
+            . '<label><input type="checkbox" class="red" name="test[]" value="2" readonly> Two</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -140,8 +140,8 @@ final class CheckboxListTest extends TestCase
     public function testReplaceCheckboxAttributes(): void
     {
         $this->assertSame(
-            '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>',
+            '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -157,8 +157,8 @@ final class CheckboxListTest extends TestCase
     public function testCheckboxLabelAttributes(): void
     {
         $this->assertSame(
-            '<label class="red"><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '<label class="red"><input type="checkbox" name="test[]" value="2"> Two</label>',
+            '<label class="red"><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '<label class="red"><input type="checkbox" name="test[]" value="2"> Two</label>',
             CheckboxList::create('test')
                 ->items([1 => 'One', 2 => 'Two'])
                 ->checkboxLabelAttributes(['class' => 'red'])
@@ -170,8 +170,8 @@ final class CheckboxListTest extends TestCase
     public function testCheckboxLabelAttributesMerge(): void
     {
         $this->assertSame(
-            '<label class="red" data-type="label"><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '<label class="red" data-type="label"><input type="checkbox" name="test[]" value="2"> Two</label>',
+            '<label class="red" data-type="label"><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '<label class="red" data-type="label"><input type="checkbox" name="test[]" value="2"> Two</label>',
             CheckboxList::create('test')
                 ->items([1 => 'One', 2 => 'Two'])
                 ->checkboxLabelAttributes(['class' => 'red'])
@@ -184,9 +184,9 @@ final class CheckboxListTest extends TestCase
     public function testAddIndividualInputAttributes(): void
     {
         $this->assertSame(
-            '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" class="blue" name="test[]" value="2"> Two</label>' . "\n" .
-            '<label><input type="checkbox" class="green" name="test[]" value="3"> Three</label>',
+            '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" class="blue" name="test[]" value="2"> Two</label>' . "\n"
+            . '<label><input type="checkbox" class="green" name="test[]" value="3"> Three</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -206,9 +206,9 @@ final class CheckboxListTest extends TestCase
     public function testIndividualUncheckInputAttributes(): void
     {
         $this->assertSame(
-            '<input type="hidden" class="blue" name="test" value="0">' . "\n" .
-            '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>',
+            '<input type="hidden" class="blue" name="test" value="0">' . "\n"
+            . '<label><input type="checkbox" class="red" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -227,9 +227,9 @@ final class CheckboxListTest extends TestCase
     public function testIndividualInputAttributesMerge(): void
     {
         $this->assertSame(
-            '<label><input type="checkbox" class="yellow" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" class="cyan" name="test[]" value="2"> Two</label>' . "\n" .
-            '<label><input type="checkbox" class="green" name="test[]" value="3"> Three</label>',
+            '<label><input type="checkbox" class="yellow" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" class="cyan" name="test[]" value="2"> Two</label>' . "\n"
+            . '<label><input type="checkbox" class="green" name="test[]" value="3"> Three</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -253,9 +253,9 @@ final class CheckboxListTest extends TestCase
     public function testIndividualInputAttributesReplace(): void
     {
         $this->assertSame(
-            '<label><input type="checkbox" class="yellow" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>' . "\n" .
-            '<label><input type="checkbox" class="red" name="test[]" value="3"> Three</label>',
+            '<label><input type="checkbox" class="yellow" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" class="red" name="test[]" value="2"> Two</label>' . "\n"
+            . '<label><input type="checkbox" class="red" name="test[]" value="3"> Three</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -278,8 +278,8 @@ final class CheckboxListTest extends TestCase
     public function testItems(): void
     {
         $this->assertSame(
-            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2"> &lt;b&gt;Two&lt;/b&gt;</label>',
+            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2"> &lt;b&gt;Two&lt;/b&gt;</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -293,8 +293,8 @@ final class CheckboxListTest extends TestCase
     public function testItemsWithoutEncodeLabel(): void
     {
         $this->assertSame(
-            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2"> <b>Two</b></label>',
+            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2"> <b>Two</b></label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -309,18 +309,18 @@ final class CheckboxListTest extends TestCase
     {
         return [
             [
-                '<label><input type="checkbox" name="test[]" value="1"> 1</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> 2</label>',
+                '<label><input type="checkbox" name="test[]" value="1"> 1</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> 2</label>',
                 [1, 2],
             ],
             [
-                '<label><input type="checkbox" name="test[]" value="One"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="&lt;b&gt;Two&lt;/b&gt;"> &lt;b&gt;Two&lt;/b&gt;</label>',
+                '<label><input type="checkbox" name="test[]" value="One"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="&lt;b&gt;Two&lt;/b&gt;"> &lt;b&gt;Two&lt;/b&gt;</label>',
                 ['One', '<b>Two</b>'],
             ],
             [
-                '<label><input type="checkbox" name="test[]" value="1"> 1</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value></label>',
+                '<label><input type="checkbox" name="test[]" value="1"> 1</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value></label>',
                 [true, false],
             ],
         ];
@@ -341,8 +341,8 @@ final class CheckboxListTest extends TestCase
     public function testItemsFromValuesWithoutEncodeLabel(): void
     {
         $this->assertSame(
-            '<label><input type="checkbox" name="test[]" value="One"> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="&lt;b&gt;Two&lt;/b&gt;"> <b>Two</b></label>',
+            '<label><input type="checkbox" name="test[]" value="One"> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="&lt;b&gt;Two&lt;/b&gt;"> <b>Two</b></label>',
             CheckboxList::create('test')
                 ->itemsFromValues([
                     'One',
@@ -359,95 +359,95 @@ final class CheckboxListTest extends TestCase
             ["<div>\n</div>", [], []],
             ["<div>\n</div>", [], [42]],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '</div>',
                 [1 => 'One', 2 => 'Two'],
                 [],
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '</div>',
                 [1 => 'One', 2 => 'Two'],
                 [7],
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1" checked> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1" checked> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '</div>',
                 [1 => 'One', 2 => 'Two'],
                 [1],
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n"
+                . '</div>',
                 [1 => 'One', 2 => 'Two'],
                 [2],
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1" checked> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="3" checked> Three</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1" checked> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="3" checked> Three</label>' . "\n"
+                . '</div>',
                 [1 => 'One', 2 => 'Two', 3 => 'Three'],
                 [1, 3],
             ],
             ["<div>\n</div>", [], [StringEnum::A]],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="one"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="two"> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="one"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="two"> Two</label>' . "\n"
+                . '</div>',
                 [StringEnum::A->value => 'One', StringEnum::B->value => 'Two'],
                 [StringEnum::C],
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="one"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="two" checked> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="one"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="two" checked> Two</label>' . "\n"
+                . '</div>',
                 [StringEnum::A->value => 'One', StringEnum::B->value => 'Two'],
                 [StringEnum::B],
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="one"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="two" checked> Two</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="three" checked> Three</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="one"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="two" checked> Two</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="three" checked> Three</label>' . "\n"
+                . '</div>',
                 [StringEnum::A->value => 'One', StringEnum::B->value => 'Two', StringEnum::C->value => 'Three'],
                 [StringEnum::B, StringEnum::C],
             ],
             ["<div>\n</div>", [], [IntegerEnum::A]],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '</div>',
                 [IntegerEnum::A->value => 'One', IntegerEnum::B->value => 'Two'],
                 [IntegerEnum::C],
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n"
+                . '</div>',
                 [IntegerEnum::A->value => 'One', IntegerEnum::B->value => 'Two'],
                 [IntegerEnum::B],
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="3" checked> Three</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="3" checked> Three</label>' . "\n"
+                . '</div>',
                 [IntegerEnum::A->value => 'One', IntegerEnum::B->value => 'Two', IntegerEnum::C->value => 'Three'],
                 [IntegerEnum::B, IntegerEnum::C],
             ],
@@ -491,24 +491,24 @@ final class CheckboxListTest extends TestCase
     {
         return [
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '</div>',
                 null,
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1" form> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2" form> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1" form> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2" form> Two</label>' . "\n"
+                . '</div>',
                 '',
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1" form="post"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2" form="post"> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1" form="post"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2" form="post"> Two</label>' . "\n"
+                . '</div>',
                 'post',
             ],
         ];
@@ -525,7 +525,7 @@ final class CheckboxListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->form($formId)
-                ->render()
+                ->render(),
         );
     }
 
@@ -538,33 +538,33 @@ final class CheckboxListTest extends TestCase
             ]);
 
         $this->assertSame(
-            '<div>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1" readonly> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2" readonly> Two</label>' . "\n" .
-            '</div>',
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1" readonly> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2" readonly> Two</label>' . "\n"
+            . '</div>',
             $checkbox
                 ->readonly()
-                ->render()
+                ->render(),
         );
 
         $this->assertSame(
-            '<div>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-            '</div>',
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+            . '</div>',
             $checkbox
                 ->readonly(false)
-                ->render()
+                ->render(),
         );
         $this->assertSame(
-            '<div>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-            '</div>',
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+            . '</div>',
             $checkbox
                 ->readonly(true)
                 ->readonly(false)
-                ->render()
+                ->render(),
         );
     }
 
@@ -577,33 +577,33 @@ final class CheckboxListTest extends TestCase
             ]);
 
         $this->assertSame(
-            '<div>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1" disabled> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2" disabled> Two</label>' . "\n" .
-            '</div>',
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1" disabled> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2" disabled> Two</label>' . "\n"
+            . '</div>',
             $checkbox
                 ->disabled()
-                ->render()
+                ->render(),
         );
 
         $this->assertSame(
-            '<div>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-            '</div>',
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+            . '</div>',
             $checkbox
                 ->disabled(false)
-                ->render()
+                ->render(),
         );
         $this->assertSame(
-            '<div>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-            '</div>',
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+            . '</div>',
             $checkbox
                 ->disabled(true)
                 ->disabled(false)
-                ->render()
+                ->render(),
         );
     }
 
@@ -611,36 +611,36 @@ final class CheckboxListTest extends TestCase
     {
         return [
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '</div>',
                 'test',
                 null,
             ],
             [
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '</div>',
+                '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '</div>',
                 'test[]',
                 null,
             ],
             [
-                '<input type="hidden" name="test" value="7">' . "\n" .
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '</div>',
+                '<input type="hidden" name="test" value="7">' . "\n"
+                . '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '</div>',
                 'test',
                 7,
             ],
             [
-                '<input type="hidden" name="test" value="7">' . "\n" .
-                '<div>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n" .
-                '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-                '</div>',
+                '<input type="hidden" name="test" value="7">' . "\n"
+                . '<div>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+                . '</div>',
                 'test[]',
                 7,
             ],
@@ -658,16 +658,16 @@ final class CheckboxListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->uncheckValue($value)
-                ->render()
+                ->render(),
         );
     }
 
     public function testUncheckValueDisabled(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="test" value="7" disabled>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1" disabled> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2" disabled> Two</label>',
+            '<input type="hidden" name="test" value="7" disabled>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1" disabled> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2" disabled> Two</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -683,9 +683,9 @@ final class CheckboxListTest extends TestCase
     public function testUncheckValueForm(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="test" value="7" form="post">' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1" form="post"> One</label>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="2" form="post"> Two</label>',
+            '<input type="hidden" name="test" value="7" form="post">' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1" form="post"> One</label>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="2" form="post"> Two</label>',
             CheckboxList::create('test')
                 ->items([
                     1 => 'One',
@@ -701,10 +701,10 @@ final class CheckboxListTest extends TestCase
     public function testSeparator(): void
     {
         $this->assertSame(
-            '<div>' . "\n" .
-            '<label><input type="checkbox" name="test[]" value="1"> One</label><br>' .
-            '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n" .
-            '</div>',
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="test[]" value="1"> One</label><br>'
+            . '<label><input type="checkbox" name="test[]" value="2"> Two</label>' . "\n"
+            . '</div>',
             CheckboxList::create('test')
                 ->items([1 => 'One', 2 => 'Two'])
                 ->separator('<br>')
@@ -715,22 +715,22 @@ final class CheckboxListTest extends TestCase
     public function testItemFormatter(): void
     {
         $this->assertSame(
-            '<div>' . "\n" .
-            '<div>0) <label><input type="checkbox" name="test[]" value="1"> One</label></div>' .
-            '<div>1) <label><input type="checkbox" name="test[]" value="2"> Two</label></div>' . "\n" .
-            '</div>',
+            '<div>' . "\n"
+            . '<div>0) <label><input type="checkbox" name="test[]" value="1"> One</label></div>'
+            . '<div>1) <label><input type="checkbox" name="test[]" value="2"> Two</label></div>' . "\n"
+            . '</div>',
             CheckboxList::create('test')
                 ->items([1 => 'One', 2 => 'Two'])
-                ->itemFormatter(fn (CheckboxItem $item): string => '<div>' .
-                    $item->index . ') ' .
-                    Html::checkbox(
+                ->itemFormatter(fn(CheckboxItem $item): string => '<div>'
+                    . $item->index . ') '
+                    . Html::checkbox(
                         $item->checkboxAttributes['name'],
                         $item->checkboxAttributes['value'],
-                        $item->checkboxAttributes
+                        $item->checkboxAttributes,
                     )
                         ->checked($item->checked)
-                        ->label($item->label) .
-                    '</div>')
+                        ->label($item->label)
+                    . '</div>')
                 ->separator('')
                 ->render(),
         );

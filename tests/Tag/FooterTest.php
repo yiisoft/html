@@ -18,9 +18,9 @@ final class FooterTest extends TestCase
             (string) Footer::tag()
                 ->content(
                     H3::tag()->content('Heading 1')
-                    . P::tag()->content('Hello Text')
+                    . P::tag()->content('Hello Text'),
                 )
-                ->encode(false)
+                ->encode(false),
         );
     }
 }

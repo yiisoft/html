@@ -14,9 +14,9 @@ final class OlTest extends TestCase
     {
         $ol = Ol::tag()->items(
             Li::tag()->content('A'),
-            Li::tag()->content('B')
+            Li::tag()->content('B'),
         );
 
-        $this->assertSame("<ol>\n<li>A</li>\n<li>B</li>\n</ol>", (string)$ol);
+        $this->assertSame("<ol>\n<li>A</li>\n<li>B</li>\n</ol>", (string) $ol);
     }
 }

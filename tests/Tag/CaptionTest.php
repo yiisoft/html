@@ -19,7 +19,7 @@ final class CaptionTest extends TestCase
                     'Table ',
                     CustomTag::name('b')->content('Caption'),
                 )
-                ->render()
+                ->render(),
         );
     }
 }

@@ -15,7 +15,7 @@ final class H3Test extends TestCase
             '<h3 class="red">Hello</h3>',
             (string) H3::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

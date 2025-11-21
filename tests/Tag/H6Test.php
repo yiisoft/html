@@ -15,7 +15,7 @@ final class H6Test extends TestCase
             '<h6 class="red">Hello</h6>',
             (string) H6::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

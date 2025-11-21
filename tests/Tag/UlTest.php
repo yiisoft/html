@@ -14,9 +14,9 @@ final class UlTest extends TestCase
     {
         $ul = Ul::tag()->items(
             Li::tag()->content('A'),
-            Li::tag()->content('B')
+            Li::tag()->content('B'),
         );
 
-        $this->assertSame("<ul>\n<li>A</li>\n<li>B</li>\n</ul>", (string)$ul);
+        $this->assertSame("<ul>\n<li>A</li>\n<li>B</li>\n</ul>", (string) $ul);
     }
 }

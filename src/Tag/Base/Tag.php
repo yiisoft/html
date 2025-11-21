@@ -15,6 +15,11 @@ abstract class Tag implements NoEncodeStringableInterface
 {
     protected array $attributes = [];
 
+    final public function __toString(): string
+    {
+        return $this->render();
+    }
+
     /**
      * Add a set of attributes to existing tag attributes.
      * Same named attributes are replaced.
@@ -137,6 +142,11 @@ abstract class Tag implements NoEncodeStringableInterface
         return $new;
     }
 
+    final public function render(): string
+    {
+        return $this->before() . $this->renderTag() . $this->after();
+    }
+
     /**
      * Render the current tag attributes.
      *
@@ -148,14 +158,7 @@ abstract class Tag implements NoEncodeStringableInterface
         return Html::renderTagAttributes($this->attributes);
     }
 
-    protected function prepareAttributes(): void
-    {
-    }
-
-    final public function render(): string
-    {
-        return $this->before() . $this->renderTag() . $this->after();
-    }
+    protected function prepareAttributes(): void {}
 
     protected function before(): string
     {
@@ -180,9 +183,4 @@ abstract class Tag implements NoEncodeStringableInterface
      * @return string Tag name.
      */
     abstract protected function getName(): string;
-
-    final public function __toString(): string
-    {
-        return $this->render();
-    }
 }

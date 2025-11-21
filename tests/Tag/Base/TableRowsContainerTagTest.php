@@ -18,17 +18,17 @@ final class TableRowsContainerTagTest extends TestCase
         );
 
         $this->assertSame(
-            '<test>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>A</td>' . "\n" .
-            '<td>B</td>' . "\n" .
-            '</tr>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>C</td>' . "\n" .
-            '<td>D</td>' . "\n" .
-            '</tr>' . "\n" .
-            '</test>',
-            $tag->render()
+            '<test>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>A</td>' . "\n"
+            . '<td>B</td>' . "\n"
+            . '</tr>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>C</td>' . "\n"
+            . '<td>D</td>' . "\n"
+            . '</tr>' . "\n"
+            . '</test>',
+            $tag->render(),
         );
     }
 
@@ -44,21 +44,21 @@ final class TableRowsContainerTagTest extends TestCase
             );
 
         $this->assertSame(
-            '<test>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>A</td>' . "\n" .
-            '<td>B</td>' . "\n" .
-            '</tr>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>C</td>' . "\n" .
-            '<td>D</td>' . "\n" .
-            '</tr>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>E</td>' . "\n" .
-            '<td>F</td>' . "\n" .
-            '</tr>' . "\n" .
-            '</test>',
-            $tag->render()
+            '<test>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>A</td>' . "\n"
+            . '<td>B</td>' . "\n"
+            . '</tr>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>C</td>' . "\n"
+            . '<td>D</td>' . "\n"
+            . '</tr>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>E</td>' . "\n"
+            . '<td>F</td>' . "\n"
+            . '</tr>' . "\n"
+            . '</test>',
+            $tag->render(),
         );
     }
 

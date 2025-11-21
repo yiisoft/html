@@ -16,7 +16,7 @@ final class FileTest extends TestCase
             '<input type="file" name="avatar">',
             File::tag()
                 ->name('avatar')
-                ->render()
+                ->render(),
         );
     }
 
@@ -48,33 +48,33 @@ final class FileTest extends TestCase
             File::tag()
                 ->name($name)
                 ->uncheckValue($value)
-                ->render()
+                ->render(),
         );
     }
 
     public function testUncheckValueDisabled(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="avatar" value="7" disabled>' .
-            '<input type="file" name="avatar" disabled>',
+            '<input type="hidden" name="avatar" value="7" disabled>'
+            . '<input type="file" name="avatar" disabled>',
             File::tag()
                 ->name('avatar')
                 ->uncheckValue(7)
                 ->disabled()
-                ->render()
+                ->render(),
         );
     }
 
     public function testUncheckValueForm(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="avatar" value="7" form="post">' .
-            '<input type="file" name="avatar" form="post">',
+            '<input type="hidden" name="avatar" value="7" form="post">'
+            . '<input type="file" name="avatar" form="post">',
             File::tag()
                 ->name('avatar')
                 ->uncheckValue(7)
                 ->form('post')
-                ->render()
+                ->render(),
         );
     }
 
@@ -89,9 +89,9 @@ final class FileTest extends TestCase
             ->render();
 
         $this->assertSame(
-            '<input type="hidden" id="FileHidden" name="avatar" value="7" form="post" data-key="100">' .
-            '<input type="file" name="avatar" form="post">',
-            $result
+            '<input type="hidden" id="FileHidden" name="avatar" value="7" form="post" data-key="100">'
+            . '<input type="file" name="avatar" form="post">',
+            $result,
         );
     }
 
@@ -106,9 +106,9 @@ final class FileTest extends TestCase
             ->render();
 
         $this->assertSame(
-            '<input type="hidden" name="avatar" value="7" form="post" data-key="100">' .
-            '<input type="file" name="avatar" form="post">',
-            $result
+            '<input type="hidden" name="avatar" value="7" form="post" data-key="100">'
+            . '<input type="file" name="avatar" form="post">',
+            $result,
         );
     }
 
@@ -134,7 +134,7 @@ final class FileTest extends TestCase
             File::tag()
                 ->name('avatar')
                 ->accept($accept)
-                ->render()
+                ->render(),
         );
     }
 
@@ -160,7 +160,7 @@ final class FileTest extends TestCase
             File::tag()
                 ->name('avatar')
                 ->multiple($multiple)
-                ->render()
+                ->render(),
         );
     }
 
@@ -171,7 +171,7 @@ final class FileTest extends TestCase
             File::tag()
                 ->name('avatar')
                 ->multiple()
-                ->render()
+                ->render(),
         );
     }
 

@@ -16,7 +16,7 @@ final class ColorTest extends TestCase
             Color::tag()
                 ->name('color')
                 ->value('#ff0000')
-                ->render()
+                ->render(),
         );
     }
 }

@@ -28,7 +28,7 @@ final class SelectTest extends TestCase
     #[DataProvider('dataProviderName')]
     public function testName(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string)Select::tag()->name($name));
+        $this->assertSame($expected, (string) Select::tag()->name($name));
     }
 
     public static function dataNameForMultiple(): array
@@ -37,13 +37,13 @@ final class SelectTest extends TestCase
             ['<select multiple></select>', null],
             ['<select name multiple></select>', ''],
             [
-                '<input type="hidden" name="age" value>' . "\n" .
-                '<select name="age[]" multiple></select>',
+                '<input type="hidden" name="age" value>' . "\n"
+                . '<select name="age[]" multiple></select>',
                 'age',
             ],
             [
-                '<input type="hidden" name="place" value>' . "\n" .
-                '<select name="place[]" multiple></select>',
+                '<input type="hidden" name="place" value>' . "\n"
+                . '<select name="place[]" multiple></select>',
                 'place[]',
             ],
         ];
@@ -52,7 +52,7 @@ final class SelectTest extends TestCase
     #[DataProvider('dataNameForMultiple')]
     public function testNameForMultiple(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string)Select::tag()
+        $this->assertSame($expected, (string) Select::tag()
             ->multiple()
             ->name($name));
     }
@@ -63,55 +63,55 @@ final class SelectTest extends TestCase
             ['<select></select>', [], []],
             ['<select></select>', [], [42]],
             [
-                '<select>' . "\n" .
-                '<option value="1"></option>' . "\n" .
-                '<option value="2"></option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1"></option>' . "\n"
+                . '<option value="2"></option>' . "\n"
+                . '</select>',
                 [Option::tag()->value('1'), Option::tag()
                     ->value('2')
                     ->selected(), ],
                 [],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1"></option>' . "\n" .
-                '<option value="2"></option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1"></option>' . "\n"
+                . '<option value="2"></option>' . "\n"
+                . '</select>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [7],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1" selected></option>' . "\n" .
-                '<option value="2"></option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1" selected></option>' . "\n"
+                . '<option value="2"></option>' . "\n"
+                . '</select>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [1],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1"></option>' . "\n" .
-                '<option value="2" selected></option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1"></option>' . "\n"
+                . '<option value="2" selected></option>' . "\n"
+                . '</select>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 ['2'],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1" selected></option>' . "\n" .
-                '<option value="2" selected></option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1" selected></option>' . "\n"
+                . '<option value="2" selected></option>' . "\n"
+                . '</select>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [1, 2],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1">One</option>' . "\n" .
-                '<optgroup>' . "\n" .
-                '<option value="1.1">One.One</option>' . "\n" .
-                '<option value="1.2">One.Two</option>' . "\n" .
-                '</optgroup>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '<optgroup>' . "\n"
+                . '<option value="1.1">One.One</option>' . "\n"
+                . '<option value="1.2">One.Two</option>' . "\n"
+                . '</optgroup>' . "\n"
+                . '</select>',
                 [
                     Option::tag()
                         ->value('1')
@@ -128,13 +128,13 @@ final class SelectTest extends TestCase
                 [],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1" selected>One</option>' . "\n" .
-                '<optgroup>' . "\n" .
-                '<option value="1.1" selected>One.One</option>' . "\n" .
-                '<option value="1.2">One.Two</option>' . "\n" .
-                '</optgroup>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1" selected>One</option>' . "\n"
+                . '<optgroup>' . "\n"
+                . '<option value="1.1" selected>One.One</option>' . "\n"
+                . '<option value="1.2">One.Two</option>' . "\n"
+                . '</optgroup>' . "\n"
+                . '</select>',
                 [
                     Option::tag()
                         ->value('1')
@@ -153,34 +153,34 @@ final class SelectTest extends TestCase
             ['<select></select>', [], [IntegerEnum::A]],
             ['<select></select>', [], [StringEnum::A]],
             [
-                '<select>' . "\n" .
-                '<option value="1"></option>' . "\n" .
-                '<option value="2"></option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1"></option>' . "\n"
+                . '<option value="2"></option>' . "\n"
+                . '</select>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [IntegerEnum::C],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1" selected></option>' . "\n" .
-                '<option value="2"></option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1" selected></option>' . "\n"
+                . '<option value="2"></option>' . "\n"
+                . '</select>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [IntegerEnum::A],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1" selected></option>' . "\n" .
-                '<option value="2" selected></option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1" selected></option>' . "\n"
+                . '<option value="2" selected></option>' . "\n"
+                . '</select>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [IntegerEnum::A, IntegerEnum::B],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="one"></option>' . "\n" .
-                '<option value="two" selected></option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="one"></option>' . "\n"
+                . '<option value="two" selected></option>' . "\n"
+                . '</select>',
                 [Option::tag()->value('one'), Option::tag()->value('two')],
                 [StringEnum::B],
             ],
@@ -225,10 +225,10 @@ final class SelectTest extends TestCase
                 [],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1">One</option>' . "\n" .
-                '<option value="2">Two</option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '<option value="2">Two</option>' . "\n"
+                . '</select>',
                 [
                     Option::tag()
                         ->value('1')
@@ -239,13 +239,13 @@ final class SelectTest extends TestCase
                 ],
             ],
             [
-                '<select>' . "\n" .
-                '<option value="1">One</option>' . "\n" .
-                '<optgroup>' . "\n" .
-                '<option value="1.1">One.One</option>' . "\n" .
-                '<option value="1.2">One.Two</option>' . "\n" .
-                '</optgroup>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '<optgroup>' . "\n"
+                . '<option value="1.1">One.One</option>' . "\n"
+                . '<option value="1.2">One.Two</option>' . "\n"
+                . '</optgroup>' . "\n"
+                . '</select>',
                 [
                     Option::tag()
                         ->value('1')
@@ -266,14 +266,14 @@ final class SelectTest extends TestCase
     #[DataProvider('dataItems')]
     public function testItems(string $expected, array $items): void
     {
-        $this->assertSame($expected, (string)Select::tag()->items(...$items));
+        $this->assertSame($expected, (string) Select::tag()->items(...$items));
     }
 
     public function testOptions(): void
     {
         $this->assertSame(
             "<select>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</select>",
-            (string)Select::tag()
+            (string) Select::tag()
                 ->options(
                     Option::tag()
                         ->value('1')
@@ -281,7 +281,7 @@ final class SelectTest extends TestCase
                     Option::tag()
                         ->value('2')
                         ->content('Two'),
-                )
+                ),
         );
     }
 
@@ -289,7 +289,7 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             "<select>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</select>",
-            (string)Select::tag()->optionsData(['1' => 'One', '2' => 'Two'])
+            (string) Select::tag()->optionsData(['1' => 'One', '2' => 'Two']),
         );
     }
 
@@ -297,7 +297,7 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             "<select>\n<option value=\"1\">&lt;b&gt;One&lt;/b&gt;</option>\n</select>",
-            (string)Select::tag()->optionsData(['1' => '<b>One</b>'])
+            (string) Select::tag()->optionsData(['1' => '<b>One</b>']),
         );
     }
 
@@ -305,7 +305,7 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             "<select>\n<option value=\"1\"><b>One</b></option>\n</select>",
-            (string)Select::tag()->optionsData(['1' => '<b>One</b>'], false)
+            (string) Select::tag()->optionsData(['1' => '<b>One</b>'], false),
         );
     }
 
@@ -330,7 +330,7 @@ final class SelectTest extends TestCase
             </optgroup>
             </select>
             HTML,
-            $tag->render()
+            $tag->render(),
         );
     }
 
@@ -356,7 +356,7 @@ final class SelectTest extends TestCase
                 ],
                 [
                     'Group B' => ['label' => 'Custom Label', 'data-id' => 'Group B'],
-                ]
+                ],
             );
 
         $this->assertStringContainsStringIgnoringLineEndings(
@@ -373,7 +373,7 @@ final class SelectTest extends TestCase
             </optgroup>
             </select>
             HTML,
-            $tag->render()
+            $tag->render(),
         );
     }
 
@@ -381,16 +381,16 @@ final class SelectTest extends TestCase
     {
         return [
             [
-                '<select>' . "\n" .
-                '<option value="1">One</option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '</select>',
                 null,
             ],
             [
-                '<select>' . "\n" .
-                '<option value>Please select...</option>' . "\n" .
-                '<option value="1">One</option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value>Please select...</option>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '</select>',
                 'Please select...',
             ],
         ];
@@ -401,11 +401,11 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string)Select::tag()
+            (string) Select::tag()
                 ->prompt($text)
                 ->options(Option::tag()
                     ->value('1')
-                    ->content('One'))
+                    ->content('One')),
         );
     }
 
@@ -413,16 +413,16 @@ final class SelectTest extends TestCase
     {
         return [
             [
-                '<select>' . "\n" .
-                '<option value="1">One</option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '</select>',
                 null,
             ],
             [
-                '<select>' . "\n" .
-                '<option>Please select...</option>' . "\n" .
-                '<option value="1">One</option>' . "\n" .
-                '</select>',
+                '<select>' . "\n"
+                . '<option>Please select...</option>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '</select>',
                 Option::tag()->content('Please select...'),
             ],
         ];
@@ -433,37 +433,37 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string)Select::tag()
+            (string) Select::tag()
                 ->promptOption($option)
                 ->options(Option::tag()
                     ->value('1')
-                    ->content('One'))
+                    ->content('One')),
         );
     }
 
     public function testDisabled(): void
     {
-        $this->assertSame('<select disabled></select>', (string)Select::tag()->disabled());
-        $this->assertSame('<select></select>', (string)Select::tag()->disabled(false));
-        $this->assertSame('<select></select>', (string)Select::tag()
+        $this->assertSame('<select disabled></select>', (string) Select::tag()->disabled());
+        $this->assertSame('<select></select>', (string) Select::tag()->disabled(false));
+        $this->assertSame('<select></select>', (string) Select::tag()
             ->disabled(true)
             ->disabled(false));
     }
 
     public function testMultiple(): void
     {
-        $this->assertSame('<select multiple></select>', (string)Select::tag()->multiple());
-        $this->assertSame('<select></select>', (string)Select::tag()->multiple(false));
-        $this->assertSame('<select></select>', (string)Select::tag()
+        $this->assertSame('<select multiple></select>', (string) Select::tag()->multiple());
+        $this->assertSame('<select></select>', (string) Select::tag()->multiple(false));
+        $this->assertSame('<select></select>', (string) Select::tag()
             ->multiple(true)
             ->multiple(false));
     }
 
     public function testRequired(): void
     {
-        $this->assertSame('<select required></select>', (string)Select::tag()->required());
-        $this->assertSame('<select></select>', (string)Select::tag()->required(false));
-        $this->assertSame('<select></select>', (string)Select::tag()
+        $this->assertSame('<select required></select>', (string) Select::tag()->required());
+        $this->assertSame('<select></select>', (string) Select::tag()->required(false));
+        $this->assertSame('<select></select>', (string) Select::tag()
             ->required(true)
             ->required(false));
     }
@@ -479,7 +479,7 @@ final class SelectTest extends TestCase
     #[DataProvider('dataSize')]
     public function testSize(string $expected, ?int $size): void
     {
-        $this->assertSame($expected, (string)Select::tag()->size($size));
+        $this->assertSame($expected, (string) Select::tag()->size($size));
     }
 
     public static function dataUnselectValue(): array
@@ -490,14 +490,14 @@ final class SelectTest extends TestCase
             ['<select name="test"></select>', 'test', null],
             ['<select name="test[]"></select>', 'test[]', null],
             [
-                '<input type="hidden" name="test" value="7">' . "\n" .
-                '<select name="test"></select>',
+                '<input type="hidden" name="test" value="7">' . "\n"
+                . '<select name="test"></select>',
                 'test',
                 7,
             ],
             [
-                '<input type="hidden" name="test" value="7">' . "\n" .
-                '<select name="test[]"></select>',
+                '<input type="hidden" name="test" value="7">' . "\n"
+                . '<select name="test[]"></select>',
                 'test[]',
                 7,
             ],
@@ -512,46 +512,46 @@ final class SelectTest extends TestCase
             Select::tag()
                 ->name($name)
                 ->unselectValue($value)
-                ->render()
+                ->render(),
         );
     }
 
     public function testUnselectValueDisabled(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="test" value="7" disabled>' . "\n" .
-            '<select name="test" disabled></select>',
+            '<input type="hidden" name="test" value="7" disabled>' . "\n"
+            . '<select name="test" disabled></select>',
             Select::tag()
                 ->name('test')
                 ->unselectValue(7)
                 ->disabled()
-                ->render()
+                ->render(),
         );
     }
 
     public function testUnselectValueForm(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="test" value="7" form="post">' . "\n" .
-            '<select name="test" form="post"></select>',
+            '<input type="hidden" name="test" value="7" form="post">' . "\n"
+            . '<select name="test" form="post"></select>',
             Select::tag()
                 ->name('test')
                 ->unselectValue(7)
                 ->form('post')
-                ->render()
+                ->render(),
         );
     }
 
     public function testUnselectValueMultiple(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="test" value="7">' . "\n" .
-            '<select name="test[]" multiple></select>',
+            '<input type="hidden" name="test" value="7">' . "\n"
+            . '<select name="test[]" multiple></select>',
             Select::tag()
                 ->name('test')
                 ->unselectValue(7)
                 ->multiple()
-                ->render()
+                ->render(),
         );
     }
 
@@ -587,7 +587,7 @@ final class SelectTest extends TestCase
             <option value="green">GREEN</option>
             </select>
             HTML,
-            $select->render()
+            $select->render(),
         );
     }
 
@@ -605,7 +605,7 @@ final class SelectTest extends TestCase
             <option value="green">GREEN</option>
             </select>
             HTML,
-            $select->render()
+            $select->render(),
         );
     }
 }

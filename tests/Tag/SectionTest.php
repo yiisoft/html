@@ -18,9 +18,9 @@ final class SectionTest extends TestCase
             (string) Section::tag()
                 ->content(
                     H1::tag()->content('Section Heading')
-                    . P::tag()->content('Section Content')
+                    . P::tag()->content('Section Content'),
                 )
-                ->encode(false)
+                ->encode(false),
         );
     }
 }

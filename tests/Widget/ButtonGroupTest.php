@@ -79,7 +79,7 @@ final class ButtonGroupTest extends TestCase
                 [
                     [$label],
                 ],
-                $encode
+                $encode,
             )
             ->withoutContainer();
 
@@ -92,8 +92,8 @@ final class ButtonGroupTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid buttons data. A data row must be array with label as first element ' .
-            'and additional name-value pairs as attributes of button.'
+            'Invalid buttons data. A data row must be array with label as first element '
+            . 'and additional name-value pairs as attributes of button.',
         );
         $widget->buttonsData([[42]]);
     }

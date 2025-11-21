@@ -18,7 +18,7 @@ final class TextareaTest extends TestCase
             ->value('content')
             ->rows(6);
 
-        $this->assertSame('<textarea name="body" rows="6">content</textarea>', (string)$textarea);
+        $this->assertSame('<textarea name="body" rows="6">content</textarea>', (string) $textarea);
     }
 
     public static function dataProviderName(): array
@@ -32,7 +32,7 @@ final class TextareaTest extends TestCase
     #[DataProvider('dataProviderName')]
     public function testName(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string)Textarea::tag()->name($name));
+        $this->assertSame($expected, (string) Textarea::tag()->name($name));
     }
 
     public static function dataRows(): array
@@ -46,7 +46,7 @@ final class TextareaTest extends TestCase
     #[DataProvider('dataRows')]
     public function testRows(string $expected, ?int $rows): void
     {
-        $this->assertSame($expected, (string)Textarea::tag()->rows($rows));
+        $this->assertSame($expected, (string) Textarea::tag()->rows($rows));
     }
 
     public static function dataColumns(): array
@@ -60,7 +60,7 @@ final class TextareaTest extends TestCase
     #[DataProvider('dataColumns')]
     public function testColumns(string $expected, ?int $columns): void
     {
-        $this->assertSame($expected, (string)Textarea::tag()->columns($columns));
+        $this->assertSame($expected, (string) Textarea::tag()->columns($columns));
     }
 
     public static function dataValue(): array
@@ -88,7 +88,7 @@ final class TextareaTest extends TestCase
     #[DataProvider('dataValue')]
     public function testValue(string $expected, mixed $value): void
     {
-        $this->assertSame($expected, (string)Textarea::tag()->value($value));
+        $this->assertSame($expected, (string) Textarea::tag()->value($value));
     }
 
     public static function dataForm(): array

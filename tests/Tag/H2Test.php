@@ -15,7 +15,7 @@ final class H2Test extends TestCase
             '<h2 class="red">Hello</h2>',
             (string) H2::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

@@ -15,7 +15,7 @@ class ThTest extends TestCase
             '<th>hello</th>',
             Th::tag()
                 ->content('hello')
-                ->render()
+                ->render(),
         );
     }
 }

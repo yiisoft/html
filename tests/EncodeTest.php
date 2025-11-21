@@ -10,6 +10,54 @@ use Yiisoft\Html\Html;
 
 final class EncodeTest extends TestCase
 {
+    public static function dataEncode(): array
+    {
+        return self::makeData('content');
+    }
+
+    #[DataProvider('dataEncode')]
+    public function testEncode(mixed $content, string $expected): void
+    {
+        $this->assertSame($expected, Html::encode($content));
+    }
+
+    public function testEncodePreventDoubleEncode(): void
+    {
+        $this->assertSame('Chip&amp;Dale &gt;', Html::encode('Chip&amp;Dale >', false));
+    }
+
+    public static function dataEncodeUnquotedAttribute(): array
+    {
+        return self::makeData('attribute');
+    }
+
+    #[DataProvider('dataEncodeUnquotedAttribute')]
+    public function testEncodeUnquotedAttribute(mixed $content, string $expected): void
+    {
+        $this->assertSame($expected, Html::encodeUnquotedAttribute($content));
+    }
+
+    public function testEncodeUnquotedAttributePreventDoubleEncode(): void
+    {
+        $this->assertSame('Chip&amp;Dale&#32;&gt;', Html::encodeUnquotedAttribute('Chip&amp;Dale >', false));
+    }
+
+    public static function dataEncodeAttribute(): array
+    {
+        return self::makeData('quotedAttribute');
+    }
+
+    #[DataProvider('dataEncodeAttribute')]
+    public function testEncodeAttribute(mixed $content, string $expected): void
+    {
+        $this->assertSame($expected, Html::encodeAttribute($content));
+    }
+
+    public function testEncodeAttributePreventDoubleEncode(): void
+    {
+        $this->assertSame('Chip&amp;Dale &gt;', Html::encodeAttribute('Chip&amp;Dale >', false));
+    }
+
     private static function makeData(string $context): array
     {
         $items = [
@@ -77,53 +125,5 @@ final class EncodeTest extends TestCase
         }
 
         return $result;
-    }
-
-    public static function dataEncode(): array
-    {
-        return self::makeData('content');
-    }
-
-    #[DataProvider('dataEncode')]
-    public function testEncode(mixed $content, string $expected): void
-    {
-        $this->assertSame($expected, Html::encode($content));
-    }
-
-    public function testEncodePreventDoubleEncode(): void
-    {
-        $this->assertSame('Chip&amp;Dale &gt;', Html::encode('Chip&amp;Dale >', false));
-    }
-
-    public static function dataEncodeUnquotedAttribute(): array
-    {
-        return self::makeData('attribute');
-    }
-
-    #[DataProvider('dataEncodeUnquotedAttribute')]
-    public function testEncodeUnquotedAttribute(mixed $content, string $expected): void
-    {
-        $this->assertSame($expected, Html::encodeUnquotedAttribute($content));
-    }
-
-    public function testEncodeUnquotedAttributePreventDoubleEncode(): void
-    {
-        $this->assertSame('Chip&amp;Dale&#32;&gt;', Html::encodeUnquotedAttribute('Chip&amp;Dale >', false));
-    }
-
-    public static function dataEncodeAttribute(): array
-    {
-        return self::makeData('quotedAttribute');
-    }
-
-    #[DataProvider('dataEncodeAttribute')]
-    public function testEncodeAttribute(mixed $content, string $expected): void
-    {
-        $this->assertSame($expected, Html::encodeAttribute($content));
-    }
-
-    public function testEncodeAttributePreventDoubleEncode(): void
-    {
-        $this->assertSame('Chip&amp;Dale &gt;', Html::encodeAttribute('Chip&amp;Dale >', false));
     }
 }

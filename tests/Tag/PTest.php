@@ -13,9 +13,9 @@ final class PTest extends TestCase
     {
         $this->assertSame(
             '<p class="red">Hello</p>',
-            (string)P::tag()
+            (string) P::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

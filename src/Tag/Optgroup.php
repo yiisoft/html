@@ -77,8 +77,8 @@ final class Optgroup extends NormalTag
     protected function generateContent(): string
     {
         $options = array_map(
-            fn (Option $option) => $option->selected(in_array($option->getValue(), $this->selection, true)),
-            $this->options
+            fn(Option $option) => $option->selected(in_array($option->getValue(), $this->selection, true)),
+            $this->options,
         );
 
         return $options

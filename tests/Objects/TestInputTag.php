@@ -6,6 +6,4 @@ namespace Yiisoft\Html\Tests\Objects;
 
 use Yiisoft\Html\Tag\Base\InputTag;
 
-final class TestInputTag extends InputTag
-{
-}
+final class TestInputTag extends InputTag {}

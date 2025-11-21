@@ -22,7 +22,7 @@ final class RangeTest extends TestCase
 
         $this->assertSame(
             '<input type="range" name="opacity" min="0" max="100" step="10">',
-            $tag->render()
+            $tag->render(),
         );
     }
 
@@ -107,10 +107,10 @@ final class RangeTest extends TestCase
         $tag = Range::tag()->showOutput();
 
         $this->assertMatchesRegularExpression(
-            '~<input type="range" ' .
-            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
-            "\n" . '<span id="(?P=id)">-</span>~',
-            $tag->render()
+            '~<input type="range" '
+            . 'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">'
+            . "\n" . '<span id="(?P=id)">-</span>~',
+            $tag->render(),
         );
     }
 
@@ -122,10 +122,10 @@ final class RangeTest extends TestCase
             ->addOutputAttributes(['id' => 'UID']);
 
         $this->assertSame(
-            '<input type="range" ' .
-            'oninput="document.getElementById(&quot;UID&quot;).innerHTML=this.value">' .
-            "\n" . '<span id="UID" class="red">-</span>',
-            $tag->render()
+            '<input type="range" '
+            . 'oninput="document.getElementById(&quot;UID&quot;).innerHTML=this.value">'
+            . "\n" . '<span id="UID" class="red">-</span>',
+            $tag->render(),
         );
     }
 
@@ -137,10 +137,10 @@ final class RangeTest extends TestCase
             ->outputAttributes(['id' => 'UID']);
 
         $this->assertSame(
-            '<input type="range" ' .
-            'oninput="document.getElementById(&quot;UID&quot;).innerHTML=this.value">' .
-            "\n" . '<span id="UID">-</span>',
-            $tag->render()
+            '<input type="range" '
+            . 'oninput="document.getElementById(&quot;UID&quot;).innerHTML=this.value">'
+            . "\n" . '<span id="UID">-</span>',
+            $tag->render(),
         );
     }
 
@@ -151,10 +151,10 @@ final class RangeTest extends TestCase
             ->outputAttributes(['id' => 'UID']);
 
         $this->assertMatchesRegularExpression(
-            '~<input type="range" ' .
-            'oninput="document.getElementById\(\&quot;UID\&quot;\)\.innerHTML=this\.value">' .
-            "\n" . '<span id="UID">-</span>~',
-            $tag->render()
+            '~<input type="range" '
+            . 'oninput="document.getElementById\(\&quot;UID\&quot;\)\.innerHTML=this\.value">'
+            . "\n" . '<span id="UID">-</span>~',
+            $tag->render(),
         );
     }
 
@@ -165,10 +165,10 @@ final class RangeTest extends TestCase
             ->outputTag('b');
 
         $this->assertMatchesRegularExpression(
-            '~<input type="range" ' .
-            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
-            "\n" . '<b id="(?P=id)">-</b>~',
-            $tag->render()
+            '~<input type="range" '
+            . 'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">'
+            . "\n" . '<b id="(?P=id)">-</b>~',
+            $tag->render(),
         );
     }
 
@@ -179,10 +179,10 @@ final class RangeTest extends TestCase
             ->outputAttributes(['class' => 'red']);
 
         $this->assertMatchesRegularExpression(
-            '~<input type="range" ' .
-            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
-            "\n" . '<span id="(?P=id)" class="red">-</span>~',
-            $tag->render()
+            '~<input type="range" '
+            . 'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">'
+            . "\n" . '<span id="(?P=id)" class="red">-</span>~',
+            $tag->render(),
         );
     }
 
@@ -193,10 +193,10 @@ final class RangeTest extends TestCase
             ->value(10);
 
         $this->assertMatchesRegularExpression(
-            '~<input type="range" value="10" ' .
-            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
-            "\n" . '<span id="(?P=id)">10</span>~',
-            $tag->render()
+            '~<input type="range" value="10" '
+            . 'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">'
+            . "\n" . '<span id="(?P=id)">10</span>~',
+            $tag->render(),
         );
     }
 

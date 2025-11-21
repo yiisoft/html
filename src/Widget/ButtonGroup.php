@@ -27,6 +27,13 @@ final class ButtonGroup implements NoEncodeStringableInterface
     private array $buttonAttributes = [];
     private string $separator = "\n";
 
+    private function __construct() {}
+
+    public function __toString(): string
+    {
+        return $this->render();
+    }
+
     public static function create(): self
     {
         return new self();
@@ -77,8 +84,8 @@ final class ButtonGroup implements NoEncodeStringableInterface
         foreach ($data as $row) {
             if (!is_array($row) || !isset($row[0]) || !is_string($row[0])) {
                 throw new InvalidArgumentException(
-                    'Invalid buttons data. A data row must be array with label as first element ' .
-                    'and additional name-value pairs as attributes of button.'
+                    'Invalid buttons data. A data row must be array with label as first element '
+                    . 'and additional name-value pairs as attributes of button.',
                 );
             }
             $label = $row[0];
@@ -156,14 +163,5 @@ final class ButtonGroup implements NoEncodeStringableInterface
         }
 
         return implode("\n", $html);
-    }
-
-    public function __toString(): string
-    {
-        return $this->render();
-    }
-
-    private function __construct()
-    {
     }
 }

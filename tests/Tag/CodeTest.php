@@ -15,7 +15,7 @@ final class CodeTest extends TestCase
             '<code class="red">Hello</code>',
             (string) Code::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

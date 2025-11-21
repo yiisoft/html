@@ -129,7 +129,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataId')]
     public function testId(string $expected, ?string $id): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->id($id));
+        $this->assertSame($expected, (string) TestTag::tag()->id($id));
     }
 
     public static function dataAddClass(): array
@@ -151,7 +151,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataAddClass')]
     public function testAddClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()
+        $this->assertSame($expected, (string) TestTag::tag()
             ->addClass('main')
             ->addClass(...$class));
     }
@@ -168,7 +168,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataNewClass')]
     public function testNewClass(string $expected, ?string $class): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()->addClass($class));
+        $this->assertSame($expected, (string) TestTag::tag()->addClass($class));
     }
 
     public static function dataClass(): array
@@ -191,7 +191,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataClass')]
     public function testClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string)TestTag::tag()
+        $this->assertSame($expected, (string) TestTag::tag()
             ->class('red')
             ->class(...$class));
     }

@@ -18,9 +18,9 @@ final class AsideTest extends TestCase
             (string) Aside::tag()
                 ->content(
                     H2::tag()->content('Hello')
-                    . P::tag()->content('Aside Tag Content')
+                    . P::tag()->content('Aside Tag Content'),
                 )
-                ->encode(false)
+                ->encode(false),
         );
     }
 }

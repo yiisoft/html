@@ -58,22 +58,6 @@ final class Tr extends NormalTag
     }
 
     /**
-     * @param string[] $strings
-     *
-     * @return Td[]
-     */
-    private function makeDataCells(array $strings, array $attributes, bool $encode): array
-    {
-        return array_map(
-            static fn (string $string) => Td::tag()
-                ->content($string)
-                ->attributes($attributes)
-                ->encode($encode),
-            $strings
-        );
-    }
-
-    /**
      * @param string[] $strings Array of header cells ({@see Th}) as strings.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
@@ -93,22 +77,6 @@ final class Tr extends NormalTag
         return $this->addCells(...$this->makeHeaderCells($strings, $attributes, $encode));
     }
 
-    /**
-     * @param string[] $strings
-     *
-     * @return Th[]
-     */
-    private function makeHeaderCells(array $strings, array $attributes, bool $encode): array
-    {
-        return array_map(
-            static fn (string $string) => Th::tag()
-                ->content($string)
-                ->attributes($attributes)
-                ->encode($encode),
-            $strings
-        );
-    }
-
     protected function generateContent(): string
     {
         return $this->items
@@ -119,5 +87,37 @@ final class Tr extends NormalTag
     protected function getName(): string
     {
         return 'tr';
+    }
+
+    /**
+     * @param string[] $strings
+     *
+     * @return Td[]
+     */
+    private function makeDataCells(array $strings, array $attributes, bool $encode): array
+    {
+        return array_map(
+            static fn(string $string) => Td::tag()
+                ->content($string)
+                ->attributes($attributes)
+                ->encode($encode),
+            $strings,
+        );
+    }
+
+    /**
+     * @param string[] $strings
+     *
+     * @return Th[]
+     */
+    private function makeHeaderCells(array $strings, array $attributes, bool $encode): array
+    {
+        return array_map(
+            static fn(string $string) => Th::tag()
+                ->content($string)
+                ->attributes($attributes)
+                ->encode($encode),
+            $strings,
+        );
     }
 }

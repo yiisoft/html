@@ -14,17 +14,17 @@ final class AudioTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<audio controls>' . "\n" .
-            '<source src="a.mp3">' . "\n" .
-            '<source src="b.ogg">' . "\n" .
-            '<track src="c.mp3">' . "\n" .
-            'Your browser does not support audio.' . "\n" .
-            '</audio>',
+            '<audio controls>' . "\n"
+            . '<source src="a.mp3">' . "\n"
+            . '<source src="b.ogg">' . "\n"
+            . '<track src="c.mp3">' . "\n"
+            . 'Your browser does not support audio.' . "\n"
+            . '</audio>',
             (string) Audio::tag()
                 ->controls()
                 ->sources(Source::tag()->src('a.mp3'), Source::tag()->src('b.ogg'))
                 ->tracks(Track::tag()->src('c.mp3'))
-                ->fallback('Your browser does not support audio.')
+                ->fallback('Your browser does not support audio.'),
         );
     }
 }
