@@ -9,18 +9,11 @@ namespace Yiisoft\Html\Tag\Base;
  */
 abstract class NormalTag extends Tag
 {
-    final private function __construct()
-    {
-    }
+    final private function __construct() {}
 
     final public static function tag(): static
     {
         return new static();
-    }
-
-    final protected function renderTag(): string
-    {
-        return $this->open() . $this->generateContent() . $this->close();
     }
 
     /**
@@ -31,17 +24,22 @@ abstract class NormalTag extends Tag
         return '<' . $this->getName() . $this->renderAttributes() . '>' . $this->prepend();
     }
 
-    protected function prepend(): string
-    {
-        return '';
-    }
-
     /**
      * @return string Closing tag.
      */
     final public function close(): string
     {
         return '</' . $this->getName() . '>';
+    }
+
+    final protected function renderTag(): string
+    {
+        return $this->open() . $this->generateContent() . $this->close();
+    }
+
+    protected function prepend(): string
+    {
+        return '';
     }
 
     abstract protected function generateContent(): string;

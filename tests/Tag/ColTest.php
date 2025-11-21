@@ -17,7 +17,7 @@ final class ColTest extends TestCase
             Col::tag()
                 ->span(2)
                 ->attribute('style', 'background-color:#f00;')
-                ->render()
+                ->render(),
         );
     }
 
@@ -34,7 +34,7 @@ final class ColTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Col::tag()->span($span)->render()
+            Col::tag()->span($span)->render(),
         );
     }
 

@@ -79,7 +79,7 @@ final class File extends InputTag
             return '';
         }
 
-        $name = (string)($this->attributes['name'] ?? '');
+        $name = (string) ($this->attributes['name'] ?? '');
         if (empty($name)) {
             return '';
         }
@@ -87,7 +87,7 @@ final class File extends InputTag
         $input = Html::hiddenInput(
             Html::getNonArrayableName($name),
             $this->uncheckValue,
-            $this->uncheckInputAttributes
+            $this->uncheckInputAttributes,
         );
 
         // Make sure disabled input is not sending any value.

@@ -15,7 +15,7 @@ final class VoidTagTest extends TestCase
             '<test id="main">',
             TestVoidTag::tag()
                 ->id('main')
-                ->render()
+                ->render(),
         );
     }
 }

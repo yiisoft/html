@@ -26,16 +26,16 @@ final class PictureTest extends TestCase
                 Source::tag()
                     ->media('(min-width:465px)')
                     ->srcset('img_white_flower.jpg')
-                    ->type('image/jpeg')
+                    ->type('image/jpeg'),
             );
 
         $this->assertSame(
-            '<picture>' . "\n" .
-            '<source type="image/jpeg" srcset="img_pink_flowers.jpg" media="(min-width:650px)">' . "\n" .
-            '<source type="image/jpeg" srcset="img_white_flower.jpg" media="(min-width:465px)">' . "\n" .
-            '<img src="img_orange_flowers.jpg" alt="Flowers">' . "\n" .
-            '</picture>',
-            $picture->render()
+            '<picture>' . "\n"
+            . '<source type="image/jpeg" srcset="img_pink_flowers.jpg" media="(min-width:650px)">' . "\n"
+            . '<source type="image/jpeg" srcset="img_white_flower.jpg" media="(min-width:465px)">' . "\n"
+            . '<img src="img_orange_flowers.jpg" alt="Flowers">' . "\n"
+            . '</picture>',
+            $picture->render(),
         );
     }
 

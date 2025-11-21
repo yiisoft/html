@@ -13,7 +13,7 @@ final class TitleTest extends TestCase
     {
         $this->assertSame(
             '<title>Hello, World!</title>',
-            (string) Title::tag()->content('Hello, World!')
+            (string) Title::tag()->content('Hello, World!'),
         );
     }
 }

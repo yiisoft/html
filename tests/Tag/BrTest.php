@@ -13,7 +13,7 @@ final class BrTest extends TestCase
     {
         $this->assertSame(
             '<br>',
-            (string)Br::tag()
+            (string) Br::tag(),
         );
     }
 }

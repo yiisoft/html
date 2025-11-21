@@ -195,7 +195,7 @@ final class Html
             (string) $content,
             ENT_NOQUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             $encoding,
-            $doubleEncode
+            $doubleEncode,
         );
     }
 
@@ -217,13 +217,13 @@ final class Html
     public static function encodeUnquotedAttribute(
         mixed $value,
         bool $doubleEncode = true,
-        string $encoding = 'UTF-8'
+        string $encoding = 'UTF-8',
     ): string {
         $value = htmlspecialchars(
             (string) $value,
             ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             $encoding,
-            $doubleEncode
+            $doubleEncode,
         );
 
         return strtr($value, [
@@ -257,7 +257,7 @@ final class Html
             (string) $value,
             ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
             $encoding,
-            $doubleEncode
+            $doubleEncode,
         );
 
         return strtr($value, [
@@ -702,7 +702,7 @@ final class Html
         string $type,
         ?string $name = null,
         bool|float|int|string|Stringable|null $value = null,
-        array $attributes = []
+        array $attributes = [],
     ): Input {
         $tag = Input::tag()->type($type);
         if ($name !== null) {
@@ -778,7 +778,7 @@ final class Html
     public static function textInput(
         ?string $name = null,
         bool|float|int|string|Stringable|null $value = null,
-        array $attributes = []
+        array $attributes = [],
     ): Input {
         $tag = Input::text($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
@@ -796,7 +796,7 @@ final class Html
     public static function hiddenInput(
         ?string $name = null,
         bool|float|int|string|Stringable|null $value = null,
-        array $attributes = []
+        array $attributes = [],
     ): Input {
         $tag = Input::hidden($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
@@ -814,7 +814,7 @@ final class Html
     public static function passwordInput(
         ?string $name = null,
         bool|float|int|string|Stringable|null $value = null,
-        array $attributes = []
+        array $attributes = [],
     ): Input {
         $tag = Input::password($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
@@ -836,7 +836,7 @@ final class Html
     public static function file(
         ?string $name = null,
         bool|float|int|string|Stringable|null $value = null,
-        array $attributes = []
+        array $attributes = [],
     ): File {
         $tag = Input::file($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
@@ -854,7 +854,7 @@ final class Html
     public static function radio(
         ?string $name = null,
         bool|float|int|string|Stringable|null $value = null,
-        array $attributes = []
+        array $attributes = [],
     ): Radio {
         $tag = Input::radio($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
@@ -872,7 +872,7 @@ final class Html
     public static function range(
         ?string $name = null,
         float|int|string|Stringable|null $value = null,
-        array $attributes = []
+        array $attributes = [],
     ): Range {
         $tag = Input::range($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
@@ -890,7 +890,7 @@ final class Html
     public static function color(
         ?string $name = null,
         string|Stringable|null $value = null,
-        array $attributes = []
+        array $attributes = [],
     ): Color {
         $tag = Input::color($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
@@ -908,7 +908,7 @@ final class Html
     public static function checkbox(
         ?string $name = null,
         bool|float|int|string|Stringable|null $value = null,
-        array $attributes = []
+        array $attributes = [],
     ): Checkbox {
         $tag = Input::checkbox($name, $value);
         return $attributes === [] ? $tag : $tag->addAttributes($attributes);
@@ -963,7 +963,7 @@ final class Html
      */
     public static function option(
         string|Stringable $content = '',
-        bool|float|int|string|Stringable|null $value = null
+        bool|float|int|string|Stringable|null $value = null,
     ): Option {
         $tag = Option::tag();
         if ($content !== '') {
@@ -1834,31 +1834,6 @@ final class Html
     }
 
     /**
-     * Merges already existing CSS classes with new one.
-     *
-     * This method provides the priority for named existing classes over additional.
-     *
-     * @param string[] $existingClasses Already existing CSS classes.
-     * @param null[]|string[] $additionalClasses CSS classes to be added.
-     *
-     * @return string[] The merge result.
-     *
-     * @psalm-param array<array-key,string> $additionalClasses
-     */
-    private static function mergeCssClasses(array $existingClasses, array $additionalClasses): array
-    {
-        foreach ($additionalClasses as $key => $class) {
-            if (is_int($key) && !in_array($class, $existingClasses, true)) {
-                $existingClasses[] = $class;
-            } elseif (!isset($existingClasses[$key])) {
-                $existingClasses[$key] = $class;
-            }
-        }
-
-        return array_unique($existingClasses);
-    }
-
-    /**
      * Adds the specified CSS styles to the HTML options.
      *
      * If the options already contain a `style` element, the new style will be merged
@@ -2042,6 +2017,31 @@ final class Html
     }
 
     /**
+     * Merges already existing CSS classes with new one.
+     *
+     * This method provides the priority for named existing classes over additional.
+     *
+     * @param string[] $existingClasses Already existing CSS classes.
+     * @param null[]|string[] $additionalClasses CSS classes to be added.
+     *
+     * @return string[] The merge result.
+     *
+     * @psalm-param array<array-key,string> $additionalClasses
+     */
+    private static function mergeCssClasses(array $existingClasses, array $additionalClasses): array
+    {
+        foreach ($additionalClasses as $key => $class) {
+            if (is_int($key) && !in_array($class, $existingClasses, true)) {
+                $existingClasses[] = $class;
+            } elseif (!isset($existingClasses[$key])) {
+                $existingClasses[$key] = $class;
+            }
+        }
+
+        return array_unique($existingClasses);
+    }
+
+    /**
      * Render attribute in HTML tag.
      *
      * @link https://html.spec.whatwg.org/#a-quick-introduction-to-html
@@ -2070,7 +2070,7 @@ final class Html
         if (
             preg_match(
                 '~[\x{0000}-\x{001F}\x{007F}-\x{009F}\x{FDD0}-\x{FDEF}\x{FFFE}\x{FFFF}\x{1FFFE}\x{1FFFF}\x{2FFFE}\x{2FFFF}\x{3FFFE}\x{3FFFF}\x{4FFFE}\x{4FFFF}\x{5FFFE}\x{5FFFF}\x{6FFFE}\x{6FFFF}\x{7FFFE}\x{7FFFF}\x{8FFFE}\x{8FFFF}\x{9FFFE}\x{9FFFF}\x{AFFFE}\x{AFFFF}\x{BFFFE}\x{BFFFF}\x{CFFFE}\x{CFFFF}\x{DFFFE}\x{DFFFF}\x{EFFFE}\x{EFFFF}\x{FFFFE}\x{FFFFF}\x{10FFFE}\x{10FFFF} "\'>/=]~u',
-                $name
+                $name,
             ) > 0
         ) {
             throw new InvalidArgumentException('Attribute name "' . $name . '" contains invalid character(s).');

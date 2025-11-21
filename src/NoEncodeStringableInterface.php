@@ -9,6 +9,4 @@ use Stringable;
 /**
  * An object that could be cast to string that should not be HTML-encoded when used.
  */
-interface NoEncodeStringableInterface extends Stringable
-{
-}
+interface NoEncodeStringableInterface extends Stringable {}

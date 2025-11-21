@@ -20,7 +20,7 @@ final class FieldsetTest extends TestCase
                 Html::textInput('first_name'),
                 "\n",
                 Html::textInput('last_name'),
-                "\n"
+                "\n",
             );
 
         $this->assertSame(
@@ -31,7 +31,7 @@ final class FieldsetTest extends TestCase
             <input type="text" name="last_name">
             </fieldset>
             HTML,
-            $tag->render()
+            $tag->render(),
         );
     }
 

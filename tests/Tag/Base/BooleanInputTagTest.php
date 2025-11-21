@@ -12,9 +12,9 @@ final class BooleanInputTagTest extends TestCase
 {
     public function testChecked(): void
     {
-        $this->assertSame('<input type="test" checked>', (string)TestBooleanInputTag::tag()->checked());
-        $this->assertSame('<input type="test">', (string)TestBooleanInputTag::tag()->checked(false));
-        $this->assertSame('<input type="test">', (string)TestBooleanInputTag::tag()
+        $this->assertSame('<input type="test" checked>', (string) TestBooleanInputTag::tag()->checked());
+        $this->assertSame('<input type="test">', (string) TestBooleanInputTag::tag()->checked(false));
+        $this->assertSame('<input type="test">', (string) TestBooleanInputTag::tag()
             ->checked(true)
             ->checked(false));
     }
@@ -57,7 +57,7 @@ final class BooleanInputTagTest extends TestCase
             $expected,
             TestBooleanInputTag::tag()
                 ->label($label, $attributes)
-                ->render()
+                ->render(),
         );
     }
 
@@ -78,7 +78,7 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->id('Test')
                 ->label('One')
-                ->render()
+                ->render(),
         );
     }
 
@@ -88,7 +88,7 @@ final class BooleanInputTagTest extends TestCase
             '~<input type="test" id="i(\d*?)"> <label for="i\1">One</label>~',
             TestBooleanInputTag::tag()
                 ->sideLabel('One')
-                ->render()
+                ->render(),
         );
     }
 
@@ -98,7 +98,7 @@ final class BooleanInputTagTest extends TestCase
             '~<input type="test" id="i(\d*?)"> <label for="i\1"></label>~',
             TestBooleanInputTag::tag()
                 ->sideLabel('')
-                ->render()
+                ->render(),
         );
     }
 
@@ -108,7 +108,7 @@ final class BooleanInputTagTest extends TestCase
             '<input type="test">',
             TestBooleanInputTag::tag()
                 ->sideLabel(null)
-                ->render()
+                ->render(),
         );
     }
 
@@ -119,7 +119,7 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->id('Test')
                 ->sideLabel('One')
-                ->render()
+                ->render(),
         );
     }
 
@@ -129,7 +129,7 @@ final class BooleanInputTagTest extends TestCase
             '~<input type="test" id="i(\d*?)"> <label class="red" for="i\1">One</label>~',
             TestBooleanInputTag::tag()
                 ->sideLabel('One', ['class' => 'red'])
-                ->render()
+                ->render(),
         );
     }
 
@@ -140,7 +140,7 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->sideLabel('One')
                 ->id('count')
-                ->render()
+                ->render(),
         );
     }
 
@@ -151,7 +151,7 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->label('<b>One</b>')
                 ->labelEncode(false)
-                ->render()
+                ->render(),
         );
     }
 
@@ -183,46 +183,46 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->name($name)
                 ->uncheckValue($value)
-                ->render()
+                ->render(),
         );
     }
 
     public function testUncheckValueDisabled(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="color" value="7" disabled>' .
-            '<input type="test" name="color" disabled>',
+            '<input type="hidden" name="color" value="7" disabled>'
+            . '<input type="test" name="color" disabled>',
             TestBooleanInputTag::tag()
                 ->name('color')
                 ->uncheckValue(7)
                 ->disabled()
-                ->render()
+                ->render(),
         );
     }
 
     public function testUncheckValueForm(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="color" value="7" form="post">' .
-            '<input type="test" name="color" form="post">',
+            '<input type="hidden" name="color" value="7" form="post">'
+            . '<input type="test" name="color" form="post">',
             TestBooleanInputTag::tag()
                 ->name('color')
                 ->uncheckValue(7)
                 ->form('post')
-                ->render()
+                ->render(),
         );
     }
 
     public function testUncheckValueWithLabel(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="color" value="7">' .
-            '<label><input type="test" name="color"> Seven</label>',
+            '<input type="hidden" name="color" value="7">'
+            . '<label><input type="test" name="color"> Seven</label>',
             TestBooleanInputTag::tag()
                 ->name('color')
                 ->uncheckValue(7)
                 ->label('Seven')
-                ->render()
+                ->render(),
         );
     }
 

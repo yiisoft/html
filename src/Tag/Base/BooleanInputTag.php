@@ -97,41 +97,8 @@ abstract class BooleanInputTag extends InputTag
             ? null
             : Html::generateId();
 
-        return $this->renderUncheckInput() .
-            ($this->labelWrap ? $this->renderLabelOpenTag($this->labelAttributes) : '');
-    }
-
-    private function renderUncheckInput(): string
-    {
-        $name = (string)($this->attributes['name'] ?? '');
-        if (empty($name) || $this->uncheckValue === null) {
-            return '';
-        }
-
-        $input = Input::hidden(
-            Html::getNonArrayableName($name),
-            $this->uncheckValue
-        );
-
-        // Make sure disabled input is not sending any value.
-        if (!empty($this->attributes['disabled'])) {
-            $input = $input->attribute('disabled', $this->attributes['disabled']);
-        }
-
-        if (!empty($this->attributes['form'])) {
-            $input = $input->attribute('form', $this->attributes['form']);
-        }
-
-        return $input->render();
-    }
-
-    private function renderLabelOpenTag(array $attributes): string
-    {
-        if ($this->label === null) {
-            return '';
-        }
-
-        return Html::openTag('label', $attributes);
+        return $this->renderUncheckInput()
+            . ($this->labelWrap ? $this->renderLabelOpenTag($this->labelAttributes) : '');
     }
 
     final protected function after(): string
@@ -157,4 +124,37 @@ abstract class BooleanInputTag extends InputTag
     }
 
     abstract protected function getType(): string;
+
+    private function renderUncheckInput(): string
+    {
+        $name = (string) ($this->attributes['name'] ?? '');
+        if (empty($name) || $this->uncheckValue === null) {
+            return '';
+        }
+
+        $input = Input::hidden(
+            Html::getNonArrayableName($name),
+            $this->uncheckValue,
+        );
+
+        // Make sure disabled input is not sending any value.
+        if (!empty($this->attributes['disabled'])) {
+            $input = $input->attribute('disabled', $this->attributes['disabled']);
+        }
+
+        if (!empty($this->attributes['form'])) {
+            $input = $input->attribute('form', $this->attributes['form']);
+        }
+
+        return $input->render();
+    }
+
+    private function renderLabelOpenTag(array $attributes): string
+    {
+        if ($this->label === null) {
+            return '';
+        }
+
+        return Html::openTag('label', $attributes);
+    }
 }

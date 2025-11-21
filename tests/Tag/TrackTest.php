@@ -18,7 +18,7 @@ final class TrackTest extends TestCase
                 ->kind(Track::SUBTITLES)
                 ->src('brave.en.vtt')
                 ->srclang('en')
-                ->label('English')
+                ->label('English'),
         );
     }
 
@@ -74,7 +74,7 @@ final class TrackTest extends TestCase
     {
         $this->assertSame(
             '<track src="brave.en.vtt">',
-            (string) Track::tag()->src('brave.en.vtt')
+            (string) Track::tag()->src('brave.en.vtt'),
         );
     }
 

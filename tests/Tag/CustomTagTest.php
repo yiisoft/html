@@ -24,7 +24,7 @@ final class CustomTagTest extends TestCase
                 ->id('custom')
                 ->attribute('count', 15)
                 ->content('body')
-                ->render()
+                ->render(),
         );
     }
 
@@ -43,7 +43,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             "<$name>",
-            CustomTag::name($name)->render()
+            CustomTag::name($name)->render(),
         );
     }
 
@@ -83,9 +83,9 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test><b>hello</b></test>',
-            (string)CustomTag::name('test')
+            (string) CustomTag::name('test')
                 ->content('<b>hello</b>')
-                ->encode(false)
+                ->encode(false),
         );
     }
 
@@ -93,9 +93,9 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string)CustomTag::name('test')
+            (string) CustomTag::name('test')
                 ->content('<b>A &gt; B</b>')
-                ->doubleEncode(false)
+                ->doubleEncode(false),
         );
     }
 
@@ -128,7 +128,7 @@ final class CustomTagTest extends TestCase
             CustomTag::name('test')
                 ->encode(true)
                 ->content(P::tag()->content('Hi!'))
-                ->render()
+                ->render(),
         );
     }
 
@@ -140,7 +140,7 @@ final class CustomTagTest extends TestCase
                 ->content('Hello')
                 ->addContent(' ')
                 ->addContent(new StringableObject('World'))
-                ->render()
+                ->render(),
         );
     }
 
@@ -151,7 +151,7 @@ final class CustomTagTest extends TestCase
             CustomTag::name('test')
                 ->content('1')
                 ->addContent(...['2', '3'])
-                ->render()
+                ->render(),
         );
     }
 

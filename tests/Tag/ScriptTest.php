@@ -17,7 +17,7 @@ final class ScriptTest extends TestCase
     {
         $this->assertSame(
             '<script src="main.js"></script>',
-            (string)Script::tag()->url('main.js')
+            (string) Script::tag()->url('main.js'),
         );
     }
 
@@ -41,8 +41,8 @@ final class ScriptTest extends TestCase
     #[DataProvider('dataUrl')]
     public function testUrl(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string)Script::tag()->url($url));
-        $this->assertSame($expected, (string)Script::tag()->src($url));
+        $this->assertSame($expected, (string) Script::tag()->url($url));
+        $this->assertSame($expected, (string) Script::tag()->src($url));
     }
 
     public static function dataType(): array
@@ -56,7 +56,7 @@ final class ScriptTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string)Script::tag()->type($type));
+        $this->assertSame($expected, (string) Script::tag()->type($type));
     }
 
     public static function dataCharset(): array
@@ -70,23 +70,23 @@ final class ScriptTest extends TestCase
     #[DataProvider('dataCharset')]
     public function testCharset(string $expected, ?string $charset): void
     {
-        $this->assertSame($expected, (string)Script::tag()->charset($charset));
+        $this->assertSame($expected, (string) Script::tag()->charset($charset));
     }
 
     public function testAsync(): void
     {
-        $this->assertSame('<script async></script>', (string)Script::tag()->async());
-        $this->assertSame('<script></script>', (string)Script::tag()->async(false));
-        $this->assertSame('<script></script>', (string)Script::tag()
+        $this->assertSame('<script async></script>', (string) Script::tag()->async());
+        $this->assertSame('<script></script>', (string) Script::tag()->async(false));
+        $this->assertSame('<script></script>', (string) Script::tag()
             ->async(true)
             ->async(false));
     }
 
     public function testDefer(): void
     {
-        $this->assertSame('<script defer></script>', (string)Script::tag()->defer());
-        $this->assertSame('<script></script>', (string)Script::tag()->defer(false));
-        $this->assertSame('<script></script>', (string)Script::tag()
+        $this->assertSame('<script defer></script>', (string) Script::tag()->defer());
+        $this->assertSame('<script></script>', (string) Script::tag()->defer(false));
+        $this->assertSame('<script></script>', (string) Script::tag()
             ->defer(true)
             ->defer(false));
     }
@@ -95,15 +95,15 @@ final class ScriptTest extends TestCase
     {
         $this->assertSame(
             '<script></script><noscript>hello</noscript>',
-            (string)Script::tag()->noscript('hello'),
+            (string) Script::tag()->noscript('hello'),
         );
         $this->assertSame(
             '<script></script><noscript><div></div></noscript>',
-            (string)Script::tag()->noscript(Div::tag()),
+            (string) Script::tag()->noscript(Div::tag()),
         );
         $this->assertSame(
             '<script></script>',
-            (string)Script::tag()->noscript(null),
+            (string) Script::tag()->noscript(null),
         );
     }
 
@@ -112,11 +112,11 @@ final class ScriptTest extends TestCase
         $noscriptTag = Noscript::tag()->content('hello');
         $this->assertSame(
             '<script></script><noscript>hello</noscript>',
-            (string)Script::tag()->noscriptTag($noscriptTag),
+            (string) Script::tag()->noscriptTag($noscriptTag),
         );
         $this->assertSame(
             '<script></script>',
-            (string)Script::tag()->noscriptTag(null),
+            (string) Script::tag()->noscriptTag(null),
         );
     }
 

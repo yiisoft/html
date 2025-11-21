@@ -19,9 +19,9 @@ final class AddressTest extends TestCase
                     'Street 111, Mount View Town. Contact: '
                     . A::tag()
                         ->href('tel:xx-xx-xxxx')
-                        ->content('xx-xx-xxxx')
+                        ->content('xx-xx-xxxx'),
                 )
-                ->encode(false)
+                ->encode(false),
         );
     }
 }

@@ -14,7 +14,7 @@ final class StyleTest extends TestCase
     {
         $this->assertSame(
             '<style>.red { color: #f00; }</style>',
-            (string)Style::tag()->content('.red { color: #f00; }')
+            (string) Style::tag()->content('.red { color: #f00; }'),
         );
     }
 
@@ -38,7 +38,7 @@ final class StyleTest extends TestCase
     #[DataProvider('dataMedia')]
     public function testMedia(string $expected, ?string $media): void
     {
-        $this->assertSame($expected, (string)Style::tag()->media($media));
+        $this->assertSame($expected, (string) Style::tag()->media($media));
     }
 
     public static function dataType(): array
@@ -52,7 +52,7 @@ final class StyleTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string)Style::tag()->type($type));
+        $this->assertSame($expected, (string) Style::tag()->type($type));
     }
 
     public function testImmutability(): void

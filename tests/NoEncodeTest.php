@@ -15,6 +15,6 @@ final class NoEncodeTest extends TestCase
         $object = NoEncode::string('test');
 
         $this->assertInstanceOf(NoEncodeStringableInterface::class, $object);
-        $this->assertSame('test', (string)$object);
+        $this->assertSame('test', (string) $object);
     }
 }

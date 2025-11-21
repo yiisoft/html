@@ -18,9 +18,9 @@ final class HeaderTest extends TestCase
             (string) Header::tag()
                 ->content(
                     H1::tag()->content('Heading 1')
-                    . I::tag()->content('Hello Text')
+                    . I::tag()->content('Hello Text'),
                 )
-                ->encode(false)
+                ->encode(false),
         );
     }
 }

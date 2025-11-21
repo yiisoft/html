@@ -14,9 +14,9 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame(
             '<button type="submit">Send</button>',
-            (string)Button::tag()
+            (string) Button::tag()
                 ->type('submit')
-                ->content('Send')
+                ->content('Send'),
         );
     }
 
@@ -24,7 +24,7 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame(
             '<button type="button">Agree</button>',
-            (string)Button::button('Agree')
+            (string) Button::button('Agree'),
         );
     }
 
@@ -32,7 +32,7 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame(
             '<button type="button"></button>',
-            (string)Button::button()
+            (string) Button::button(),
         );
     }
 
@@ -40,7 +40,7 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame(
             '<button type="submit"></button>',
-            (string)Button::submit()
+            (string) Button::submit(),
         );
     }
 
@@ -48,7 +48,7 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame(
             '<button type="reset"></button>',
-            (string)Button::reset()
+            (string) Button::reset(),
         );
     }
 
@@ -56,7 +56,7 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame(
             '<button type="submit">Send</button>',
-            (string)Button::submit('Send')
+            (string) Button::submit('Send'),
         );
     }
 
@@ -64,7 +64,7 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame(
             '<button type="reset">Reset form</button>',
-            (string)Button::reset('Reset form')
+            (string) Button::reset('Reset form'),
         );
     }
 
@@ -79,14 +79,14 @@ final class ButtonTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string)Button::tag()->type($type));
+        $this->assertSame($expected, (string) Button::tag()->type($type));
     }
 
     public function testDisabled(): void
     {
-        $this->assertSame('<button disabled></button>', (string)Button::tag()->disabled());
-        $this->assertSame('<button></button>', (string)Button::tag()->disabled(false));
-        $this->assertSame('<button></button>', (string)Button::tag()
+        $this->assertSame('<button disabled></button>', (string) Button::tag()->disabled());
+        $this->assertSame('<button></button>', (string) Button::tag()->disabled(false));
+        $this->assertSame('<button></button>', (string) Button::tag()
             ->disabled(true)
             ->disabled(false));
     }

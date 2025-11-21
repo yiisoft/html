@@ -15,7 +15,7 @@ class TdTest extends TestCase
             '<td>hello</td>',
             Td::tag()
                 ->content('hello')
-                ->render()
+                ->render(),
         );
     }
 }

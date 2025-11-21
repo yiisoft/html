@@ -14,15 +14,15 @@ final class Html extends NormalTag
 {
     use TagContentTrait;
 
-    protected function getName(): string
-    {
-        return 'html';
-    }
-
     public function lang(?string $lang): self
     {
         $new = clone $this;
         $new->attributes['lang'] = $lang;
         return $new;
+    }
+
+    protected function getName(): string
+    {
+        return 'html';
     }
 }

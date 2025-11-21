@@ -15,7 +15,7 @@ final class NormalTagTest extends TestCase
             '<test id="main">content</test>',
             TestNormalTag::tag()
                 ->id('main')
-                ->render()
+                ->render(),
         );
     }
 

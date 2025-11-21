@@ -16,7 +16,7 @@ final class RadioTest extends TestCase
             Radio::tag()
                 ->name('number')
                 ->value(42)
-                ->render()
+                ->render(),
         );
     }
 }

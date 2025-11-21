@@ -15,7 +15,7 @@ final class H1Test extends TestCase
             '<h1 class="red">Hello</h1>',
             (string) H1::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

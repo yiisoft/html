@@ -16,17 +16,17 @@ final class MediaTagTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<test controls>' . "\n" .
-            '<source src="a.mp3">' . "\n" .
-            '<source src="b.ogg">' . "\n" .
-            '<track src="c.mp3">' . "\n" .
-            'Your browser does not support media.' . "\n" .
-            '</test>',
+            '<test controls>' . "\n"
+            . '<source src="a.mp3">' . "\n"
+            . '<source src="b.ogg">' . "\n"
+            . '<track src="c.mp3">' . "\n"
+            . 'Your browser does not support media.' . "\n"
+            . '</test>',
             (string) TestMediaTag::tag()
                 ->controls()
                 ->sources(Source::tag()->src('a.mp3'), Source::tag()->src('b.ogg'))
                 ->tracks(Track::tag()->src('c.mp3'))
-                ->fallback('Your browser does not support media.')
+                ->fallback('Your browser does not support media.'),
         );
     }
 
@@ -51,7 +51,7 @@ final class MediaTagTest extends TestCase
     {
         $tag = TestMediaTag::tag()->tracks(
             Track::tag()->src('a.mp4'),
-            Track::tag()->src('b.mp4')
+            Track::tag()->src('b.mp4'),
         );
 
         $this->assertSame("<test>\n<track src=\"a.mp4\">\n<track src=\"b.mp4\">\n</test>", (string) $tag);
@@ -66,7 +66,7 @@ final class MediaTagTest extends TestCase
 
         $this->assertSame(
             "<test>\n<track src=\"a.mp4\">\n<track src=\"b.mp4\">\n<track src=\"c.mp4\">\n</test>",
-            (string) $tag
+            (string) $tag,
         );
     }
 
@@ -164,16 +164,16 @@ final class MediaTagTest extends TestCase
                 ->kind('chapters')
                 ->src('sampleChapters.vtt')
                 ->srclang('ja')
-                ->default()
+                ->default(),
         );
 
         $this->assertSame(
-            '<test>' . "\n" .
-            '<track src="sampleCaptions.vtt" kind="captions" srclang="en" default>' . "\n" .
-            '<track src="sampleDescriptions.vtt" kind="descriptions" srclang="de">' . "\n" .
-            '<track src="sampleChapters.vtt" kind="chapters" srclang="ja">' . "\n" .
-            '</test>',
-            $tag->render()
+            '<test>' . "\n"
+            . '<track src="sampleCaptions.vtt" kind="captions" srclang="en" default>' . "\n"
+            . '<track src="sampleDescriptions.vtt" kind="descriptions" srclang="de">' . "\n"
+            . '<track src="sampleChapters.vtt" kind="chapters" srclang="ja">' . "\n"
+            . '</test>',
+            $tag->render(),
         );
     }
 

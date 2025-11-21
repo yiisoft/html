@@ -19,9 +19,9 @@ final class NavTest extends TestCase
                 Ul::tag()->items(
                     Li::tag()->content('Home'),
                     Li::tag()->content('About Us'),
-                    Li::tag()->content('Contact Us')
-                )
-            )
+                    Li::tag()->content('Contact Us'),
+                ),
+            ),
         );
     }
 }

@@ -23,7 +23,7 @@ final class TagContentTraitTest extends TestCase
             TestTagContentTrait::tag()
                 ->id('main')
                 ->content('<b>hello &gt; world!</b>')
-                ->render()
+                ->render(),
         );
     }
 
@@ -31,9 +31,9 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test><b>hello</b></test>',
-            (string)TestTagContentTrait::tag()
+            (string) TestTagContentTrait::tag()
                 ->content('<b>hello</b>')
-                ->encode(false)
+                ->encode(false),
         );
     }
 
@@ -41,9 +41,9 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string)TestTagContentTrait::tag()
+            (string) TestTagContentTrait::tag()
                 ->content('<b>A &gt; B</b>')
-                ->doubleEncode(false)
+                ->doubleEncode(false),
         );
     }
 
@@ -76,7 +76,7 @@ final class TagContentTraitTest extends TestCase
             TestTagContentTrait::tag()
                 ->encode(true)
                 ->content(P::tag()->content('Hi!'))
-                ->render()
+                ->render(),
         );
     }
 
@@ -88,7 +88,7 @@ final class TagContentTraitTest extends TestCase
                 ->content('Hello')
                 ->addContent(' ')
                 ->addContent(new StringableObject('World'))
-                ->render()
+                ->render(),
         );
     }
 
@@ -99,7 +99,7 @@ final class TagContentTraitTest extends TestCase
             TestTagContentTrait::tag()
                 ->content('1')
                 ->addContent(...['2', '3'])
-                ->render()
+                ->render(),
         );
     }
 
@@ -111,7 +111,7 @@ final class TagContentTraitTest extends TestCase
                 ->content(content: '1')
                 ->addContent(content: '2')
                 ->addContent(content: '3')
-                ->render()
+                ->render(),
         );
     }
 

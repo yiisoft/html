@@ -20,9 +20,9 @@ final class HgroupTest extends TestCase
                 ->content(
                     H1::tag()->content('Heading 1')
                     . H2::tag()->content('Heading 2')
-                    . H3::tag()->content('Heading 3')
+                    . H3::tag()->content('Heading 3'),
                 )
-                ->encode(false)
+                ->encode(false),
         );
     }
 }

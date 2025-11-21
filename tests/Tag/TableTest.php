@@ -44,7 +44,7 @@ class TableTest extends TestCase
             "<table>\n<caption>Hello</caption>\n</table>",
             Table::tag()
                 ->captionString('Hello')
-                ->render()
+                ->render(),
         );
     }
 
@@ -54,7 +54,7 @@ class TableTest extends TestCase
             "<table>\n<caption>&lt;b&gt;Hello&lt;/b&gt;</caption>\n</table>",
             Table::tag()
                 ->captionString('<b>Hello</b>')
-                ->render()
+                ->render(),
         );
     }
 
@@ -64,7 +64,7 @@ class TableTest extends TestCase
             "<table>\n<caption><b>Hello</b></caption>\n</table>",
             Table::tag()
                 ->captionString('<b>Hello</b>', false)
-                ->render()
+                ->render(),
         );
     }
 
@@ -79,14 +79,14 @@ class TableTest extends TestCase
         );
 
         $this->assertSame(
-            '<table>' . "\n" .
-            '<colgroup>' . "\n" .
-            '<col>' . "\n" .
-            '<col span="2">' . "\n" .
-            '</colgroup>' . "\n" .
-            '<colgroup span="4"></colgroup>' . "\n" .
-            '</table>',
-            $tag->render()
+            '<table>' . "\n"
+            . '<colgroup>' . "\n"
+            . '<col>' . "\n"
+            . '<col span="2">' . "\n"
+            . '</colgroup>' . "\n"
+            . '<colgroup span="4"></colgroup>' . "\n"
+            . '</table>',
+            $tag->render(),
         );
     }
 
@@ -105,15 +105,15 @@ class TableTest extends TestCase
             );
 
         $this->assertSame(
-            '<table>' . "\n" .
-            '<colgroup>' . "\n" .
-            '<col>' . "\n" .
-            '<col span="2">' . "\n" .
-            '</colgroup>' . "\n" .
-            '<colgroup span="4"></colgroup>' . "\n" .
-            '<colgroup span="5"></colgroup>' . "\n" .
-            '</table>',
-            $tag->render()
+            '<table>' . "\n"
+            . '<colgroup>' . "\n"
+            . '<col>' . "\n"
+            . '<col span="2">' . "\n"
+            . '</colgroup>' . "\n"
+            . '<colgroup span="4"></colgroup>' . "\n"
+            . '<colgroup span="5"></colgroup>' . "\n"
+            . '</table>',
+            $tag->render(),
         );
     }
 
@@ -125,11 +125,11 @@ class TableTest extends TestCase
         );
 
         $this->assertSame(
-            '<table>' . "\n" .
-            '<col>' . "\n" .
-            '<col span="2">' . "\n" .
-            '</table>',
-            $tag->render()
+            '<table>' . "\n"
+            . '<col>' . "\n"
+            . '<col span="2">' . "\n"
+            . '</table>',
+            $tag->render(),
         );
     }
 
@@ -146,13 +146,13 @@ class TableTest extends TestCase
             );
 
         $this->assertSame(
-            '<table>' . "\n" .
-            '<col>' . "\n" .
-            '<col span="2">' . "\n" .
-            '<col span="3">' . "\n" .
-            '<col span="4">' . "\n" .
-            '</table>',
-            $tag->render()
+            '<table>' . "\n"
+            . '<col>' . "\n"
+            . '<col span="2">' . "\n"
+            . '<col span="3">' . "\n"
+            . '<col span="4">' . "\n"
+            . '</table>',
+            $tag->render(),
         );
     }
 
@@ -180,11 +180,11 @@ class TableTest extends TestCase
         );
 
         $this->assertSame(
-            '<table>' . "\n" .
-            '<tbody></tbody>' . "\n" .
-            '<tbody class="red"></tbody>' . "\n" .
-            '</table>',
-            $tag->render()
+            '<table>' . "\n"
+            . '<tbody></tbody>' . "\n"
+            . '<tbody class="red"></tbody>' . "\n"
+            . '</table>',
+            $tag->render(),
         );
     }
 
@@ -200,12 +200,12 @@ class TableTest extends TestCase
             );
 
         $this->assertSame(
-            '<table>' . "\n" .
-            '<tbody></tbody>' . "\n" .
-            '<tbody class="red"></tbody>' . "\n" .
-            '<tbody class="green"></tbody>' . "\n" .
-            '</table>',
-            $tag->render()
+            '<table>' . "\n"
+            . '<tbody></tbody>' . "\n"
+            . '<tbody class="red"></tbody>' . "\n"
+            . '<tbody class="green"></tbody>' . "\n"
+            . '</table>',
+            $tag->render(),
         );
     }
 
@@ -217,17 +217,17 @@ class TableTest extends TestCase
         );
 
         $this->assertSame(
-            '<table>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>A</td>' . "\n" .
-            '<td>B</td>' . "\n" .
-            '</tr>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>C</td>' . "\n" .
-            '<td>D</td>' . "\n" .
-            '</tr>' . "\n" .
-            '</table>',
-            $tag->render()
+            '<table>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>A</td>' . "\n"
+            . '<td>B</td>' . "\n"
+            . '</tr>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>C</td>' . "\n"
+            . '<td>D</td>' . "\n"
+            . '</tr>' . "\n"
+            . '</table>',
+            $tag->render(),
         );
     }
 
@@ -243,21 +243,21 @@ class TableTest extends TestCase
             );
 
         $this->assertSame(
-            '<table>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>A</td>' . "\n" .
-            '<td>B</td>' . "\n" .
-            '</tr>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>C</td>' . "\n" .
-            '<td>D</td>' . "\n" .
-            '</tr>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>E</td>' . "\n" .
-            '<td>F</td>' . "\n" .
-            '</tr>' . "\n" .
-            '</table>',
-            $tag->render()
+            '<table>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>A</td>' . "\n"
+            . '<td>B</td>' . "\n"
+            . '</tr>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>C</td>' . "\n"
+            . '<td>D</td>' . "\n"
+            . '</tr>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>E</td>' . "\n"
+            . '<td>F</td>' . "\n"
+            . '</tr>' . "\n"
+            . '</table>',
+            $tag->render(),
         );
     }
 
@@ -281,13 +281,13 @@ class TableTest extends TestCase
     {
         return [
             [
-                '<table>' . "\n" .
-                '<caption>Caption of Table</caption>' . "\n" .
-                '<colgroup></colgroup>' . "\n" .
-                '<thead></thead>' . "\n" .
-                '<tbody></tbody>' . "\n" .
-                '<tfoot></tfoot>' . "\n" .
-                '</table>',
+                '<table>' . "\n"
+                . '<caption>Caption of Table</caption>' . "\n"
+                . '<colgroup></colgroup>' . "\n"
+                . '<thead></thead>' . "\n"
+                . '<tbody></tbody>' . "\n"
+                . '<tfoot></tfoot>' . "\n"
+                . '</table>',
                 Table::tag()
                     ->captionString('Caption of Table')
                     ->columnGroups(Colgroup::tag())
@@ -296,13 +296,13 @@ class TableTest extends TestCase
                     ->footer(Tfoot::tag()),
             ],
             [
-                '<table>' . "\n" .
-                '<caption>Caption of Table</caption>' . "\n" .
-                '<col>' . "\n" .
-                '<thead></thead>' . "\n" .
-                '<tr></tr>' . "\n" .
-                '<tfoot></tfoot>' . "\n" .
-                '</table>',
+                '<table>' . "\n"
+                . '<caption>Caption of Table</caption>' . "\n"
+                . '<col>' . "\n"
+                . '<thead></thead>' . "\n"
+                . '<tr></tr>' . "\n"
+                . '<tfoot></tfoot>' . "\n"
+                . '</table>',
                 Table::tag()
                     ->captionString('Caption of Table')
                     ->columns(Col::tag())

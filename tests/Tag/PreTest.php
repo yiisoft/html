@@ -15,7 +15,7 @@ final class PreTest extends TestCase
             '<pre class="red">Hello</pre>',
             (string) Pre::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

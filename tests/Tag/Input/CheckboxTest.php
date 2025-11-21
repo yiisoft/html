@@ -16,7 +16,7 @@ final class CheckboxTest extends TestCase
             Checkbox::tag()
                 ->name('number')
                 ->value(42)
-                ->render()
+                ->render(),
         );
     }
 }

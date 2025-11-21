@@ -52,7 +52,7 @@ final class Select extends NormalTag
     {
         $values = array_filter(
             $value,
-            static fn (mixed $v): bool => $v !== null,
+            static fn(mixed $v): bool => $v !== null,
         );
         $values = array_map(
             static function (Stringable|bool|float|int|string|BackedEnum $v): string {
@@ -147,7 +147,7 @@ final class Select extends NormalTag
         array $data,
         bool $encode = true,
         array $optionsAttributes = [],
-        array $groupsAttributes = []
+        array $groupsAttributes = [],
     ): self {
         $items = [];
         foreach ($data as $value => $content) {
@@ -260,10 +260,10 @@ final class Select extends NormalTag
         }
 
         $items = array_map(
-            fn ($item) => $item instanceof Optgroup
+            fn($item) => $item instanceof Optgroup
                 ? $item->selection(...$this->values)
                 : $item->selected(in_array($item->getValue(), $this->values, true)),
-            $items
+            $items,
         );
 
         return $items
@@ -275,10 +275,10 @@ final class Select extends NormalTag
     {
         $name = (string) ($this->attributes['name'] ?? '');
         if (
-            empty($name) ||
-            (
-                $this->unselectValue === null &&
-                empty($this->attributes['multiple'])
+            empty($name)
+            || (
+                $this->unselectValue === null
+                && empty($this->attributes['multiple'])
             )
         ) {
             return '';
@@ -286,7 +286,7 @@ final class Select extends NormalTag
 
         $input = Input::hidden(
             Html::getNonArrayableName($name),
-            (string) $this->unselectValue
+            (string) $this->unselectValue,
         );
 
         // Make sure disabled input is not sending any value.
