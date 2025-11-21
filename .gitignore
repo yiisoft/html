@@ -27,3 +27,6 @@ composer.phar
 /phpunit.phar
 /phpunit.xml
 /.phpunit.cache
+
+# PHP CS Fixer
+/.php-cs-fixer.cache
