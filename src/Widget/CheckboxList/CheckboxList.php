@@ -318,7 +318,7 @@ final class CheckboxList implements NoEncodeStringableInterface
 
         $html = [];
         if ($this->uncheckValue !== null) {
-            $html[] = $this->renderUncheckInput();
+            $html[] = $this->renderUncheckInput($this->uncheckValue);
         }
         if (!empty($this->containerTag)) {
             $html[] = Html::openTag($this->containerTag, $this->containerAttributes);
@@ -333,12 +333,12 @@ final class CheckboxList implements NoEncodeStringableInterface
         return implode("\n", $html);
     }
 
-    private function renderUncheckInput(): string
+    private function renderUncheckInput(string $uncheckValue): string
     {
         return
             Input::hidden(
                 Html::getNonArrayableName($this->name),
-                $this->uncheckValue,
+                $uncheckValue,
             )
                 ->addAttributes(
                     array_merge(
@@ -347,7 +347,7 @@ final class CheckboxList implements NoEncodeStringableInterface
                             'disabled' => $this->checkboxAttributes['disabled'] ?? null,
                             'form' => $this->checkboxAttributes['form'] ?? null,
                         ],
-                        $this->individualInputAttributes[$this->uncheckValue] ?? [],
+                        $this->individualInputAttributes[$uncheckValue] ?? [],
                     ),
                 )
                 ->render();
