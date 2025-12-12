@@ -320,7 +320,7 @@ final class RadioList implements NoEncodeStringableInterface
         return
             Input::hidden(
                 Html::getNonArrayableName($this->name),
-                $this->uncheckValue,
+                $uncheckValue,
             )
                 ->addAttributes(
                     array_merge(

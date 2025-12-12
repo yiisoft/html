@@ -338,7 +338,7 @@ final class CheckboxList implements NoEncodeStringableInterface
         return
             Input::hidden(
                 Html::getNonArrayableName($this->name),
-                $this->uncheckValue,
+                $uncheckValue,
             )
                 ->addAttributes(
                     array_merge(
