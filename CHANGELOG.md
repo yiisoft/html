@@ -4,6 +4,7 @@
 
 - New #249: Add `Tag::addStyle()` and `Tag::removeStyle()` methods (@vjik)
 - New #252: Add `Color` class, `Html::color()` and `Input::color()` methods (@razvbir)
+- Enh #259: Minor refactor `RadioList::renderUncheckInput()` and `CheckboxList::renderUncheckInput()` methods (@vjik)
 
 ## 3.11.0 June 10, 2025
 
