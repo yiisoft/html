@@ -300,7 +300,7 @@ final class RadioList implements NoEncodeStringableInterface
 
         $html = [];
         if ($this->uncheckValue !== null) {
-            $html[] = $this->renderUncheckInput();
+            $html[] = $this->renderUncheckInput($this->uncheckValue);
         }
         if (!empty($this->containerTag)) {
             $html[] = Html::openTag($this->containerTag, $this->containerAttributes);
@@ -315,12 +315,12 @@ final class RadioList implements NoEncodeStringableInterface
         return implode("\n", $html);
     }
 
-    private function renderUncheckInput(): string
+    private function renderUncheckInput(string $uncheckValue): string
     {
         return
             Input::hidden(
                 Html::getNonArrayableName($this->name),
-                $this->uncheckValue,
+                $uncheckValue,
             )
                 ->addAttributes(
                     array_merge(
@@ -329,7 +329,7 @@ final class RadioList implements NoEncodeStringableInterface
                             'disabled' => $this->radioAttributes['disabled'] ?? null,
                             'form' => $this->radioAttributes['form'] ?? null,
                         ],
-                        $this->individualInputAttributes[$this->uncheckValue] ?? [],
+                        $this->individualInputAttributes[$uncheckValue] ?? [],
                     ),
                 )
                 ->render();
