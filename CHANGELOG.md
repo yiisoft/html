@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 3.11.1 under development
+## 3.12.0 December 13, 2025
 
 - New #249: Add `Tag::addStyle()` and `Tag::removeStyle()` methods (@vjik)
 - New #252: Add `Color` class, `Html::color()` and `Input::color()` methods (@razvbir)
