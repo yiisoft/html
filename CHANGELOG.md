@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.12.1 under development
+
+- no changes in this release.
+
 ## 3.12.0 December 13, 2025
 
 - New #249: Add `Tag::addStyle()` and `Tag::removeStyle()` methods (@vjik)
