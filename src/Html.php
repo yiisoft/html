@@ -1284,7 +1284,6 @@ final class Html
         return $content === '' ? $tag : $tag->content($content);
     }
 
-
     /**
      * Generates a {@see Datalist} tag.
      *
