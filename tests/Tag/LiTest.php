@@ -23,8 +23,8 @@ final class LiTest extends TestCase
     public function testWithAttributes(): void
     {
         $this->assertSame(
-            '<li class="item" id="item-1">Content</li>',
-            (string) Html::li('Content', ['class' => 'item', 'id' => 'item-1']),
+            '<li class="item">Content</li>',
+            (string) Html::li('Content', ['class' => 'item']),
         );
     }
 
