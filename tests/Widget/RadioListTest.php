@@ -825,6 +825,8 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->addRadioWrapClass());
         $this->assertNotSame($widget, $widget->addRadioAttributes([]));
         $this->assertNotSame($widget, $widget->radioAttributes([]));
+        $this->assertNotSame($widget, $widget->addRadioLabelAttributes([]));
+        $this->assertNotSame($widget, $widget->radioLabelAttributes([]));
         $this->assertNotSame($widget, $widget->radioLabelWrap(false));
         $this->assertNotSame($widget, $widget->addIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
