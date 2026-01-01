@@ -704,6 +704,12 @@ final class HtmlTest extends TestCase
         $this->assertSame('<li></li>', Html::li()->render());
         $this->assertSame('<li>hello</li>', Html::li('hello')->render());
         $this->assertSame('<li><span>Hello</span></li>', Html::li(Html::span('Hello'))->render());
+
+        $this->assertSame(
+            '<li id="item-1" class="item">Content</li>',
+            Html::li('Content', ['class' => 'item', 'id' => 'item-1'])->render(),
+        );
+        $this->assertSame('<li class="empty"></li>', Html::li(attributes: ['class' => 'empty'])->render());
     }
 
     public function testDatalist(): void

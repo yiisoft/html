@@ -1271,10 +1271,16 @@ final class Html
      * Generates a {@see Li} tag.
      *
      * @param string|Stringable $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function li(string|Stringable $content = ''): Li
+    public static function li(string|Stringable $content = '', array $attributes = []): Li
     {
         $tag = Li::tag();
+
+        if ($attributes !== []) {
+            $tag = $tag->attributes($attributes);
+        }
+
         return $content === '' ? $tag : $tag->content($content);
     }
 
