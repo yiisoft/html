@@ -32,7 +32,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.90",
-        "infection/infection": "^0.27.11 || ^0.29.10",
+        "infection/infection": "^0.28.1 || ^0.32",
         "maglnet/composer-require-checker": "^4.7.1",
         "phpunit/phpunit": "^10.5.46",
         "rector/rector": "^2.0.17",
@@ -59,6 +59,7 @@
     "scripts": {
         "test": "phpunit --testdox --no-interaction",
         "test-watch": "phpunit-watcher watch",
-        "cs-fix": "php-cs-fixer fix"
+        "cs-fix": "php-cs-fixer fix",
+        "infection": "infection --threads=max"
     }
 }
