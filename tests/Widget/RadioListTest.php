@@ -740,6 +740,7 @@ final class RadioListTest extends TestCase
             [' class="main"', ['main']],
             [' class="main bold"', ['main bold']],
             [' class="main bold"', ['main', 'bold']],
+            [' class="main bold"', [null, 'main', null, 'bold', null]],
         ];
     }
 
@@ -776,6 +777,7 @@ final class RadioListTest extends TestCase
             [' class="form-check main"', ['main']],
             [' class="form-check main bold"', ['main bold']],
             [' class="form-check main bold"', ['main', 'bold']],
+            [' class="form-check main bold"', [null, 'main', null, 'bold', null]],
         ];
     }
 
