@@ -16,7 +16,7 @@ final class FileTest extends TestCase
             '<input name="avatar" type="file">',
             File::tag()
                 ->name('avatar')
-                ->render()
+                ->render(),
         );
     }
 
@@ -48,7 +48,7 @@ final class FileTest extends TestCase
             File::tag()
                 ->name($name)
                 ->uncheckValue($value)
-                ->render()
+                ->render(),
         );
     }
 
@@ -61,7 +61,7 @@ final class FileTest extends TestCase
                 ->name('avatar')
                 ->uncheckValue(7)
                 ->disabled()
-                ->render()
+                ->render(),
         );
     }
 
@@ -74,7 +74,7 @@ final class FileTest extends TestCase
                 ->name('avatar')
                 ->uncheckValue(7)
                 ->form('post')
-                ->render()
+                ->render(),
         );
     }
 
@@ -134,7 +134,7 @@ final class FileTest extends TestCase
             File::tag()
                 ->name('avatar')
                 ->accept($accept)
-                ->render()
+                ->render(),
         );
     }
 
@@ -160,7 +160,7 @@ final class FileTest extends TestCase
             File::tag()
                 ->name('avatar')
                 ->multiple($multiple)
-                ->render()
+                ->render(),
         );
     }
 
@@ -171,7 +171,7 @@ final class FileTest extends TestCase
             File::tag()
                 ->name('avatar')
                 ->multiple()
-                ->render()
+                ->render(),
         );
     }
 

@@ -18,7 +18,7 @@ class TagSourcesTraitTest extends TestCase
                 ->sources(Source::tag()->src('video1.mp4'))
                 ->addSource(Source::tag()->src('video2.mp4'))
                 ->addSource(Source::tag()->src('video3.mp4'))
-                ->render()
+                ->render(),
         );
     }
 

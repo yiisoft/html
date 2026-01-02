@@ -87,7 +87,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<div>', Html::openTag('div'));
         $this->assertSame(
             '<span id="test" class="title">',
-            Html::openTag('span', ['id' => 'test', 'class' => 'title'])
+            Html::openTag('span', ['id' => 'test', 'class' => 'title']),
         );
     }
 
@@ -102,7 +102,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<style>.red{color:#f00}</style>', Html::style('.red{color:#f00}')->render());
         $this->assertSame(
             '<style id="main">.red{color:#f00}</style>',
-            Html::style('.red{color:#f00}', ['id' => 'main'])->render()
+            Html::style('.red{color:#f00}', ['id' => 'main'])->render(),
         );
     }
 
@@ -112,7 +112,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<script>alert(15)</script>', Html::script('alert(15)')->render());
         $this->assertSame(
             '<script id="main">alert(15)</script>',
-            Html::script('alert(15)', ['id' => 'main'])->render()
+            Html::script('alert(15)', ['id' => 'main'])->render(),
         );
     }
 
@@ -147,7 +147,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<link href="main.css">', Html::link('main.css')->render());
         $this->assertSame(
             '<link id="main" href="main.css">',
-            Html::link('main.css', ['id' => 'main'])->render()
+            Html::link('main.css', ['id' => 'main'])->render(),
         );
     }
 
@@ -171,11 +171,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<script src="http://example.com"></script>',
-            Html::javaScriptFile('http://example.com')->render()
+            Html::javaScriptFile('http://example.com')->render(),
         );
         $this->assertSame(
             '<script src></script>',
-            Html::javaScriptFile('')->render()
+            Html::javaScriptFile('')->render(),
         );
         $this->assertSame(
             '<script src="http://example.com" id="main"></script>',
@@ -190,7 +190,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<a href="https://example.com">link</a>', Html::a('link', 'https://example.com')->render());
         $this->assertSame(
             '<a id="home" href="https://example.com">link</a>',
-            Html::a('link', 'https://example.com', ['id' => 'home'])->render()
+            Html::a('link', 'https://example.com', ['id' => 'home'])->render(),
         );
         $this->assertSame('<a><span>Hello</span></a>', Html::a(Html::span('Hello'))->render());
     }
@@ -199,11 +199,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<a href="mailto:info@example.com">info@example.com</a>',
-            Html::mailto('info@example.com')->render()
+            Html::mailto('info@example.com')->render(),
         );
         $this->assertSame(
             '<a href="mailto:info@example.com">contact me</a>',
-            Html::mailto('contact me', 'info@example.com')->render()
+            Html::mailto('contact me', 'info@example.com')->render(),
         );
         $this->assertSame(
             '<a href="mailto:info@example.com" id="contact">contact me</a>',
@@ -224,11 +224,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<fieldset></fieldset>',
-            Html::fieldset()->render()
+            Html::fieldset()->render(),
         );
         $this->assertSame(
             '<fieldset id="MyFields"></fieldset>',
-            Html::fieldset(['id' => 'MyFields'])->render()
+            Html::fieldset(['id' => 'MyFields'])->render(),
         );
     }
 
@@ -236,19 +236,19 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<form></form>',
-            Html::form()->render()
+            Html::form()->render(),
         );
         $this->assertSame(
             '<form action="https://example.com/send"></form>',
-            Html::form('https://example.com/send')->render()
+            Html::form('https://example.com/send')->render(),
         );
         $this->assertSame(
             '<form action="https://example.com/send" method="GET"></form>',
-            Html::form('https://example.com/send', 'GET')->render()
+            Html::form('https://example.com/send', 'GET')->render(),
         );
         $this->assertSame(
             '<form class="red-form" action="https://example.com/send" method="GET"></form>',
-            Html::form('https://example.com/send', 'GET', ['class' => 'red-form'])->render()
+            Html::form('https://example.com/send', 'GET', ['class' => 'red-form'])->render(),
         );
     }
 
@@ -265,15 +265,15 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<legend></legend>',
-            Html::legend()->render()
+            Html::legend()->render(),
         );
         $this->assertSame(
             '<legend>Your data</legend>',
-            Html::legend('Your data')->render()
+            Html::legend('Your data')->render(),
         );
         $this->assertSame(
             '<legend id="MyLegend">Your data</legend>',
-            Html::legend('Your data', ['id' => 'MyLegend'])->render()
+            Html::legend('Your data', ['id' => 'MyLegend'])->render(),
         );
     }
 
@@ -281,11 +281,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<button type="button">Button</button>',
-            Html::button('Button')->render()
+            Html::button('Button')->render(),
         );
         $this->assertSame(
             '<button type="button" id="main">Button</button>',
-            Html::button('Button', ['id' => 'main'])->render()
+            Html::button('Button', ['id' => 'main'])->render(),
         );
     }
 
@@ -293,11 +293,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<button type="submit">Submit</button>',
-            Html::submitButton('Submit')->render()
+            Html::submitButton('Submit')->render(),
         );
         $this->assertSame(
             '<button type="submit" id="main">Submit</button>',
-            Html::submitButton('Submit', ['id' => 'main'])->render()
+            Html::submitButton('Submit', ['id' => 'main'])->render(),
         );
     }
 
@@ -305,11 +305,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<button type="reset">Reset</button>',
-            Html::resetButton('Reset')->render()
+            Html::resetButton('Reset')->render(),
         );
         $this->assertSame(
             '<button type="reset" id="main">Reset</button>',
-            Html::resetButton('Reset', ['id' => 'main'])->render()
+            Html::resetButton('Reset', ['id' => 'main'])->render(),
         );
     }
 
@@ -379,6 +379,22 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<input type="text" name="test" value="43" required>',
             Html::textInput('test', '43', ['required' => true])->render(),
+        );
+    }
+
+    public function testColorInput(): void
+    {
+        $this->assertSame('<input type="color">', Html::color()->render());
+        $this->assertSame('<input type="color" name>', Html::color('')->render());
+        $this->assertSame('<input type="color" value>', Html::color(null, '')->render());
+        $this->assertSame('<input type="color" name="test">', Html::color('test')->render());
+        $this->assertSame(
+            '<input type="color" name="test" value="#ff0000">',
+            Html::color('test', '#ff0000')->render(),
+        );
+        $this->assertSame(
+            '<input type="color" name="test" value="#ff0000" required>',
+            Html::color('test', '#ff0000', ['required' => true])->render(),
         );
     }
 
@@ -507,7 +523,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<textarea name="test">body</textarea>', Html::textarea('test', 'body')->render());
         $this->assertSame(
             '<textarea name="test" readonly>body</textarea>',
-            Html::textarea('test', 'body', ['readonly' => true])->render()
+            Html::textarea('test', 'body', ['readonly' => true])->render(),
         );
     }
 
@@ -667,7 +683,7 @@ final class HtmlTest extends TestCase
             "<ul id=\"main\">\n<li>item 1</li>\n</ul>",
             Html::ul(['id' => 'main'])
                 ->items(Html::li('item 1'))
-                ->render()
+                ->render(),
         );
     }
 
@@ -679,7 +695,7 @@ final class HtmlTest extends TestCase
             "<ol id=\"main\">\n<li>item 1</li>\n</ol>",
             Html::ol(['id' => 'main'])
                 ->items(Html::li('item 1'))
-                ->render()
+                ->render(),
         );
     }
 
@@ -688,6 +704,12 @@ final class HtmlTest extends TestCase
         $this->assertSame('<li></li>', Html::li()->render());
         $this->assertSame('<li>hello</li>', Html::li('hello')->render());
         $this->assertSame('<li><span>Hello</span></li>', Html::li(Html::span('Hello'))->render());
+
+        $this->assertSame(
+            '<li id="item-1" class="item">Content</li>',
+            Html::li('Content', ['class' => 'item', 'id' => 'item-1'])->render(),
+        );
+        $this->assertSame('<li class="empty"></li>', Html::li(attributes: ['class' => 'empty'])->render());
     }
 
     public function testDatalist(): void
@@ -702,7 +724,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<caption>Hello</caption>', Html::caption('Hello')->render());
         $this->assertSame(
             '<caption class="red">Hello</caption>',
-            Html::caption('Hello', ['class' => 'red'])->render()
+            Html::caption('Hello', ['class' => 'red'])->render(),
         );
         $this->assertSame('<caption><span>Hello</span></caption>', Html::caption(Html::span('Hello'))->render());
     }
@@ -775,7 +797,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<hr>', Html::hr()->render());
         $this->assertSame(
             '<hr class="red">',
-            Html::hr(['class' => 'red'])->render()
+            Html::hr(['class' => 'red'])->render(),
         );
     }
 
@@ -803,6 +825,22 @@ final class HtmlTest extends TestCase
     public function testSource(): void
     {
         $this->assertSame('<source>', Html::source()->render());
+    }
+
+    public function testCode(): void
+    {
+        $this->assertSame('<code></code>', Html::code()->render());
+        $this->assertSame('<code>Hello</code>', Html::code('Hello')->render());
+        $this->assertSame('<code class="red">Hello</code>', Html::code('Hello', ['class' => 'red'])->render());
+        $this->assertSame('<code><span>Hello</span></code>', Html::code(Html::span('Hello'))->render());
+    }
+
+    public function testPre(): void
+    {
+        $this->assertSame('<pre></pre>', Html::pre()->render());
+        $this->assertSame('<pre>Hello</pre>', Html::pre('Hello')->render());
+        $this->assertSame('<pre class="red">Hello</pre>', Html::pre('Hello', ['class' => 'red'])->render());
+        $this->assertSame('<pre><span>Hello</span></pre>', Html::pre(Html::span('Hello'))->render());
     }
 
     public static function dataRenderTagAttributes(): array
@@ -1227,11 +1265,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<article></article>', Html::article()->render());
         $this->assertSame(
             '<article>Body</article>',
-            Html::article('Body')->render()
+            Html::article('Body')->render(),
         );
         $this->assertSame(
             '<article class="red">Body</article>',
-            Html::article('Body', ['class' => 'red'])->render()
+            Html::article('Body', ['class' => 'red'])->render(),
         );
     }
 
@@ -1240,11 +1278,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<section></section>', Html::section()->render());
         $this->assertSame(
             '<section>Section Content</section>',
-            Html::section('Section Content')->render()
+            Html::section('Section Content')->render(),
         );
         $this->assertSame(
             '<section class="red">Section Content</section>',
-            Html::section('Section Content', ['class' => 'red'])->render()
+            Html::section('Section Content', ['class' => 'red'])->render(),
         );
     }
 
@@ -1253,11 +1291,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<nav></nav>', Html::nav()->render());
         $this->assertSame(
             '<nav>Navigation</nav>',
-            Html::nav('Navigation')->render()
+            Html::nav('Navigation')->render(),
         );
         $this->assertSame(
             '<nav class="red">Navigation</nav>',
-            Html::nav('Navigation', ['class' => 'red'])->render()
+            Html::nav('Navigation', ['class' => 'red'])->render(),
         );
     }
 
@@ -1266,11 +1304,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<aside></aside>', Html::aside()->render());
         $this->assertSame(
             '<aside>Hello</aside>',
-            Html::aside('Hello')->render()
+            Html::aside('Hello')->render(),
         );
         $this->assertSame(
             '<aside class="red">Hello</aside>',
-            Html::aside('Hello', ['class' => 'red'])->render()
+            Html::aside('Hello', ['class' => 'red'])->render(),
         );
     }
 
@@ -1279,11 +1317,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<hgroup></hgroup>', Html::hgroup()->render());
         $this->assertSame(
             '<hgroup>Headings</hgroup>',
-            Html::hgroup('Headings')->render()
+            Html::hgroup('Headings')->render(),
         );
         $this->assertSame(
             '<hgroup class="red">Headings</hgroup>',
-            Html::hgroup('Headings', ['class' => 'red'])->render()
+            Html::hgroup('Headings', ['class' => 'red'])->render(),
         );
     }
 
@@ -1292,11 +1330,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<header></header>', Html::header()->render());
         $this->assertSame(
             '<header>The header.</header>',
-            Html::header('The header.')->render()
+            Html::header('The header.')->render(),
         );
         $this->assertSame(
             '<header class="red">The header.</header>',
-            Html::header('The header.', ['class' => 'red'])->render()
+            Html::header('The header.', ['class' => 'red'])->render(),
         );
     }
 
@@ -1305,11 +1343,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<footer></footer>', Html::footer()->render());
         $this->assertSame(
             '<footer>The footer.</footer>',
-            Html::footer('The footer.')->render()
+            Html::footer('The footer.')->render(),
         );
         $this->assertSame(
             '<footer class="red">The footer.</footer>',
-            Html::footer('The footer.', ['class' => 'red'])->render()
+            Html::footer('The footer.', ['class' => 'red'])->render(),
         );
     }
 
@@ -1318,11 +1356,11 @@ final class HtmlTest extends TestCase
         $this->assertSame('<address></address>', Html::address()->render());
         $this->assertSame(
             '<address>Street 111, Mount View Town.</address>',
-            Html::address('Street 111, Mount View Town.')->render()
+            Html::address('Street 111, Mount View Town.')->render(),
         );
         $this->assertSame(
             '<address class="red">Street 111, Mount View Town.</address>',
-            Html::address('Street 111, Mount View Town.', ['class' => 'red'])->render()
+            Html::address('Street 111, Mount View Town.', ['class' => 'red'])->render(),
         );
     }
 }

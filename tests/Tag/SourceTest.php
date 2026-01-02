@@ -16,7 +16,7 @@ final class SourceTest extends TestCase
             '<source src="audio.ogg" type="audio/ogg; codecs=vorbis">',
             (string) Source::tag()
                 ->src('audio.ogg')
-                ->type('audio/ogg; codecs=vorbis')
+                ->type('audio/ogg; codecs=vorbis'),
         );
     }
 

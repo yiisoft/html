@@ -13,9 +13,9 @@ final class StrongTest extends TestCase
     {
         $this->assertSame(
             '<strong class="red">Hello</strong>',
-            (string)Strong::tag()
+            (string) Strong::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

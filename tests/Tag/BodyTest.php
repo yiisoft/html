@@ -13,7 +13,7 @@ final class BodyTest extends TestCase
     {
         $this->assertSame(
             '<body>Welcome!</body>',
-            (string) Body::tag()->content('Welcome!')
+            (string) Body::tag()->content('Welcome!'),
         );
     }
 
@@ -26,7 +26,7 @@ final class BodyTest extends TestCase
                     'onafterprint' => 'alert(123);',
                     'style' => 'font-size:20px;',
                 ])
-                ->content('Welcome Back!')
+                ->content('Welcome Back!'),
         );
     }
 }

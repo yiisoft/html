@@ -57,7 +57,7 @@ final class BooleanInputTagTest extends TestCase
             $expected,
             TestBooleanInputTag::tag()
                 ->label($label, $attributes)
-                ->render()
+                ->render(),
         );
     }
 
@@ -78,7 +78,7 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->id('Test')
                 ->label('One')
-                ->render()
+                ->render(),
         );
     }
 
@@ -88,7 +88,7 @@ final class BooleanInputTagTest extends TestCase
             '~<input id="i(\d*?)" type="test"> <label for="i\1">One</label>~',
             TestBooleanInputTag::tag()
                 ->sideLabel('One')
-                ->render()
+                ->render(),
         );
     }
 
@@ -98,7 +98,7 @@ final class BooleanInputTagTest extends TestCase
             '~<input id="i(\d*?)" type="test"> <label for="i\1"></label>~',
             TestBooleanInputTag::tag()
                 ->sideLabel('')
-                ->render()
+                ->render(),
         );
     }
 
@@ -108,7 +108,7 @@ final class BooleanInputTagTest extends TestCase
             '<input type="test">',
             TestBooleanInputTag::tag()
                 ->sideLabel(null)
-                ->render()
+                ->render(),
         );
     }
 
@@ -119,7 +119,7 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->id('Test')
                 ->sideLabel('One')
-                ->render()
+                ->render(),
         );
     }
 
@@ -129,7 +129,7 @@ final class BooleanInputTagTest extends TestCase
             '~<input id="i(\d*?)" type="test"> <label class="red" for="i\1">One</label>~',
             TestBooleanInputTag::tag()
                 ->sideLabel('One', ['class' => 'red'])
-                ->render()
+                ->render(),
         );
     }
 
@@ -140,7 +140,7 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->sideLabel('One')
                 ->id('count')
-                ->render()
+                ->render(),
         );
     }
 
@@ -151,7 +151,7 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->label('<b>One</b>')
                 ->labelEncode(false)
-                ->render()
+                ->render(),
         );
     }
 
@@ -183,7 +183,7 @@ final class BooleanInputTagTest extends TestCase
             TestBooleanInputTag::tag()
                 ->name($name)
                 ->uncheckValue($value)
-                ->render()
+                ->render(),
         );
     }
 
@@ -196,7 +196,7 @@ final class BooleanInputTagTest extends TestCase
                 ->name('color')
                 ->uncheckValue(7)
                 ->disabled()
-                ->render()
+                ->render(),
         );
     }
 
@@ -209,7 +209,7 @@ final class BooleanInputTagTest extends TestCase
                 ->name('color')
                 ->uncheckValue(7)
                 ->form('post')
-                ->render()
+                ->render(),
         );
     }
 
@@ -222,7 +222,7 @@ final class BooleanInputTagTest extends TestCase
                 ->name('color')
                 ->uncheckValue(7)
                 ->label('Seven')
-                ->render()
+                ->render(),
         );
     }
 

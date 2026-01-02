@@ -26,17 +26,18 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "yiisoft/arrays": "^2.0|^3.0",
+        "php": "8.1 - 8.5",
+        "yiisoft/arrays": "^2.0 || ^3.0",
         "yiisoft/json": "^1.0"
     },
     "require-dev": {
-        "infection/infection": "^0.27",
-        "maglnet/composer-require-checker": "^4.7",
-        "phpunit/phpunit": "^10.5",
-        "rector/rector": "^2.0",
+        "friendsofphp/php-cs-fixer": "^3.90",
+        "infection/infection": "^0.27.11 || ^0.29.10",
+        "maglnet/composer-require-checker": "^4.7.1",
+        "phpunit/phpunit": "^10.5.46",
+        "rector/rector": "^2.0.17",
         "spatie/phpunit-watcher": "^1.24",
-        "vimeo/psalm": "^5.26"
+        "vimeo/psalm": "^5.26.1 || ^6.12"
     },
     "autoload": {
         "psr-4": {
@@ -57,6 +58,7 @@
     },
     "scripts": {
         "test": "phpunit --testdox --no-interaction",
-        "test-watch": "phpunit-watcher watch"
+        "test-watch": "phpunit-watcher watch",
+        "cs-fix": "php-cs-fixer fix"
     }
 }

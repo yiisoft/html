@@ -45,9 +45,8 @@ final class CustomTag extends Tag
     private int $type = self::TYPE_AUTO;
 
     private function __construct(
-        private string $name
-    ) {
-    }
+        private string $name,
+    ) {}
 
     /**
      * Create a tag instance with the name provided.
@@ -83,18 +82,6 @@ final class CustomTag extends Tag
         return $new;
     }
 
-    protected function getName(): string
-    {
-        return $this->name;
-    }
-
-    protected function renderTag(): string
-    {
-        $isVoid = $this->type === self::TYPE_VOID ||
-            ($this->type === self::TYPE_AUTO && isset(self::VOID_ELEMENTS[strtolower($this->name)]));
-        return $isVoid ? $this->open() : ($this->open() . $this->generateContent() . $this->close());
-    }
-
     /**
      * @return string Opening tag.
      */
@@ -109,5 +96,17 @@ final class CustomTag extends Tag
     public function close(): string
     {
         return '</' . $this->getName() . '>';
+    }
+
+    protected function getName(): string
+    {
+        return $this->name;
+    }
+
+    protected function renderTag(): string
+    {
+        $isVoid = $this->type === self::TYPE_VOID
+            || ($this->type === self::TYPE_AUTO && isset(self::VOID_ELEMENTS[strtolower($this->name)]));
+        return $isVoid ? $this->open() : ($this->open() . $this->generateContent() . $this->close());
     }
 }

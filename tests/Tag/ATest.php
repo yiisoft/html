@@ -14,9 +14,9 @@ final class ATest extends TestCase
     {
         $this->assertSame(
             '<a href="https://example.com">Link</a>',
-            (string)A::tag()
+            (string) A::tag()
                 ->url('https://example.com')
-                ->content('Link')
+                ->content('Link'),
         );
     }
 
@@ -31,7 +31,7 @@ final class ATest extends TestCase
     #[DataProvider('dataHref')]
     public function testHref(string $expected, ?string $href): void
     {
-        $this->assertSame($expected, (string)A::tag()->href($href));
+        $this->assertSame($expected, (string) A::tag()->href($href));
     }
 
     public static function dataUrl(): array
@@ -45,7 +45,7 @@ final class ATest extends TestCase
     #[DataProvider('dataUrl')]
     public function testUrl(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string)A::tag()->url($url));
+        $this->assertSame($expected, (string) A::tag()->url($url));
     }
 
     public static function dataMailto(): array
@@ -59,7 +59,7 @@ final class ATest extends TestCase
     #[DataProvider('dataMailto')]
     public function testMailto(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string)A::tag()->mailto($url));
+        $this->assertSame($expected, (string) A::tag()->mailto($url));
     }
 
     public static function dataRel(): array
@@ -76,12 +76,12 @@ final class ATest extends TestCase
     #[DataProvider('dataRel')]
     public function testRel(string $expected, ?string $rel): void
     {
-        $this->assertSame($expected, (string)A::tag()->rel($rel));
+        $this->assertSame($expected, (string) A::tag()->rel($rel));
     }
 
     public function testNofollow(): void
     {
-        $this->assertSame('<a rel="nofollow"></a>', (string)A::tag()->nofollow());
+        $this->assertSame('<a rel="nofollow"></a>', (string) A::tag()->nofollow());
     }
 
     public static function dataTarget(): array
@@ -95,7 +95,7 @@ final class ATest extends TestCase
     #[DataProvider('dataTarget')]
     public function testTarget(string $expected, ?string $contextName): void
     {
-        $this->assertSame($expected, (string)A::tag()->target($contextName));
+        $this->assertSame($expected, (string) A::tag()->target($contextName));
     }
 
     public function testImmutability(): void

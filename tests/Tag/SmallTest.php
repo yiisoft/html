@@ -15,7 +15,7 @@ final class SmallTest extends TestCase
             '<small class="red">Hello</small>',
             (string) Small::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

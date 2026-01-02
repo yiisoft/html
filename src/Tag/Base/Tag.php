@@ -15,6 +15,11 @@ abstract class Tag implements NoEncodeStringableInterface
 {
     protected array $attributes = [];
 
+    final public function __toString(): string
+    {
+        return $this->render();
+    }
+
     /**
      * Add a set of attributes to existing tag attributes.
      * Same named attributes are replaced.
@@ -105,6 +110,44 @@ abstract class Tag implements NoEncodeStringableInterface
     }
 
     /**
+     * Add CSS styles to the tag.
+     *
+     * @see Html::addCssStyle()
+     *
+     * @param string|string[] $style The new style string (e.g. `'width: 100px; height: 200px'`) or array
+     * (e.g. `['width' => '100px', 'height' => '200px']`).
+     * @param bool $overwrite Whether to overwrite existing CSS properties if the new style contain them too.
+     *
+     * @psalm-param array<string, string>|string $style
+     */
+    final public function addStyle(array|string $style, bool $overwrite = true): static
+    {
+        $new = clone $this;
+        Html::addCssStyle($new->attributes, $style, $overwrite);
+        return $new;
+    }
+
+    /**
+     * Remove CSS styles from the tag.
+     *
+     * @see Html::removeCssStyle()
+     *
+     * @param string|string[] $properties The CSS properties to be removed. You may use a string if you are removing a
+     * single property.
+     */
+    final public function removeStyle(string|array $properties): static
+    {
+        $new = clone $this;
+        Html::removeCssStyle($new->attributes, $properties);
+        return $new;
+    }
+
+    final public function render(): string
+    {
+        return $this->before() . $this->renderTag() . $this->after();
+    }
+
+    /**
      * Render the current tag attributes.
      *
      * @see Html::renderTagAttributes()
@@ -115,14 +158,7 @@ abstract class Tag implements NoEncodeStringableInterface
         return Html::renderTagAttributes($this->attributes);
     }
 
-    protected function prepareAttributes(): void
-    {
-    }
-
-    final public function render(): string
-    {
-        return $this->before() . $this->renderTag() . $this->after();
-    }
+    protected function prepareAttributes(): void {}
 
     protected function before(): string
     {
@@ -147,9 +183,4 @@ abstract class Tag implements NoEncodeStringableInterface
      * @return string Tag name.
      */
     abstract protected function getName(): string;
-
-    final public function __toString(): string
-    {
-        return $this->render();
-    }
 }

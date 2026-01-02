@@ -525,7 +525,7 @@ final class CheckboxListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->form($formId)
-                ->render()
+                ->render(),
         );
     }
 
@@ -544,7 +544,7 @@ final class CheckboxListTest extends TestCase
             '</div>',
             $checkbox
                 ->readonly()
-                ->render()
+                ->render(),
         );
 
         $this->assertSame(
@@ -554,7 +554,7 @@ final class CheckboxListTest extends TestCase
             '</div>',
             $checkbox
                 ->readonly(false)
-                ->render()
+                ->render(),
         );
         $this->assertSame(
             '<div>' . "\n" .
@@ -564,7 +564,7 @@ final class CheckboxListTest extends TestCase
             $checkbox
                 ->readonly(true)
                 ->readonly(false)
-                ->render()
+                ->render(),
         );
     }
 
@@ -583,7 +583,7 @@ final class CheckboxListTest extends TestCase
             '</div>',
             $checkbox
                 ->disabled()
-                ->render()
+                ->render(),
         );
 
         $this->assertSame(
@@ -593,7 +593,7 @@ final class CheckboxListTest extends TestCase
             '</div>',
             $checkbox
                 ->disabled(false)
-                ->render()
+                ->render(),
         );
         $this->assertSame(
             '<div>' . "\n" .
@@ -603,7 +603,7 @@ final class CheckboxListTest extends TestCase
             $checkbox
                 ->disabled(true)
                 ->disabled(false)
-                ->render()
+                ->render(),
         );
     }
 
@@ -658,7 +658,7 @@ final class CheckboxListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->uncheckValue($value)
-                ->render()
+                ->render(),
         );
     }
 
@@ -721,16 +721,16 @@ final class CheckboxListTest extends TestCase
             '</div>',
             CheckboxList::create('test')
                 ->items([1 => 'One', 2 => 'Two'])
-                ->itemFormatter(fn (CheckboxItem $item): string => '<div>' .
-                    $item->index . ') ' .
-                    Html::checkbox(
+                ->itemFormatter(fn(CheckboxItem $item): string => '<div>'
+                    . $item->index . ') '
+                    . Html::checkbox(
                         $item->checkboxAttributes['name'],
                         $item->checkboxAttributes['value'],
-                        $item->checkboxAttributes
+                        $item->checkboxAttributes,
                     )
                         ->checked($item->checked)
-                        ->label($item->label) .
-                    '</div>')
+                        ->label($item->label)
+                    . '</div>')
                 ->separator('')
                 ->render(),
         );

@@ -64,8 +64,8 @@ final class Script extends NormalTag
         throw new LogicException(
             sprintf(
                 'Nonce should be string or null. Got %s.',
-                get_debug_type($nonce)
-            )
+                get_debug_type($nonce),
+            ),
         );
     }
 

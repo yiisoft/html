@@ -14,9 +14,9 @@ final class LabelTest extends TestCase
     {
         $this->assertSame(
             '<label for="name">Your name</label>',
-            (string)Label::tag()
+            (string) Label::tag()
                 ->forId('name')
-                ->content('Your name')
+                ->content('Your name'),
         );
     }
 
@@ -31,7 +31,7 @@ final class LabelTest extends TestCase
     #[DataProvider('dataForId')]
     public function testForId(string $expected, ?string $id): void
     {
-        $this->assertSame($expected, (string)Label::tag()->forId($id));
+        $this->assertSame($expected, (string) Label::tag()->forId($id));
     }
 
     public function testImmutability(): void

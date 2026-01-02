@@ -58,7 +58,7 @@ final class Option extends NormalTag
     public function getValue(): ?string
     {
         $value = ArrayHelper::getValue($this->attributes, 'value');
-        return $value === null ? null : (string)$value;
+        return $value === null ? null : (string) $value;
     }
 
     protected function getName(): string

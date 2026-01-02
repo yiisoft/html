@@ -15,7 +15,7 @@ final class H5Test extends TestCase
             '<h5 class="red">Hello</h5>',
             (string) H5::tag()
                 ->class('red')
-                ->content('Hello')
+                ->content('Hello'),
         );
     }
 }

@@ -14,17 +14,17 @@ final class ListTagTest extends TestCase
     {
         $tag = TestListTag::tag()->items(
             Li::tag()->content('A'),
-            Li::tag()->content('B')
+            Li::tag()->content('B'),
         );
 
-        $this->assertSame("<test>\n<li>A</li>\n<li>B</li>\n</test>", (string)$tag);
+        $this->assertSame("<test>\n<li>A</li>\n<li>B</li>\n</test>", (string) $tag);
     }
 
     public function testStrings(): void
     {
         $tag = TestListTag::tag()->strings(['A', 'B']);
 
-        $this->assertSame("<test>\n<li>A</li>\n<li>B</li>\n</test>", (string)$tag);
+        $this->assertSame("<test>\n<li>A</li>\n<li>B</li>\n</test>", (string) $tag);
     }
 
     public function testStringsAttributes(): void
@@ -33,7 +33,7 @@ final class ListTagTest extends TestCase
 
         $this->assertSame(
             "<test>\n<li class=\"red\">A</li>\n<li class=\"red\">B</li>\n</test>",
-            (string)$tag
+            (string) $tag,
         );
     }
 
@@ -43,7 +43,7 @@ final class ListTagTest extends TestCase
 
         $this->assertSame(
             "<test>\n<li>&lt;b&gt;A&lt;/b&gt;</li>\n<li>&lt;b&gt;B&lt;/b&gt;</li>\n</test>",
-            (string)$tag
+            (string) $tag,
         );
     }
 
@@ -51,7 +51,7 @@ final class ListTagTest extends TestCase
     {
         $tag = TestListTag::tag()->strings(['<b>A</b>', '<b>B</b>'], [], false);
 
-        $this->assertSame("<test>\n<li><b>A</b></li>\n<li><b>B</b></li>\n</test>", (string)$tag);
+        $this->assertSame("<test>\n<li><b>A</b></li>\n<li><b>B</b></li>\n</test>", (string) $tag);
     }
 
     public function testImmutability(): void

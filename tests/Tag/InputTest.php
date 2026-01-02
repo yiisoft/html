@@ -14,10 +14,10 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="id" value="42">',
-            (string)Input::tag()
+            (string) Input::tag()
                 ->type('hidden')
                 ->name('id')
-                ->value('42')
+                ->value('42'),
         );
     }
 
@@ -25,7 +25,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="id" value="42">',
-            (string)Input::hidden('id', '42')
+            (string) Input::hidden('id', '42'),
         );
     }
 
@@ -33,7 +33,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input type="text" name="name" value="Mike">',
-            (string)Input::text('name', 'Mike')
+            (string) Input::text('name', 'Mike'),
         );
     }
 
@@ -41,7 +41,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input type="password" name="new_password" value="42-7-42">',
-            (string)Input::password('new_password', '42-7-42')
+            (string) Input::password('new_password', '42-7-42'),
         );
     }
 
@@ -81,7 +81,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input type="button" value="Go!">',
-            (string)Input::button('Go!')
+            (string) Input::button('Go!'),
         );
     }
 
@@ -89,7 +89,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input type="submit" value="Go!">',
-            (string)Input::submitButton('Go!')
+            (string) Input::submitButton('Go!'),
         );
     }
 
@@ -97,7 +97,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input type="reset" value="Go!">',
-            (string)Input::resetButton('Go!')
+            (string) Input::resetButton('Go!'),
         );
     }
 
@@ -112,7 +112,7 @@ final class InputTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string)Input::tag()->type($type));
+        $this->assertSame($expected, (string) Input::tag()->type($type));
     }
 
     public function testImmutability(): void

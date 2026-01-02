@@ -14,21 +14,21 @@ final class Button extends NormalTag
 {
     use TagContentTrait;
 
-    public static function button(string $content): self
+    public static function button(string $content = ''): self
     {
         $button = self::tag()->content($content);
         $button->attributes['type'] = 'button';
         return $button;
     }
 
-    public static function submit(string $content): self
+    public static function submit(string $content = ''): self
     {
         $button = self::tag()->content($content);
         $button->attributes['type'] = 'submit';
         return $button;
     }
 
-    public static function reset(string $content): self
+    public static function reset(string $content = ''): self
     {
         $button = self::tag()->content($content);
         $button->attributes['type'] = 'reset';

@@ -475,7 +475,7 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->form($formId)
-                ->render()
+                ->render(),
         );
     }
 
@@ -494,7 +494,7 @@ final class RadioListTest extends TestCase
             '</div>',
             $checkbox
                 ->readonly()
-                ->render()
+                ->render(),
         );
 
         $this->assertSame(
@@ -504,7 +504,7 @@ final class RadioListTest extends TestCase
             '</div>',
             $checkbox
                 ->readonly(false)
-                ->render()
+                ->render(),
         );
         $this->assertSame(
             '<div>' . "\n" .
@@ -514,7 +514,7 @@ final class RadioListTest extends TestCase
             $checkbox
                 ->readonly(true)
                 ->readonly(false)
-                ->render()
+                ->render(),
         );
     }
 
@@ -533,7 +533,7 @@ final class RadioListTest extends TestCase
             '</div>',
             $checkbox
                 ->disabled()
-                ->render()
+                ->render(),
         );
 
         $this->assertSame(
@@ -543,7 +543,7 @@ final class RadioListTest extends TestCase
             '</div>',
             $checkbox
                 ->disabled(false)
-                ->render()
+                ->render(),
         );
         $this->assertSame(
             '<div>' . "\n" .
@@ -553,7 +553,7 @@ final class RadioListTest extends TestCase
             $checkbox
                 ->disabled(true)
                 ->disabled(false)
-                ->render()
+                ->render(),
         );
     }
 
@@ -608,7 +608,7 @@ final class RadioListTest extends TestCase
                     2 => 'Two',
                 ])
                 ->uncheckValue($value)
-                ->render()
+                ->render(),
         );
     }
 
@@ -671,16 +671,16 @@ final class RadioListTest extends TestCase
             '</div>',
             RadioList::create('test')
                 ->items([1 => 'One', 2 => 'Two'])
-                ->itemFormatter(fn (RadioItem $item): string => '<div>' .
-                    $item->index . ') ' .
-                    Html::radio(
+                ->itemFormatter(fn(RadioItem $item): string => '<div>'
+                    . $item->index . ') '
+                    . Html::radio(
                         $item->radioAttributes['name'],
                         $item->radioAttributes['value'],
-                        $item->radioAttributes
+                        $item->radioAttributes,
                     )
                         ->checked($item->checked)
-                        ->label($item->label) .
-                    '</div>')
+                        ->label($item->label)
+                    . '</div>')
                 ->separator('')
                 ->render(),
         );

@@ -16,6 +16,8 @@ use function is_array;
  * The select element represents a control for selecting amongst a set of options.
  *
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-select-element
+ *
+ * @psalm-type OptionsData = array<array-key, string|array<array-key,string>>
  */
 final class Select extends NormalTag
 {
@@ -27,7 +29,7 @@ final class Select extends NormalTag
     private ?string $unselectValue = null;
 
     /**
-     * @psalm-var list<string>
+     * @var string[]
      */
     private array $values = [];
 
@@ -44,17 +46,23 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-param Stringable|scalar|BackedEnum ...$value One or more string values.
+     * @psalm-param Stringable|scalar|BackedEnum|null ...$value One or more string values.
      */
-    public function value(Stringable|bool|float|int|string|BackedEnum ...$value): self
+    public function value(Stringable|bool|float|int|string|BackedEnum|null ...$value): self
     {
-        $new = clone $this;
-        $new->values = array_map(
+        $values = array_filter(
+            $value,
+            static fn(mixed $v): bool => $v !== null,
+        );
+        $values = array_map(
             static function (Stringable|bool|float|int|string|BackedEnum $v): string {
                 return (string) ($v instanceof BackedEnum ? $v->value : $v);
             },
-            array_values($value)
+            $values,
         );
+
+        $new = clone $this;
+        $new->values = $values;
         return $new;
     }
 
@@ -133,13 +141,13 @@ final class Select extends NormalTag
      * @param array[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
      * @param array[] $groupsAttributes Array of group attribute sets indexed by group labels from {@see $data}.
      *
-     * @psalm-param array<array-key, string|array<array-key,string>> $data
+     * @psalm-param OptionsData $data
      */
     public function optionsData(
         array $data,
         bool $encode = true,
         array $optionsAttributes = [],
-        array $groupsAttributes = []
+        array $groupsAttributes = [],
     ): self {
         $items = [];
         foreach ($data as $value => $content) {
@@ -252,10 +260,10 @@ final class Select extends NormalTag
         }
 
         $items = array_map(
-            fn ($item) => $item instanceof Optgroup
+            fn($item) => $item instanceof Optgroup
                 ? $item->selection(...$this->values)
                 : $item->selected(in_array($item->getValue(), $this->values, true)),
-            $items
+            $items,
         );
 
         return $items
@@ -267,10 +275,10 @@ final class Select extends NormalTag
     {
         $name = (string) ($this->attributes['name'] ?? '');
         if (
-            empty($name) ||
-            (
-                $this->unselectValue === null &&
-                empty($this->attributes['multiple'])
+            empty($name)
+            || (
+                $this->unselectValue === null
+                && empty($this->attributes['multiple'])
             )
         ) {
             return '';
@@ -278,7 +286,7 @@ final class Select extends NormalTag
 
         $input = Input::hidden(
             Html::getNonArrayableName($name),
-            (string) $this->unselectValue
+            (string) $this->unselectValue,
         );
 
         // Make sure disabled input is not sending any value.

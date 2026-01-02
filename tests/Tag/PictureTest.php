@@ -26,7 +26,7 @@ final class PictureTest extends TestCase
                 Source::tag()
                     ->media('(min-width:465px)')
                     ->srcset('img_white_flower.jpg')
-                    ->type('image/jpeg')
+                    ->type('image/jpeg'),
             );
 
         $this->assertSame(

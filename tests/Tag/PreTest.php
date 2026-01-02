@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\TestCase;
-use Yiisoft\Html\Tag\H3;
+use Yiisoft\Html\Tag\Pre;
 
-final class H3Test extends TestCase
+final class PreTest extends TestCase
 {
     public function testBase(): void
     {
         $this->assertSame(
-            '<h3 class="red">Hello</h3>',
-            (string) H3::tag()
+            '<pre class="red">Hello</pre>',
+            (string) Pre::tag()
                 ->class('red')
                 ->content('Hello'),
         );

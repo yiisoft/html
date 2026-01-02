@@ -1,9 +1,30 @@
 # Yii HTML Change Log
 
-## 3.9.1 under development
+## 3.12.1 under development
 
-- Bug #232: Render `loading` attribute before `src` (@samdark)
+- New #260: Add `$attributes` parameter to `Html::li()` method (@gauravkumar2525)
 - Chg #234: Remove tag attributes sorting (@FrankiFixx)
+
+## 3.12.0 December 13, 2025
+
+- New #249: Add `Tag::addStyle()` and `Tag::removeStyle()` methods (@vjik)
+- New #252: Add `Color` class, `Html::color()` and `Input::color()` methods (@razvbir)
+- Enh #258: Add PHP 8.5 support (@vjik)
+- Enh #259: Minor refactor `RadioList::renderUncheckInput()` and `CheckboxList::renderUncheckInput()` methods (@vjik)
+
+## 3.11.0 June 10, 2025
+
+- New #237: Add classes for `Code` and `Pre` tags, `Html::code()` and `Html::pre()` methods (@FrankiFixx)
+- Enh #246: Add psalm type `OptionsData` in `Select` class (@vjik)
+- Bug #245: Explicitly marking parameters as nullable (@Tigrov)
+
+## 3.10.0 April 03, 2025
+
+- Chg #240, #242: Change PHP constraint in `composer.json` to `8.1 - 8.4` (@vjik)
+- Enh #223: Make `$content` parameter optional in `Button` factories (@FrankiFixx)
+- Enh #244: Allow to pass `null` to `Select::value()` method (@vjik)
+- Bug #232: Render `loading` attribute before `src` (@samdark)
+- Bug #242: Fix the nullable parameter declarations for compatibility with PHP 8.4 (@vjik)
 
 ## 3.9.0 November 29, 2024
 

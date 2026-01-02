@@ -13,23 +13,23 @@ final class TheadTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<thead class="gray">' . "\n" .
-            '<tr>' . "\n" .
-            '<td>A</td>' . "\n" .
-            '<td>B</td>' . "\n" .
-            '</tr>' . "\n" .
-            '<tr>' . "\n" .
-            '<td>C</td>' . "\n" .
-            '<td>D</td>' . "\n" .
-            '</tr>' . "\n" .
-            '</thead>',
+            '<thead class="gray">' . "\n"
+            . '<tr>' . "\n"
+            . '<td>A</td>' . "\n"
+            . '<td>B</td>' . "\n"
+            . '</tr>' . "\n"
+            . '<tr>' . "\n"
+            . '<td>C</td>' . "\n"
+            . '<td>D</td>' . "\n"
+            . '</tr>' . "\n"
+            . '</thead>',
             Thead::tag()
                 ->class('gray')
                 ->rows(
                     Tr::tag()->dataStrings(['A', 'B']),
                     Tr::tag()->dataStrings(['C', 'D']),
                 )
-                ->render()
+                ->render(),
         );
     }
 }

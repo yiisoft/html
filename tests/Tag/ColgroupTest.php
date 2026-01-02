@@ -29,7 +29,7 @@ final class ColgroupTest extends TestCase
                         ->span(2)
                         ->class('blue'),
                 )
-                ->render()
+                ->render(),
         );
     }
 
@@ -41,11 +41,11 @@ final class ColgroupTest extends TestCase
         );
 
         $this->assertSame(
-            '<colgroup>' . "\n" .
-            '<col>' . "\n" .
-            '<col span="2">' . "\n" .
-            '</colgroup>',
-            $tag->render()
+            '<colgroup>' . "\n"
+            . '<col>' . "\n"
+            . '<col span="2">' . "\n"
+            . '</colgroup>',
+            $tag->render(),
         );
     }
 
@@ -62,13 +62,13 @@ final class ColgroupTest extends TestCase
             );
 
         $this->assertSame(
-            '<colgroup>' . "\n" .
-            '<col>' . "\n" .
-            '<col span="2">' . "\n" .
-            '<col span="3">' . "\n" .
-            '<col span="4">' . "\n" .
-            '</colgroup>',
-            $tag->render()
+            '<colgroup>' . "\n"
+            . '<col>' . "\n"
+            . '<col span="2">' . "\n"
+            . '<col span="3">' . "\n"
+            . '<col span="4">' . "\n"
+            . '</colgroup>',
+            $tag->render(),
         );
     }
 

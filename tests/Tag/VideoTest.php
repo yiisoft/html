@@ -15,17 +15,17 @@ final class VideoTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<video controls>' . "\n" .
-            '<source src="a.mp4">' . "\n" .
-            '<source src="b.avi">' . "\n" .
-            '<track src="c.mp4">' . "\n" .
-            'Your browser does not support video.' . "\n" .
-            '</video>',
+            '<video controls>' . "\n"
+            . '<source src="a.mp4">' . "\n"
+            . '<source src="b.avi">' . "\n"
+            . '<track src="c.mp4">' . "\n"
+            . 'Your browser does not support video.' . "\n"
+            . '</video>',
             (string) Video::tag()
                 ->controls()
                 ->sources(Source::tag()->src('a.mp4'), Source::tag()->src('b.avi'))
                 ->tracks(Track::tag()->src('c.mp4'))
-                ->fallback('Your browser does not support video.')
+                ->fallback('Your browser does not support video.'),
         );
     }
 

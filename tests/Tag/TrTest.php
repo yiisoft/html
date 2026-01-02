@@ -14,15 +14,15 @@ class TrTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<tr class="row">' . "\n" .
-            '<td class="cell">One</td>' . "\n" .
-            '<td class="cell">Two</td>' . "\n" .
-            '<td class="cell">Three</td>' . "\n" .
-            '</tr>',
+            '<tr class="row">' . "\n"
+            . '<td class="cell">One</td>' . "\n"
+            . '<td class="cell">Two</td>' . "\n"
+            . '<td class="cell">Three</td>' . "\n"
+            . '</tr>',
             Tr::tag()
                 ->class('row')
                 ->dataStrings(['One', 'Two', 'Three'], ['class' => 'cell'])
-                ->render()
+                ->render(),
         );
     }
 
@@ -30,10 +30,10 @@ class TrTest extends TestCase
     {
         $tr = Tr::tag()->cells(
             Th::tag()->content('A'),
-            Td::tag()->content('B')
+            Td::tag()->content('B'),
         );
 
-        $this->assertSame("<tr>\n<th>A</th>\n<td>B</td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<th>A</th>\n<td>B</td>\n</tr>", (string) $tr);
     }
 
     public function testAddCells(): void
@@ -42,7 +42,7 @@ class TrTest extends TestCase
             ->cells(Td::tag()->content('A'))
             ->addCells(Td::tag()->content('B'));
 
-        $this->assertSame("<tr>\n<td>A</td>\n<td>B</td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<td>A</td>\n<td>B</td>\n</tr>", (string) $tr);
     }
 
     public function testDataStrings(): void
@@ -50,7 +50,7 @@ class TrTest extends TestCase
         $tr = Tr::tag()
             ->dataStrings(['A', 'B']);
 
-        $this->assertSame("<tr>\n<td>A</td>\n<td>B</td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<td>A</td>\n<td>B</td>\n</tr>", (string) $tr);
     }
 
     public function testDataStringsAttributes(): void
@@ -58,7 +58,7 @@ class TrTest extends TestCase
         $tr = Tr::tag()
             ->dataStrings(['A', 'B'], ['class' => 'red']);
 
-        $this->assertSame("<tr>\n<td class=\"red\">A</td>\n<td class=\"red\">B</td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<td class=\"red\">A</td>\n<td class=\"red\">B</td>\n</tr>", (string) $tr);
     }
 
     public function testDataStringsEncode(): void
@@ -66,7 +66,7 @@ class TrTest extends TestCase
         $tr = Tr::tag()
             ->dataStrings(['A > B']);
 
-        $this->assertSame("<tr>\n<td>A &gt; B</td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<td>A &gt; B</td>\n</tr>", (string) $tr);
     }
 
     public function testDataStringsWithoutEncode(): void
@@ -74,7 +74,7 @@ class TrTest extends TestCase
         $tr = Tr::tag()
             ->dataStrings(['<b>A</b>'], [], false);
 
-        $this->assertSame("<tr>\n<td><b>A</b></td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<td><b>A</b></td>\n</tr>", (string) $tr);
     }
 
     public function testAddDataStrings(): void
@@ -83,7 +83,7 @@ class TrTest extends TestCase
             ->dataStrings(['A'])
             ->addDataStrings(['B', 'C']);
 
-        $this->assertSame("<tr>\n<td>A</td>\n<td>B</td>\n<td>C</td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<td>A</td>\n<td>B</td>\n<td>C</td>\n</tr>", (string) $tr);
     }
 
     public function testAddDataStringsAttributes(): void
@@ -92,7 +92,7 @@ class TrTest extends TestCase
             ->dataStrings(['A'])
             ->addDataStrings(['B'], ['class' => 'red']);
 
-        $this->assertSame("<tr>\n<td>A</td>\n<td class=\"red\">B</td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<td>A</td>\n<td class=\"red\">B</td>\n</tr>", (string) $tr);
     }
 
     public function testAddDataStringsEncode(): void
@@ -101,7 +101,7 @@ class TrTest extends TestCase
             ->dataStrings(['A'])
             ->addDataStrings(['B > 1']);
 
-        $this->assertSame("<tr>\n<td>A</td>\n<td>B &gt; 1</td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<td>A</td>\n<td>B &gt; 1</td>\n</tr>", (string) $tr);
     }
 
     public function testAddDataStringsWithoutEncode(): void
@@ -110,7 +110,7 @@ class TrTest extends TestCase
             ->dataStrings(['A'])
             ->addDataStrings(['<b>B</b>'], [], false);
 
-        $this->assertSame("<tr>\n<td>A</td>\n<td><b>B</b></td>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<td>A</td>\n<td><b>B</b></td>\n</tr>", (string) $tr);
     }
 
     public function testHeaderStrings(): void
@@ -118,7 +118,7 @@ class TrTest extends TestCase
         $tr = Tr::tag()
             ->headerStrings(['A', 'B']);
 
-        $this->assertSame("<tr>\n<th>A</th>\n<th>B</th>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<th>A</th>\n<th>B</th>\n</tr>", (string) $tr);
     }
 
     public function testHeaderStringsAttributes(): void
@@ -126,7 +126,7 @@ class TrTest extends TestCase
         $tr = Tr::tag()
             ->headerStrings(['A', 'B'], ['class' => 'red']);
 
-        $this->assertSame("<tr>\n<th class=\"red\">A</th>\n<th class=\"red\">B</th>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<th class=\"red\">A</th>\n<th class=\"red\">B</th>\n</tr>", (string) $tr);
     }
 
     public function testHeaderStringsEncode(): void
@@ -134,7 +134,7 @@ class TrTest extends TestCase
         $tr = Tr::tag()
             ->headerStrings(['A > B']);
 
-        $this->assertSame("<tr>\n<th>A &gt; B</th>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<th>A &gt; B</th>\n</tr>", (string) $tr);
     }
 
     public function testHeaderStringsWithoutEncode(): void
@@ -142,7 +142,7 @@ class TrTest extends TestCase
         $tr = Tr::tag()
             ->headerStrings(['<b>A</b>'], [], false);
 
-        $this->assertSame("<tr>\n<th><b>A</b></th>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<th><b>A</b></th>\n</tr>", (string) $tr);
     }
 
     public function testAddHeaderStrings(): void
@@ -151,7 +151,7 @@ class TrTest extends TestCase
             ->headerStrings(['A'])
             ->addHeaderStrings(['B', 'C']);
 
-        $this->assertSame("<tr>\n<th>A</th>\n<th>B</th>\n<th>C</th>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<th>A</th>\n<th>B</th>\n<th>C</th>\n</tr>", (string) $tr);
     }
 
     public function testAddHeaderStringsAttributes(): void
@@ -160,7 +160,7 @@ class TrTest extends TestCase
             ->headerStrings(['A'])
             ->addHeaderStrings(['B'], ['class' => 'red']);
 
-        $this->assertSame("<tr>\n<th>A</th>\n<th class=\"red\">B</th>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<th>A</th>\n<th class=\"red\">B</th>\n</tr>", (string) $tr);
     }
 
     public function testAddHeaderStringsEncode(): void
@@ -169,7 +169,7 @@ class TrTest extends TestCase
             ->headerStrings(['A'])
             ->addHeaderStrings(['B > 1']);
 
-        $this->assertSame("<tr>\n<th>A</th>\n<th>B &gt; 1</th>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<th>A</th>\n<th>B &gt; 1</th>\n</tr>", (string) $tr);
     }
 
     public function testAddHeaderStringsWithoutEncode(): void
@@ -178,7 +178,7 @@ class TrTest extends TestCase
             ->headerStrings(['A'])
             ->addHeaderStrings(['<b>B</b>'], [], false);
 
-        $this->assertSame("<tr>\n<th>A</th>\n<th><b>B</b></th>\n</tr>", (string)$tr);
+        $this->assertSame("<tr>\n<th>A</th>\n<th><b>B</b></th>\n</tr>", (string) $tr);
     }
 
     public function testImmutability(): void

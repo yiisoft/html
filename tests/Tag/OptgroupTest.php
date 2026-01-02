@@ -14,11 +14,11 @@ final class OptgroupTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<optgroup label="Count">' . "\n" .
-            '<option value="1">One</option>' . "\n" .
-            '<option value="2">Two</option>' . "\n" .
-            '</optgroup>',
-            (string)Optgroup::tag()
+            '<optgroup label="Count">' . "\n"
+            . '<option value="1">One</option>' . "\n"
+            . '<option value="2">Two</option>' . "\n"
+            . '</optgroup>',
+            (string) Optgroup::tag()
                 ->options(
                     Option::tag()
                         ->value('1')
@@ -27,7 +27,7 @@ final class OptgroupTest extends TestCase
                         ->value('2')
                         ->content('Two'),
                 )
-                ->label('Count')
+                ->label('Count'),
         );
     }
 
@@ -35,7 +35,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             "<optgroup>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</optgroup>",
-            (string)Optgroup::tag()
+            (string) Optgroup::tag()
                 ->options(
                     Option::tag()
                         ->value('1')
@@ -43,7 +43,7 @@ final class OptgroupTest extends TestCase
                     Option::tag()
                         ->value('2')
                         ->content('Two'),
-                )
+                ),
         );
     }
 
@@ -51,7 +51,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             "<optgroup>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</optgroup>",
-            (string)Optgroup::tag()->optionsData(['1' => 'One', '2' => 'Two'])
+            (string) Optgroup::tag()->optionsData(['1' => 'One', '2' => 'Two']),
         );
     }
 
@@ -59,7 +59,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             "<optgroup>\n<option value=\"1\">&lt;b&gt;One&lt;/b&gt;</option>\n</optgroup>",
-            (string)Optgroup::tag()->optionsData(['1' => '<b>One</b>'])
+            (string) Optgroup::tag()->optionsData(['1' => '<b>One</b>']),
         );
     }
 
@@ -67,7 +67,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             "<optgroup>\n<option value=\"1\"><b>One</b></option>\n</optgroup>",
-            (string)Optgroup::tag()->optionsData(['1' => '<b>One</b>'], false)
+            (string) Optgroup::tag()->optionsData(['1' => '<b>One</b>'], false),
         );
     }
 
@@ -82,14 +82,14 @@ final class OptgroupTest extends TestCase
     #[DataProvider('dataLabel')]
     public function testLabel(string $expected, ?string $label): void
     {
-        $this->assertSame($expected, (string)Optgroup::tag()->label($label));
+        $this->assertSame($expected, (string) Optgroup::tag()->label($label));
     }
 
     public function testDisabled(): void
     {
-        $this->assertSame('<optgroup disabled></optgroup>', (string)Optgroup::tag()->disabled());
-        $this->assertSame('<optgroup></optgroup>', (string)Optgroup::tag()->disabled(false));
-        $this->assertSame('<optgroup></optgroup>', (string)Optgroup::tag()
+        $this->assertSame('<optgroup disabled></optgroup>', (string) Optgroup::tag()->disabled());
+        $this->assertSame('<optgroup></optgroup>', (string) Optgroup::tag()->disabled(false));
+        $this->assertSame('<optgroup></optgroup>', (string) Optgroup::tag()
             ->disabled(true)
             ->disabled(false));
     }
@@ -100,44 +100,44 @@ final class OptgroupTest extends TestCase
             ['<optgroup></optgroup>', [], []],
             ['<optgroup></optgroup>', [], [42]],
             [
-                '<optgroup>' . "\n" .
-                '<option value="1"></option>' . "\n" .
-                '<option value="2"></option>' . "\n" .
-                '</optgroup>',
+                '<optgroup>' . "\n"
+                . '<option value="1"></option>' . "\n"
+                . '<option value="2"></option>' . "\n"
+                . '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()
                     ->value('2')
                     ->selected(), ],
                 [],
             ],
             [
-                '<optgroup>' . "\n" .
-                '<option value="1"></option>' . "\n" .
-                '<option value="2"></option>' . "\n" .
-                '</optgroup>',
+                '<optgroup>' . "\n"
+                . '<option value="1"></option>' . "\n"
+                . '<option value="2"></option>' . "\n"
+                . '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [7],
             ],
             [
-                '<optgroup>' . "\n" .
-                '<option value="1" selected></option>' . "\n" .
-                '<option value="2"></option>' . "\n" .
-                '</optgroup>',
+                '<optgroup>' . "\n"
+                . '<option value="1" selected></option>' . "\n"
+                . '<option value="2"></option>' . "\n"
+                . '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [1],
             ],
             [
-                '<optgroup>' . "\n" .
-                '<option value="1"></option>' . "\n" .
-                '<option value="2" selected></option>' . "\n" .
-                '</optgroup>',
+                '<optgroup>' . "\n"
+                . '<option value="1"></option>' . "\n"
+                . '<option value="2" selected></option>' . "\n"
+                . '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 ['2'],
             ],
             [
-                '<optgroup>' . "\n" .
-                '<option value="1" selected></option>' . "\n" .
-                '<option value="2" selected></option>' . "\n" .
-                '</optgroup>',
+                '<optgroup>' . "\n"
+                . '<option value="1" selected></option>' . "\n"
+                . '<option value="2" selected></option>' . "\n"
+                . '</optgroup>',
                 [Option::tag()->value('1'), Option::tag()->value('2')],
                 [1, 2],
             ],
@@ -149,7 +149,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string)Optgroup::tag()
+            (string) Optgroup::tag()
                 ->options(...$options)
                 ->selection(...$selection),
         );

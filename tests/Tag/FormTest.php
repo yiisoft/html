@@ -27,9 +27,9 @@ final class FormTest extends TestCase
                 ->action('https://example.com/send')
                 ->content(
                     Input::text('query'),
-                    Button::submit('go')
+                    Button::submit('go'),
                 )
-                ->render()
+                ->render(),
         );
     }
 
@@ -39,7 +39,7 @@ final class FormTest extends TestCase
             '<form method="GET" action="https://example.com/send"></form>',
             Form::tag()
                 ->get('https://example.com/send')
-                ->render()
+                ->render(),
         );
     }
 
@@ -49,7 +49,7 @@ final class FormTest extends TestCase
             '<form method="GET"></form>',
             Form::tag()
                 ->get()
-                ->render()
+                ->render(),
         );
     }
 
@@ -59,7 +59,7 @@ final class FormTest extends TestCase
             '<form method="POST" action="https://example.com/send"></form>',
             Form::tag()
                 ->post('https://example.com/send')
-                ->render()
+                ->render(),
         );
     }
 
@@ -69,7 +69,7 @@ final class FormTest extends TestCase
             '<form method="POST"></form>',
             Form::tag()
                 ->post()
-                ->render()
+                ->render(),
         );
     }
 
@@ -78,37 +78,37 @@ final class FormTest extends TestCase
         $tag = Form::tag()->csrf('abc', 'csrf-token');
 
         $this->assertSame(
-            '<form>' . "\n" .
-            '<input type="hidden" name="csrf-token" value="abc">',
-            $tag->open()
+            '<form>' . "\n"
+            . '<input type="hidden" name="csrf-token" value="abc">',
+            $tag->open(),
         );
 
         $this->assertSame(
-            '<form>' . "\n" .
-            '<input type="hidden" name="csrf-token" value="abc"></form>',
-            $tag->render()
+            '<form>' . "\n"
+            . '<input type="hidden" name="csrf-token" value="abc"></form>',
+            $tag->render(),
         );
     }
 
     public function testCsrfDefaultName(): void
     {
         $this->assertSame(
-            '<form>' . "\n" .
-            '<input type="hidden" name="_csrf" value="abc"></form>',
+            '<form>' . "\n"
+            . '<input type="hidden" name="_csrf" value="abc"></form>',
             Form::tag()
                 ->csrf('abc')
-                ->render()
+                ->render(),
         );
     }
 
     public function testStringableCsrfToken(): void
     {
         $this->assertSame(
-            '<form>' . "\n" .
-            '<input type="hidden" name="_csrf" value="abc"></form>',
+            '<form>' . "\n"
+            . '<input type="hidden" name="_csrf" value="abc"></form>',
             Form::tag()
                 ->csrf(new StringableObject('abc'))
-                ->render()
+                ->render(),
         );
     }
 
@@ -127,7 +127,7 @@ final class FormTest extends TestCase
             $expected,
             Form::tag()
                 ->acceptCharset($charset)
-                ->render()
+                ->render(),
         );
     }
 
@@ -146,7 +146,7 @@ final class FormTest extends TestCase
             $expected,
             Form::tag()
                 ->action($action)
-                ->render()
+                ->render(),
         );
     }
 
@@ -165,7 +165,7 @@ final class FormTest extends TestCase
             $expected,
             Form::tag()
                 ->autocomplete($value)
-                ->render()
+                ->render(),
         );
     }
 
@@ -175,7 +175,7 @@ final class FormTest extends TestCase
             '<form autocomplete="on"></form>',
             Form::tag()
                 ->autocomplete()
-                ->render()
+                ->render(),
         );
     }
 
@@ -194,7 +194,7 @@ final class FormTest extends TestCase
             $expected,
             Form::tag()
                 ->enctype($enctype)
-                ->render()
+                ->render(),
         );
     }
 
@@ -204,7 +204,7 @@ final class FormTest extends TestCase
             '<form enctype="application/x-www-form-urlencoded"></form>',
             Form::tag()
                 ->enctypeApplicationXWwwFormUrlencoded()
-                ->render()
+                ->render(),
         );
     }
 
@@ -214,7 +214,7 @@ final class FormTest extends TestCase
             '<form enctype="multipart/form-data"></form>',
             Form::tag()
                 ->enctypeMultipartFormData()
-                ->render()
+                ->render(),
         );
     }
 
@@ -224,7 +224,7 @@ final class FormTest extends TestCase
             '<form enctype="text/plain"></form>',
             Form::tag()
                 ->enctypeTextPlain()
-                ->render()
+                ->render(),
         );
     }
 
@@ -243,7 +243,7 @@ final class FormTest extends TestCase
             $expected,
             Form::tag()
                 ->method($method)
-                ->render()
+                ->render(),
         );
     }
 
@@ -262,7 +262,7 @@ final class FormTest extends TestCase
             $expected,
             Form::tag()
                 ->noValidate($noValidate)
-                ->render()
+                ->render(),
         );
     }
 
@@ -272,7 +272,7 @@ final class FormTest extends TestCase
             '<form novalidate></form>',
             Form::tag()
                 ->noValidate()
-                ->render()
+                ->render(),
         );
     }
 
@@ -291,7 +291,7 @@ final class FormTest extends TestCase
             $expected,
             Form::tag()
                 ->target($target)
-                ->render()
+                ->render(),
         );
     }
 

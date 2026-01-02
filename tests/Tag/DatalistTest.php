@@ -21,7 +21,7 @@ final class DatalistTest extends TestCase
 
         $this->assertSame(
             '<datalist id="numbers"><option value="One"></option><option value="Two"></option></datalist>',
-            $tag->render()
+            $tag->render(),
         );
     }
 }
