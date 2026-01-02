@@ -37,13 +37,13 @@ final class SelectTest extends TestCase
             ['<select multiple></select>', null],
             ['<select multiple name></select>', ''],
             [
-                '<input type="hidden" name="age" value>' . "\n" .
-                '<select multiple name="age[]"></select>',
+                '<input type="hidden" name="age" value>' . "\n"
+                . '<select multiple name="age[]"></select>',
                 'age',
             ],
             [
-                '<input type="hidden" name="place" value>' . "\n" .
-                '<select multiple name="place[]"></select>',
+                '<input type="hidden" name="place" value>' . "\n"
+                . '<select multiple name="place[]"></select>',
                 'place[]',
             ],
         ];

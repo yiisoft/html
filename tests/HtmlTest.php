@@ -136,7 +136,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<meta>', Html::meta()->render());
         $this->assertSame(
             '<meta name="keywords" content="yii" id="main">',
-            Html::meta(['name' => 'keywords', 'content' => 'yii', 'id' => 'main'])->render()
+            Html::meta(['name' => 'keywords', 'content' => 'yii', 'id' => 'main'])->render(),
         );
     }
 
@@ -155,15 +155,15 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<link rel="stylesheet" href="http://example.com">',
-            Html::cssFile('http://example.com')->render()
+            Html::cssFile('http://example.com')->render(),
         );
         $this->assertSame(
             '<link rel="stylesheet" href>',
-            Html::cssFile('')->render()
+            Html::cssFile('')->render(),
         );
         $this->assertSame(
             '<link rel="stylesheet" href="http://example.com" id="main">',
-            Html::cssFile('http://example.com', ['id' => 'main'])->render()
+            Html::cssFile('http://example.com', ['id' => 'main'])->render(),
         );
     }
 
@@ -179,7 +179,7 @@ final class HtmlTest extends TestCase
         );
         $this->assertSame(
             '<script src="http://example.com" id="main"></script>',
-            Html::javaScriptFile('http://example.com', ['id' => 'main'])->render()
+            Html::javaScriptFile('http://example.com', ['id' => 'main'])->render(),
         );
     }
 
@@ -207,7 +207,7 @@ final class HtmlTest extends TestCase
         );
         $this->assertSame(
             '<a href="mailto:info@example.com" id="contact">contact me</a>',
-            Html::mailto('contact me', 'info@example.com', ['id' => 'contact'])->render()
+            Html::mailto('contact me', 'info@example.com', ['id' => 'contact'])->render(),
         );
     }
 
@@ -530,12 +530,12 @@ final class HtmlTest extends TestCase
     public function testCheckboxList(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="test" value="0">' . "\n" .
-            '<div id="main">' . "\n" .
-            '<label><input name="test[]" value="1" type="checkbox"> One</label>' . "\n" .
-            '<label><input name="test[]" value="2" checked type="checkbox"> Two</label>' . "\n" .
-            '<label><input name="test[]" value="5" checked type="checkbox"> Five</label>' . "\n" .
-            '</div>',
+            '<input type="hidden" name="test" value="0">' . "\n"
+            . '<div id="main">' . "\n"
+            . '<label><input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
+            . '<label><input name="test[]" value="2" checked type="checkbox"> Two</label>' . "\n"
+            . '<label><input name="test[]" value="5" checked type="checkbox"> Five</label>' . "\n"
+            . '</div>',
             Html::checkboxList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
                 ->uncheckValue(0)
@@ -548,12 +548,12 @@ final class HtmlTest extends TestCase
     public function testRadioList(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="test" value="0">' . "\n" .
-            '<div id="main">' . "\n" .
-            '<label><input name="test" value="1" type="radio"> One</label>' . "\n" .
-            '<label><input name="test" value="2" checked type="radio"> Two</label>' . "\n" .
-            '<label><input name="test" value="5" type="radio"> Five</label>' . "\n" .
-            '</div>',
+            '<input type="hidden" name="test" value="0">' . "\n"
+            . '<div id="main">' . "\n"
+            . '<label><input name="test" value="1" type="radio"> One</label>' . "\n"
+            . '<label><input name="test" value="2" checked type="radio"> Two</label>' . "\n"
+            . '<label><input name="test" value="5" type="radio"> Five</label>' . "\n"
+            . '</div>',
             Html::radioList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
                 ->uncheckValue(0)

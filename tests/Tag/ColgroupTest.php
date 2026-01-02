@@ -14,11 +14,11 @@ final class ColgroupTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<colgroup>' . "\n" .
-            '<col>' . "\n" .
-            '<col span="2" class="red">' . "\n" .
-            '<col span="2" class="blue">' . "\n" .
-            '</colgroup>',
+            '<colgroup>' . "\n"
+            . '<col>' . "\n"
+            . '<col span="2" class="red">' . "\n"
+            . '<col span="2" class="blue">' . "\n"
+            . '</colgroup>',
             Colgroup::tag()
                 ->columns(
                     Col::tag(),

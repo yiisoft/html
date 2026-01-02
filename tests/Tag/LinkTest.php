@@ -14,7 +14,7 @@ final class LinkTest extends TestCase
     {
         $this->assertSame(
             '<link href="/rss" type="application/rss+xml" rel="alternate" title="Новости компании">',
-            (string)Link::tag()
+            (string) Link::tag()
                 ->url('/rss')
                 ->type('application/rss+xml')
                 ->rel('alternate')
@@ -26,7 +26,7 @@ final class LinkTest extends TestCase
     {
         $this->assertSame(
             '<link rel="stylesheet" href="main.css">',
-            (string)Link::toCssFile('main.css')
+            (string) Link::toCssFile('main.css'),
         );
     }
 

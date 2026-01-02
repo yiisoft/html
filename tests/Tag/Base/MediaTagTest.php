@@ -168,12 +168,12 @@ final class MediaTagTest extends TestCase
         );
 
         $this->assertSame(
-            '<test>' . "\n" .
-            '<track kind="captions" src="sampleCaptions.vtt" srclang="en" default>' . "\n" .
-            '<track kind="descriptions" src="sampleDescriptions.vtt" srclang="de">' . "\n" .
-            '<track kind="chapters" src="sampleChapters.vtt" srclang="ja">' . "\n" .
-            '</test>',
-            $tag->render()
+            '<test>' . "\n"
+            . '<track kind="captions" src="sampleCaptions.vtt" srclang="en" default>' . "\n"
+            . '<track kind="descriptions" src="sampleDescriptions.vtt" srclang="de">' . "\n"
+            . '<track kind="chapters" src="sampleChapters.vtt" srclang="ja">' . "\n"
+            . '</test>',
+            $tag->render(),
         );
     }
 

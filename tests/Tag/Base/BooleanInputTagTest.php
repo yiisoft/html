@@ -12,9 +12,9 @@ final class BooleanInputTagTest extends TestCase
 {
     public function testChecked(): void
     {
-        $this->assertSame('<input checked type="test">', (string)TestBooleanInputTag::tag()->checked());
-        $this->assertSame('<input type="test">', (string)TestBooleanInputTag::tag()->checked(false));
-        $this->assertSame('<input type="test">', (string)TestBooleanInputTag::tag()
+        $this->assertSame('<input checked type="test">', (string) TestBooleanInputTag::tag()->checked());
+        $this->assertSame('<input type="test">', (string) TestBooleanInputTag::tag()->checked(false));
+        $this->assertSame('<input type="test">', (string) TestBooleanInputTag::tag()
             ->checked(true)
             ->checked(false));
     }
@@ -190,8 +190,8 @@ final class BooleanInputTagTest extends TestCase
     public function testUncheckValueDisabled(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="color" value="7" disabled>' .
-            '<input name="color" disabled type="test">',
+            '<input type="hidden" name="color" value="7" disabled>'
+            . '<input name="color" disabled type="test">',
             TestBooleanInputTag::tag()
                 ->name('color')
                 ->uncheckValue(7)
@@ -203,8 +203,8 @@ final class BooleanInputTagTest extends TestCase
     public function testUncheckValueForm(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="color" value="7" form="post">' .
-            '<input name="color" form="post" type="test">',
+            '<input type="hidden" name="color" value="7" form="post">'
+            . '<input name="color" form="post" type="test">',
             TestBooleanInputTag::tag()
                 ->name('color')
                 ->uncheckValue(7)
@@ -216,8 +216,8 @@ final class BooleanInputTagTest extends TestCase
     public function testUncheckValueWithLabel(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="color" value="7">' .
-            '<label><input name="color" type="test"> Seven</label>',
+            '<input type="hidden" name="color" value="7">'
+            . '<label><input name="color" type="test"> Seven</label>',
             TestBooleanInputTag::tag()
                 ->name('color')
                 ->uncheckValue(7)

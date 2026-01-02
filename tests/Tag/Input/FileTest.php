@@ -55,8 +55,8 @@ final class FileTest extends TestCase
     public function testUncheckValueDisabled(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="avatar" value="7" disabled>' .
-            '<input name="avatar" disabled type="file">',
+            '<input type="hidden" name="avatar" value="7" disabled>'
+            . '<input name="avatar" disabled type="file">',
             File::tag()
                 ->name('avatar')
                 ->uncheckValue(7)
@@ -68,8 +68,8 @@ final class FileTest extends TestCase
     public function testUncheckValueForm(): void
     {
         $this->assertSame(
-            '<input type="hidden" name="avatar" value="7" form="post">' .
-            '<input name="avatar" form="post" type="file">',
+            '<input type="hidden" name="avatar" value="7" form="post">'
+            . '<input name="avatar" form="post" type="file">',
             File::tag()
                 ->name('avatar')
                 ->uncheckValue(7)
@@ -89,9 +89,9 @@ final class FileTest extends TestCase
             ->render();
 
         $this->assertSame(
-            '<input type="hidden" name="avatar" value="7" id="FileHidden" data-key="100" form="post">' .
-            '<input name="avatar" form="post" type="file">',
-            $result
+            '<input type="hidden" name="avatar" value="7" id="FileHidden" data-key="100" form="post">'
+            . '<input name="avatar" form="post" type="file">',
+            $result,
         );
     }
 
@@ -106,9 +106,9 @@ final class FileTest extends TestCase
             ->render();
 
         $this->assertSame(
-            '<input type="hidden" name="avatar" value="7" data-key="100" form="post">' .
-            '<input name="avatar" form="post" type="file">',
-            $result
+            '<input type="hidden" name="avatar" value="7" data-key="100" form="post">'
+            . '<input name="avatar" form="post" type="file">',
+            $result,
         );
     }
 

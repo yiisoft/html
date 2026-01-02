@@ -49,7 +49,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input name="photo" value="c:\path\" type="file">',
-            (string)Input::file('photo', 'c:\\path\\')
+            (string) Input::file('photo', 'c:\\path\\'),
         );
     }
 
@@ -57,7 +57,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input name="subscribe" checked type="checkbox">',
-            (string)Input::checkbox('subscribe')->checked()
+            (string) Input::checkbox('subscribe')->checked(),
         );
     }
 
@@ -65,7 +65,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input name="count" value="one" type="radio">',
-            (string)Input::radio('count', 'one')
+            (string) Input::radio('count', 'one'),
         );
     }
 
@@ -73,7 +73,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input name="count" value="10" type="range">',
-            (string) Input::range('count', 10)
+            (string) Input::range('count', 10),
         );
     }
 

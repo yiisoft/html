@@ -22,7 +22,7 @@ final class RangeTest extends TestCase
 
         $this->assertSame(
             '<input name="opacity" min="0" max="100" step="10" type="range">',
-            $tag->render()
+            $tag->render(),
         );
     }
 
@@ -122,10 +122,10 @@ final class RangeTest extends TestCase
             ->addOutputAttributes(['id' => 'UID']);
 
         $this->assertSame(
-            '<input type="range" ' .
-            'oninput="document.getElementById(&quot;UID&quot;).innerHTML=this.value">' .
-            "\n" . '<span class="red" id="UID">-</span>',
-            $tag->render()
+            '<input type="range" '
+            . 'oninput="document.getElementById(&quot;UID&quot;).innerHTML=this.value">'
+            . "\n" . '<span class="red" id="UID">-</span>',
+            $tag->render(),
         );
     }
 
@@ -179,10 +179,10 @@ final class RangeTest extends TestCase
             ->outputAttributes(['class' => 'red']);
 
         $this->assertMatchesRegularExpression(
-            '~<input type="range" ' .
-            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
-            "\n" . '<span class="red" id="(?P=id)">-</span>~',
-            $tag->render()
+            '~<input type="range" '
+            . 'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">'
+            . "\n" . '<span class="red" id="(?P=id)">-</span>~',
+            $tag->render(),
         );
     }
 
@@ -193,10 +193,10 @@ final class RangeTest extends TestCase
             ->value(10);
 
         $this->assertMatchesRegularExpression(
-            '~<input value="10" type="range" ' .
-            'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">' .
-            "\n" . '<span id="(?P=id)">10</span>~',
-            $tag->render()
+            '~<input value="10" type="range" '
+            . 'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">'
+            . "\n" . '<span id="(?P=id)">10</span>~',
+            $tag->render(),
         );
     }
 
