@@ -706,7 +706,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<li><span>Hello</span></li>', Html::li(Html::span('Hello'))->render());
 
         $this->assertSame(
-            '<li id="item-1" class="item">Content</li>',
+            '<li class="item" id="item-1">Content</li>',
             Html::li('Content', ['class' => 'item', 'id' => 'item-1'])->render(),
         );
         $this->assertSame('<li class="empty"></li>', Html::li(attributes: ['class' => 'empty'])->render());
