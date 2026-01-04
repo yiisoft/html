@@ -3,6 +3,7 @@
 ## 3.12.1 under development
 
 - New #260: Add `$attributes` parameter to `Html::li()` method (@gauravkumar2525)
+- Enh #261: Enhance `RadioList::addRadioWrapClass()` method for cleaner class addition (@vjik)
 
 ## 3.12.0 December 13, 2025
 
