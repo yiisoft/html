@@ -77,6 +77,14 @@ final class InputTest extends TestCase
         );
     }
 
+    public function testColor(): void
+    {
+        $this->assertSame(
+            '<input name="color" value="#ff0000" type="color">',
+            (string) Input::color('color', '#ff0000'),
+        );
+    }
+
     public function testButton(): void
     {
         $this->assertSame(
