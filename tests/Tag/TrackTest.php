@@ -13,7 +13,7 @@ final class TrackTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<track src="brave.en.vtt" kind="subtitles" srclang="en" label="English">',
+            '<track kind="subtitles" src="brave.en.vtt" srclang="en" label="English">',
             (string) Track::tag()
                 ->kind(Track::SUBTITLES)
                 ->src('brave.en.vtt')

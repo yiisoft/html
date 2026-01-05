@@ -13,7 +13,7 @@ final class FileTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<input type="file" name="avatar">',
+            '<input name="avatar" type="file">',
             File::tag()
                 ->name('avatar')
                 ->render(),
@@ -25,15 +25,15 @@ final class FileTest extends TestCase
         return [
             ['<input type="file">', null, null],
             ['<input type="file">', null, 7],
-            ['<input type="file" name="avatar">', 'avatar', null],
-            ['<input type="file" name="avatar[]">', 'avatar[]', null],
+            ['<input name="avatar" type="file">', 'avatar', null],
+            ['<input name="avatar[]" type="file">', 'avatar[]', null],
             [
-                '<input type="hidden" name="avatar" value="7"><input type="file" name="avatar">',
+                '<input type="hidden" name="avatar" value="7"><input name="avatar" type="file">',
                 'avatar',
                 7,
             ],
             [
-                '<input type="hidden" name="avatar" value="7"><input type="file" name="avatar[]">',
+                '<input type="hidden" name="avatar" value="7"><input name="avatar[]" type="file">',
                 'avatar[]',
                 7,
             ],
@@ -56,7 +56,7 @@ final class FileTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="avatar" value="7" disabled>'
-            . '<input type="file" name="avatar" disabled>',
+            . '<input name="avatar" disabled type="file">',
             File::tag()
                 ->name('avatar')
                 ->uncheckValue(7)
@@ -69,7 +69,7 @@ final class FileTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="avatar" value="7" form="post">'
-            . '<input type="file" name="avatar" form="post">',
+            . '<input name="avatar" form="post" type="file">',
             File::tag()
                 ->name('avatar')
                 ->uncheckValue(7)
@@ -89,8 +89,8 @@ final class FileTest extends TestCase
             ->render();
 
         $this->assertSame(
-            '<input type="hidden" id="FileHidden" name="avatar" value="7" form="post" data-key="100">'
-            . '<input type="file" name="avatar" form="post">',
+            '<input type="hidden" name="avatar" value="7" id="FileHidden" data-key="100" form="post">'
+            . '<input name="avatar" form="post" type="file">',
             $result,
         );
     }
@@ -106,8 +106,8 @@ final class FileTest extends TestCase
             ->render();
 
         $this->assertSame(
-            '<input type="hidden" name="avatar" value="7" form="post" data-key="100">'
-            . '<input type="file" name="avatar" form="post">',
+            '<input type="hidden" name="avatar" value="7" data-key="100" form="post">'
+            . '<input name="avatar" form="post" type="file">',
             $result,
         );
     }
@@ -116,11 +116,11 @@ final class FileTest extends TestCase
     {
         return [
             [
-                '<input type="file" name="avatar">',
+                '<input name="avatar" type="file">',
                 null,
             ],
             [
-                '<input type="file" name="avatar" accept=".doc,.docx">',
+                '<input name="avatar" accept=".doc,.docx" type="file">',
                 '.doc,.docx',
             ],
         ];
@@ -142,11 +142,11 @@ final class FileTest extends TestCase
     {
         return [
             [
-                '<input type="file" name="avatar" multiple>',
+                '<input name="avatar" multiple type="file">',
                 true,
             ],
             [
-                '<input type="file" name="avatar">',
+                '<input name="avatar" type="file">',
                 false,
             ],
         ];
@@ -167,7 +167,7 @@ final class FileTest extends TestCase
     public function testMultipleDefault(): void
     {
         $this->assertSame(
-            '<input type="file" name="avatar" multiple>',
+            '<input name="avatar" multiple type="file">',
             File::tag()
                 ->name('avatar')
                 ->multiple()

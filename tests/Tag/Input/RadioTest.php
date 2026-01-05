@@ -12,7 +12,7 @@ final class RadioTest extends TestCase
     public function testBase(): void
     {
         $this->assertSame(
-            '<input type="radio" name="number" value="42">',
+            '<input name="number" value="42" type="radio">',
             Radio::tag()
                 ->name('number')
                 ->value(42)

@@ -18,7 +18,7 @@ final class FormTest extends TestCase
         $tag = Form::tag();
 
         $this->assertSame(
-            '<form action="https://example.com/send" method="GET">'
+            '<form method="GET" action="https://example.com/send">'
             . '<input type="text" name="query">'
             . '<button type="submit">go</button>'
             . '</form>',
@@ -36,7 +36,7 @@ final class FormTest extends TestCase
     public function testGet(): void
     {
         $this->assertSame(
-            '<form action="https://example.com/send" method="GET"></form>',
+            '<form method="GET" action="https://example.com/send"></form>',
             Form::tag()
                 ->get('https://example.com/send')
                 ->render(),
@@ -56,7 +56,7 @@ final class FormTest extends TestCase
     public function testPost(): void
     {
         $this->assertSame(
-            '<form action="https://example.com/send" method="POST"></form>',
+            '<form method="POST" action="https://example.com/send"></form>',
             Form::tag()
                 ->post('https://example.com/send')
                 ->render(),

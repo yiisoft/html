@@ -21,7 +21,7 @@ final class RangeTest extends TestCase
             ->step(10);
 
         $this->assertSame(
-            '<input type="range" name="opacity" min="0" max="100" step="10">',
+            '<input name="opacity" min="0" max="100" step="10" type="range">',
             $tag->render(),
         );
     }
@@ -30,11 +30,11 @@ final class RangeTest extends TestCase
     {
         return [
             ['<input type="range">', null],
-            ['<input type="range" min>', ''],
-            ['<input type="range" min="2.5">', '2.5'],
-            ['<input type="range" min="10">', 10],
-            ['<input type="range" min="42.7">', 42.7],
-            ['<input type="range" min="99">', new StringableObject('99')],
+            ['<input min type="range">', ''],
+            ['<input min="2.5" type="range">', '2.5'],
+            ['<input min="10" type="range">', 10],
+            ['<input min="42.7" type="range">', 42.7],
+            ['<input min="99" type="range">', new StringableObject('99')],
         ];
     }
 
@@ -50,11 +50,11 @@ final class RangeTest extends TestCase
     {
         return [
             ['<input type="range">', null],
-            ['<input type="range" max>', ''],
-            ['<input type="range" max="2.5">', '2.5'],
-            ['<input type="range" max="10">', 10],
-            ['<input type="range" max="42.7">', 42.7],
-            ['<input type="range" max="99">', new StringableObject('99')],
+            ['<input max type="range">', ''],
+            ['<input max="2.5" type="range">', '2.5'],
+            ['<input max="10" type="range">', 10],
+            ['<input max="42.7" type="range">', 42.7],
+            ['<input max="99" type="range">', new StringableObject('99')],
         ];
     }
 
@@ -70,11 +70,11 @@ final class RangeTest extends TestCase
     {
         return [
             ['<input type="range">', null],
-            ['<input type="range" step>', ''],
-            ['<input type="range" step="2.5">', '2.5'],
-            ['<input type="range" step="10">', 10],
-            ['<input type="range" step="42.7">', 42.7],
-            ['<input type="range" step="99">', new StringableObject('99')],
+            ['<input step type="range">', ''],
+            ['<input step="2.5" type="range">', '2.5'],
+            ['<input step="10" type="range">', 10],
+            ['<input step="42.7" type="range">', 42.7],
+            ['<input step="99" type="range">', new StringableObject('99')],
         ];
     }
 
@@ -90,7 +90,7 @@ final class RangeTest extends TestCase
     {
         return [
             ['<input type="range">', null],
-            ['<input type="range" list="DataList">', 'DataList'],
+            ['<input list="DataList" type="range">', 'DataList'],
         ];
     }
 
@@ -124,7 +124,7 @@ final class RangeTest extends TestCase
         $this->assertSame(
             '<input type="range" '
             . 'oninput="document.getElementById(&quot;UID&quot;).innerHTML=this.value">'
-            . "\n" . '<span id="UID" class="red">-</span>',
+            . "\n" . '<span class="red" id="UID">-</span>',
             $tag->render(),
         );
     }
@@ -181,7 +181,7 @@ final class RangeTest extends TestCase
         $this->assertMatchesRegularExpression(
             '~<input type="range" '
             . 'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">'
-            . "\n" . '<span id="(?P=id)" class="red">-</span>~',
+            . "\n" . '<span class="red" id="(?P=id)">-</span>~',
             $tag->render(),
         );
     }
@@ -193,7 +193,7 @@ final class RangeTest extends TestCase
             ->value(10);
 
         $this->assertMatchesRegularExpression(
-            '~<input type="range" value="10" '
+            '~<input value="10" type="range" '
             . 'oninput="document\.getElementById\(\&quot;(?<id>rangeOutput\d*)\&quot;\)\.innerHTML=this\.value">'
             . "\n" . '<span id="(?P=id)">10</span>~',
             $tag->render(),

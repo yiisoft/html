@@ -100,45 +100,6 @@ use function strlen;
 final class Html
 {
     /**
-     * The preferred order of attributes in a tag. This mainly affects the order of the attributes that are
-     * rendered by {@see renderTagAttributes()}.
-     */
-    private const ATTRIBUTE_ORDER = [
-        'type',
-        'id',
-        'class',
-        'name',
-        'value',
-
-        'href',
-        'loading',
-        'src',
-        'srcset',
-        'form',
-        'action',
-        'method',
-
-        'selected',
-        'checked',
-        'readonly',
-        'disabled',
-        'multiple',
-
-        'size',
-        'maxlength',
-        'minlength',
-        'width',
-        'height',
-        'rows',
-        'cols',
-
-        'alt',
-        'title',
-        'rel',
-        'media',
-    ];
-
-    /**
      * List of tag attributes that should be specially handled when their values are of array type.
      * In particular, if the value of the `data` attribute is `['name' => 'xyz', 'age' => 13]`, two attributes will be
      * generated instead of one: `data-name="xyz" data-age="13"`.
@@ -1674,16 +1635,6 @@ final class Html
      */
     public static function renderTagAttributes(array $attributes): string
     {
-        if (count($attributes) > 1) {
-            $sorted = [];
-            foreach (self::ATTRIBUTE_ORDER as $name) {
-                if (isset($attributes[$name])) {
-                    $sorted[$name] = $attributes[$name];
-                }
-            }
-            $attributes = array_merge($sorted, $attributes);
-        }
-
         $html = '';
         /**
          * @var string $name

@@ -135,7 +135,7 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<meta>', Html::meta()->render());
         $this->assertSame(
-            '<meta id="main" name="keywords" content="yii">',
+            '<meta name="keywords" content="yii" id="main">',
             Html::meta(['name' => 'keywords', 'content' => 'yii', 'id' => 'main'])->render(),
         );
     }
@@ -154,15 +154,15 @@ final class HtmlTest extends TestCase
     public function testCssFile(): void
     {
         $this->assertSame(
-            '<link href="http://example.com" rel="stylesheet">',
+            '<link rel="stylesheet" href="http://example.com">',
             Html::cssFile('http://example.com')->render(),
         );
         $this->assertSame(
-            '<link href rel="stylesheet">',
+            '<link rel="stylesheet" href>',
             Html::cssFile('')->render(),
         );
         $this->assertSame(
-            '<link id="main" href="http://example.com" rel="stylesheet">',
+            '<link rel="stylesheet" href="http://example.com" id="main">',
             Html::cssFile('http://example.com', ['id' => 'main'])->render(),
         );
     }
@@ -178,7 +178,7 @@ final class HtmlTest extends TestCase
             Html::javaScriptFile('')->render(),
         );
         $this->assertSame(
-            '<script id="main" src="http://example.com"></script>',
+            '<script src="http://example.com" id="main"></script>',
             Html::javaScriptFile('http://example.com', ['id' => 'main'])->render(),
         );
     }
@@ -206,7 +206,7 @@ final class HtmlTest extends TestCase
             Html::mailto('contact me', 'info@example.com')->render(),
         );
         $this->assertSame(
-            '<a id="contact" href="mailto:info@example.com">contact me</a>',
+            '<a href="mailto:info@example.com" id="contact">contact me</a>',
             Html::mailto('contact me', 'info@example.com', ['id' => 'contact'])->render(),
         );
     }
@@ -385,15 +385,15 @@ final class HtmlTest extends TestCase
     public function testColorInput(): void
     {
         $this->assertSame('<input type="color">', Html::color()->render());
-        $this->assertSame('<input type="color" name>', Html::color('')->render());
-        $this->assertSame('<input type="color" value>', Html::color(null, '')->render());
-        $this->assertSame('<input type="color" name="test">', Html::color('test')->render());
+        $this->assertSame('<input name type="color">', Html::color('')->render());
+        $this->assertSame('<input value type="color">', Html::color(null, '')->render());
+        $this->assertSame('<input name="test" type="color">', Html::color('test')->render());
         $this->assertSame(
-            '<input type="color" name="test" value="#ff0000">',
+            '<input name="test" value="#ff0000" type="color">',
             Html::color('test', '#ff0000')->render(),
         );
         $this->assertSame(
-            '<input type="color" name="test" value="#ff0000" required>',
+            '<input name="test" value="#ff0000" required type="color">',
             Html::color('test', '#ff0000', ['required' => true])->render(),
         );
     }
@@ -409,7 +409,7 @@ final class HtmlTest extends TestCase
             Html::hiddenInput('test', '43')->render(),
         );
         $this->assertSame(
-            '<input type="hidden" id="ABC" name="test" value="43">',
+            '<input type="hidden" name="test" value="43" id="ABC">',
             Html::hiddenInput('test', '43', ['id' => 'ABC'])->render(),
         );
     }
@@ -433,15 +433,15 @@ final class HtmlTest extends TestCase
     public function testFile(): void
     {
         $this->assertSame('<input type="file">', Html::file()->render());
-        $this->assertSame('<input type="file" name>', Html::file('')->render());
-        $this->assertSame('<input type="file" value>', Html::file(null, '')->render());
-        $this->assertSame('<input type="file" name="test">', Html::file('test')->render());
+        $this->assertSame('<input name type="file">', Html::file('')->render());
+        $this->assertSame('<input value type="file">', Html::file(null, '')->render());
+        $this->assertSame('<input name="test" type="file">', Html::file('test')->render());
         $this->assertSame(
-            '<input type="file" name="test" value="43">',
+            '<input name="test" value="43" type="file">',
             Html::file('test', '43')->render(),
         );
         $this->assertSame(
-            '<input type="file" class="photo" name="test" value="43">',
+            '<input name="test" value="43" class="photo" type="file">',
             Html::file('test', '43', ['class' => 'photo'])->render(),
         );
     }
@@ -449,15 +449,15 @@ final class HtmlTest extends TestCase
     public function testRadio(): void
     {
         $this->assertSame('<input type="radio">', Html::radio()->render());
-        $this->assertSame('<input type="radio" name>', Html::radio('')->render());
-        $this->assertSame('<input type="radio" value>', Html::radio(null, '')->render());
-        $this->assertSame('<input type="radio" name="test">', Html::radio('test')->render());
+        $this->assertSame('<input name type="radio">', Html::radio('')->render());
+        $this->assertSame('<input value type="radio">', Html::radio(null, '')->render());
+        $this->assertSame('<input name="test" type="radio">', Html::radio('test')->render());
         $this->assertSame(
-            '<input type="radio" name="test" value="43">',
+            '<input name="test" value="43" type="radio">',
             Html::radio('test', '43')->render(),
         );
         $this->assertSame(
-            '<input type="radio" name="test" value="43" readonly>',
+            '<input name="test" value="43" readonly type="radio">',
             Html::radio('test', '43', ['readonly' => true])->render(),
         );
     }
@@ -465,15 +465,15 @@ final class HtmlTest extends TestCase
     public function testCheckbox(): void
     {
         $this->assertSame('<input type="checkbox">', Html::checkbox()->render());
-        $this->assertSame('<input type="checkbox" name>', Html::checkbox('')->render());
-        $this->assertSame('<input type="checkbox" value>', Html::checkbox(null, '')->render());
-        $this->assertSame('<input type="checkbox" name="test">', Html::checkbox('test')->render());
+        $this->assertSame('<input name type="checkbox">', Html::checkbox('')->render());
+        $this->assertSame('<input value type="checkbox">', Html::checkbox(null, '')->render());
+        $this->assertSame('<input name="test" type="checkbox">', Html::checkbox('test')->render());
         $this->assertSame(
-            '<input type="checkbox" name="test" value="43">',
+            '<input name="test" value="43" type="checkbox">',
             Html::checkbox('test', '43')->render(),
         );
         $this->assertSame(
-            '<input type="checkbox" name="test" value="43" readonly>',
+            '<input name="test" value="43" readonly type="checkbox">',
             Html::checkbox('test', '43', ['readonly' => true])->render(),
         );
     }
@@ -481,15 +481,15 @@ final class HtmlTest extends TestCase
     public function testRange(): void
     {
         $this->assertSame('<input type="range">', Html::range()->render());
-        $this->assertSame('<input type="range" name>', Html::range('')->render());
-        $this->assertSame('<input type="range" value>', Html::range(null, '')->render());
-        $this->assertSame('<input type="range" name="test">', Html::range('test')->render());
+        $this->assertSame('<input name type="range">', Html::range('')->render());
+        $this->assertSame('<input value type="range">', Html::range(null, '')->render());
+        $this->assertSame('<input name="test" type="range">', Html::range('test')->render());
         $this->assertSame(
-            '<input type="range" name="test" value="43">',
+            '<input name="test" value="43" type="range">',
             Html::range('test', '43')->render(),
         );
         $this->assertSame(
-            '<input type="range" name="test" value="43" readonly>',
+            '<input name="test" value="43" readonly type="range">',
             Html::range('test', '43', ['readonly' => true])->render(),
         );
     }
@@ -532,9 +532,9 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="test" value="0">' . "\n"
             . '<div id="main">' . "\n"
-            . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
-            . '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n"
-            . '<label><input type="checkbox" name="test[]" value="5" checked> Five</label>' . "\n"
+            . '<label><input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
+            . '<label><input name="test[]" value="2" checked type="checkbox"> Two</label>' . "\n"
+            . '<label><input name="test[]" value="5" checked type="checkbox"> Five</label>' . "\n"
             . '</div>',
             Html::checkboxList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
@@ -550,9 +550,9 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="test" value="0">' . "\n"
             . '<div id="main">' . "\n"
-            . '<label><input type="radio" name="test" value="1"> One</label>' . "\n"
-            . '<label><input type="radio" name="test" value="2" checked> Two</label>' . "\n"
-            . '<label><input type="radio" name="test" value="5"> Five</label>' . "\n"
+            . '<label><input name="test" value="1" type="radio"> One</label>' . "\n"
+            . '<label><input name="test" value="2" checked type="radio"> Two</label>' . "\n"
+            . '<label><input name="test" value="5" type="radio"> Five</label>' . "\n"
             . '</div>',
             Html::radioList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
@@ -706,7 +706,7 @@ final class HtmlTest extends TestCase
         $this->assertSame('<li><span>Hello</span></li>', Html::li(Html::span('Hello'))->render());
 
         $this->assertSame(
-            '<li id="item-1" class="item">Content</li>',
+            '<li class="item" id="item-1">Content</li>',
             Html::li('Content', ['class' => 'item', 'id' => 'item-1'])->render(),
         );
         $this->assertSame('<li class="empty"></li>', Html::li(attributes: ['class' => 'empty'])->render());
@@ -857,7 +857,7 @@ final class HtmlTest extends TestCase
             [' class="first second"', ['class' => ['first', 'second']]],
             ['', ['class' => []]],
             [' style="width: 100px; height: 200px;"', ['style' => ['width' => '100px', 'height' => '200px']]],
-            [' name="position" value="42"', ['value' => 42, 'name' => 'position']],
+            [' value="42" name="position"', ['value' => 42, 'name' => 'position']],
             [
                 ' id="x" class="a b" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'',
                 [
