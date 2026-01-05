@@ -740,6 +740,7 @@ final class RadioListTest extends TestCase
             [' class="main"', ['main']],
             [' class="main bold"', ['main bold']],
             [' class="main bold"', ['main', 'bold']],
+            [' class="main bold"', [null, 'main', null, 'bold', null]],
         ];
     }
 
@@ -776,6 +777,7 @@ final class RadioListTest extends TestCase
             [' class="form-check main"', ['main']],
             [' class="form-check main bold"', ['main bold']],
             [' class="form-check main bold"', ['main', 'bold']],
+            [' class="form-check main bold"', [null, 'main', null, 'bold', null]],
         ];
     }
 
@@ -825,6 +827,8 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->addRadioWrapClass());
         $this->assertNotSame($widget, $widget->addRadioAttributes([]));
         $this->assertNotSame($widget, $widget->radioAttributes([]));
+        $this->assertNotSame($widget, $widget->addRadioLabelAttributes([]));
+        $this->assertNotSame($widget, $widget->radioLabelAttributes([]));
         $this->assertNotSame($widget, $widget->radioLabelWrap(false));
         $this->assertNotSame($widget, $widget->addIndividualInputAttributes([]));
         $this->assertNotSame($widget, $widget->individualInputAttributes([]));
