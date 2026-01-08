@@ -1675,13 +1675,14 @@ final class Html
     public static function renderTagAttributes(array $attributes): string
     {
         if (count($attributes) > 1) {
-            $sorted = [];
+            $ordered = [];
             foreach (self::ATTRIBUTE_ORDER as $name) {
                 if (isset($attributes[$name])) {
-                    $sorted[$name] = $attributes[$name];
+                    $ordered[$name] = $attributes[$name];
+                    unset($attributes[$name]);
                 }
             }
-            $attributes = array_merge($sorted, $attributes);
+            $attributes = $ordered + $attributes;
         }
 
         $html = '';
