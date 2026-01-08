@@ -1929,7 +1929,7 @@ final class Html
         if (empty($style)) {
             return null;
         }
-        
+
         $pairs = [];
         foreach ($style as $name => $value) {
             $pairs[] = "$name: $value;";
