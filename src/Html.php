@@ -1925,13 +1925,16 @@ final class Html
      */
     public static function cssStyleFromArray(array $style): ?string
     {
-        $result = '';
+        if (empty($style)) {
+            return null;
+        }
+        
+        $pairs = [];
         foreach ($style as $name => $value) {
-            $result .= "$name: $value; ";
+            $pairs[] = "$name: $value;";
         }
 
-        // Return null if empty to avoid rendering the "style" attribute.
-        return $result === '' ? null : rtrim($result);
+        return implode(' ', $pairs);
     }
 
     /**
