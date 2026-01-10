@@ -4,6 +4,7 @@
 
 - New #260: Add `$attributes` parameter to `Html::li()` method (@gauravkumar2525)
 - Enh #261: Enhance `RadioList::addRadioWrapClass()` method for cleaner class addition (@vjik)
+- Enh #263: Explicitly import classes and constants in "use" section (@mspirkov)
 
 ## 3.12.0 December 13, 2025
 
