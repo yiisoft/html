@@ -13,8 +13,6 @@ use Yiisoft\Html\Tests\Objects\StringableObject;
 use Yiisoft\Html\Tests\Support\ClassEnum;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
 
-use function array_key_exists;
-
 final class HtmlTest extends TestCase
 {
     /**
@@ -1194,7 +1192,7 @@ final class HtmlTest extends TestCase
 
         $options = [];
         Html::removeCssStyle($options, ['color', 'background']);
-        $this->assertNotTrue(array_key_exists('style', $options));
+        $this->assertNotTrue(\array_key_exists('style', $options));
         $options = [
             'style' => [
                 'color' => 'red',
@@ -1371,5 +1369,5 @@ use Yiisoft\Html\Tests\HtmlTest;
 
 function hrtime(bool $getAsNumber = false)
 {
-    return HtmlTest::$hrtimeResult ?? \hrtime($getAsNumber);
+    return HtmlTest::$hrtimeResult ?? hrtime($getAsNumber);
 }

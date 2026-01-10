@@ -90,6 +90,12 @@ use function is_int;
 use function is_string;
 use function strlen;
 
+use const ENT_HTML5;
+use const ENT_NOQUOTES;
+use const ENT_QUOTES;
+use const ENT_SUBSTITUTE;
+use const PREG_SPLIT_NO_EMPTY;
+
 /**
  * Html provides a set of static methods for generating commonly used HTML tags.
  *
@@ -1948,7 +1954,7 @@ final class Html
      *
      * @see cssStyleFromArray()
      *
-     * @param string|\Stringable $style The CSS style string.
+     * @param string|Stringable $style The CSS style string.
      *
      * @return array The array representation of the CSS style.
      * @psalm-return array<string, string>
