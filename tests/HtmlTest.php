@@ -943,24 +943,23 @@ final class HtmlTest extends TestCase
 
     public static function dataRenderTagAttributesWithForbiddenSymbols(): iterable
     {
-        return
-            [
-                [' '],
-                ['"'],
-                ["'"],
-                ['>'],
-                ['/'],
-                ['='],
-                ["\u{0000}"],
-                ["\u{0001}"],
-                ["\u{007F}"],
-                ["\u{0080}"],
-                ["\u{FDD0}"],
-                ["\u{FDD1}"],
-                ["\u{FFFE}"],
-                ["\u{FFFFE}"],
-                ["\u{10FFFF}"],
-            ];
+        return [
+            [' '],
+            ['"'],
+            ["'"],
+            ['>'],
+            ['/'],
+            ['='],
+            ["\u{0000}"],
+            ["\u{0001}"],
+            ["\u{007F}"],
+            ["\u{0080}"],
+            ["\u{FDD0}"],
+            ["\u{FDD1}"],
+            ["\u{FFFE}"],
+            ["\u{FFFFE}"],
+            ["\u{10FFFF}"],
+        ];
     }
 
     #[DataProvider('dataRenderTagAttributesWithForbiddenSymbols')]
