@@ -9,6 +9,8 @@ use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 $finder = (new Finder())->in([
     __DIR__ . '/src',
     __DIR__ . '/tests',
+])->exclude([
+    'mocks',
 ]);
 
 return (new Config())

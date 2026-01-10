@@ -13,6 +13,10 @@ use Yiisoft\Html\Tests\Objects\StringableObject;
 use Yiisoft\Html\Tests\Support\ClassEnum;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
 
+use function array_key_exists;
+
+require __DIR__ . '/mocks/hrtime.php';
+
 final class HtmlTest extends TestCase
 {
     /**
@@ -529,11 +533,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="test" value="0">' . "\n"
-            . '<div id="main">' . "\n"
-            . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
-            . '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n"
-            . '<label><input type="checkbox" name="test[]" value="5" checked> Five</label>' . "\n"
-            . '</div>',
+                . '<div id="main">' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="1"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="2" checked> Two</label>' . "\n"
+                . '<label><input type="checkbox" name="test[]" value="5" checked> Five</label>' . "\n"
+                . '</div>',
             Html::checkboxList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
                 ->uncheckValue(0)
@@ -547,11 +551,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="test" value="0">' . "\n"
-            . '<div id="main">' . "\n"
-            . '<label><input type="radio" name="test" value="1"> One</label>' . "\n"
-            . '<label><input type="radio" name="test" value="2" checked> Two</label>' . "\n"
-            . '<label><input type="radio" name="test" value="5"> Five</label>' . "\n"
-            . '</div>',
+                . '<div id="main">' . "\n"
+                . '<label><input type="radio" name="test" value="1"> One</label>' . "\n"
+                . '<label><input type="radio" name="test" value="2" checked> Two</label>' . "\n"
+                . '<label><input type="radio" name="test" value="5"> Five</label>' . "\n"
+                . '</div>',
             Html::radioList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
                 ->uncheckValue(0)
@@ -940,23 +944,23 @@ final class HtmlTest extends TestCase
     public static function dataRenderTagAttributesWithForbiddenSymbols(): iterable
     {
         return
-        [
-            [' '],
-            ['"'],
-            ["'"],
-            ['>'],
-            ['/'],
-            ['='],
-            ["\u{0000}"],
-            ["\u{0001}"],
-            ["\u{007F}"],
-            ["\u{0080}"],
-            ["\u{FDD0}"],
-            ["\u{FDD1}"],
-            ["\u{FFFE}"],
-            ["\u{FFFFE}"],
-            ["\u{10FFFF}"],
-        ];
+            [
+                [' '],
+                ['"'],
+                ["'"],
+                ['>'],
+                ['/'],
+                ['='],
+                ["\u{0000}"],
+                ["\u{0001}"],
+                ["\u{007F}"],
+                ["\u{0080}"],
+                ["\u{FDD0}"],
+                ["\u{FDD1}"],
+                ["\u{FFFE}"],
+                ["\u{FFFFE}"],
+                ["\u{10FFFF}"],
+            ];
     }
 
     #[DataProvider('dataRenderTagAttributesWithForbiddenSymbols')]
@@ -1192,7 +1196,7 @@ final class HtmlTest extends TestCase
 
         $options = [];
         Html::removeCssStyle($options, ['color', 'background']);
-        $this->assertNotTrue(\array_key_exists('style', $options));
+        $this->assertNotTrue(array_key_exists('style', $options));
         $options = [
             'style' => [
                 'color' => 'red',
@@ -1361,13 +1365,4 @@ final class HtmlTest extends TestCase
             Html::address('Street 111, Mount View Town.', ['class' => 'red'])->render(),
         );
     }
-}
-
-namespace Yiisoft\Html;
-
-use Yiisoft\Html\Tests\HtmlTest;
-
-function hrtime(bool $getAsNumber = false)
-{
-    return HtmlTest::$hrtimeResult ?? hrtime($getAsNumber);
 }
