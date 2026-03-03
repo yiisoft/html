@@ -14,18 +14,18 @@ class TagSourcesTraitTest extends TestCase
     {
         $this->assertSame(
             "<test>\n<source src=\"video1.mp4\">\n<source src=\"video2.mp4\">\n<source src=\"video3.mp4\">\n</test>",
-            TestTagSourcesTrait::tag()
-                ->sources(Source::tag()->src('video1.mp4'))
-                ->addSource(Source::tag()->src('video2.mp4'))
-                ->addSource(Source::tag()->src('video3.mp4'))
+            new TestTagSourcesTrait()
+                ->sources(new Source()->src('video1.mp4'))
+                ->addSource(new Source()->src('video2.mp4'))
+                ->addSource(new Source()->src('video3.mp4'))
                 ->render(),
         );
     }
 
     public function testImmutability(): void
     {
-        $tag = TestTagSourcesTrait::tag();
+        $tag = new TestTagSourcesTrait();
         $this->assertNotSame($tag, $tag->sources());
-        $this->assertNotSame($tag, $tag->addSource(Source::tag()));
+        $this->assertNotSame($tag, $tag->addSource(new Source()));
     }
 }

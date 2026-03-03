@@ -14,7 +14,7 @@ final class TrackTest extends TestCase
     {
         $this->assertSame(
             '<track src="brave.en.vtt" kind="subtitles" srclang="en" label="English">',
-            (string) Track::tag()
+            (string) new Track()
                 ->kind(Track::SUBTITLES)
                 ->src('brave.en.vtt')
                 ->srclang('en')
@@ -24,20 +24,20 @@ final class TrackTest extends TestCase
 
     public function testDefault(): void
     {
-        $this->assertSame('<track default>', (string) Track::tag()->default());
-        $this->assertSame('<track>', (string) Track::tag()->default(false));
-        $this->assertSame('<track>', (string) Track::tag()
+        $this->assertSame('<track default>', (string) new Track()->default());
+        $this->assertSame('<track>', (string) new Track()->default(false));
+        $this->assertSame('<track>', (string) new Track()
             ->default(true)
             ->default(false));
     }
 
     public function testIsDefault(): void
     {
-        $this->assertFalse(Track::tag()->isDefault());
-        $this->assertFalse(Track::tag()
+        $this->assertFalse(new Track()->isDefault());
+        $this->assertFalse(new Track()
             ->default(false)
             ->isDefault());
-        $this->assertTrue(Track::tag()
+        $this->assertTrue(new Track()
             ->default()
             ->isDefault());
     }
@@ -53,7 +53,7 @@ final class TrackTest extends TestCase
     #[DataProvider('dataKind')]
     public function testKind(string $expected, ?string $kind): void
     {
-        $this->assertSame($expected, (string) Track::tag()->kind($kind));
+        $this->assertSame($expected, (string) new Track()->kind($kind));
     }
 
     public static function dataLabel(): array
@@ -67,14 +67,14 @@ final class TrackTest extends TestCase
     #[DataProvider('dataLabel')]
     public function testLabel(string $expected, ?string $label): void
     {
-        $this->assertSame($expected, (string) Track::tag()->label($label));
+        $this->assertSame($expected, (string) new Track()->label($label));
     }
 
     public function testSrc(): void
     {
         $this->assertSame(
             '<track src="brave.en.vtt">',
-            (string) Track::tag()->src('brave.en.vtt'),
+            (string) new Track()->src('brave.en.vtt'),
         );
     }
 
@@ -89,12 +89,12 @@ final class TrackTest extends TestCase
     #[DataProvider('dataSrclang')]
     public function testSrclang(string $expected, ?string $lang): void
     {
-        $this->assertSame($expected, (string) Track::tag()->srclang($lang));
+        $this->assertSame($expected, (string) new Track()->srclang($lang));
     }
 
     public function testImmutability(): void
     {
-        $track = Track::tag();
+        $track = new Track();
         $this->assertNotSame($track, $track->default());
         $this->assertNotSame($track, $track->kind(null));
         $this->assertNotSame($track, $track->label(null));

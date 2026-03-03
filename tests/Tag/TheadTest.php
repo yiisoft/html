@@ -23,11 +23,11 @@ final class TheadTest extends TestCase
             . '<td>D</td>' . "\n"
             . '</tr>' . "\n"
             . '</thead>',
-            Thead::tag()
+            new Thead()
                 ->class('gray')
                 ->rows(
-                    Tr::tag()->dataStrings(['A', 'B']),
-                    Tr::tag()->dataStrings(['C', 'D']),
+                    new Tr()->dataStrings(['A', 'B']),
+                    new Tr()->dataStrings(['C', 'D']),
                 )
                 ->render(),
         );

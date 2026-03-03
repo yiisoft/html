@@ -13,7 +13,7 @@ final class H4Test extends TestCase
     {
         $this->assertSame(
             '<h4 class="red">Hello</h4>',
-            (string) H4::tag()
+            (string) new H4()
                 ->class('red')
                 ->content('Hello'),
         );

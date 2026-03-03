@@ -20,7 +20,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test id="custom" count="15">body</test>',
-            CustomTag::name('test')
+            new CustomTag('test')
                 ->id('custom')
                 ->attribute('count', 15)
                 ->content('body')
@@ -43,7 +43,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             "<$name>",
-            CustomTag::name($name)->render(),
+            new CustomTag($name)->render(),
         );
     }
 
@@ -58,7 +58,7 @@ final class CustomTagTest extends TestCase
     #[DataProvider('dataNormal')]
     public function testNormal(string $expected, string $name): void
     {
-        $this->assertSame($expected, CustomTag::name($name)
+        $this->assertSame($expected, new CustomTag($name)
             ->normal()
             ->render());
     }
@@ -74,7 +74,7 @@ final class CustomTagTest extends TestCase
     #[DataProvider('dataVoid')]
     public function testVoid(string $expected, string $name): void
     {
-        $this->assertSame($expected, CustomTag::name($name)
+        $this->assertSame($expected, new CustomTag($name)
             ->void()
             ->render());
     }
@@ -83,7 +83,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test><b>hello</b></test>',
-            (string) CustomTag::name('test')
+            (string) new CustomTag('test')
                 ->content('<b>hello</b>')
                 ->encode(false),
         );
@@ -93,7 +93,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string) CustomTag::name('test')
+            (string) new CustomTag('test')
                 ->content('<b>A &gt; B</b>')
                 ->doubleEncode(false),
         );
@@ -104,10 +104,10 @@ final class CustomTagTest extends TestCase
         return [
             'string' => ['<test>hello</test>', 'hello'],
             'string-tag' => ['<test>&lt;p&gt;Hi!&lt;/p&gt;</test>', '<p>Hi!</p>'],
-            'object-tag' => ['<test><p>Hi!</p></test>', P::tag()->content('Hi!')],
+            'object-tag' => ['<test><p>Hi!</p></test>', new P()->content('Hi!')],
             'array' => [
                 '<test>Hello &gt; <span>World</span>!</test>',
-                ['Hello', ' > ', Span::tag()->content('World'), '!'],
+                ['Hello', ' > ', new Span()->content('World'), '!'],
             ],
         ];
     }
@@ -115,7 +115,7 @@ final class CustomTagTest extends TestCase
     #[DataProvider('dataContent')]
     public function testContent(string $expected, string|array|Stringable $content): void
     {
-        $tag = CustomTag::name('test');
+        $tag = new CustomTag('test');
         $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);
 
         $this->assertSame($expected, $tag->render());
@@ -125,9 +125,9 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test>&lt;p&gt;Hi!&lt;/p&gt;</test>',
-            CustomTag::name('test')
+            new CustomTag('test')
                 ->encode(true)
-                ->content(P::tag()->content('Hi!'))
+                ->content(new P()->content('Hi!'))
                 ->render(),
         );
     }
@@ -136,7 +136,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test>Hello World</test>',
-            CustomTag::name('test')
+            new CustomTag('test')
                 ->content('Hello')
                 ->addContent(' ')
                 ->addContent(new StringableObject('World'))
@@ -148,7 +148,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test>123</test>',
-            CustomTag::name('test')
+            new CustomTag('test')
                 ->content('1')
                 ->addContent(...['2', '3'])
                 ->render(),
@@ -159,7 +159,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test id="main">',
-            CustomTag::name('test')
+            new CustomTag('test')
                 ->id('main')
                 ->open(),
         );
@@ -169,7 +169,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '</test>',
-            CustomTag::name('test')
+            new CustomTag('test')
                 ->id('main')
                 ->close(),
         );
@@ -177,7 +177,7 @@ final class CustomTagTest extends TestCase
 
     public function testImmutability(): void
     {
-        $tag = CustomTag::name('test');
+        $tag = new CustomTag('test');
         $this->assertNotSame($tag, $tag->normal());
         $this->assertNotSame($tag, $tag->void());
         $this->assertNotSame($tag, $tag->encode(true));

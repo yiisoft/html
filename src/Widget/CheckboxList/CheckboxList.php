@@ -53,7 +53,7 @@ final class CheckboxList implements NoEncodeStringableInterface
      */
     private ?Closure $itemFormatter = null;
 
-    private function __construct(
+    public function __construct(
         private string $name,
     ) {}
 
@@ -62,6 +62,7 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $this->render();
     }
 
+    #[\Deprecated]
     public static function create(string $name): self
     {
         return new self($name);

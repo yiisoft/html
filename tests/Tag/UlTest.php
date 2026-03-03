@@ -12,9 +12,9 @@ final class UlTest extends TestCase
 {
     public function testBase(): void
     {
-        $ul = Ul::tag()->items(
-            Li::tag()->content('A'),
-            Li::tag()->content('B'),
+        $ul = new Ul()->items(
+            new Li()->content('A'),
+            new Li()->content('B'),
         );
 
         $this->assertSame("<ul>\n<li>A</li>\n<li>B</li>\n</ul>", (string) $ul);

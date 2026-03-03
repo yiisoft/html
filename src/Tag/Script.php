@@ -130,7 +130,7 @@ final class Script extends NormalTag
     public function noscript(string|Stringable|null $content): self
     {
         $new = clone $this;
-        $new->noscript = $content === null ? null : Noscript::tag()->content($content);
+        $new->noscript = $content === null ? null : new Noscript()->content($content);
         return $new;
     }
 

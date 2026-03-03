@@ -19,21 +19,21 @@ class TableTest extends TestCase
 {
     public function testEmpty(): void
     {
-        $this->assertSame('<table></table>', Table::tag()->render());
+        $this->assertSame('<table></table>', new Table()->render());
     }
 
     public static function dataCaption(): array
     {
         return [
             ['<table></table>', null],
-            ["<table>\n<caption>Hello</caption>\n</table>", Caption::tag()->content('Hello')],
+            ["<table>\n<caption>Hello</caption>\n</table>", new Caption()->content('Hello')],
         ];
     }
 
     #[DataProvider('dataCaption')]
     public function testCaption(string $expected, ?Caption $caption): void
     {
-        $this->assertSame($expected, Table::tag()
+        $this->assertSame($expected, new Table()
             ->caption($caption)
             ->render());
     }
@@ -42,7 +42,7 @@ class TableTest extends TestCase
     {
         $this->assertSame(
             "<table>\n<caption>Hello</caption>\n</table>",
-            Table::tag()
+            new Table()
                 ->captionString('Hello')
                 ->render(),
         );
@@ -52,7 +52,7 @@ class TableTest extends TestCase
     {
         $this->assertSame(
             "<table>\n<caption>&lt;b&gt;Hello&lt;/b&gt;</caption>\n</table>",
-            Table::tag()
+            new Table()
                 ->captionString('<b>Hello</b>')
                 ->render(),
         );
@@ -62,7 +62,7 @@ class TableTest extends TestCase
     {
         $this->assertSame(
             "<table>\n<caption><b>Hello</b></caption>\n</table>",
-            Table::tag()
+            new Table()
                 ->captionString('<b>Hello</b>', false)
                 ->render(),
         );
@@ -70,12 +70,12 @@ class TableTest extends TestCase
 
     public function testColumnGroups(): void
     {
-        $tag = Table::tag()->columnGroups(
-            Colgroup::tag()->columns(
-                Col::tag(),
-                Col::tag()->span(2),
+        $tag = new Table()->columnGroups(
+            new Colgroup()->columns(
+                new Col(),
+                new Col()->span(2),
             ),
-            Colgroup::tag()->span(4),
+            new Colgroup()->span(4),
         );
 
         $this->assertSame(
@@ -92,16 +92,16 @@ class TableTest extends TestCase
 
     public function testAddColumnGroups(): void
     {
-        $tag = Table::tag()
+        $tag = new Table()
             ->columnGroups(
-                Colgroup::tag()->columns(
-                    Col::tag(),
-                    Col::tag()->span(2),
+                new Colgroup()->columns(
+                    new Col(),
+                    new Col()->span(2),
                 ),
             )
             ->addColumnGroups(
-                Colgroup::tag()->span(4),
-                Colgroup::tag()->span(5),
+                new Colgroup()->span(4),
+                new Colgroup()->span(5),
             );
 
         $this->assertSame(
@@ -119,9 +119,9 @@ class TableTest extends TestCase
 
     public function testColumns(): void
     {
-        $tag = Table::tag()->columns(
-            Col::tag(),
-            Col::tag()->span(2),
+        $tag = new Table()->columns(
+            new Col(),
+            new Col()->span(2),
         );
 
         $this->assertSame(
@@ -135,14 +135,14 @@ class TableTest extends TestCase
 
     public function testAddColumns(): void
     {
-        $tag = Table::tag()
+        $tag = new Table()
             ->columns(
-                Col::tag(),
-                Col::tag()->span(2),
+                new Col(),
+                new Col()->span(2),
             )
             ->addColumns(
-                Col::tag()->span(3),
-                Col::tag()->span(4),
+                new Col()->span(3),
+                new Col()->span(4),
             );
 
         $this->assertSame(
@@ -160,23 +160,23 @@ class TableTest extends TestCase
     {
         return [
             ['<table></table>', null],
-            ["<table>\n<thead></thead>\n</table>", Thead::tag()],
+            ["<table>\n<thead></thead>\n</table>", new Thead()],
         ];
     }
 
     #[DataProvider('dataHeader')]
     public function testHeader(string $expected, ?Thead $header): void
     {
-        $this->assertSame($expected, Table::tag()
+        $this->assertSame($expected, new Table()
             ->header($header)
             ->render());
     }
 
     public function testBody(): void
     {
-        $tag = Table::tag()->body(
-            Tbody::tag(),
-            Tbody::tag()->class('red'),
+        $tag = new Table()->body(
+            new Tbody(),
+            new Tbody()->class('red'),
         );
 
         $this->assertSame(
@@ -190,13 +190,13 @@ class TableTest extends TestCase
 
     public function testAddBody(): void
     {
-        $tag = Table::tag()
+        $tag = new Table()
             ->body(
-                Tbody::tag(),
+                new Tbody(),
             )
             ->addBody(
-                Tbody::tag()->class('red'),
-                Tbody::tag()->class('green'),
+                new Tbody()->class('red'),
+                new Tbody()->class('green'),
             );
 
         $this->assertSame(
@@ -211,9 +211,9 @@ class TableTest extends TestCase
 
     public function testRows(): void
     {
-        $tag = Table::tag()->rows(
-            Tr::tag()->dataStrings(['A', 'B']),
-            Tr::tag()->dataStrings(['C', 'D']),
+        $tag = new Table()->rows(
+            new Tr()->dataStrings(['A', 'B']),
+            new Tr()->dataStrings(['C', 'D']),
         );
 
         $this->assertSame(
@@ -233,13 +233,13 @@ class TableTest extends TestCase
 
     public function testAddRows(): void
     {
-        $tag = Table::tag()
+        $tag = new Table()
             ->rows(
-                Tr::tag()->dataStrings(['A', 'B']),
+                new Tr()->dataStrings(['A', 'B']),
             )
             ->addRows(
-                Tr::tag()->dataStrings(['C', 'D']),
-                Tr::tag()->dataStrings(['E', 'F']),
+                new Tr()->dataStrings(['C', 'D']),
+                new Tr()->dataStrings(['E', 'F']),
             );
 
         $this->assertSame(
@@ -265,14 +265,14 @@ class TableTest extends TestCase
     {
         return [
             ['<table></table>', null],
-            ["<table>\n<tfoot></tfoot>\n</table>", Tfoot::tag()],
+            ["<table>\n<tfoot></tfoot>\n</table>", new Tfoot()],
         ];
     }
 
     #[DataProvider('dataFooter')]
     public function testFooter(string $expected, ?Tfoot $footer): void
     {
-        $this->assertSame($expected, Table::tag()
+        $this->assertSame($expected, new Table()
             ->footer($footer)
             ->render());
     }
@@ -288,12 +288,12 @@ class TableTest extends TestCase
                 . '<tbody></tbody>' . "\n"
                 . '<tfoot></tfoot>' . "\n"
                 . '</table>',
-                Table::tag()
+                new Table()
                     ->captionString('Caption of Table')
-                    ->columnGroups(Colgroup::tag())
-                    ->header(Thead::tag())
-                    ->body(Tbody::tag())
-                    ->footer(Tfoot::tag()),
+                    ->columnGroups(new Colgroup())
+                    ->header(new Thead())
+                    ->body(new Tbody())
+                    ->footer(new Tfoot()),
             ],
             [
                 '<table>' . "\n"
@@ -303,12 +303,12 @@ class TableTest extends TestCase
                 . '<tr></tr>' . "\n"
                 . '<tfoot></tfoot>' . "\n"
                 . '</table>',
-                Table::tag()
+                new Table()
                     ->captionString('Caption of Table')
-                    ->columns(Col::tag())
-                    ->header(Thead::tag())
-                    ->rows(Tr::tag())
-                    ->footer(Tfoot::tag()),
+                    ->columns(new Col())
+                    ->header(new Thead())
+                    ->rows(new Tr())
+                    ->footer(new Tfoot()),
             ],
         ];
     }
@@ -321,7 +321,7 @@ class TableTest extends TestCase
 
     public function testImmutability(): void
     {
-        $tag = Table::tag();
+        $tag = new Table();
         $this->assertNotSame($tag, $tag->caption(null));
         $this->assertNotSame($tag, $tag->captionString(''));
         $this->assertNotSame($tag, $tag->columnGroups());

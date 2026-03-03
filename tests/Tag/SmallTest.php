@@ -13,7 +13,7 @@ final class SmallTest extends TestCase
     {
         $this->assertSame(
             '<small class="red">Hello</small>',
-            (string) Small::tag()
+            (string) new Small()
                 ->class('red')
                 ->content('Hello'),
         );

@@ -13,7 +13,7 @@ final class NormalTagTest extends TestCase
     {
         $this->assertSame(
             '<test id="main">content</test>',
-            TestNormalTag::tag()
+            new TestNormalTag()
                 ->id('main')
                 ->render(),
         );
@@ -23,7 +23,7 @@ final class NormalTagTest extends TestCase
     {
         $this->assertSame(
             '<test id="main">',
-            TestNormalTag::tag()
+            new TestNormalTag()
                 ->id('main')
                 ->open(),
         );
@@ -33,7 +33,7 @@ final class NormalTagTest extends TestCase
     {
         $this->assertSame(
             '</test>',
-            TestNormalTag::tag()
+            new TestNormalTag()
                 ->id('main')
                 ->close(),
         );

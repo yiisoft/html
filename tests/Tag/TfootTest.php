@@ -23,11 +23,11 @@ final class TfootTest extends TestCase
             . '<td>D</td>' . "\n"
             . '</tr>' . "\n"
             . '</tfoot>',
-            Tfoot::tag()
+            new Tfoot()
                 ->class('gray')
                 ->rows(
-                    Tr::tag()->dataStrings(['A', 'B']),
-                    Tr::tag()->dataStrings(['C', 'D']),
+                    new Tr()->dataStrings(['A', 'B']),
+                    new Tr()->dataStrings(['C', 'D']),
                 )
                 ->render(),
         );

@@ -15,10 +15,10 @@ final class HeaderTest extends TestCase
     {
         $this->assertSame(
             '<header><h1>Heading 1</h1><i>Hello Text</i></header>',
-            (string) Header::tag()
+            (string) new Header()
                 ->content(
-                    H1::tag()->content('Heading 1')
-                    . I::tag()->content('Hello Text'),
+                    new H1()->content('Heading 1')
+                    . new I()->content('Hello Text'),
                 )
                 ->encode(false),
         );

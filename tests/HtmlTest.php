@@ -122,7 +122,7 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<noscript></noscript>', Html::noscript()->render());
         $this->assertSame('<noscript>hello</noscript>', Html::noscript('hello')->render());
-        $this->assertSame('<noscript><div></div></noscript>', Html::noscript(Div::tag())->render());
+        $this->assertSame('<noscript><div></div></noscript>', Html::noscript(new Div())->render());
     }
 
     public function testTitle(): void

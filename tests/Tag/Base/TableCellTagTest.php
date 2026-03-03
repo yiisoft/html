@@ -21,7 +21,7 @@ final class TableCellTagTest extends TestCase
     #[DataProvider('dataColSpan')]
     public function testColSpan(string $expected, ?int $number): void
     {
-        $this->assertSame($expected, (string) TestTableCellTag::tag()->colSpan($number));
+        $this->assertSame($expected, (string) new TestTableCellTag()->colSpan($number));
     }
 
     public static function dataRowSpan(): array
@@ -35,12 +35,12 @@ final class TableCellTagTest extends TestCase
     #[DataProvider('dataRowSpan')]
     public function testRowSpan(string $expected, ?int $number): void
     {
-        $this->assertSame($expected, (string) TestTableCellTag::tag()->rowSpan($number));
+        $this->assertSame($expected, (string) new TestTableCellTag()->rowSpan($number));
     }
 
     public function testImmutability(): void
     {
-        $tag = TestTableCellTag::tag();
+        $tag = new TestTableCellTag();
         $this->assertNotSame($tag, $tag->colSpan(null));
         $this->assertNotSame($tag, $tag->rowSpan(null));
     }

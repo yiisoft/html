@@ -152,12 +152,12 @@ final class Select extends NormalTag
         $items = [];
         foreach ($data as $value => $content) {
             if (is_array($content)) {
-                $items[] = Optgroup::tag()
+                $items[] = new Optgroup()
                     ->label((string) $value)
                     ->addAttributes($groupsAttributes[$value] ?? [])
                     ->optionsData($content, $encode, $optionsAttributes);
             } else {
-                $items[] = Option::tag()
+                $items[] = new Option()
                     ->attributes($optionsAttributes[$value] ?? [])
                     ->value($value)
                     ->content($content)
@@ -174,7 +174,7 @@ final class Select extends NormalTag
     public function prompt(?string $text): self
     {
         $new = clone $this;
-        $new->prompt = $text === null ? null : Option::tag()
+        $new->prompt = $text === null ? null : new Option()
             ->value('')
             ->content($text);
         return $new;

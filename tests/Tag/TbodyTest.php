@@ -23,11 +23,11 @@ final class TbodyTest extends TestCase
             . '<td>D</td>' . "\n"
             . '</tr>' . "\n"
             . '</tbody>',
-            Tbody::tag()
+            new Tbody()
                 ->class('gray')
                 ->rows(
-                    Tr::tag()->dataStrings(['A', 'B']),
-                    Tr::tag()->dataStrings(['C', 'D']),
+                    new Tr()->dataStrings(['A', 'B']),
+                    new Tr()->dataStrings(['C', 'D']),
                 )
                 ->render(),
         );

@@ -12,11 +12,11 @@ final class DatalistTest extends TestCase
 {
     public function testBase(): void
     {
-        $tag = Datalist::tag()
+        $tag = new Datalist()
             ->id('numbers')
             ->content(
-                Option::tag()->value('One'),
-                Option::tag()->value('Two'),
+                new Option()->value('One'),
+                new Option()->value('Two'),
             );
 
         $this->assertSame(

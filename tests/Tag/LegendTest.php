@@ -11,7 +11,7 @@ final class LegendTest extends TestCase
 {
     public function testBase(): void
     {
-        $tag = Legend::tag()->content('Personal data');
+        $tag = new Legend()->content('Personal data');
         $this->assertSame('<legend>Personal data</legend>', $tag->render());
     }
 }

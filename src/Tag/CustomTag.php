@@ -44,7 +44,7 @@ final class CustomTag extends Tag
 
     private int $type = self::TYPE_AUTO;
 
-    private function __construct(
+    public function __construct(
         private string $name,
     ) {}
 
@@ -55,6 +55,7 @@ final class CustomTag extends Tag
      *
      * @psalm-param non-empty-string $name
      */
+    #[\Deprecated]
     public static function name(string $name): self
     {
         return new self($name);

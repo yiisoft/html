@@ -14,7 +14,7 @@ final class RangeTest extends TestCase
 {
     public function testBase(): void
     {
-        $tag = Range::tag()
+        $tag = new Range()
             ->name('opacity')
             ->min(0)
             ->max(100)
@@ -41,7 +41,7 @@ final class RangeTest extends TestCase
     #[DataProvider('dataMin')]
     public function testMin(string $expected, $value): void
     {
-        $tag = Range::tag()->min($value);
+        $tag = new Range()->min($value);
 
         $this->assertSame($expected, $tag->render());
     }
@@ -61,7 +61,7 @@ final class RangeTest extends TestCase
     #[DataProvider('dataMax')]
     public function testMax(string $expected, $value): void
     {
-        $tag = Range::tag()->max($value);
+        $tag = new Range()->max($value);
 
         $this->assertSame($expected, $tag->render());
     }
@@ -81,7 +81,7 @@ final class RangeTest extends TestCase
     #[DataProvider('dataStep')]
     public function testStep(string $expected, $value): void
     {
-        $tag = Range::tag()->step($value);
+        $tag = new Range()->step($value);
 
         $this->assertSame($expected, $tag->render());
     }
@@ -97,14 +97,14 @@ final class RangeTest extends TestCase
     #[DataProvider('dataList')]
     public function testList(string $expected, $value): void
     {
-        $tag = Range::tag()->list($value);
+        $tag = new Range()->list($value);
 
         $this->assertSame($expected, $tag->render());
     }
 
     public function testShowOutput(): void
     {
-        $tag = Range::tag()->showOutput();
+        $tag = new Range()->showOutput();
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" '
@@ -116,7 +116,7 @@ final class RangeTest extends TestCase
 
     public function testAddOutputAttributes(): void
     {
-        $tag = Range::tag()
+        $tag = new Range()
             ->showOutput()
             ->addOutputAttributes(['class' => 'red'])
             ->addOutputAttributes(['id' => 'UID']);
@@ -131,7 +131,7 @@ final class RangeTest extends TestCase
 
     public function testReplaceOutputAttributes(): void
     {
-        $tag = Range::tag()
+        $tag = new Range()
             ->showOutput()
             ->addOutputAttributes(['class' => 'red'])
             ->outputAttributes(['id' => 'UID']);
@@ -146,7 +146,7 @@ final class RangeTest extends TestCase
 
     public function testOutputWithCustomId(): void
     {
-        $tag = Range::tag()
+        $tag = new Range()
             ->showOutput()
             ->outputAttributes(['id' => 'UID']);
 
@@ -160,7 +160,7 @@ final class RangeTest extends TestCase
 
     public function testOutputWithCustomTag(): void
     {
-        $tag = Range::tag()
+        $tag = new Range()
             ->showOutput()
             ->outputTag('b');
 
@@ -174,7 +174,7 @@ final class RangeTest extends TestCase
 
     public function testOutputWithCustomAttributes(): void
     {
-        $tag = Range::tag()
+        $tag = new Range()
             ->showOutput()
             ->outputAttributes(['class' => 'red']);
 
@@ -188,7 +188,7 @@ final class RangeTest extends TestCase
 
     public function testOutputWithValue(): void
     {
-        $tag = Range::tag()
+        $tag = new Range()
             ->showOutput()
             ->value(10);
 
@@ -202,7 +202,7 @@ final class RangeTest extends TestCase
 
     public function testEmptyOutputTag(): void
     {
-        $tag = Range::tag();
+        $tag = new Range();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The output tag name it cannot be empty value.');
@@ -211,7 +211,7 @@ final class RangeTest extends TestCase
 
     public function testImmutability(): void
     {
-        $tag = Range::tag();
+        $tag = new Range();
 
         $this->assertNotSame($tag, $tag->min(null));
         $this->assertNotSame($tag, $tag->max(null));

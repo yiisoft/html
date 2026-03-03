@@ -10,8 +10,9 @@ namespace Yiisoft\Html\Tag\Base;
  */
 abstract class VoidTag extends Tag
 {
-    final private function __construct() {}
+    final public function __construct() {}
 
+    #[\Deprecated]
     final public static function tag(): static
     {
         return new static();
