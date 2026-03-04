@@ -11,9 +11,12 @@ abstract class NormalTag extends Tag
 {
     final public function __construct() {}
 
-    #[\Deprecated]
+    /**
+     * @deprecated use the constructor instead
+     */
     final public static function tag(): static
     {
+        trigger_error('use the constructor instead', E_USER_DEPRECATED);
         return new static();
     }
 

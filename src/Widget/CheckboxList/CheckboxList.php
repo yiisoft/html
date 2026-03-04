@@ -62,9 +62,12 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $this->render();
     }
 
-    #[\Deprecated]
+    /**
+     * @deprecated use the constructor instead
+     */
     public static function create(string $name): self
     {
+        trigger_error('use the constructor instead', E_USER_DEPRECATED);
         return new self($name);
     }
 
