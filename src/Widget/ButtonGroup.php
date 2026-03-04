@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Button;
+use Deprecated;
 
 use function is_array;
 use function is_string;
@@ -34,7 +35,7 @@ final class ButtonGroup implements NoEncodeStringableInterface
         return $this->render();
     }
 
-    #[\Deprecated('use the constructor instead')]
+    #[Deprecated('use the constructor instead')]
     public static function create(): self
     {
         return new self();

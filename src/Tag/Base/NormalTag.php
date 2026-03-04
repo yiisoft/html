@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+use Deprecated;
+
 /**
  * Base for all normal tags. Normal tags are the ones that have both opening tag and closing tag.
  */
@@ -11,7 +13,7 @@ abstract class NormalTag extends Tag
 {
     final public function __construct() {}
 
-    #[\Deprecated('use the constructor instead')]
+    #[Deprecated('use the constructor instead')]
     final public static function tag(): static
     {
         return new static();
