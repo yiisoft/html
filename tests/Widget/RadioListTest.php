@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tests\Widget;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use ReflectionFunction;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
 use Yiisoft\Html\Tests\Support\StringEnum;
@@ -841,5 +842,11 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->uncheckValue(null));
         $this->assertNotSame($widget, $widget->separator(''));
         $this->assertNotSame($widget, $widget->itemFormatter(null));
+    }
+
+    public function testDeprecation(): void
+    {
+        $func = new ReflectionFunction(RadioList::create(...));
+        $this->assertTrue($func->isDeprecated());
     }
 }

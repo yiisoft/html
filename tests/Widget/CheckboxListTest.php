@@ -7,6 +7,7 @@ namespace Yiisoft\Html\Tests\Widget;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use ReflectionFunction;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tests\Objects\IterableObject;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
@@ -890,5 +891,11 @@ final class CheckboxListTest extends TestCase
         $this->assertNotSame($widget, $widget->uncheckValue(null));
         $this->assertNotSame($widget, $widget->separator(''));
         $this->assertNotSame($widget, $widget->itemFormatter(null));
+    }
+
+    public function testDeprecation(): void
+    {
+        $func = new ReflectionFunction(CheckboxList::create(...));
+        $this->assertTrue($func->isDeprecated());
     }
 }
