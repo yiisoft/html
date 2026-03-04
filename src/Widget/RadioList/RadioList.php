@@ -10,6 +10,7 @@ use Stringable;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Input;
+use Deprecated;
 
 /**
  * `RadioList` represents a list of radios and their corresponding labels.
@@ -56,7 +57,7 @@ final class RadioList implements NoEncodeStringableInterface
         return $this->render();
     }
 
-    #[\Deprecated('use the constructor instead')]
+    #[Deprecated('use the constructor instead')]
     public static function create(string $name): self
     {
         return new self($name);

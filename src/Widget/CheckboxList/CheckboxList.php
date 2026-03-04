@@ -11,6 +11,7 @@ use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Input;
+use Deprecated;
 
 use function is_array;
 
@@ -62,7 +63,7 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $this->render();
     }
 
-    #[\Deprecated('use the constructor instead')]
+    #[Deprecated('use the constructor instead')]
     public static function create(string $name): self
     {
         return new self($name);

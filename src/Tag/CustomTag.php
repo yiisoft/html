@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tag;
 
 use Yiisoft\Html\Tag\Base\Tag;
 use Yiisoft\Html\Tag\Base\TagContentTrait;
+use Deprecated;
 
 /**
  * Custom HTML tag.
@@ -55,7 +56,7 @@ final class CustomTag extends Tag
      *
      * @psalm-param non-empty-string $name
      */
-     #[\Deprecated('use the constructor instead')]
+    #[Deprecated('use the constructor instead')]
     public static function name(string $name): self
     {
         return new self($name);
