@@ -12,12 +12,9 @@ abstract class VoidTag extends Tag
 {
     final public function __construct() {}
 
-    /**
-     * @deprecated use the constructor instead
-     */
+    #[\Deprecated]
     final public static function tag(): static
     {
-        trigger_error('use the constructor instead', E_USER_DEPRECATED);
         return new static();
     }
 

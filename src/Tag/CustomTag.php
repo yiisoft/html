@@ -54,12 +54,10 @@ final class CustomTag extends Tag
      * @param string $name Name of the tag.
      *
      * @psalm-param non-empty-string $name
-     *
-     * @deprecated use the constructor instead
      */
+    #[\Deprecated]
     public static function name(string $name): self
     {
-        trigger_error('use the constructor instead', E_USER_DEPRECATED);
         return new self($name);
     }
 
