@@ -57,7 +57,7 @@ final class RadioList implements NoEncodeStringableInterface
         return $this->render();
     }
 
-    #[Deprecated('use the constructor instead')]
+    #[Deprecated('Use the constructor instead.')]
     public static function create(string $name): self
     {
         return new self($name);
