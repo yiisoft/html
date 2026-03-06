@@ -26,8 +26,8 @@ final class TfootTest extends TestCase
             new Tfoot()
                 ->class('gray')
                 ->rows(
-                    new Tr()->dataStrings(['A', 'B']),
-                    new Tr()->dataStrings(['C', 'D']),
+                    (new Tr())->dataStrings(['A', 'B']),
+                    (new Tr())->dataStrings(['C', 'D']),
                 )
                 ->render(),
         );

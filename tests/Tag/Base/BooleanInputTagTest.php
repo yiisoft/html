@@ -12,8 +12,8 @@ final class BooleanInputTagTest extends TestCase
 {
     public function testChecked(): void
     {
-        $this->assertSame('<input type="test" checked>', (string) new TestBooleanInputTag()->checked());
-        $this->assertSame('<input type="test">', (string) new TestBooleanInputTag()->checked(false));
+        $this->assertSame('<input type="test" checked>', (string) (new TestBooleanInputTag())->checked());
+        $this->assertSame('<input type="test">', (string) (new TestBooleanInputTag())->checked(false));
         $this->assertSame('<input type="test">', (string) new TestBooleanInputTag()
             ->checked(true)
             ->checked(false));

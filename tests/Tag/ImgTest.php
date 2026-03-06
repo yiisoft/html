@@ -31,8 +31,8 @@ final class ImgTest extends TestCase
     #[DataProvider('dataUrl')]
     public function testUrl(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string) new Img()->url($url));
-        $this->assertSame($expected, (string) new Img()->src($url));
+        $this->assertSame($expected, (string) (new Img())->url($url));
+        $this->assertSame($expected, (string) (new Img())->src($url));
     }
 
     public static function dataSrcset(): array
@@ -48,7 +48,7 @@ final class ImgTest extends TestCase
     #[DataProvider('dataSrcset')]
     public function testSrcset(string $expected, array $items): void
     {
-        $this->assertSame($expected, (string) new Img()->srcset(...$items));
+        $this->assertSame($expected, (string) (new Img())->srcset(...$items));
     }
 
     public static function dataSrcsetData(): array
@@ -70,7 +70,7 @@ final class ImgTest extends TestCase
     #[DataProvider('dataSrcsetData')]
     public function testSrcsetData(string $expected, array $items): void
     {
-        $this->assertSame($expected, (string) new Img()->srcsetData($items));
+        $this->assertSame($expected, (string) (new Img())->srcsetData($items));
     }
 
     public static function dataAlt(): array
@@ -84,7 +84,7 @@ final class ImgTest extends TestCase
     #[DataProvider('dataAlt')]
     public function testAlt(string $expected, ?string $text): void
     {
-        $this->assertSame($expected, (string) new Img()->alt($text));
+        $this->assertSame($expected, (string) (new Img())->alt($text));
     }
 
     public static function dataWidth(): array
@@ -99,7 +99,7 @@ final class ImgTest extends TestCase
     #[DataProvider('dataWidth')]
     public function testWidth(string $expected, $width): void
     {
-        $this->assertSame($expected, (string) new Img()->width($width));
+        $this->assertSame($expected, (string) (new Img())->width($width));
     }
 
     public static function dataHeight(): array
@@ -114,7 +114,7 @@ final class ImgTest extends TestCase
     #[DataProvider('dataHeight')]
     public function testHeight(string $expected, $height): void
     {
-        $this->assertSame($expected, (string) new Img()->height($height));
+        $this->assertSame($expected, (string) (new Img())->height($height));
     }
 
     public static function dataSize(): array
@@ -129,7 +129,7 @@ final class ImgTest extends TestCase
     #[DataProvider('dataSize')]
     public function testSize(string $expected, $width, $height): void
     {
-        $this->assertSame($expected, (string) new Img()->size($width, $height));
+        $this->assertSame($expected, (string) (new Img())->size($width, $height));
     }
 
     public static function dataLoading(): array
@@ -144,7 +144,7 @@ final class ImgTest extends TestCase
     #[DataProvider('dataLoading')]
     public function testLoading(string $expected, ?string $loading): void
     {
-        $this->assertSame($expected, (string) new Img()->loading($loading));
+        $this->assertSame($expected, (string) (new Img())->loading($loading));
     }
 
     public function testImmutability(): void

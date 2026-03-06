@@ -23,7 +23,7 @@ final class VideoTest extends TestCase
             . '</video>',
             (string) new Video()
                 ->controls()
-                ->sources(new Source()->src('a.mp4'), new Source()->src('b.avi'))
+                ->sources(new Source()->src('a.mp4'), (new Source())->src('b.avi'))
                 ->tracks(new Track()->src('c.mp4'))
                 ->fallback('Your browser does not support video.'),
         );
@@ -40,7 +40,7 @@ final class VideoTest extends TestCase
     #[DataProvider('dataPoster')]
     public function testPoster(string $expected, ?string $poster): void
     {
-        $this->assertSame($expected, (string) new Video()->poster($poster));
+        $this->assertSame($expected, (string) (new Video())->poster($poster));
     }
 
     public static function dataWidth(): array
@@ -55,7 +55,7 @@ final class VideoTest extends TestCase
     #[DataProvider('dataWidth')]
     public function testWidth(string $expected, $width): void
     {
-        $this->assertSame($expected, (string) new Video()->width($width));
+        $this->assertSame($expected, (string) (new Video())->width($width));
     }
 
     public static function dataHeight(): array
@@ -70,7 +70,7 @@ final class VideoTest extends TestCase
     #[DataProvider('dataHeight')]
     public function testHeight(string $expected, $height): void
     {
-        $this->assertSame($expected, (string) new Video()->height($height));
+        $this->assertSame($expected, (string) (new Video())->height($height));
     }
 
     public function testImmutability(): void

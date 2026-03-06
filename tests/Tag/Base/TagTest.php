@@ -62,8 +62,8 @@ final class TagTest extends TestCase
     #[DataProvider('dataAttributes')]
     public function testAttributes(string $expected, array $attributes): void
     {
-        $this->assertSame($expected, (string) new TestTag()->addAttributes($attributes));
-        $this->assertSame($expected, (string) new TestTag()->attributes($attributes));
+        $this->assertSame($expected, (string) (new TestTag())->addAttributes($attributes));
+        $this->assertSame($expected, (string) (new TestTag())->attributes($attributes));
     }
 
     public function testAttributesMerge(): void
@@ -129,7 +129,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataId')]
     public function testId(string $expected, ?string $id): void
     {
-        $this->assertSame($expected, (string) new TestTag()->id($id));
+        $this->assertSame($expected, (string) (new TestTag())->id($id));
     }
 
     public static function dataAddClass(): array
@@ -168,7 +168,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataNewClass')]
     public function testNewClass(string $expected, ?string $class): void
     {
-        $this->assertSame($expected, (string) new TestTag()->addClass($class));
+        $this->assertSame($expected, (string) (new TestTag())->addClass($class));
     }
 
     public static function dataClass(): array
@@ -206,13 +206,13 @@ final class TagTest extends TestCase
     #[DataProvider('dataAddStyle')]
     public function testAddStyle(string $expected, array|string $style): void
     {
-        $result = (string) new TestTag()->addStyle($style);
+        $result = (string) (new TestTag())->addStyle($style);
         $this->assertSame($expected, $result);
     }
 
     public function testAddStyleMerging(): void
     {
-        $tag = new TestTag()->addStyle('width: 100px;');
+        $tag = (new TestTag())->addStyle('width: 100px;');
 
         $result = (string) $tag->addStyle(['width' => '200px', 'height' => '300px']);
 
@@ -224,7 +224,7 @@ final class TagTest extends TestCase
 
     public function testAddStyleMergingWithoutOverwrite(): void
     {
-        $tag = new TestTag()->addStyle('width: 100px;');
+        $tag = (new TestTag())->addStyle('width: 100px;');
 
         $result = (string) $tag->addStyle(['width' => '200px', 'height' => '300px'], false);
 
@@ -236,7 +236,7 @@ final class TagTest extends TestCase
 
     public function testAddStyleWithExistingAttribute(): void
     {
-        $tag = new TestTag()->attribute('style', 'color: red;');
+        $tag = (new TestTag())->attribute('style', 'color: red;');
 
         $result = (string) $tag->addStyle('width: 100px;');
 
@@ -255,17 +255,17 @@ final class TagTest extends TestCase
         ];
         yield [
             '<test>',
-            new TestTag()->addStyle('width: 100px;'),
+            (new TestTag())->addStyle('width: 100px;'),
             'width',
         ];
         yield [
             '<test style="height: 100px;">',
-            new TestTag()->addStyle('height: 100px; width: 100px;'),
+            (new TestTag())->addStyle('height: 100px; width: 100px;'),
             'width',
         ];
         yield [
             '<test style="color: red;">',
-            new TestTag()->addStyle('height: 100px; width: 100px; color: red;'),
+            (new TestTag())->addStyle('height: 100px; width: 100px; color: red;'),
             ['width', 'height'],
         ];
     }

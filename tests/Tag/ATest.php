@@ -31,7 +31,7 @@ final class ATest extends TestCase
     #[DataProvider('dataHref')]
     public function testHref(string $expected, ?string $href): void
     {
-        $this->assertSame($expected, (string) new A()->href($href));
+        $this->assertSame($expected, (string) (new A())->href($href));
     }
 
     public static function dataUrl(): array
@@ -45,7 +45,7 @@ final class ATest extends TestCase
     #[DataProvider('dataUrl')]
     public function testUrl(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string) new A()->url($url));
+        $this->assertSame($expected, (string) (new A())->url($url));
     }
 
     public static function dataMailto(): array
@@ -59,7 +59,7 @@ final class ATest extends TestCase
     #[DataProvider('dataMailto')]
     public function testMailto(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string) new A()->mailto($url));
+        $this->assertSame($expected, (string) (new A())->mailto($url));
     }
 
     public static function dataRel(): array
@@ -76,12 +76,12 @@ final class ATest extends TestCase
     #[DataProvider('dataRel')]
     public function testRel(string $expected, ?string $rel): void
     {
-        $this->assertSame($expected, (string) new A()->rel($rel));
+        $this->assertSame($expected, (string) (new A())->rel($rel));
     }
 
     public function testNofollow(): void
     {
-        $this->assertSame('<a rel="nofollow"></a>', (string) new A()->nofollow());
+        $this->assertSame('<a rel="nofollow"></a>', (string) (new A())->nofollow());
     }
 
     public static function dataTarget(): array
@@ -95,7 +95,7 @@ final class ATest extends TestCase
     #[DataProvider('dataTarget')]
     public function testTarget(string $expected, ?string $contextName): void
     {
-        $this->assertSame($expected, (string) new A()->target($contextName));
+        $this->assertSame($expected, (string) (new A())->target($contextName));
     }
 
     public function testImmutability(): void

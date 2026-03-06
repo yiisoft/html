@@ -15,8 +15,8 @@ final class DatalistTest extends TestCase
         $tag = new Datalist()
             ->id('numbers')
             ->content(
-                new Option()->value('One'),
-                new Option()->value('Two'),
+                (new Option())->value('One'),
+                (new Option())->value('Two'),
             );
 
         $this->assertSame(

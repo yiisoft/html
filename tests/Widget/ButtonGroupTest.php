@@ -34,7 +34,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testWithoutButtons(): void
     {
-        $this->assertSame('', new ButtonGroup()->render());
+        $this->assertSame('', (new ButtonGroup())->render());
     }
 
     public function testButtonsData(): void

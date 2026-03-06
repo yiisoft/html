@@ -17,7 +17,7 @@ final class CaptionTest extends TestCase
             new Caption()
                 ->content(
                     'Table ',
-                    new CustomTag('b')->content('Caption'),
+                    (new CustomTag('b'))->content('Caption'),
                 )
                 ->render(),
         );

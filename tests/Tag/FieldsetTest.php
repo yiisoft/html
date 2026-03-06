@@ -65,7 +65,7 @@ final class FieldsetTest extends TestCase
     #[DataProvider('dataLegend')]
     public function testLegend(string $expected, $content, array $attributes = []): void
     {
-        $tag = new Fieldset()->legend($content, $attributes);
+        $tag = (new Fieldset())->legend($content, $attributes);
 
         $this->assertSame($expected, $tag->render());
     }
@@ -93,7 +93,7 @@ final class FieldsetTest extends TestCase
     #[DataProvider('dataLegendTag')]
     public function testLegendTag(string $expected, ?Legend $legend): void
     {
-        $tag = new Fieldset()->legendTag($legend);
+        $tag = (new Fieldset())->legendTag($legend);
 
         $this->assertSame($expected, $tag->render());
     }
@@ -119,14 +119,14 @@ final class FieldsetTest extends TestCase
     #[DataProvider('dataDisabled')]
     public function testDisabled(string $expected, ?bool $disabled): void
     {
-        $tag = new Fieldset()->disabled($disabled);
+        $tag = (new Fieldset())->disabled($disabled);
 
         $this->assertSame($expected, $tag->render());
     }
 
     public function testDisabledDefault(): void
     {
-        $tag = new Fieldset()->disabled();
+        $tag = (new Fieldset())->disabled();
 
         $this->assertSame('<fieldset disabled></fieldset>', $tag->render());
     }
@@ -142,7 +142,7 @@ final class FieldsetTest extends TestCase
     #[DataProvider('dataForm')]
     public function testForm(string $expected, ?string $formId): void
     {
-        $tag = new Fieldset()->form($formId);
+        $tag = (new Fieldset())->form($formId);
 
         $this->assertSame($expected, $tag->render());
     }
@@ -158,7 +158,7 @@ final class FieldsetTest extends TestCase
     #[DataProvider('dataProviderName')]
     public function testName(string $expected, ?string $formId): void
     {
-        $tag = new Fieldset()->name($formId);
+        $tag = (new Fieldset())->name($formId);
 
         $this->assertSame($expected, $tag->render());
     }

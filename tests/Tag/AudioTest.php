@@ -22,7 +22,7 @@ final class AudioTest extends TestCase
             . '</audio>',
             (string) new Audio()
                 ->controls()
-                ->sources(new Source()->src('a.mp3'), new Source()->src('b.ogg'))
+                ->sources(new Source()->src('a.mp3'), (new Source())->src('b.ogg'))
                 ->tracks(new Track()->src('c.mp3'))
                 ->fallback('Your browser does not support audio.'),
         );

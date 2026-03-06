@@ -13,7 +13,7 @@ final class BodyTest extends TestCase
     {
         $this->assertSame(
             '<body>Welcome!</body>',
-            (string) new Body()->content('Welcome!'),
+            (string) (new Body())->content('Welcome!'),
         );
     }
 

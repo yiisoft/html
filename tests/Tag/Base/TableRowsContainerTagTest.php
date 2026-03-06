@@ -12,9 +12,9 @@ final class TableRowsContainerTagTest extends TestCase
 {
     public function testRows(): void
     {
-        $tag = new TestTableRowsContainerTag()->rows(
-            new Tr()->dataStrings(['A', 'B']),
-            new Tr()->dataStrings(['C', 'D']),
+        $tag = (new TestTableRowsContainerTag())->rows(
+            (new Tr())->dataStrings(['A', 'B']),
+            (new Tr())->dataStrings(['C', 'D']),
         );
 
         $this->assertSame(
@@ -36,11 +36,11 @@ final class TableRowsContainerTagTest extends TestCase
     {
         $tag = new TestTableRowsContainerTag()
             ->rows(
-                new Tr()->dataStrings(['A', 'B']),
+                (new Tr())->dataStrings(['A', 'B']),
             )
             ->addRows(
-                new Tr()->dataStrings(['C', 'D']),
-                new Tr()->dataStrings(['E', 'F']),
+                (new Tr())->dataStrings(['C', 'D']),
+                (new Tr())->dataStrings(['E', 'F']),
             );
 
         $this->assertSame(

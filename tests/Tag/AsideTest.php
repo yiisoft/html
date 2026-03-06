@@ -17,8 +17,8 @@ final class AsideTest extends TestCase
             '<aside><h2>Hello</h2><p>Aside Tag Content</p></aside>',
             (string) new Aside()
                 ->content(
-                    new H2()->content('Hello')
-                    . new P()->content('Aside Tag Content'),
+                    (new H2())->content('Hello')
+                    . (new P())->content('Aside Tag Content'),
                 )
                 ->encode(false),
         );

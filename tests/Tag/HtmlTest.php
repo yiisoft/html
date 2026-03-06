@@ -14,7 +14,7 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<html>Welcome!</html>',
-            (string) new Html()->content('Welcome!'),
+            (string) (new Html())->content('Welcome!'),
         );
     }
 
@@ -42,7 +42,7 @@ final class HtmlTest extends TestCase
     #[DataProvider('dataLang')]
     public function testLang(string $expected, ?string $href): void
     {
-        $this->assertSame($expected, (string) new Html()->lang($href));
+        $this->assertSame($expected, (string) (new Html())->lang($href));
     }
 
     public function testImmutability(): void

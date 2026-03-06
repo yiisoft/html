@@ -26,8 +26,8 @@ final class TheadTest extends TestCase
             new Thead()
                 ->class('gray')
                 ->rows(
-                    new Tr()->dataStrings(['A', 'B']),
-                    new Tr()->dataStrings(['C', 'D']),
+                    (new Tr())->dataStrings(['A', 'B']),
+                    (new Tr())->dataStrings(['C', 'D']),
                 )
                 ->render(),
         );

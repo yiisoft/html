@@ -12,9 +12,9 @@ final class ListTagTest extends TestCase
 {
     public function testItems(): void
     {
-        $tag = new TestListTag()->items(
-            new Li()->content('A'),
-            new Li()->content('B'),
+        $tag = (new TestListTag())->items(
+            (new Li())->content('A'),
+            (new Li())->content('B'),
         );
 
         $this->assertSame("<test>\n<li>A</li>\n<li>B</li>\n</test>", (string) $tag);
@@ -22,14 +22,14 @@ final class ListTagTest extends TestCase
 
     public function testStrings(): void
     {
-        $tag = new TestListTag()->strings(['A', 'B']);
+        $tag = (new TestListTag())->strings(['A', 'B']);
 
         $this->assertSame("<test>\n<li>A</li>\n<li>B</li>\n</test>", (string) $tag);
     }
 
     public function testStringsAttributes(): void
     {
-        $tag = new TestListTag()->strings(['A', 'B'], ['class' => 'red']);
+        $tag = (new TestListTag())->strings(['A', 'B'], ['class' => 'red']);
 
         $this->assertSame(
             "<test>\n<li class=\"red\">A</li>\n<li class=\"red\">B</li>\n</test>",
@@ -39,7 +39,7 @@ final class ListTagTest extends TestCase
 
     public function testStringsEncode(): void
     {
-        $tag = new TestListTag()->strings(['<b>A</b>', '<b>B</b>']);
+        $tag = (new TestListTag())->strings(['<b>A</b>', '<b>B</b>']);
 
         $this->assertSame(
             "<test>\n<li>&lt;b&gt;A&lt;/b&gt;</li>\n<li>&lt;b&gt;B&lt;/b&gt;</li>\n</test>",
@@ -49,7 +49,7 @@ final class ListTagTest extends TestCase
 
     public function testStringsWithoutEncode(): void
     {
-        $tag = new TestListTag()->strings(['<b>A</b>', '<b>B</b>'], [], false);
+        $tag = (new TestListTag())->strings(['<b>A</b>', '<b>B</b>'], [], false);
 
         $this->assertSame("<test>\n<li><b>A</b></li>\n<li><b>B</b></li>\n</test>", (string) $tag);
     }

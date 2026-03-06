@@ -120,7 +120,7 @@ final class InputTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string) new Input()->type($type));
+        $this->assertSame($expected, (string) (new Input())->type($type));
     }
 
     public function testImmutability(): void

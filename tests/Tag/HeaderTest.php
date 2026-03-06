@@ -17,8 +17,8 @@ final class HeaderTest extends TestCase
             '<header><h1>Heading 1</h1><i>Hello Text</i></header>',
             (string) new Header()
                 ->content(
-                    new H1()->content('Heading 1')
-                    . new I()->content('Hello Text'),
+                    (new H1())->content('Heading 1')
+                    . (new I())->content('Hello Text'),
                 )
                 ->encode(false),
         );

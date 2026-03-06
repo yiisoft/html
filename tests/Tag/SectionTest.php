@@ -17,8 +17,8 @@ final class SectionTest extends TestCase
             '<section><h1>Section Heading</h1><p>Section Content</p></section>',
             (string) new Section()
                 ->content(
-                    new H1()->content('Section Heading')
-                    . new P()->content('Section Content'),
+                    (new H1())->content('Section Heading')
+                    . (new P())->content('Section Content'),
                 )
                 ->encode(false),
         );

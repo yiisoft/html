@@ -79,13 +79,13 @@ final class ButtonTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string) new Button()->type($type));
+        $this->assertSame($expected, (string) (new Button())->type($type));
     }
 
     public function testDisabled(): void
     {
-        $this->assertSame('<button disabled></button>', (string) new Button()->disabled());
-        $this->assertSame('<button></button>', (string) new Button()->disabled(false));
+        $this->assertSame('<button disabled></button>', (string) (new Button())->disabled());
+        $this->assertSame('<button></button>', (string) (new Button())->disabled(false));
         $this->assertSame('<button></button>', (string) new Button()
             ->disabled(true)
             ->disabled(false));

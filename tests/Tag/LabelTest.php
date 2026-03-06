@@ -31,7 +31,7 @@ final class LabelTest extends TestCase
     #[DataProvider('dataForId')]
     public function testForId(string $expected, ?string $id): void
     {
-        $this->assertSame($expected, (string) new Label()->forId($id));
+        $this->assertSame($expected, (string) (new Label())->forId($id));
     }
 
     public function testImmutability(): void

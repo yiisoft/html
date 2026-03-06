@@ -34,7 +34,7 @@ final class ColTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new Col()->span($span)->render(),
+            (new Col())->span($span)->render(),
         );
     }
 

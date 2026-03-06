@@ -22,7 +22,7 @@ final class InputTagTest extends TestCase
     #[DataProvider('dataProviderName')]
     public function testName(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string) new TestInputTag()->name($name));
+        $this->assertSame($expected, (string) (new TestInputTag())->name($name));
     }
 
     public static function dataValue(): array
@@ -42,7 +42,7 @@ final class InputTagTest extends TestCase
     #[DataProvider('dataValue')]
     public function testValue(string $expected, $value): void
     {
-        $this->assertSame($expected, (string) new TestInputTag()->value($value));
+        $this->assertSame($expected, (string) (new TestInputTag())->value($value));
     }
 
     public static function dataForm(): array
@@ -64,8 +64,8 @@ final class InputTagTest extends TestCase
 
     public function testReadonly(): void
     {
-        $this->assertSame('<input readonly>', (string) new TestInputTag()->readonly());
-        $this->assertSame('<input>', (string) new TestInputTag()->readonly(false));
+        $this->assertSame('<input readonly>', (string) (new TestInputTag())->readonly());
+        $this->assertSame('<input>', (string) (new TestInputTag())->readonly(false));
         $this->assertSame('<input>', (string) new TestInputTag()
             ->readonly(true)
             ->readonly(false));
@@ -73,8 +73,8 @@ final class InputTagTest extends TestCase
 
     public function testRequired(): void
     {
-        $this->assertSame('<input required>', (string) new TestInputTag()->required());
-        $this->assertSame('<input>', (string) new TestInputTag()->required(false));
+        $this->assertSame('<input required>', (string) (new TestInputTag())->required());
+        $this->assertSame('<input>', (string) (new TestInputTag())->required(false));
         $this->assertSame('<input>', (string) new TestInputTag()
             ->required(true)
             ->required(false));
@@ -82,8 +82,8 @@ final class InputTagTest extends TestCase
 
     public function testDisabled(): void
     {
-        $this->assertSame('<input disabled>', (string) new TestInputTag()->disabled());
-        $this->assertSame('<input>', (string) new TestInputTag()->disabled(false));
+        $this->assertSame('<input disabled>', (string) (new TestInputTag())->disabled());
+        $this->assertSame('<input>', (string) (new TestInputTag())->disabled(false));
         $this->assertSame('<input>', (string) new TestInputTag()
             ->disabled(true)
             ->disabled(false));

@@ -35,9 +35,9 @@ final class ColgroupTest extends TestCase
 
     public function testColumns(): void
     {
-        $tag = new Colgroup()->columns(
+        $tag = (new Colgroup())->columns(
             new Col(),
-            new Col()->span(2),
+            (new Col())->span(2),
         );
 
         $this->assertSame(
@@ -54,11 +54,11 @@ final class ColgroupTest extends TestCase
         $tag = new Colgroup()
             ->columns(
                 new Col(),
-                new Col()->span(2),
+                (new Col())->span(2),
             )
             ->addColumns(
-                new Col()->span(3),
-                new Col()->span(4),
+                (new Col())->span(3),
+                (new Col())->span(4),
             );
 
         $this->assertSame(

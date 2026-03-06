@@ -65,7 +65,7 @@ final class MetaTest extends TestCase
     #[DataProvider('dataProviderName')]
     public function testName(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string) new Meta()->name($name));
+        $this->assertSame($expected, (string) (new Meta())->name($name));
     }
 
     public static function dataHttpEquiv(): array
@@ -80,7 +80,7 @@ final class MetaTest extends TestCase
     #[DataProvider('dataHttpEquiv')]
     public function testHttpEquiv(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string) new Meta()->httpEquiv($name));
+        $this->assertSame($expected, (string) (new Meta())->httpEquiv($name));
     }
 
     public static function dataContent(): array
@@ -95,7 +95,7 @@ final class MetaTest extends TestCase
     #[DataProvider('dataContent')]
     public function testContent(string $expected, ?string $content): void
     {
-        $this->assertSame($expected, (string) new Meta()->content($content));
+        $this->assertSame($expected, (string) (new Meta())->content($content));
     }
 
     public static function dataCharset(): array
@@ -110,7 +110,7 @@ final class MetaTest extends TestCase
     #[DataProvider('dataCharset')]
     public function testCharset(string $expected, ?string $charset): void
     {
-        $this->assertSame($expected, (string) new Meta()->charset($charset));
+        $this->assertSame($expected, (string) (new Meta())->charset($charset));
     }
 
     public function testImmutability(): void

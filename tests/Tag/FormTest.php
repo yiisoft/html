@@ -75,7 +75,7 @@ final class FormTest extends TestCase
 
     public function testCsrf(): void
     {
-        $tag = new Form()->csrf('abc', 'csrf-token');
+        $tag = (new Form())->csrf('abc', 'csrf-token');
 
         $this->assertSame(
             '<form>' . "\n"

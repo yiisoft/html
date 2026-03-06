@@ -17,8 +17,8 @@ final class FooterTest extends TestCase
             '<footer><h3>Heading 1</h3><p>Hello Text</p></footer>',
             (string) new Footer()
                 ->content(
-                    new H3()->content('Heading 1')
-                    . new P()->content('Hello Text'),
+                    (new H3())->content('Heading 1')
+                    . (new P())->content('Hello Text'),
                 )
                 ->encode(false),
         );

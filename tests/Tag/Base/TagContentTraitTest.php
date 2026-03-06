@@ -52,10 +52,10 @@ final class TagContentTraitTest extends TestCase
         return [
             'string' => ['<test>hello</test>', 'hello'],
             'string-tag' => ['<test>&lt;p&gt;Hi!&lt;/p&gt;</test>', '<p>Hi!</p>'],
-            'object-tag' => ['<test><p>Hi!</p></test>', new P()->content('Hi!')],
+            'object-tag' => ['<test><p>Hi!</p></test>', (new P())->content('Hi!')],
             'array' => [
                 '<test>Hello &gt; <span>World</span>!</test>',
-                ['Hello', ' > ', new Span()->content('World'), '!'],
+                ['Hello', ' > ', (new Span())->content('World'), '!'],
             ],
         ];
     }
@@ -117,7 +117,7 @@ final class TagContentTraitTest extends TestCase
 
     public function testContentArray(): void
     {
-        $tag = new TestTagContentTrait()->content(a: '1', b: '2');
+        $tag = (new TestTagContentTrait())->content(a: '1', b: '2');
 
         $this->assertSame(['1', '2'], $tag->getContentArray());
     }

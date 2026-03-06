@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## ?.?.0
+## 3.13.0
 
 - Enh #243: Use `new tagName()` instead of static constructor `tagName::tag()` (@razvbir)
 

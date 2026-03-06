@@ -31,20 +31,20 @@ final class OptionTest extends TestCase
     #[DataProvider('dataValue')]
     public function testValue(string $expected, ?string $value): void
     {
-        $this->assertSame($expected, (string) new Option()->value($value));
+        $this->assertSame($expected, (string) (new Option())->value($value));
     }
 
     public function testSelected(): void
     {
-        $this->assertSame('<option selected></option>', (string) new Option()->selected());
-        $this->assertSame('<option></option>', (string) new Option()->selected(false));
-        $this->assertSame('<option></option>', (string) new Option()->selected(true)->selected(false));
+        $this->assertSame('<option selected></option>', (string) (new Option())->selected());
+        $this->assertSame('<option></option>', (string) (new Option())->selected(false));
+        $this->assertSame('<option></option>', (string) (new Option())->selected(true)->selected(false));
     }
 
     public function testDisabled(): void
     {
-        $this->assertSame('<option disabled></option>', (string) new Option()->disabled());
-        $this->assertSame('<option></option>', (string) new Option()->disabled(false));
+        $this->assertSame('<option disabled></option>', (string) (new Option())->disabled());
+        $this->assertSame('<option></option>', (string) (new Option())->disabled(false));
         $this->assertSame('<option></option>', (string) new Option()
             ->disabled(true)
             ->disabled(false));
@@ -54,9 +54,9 @@ final class OptionTest extends TestCase
     {
         return [
             [null, new Option()],
-            [null, new Option()->value(null)],
-            ['', new Option()->value('')],
-            ['one', new Option()->value('one')],
+            [null, (new Option())->value(null)],
+            ['', (new Option())->value('')],
+            ['one', (new Option())->value('one')],
         ];
     }
 

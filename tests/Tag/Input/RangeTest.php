@@ -41,7 +41,7 @@ final class RangeTest extends TestCase
     #[DataProvider('dataMin')]
     public function testMin(string $expected, $value): void
     {
-        $tag = new Range()->min($value);
+        $tag = (new Range())->min($value);
 
         $this->assertSame($expected, $tag->render());
     }
@@ -61,7 +61,7 @@ final class RangeTest extends TestCase
     #[DataProvider('dataMax')]
     public function testMax(string $expected, $value): void
     {
-        $tag = new Range()->max($value);
+        $tag = (new Range())->max($value);
 
         $this->assertSame($expected, $tag->render());
     }
@@ -81,7 +81,7 @@ final class RangeTest extends TestCase
     #[DataProvider('dataStep')]
     public function testStep(string $expected, $value): void
     {
-        $tag = new Range()->step($value);
+        $tag = (new Range())->step($value);
 
         $this->assertSame($expected, $tag->render());
     }
@@ -97,14 +97,14 @@ final class RangeTest extends TestCase
     #[DataProvider('dataList')]
     public function testList(string $expected, $value): void
     {
-        $tag = new Range()->list($value);
+        $tag = (new Range())->list($value);
 
         $this->assertSame($expected, $tag->render());
     }
 
     public function testShowOutput(): void
     {
-        $tag = new Range()->showOutput();
+        $tag = (new Range())->showOutput();
 
         $this->assertMatchesRegularExpression(
             '~<input type="range" '

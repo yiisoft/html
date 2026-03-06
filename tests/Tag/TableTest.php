@@ -19,14 +19,14 @@ class TableTest extends TestCase
 {
     public function testEmpty(): void
     {
-        $this->assertSame('<table></table>', new Table()->render());
+        $this->assertSame('<table></table>', (new Table())->render());
     }
 
     public static function dataCaption(): array
     {
         return [
             ['<table></table>', null],
-            ["<table>\n<caption>Hello</caption>\n</table>", new Caption()->content('Hello')],
+            ["<table>\n<caption>Hello</caption>\n</table>", (new Caption())->content('Hello')],
         ];
     }
 
@@ -70,12 +70,12 @@ class TableTest extends TestCase
 
     public function testColumnGroups(): void
     {
-        $tag = new Table()->columnGroups(
-            new Colgroup()->columns(
+        $tag = (new Table())->columnGroups(
+            (new Colgroup())->columns(
                 new Col(),
-                new Col()->span(2),
+                (new Col())->span(2),
             ),
-            new Colgroup()->span(4),
+            (new Colgroup())->span(4),
         );
 
         $this->assertSame(
@@ -94,14 +94,14 @@ class TableTest extends TestCase
     {
         $tag = new Table()
             ->columnGroups(
-                new Colgroup()->columns(
+                (new Colgroup())->columns(
                     new Col(),
-                    new Col()->span(2),
+                    (new Col())->span(2),
                 ),
             )
             ->addColumnGroups(
-                new Colgroup()->span(4),
-                new Colgroup()->span(5),
+                (new Colgroup())->span(4),
+                (new Colgroup())->span(5),
             );
 
         $this->assertSame(
@@ -119,9 +119,9 @@ class TableTest extends TestCase
 
     public function testColumns(): void
     {
-        $tag = new Table()->columns(
+        $tag = (new Table())->columns(
             new Col(),
-            new Col()->span(2),
+            (new Col())->span(2),
         );
 
         $this->assertSame(
@@ -138,11 +138,11 @@ class TableTest extends TestCase
         $tag = new Table()
             ->columns(
                 new Col(),
-                new Col()->span(2),
+                (new Col())->span(2),
             )
             ->addColumns(
-                new Col()->span(3),
-                new Col()->span(4),
+                (new Col())->span(3),
+                (new Col())->span(4),
             );
 
         $this->assertSame(
@@ -174,9 +174,9 @@ class TableTest extends TestCase
 
     public function testBody(): void
     {
-        $tag = new Table()->body(
+        $tag = (new Table())->body(
             new Tbody(),
-            new Tbody()->class('red'),
+            (new Tbody())->class('red'),
         );
 
         $this->assertSame(
@@ -195,8 +195,8 @@ class TableTest extends TestCase
                 new Tbody(),
             )
             ->addBody(
-                new Tbody()->class('red'),
-                new Tbody()->class('green'),
+                (new Tbody())->class('red'),
+                (new Tbody())->class('green'),
             );
 
         $this->assertSame(
@@ -211,9 +211,9 @@ class TableTest extends TestCase
 
     public function testRows(): void
     {
-        $tag = new Table()->rows(
-            new Tr()->dataStrings(['A', 'B']),
-            new Tr()->dataStrings(['C', 'D']),
+        $tag = (new Table())->rows(
+            (new Tr())->dataStrings(['A', 'B']),
+            (new Tr())->dataStrings(['C', 'D']),
         );
 
         $this->assertSame(
@@ -235,11 +235,11 @@ class TableTest extends TestCase
     {
         $tag = new Table()
             ->rows(
-                new Tr()->dataStrings(['A', 'B']),
+                (new Tr())->dataStrings(['A', 'B']),
             )
             ->addRows(
-                new Tr()->dataStrings(['C', 'D']),
-                new Tr()->dataStrings(['E', 'F']),
+                (new Tr())->dataStrings(['C', 'D']),
+                (new Tr())->dataStrings(['E', 'F']),
             );
 
         $this->assertSame(

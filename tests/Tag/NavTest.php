@@ -15,11 +15,11 @@ final class NavTest extends TestCase
     {
         $this->assertSame(
             "<nav><ul>\n<li>Home</li>\n<li>About Us</li>\n<li>Contact Us</li>\n</ul></nav>",
-            (string) new Nav()->content(
-                new Ul()->items(
-                    new Li()->content('Home'),
-                    new Li()->content('About Us'),
-                    new Li()->content('Contact Us'),
+            (string) (new Nav())->content(
+                (new Ul())->items(
+                    (new Li())->content('Home'),
+                    (new Li())->content('About Us'),
+                    (new Li())->content('Contact Us'),
                 ),
             ),
         );

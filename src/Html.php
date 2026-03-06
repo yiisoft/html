@@ -330,7 +330,7 @@ final class Html
      */
     public static function normalTag(string $name, string|Stringable $content = '', array $attributes = []): CustomTag
     {
-        $tag = new CustomTag($name)->normal();
+        $tag = (new CustomTag($name))->normal();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -352,7 +352,7 @@ final class Html
      */
     public static function voidTag(string $name, array $attributes = []): CustomTag
     {
-        $tag = new CustomTag($name)->void();
+        $tag = (new CustomTag($name))->void();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -501,7 +501,7 @@ final class Html
      */
     public static function javaScriptFile(string $url, array $attributes = []): Script
     {
-        $tag = new Script()->url($url);
+        $tag = (new Script())->url($url);
         if (!empty($attributes)) {
             $tag = $tag->addAttributes($attributes);
         }
@@ -710,7 +710,7 @@ final class Html
         bool|float|int|string|Stringable|null $value = null,
         array $attributes = [],
     ): Input {
-        $tag = new Input()->type($type);
+        $tag = (new Input())->type($type);
         if ($name !== null) {
             $tag = $tag->name($name);
         }

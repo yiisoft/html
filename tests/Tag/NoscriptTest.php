@@ -14,7 +14,7 @@ final class NoscriptTest extends TestCase
     {
         $this->assertSame(
             '<noscript><img src="pixel.png"></noscript>',
-            (string) new Noscript()->content(new Img()->src('pixel.png')),
+            (string) (new Noscript())->content(new Img()->src('pixel.png')),
         );
     }
 }

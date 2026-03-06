@@ -31,7 +31,7 @@ final class SourceTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string) new Source()->type($url));
+        $this->assertSame($expected, (string) (new Source())->type($url));
     }
 
     public static function dataSrc(): array
@@ -45,7 +45,7 @@ final class SourceTest extends TestCase
     #[DataProvider('dataSrc')]
     public function testSrc(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string) new Source()->src($url));
+        $this->assertSame($expected, (string) (new Source())->src($url));
     }
 
     public static function dataSrcset(): array
@@ -64,7 +64,7 @@ final class SourceTest extends TestCase
     #[DataProvider('dataSrcset')]
     public function testSrcset(string $expected, array $items): void
     {
-        $this->assertSame($expected, (string) new Source()->srcset(...$items));
+        $this->assertSame($expected, (string) (new Source())->srcset(...$items));
     }
 
     public static function dataSizes(): array
@@ -83,7 +83,7 @@ final class SourceTest extends TestCase
     #[DataProvider('dataSizes')]
     public function testSizes(string $expected, array $items): void
     {
-        $this->assertSame($expected, (string) new Source()->sizes(...$items));
+        $this->assertSame($expected, (string) (new Source())->sizes(...$items));
     }
 
     public static function dataWidth(): array
@@ -98,7 +98,7 @@ final class SourceTest extends TestCase
     #[DataProvider('dataWidth')]
     public function testWidth(string $expected, $width): void
     {
-        $this->assertSame($expected, (string) new Source()->width($width));
+        $this->assertSame($expected, (string) (new Source())->width($width));
     }
 
     public static function dataHeight(): array
@@ -113,7 +113,7 @@ final class SourceTest extends TestCase
     #[DataProvider('dataHeight')]
     public function testHeight(string $expected, $height): void
     {
-        $this->assertSame($expected, (string) new Source()->height($height));
+        $this->assertSame($expected, (string) (new Source())->height($height));
     }
 
     public function testImmutability(): void

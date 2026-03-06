@@ -26,8 +26,8 @@ final class TbodyTest extends TestCase
             new Tbody()
                 ->class('gray')
                 ->rows(
-                    new Tr()->dataStrings(['A', 'B']),
-                    new Tr()->dataStrings(['C', 'D']),
+                    (new Tr())->dataStrings(['A', 'B']),
+                    (new Tr())->dataStrings(['C', 'D']),
                 )
                 ->render(),
         );

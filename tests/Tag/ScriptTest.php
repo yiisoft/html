@@ -17,14 +17,14 @@ final class ScriptTest extends TestCase
     {
         $this->assertSame(
             '<script src="main.js"></script>',
-            (string) new Script()->url('main.js'),
+            (string) (new Script())->url('main.js'),
         );
     }
 
     public function testContent(): void
     {
         $content = 'alert("4 > 2");';
-        $tag = new Script()->content($content);
+        $tag = (new Script())->content($content);
 
         $this->assertSame($content, $tag->getContent());
         $this->assertSame('<script>' . $content . '</script>', $tag->render());
@@ -41,8 +41,8 @@ final class ScriptTest extends TestCase
     #[DataProvider('dataUrl')]
     public function testUrl(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string) new Script()->url($url));
-        $this->assertSame($expected, (string) new Script()->src($url));
+        $this->assertSame($expected, (string) (new Script())->url($url));
+        $this->assertSame($expected, (string) (new Script())->src($url));
     }
 
     public static function dataType(): array
@@ -56,7 +56,7 @@ final class ScriptTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string) new Script()->type($type));
+        $this->assertSame($expected, (string) (new Script())->type($type));
     }
 
     public static function dataCharset(): array
@@ -70,13 +70,13 @@ final class ScriptTest extends TestCase
     #[DataProvider('dataCharset')]
     public function testCharset(string $expected, ?string $charset): void
     {
-        $this->assertSame($expected, (string) new Script()->charset($charset));
+        $this->assertSame($expected, (string) (new Script())->charset($charset));
     }
 
     public function testAsync(): void
     {
-        $this->assertSame('<script async></script>', (string) new Script()->async());
-        $this->assertSame('<script></script>', (string) new Script()->async(false));
+        $this->assertSame('<script async></script>', (string) (new Script())->async());
+        $this->assertSame('<script></script>', (string) (new Script())->async(false));
         $this->assertSame('<script></script>', (string) new Script()
             ->async(true)
             ->async(false));
@@ -84,8 +84,8 @@ final class ScriptTest extends TestCase
 
     public function testDefer(): void
     {
-        $this->assertSame('<script defer></script>', (string) new Script()->defer());
-        $this->assertSame('<script></script>', (string) new Script()->defer(false));
+        $this->assertSame('<script defer></script>', (string) (new Script())->defer());
+        $this->assertSame('<script></script>', (string) (new Script())->defer(false));
         $this->assertSame('<script></script>', (string) new Script()
             ->defer(true)
             ->defer(false));
@@ -95,28 +95,28 @@ final class ScriptTest extends TestCase
     {
         $this->assertSame(
             '<script></script><noscript>hello</noscript>',
-            (string) new Script()->noscript('hello'),
+            (string) (new Script())->noscript('hello'),
         );
         $this->assertSame(
             '<script></script><noscript><div></div></noscript>',
-            (string) new Script()->noscript(new Div()),
+            (string) (new Script())->noscript(new Div()),
         );
         $this->assertSame(
             '<script></script>',
-            (string) new Script()->noscript(null),
+            (string) (new Script())->noscript(null),
         );
     }
 
     public function testNoscriptTag(): void
     {
-        $noscriptTag = new Noscript()->content('hello');
+        $noscriptTag = (new Noscript())->content('hello');
         $this->assertSame(
             '<script></script><noscript>hello</noscript>',
-            (string) new Script()->noscriptTag($noscriptTag),
+            (string) (new Script())->noscriptTag($noscriptTag),
         );
         $this->assertSame(
             '<script></script>',
-            (string) new Script()->noscriptTag(null),
+            (string) (new Script())->noscriptTag(null),
         );
     }
 
@@ -146,7 +146,7 @@ final class ScriptTest extends TestCase
     #[DataProvider('dataNonce')]
     public function testNonce(string $expectedHtml, ?string $nonce): void
     {
-        $script = new Script()->nonce($nonce);
+        $script = (new Script())->nonce($nonce);
 
         $this->assertSame($expectedHtml, (string) $script);
         $this->assertSame($nonce, $script->getNonce());
@@ -162,7 +162,7 @@ final class ScriptTest extends TestCase
 
     public function testInvalidNonce(): void
     {
-        $script = new Script()->attribute('nonce', []);
+        $script = (new Script())->attribute('nonce', []);
 
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Nonce should be string or null. Got array.');
