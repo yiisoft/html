@@ -13,7 +13,7 @@ final class H3Test extends TestCase
     {
         $this->assertSame(
             '<h3 class="red">Hello</h3>',
-            (string) new H3()
+            (string) (new H3())
                 ->class('red')
                 ->content('Hello'),
         );

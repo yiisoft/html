@@ -34,7 +34,7 @@ final class TableRowsContainerTagTest extends TestCase
 
     public function testAddRows(): void
     {
-        $tag = new TestTableRowsContainerTag()
+        $tag = (new TestTableRowsContainerTag())
             ->rows(
                 (new Tr())->dataStrings(['A', 'B']),
             )

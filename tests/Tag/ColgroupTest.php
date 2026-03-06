@@ -19,7 +19,7 @@ final class ColgroupTest extends TestCase
             . '<col class="red" span="2">' . "\n"
             . '<col class="blue" span="2">' . "\n"
             . '</colgroup>',
-            new Colgroup()
+            (new Colgroup())
                 ->columns(
                     new Col(),
                     new Col()
@@ -51,7 +51,7 @@ final class ColgroupTest extends TestCase
 
     public function testAddColumns(): void
     {
-        $tag = new Colgroup()
+        $tag = (new Colgroup())
             ->columns(
                 new Col(),
                 (new Col())->span(2),
@@ -83,7 +83,7 @@ final class ColgroupTest extends TestCase
     #[DataProvider('dataSpan')]
     public function testSpan(string $expected, ?int $span): void
     {
-        $this->assertSame($expected, new Colgroup()
+        $this->assertSame($expected, (new Colgroup())
             ->span($span)
             ->render());
     }

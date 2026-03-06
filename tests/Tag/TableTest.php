@@ -33,7 +33,7 @@ class TableTest extends TestCase
     #[DataProvider('dataCaption')]
     public function testCaption(string $expected, ?Caption $caption): void
     {
-        $this->assertSame($expected, new Table()
+        $this->assertSame($expected, (new Table())
             ->caption($caption)
             ->render());
     }
@@ -42,7 +42,7 @@ class TableTest extends TestCase
     {
         $this->assertSame(
             "<table>\n<caption>Hello</caption>\n</table>",
-            new Table()
+            (new Table())
                 ->captionString('Hello')
                 ->render(),
         );
@@ -52,7 +52,7 @@ class TableTest extends TestCase
     {
         $this->assertSame(
             "<table>\n<caption>&lt;b&gt;Hello&lt;/b&gt;</caption>\n</table>",
-            new Table()
+            (new Table())
                 ->captionString('<b>Hello</b>')
                 ->render(),
         );
@@ -62,7 +62,7 @@ class TableTest extends TestCase
     {
         $this->assertSame(
             "<table>\n<caption><b>Hello</b></caption>\n</table>",
-            new Table()
+            (new Table())
                 ->captionString('<b>Hello</b>', false)
                 ->render(),
         );
@@ -92,7 +92,7 @@ class TableTest extends TestCase
 
     public function testAddColumnGroups(): void
     {
-        $tag = new Table()
+        $tag = (new Table())
             ->columnGroups(
                 (new Colgroup())->columns(
                     new Col(),
@@ -135,7 +135,7 @@ class TableTest extends TestCase
 
     public function testAddColumns(): void
     {
-        $tag = new Table()
+        $tag = (new Table())
             ->columns(
                 new Col(),
                 (new Col())->span(2),
@@ -167,7 +167,7 @@ class TableTest extends TestCase
     #[DataProvider('dataHeader')]
     public function testHeader(string $expected, ?Thead $header): void
     {
-        $this->assertSame($expected, new Table()
+        $this->assertSame($expected, (new Table())
             ->header($header)
             ->render());
     }
@@ -190,7 +190,7 @@ class TableTest extends TestCase
 
     public function testAddBody(): void
     {
-        $tag = new Table()
+        $tag = (new Table())
             ->body(
                 new Tbody(),
             )
@@ -233,7 +233,7 @@ class TableTest extends TestCase
 
     public function testAddRows(): void
     {
-        $tag = new Table()
+        $tag = (new Table())
             ->rows(
                 (new Tr())->dataStrings(['A', 'B']),
             )
@@ -272,7 +272,7 @@ class TableTest extends TestCase
     #[DataProvider('dataFooter')]
     public function testFooter(string $expected, ?Tfoot $footer): void
     {
-        $this->assertSame($expected, new Table()
+        $this->assertSame($expected, (new Table())
             ->footer($footer)
             ->render());
     }
@@ -288,7 +288,7 @@ class TableTest extends TestCase
                 . '<tbody></tbody>' . "\n"
                 . '<tfoot></tfoot>' . "\n"
                 . '</table>',
-                new Table()
+                (new Table())
                     ->captionString('Caption of Table')
                     ->columnGroups(new Colgroup())
                     ->header(new Thead())
@@ -303,7 +303,7 @@ class TableTest extends TestCase
                 . '<tr></tr>' . "\n"
                 . '<tfoot></tfoot>' . "\n"
                 . '</table>',
-                new Table()
+                (new Table())
                     ->captionString('Caption of Table')
                     ->columns(new Col())
                     ->header(new Thead())

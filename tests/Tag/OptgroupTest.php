@@ -18,12 +18,12 @@ final class OptgroupTest extends TestCase
             . '<option value="1">One</option>' . "\n"
             . '<option value="2">Two</option>' . "\n"
             . '</optgroup>',
-            (string) new Optgroup()
+            (string) (new Optgroup())
                 ->options(
-                    new Option()
+                    (new Option())
                         ->value('1')
                         ->content('One'),
-                    new Option()
+                    (new Option())
                         ->value('2')
                         ->content('Two'),
                 )
@@ -35,12 +35,12 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             "<optgroup>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</optgroup>",
-            (string) new Optgroup()
+            (string) (new Optgroup())
                 ->options(
-                    new Option()
+                    (new Option())
                         ->value('1')
                         ->content('One'),
-                    new Option()
+                    (new Option())
                         ->value('2')
                         ->content('Two'),
                 ),
@@ -89,7 +89,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame('<optgroup disabled></optgroup>', (string) (new Optgroup())->disabled());
         $this->assertSame('<optgroup></optgroup>', (string) (new Optgroup())->disabled(false));
-        $this->assertSame('<optgroup></optgroup>', (string) new Optgroup()
+        $this->assertSame('<optgroup></optgroup>', (string) (new Optgroup())
             ->disabled(true)
             ->disabled(false));
     }
@@ -104,7 +104,7 @@ final class OptgroupTest extends TestCase
                 . '<option value="1"></option>' . "\n"
                 . '<option value="2"></option>' . "\n"
                 . '</optgroup>',
-                [(new Option())->value('1'), new Option()
+                [(new Option())->value('1'), (new Option())
                     ->value('2')
                     ->selected(), ],
                 [],
@@ -149,7 +149,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string) new Optgroup()
+            (string) (new Optgroup())
                 ->options(...$options)
                 ->selection(...$selection),
         );

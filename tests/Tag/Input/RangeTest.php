@@ -14,7 +14,7 @@ final class RangeTest extends TestCase
 {
     public function testBase(): void
     {
-        $tag = new Range()
+        $tag = (new Range())
             ->name('opacity')
             ->min(0)
             ->max(100)
@@ -116,7 +116,7 @@ final class RangeTest extends TestCase
 
     public function testAddOutputAttributes(): void
     {
-        $tag = new Range()
+        $tag = (new Range())
             ->showOutput()
             ->addOutputAttributes(['class' => 'red'])
             ->addOutputAttributes(['id' => 'UID']);
@@ -131,7 +131,7 @@ final class RangeTest extends TestCase
 
     public function testReplaceOutputAttributes(): void
     {
-        $tag = new Range()
+        $tag = (new Range())
             ->showOutput()
             ->addOutputAttributes(['class' => 'red'])
             ->outputAttributes(['id' => 'UID']);
@@ -146,7 +146,7 @@ final class RangeTest extends TestCase
 
     public function testOutputWithCustomId(): void
     {
-        $tag = new Range()
+        $tag = (new Range())
             ->showOutput()
             ->outputAttributes(['id' => 'UID']);
 
@@ -160,7 +160,7 @@ final class RangeTest extends TestCase
 
     public function testOutputWithCustomTag(): void
     {
-        $tag = new Range()
+        $tag = (new Range())
             ->showOutput()
             ->outputTag('b');
 
@@ -174,7 +174,7 @@ final class RangeTest extends TestCase
 
     public function testOutputWithCustomAttributes(): void
     {
-        $tag = new Range()
+        $tag = (new Range())
             ->showOutput()
             ->outputAttributes(['class' => 'red']);
 
@@ -188,7 +188,7 @@ final class RangeTest extends TestCase
 
     public function testOutputWithValue(): void
     {
-        $tag = new Range()
+        $tag = (new Range())
             ->showOutput()
             ->value(10);
 

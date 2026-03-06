@@ -14,7 +14,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="id" value="42">',
-            (string) new Input()
+            (string) (new Input())
                 ->type('hidden')
                 ->name('id')
                 ->value('42'),

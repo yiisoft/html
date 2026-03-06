@@ -14,7 +14,7 @@ final class FileTest extends TestCase
     {
         $this->assertSame(
             '<input type="file" name="avatar">',
-            new File()
+            (new File())
                 ->name('avatar')
                 ->render(),
         );
@@ -45,7 +45,7 @@ final class FileTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new File()
+            (new File())
                 ->name($name)
                 ->uncheckValue($value)
                 ->render(),
@@ -57,7 +57,7 @@ final class FileTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="avatar" value="7" disabled>'
             . '<input type="file" name="avatar" disabled>',
-            new File()
+            (new File())
                 ->name('avatar')
                 ->uncheckValue(7)
                 ->disabled()
@@ -70,7 +70,7 @@ final class FileTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="avatar" value="7" form="post">'
             . '<input type="file" name="avatar" form="post">',
-            new File()
+            (new File())
                 ->name('avatar')
                 ->uncheckValue(7)
                 ->form('post')
@@ -80,7 +80,7 @@ final class FileTest extends TestCase
 
     public function testUncheckInputAttributes(): void
     {
-        $result = new File()
+        $result = (new File())
             ->name('avatar')
             ->uncheckValue(7)
             ->addUncheckInputAttributes(['id' => 'FileHidden'])
@@ -97,7 +97,7 @@ final class FileTest extends TestCase
 
     public function testReplaceUncheckInputAttributes(): void
     {
-        $result = new File()
+        $result = (new File())
             ->name('avatar')
             ->uncheckValue(7)
             ->addUncheckInputAttributes(['id' => 'FileHidden'])
@@ -131,7 +131,7 @@ final class FileTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new File()
+            (new File())
                 ->name('avatar')
                 ->accept($accept)
                 ->render(),
@@ -157,7 +157,7 @@ final class FileTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new File()
+            (new File())
                 ->name('avatar')
                 ->multiple($multiple)
                 ->render(),
@@ -168,7 +168,7 @@ final class FileTest extends TestCase
     {
         $this->assertSame(
             '<input type="file" name="avatar" multiple>',
-            new File()
+            (new File())
                 ->name('avatar')
                 ->multiple()
                 ->render(),

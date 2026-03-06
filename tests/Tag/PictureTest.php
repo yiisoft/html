@@ -14,16 +14,16 @@ final class PictureTest extends TestCase
 {
     public function testBase(): void
     {
-        $picture = new Picture()
+        $picture = (new Picture())
             ->image(new Img()
                 ->src('img_orange_flowers.jpg')
                 ->alt('Flowers'))
             ->sources(
-                new Source()
+                (new Source())
                     ->media('(min-width:650px)')
                     ->srcset('img_pink_flowers.jpg')
                     ->type('image/jpeg'),
-                new Source()
+                (new Source())
                     ->media('(min-width:465px)')
                     ->srcset('img_white_flower.jpg')
                     ->type('image/jpeg'),
@@ -45,7 +45,7 @@ final class PictureTest extends TestCase
             ['<picture></picture>', null],
             [
                 '<picture>' . "\n" . '<img src="image.jpg" width="100" height="100">' . "\n" . '</picture>',
-                new Img()
+                (new Img())
                     ->src('image.jpg')
                     ->width(100)
                     ->height(100),
@@ -56,7 +56,7 @@ final class PictureTest extends TestCase
     #[DataProvider('dataImg')]
     public function testImg(string $expected, ?Img $img): void
     {
-        $this->assertSame($expected, new Picture()
+        $this->assertSame($expected, (new Picture())
             ->image($img)
             ->render());
     }

@@ -70,7 +70,7 @@ final class TagTest extends TestCase
     {
         $this->assertSame(
             '<test id="color" class="green">',
-            new TestTag()
+            (new TestTag())
                 ->id('color')
                 ->class('red')
                 ->addAttributes(['class' => 'green'])
@@ -82,7 +82,7 @@ final class TagTest extends TestCase
     {
         $this->assertSame(
             '<test class="green">',
-            new TestTag()
+            (new TestTag())
                 ->id('color')
                 ->class('red')
                 ->attributes(['class' => 'green'])
@@ -94,7 +94,7 @@ final class TagTest extends TestCase
     {
         $this->assertSame(
             '<test id="color" class="red">',
-            new TestTag()
+            (new TestTag())
                 ->class('red')
                 ->unionAttributes(['class' => 'green', 'id' => 'color'])
                 ->render(),
@@ -113,7 +113,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataAttribute')]
     public function testAttribute(string $expected, $value): void
     {
-        $this->assertSame($expected, new TestTag()
+        $this->assertSame($expected, (new TestTag())
             ->attribute('key', $value)
             ->render());
     }
@@ -151,7 +151,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataAddClass')]
     public function testAddClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string) new TestTag()
+        $this->assertSame($expected, (string) (new TestTag())
             ->addClass('main')
             ->addClass(...$class));
     }
@@ -191,7 +191,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataClass')]
     public function testClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string) new TestTag()
+        $this->assertSame($expected, (string) (new TestTag())
             ->class('red')
             ->class(...$class));
     }

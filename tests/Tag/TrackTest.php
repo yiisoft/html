@@ -14,7 +14,7 @@ final class TrackTest extends TestCase
     {
         $this->assertSame(
             '<track src="brave.en.vtt" kind="subtitles" srclang="en" label="English">',
-            (string) new Track()
+            (string) (new Track())
                 ->kind(Track::SUBTITLES)
                 ->src('brave.en.vtt')
                 ->srclang('en')
@@ -26,7 +26,7 @@ final class TrackTest extends TestCase
     {
         $this->assertSame('<track default>', (string) (new Track())->default());
         $this->assertSame('<track>', (string) (new Track())->default(false));
-        $this->assertSame('<track>', (string) new Track()
+        $this->assertSame('<track>', (string) (new Track())
             ->default(true)
             ->default(false));
     }

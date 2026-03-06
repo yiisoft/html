@@ -152,12 +152,12 @@ final class Select extends NormalTag
         $items = [];
         foreach ($data as $value => $content) {
             if (is_array($content)) {
-                $items[] = new Optgroup()
+                $items[] = (new Optgroup())
                     ->label((string) $value)
                     ->addAttributes($groupsAttributes[$value] ?? [])
                     ->optionsData($content, $encode, $optionsAttributes);
             } else {
-                $items[] = new Option()
+                $items[] = (new Option())
                     ->attributes($optionsAttributes[$value] ?? [])
                     ->value($value)
                     ->content($content)

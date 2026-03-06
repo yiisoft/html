@@ -14,7 +14,7 @@ final class LabelTest extends TestCase
     {
         $this->assertSame(
             '<label for="name">Your name</label>',
-            (string) new Label()
+            (string) (new Label())
                 ->forId('name')
                 ->content('Your name'),
         );

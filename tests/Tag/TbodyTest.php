@@ -23,7 +23,7 @@ final class TbodyTest extends TestCase
             . '<td>D</td>' . "\n"
             . '</tr>' . "\n"
             . '</tbody>',
-            new Tbody()
+            (new Tbody())
                 ->class('gray')
                 ->rows(
                     (new Tr())->dataStrings(['A', 'B']),

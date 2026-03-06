@@ -21,7 +21,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test id="custom" count="15">body</test>',
-            new CustomTag('test')
+            (new CustomTag('test'))
                 ->id('custom')
                 ->attribute('count', 15)
                 ->content('body')
@@ -59,7 +59,7 @@ final class CustomTagTest extends TestCase
     #[DataProvider('dataNormal')]
     public function testNormal(string $expected, string $name): void
     {
-        $this->assertSame($expected, new CustomTag($name)
+        $this->assertSame($expected, (new CustomTag($name))
             ->normal()
             ->render());
     }
@@ -75,7 +75,7 @@ final class CustomTagTest extends TestCase
     #[DataProvider('dataVoid')]
     public function testVoid(string $expected, string $name): void
     {
-        $this->assertSame($expected, new CustomTag($name)
+        $this->assertSame($expected, (new CustomTag($name))
             ->void()
             ->render());
     }
@@ -84,7 +84,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test><b>hello</b></test>',
-            (string) new CustomTag('test')
+            (string) (new CustomTag('test'))
                 ->content('<b>hello</b>')
                 ->encode(false),
         );
@@ -94,7 +94,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string) new CustomTag('test')
+            (string) (new CustomTag('test'))
                 ->content('<b>A &gt; B</b>')
                 ->doubleEncode(false),
         );

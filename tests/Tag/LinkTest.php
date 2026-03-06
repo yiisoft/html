@@ -14,7 +14,7 @@ final class LinkTest extends TestCase
     {
         $this->assertSame(
             '<link type="application/rss+xml" href="/rss" title="Новости компании" rel="alternate">',
-            (string) new Link()
+            (string) (new Link())
                 ->url('/rss')
                 ->type('application/rss+xml')
                 ->rel('alternate')

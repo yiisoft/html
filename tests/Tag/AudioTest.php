@@ -20,7 +20,7 @@ final class AudioTest extends TestCase
             . '<track src="c.mp3">' . "\n"
             . 'Your browser does not support audio.' . "\n"
             . '</audio>',
-            (string) new Audio()
+            (string) (new Audio())
                 ->controls()
                 ->sources(new Source()->src('a.mp3'), (new Source())->src('b.ogg'))
                 ->tracks(new Track()->src('c.mp3'))

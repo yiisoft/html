@@ -14,7 +14,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertSame('<input type="test" checked>', (string) (new TestBooleanInputTag())->checked());
         $this->assertSame('<input type="test">', (string) (new TestBooleanInputTag())->checked(false));
-        $this->assertSame('<input type="test">', (string) new TestBooleanInputTag()
+        $this->assertSame('<input type="test">', (string) (new TestBooleanInputTag())
             ->checked(true)
             ->checked(false));
     }
@@ -55,7 +55,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->label($label, $attributes)
                 ->render(),
         );
@@ -65,7 +65,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertSame(
             '<input type="test" id="ID"> <label for="ID">Voronezh</label>',
-            (string) new TestBooleanInputTag()
+            (string) (new TestBooleanInputTag())
                 ->id('ID')
                 ->label('Voronezh', wrap: false),
         );
@@ -75,7 +75,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertSame(
             '<label><input type="test" id="Test"> One</label>',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->id('Test')
                 ->label('One')
                 ->render(),
@@ -86,7 +86,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertMatchesRegularExpression(
             '~<input type="test" id="i(\d*?)"> <label for="i\1">One</label>~',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->sideLabel('One')
                 ->render(),
         );
@@ -96,7 +96,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertMatchesRegularExpression(
             '~<input type="test" id="i(\d*?)"> <label for="i\1"></label>~',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->sideLabel('')
                 ->render(),
         );
@@ -106,7 +106,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertSame(
             '<input type="test">',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->sideLabel(null)
                 ->render(),
         );
@@ -116,7 +116,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertSame(
             '<input type="test" id="Test"> <label for="Test">One</label>',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->id('Test')
                 ->sideLabel('One')
                 ->render(),
@@ -127,7 +127,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertMatchesRegularExpression(
             '~<input type="test" id="i(\d*?)"> <label class="red" for="i\1">One</label>~',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->sideLabel('One', ['class' => 'red'])
                 ->render(),
         );
@@ -137,7 +137,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertSame(
             '<input type="test" id="count"> <label for="count">One</label>',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->sideLabel('One')
                 ->id('count')
                 ->render(),
@@ -148,7 +148,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertSame(
             '<label><input type="test"> <b>One</b></label>',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->label('<b>One</b>')
                 ->labelEncode(false)
                 ->render(),
@@ -180,7 +180,7 @@ final class BooleanInputTagTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->name($name)
                 ->uncheckValue($value)
                 ->render(),
@@ -192,7 +192,7 @@ final class BooleanInputTagTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="color" value="7" disabled>'
             . '<input type="test" name="color" disabled>',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->name('color')
                 ->uncheckValue(7)
                 ->disabled()
@@ -205,7 +205,7 @@ final class BooleanInputTagTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="color" value="7" form="post">'
             . '<input type="test" name="color" form="post">',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->name('color')
                 ->uncheckValue(7)
                 ->form('post')
@@ -218,7 +218,7 @@ final class BooleanInputTagTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="color" value="7">'
             . '<label><input type="test" name="color"> Seven</label>',
-            new TestBooleanInputTag()
+            (new TestBooleanInputTag())
                 ->name('color')
                 ->uncheckValue(7)
                 ->label('Seven')

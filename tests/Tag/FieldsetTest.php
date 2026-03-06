@@ -14,7 +14,7 @@ final class FieldsetTest extends TestCase
 {
     public function testBase(): void
     {
-        $tag = new Fieldset()
+        $tag = (new Fieldset())
             ->legend('Personal data')
             ->content(
                 Html::textInput('first_name'),
@@ -83,7 +83,7 @@ final class FieldsetTest extends TestCase
                 <legend id="MyLegend">Hello</legend>
                 </fieldset>
                 HTML,
-                new Legend()
+                (new Legend())
                     ->content('Hello')
                     ->attributes(['id' => 'MyLegend']),
             ],

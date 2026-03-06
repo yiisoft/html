@@ -23,7 +23,7 @@ final class TfootTest extends TestCase
             . '<td>D</td>' . "\n"
             . '</tr>' . "\n"
             . '</tfoot>',
-            new Tfoot()
+            (new Tfoot())
                 ->class('gray')
                 ->rows(
                     (new Tr())->dataStrings(['A', 'B']),

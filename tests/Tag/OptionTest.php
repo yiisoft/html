@@ -14,7 +14,7 @@ final class OptionTest extends TestCase
     {
         $this->assertSame(
             '<option value="1">One</option>',
-            (string) new Option()
+            (string) (new Option())
                 ->value('1')
                 ->content('One'),
         );
@@ -45,7 +45,7 @@ final class OptionTest extends TestCase
     {
         $this->assertSame('<option disabled></option>', (string) (new Option())->disabled());
         $this->assertSame('<option></option>', (string) (new Option())->disabled(false));
-        $this->assertSame('<option></option>', (string) new Option()
+        $this->assertSame('<option></option>', (string) (new Option())
             ->disabled(true)
             ->disabled(false));
     }

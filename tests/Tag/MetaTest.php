@@ -14,7 +14,7 @@ final class MetaTest extends TestCase
     {
         $this->assertSame(
             '<meta name="description" content="Yii Framework">',
-            new Meta()
+            (new Meta())
                 ->name('description')
                 ->content('Yii Framework')
                 ->render(),

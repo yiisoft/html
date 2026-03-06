@@ -77,7 +77,7 @@ final class ScriptTest extends TestCase
     {
         $this->assertSame('<script async></script>', (string) (new Script())->async());
         $this->assertSame('<script></script>', (string) (new Script())->async(false));
-        $this->assertSame('<script></script>', (string) new Script()
+        $this->assertSame('<script></script>', (string) (new Script())
             ->async(true)
             ->async(false));
     }
@@ -86,7 +86,7 @@ final class ScriptTest extends TestCase
     {
         $this->assertSame('<script defer></script>', (string) (new Script())->defer());
         $this->assertSame('<script></script>', (string) (new Script())->defer(false));
-        $this->assertSame('<script></script>', (string) new Script()
+        $this->assertSame('<script></script>', (string) (new Script())
             ->defer(true)
             ->defer(false));
     }

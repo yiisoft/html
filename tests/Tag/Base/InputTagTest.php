@@ -57,7 +57,7 @@ final class InputTagTest extends TestCase
     #[DataProvider('dataForm')]
     public function testForm(string $expected, ?string $formId): void
     {
-        $this->assertSame($expected, new TestInputTag()
+        $this->assertSame($expected, (new TestInputTag())
             ->form($formId)
             ->render());
     }
@@ -66,7 +66,7 @@ final class InputTagTest extends TestCase
     {
         $this->assertSame('<input readonly>', (string) (new TestInputTag())->readonly());
         $this->assertSame('<input>', (string) (new TestInputTag())->readonly(false));
-        $this->assertSame('<input>', (string) new TestInputTag()
+        $this->assertSame('<input>', (string) (new TestInputTag())
             ->readonly(true)
             ->readonly(false));
     }
@@ -75,7 +75,7 @@ final class InputTagTest extends TestCase
     {
         $this->assertSame('<input required>', (string) (new TestInputTag())->required());
         $this->assertSame('<input>', (string) (new TestInputTag())->required(false));
-        $this->assertSame('<input>', (string) new TestInputTag()
+        $this->assertSame('<input>', (string) (new TestInputTag())
             ->required(true)
             ->required(false));
     }
@@ -84,7 +84,7 @@ final class InputTagTest extends TestCase
     {
         $this->assertSame('<input disabled>', (string) (new TestInputTag())->disabled());
         $this->assertSame('<input>', (string) (new TestInputTag())->disabled(false));
-        $this->assertSame('<input>', (string) new TestInputTag()
+        $this->assertSame('<input>', (string) (new TestInputTag())
             ->disabled(true)
             ->disabled(false));
     }

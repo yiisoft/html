@@ -13,7 +13,7 @@ final class StrongTest extends TestCase
     {
         $this->assertSame(
             '<strong class="red">Hello</strong>',
-            (string) new Strong()
+            (string) (new Strong())
                 ->class('red')
                 ->content('Hello'),
         );

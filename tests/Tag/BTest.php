@@ -13,7 +13,7 @@ final class BTest extends TestCase
     {
         $this->assertSame(
             '<b class="red">Hello</b>',
-            (string) new B()
+            (string) (new B())
                 ->class('red')
                 ->content('Hello'),
         );

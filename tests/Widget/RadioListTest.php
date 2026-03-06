@@ -24,7 +24,7 @@ final class RadioListTest extends TestCase
             . '<label><input type="radio" name="test" value="2" checked> Two</label>' . "\n"
             . '<label><input type="radio" name="test" value="5"> Five</label>' . "\n"
             . '</div>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
                 ->uncheckValue(0)
                 ->value(2)
@@ -35,7 +35,7 @@ final class RadioListTest extends TestCase
 
     public function testName(): void
     {
-        $widget = new RadioList('a')
+        $widget = (new RadioList('a'))
             ->items([1 => 'One'])
             ->name('b');
 
@@ -51,7 +51,7 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             '<label><input type="radio" name="test" value="1"> One</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([1 => 'One'])
                 ->withoutContainer()
                 ->render(),
@@ -83,7 +83,7 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([1 => 'One'])
                 ->containerTag($name)
                 ->render(),
@@ -96,7 +96,7 @@ final class RadioListTest extends TestCase
             '<div id="main">' . "\n"
             . '<label><input type="radio" name="test" value="1"> One</label>' . "\n"
             . '</div>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([1 => 'One'])
                 ->containerAttributes(['id' => 'main'])
                 ->render(),
@@ -108,7 +108,7 @@ final class RadioListTest extends TestCase
         $this->assertSame(
             '<label><input type="radio" class="red" name="test" value="1"> One</label>' . "\n"
             . '<label><input type="radio" class="red" name="test" value="2"> Two</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -124,7 +124,7 @@ final class RadioListTest extends TestCase
         $this->assertSame(
             '<label><input type="radio" class="red" name="test" value="1" readonly> One</label>' . "\n"
             . '<label><input type="radio" class="red" name="test" value="2" readonly> Two</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -141,7 +141,7 @@ final class RadioListTest extends TestCase
         $this->assertSame(
             '<label><input type="radio" class="red" name="test" value="1"> One</label>' . "\n"
             . '<label><input type="radio" class="red" name="test" value="2"> Two</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -158,7 +158,7 @@ final class RadioListTest extends TestCase
         $this->assertSame(
             '<label class="red"><input type="radio" name="test" value="1"> One</label>' . "\n"
             . '<label class="red"><input type="radio" name="test" value="2"> Two</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([1 => 'One', 2 => 'Two'])
                 ->radioLabelAttributes(['class' => 'red'])
                 ->withoutContainer()
@@ -171,7 +171,7 @@ final class RadioListTest extends TestCase
         $this->assertSame(
             '<label class="red" data-type="label"><input type="radio" name="test" value="1"> One</label>' . "\n"
             . '<label class="red" data-type="label"><input type="radio" name="test" value="2"> Two</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([1 => 'One', 2 => 'Two'])
                 ->radioLabelAttributes(['class' => 'red'])
                 ->addRadioLabelAttributes(['data-type' => 'label'])
@@ -186,7 +186,7 @@ final class RadioListTest extends TestCase
             '<label><input type="radio" class="red" name="test" value="1"> One</label>' . "\n"
             . '<label><input type="radio" class="blue" name="test" value="2"> Two</label>' . "\n"
             . '<label><input type="radio" class="green" name="test" value="3"> Three</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -208,7 +208,7 @@ final class RadioListTest extends TestCase
             '<input type="hidden" class="blue" name="test" value="0">' . "\n"
             . '<label><input type="radio" class="red" name="test" value="1"> One</label>' . "\n"
             . '<label><input type="radio" class="red" name="test" value="2"> Two</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -229,7 +229,7 @@ final class RadioListTest extends TestCase
             '<label><input type="radio" class="yellow" name="test" value="1"> One</label>' . "\n"
             . '<label><input type="radio" class="cyan" name="test" value="2"> Two</label>' . "\n"
             . '<label><input type="radio" class="green" name="test" value="3"> Three</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -255,7 +255,7 @@ final class RadioListTest extends TestCase
             '<label><input type="radio" class="yellow" name="test" value="1"> One</label>' . "\n"
             . '<label><input type="radio" class="red" name="test" value="2"> Two</label>' . "\n"
             . '<label><input type="radio" class="red" name="test" value="3"> Three</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -279,7 +279,7 @@ final class RadioListTest extends TestCase
         $this->assertSame(
             '<label><input type="radio" name="test" value="1"> One</label>' . "\n"
             . '<label><input type="radio" name="test" value="2"> &lt;b&gt;Two&lt;/b&gt;</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => '<b>Two</b>',
@@ -294,7 +294,7 @@ final class RadioListTest extends TestCase
         $this->assertSame(
             '<label><input type="radio" name="test" value="1"> One</label>' . "\n"
             . '<label><input type="radio" name="test" value="2"> <b>Two</b></label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => '<b>Two</b>',
@@ -330,7 +330,7 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new RadioList('test')
+            (new RadioList('test'))
                 ->itemsFromValues($values)
                 ->withoutContainer()
                 ->render(),
@@ -342,7 +342,7 @@ final class RadioListTest extends TestCase
         $this->assertSame(
             '<label><input type="radio" name="test" value="One"> One</label>' . "\n"
             . '<label><input type="radio" name="test" value="&lt;b&gt;Two&lt;/b&gt;"> <b>Two</b></label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->itemsFromValues([
                     'One',
                     '<b>Two</b>',
@@ -431,7 +431,7 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items($items)
                 ->value($value)
                 ->render(),
@@ -470,7 +470,7 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -482,7 +482,7 @@ final class RadioListTest extends TestCase
 
     public function testReadonly(): void
     {
-        $checkbox = new RadioList('test')
+        $checkbox = (new RadioList('test'))
             ->items([
                 1 => 'One',
                 2 => 'Two',
@@ -521,7 +521,7 @@ final class RadioListTest extends TestCase
 
     public function testDisabled(): void
     {
-        $checkbox = new RadioList('test')
+        $checkbox = (new RadioList('test'))
             ->items([
                 1 => 'One',
                 2 => 'Two',
@@ -603,7 +603,7 @@ final class RadioListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new RadioList($name)
+            (new RadioList($name))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -619,7 +619,7 @@ final class RadioListTest extends TestCase
             '<input type="hidden" name="test" value="7" disabled>' . "\n"
             . '<label><input type="radio" name="test" value="1" disabled> One</label>' . "\n"
             . '<label><input type="radio" name="test" value="2" disabled> Two</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -637,7 +637,7 @@ final class RadioListTest extends TestCase
             '<input type="hidden" name="test" value="7" form="post">' . "\n"
             . '<label><input type="radio" name="test" value="1" form="post"> One</label>' . "\n"
             . '<label><input type="radio" name="test" value="2" form="post"> Two</label>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -656,7 +656,7 @@ final class RadioListTest extends TestCase
             . '<label><input type="radio" name="test" value="1"> One</label><br>'
             . '<label><input type="radio" name="test" value="2"> Two</label>' . "\n"
             . '</div>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([1 => 'One', 2 => 'Two'])
                 ->separator('<br>')
                 ->render(),
@@ -670,7 +670,7 @@ final class RadioListTest extends TestCase
             . '<div>0) <label><input type="radio" name="test" value="1"> One</label></div>'
             . '<div>1) <label><input type="radio" name="test" value="2"> Two</label></div>' . "\n"
             . '</div>',
-            new RadioList('test')
+            (new RadioList('test'))
                 ->items([1 => 'One', 2 => 'Two'])
                 ->itemFormatter(fn(RadioItem $item): string => '<div>'
                     . $item->index . ') '
@@ -689,7 +689,7 @@ final class RadioListTest extends TestCase
 
     public function testDisableRadioLabelWrap(): void
     {
-        $html = new RadioList('test')
+        $html = (new RadioList('test'))
             ->items([1 => 'One', 2 => 'Two'])
             ->addIndividualInputAttributes([
                 1 => ['id' => 'id1'],
@@ -711,7 +711,7 @@ final class RadioListTest extends TestCase
 
     public function testRadioWrap(): void
     {
-        $html = new RadioList('test')
+        $html = (new RadioList('test'))
             ->items([1 => 'One', 2 => 'Two'])
             ->radioWrapTag('div')
             ->radioWrapAttributes(['class' => 'form-check'])
@@ -748,7 +748,7 @@ final class RadioListTest extends TestCase
     #[DataProvider('dataRadioWrapClass')]
     public function testRadioWrapClass(string $expected, array $class): void
     {
-        $html = new RadioList('test')
+        $html = (new RadioList('test'))
             ->items([1 => 'One', 2 => 'Two'])
             ->radioWrapTag('div')
             ->radioWrapAttributes(['class' => 'form-check'])
@@ -785,7 +785,7 @@ final class RadioListTest extends TestCase
     #[DataProvider('dataAddRadioWrapClass')]
     public function testAddRadioWrapClass(string $expected, array $class): void
     {
-        $html = new RadioList('test')
+        $html = (new RadioList('test'))
             ->items([1 => 'One', 2 => 'Two'])
             ->radioWrapTag('div')
             ->radioWrapAttributes(['class' => 'form-check'])

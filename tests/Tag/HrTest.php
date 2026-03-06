@@ -13,7 +13,7 @@ final class HrTest extends TestCase
     {
         $this->assertSame(
             '<hr>',
-            (string) new Hr(),
+            (string) (new Hr()),
         );
     }
 }

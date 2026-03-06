@@ -14,7 +14,7 @@ class TagSourcesTraitTest extends TestCase
     {
         $this->assertSame(
             "<test>\n<source src=\"video1.mp4\">\n<source src=\"video2.mp4\">\n<source src=\"video3.mp4\">\n</test>",
-            new TestTagSourcesTrait()
+            (new TestTagSourcesTrait())
                 ->sources(new Source()->src('video1.mp4'))
                 ->addSource(new Source()->src('video2.mp4'))
                 ->addSource(new Source()->src('video3.mp4'))

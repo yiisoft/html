@@ -20,7 +20,7 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test id="main">&lt;b&gt;hello &amp;gt; world!&lt;/b&gt;</test>',
-            new TestTagContentTrait()
+            (new TestTagContentTrait())
                 ->id('main')
                 ->content('<b>hello &gt; world!</b>')
                 ->render(),
@@ -31,7 +31,7 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test><b>hello</b></test>',
-            (string) new TestTagContentTrait()
+            (string) (new TestTagContentTrait())
                 ->content('<b>hello</b>')
                 ->encode(false),
         );
@@ -41,7 +41,7 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test>&lt;b&gt;A &gt; B&lt;/b&gt;</test>',
-            (string) new TestTagContentTrait()
+            (string) (new TestTagContentTrait())
                 ->content('<b>A &gt; B</b>')
                 ->doubleEncode(false),
         );
@@ -73,7 +73,7 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test>&lt;p&gt;Hi!&lt;/p&gt;</test>',
-            new TestTagContentTrait()
+            (new TestTagContentTrait())
                 ->encode(true)
                 ->content(new P()->content('Hi!'))
                 ->render(),
@@ -84,7 +84,7 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test>Hello World</test>',
-            new TestTagContentTrait()
+            (new TestTagContentTrait())
                 ->content('Hello')
                 ->addContent(' ')
                 ->addContent(new StringableObject('World'))
@@ -96,7 +96,7 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test>123</test>',
-            new TestTagContentTrait()
+            (new TestTagContentTrait())
                 ->content('1')
                 ->addContent(...['2', '3'])
                 ->render(),
@@ -107,7 +107,7 @@ final class TagContentTraitTest extends TestCase
     {
         $this->assertSame(
             '<test>123</test>',
-            new TestTagContentTrait()
+            (new TestTagContentTrait())
                 ->content(content: '1')
                 ->addContent(content: '2')
                 ->addContent(content: '3')

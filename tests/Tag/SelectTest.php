@@ -52,7 +52,7 @@ final class SelectTest extends TestCase
     #[DataProvider('dataNameForMultiple')]
     public function testNameForMultiple(string $expected, ?string $name): void
     {
-        $this->assertSame($expected, (string) new Select()
+        $this->assertSame($expected, (string) (new Select())
             ->multiple()
             ->name($name));
     }
@@ -67,7 +67,7 @@ final class SelectTest extends TestCase
                 . '<option value="1"></option>' . "\n"
                 . '<option value="2"></option>' . "\n"
                 . '</select>',
-                [(new Option())->value('1'), new Option()
+                [(new Option())->value('1'), (new Option())
                     ->value('2')
                     ->selected(), ],
                 [],
@@ -113,14 +113,14 @@ final class SelectTest extends TestCase
                 . '</optgroup>' . "\n"
                 . '</select>',
                 [
-                    new Option()
+                    (new Option())
                         ->value('1')
                         ->content('One'),
                     (new Optgroup())->options(
-                        new Option()
+                        (new Option())
                             ->value('1.1')
                             ->content('One.One'),
-                        new Option()
+                        (new Option())
                             ->value('1.2')
                             ->content('One.Two'),
                     ),
@@ -136,14 +136,14 @@ final class SelectTest extends TestCase
                 . '</optgroup>' . "\n"
                 . '</select>',
                 [
-                    new Option()
+                    (new Option())
                         ->value('1')
                         ->content('One'),
                     (new Optgroup())->options(
-                        new Option()
+                        (new Option())
                             ->value('1.1')
                             ->content('One.One'),
-                        new Option()
+                        (new Option())
                             ->value('1.2')
                             ->content('One.Two'),
                     ),
@@ -212,7 +212,7 @@ final class SelectTest extends TestCase
     #[DataProvider('dataForm')]
     public function testForm(string $expected, ?string $formId): void
     {
-        $this->assertSame($expected, new Select()
+        $this->assertSame($expected, (new Select())
             ->form($formId)
             ->render());
     }
@@ -230,10 +230,10 @@ final class SelectTest extends TestCase
                 . '<option value="2">Two</option>' . "\n"
                 . '</select>',
                 [
-                    new Option()
+                    (new Option())
                         ->value('1')
                         ->content('One'),
-                    new Option()
+                    (new Option())
                         ->value('2')
                         ->content('Two'),
                 ],
@@ -247,14 +247,14 @@ final class SelectTest extends TestCase
                 . '</optgroup>' . "\n"
                 . '</select>',
                 [
-                    new Option()
+                    (new Option())
                         ->value('1')
                         ->content('One'),
                     (new Optgroup())->options(
-                        new Option()
+                        (new Option())
                             ->value('1.1')
                             ->content('One.One'),
-                        new Option()
+                        (new Option())
                             ->value('1.2')
                             ->content('One.Two'),
                     ),
@@ -273,12 +273,12 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             "<select>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</select>",
-            (string) new Select()
+            (string) (new Select())
                 ->options(
-                    new Option()
+                    (new Option())
                         ->value('1')
                         ->content('One'),
-                    new Option()
+                    (new Option())
                         ->value('2')
                         ->content('Two'),
                 ),
@@ -311,7 +311,7 @@ final class SelectTest extends TestCase
 
     public function testOptionsDataWithGroups(): void
     {
-        $tag = new Select()
+        $tag = (new Select())
             ->optionsData([
                 1 => 'One',
                 'Test Group' => [
@@ -336,7 +336,7 @@ final class SelectTest extends TestCase
 
     public function testOptionsAndGroupsAttributes(): void
     {
-        $tag = new Select()
+        $tag = (new Select())
             ->optionsData(
                 [
                     1 => 'One',
@@ -401,7 +401,7 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string) new Select()
+            (string) (new Select())
                 ->prompt($text)
                 ->options(new Option()
                     ->value('1')
@@ -433,7 +433,7 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string) new Select()
+            (string) (new Select())
                 ->promptOption($option)
                 ->options(new Option()
                     ->value('1')
@@ -445,7 +445,7 @@ final class SelectTest extends TestCase
     {
         $this->assertSame('<select disabled></select>', (string) (new Select())->disabled());
         $this->assertSame('<select></select>', (string) (new Select())->disabled(false));
-        $this->assertSame('<select></select>', (string) new Select()
+        $this->assertSame('<select></select>', (string) (new Select())
             ->disabled(true)
             ->disabled(false));
     }
@@ -454,7 +454,7 @@ final class SelectTest extends TestCase
     {
         $this->assertSame('<select multiple></select>', (string) (new Select())->multiple());
         $this->assertSame('<select></select>', (string) (new Select())->multiple(false));
-        $this->assertSame('<select></select>', (string) new Select()
+        $this->assertSame('<select></select>', (string) (new Select())
             ->multiple(true)
             ->multiple(false));
     }
@@ -463,7 +463,7 @@ final class SelectTest extends TestCase
     {
         $this->assertSame('<select required></select>', (string) (new Select())->required());
         $this->assertSame('<select></select>', (string) (new Select())->required(false));
-        $this->assertSame('<select></select>', (string) new Select()
+        $this->assertSame('<select></select>', (string) (new Select())
             ->required(true)
             ->required(false));
     }
@@ -509,7 +509,7 @@ final class SelectTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new Select()
+            (new Select())
                 ->name($name)
                 ->unselectValue($value)
                 ->render(),
@@ -521,7 +521,7 @@ final class SelectTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="test" value="7" disabled>' . "\n"
             . '<select name="test" disabled></select>',
-            new Select()
+            (new Select())
                 ->name('test')
                 ->unselectValue(7)
                 ->disabled()
@@ -534,7 +534,7 @@ final class SelectTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="test" value="7" form="post">' . "\n"
             . '<select name="test" form="post"></select>',
-            new Select()
+            (new Select())
                 ->name('test')
                 ->unselectValue(7)
                 ->form('post')
@@ -547,7 +547,7 @@ final class SelectTest extends TestCase
         $this->assertSame(
             '<input type="hidden" name="test" value="7">' . "\n"
             . '<select name="test[]" multiple></select>',
-            new Select()
+            (new Select())
                 ->name('test')
                 ->unselectValue(7)
                 ->multiple()
@@ -576,7 +576,7 @@ final class SelectTest extends TestCase
 
     public function testNullValue(): void
     {
-        $select = new Select()
+        $select = (new Select())
             ->optionsData(['red' => 'RED', 'green' => 'GREEN'])
             ->value(null);
 
@@ -593,7 +593,7 @@ final class SelectTest extends TestCase
 
     public function testNullValueOverride(): void
     {
-        $select = new Select()
+        $select = (new Select())
             ->optionsData(['red' => 'RED', 'green' => 'GREEN'])
             ->value('red')
             ->value(null);

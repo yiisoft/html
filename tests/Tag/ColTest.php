@@ -14,7 +14,7 @@ final class ColTest extends TestCase
     {
         $this->assertSame(
             '<col span="2" style="background-color:#f00;">',
-            new Col()
+            (new Col())
                 ->span(2)
                 ->attribute('style', 'background-color:#f00;')
                 ->render(),

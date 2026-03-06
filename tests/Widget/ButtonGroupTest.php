@@ -15,7 +15,7 @@ final class ButtonGroupTest extends TestCase
 {
     public function testBase(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::resetButton('Reset Data'),
                 Html::submitButton('Send'),
@@ -39,7 +39,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testButtonsData(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttonsData([
                 ['Reset Data', 'type' => 'reset'],
                 ['Send >', 'type' => 'submit', 'class' => 'primary'],
@@ -75,7 +75,7 @@ final class ButtonGroupTest extends TestCase
     #[DataProvider('dataButtonsDataEncode')]
     public function testButtonsDataEncode(string $expected, string $label, ?bool $encode): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttonsData(
                 [
                     [$label],
@@ -101,7 +101,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testWithoutContainer(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::resetButton('Reset Data'),
                 Html::submitButton('Send'),
@@ -142,7 +142,7 @@ final class ButtonGroupTest extends TestCase
     #[DataProvider('dataContainerTag')]
     public function testContainerTag(string $expected, ?string $tagName): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(Html::button('Show'))
             ->containerTag($tagName);
 
@@ -151,7 +151,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testBaseContainerAttributes(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(Html::button('Show'))
             ->containerAttributes(['id' => 'actions']);
 
@@ -167,7 +167,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testAddNewButtonAttributes(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -187,7 +187,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testMergeButtonAttributes(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -209,7 +209,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testUnionButtonAttributes(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show')->class('red'),
                 Html::button('Hide'),
@@ -229,7 +229,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testReplaceButtonAttributes(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -278,7 +278,7 @@ final class ButtonGroupTest extends TestCase
     #[DataProvider('dataDisabled')]
     public function testDisabled(string $expected, ?bool $disabled): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -312,7 +312,7 @@ final class ButtonGroupTest extends TestCase
     #[DataProvider('dataForm')]
     public function testForm($expected, ?string $id): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -325,7 +325,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testSeparator(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -344,7 +344,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testStringable(): void
     {
-        $widget = new ButtonGroup()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::resetButton('Reset Data'),
                 Html::submitButton('Send'),

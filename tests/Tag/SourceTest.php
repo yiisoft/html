@@ -14,7 +14,7 @@ final class SourceTest extends TestCase
     {
         $this->assertSame(
             '<source type="audio/ogg; codecs=vorbis" src="audio.ogg">',
-            (string) new Source()
+            (string) (new Source())
                 ->src('audio.ogg')
                 ->type('audio/ogg; codecs=vorbis'),
         );

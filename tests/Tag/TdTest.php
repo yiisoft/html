@@ -13,7 +13,7 @@ class TdTest extends TestCase
     {
         $this->assertSame(
             '<td>hello</td>',
-            new Td()
+            (new Td())
                 ->content('hello')
                 ->render(),
         );

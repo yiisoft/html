@@ -13,7 +13,7 @@ final class TextareaTest extends TestCase
 {
     public function testBase(): void
     {
-        $textarea = new Textarea()
+        $textarea = (new Textarea())
             ->name('body')
             ->value('content')
             ->rows(6);
@@ -103,7 +103,7 @@ final class TextareaTest extends TestCase
     #[DataProvider('dataForm')]
     public function testForm(string $expected, ?string $formId): void
     {
-        $this->assertSame($expected, new Textarea()
+        $this->assertSame($expected, (new Textarea())
             ->form($formId)
             ->render());
     }

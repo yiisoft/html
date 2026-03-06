@@ -13,7 +13,7 @@ final class CodeTest extends TestCase
     {
         $this->assertSame(
             '<code class="red">Hello</code>',
-            (string) new Code()
+            (string) (new Code())
                 ->class('red')
                 ->content('Hello'),
         );

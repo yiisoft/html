@@ -14,7 +14,7 @@ final class CaptionTest extends TestCase
     {
         $this->assertSame(
             '<caption>Table <b>Caption</b></caption>',
-            new Caption()
+            (new Caption())
                 ->content(
                     'Table ',
                     (new CustomTag('b'))->content('Caption'),

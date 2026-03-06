@@ -14,10 +14,10 @@ final class AddressTest extends TestCase
     {
         $this->assertSame(
             '<address>Street 111, Mount View Town. Contact: <a href="tel:xx-xx-xxxx">xx-xx-xxxx</a></address>',
-            (string) new Address()
+            (string) (new Address())
                 ->content(
                     'Street 111, Mount View Town. Contact: '
-                    . new A()
+                    . (new A())
                         ->href('tel:xx-xx-xxxx')
                         ->content('xx-xx-xxxx'),
                 )

@@ -22,7 +22,7 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<html onafterprint="alert(123);" style="font-size:20px;">Welcome Back!</html>',
-            (string) new Html()
+            (string) (new Html())
                 ->attributes([
                     'onafterprint' => 'alert(123);',
                     'style' => 'font-size:20px;',

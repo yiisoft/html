@@ -15,7 +15,7 @@ final class AsideTest extends TestCase
     {
         $this->assertSame(
             '<aside><h2>Hello</h2><p>Aside Tag Content</p></aside>',
-            (string) new Aside()
+            (string) (new Aside())
                 ->content(
                     (new H2())->content('Hello')
                     . (new P())->content('Aside Tag Content'),

@@ -21,7 +21,7 @@ final class VideoTest extends TestCase
             . '<track src="c.mp4">' . "\n"
             . 'Your browser does not support video.' . "\n"
             . '</video>',
-            (string) new Video()
+            (string) (new Video())
                 ->controls()
                 ->sources(new Source()->src('a.mp4'), (new Source())->src('b.avi'))
                 ->tracks(new Track()->src('c.mp4'))

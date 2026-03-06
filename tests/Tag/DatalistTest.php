@@ -12,7 +12,7 @@ final class DatalistTest extends TestCase
 {
     public function testBase(): void
     {
-        $tag = new Datalist()
+        $tag = (new Datalist())
             ->id('numbers')
             ->content(
                 (new Option())->value('One'),

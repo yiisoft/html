@@ -15,7 +15,7 @@ final class SectionTest extends TestCase
     {
         $this->assertSame(
             '<section><h1>Section Heading</h1><p>Section Content</p></section>',
-            (string) new Section()
+            (string) (new Section())
                 ->content(
                     (new H1())->content('Section Heading')
                     . (new P())->content('Section Content'),

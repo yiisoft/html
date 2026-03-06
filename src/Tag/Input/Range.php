@@ -126,7 +126,7 @@ final class Range extends InputTag
             return '';
         }
 
-        return "\n" . new CustomTag($this->outputTag)
+        return "\n" . (new CustomTag($this->outputTag))
                 ->attributes($this->outputAttributes)
                 ->content((string) ($this->attributes['value'] ?? '-'))
                 ->id($this->outputId)

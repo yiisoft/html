@@ -37,7 +37,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form action="https://example.com/send" method="GET"></form>',
-            new Form()
+            (new Form())
                 ->get('https://example.com/send')
                 ->render(),
         );
@@ -47,7 +47,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form method="GET"></form>',
-            new Form()
+            (new Form())
                 ->get()
                 ->render(),
         );
@@ -57,7 +57,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form action="https://example.com/send" method="POST"></form>',
-            new Form()
+            (new Form())
                 ->post('https://example.com/send')
                 ->render(),
         );
@@ -67,7 +67,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form method="POST"></form>',
-            new Form()
+            (new Form())
                 ->post()
                 ->render(),
         );
@@ -95,7 +95,7 @@ final class FormTest extends TestCase
         $this->assertSame(
             '<form>' . "\n"
             . '<input type="hidden" name="_csrf" value="abc"></form>',
-            new Form()
+            (new Form())
                 ->csrf('abc')
                 ->render(),
         );
@@ -106,7 +106,7 @@ final class FormTest extends TestCase
         $this->assertSame(
             '<form>' . "\n"
             . '<input type="hidden" name="_csrf" value="abc"></form>',
-            new Form()
+            (new Form())
                 ->csrf(new StringableObject('abc'))
                 ->render(),
         );
@@ -125,7 +125,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new Form()
+            (new Form())
                 ->acceptCharset($charset)
                 ->render(),
         );
@@ -144,7 +144,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new Form()
+            (new Form())
                 ->action($action)
                 ->render(),
         );
@@ -163,7 +163,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new Form()
+            (new Form())
                 ->autocomplete($value)
                 ->render(),
         );
@@ -173,7 +173,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form autocomplete="on"></form>',
-            new Form()
+            (new Form())
                 ->autocomplete()
                 ->render(),
         );
@@ -192,7 +192,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new Form()
+            (new Form())
                 ->enctype($enctype)
                 ->render(),
         );
@@ -202,7 +202,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form enctype="application/x-www-form-urlencoded"></form>',
-            new Form()
+            (new Form())
                 ->enctypeApplicationXWwwFormUrlencoded()
                 ->render(),
         );
@@ -212,7 +212,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form enctype="multipart/form-data"></form>',
-            new Form()
+            (new Form())
                 ->enctypeMultipartFormData()
                 ->render(),
         );
@@ -222,7 +222,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form enctype="text/plain"></form>',
-            new Form()
+            (new Form())
                 ->enctypeTextPlain()
                 ->render(),
         );
@@ -241,7 +241,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new Form()
+            (new Form())
                 ->method($method)
                 ->render(),
         );
@@ -260,7 +260,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new Form()
+            (new Form())
                 ->noValidate($noValidate)
                 ->render(),
         );
@@ -270,7 +270,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form novalidate></form>',
-            new Form()
+            (new Form())
                 ->noValidate()
                 ->render(),
         );
@@ -289,7 +289,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            new Form()
+            (new Form())
                 ->target($target)
                 ->render(),
         );

@@ -14,7 +14,7 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame(
             '<button type="submit">Send</button>',
-            (string) new Button()
+            (string) (new Button())
                 ->type('submit')
                 ->content('Send'),
         );
@@ -86,7 +86,7 @@ final class ButtonTest extends TestCase
     {
         $this->assertSame('<button disabled></button>', (string) (new Button())->disabled());
         $this->assertSame('<button></button>', (string) (new Button())->disabled(false));
-        $this->assertSame('<button></button>', (string) new Button()
+        $this->assertSame('<button></button>', (string) (new Button())
             ->disabled(true)
             ->disabled(false));
     }

@@ -13,7 +13,7 @@ final class ITest extends TestCase
     {
         $this->assertSame(
             '<i class="red">Hello</i>',
-            (string) new I()
+            (string) (new I())
                 ->class('red')
                 ->content('Hello'),
         );

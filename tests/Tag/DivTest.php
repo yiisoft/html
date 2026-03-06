@@ -13,7 +13,7 @@ final class DivTest extends TestCase
     {
         $this->assertSame(
             '<div class="red">Hello</div>',
-            (string) new Div()
+            (string) (new Div())
                 ->class('red')
                 ->content('Hello'),
         );

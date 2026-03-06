@@ -17,7 +17,7 @@ final class ArticleTest extends TestCase
     {
         $this->assertSame(
             '<article><header><h1>Heading 1</h1></header><p>Article content</p><footer>Footer</footer></article>',
-            (string) new Article()
+            (string) (new Article())
                 ->content(
                     (new Header())->content(new H1()->content('Heading 1'))
                     . (new P())->content('Article content')

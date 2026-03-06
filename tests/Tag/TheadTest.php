@@ -23,7 +23,7 @@ final class TheadTest extends TestCase
             . '<td>D</td>' . "\n"
             . '</tr>' . "\n"
             . '</thead>',
-            new Thead()
+            (new Thead())
                 ->class('gray')
                 ->rows(
                     (new Tr())->dataStrings(['A', 'B']),
