@@ -7,7 +7,8 @@ namespace Yiisoft\Html\Attribute;
 use Attribute;
 
 #[Attribute]
-final class Deprecated {
+final class Deprecated
+{
     public function __construct(
         public readonly ?string $message,
         public readonly ?string $since,
@@ -15,5 +16,5 @@ final class Deprecated {
 }
 
 if (!class_exists('\Deprecated')) {
-    class_alias('\Deprecated', '\Yiisoft\Html\Attribute\Deprecated');
+    class_alias('\Deprecated', \Yiisoft\Html\Attribute\Deprecated::class);
 }
