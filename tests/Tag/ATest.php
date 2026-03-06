@@ -14,7 +14,7 @@ final class ATest extends TestCase
     {
         $this->assertSame(
             '<a href="https://example.com">Link</a>',
-            (string) new A()
+            (string) (new A())
                 ->url('https://example.com')
                 ->content('Link'),
         );

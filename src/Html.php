@@ -540,7 +540,7 @@ final class Html
      */
     public static function mailto(string $content, ?string $mail = null, array $attributes = []): A
     {
-        $tag = new A()
+        $tag = (new A())
             ->content($content)
             ->mailto($mail ?? $content);
         if (!empty($attributes)) {
