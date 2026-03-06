@@ -16,5 +16,5 @@ final class Deprecated
 }
 
 if (!class_exists('\Deprecated')) {
-    class_alias('\Deprecated', \Yiisoft\Html\Attribute\Deprecated::class);
+    class_alias('\Deprecated', Deprecated::class);
 }
