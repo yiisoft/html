@@ -2,7 +2,7 @@
 
 ## ?.?.0
 
-- Enh #243: Use `new tagName()` without parentheses instead of static constructor `tagName::tag()` (@razvbir)
+- Enh #243: Use `new tagName()` instead of static constructor `tagName::tag()` (@razvbir)
 
 ## 3.12.1 under development
 
