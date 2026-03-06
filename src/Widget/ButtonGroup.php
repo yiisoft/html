@@ -35,7 +35,7 @@ final class ButtonGroup implements NoEncodeStringableInterface
         return $this->render();
     }
 
-    #[Deprecated('use the constructor instead')]
+    #[Deprecated('Use the constructor instead.')]
     public static function create(): self
     {
         return new self();
