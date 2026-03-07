@@ -6,6 +6,8 @@ namespace Yiisoft\Html\Attribute;
 
 use Attribute;
 
+use const E_USER_DEPRECATED;
+
 #[Attribute]
 final class Deprecated
 {
