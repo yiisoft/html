@@ -15,6 +15,6 @@ final class Deprecated
     ) {}
 }
 
-if (!class_exists('\Deprecated')) {
-    class_alias('\Deprecated', Deprecated::class);
+if (!class_exists('Deprecated')) {
+    class_alias(Deprecated::class, 'Deprecated');
 }
