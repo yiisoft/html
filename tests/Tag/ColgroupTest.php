@@ -22,10 +22,10 @@ final class ColgroupTest extends TestCase
             (new Colgroup())
                 ->columns(
                     new Col(),
-                    new Col()
+                    (new Col())
                         ->span(2)
                         ->class('red'),
-                    new Col()
+                    (new Col())
                         ->span(2)
                         ->class('blue'),
                 )

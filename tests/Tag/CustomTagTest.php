@@ -126,7 +126,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test>&lt;p&gt;Hi!&lt;/p&gt;</test>',
-            new CustomTag('test')
+            (new CustomTag('test'))
                 ->encode(true)
                 ->content(new P()->content('Hi!'))
                 ->render(),
@@ -137,7 +137,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test>Hello World</test>',
-            new CustomTag('test')
+            (new CustomTag('test'))
                 ->content('Hello')
                 ->addContent(' ')
                 ->addContent(new StringableObject('World'))
@@ -149,7 +149,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test>123</test>',
-            new CustomTag('test')
+            (new CustomTag('test'))
                 ->content('1')
                 ->addContent(...['2', '3'])
                 ->render(),
@@ -160,7 +160,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '<test id="main">',
-            new CustomTag('test')
+            (new CustomTag('test'))
                 ->id('main')
                 ->open(),
         );
@@ -170,7 +170,7 @@ final class CustomTagTest extends TestCase
     {
         $this->assertSame(
             '</test>',
-            new CustomTag('test')
+            (new CustomTag('test'))
                 ->id('main')
                 ->close(),
         );
