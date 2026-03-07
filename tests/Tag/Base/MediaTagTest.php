@@ -24,8 +24,8 @@ final class MediaTagTest extends TestCase
             . '</test>',
             (string) (new TestMediaTag())
                 ->controls()
-                ->sources(new Source()->src('a.mp3'), (new Source())->src('b.ogg'))
-                ->tracks(new Track()->src('c.mp3'))
+                ->sources((new Source())->src('a.mp3'), (new Source())->src('b.ogg'))
+                ->tracks((new Track())->src('c.mp3'))
                 ->fallback('Your browser does not support media.'),
         );
     }
@@ -60,9 +60,9 @@ final class MediaTagTest extends TestCase
     public function testAddTrack(): void
     {
         $tag = (new TestMediaTag())
-            ->tracks(new Track()->src('a.mp4'))
-            ->addTrack(new Track()->src('b.mp4'))
-            ->addTrack(new Track()->src('c.mp4'));
+            ->tracks((new Track())->src('a.mp4'))
+            ->addTrack((new Track())->src('b.mp4'))
+            ->addTrack((new Track())->src('c.mp4'));
 
         $this->assertSame(
             "<test>\n<track src=\"a.mp4\">\n<track src=\"b.mp4\">\n<track src=\"c.mp4\">\n</test>",
