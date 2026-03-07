@@ -7,23 +7,10 @@ namespace Yiisoft\Html\Tests\Attribute;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Attribute\Deprecated;
 
+use const E_USER_DEPRECATED;
+
 final class DeprecatedTest extends TestCase
 {
-    private function make(?string $message, ?string $since): Deprecated
-    {
-        $errors = [];
-        set_error_handler(static function (int $errno, string $errstr) use (&$errors): bool {
-            $errors[] = $errstr;
-            return true;
-        }, E_USER_DEPRECATED);
-
-        $attribute = new Deprecated($message, $since);
-
-        restore_error_handler();
-
-        return $attribute;
-    }
-
     public function testMessageProperty(): void
     {
         $attribute = $this->make('Test message', null);
@@ -94,5 +81,20 @@ final class DeprecatedTest extends TestCase
         $attribute = $this->make('Test message', null);
 
         $this->assertInstanceOf(Deprecated::class, $attribute);
+    }
+
+    private function make(?string $message, ?string $since): Deprecated
+    {
+        $errors = [];
+        set_error_handler(static function (int $errno, string $errstr) use (&$errors): bool {
+            $errors[] = $errstr;
+            return true;
+        }, E_USER_DEPRECATED);
+
+        $attribute = new Deprecated($message, $since);
+
+        restore_error_handler();
+
+        return $attribute;
     }
 }
