@@ -174,7 +174,7 @@ final class Select extends NormalTag
     public function prompt(?string $text): self
     {
         $new = clone $this;
-        $new->prompt = $text === null ? null : new Option()
+        $new->prompt = $text === null ? null : (new Option())
             ->value('')
             ->content($text);
         return $new;
