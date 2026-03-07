@@ -39,8 +39,8 @@ class TrTest extends TestCase
     public function testAddCells(): void
     {
         $tr = (new Tr())
-            ->cells(new Td()->content('A'))
-            ->addCells(new Td()->content('B'));
+            ->cells((new Td())->content('A'))
+            ->addCells((new Td())->content('B'));
 
         $this->assertSame("<tr>\n<td>A</td>\n<td>B</td>\n</tr>", (string) $tr);
     }

@@ -33,11 +33,11 @@ final class TrackTest extends TestCase
 
     public function testIsDefault(): void
     {
-        $this->assertFalse(new Track()->isDefault());
-        $this->assertFalse(new Track()
+        $this->assertFalse((new Track())->isDefault());
+        $this->assertFalse((new Track())
             ->default(false)
             ->isDefault());
-        $this->assertTrue(new Track()
+        $this->assertTrue((new Track())
             ->default()
             ->isDefault());
     }

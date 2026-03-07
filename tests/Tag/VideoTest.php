@@ -23,8 +23,8 @@ final class VideoTest extends TestCase
             . '</video>',
             (string) (new Video())
                 ->controls()
-                ->sources(new Source()->src('a.mp4'), (new Source())->src('b.avi'))
-                ->tracks(new Track()->src('c.mp4'))
+                ->sources((new Source())->src('a.mp4'), (new Source())->src('b.avi'))
+                ->tracks((new Track())->src('c.mp4'))
                 ->fallback('Your browser does not support video.'),
         );
     }

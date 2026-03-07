@@ -12,7 +12,9 @@ final class Deprecated
     public function __construct(
         public readonly ?string $message,
         public readonly ?string $since,
-    ) {}
+    ) {
+        trigger_error($message ?? '', E_USER_DEPRECATED);
+    }
 }
 
 if (!class_exists('Deprecated')) {

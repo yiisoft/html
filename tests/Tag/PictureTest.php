@@ -15,7 +15,7 @@ final class PictureTest extends TestCase
     public function testBase(): void
     {
         $picture = (new Picture())
-            ->image(new Img()
+            ->image((new Img())
                 ->src('img_orange_flowers.jpg')
                 ->alt('Flowers'))
             ->sources(

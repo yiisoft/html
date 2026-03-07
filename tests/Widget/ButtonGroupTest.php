@@ -7,6 +7,7 @@ namespace Yiisoft\Html\Tests\Widget;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Deprecated;
 use ReflectionFunction;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Widget\ButtonGroup;
@@ -371,7 +372,8 @@ final class ButtonGroupTest extends TestCase
 
     public function testDeprecation(): void
     {
-        $func = new ReflectionFunction(ButtonGroup::create(...));
-        $this->assertTrue($func->isDeprecated());
+        $attributes = (new ReflectionFunction(ButtonGroup::create(...)))->getAttributes(Deprecated::class);
+        $this->assertNotEmpty($attributes);
+        $this->assertSame('Use the constructor instead.', $attributes[0]->newInstance()->message);
     }
 }

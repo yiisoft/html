@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Deprecated;
 use ReflectionFunction;
 use Stringable;
 use Yiisoft\Html\Tag\CustomTag;
@@ -128,7 +129,7 @@ final class CustomTagTest extends TestCase
             '<test>&lt;p&gt;Hi!&lt;/p&gt;</test>',
             (new CustomTag('test'))
                 ->encode(true)
-                ->content(new P()->content('Hi!'))
+                ->content((new P())->content('Hi!'))
                 ->render(),
         );
     }
@@ -189,7 +190,8 @@ final class CustomTagTest extends TestCase
 
     public function testDeprecation(): void
     {
-        $func = new ReflectionFunction(CustomTag::name(...));
-        $this->assertTrue($func->isDeprecated());
+        $attributes = (new ReflectionFunction(CustomTag::name(...)))->getAttributes(Deprecated::class);
+        $this->assertNotEmpty($attributes);
+        $this->assertSame('Use the constructor instead.', $attributes[0]->newInstance()->message);
     }
 }

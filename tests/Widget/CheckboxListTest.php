@@ -7,6 +7,7 @@ namespace Yiisoft\Html\Tests\Widget;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Deprecated;
 use ReflectionFunction;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tests\Objects\IterableObject;
@@ -895,7 +896,8 @@ final class CheckboxListTest extends TestCase
 
     public function testDeprecation(): void
     {
-        $func = new ReflectionFunction(CheckboxList::create(...));
-        $this->assertTrue($func->isDeprecated());
+        $attributes = (new ReflectionFunction(CheckboxList::create(...)))->getAttributes(Deprecated::class);
+        $this->assertNotEmpty($attributes);
+        $this->assertSame('Use the constructor instead.', $attributes[0]->newInstance()->message);
     }
 }

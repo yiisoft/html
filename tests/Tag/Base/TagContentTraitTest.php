@@ -75,7 +75,7 @@ final class TagContentTraitTest extends TestCase
             '<test>&lt;p&gt;Hi!&lt;/p&gt;</test>',
             (new TestTagContentTrait())
                 ->encode(true)
-                ->content(new P()->content('Hi!'))
+                ->content((new P())->content('Hi!'))
                 ->render(),
         );
     }

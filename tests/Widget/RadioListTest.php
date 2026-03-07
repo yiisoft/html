@@ -6,6 +6,7 @@ namespace Yiisoft\Html\Tests\Widget;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Deprecated;
 use ReflectionFunction;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
@@ -846,7 +847,8 @@ final class RadioListTest extends TestCase
 
     public function testDeprecation(): void
     {
-        $func = new ReflectionFunction(RadioList::create(...));
-        $this->assertTrue($func->isDeprecated());
+        $attributes = (new ReflectionFunction(RadioList::create(...)))->getAttributes(Deprecated::class);
+        $this->assertNotEmpty($attributes);
+        $this->assertSame('Use the constructor instead.', $attributes[0]->newInstance()->message);
     }
 }

@@ -403,7 +403,7 @@ final class SelectTest extends TestCase
             $expected,
             (string) (new Select())
                 ->prompt($text)
-                ->options(new Option()
+                ->options((new Option())
                     ->value('1')
                     ->content('One')),
         );
@@ -435,7 +435,7 @@ final class SelectTest extends TestCase
             $expected,
             (string) (new Select())
                 ->promptOption($option)
-                ->options(new Option()
+                ->options((new Option())
                     ->value('1')
                     ->content('One')),
         );
