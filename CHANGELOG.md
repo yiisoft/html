@@ -1,15 +1,11 @@
 # Yii HTML Change Log
 
-## 3.13.0
-
-- Enh #243: Use `new tagName()` instead of static constructor `tagName::tag()` (@razvbir)
-
 ## 3.12.1 under development
 
 - New #260: Add `$attributes` parameter to `Html::li()` method (@gauravkumar2525)
 - Enh #261: Enhance `RadioList::addRadioWrapClass()` method for cleaner class addition (@vjik)
 - Enh #263: Explicitly import classes and constants in "use" section (@mspirkov)
-- Enh #243: Use `new tagName()` without parentheses instead of static constructor `tagName::tag()` (@razvbir)
+- Enh #243: Deprecate static constructors such as `tagName::tag()` in favor of `new tagName()` (@razvbir)
 
 ## 3.12.0 December 13, 2025
 
