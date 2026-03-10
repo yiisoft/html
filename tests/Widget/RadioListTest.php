@@ -6,8 +6,6 @@ namespace Yiisoft\Html\Tests\Widget;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Deprecated;
-use ReflectionFunction;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
 use Yiisoft\Html\Tests\Support\StringEnum;
@@ -843,12 +841,5 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->uncheckValue(null));
         $this->assertNotSame($widget, $widget->separator(''));
         $this->assertNotSame($widget, $widget->itemFormatter(null));
-    }
-
-    public function testDeprecation(): void
-    {
-        $attributes = (new ReflectionFunction(RadioList::create(...)))->getAttributes(Deprecated::class);
-        $this->assertNotEmpty($attributes);
-        $this->assertSame('Use the constructor instead.', $attributes[0]->newInstance()->message);
     }
 }

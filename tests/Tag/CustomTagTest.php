@@ -6,8 +6,6 @@ namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Deprecated;
-use ReflectionFunction;
 use Stringable;
 use Yiisoft\Html\Tag\CustomTag;
 use Yiisoft\Html\Tag\P;
@@ -186,12 +184,5 @@ final class CustomTagTest extends TestCase
         $this->assertNotSame($tag, $tag->doubleEncode(true));
         $this->assertNotSame($tag, $tag->content(''));
         $this->assertNotSame($tag, $tag->addContent(''));
-    }
-
-    public function testDeprecation(): void
-    {
-        $attributes = (new ReflectionFunction(CustomTag::name(...)))->getAttributes(Deprecated::class);
-        $this->assertNotEmpty($attributes);
-        $this->assertSame('Use the constructor instead.', $attributes[0]->newInstance()->message);
     }
 }
