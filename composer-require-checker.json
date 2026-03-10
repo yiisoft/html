@@ -1,7 +1,6 @@
 {
     "symbol-whitelist": [
-        "BackedEnum",
-        "Deprecated"
+        "BackedEnum"
     ],
     "php-core-extensions": [
         "Core",
