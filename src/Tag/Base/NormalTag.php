@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
-
 /**
  * Base for all normal tags. Normal tags are the ones that have both opening tag and closing tag.
  */
