@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tests\Tag\Base;
 
+use LogicException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tests\Objects\TestTag;
@@ -130,6 +131,12 @@ final class TagTest extends TestCase
     public function testId(string $expected, ?string $id): void
     {
         $this->assertSame($expected, (string) (new TestTag())->id($id));
+    }
+
+    public function testIdEmptyString(): void
+    {
+        $this->expectException(LogicException::class);
+        (new TestTag())->id('');
     }
 
     public static function dataAddClass(): array
