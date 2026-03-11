@@ -31,6 +31,25 @@ final class ButtonGroupTest extends TestCase
         );
     }
 
+    public function testCreate(): void
+    {
+        $widget = ButtonGroup::create()
+            ->buttons(
+                Html::resetButton('Reset Data'),
+                Html::submitButton('Send'),
+            );
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            <<<HTML
+            <div>
+            <button type="reset">Reset Data</button>
+            <button type="submit">Send</button>
+            </div>
+            HTML,
+            $widget->render(),
+        );
+    }
+
     public function testWithoutButtons(): void
     {
         $this->assertSame('', (new ButtonGroup())->render());

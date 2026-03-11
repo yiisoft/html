@@ -32,6 +32,24 @@ final class RadioListTest extends TestCase
         );
     }
 
+    public function testCreate(): void
+    {
+        $this->assertSame(
+            '<input type="hidden" name="test" value="0">' . "\n"
+            . '<div id="main">' . "\n"
+            . '<label><input type="radio" name="test" value="1"> One</label>' . "\n"
+            . '<label><input type="radio" name="test" value="2" checked> Two</label>' . "\n"
+            . '<label><input type="radio" name="test" value="5"> Five</label>' . "\n"
+            . '</div>',
+            RadioList::create('test')
+                ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
+                ->uncheckValue(0)
+                ->value(2)
+                ->containerAttributes(['id' => 'main'])
+                ->render(),
+        );
+    }
+
     public function testName(): void
     {
         $widget = (new RadioList('a'))

@@ -28,6 +28,18 @@ final class CustomTagTest extends TestCase
         );
     }
 
+    public function testName(): void
+    {
+        $this->assertSame(
+            '<test id="custom" count="15">body</test>',
+            CustomTag::name('test')
+                ->id('custom')
+                ->attribute('count', 15)
+                ->content('body')
+                ->render(),
+        );
+    }
+
     public static function dataVoidTags(): array
     {
         return [

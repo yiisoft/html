@@ -48,6 +48,19 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testCreate(): void
+    {
+        $widget = CheckboxList::create('b')
+            ->items([1 => 'One']);
+
+        $this->assertSame(
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="b[]" value="1"> One</label>' . "\n"
+            . '</div>',
+            $widget->render(),
+        );
+    }
+
     public function testWithoutContainer(): void
     {
         $this->assertSame(

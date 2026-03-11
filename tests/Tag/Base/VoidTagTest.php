@@ -18,4 +18,14 @@ final class VoidTagTest extends TestCase
                 ->render(),
         );
     }
+
+    public function testTag(): void
+    {
+        $this->assertSame(
+            '<test id="main">',
+            TestVoidTag::tag()
+                ->id('main')
+                ->render(),
+        );
+    }
 }

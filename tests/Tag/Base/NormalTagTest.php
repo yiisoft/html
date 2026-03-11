@@ -19,6 +19,16 @@ final class NormalTagTest extends TestCase
         );
     }
 
+    public function testTag(): void
+    {
+        $this->assertSame(
+            '<test id="main">content</test>',
+            TestNormalTag::tag()
+                ->id('main')
+                ->render(),
+        );
+    }
+
     public function testOpen(): void
     {
         $this->assertSame(
