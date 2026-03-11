@@ -29,7 +29,7 @@ final class Input extends InputTag
      */
     public static function hidden(?string $name = null, bool|float|int|string|Stringable|null $value = null): self
     {
-        $input = self::tag();
+        $input = new self();
         $input->attributes['type'] = 'hidden';
         $input->attributes['name'] = $name;
         $input->attributes['value'] = $value;
@@ -46,7 +46,7 @@ final class Input extends InputTag
      */
     public static function text(?string $name = null, bool|float|int|string|Stringable|null $value = null): self
     {
-        $input = self::tag();
+        $input = new self();
         $input->attributes['type'] = 'text';
         $input->attributes['name'] = $name;
         $input->attributes['value'] = $value;
@@ -63,7 +63,7 @@ final class Input extends InputTag
      */
     public static function password(?string $name = null, bool|float|int|string|Stringable|null $value = null): self
     {
-        $input = self::tag();
+        $input = new self();
         $input->attributes['type'] = 'password';
         $input->attributes['name'] = $name;
         $input->attributes['value'] = $value;
@@ -80,7 +80,7 @@ final class Input extends InputTag
      */
     public static function file(?string $name = null, bool|float|int|string|Stringable|null $value = null): File
     {
-        $input = File::tag();
+        $input = new File();
         if ($name !== null) {
             $input = $input->name($name);
         }
@@ -100,7 +100,7 @@ final class Input extends InputTag
      */
     public static function checkbox(?string $name = null, bool|float|int|string|Stringable|null $value = null): Checkbox
     {
-        $input = Checkbox::tag();
+        $input = new Checkbox();
         if ($name !== null) {
             $input = $input->name($name);
         }
@@ -120,7 +120,7 @@ final class Input extends InputTag
      */
     public static function radio(?string $name = null, bool|float|int|string|Stringable|null $value = null): Radio
     {
-        $input = Radio::tag();
+        $input = new Radio();
         if ($name !== null) {
             $input = $input->name($name);
         }
@@ -140,7 +140,7 @@ final class Input extends InputTag
      */
     public static function range(?string $name = null, float|int|string|Stringable|null $value = null): Range
     {
-        $input = Range::tag();
+        $input = new Range();
         if ($name !== null) {
             $input = $input->name($name);
         }
@@ -160,7 +160,7 @@ final class Input extends InputTag
      */
     public static function color(?string $name = null, string|Stringable|null $value = null): Color
     {
-        $input = Color::tag();
+        $input = new Color();
         if ($name !== null) {
             $input = $input->name($name);
         }
@@ -179,7 +179,7 @@ final class Input extends InputTag
      */
     public static function button(?string $label = null): self
     {
-        $input = self::tag();
+        $input = new self();
         $input->attributes['type'] = 'button';
         $input->attributes['value'] = $label;
         return $input;
@@ -194,7 +194,7 @@ final class Input extends InputTag
      */
     public static function submitButton(?string $label = null): self
     {
-        $input = self::tag();
+        $input = new self();
         $input->attributes['type'] = 'submit';
         $input->attributes['value'] = $label;
         return $input;
@@ -209,7 +209,7 @@ final class Input extends InputTag
      */
     public static function resetButton(?string $label = null): self
     {
-        $input = self::tag();
+        $input = new self();
         $input->attributes['type'] = 'reset';
         $input->attributes['value'] = $label;
         return $input;

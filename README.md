@@ -85,9 +85,9 @@ Tag classes allow working with a tag as an object and then get an HTML code by u
 to string. For example, the following code:
 
 ```php
-echo \Yiisoft\Html\Tag\Div::tag()
+echo new \Yiisoft\Html\Tag\Div()
     ->content(
-        \Yiisoft\Html\Tag\A::tag()
+        new \Yiisoft\Html\Tag\A()
             ->mailto('info@example.com')
             ->content('contact us')
             ->render()
@@ -108,7 +108,7 @@ echo \Yiisoft\Html\Tag\Div::tag()
 To generate custom tags, use the `CustomTag` class. For example, the following code:
 
 ```php
-echo \Yiisoft\Html\Tag\CustomTag::name('b')
+echo new \Yiisoft\Html\Tag\CustomTag('b')
     ->content('text')
     ->attribute('title', 'Important');
 ```
@@ -166,7 +166,7 @@ complex HTML in simple PHP.
 Represents a group of buttons.
 
 ```php
-echo \Yiisoft\Html\Widget\ButtonGroup::create()
+echo new \Yiisoft\Html\Widget\ButtonGroup()
    ->buttons(
        \Yiisoft\Html\Html::resetButton('Reset Data'),
        \Yiisoft\Html\Html::resetButton('Send'),
@@ -189,7 +189,7 @@ Result will be:
 Represents a list of checkboxes.
 
 ```php
-echo \Yiisoft\Html\Widget\CheckboxList\CheckboxList::create('count')
+echo new \Yiisoft\Html\Widget\CheckboxList\CheckboxList('count')
     ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
     ->uncheckValue(0)
     ->value(2, 5)
@@ -212,7 +212,7 @@ Result will be:
 Represents a list of radio buttons.
 
 ```php
-echo \Yiisoft\Html\Widget\RadioList\RadioList::create('count')
+echo new \Yiisoft\Html\Widget\RadioList\RadioList('count')
     ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
     ->uncheckValue(0)
     ->value(2)

@@ -15,10 +15,10 @@ final class FooterTest extends TestCase
     {
         $this->assertSame(
             '<footer><h3>Heading 1</h3><p>Hello Text</p></footer>',
-            (string) Footer::tag()
+            (string) (new Footer())
                 ->content(
-                    H3::tag()->content('Heading 1')
-                    . P::tag()->content('Hello Text'),
+                    (new H3())->content('Heading 1')
+                    . (new P())->content('Hello Text'),
                 )
                 ->encode(false),
         );

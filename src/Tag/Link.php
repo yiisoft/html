@@ -13,7 +13,7 @@ final class Link extends VoidTag
 {
     public static function toCssFile(string $url): self
     {
-        $link = self::tag();
+        $link = new self();
         $link->attributes['rel'] = 'stylesheet';
         $link->attributes['href'] = $url;
         return $link;

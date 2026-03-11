@@ -16,7 +16,7 @@ final class Meta extends VoidTag
      */
     public static function data(string $name, string $content): self
     {
-        $tag = self::tag();
+        $tag = new self();
         $tag->attributes['name'] = $name;
         $tag->attributes['content'] = $content;
         return $tag;
@@ -27,7 +27,7 @@ final class Meta extends VoidTag
      */
     public static function pragmaDirective(string $name, string $content): self
     {
-        $tag = self::tag();
+        $tag = new self();
         $tag->attributes['http-equiv'] = $name;
         $tag->attributes['content'] = $content;
         return $tag;
@@ -38,7 +38,7 @@ final class Meta extends VoidTag
      */
     public static function documentEncoding(string $encoding): self
     {
-        $tag = self::tag();
+        $tag = new self();
         $tag->attributes['charset'] = $encoding;
         return $tag;
     }
@@ -48,7 +48,7 @@ final class Meta extends VoidTag
      */
     public static function description(string $content): self
     {
-        $tag = self::tag();
+        $tag = new self();
         $tag->attributes['name'] = 'description';
         $tag->attributes['content'] = $content;
         return $tag;

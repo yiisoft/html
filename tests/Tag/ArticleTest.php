@@ -17,11 +17,11 @@ final class ArticleTest extends TestCase
     {
         $this->assertSame(
             '<article><header><h1>Heading 1</h1></header><p>Article content</p><footer>Footer</footer></article>',
-            (string) Article::tag()
+            (string) (new Article())
                 ->content(
-                    Header::tag()->content(H1::tag()->content('Heading 1'))
-                    . P::tag()->content('Article content')
-                    . Footer::tag()->content('Footer'),
+                    (new Header())->content((new H1())->content('Heading 1'))
+                    . (new P())->content('Article content')
+                    . (new Footer())->content('Footer'),
                 )
                 ->encode(false),
         );

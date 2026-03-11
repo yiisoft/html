@@ -18,12 +18,12 @@ final class OptgroupTest extends TestCase
             . '<option value="1">One</option>' . "\n"
             . '<option value="2">Two</option>' . "\n"
             . '</optgroup>',
-            (string) Optgroup::tag()
+            (string) (new Optgroup())
                 ->options(
-                    Option::tag()
+                    (new Option())
                         ->value('1')
                         ->content('One'),
-                    Option::tag()
+                    (new Option())
                         ->value('2')
                         ->content('Two'),
                 )
@@ -35,12 +35,12 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             "<optgroup>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</optgroup>",
-            (string) Optgroup::tag()
+            (string) (new Optgroup())
                 ->options(
-                    Option::tag()
+                    (new Option())
                         ->value('1')
                         ->content('One'),
-                    Option::tag()
+                    (new Option())
                         ->value('2')
                         ->content('Two'),
                 ),
@@ -51,7 +51,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             "<optgroup>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</optgroup>",
-            (string) Optgroup::tag()->optionsData(['1' => 'One', '2' => 'Two']),
+            (string) (new Optgroup())->optionsData(['1' => 'One', '2' => 'Two']),
         );
     }
 
@@ -59,7 +59,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             "<optgroup>\n<option value=\"1\">&lt;b&gt;One&lt;/b&gt;</option>\n</optgroup>",
-            (string) Optgroup::tag()->optionsData(['1' => '<b>One</b>']),
+            (string) (new Optgroup())->optionsData(['1' => '<b>One</b>']),
         );
     }
 
@@ -67,7 +67,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             "<optgroup>\n<option value=\"1\"><b>One</b></option>\n</optgroup>",
-            (string) Optgroup::tag()->optionsData(['1' => '<b>One</b>'], false),
+            (string) (new Optgroup())->optionsData(['1' => '<b>One</b>'], false),
         );
     }
 
@@ -82,14 +82,14 @@ final class OptgroupTest extends TestCase
     #[DataProvider('dataLabel')]
     public function testLabel(string $expected, ?string $label): void
     {
-        $this->assertSame($expected, (string) Optgroup::tag()->label($label));
+        $this->assertSame($expected, (string) (new Optgroup())->label($label));
     }
 
     public function testDisabled(): void
     {
-        $this->assertSame('<optgroup disabled></optgroup>', (string) Optgroup::tag()->disabled());
-        $this->assertSame('<optgroup></optgroup>', (string) Optgroup::tag()->disabled(false));
-        $this->assertSame('<optgroup></optgroup>', (string) Optgroup::tag()
+        $this->assertSame('<optgroup disabled></optgroup>', (string) (new Optgroup())->disabled());
+        $this->assertSame('<optgroup></optgroup>', (string) (new Optgroup())->disabled(false));
+        $this->assertSame('<optgroup></optgroup>', (string) (new Optgroup())
             ->disabled(true)
             ->disabled(false));
     }
@@ -104,7 +104,7 @@ final class OptgroupTest extends TestCase
                 . '<option value="1"></option>' . "\n"
                 . '<option value="2"></option>' . "\n"
                 . '</optgroup>',
-                [Option::tag()->value('1'), Option::tag()
+                [(new Option())->value('1'), (new Option())
                     ->value('2')
                     ->selected(), ],
                 [],
@@ -114,7 +114,7 @@ final class OptgroupTest extends TestCase
                 . '<option value="1"></option>' . "\n"
                 . '<option value="2"></option>' . "\n"
                 . '</optgroup>',
-                [Option::tag()->value('1'), Option::tag()->value('2')],
+                [(new Option())->value('1'), (new Option())->value('2')],
                 [7],
             ],
             [
@@ -122,7 +122,7 @@ final class OptgroupTest extends TestCase
                 . '<option value="1" selected></option>' . "\n"
                 . '<option value="2"></option>' . "\n"
                 . '</optgroup>',
-                [Option::tag()->value('1'), Option::tag()->value('2')],
+                [(new Option())->value('1'), (new Option())->value('2')],
                 [1],
             ],
             [
@@ -130,7 +130,7 @@ final class OptgroupTest extends TestCase
                 . '<option value="1"></option>' . "\n"
                 . '<option value="2" selected></option>' . "\n"
                 . '</optgroup>',
-                [Option::tag()->value('1'), Option::tag()->value('2')],
+                [(new Option())->value('1'), (new Option())->value('2')],
                 ['2'],
             ],
             [
@@ -138,7 +138,7 @@ final class OptgroupTest extends TestCase
                 . '<option value="1" selected></option>' . "\n"
                 . '<option value="2" selected></option>' . "\n"
                 . '</optgroup>',
-                [Option::tag()->value('1'), Option::tag()->value('2')],
+                [(new Option())->value('1'), (new Option())->value('2')],
                 [1, 2],
             ],
         ];
@@ -149,7 +149,7 @@ final class OptgroupTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (string) Optgroup::tag()
+            (string) (new Optgroup())
                 ->options(...$options)
                 ->selection(...$selection),
         );
@@ -157,7 +157,7 @@ final class OptgroupTest extends TestCase
 
     public function testImmutability(): void
     {
-        $optgroup = Optgroup::tag();
+        $optgroup = new Optgroup();
         $this->assertNotSame($optgroup, $optgroup->options());
         $this->assertNotSame($optgroup, $optgroup->optionsData([]));
         $this->assertNotSame($optgroup, $optgroup->label(null));

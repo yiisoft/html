@@ -14,7 +14,7 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<html>Welcome!</html>',
-            (string) Html::tag()->content('Welcome!'),
+            (string) (new Html())->content('Welcome!'),
         );
     }
 
@@ -22,7 +22,7 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<html onafterprint="alert(123);" style="font-size:20px;">Welcome Back!</html>',
-            (string) Html::tag()
+            (string) (new Html())
                 ->attributes([
                     'onafterprint' => 'alert(123);',
                     'style' => 'font-size:20px;',
@@ -42,12 +42,12 @@ final class HtmlTest extends TestCase
     #[DataProvider('dataLang')]
     public function testLang(string $expected, ?string $href): void
     {
-        $this->assertSame($expected, (string) Html::tag()->lang($href));
+        $this->assertSame($expected, (string) (new Html())->lang($href));
     }
 
     public function testImmutability(): void
     {
-        $tag = Html::tag();
+        $tag = new Html();
 
         $this->assertNotSame($tag, $tag->lang(null));
     }

@@ -16,21 +16,21 @@ final class Button extends NormalTag
 
     public static function button(string $content = ''): self
     {
-        $button = self::tag()->content($content);
+        $button = (new self())->content($content);
         $button->attributes['type'] = 'button';
         return $button;
     }
 
     public static function submit(string $content = ''): self
     {
-        $button = self::tag()->content($content);
+        $button = (new self())->content($content);
         $button->attributes['type'] = 'submit';
         return $button;
     }
 
     public static function reset(string $content = ''): self
     {
-        $button = self::tag()->content($content);
+        $button = (new self())->content($content);
         $button->attributes['type'] = 'reset';
         return $button;
     }

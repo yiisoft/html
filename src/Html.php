@@ -307,7 +307,7 @@ final class Html
      */
     public static function tag(string $name, string|Stringable $content = '', array $attributes = []): CustomTag
     {
-        $tag = CustomTag::name($name);
+        $tag = new CustomTag($name);
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -330,7 +330,7 @@ final class Html
      */
     public static function normalTag(string $name, string|Stringable $content = '', array $attributes = []): CustomTag
     {
-        $tag = CustomTag::name($name)->normal();
+        $tag = (new CustomTag($name))->normal();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -352,7 +352,7 @@ final class Html
      */
     public static function voidTag(string $name, array $attributes = []): CustomTag
     {
-        $tag = CustomTag::name($name)->void();
+        $tag = (new CustomTag($name))->void();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -392,7 +392,7 @@ final class Html
      */
     public static function style(string $content = '', array $attributes = []): Style
     {
-        $tag = Style::tag();
+        $tag = new Style();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -410,7 +410,7 @@ final class Html
      */
     public static function script(string $content = '', array $attributes = []): Script
     {
-        $tag = Script::tag();
+        $tag = new Script();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -427,7 +427,7 @@ final class Html
      */
     public static function noscript(string|Stringable $content = ''): Noscript
     {
-        $tag = Noscript::tag();
+        $tag = new Noscript();
         return $content === '' ? $tag : $tag->content($content);
     }
 
@@ -439,7 +439,7 @@ final class Html
      */
     public static function title(string|Stringable $content = '', array $attributes = []): Title
     {
-        $tag = Title::tag();
+        $tag = new Title();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -453,7 +453,7 @@ final class Html
      */
     public static function meta(array $attributes = []): Meta
     {
-        $tag = Meta::tag();
+        $tag = new Meta();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -468,7 +468,7 @@ final class Html
      */
     public static function link(?string $url = null, array $attributes = []): Link
     {
-        $tag = Link::tag();
+        $tag = new Link();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -501,7 +501,7 @@ final class Html
      */
     public static function javaScriptFile(string $url, array $attributes = []): Script
     {
-        $tag = Script::tag()->url($url);
+        $tag = (new Script())->url($url);
         if (!empty($attributes)) {
             $tag = $tag->addAttributes($attributes);
         }
@@ -518,7 +518,7 @@ final class Html
      */
     public static function a(string|Stringable $content = '', ?string $url = null, array $attributes = []): A
     {
-        $tag = A::tag();
+        $tag = new A();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -540,7 +540,7 @@ final class Html
      */
     public static function mailto(string $content, ?string $mail = null, array $attributes = []): A
     {
-        $tag = A::tag()
+        $tag = (new A())
             ->content($content)
             ->mailto($mail ?? $content);
         if (!empty($attributes)) {
@@ -558,7 +558,7 @@ final class Html
      */
     public static function img(?string $url = null, ?string $alt = '', array $attributes = []): Img
     {
-        $tag = Img::tag();
+        $tag = new Img();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -578,7 +578,7 @@ final class Html
      */
     public static function fieldset(array $attributes = []): Fieldset
     {
-        $tag = Fieldset::tag();
+        $tag = new Fieldset();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -594,7 +594,7 @@ final class Html
      */
     public static function form(?string $action = null, ?string $method = null, array $attributes = []): Form
     {
-        $tag = Form::tag();
+        $tag = new Form();
         if ($action !== null) {
             $attributes['action'] = $action;
         }
@@ -616,7 +616,7 @@ final class Html
      */
     public static function label(string|Stringable $content = '', ?string $for = null): Label
     {
-        $tag = Label::tag();
+        $tag = new Label();
         if ($for !== null) {
             $tag = $tag->forId($for);
         }
@@ -634,7 +634,7 @@ final class Html
      */
     public static function legend(string|Stringable $content = '', array $attributes = []): Legend
     {
-        $tag = Legend::tag();
+        $tag = new Legend();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -710,7 +710,7 @@ final class Html
         bool|float|int|string|Stringable|null $value = null,
         array $attributes = [],
     ): Input {
-        $tag = Input::tag()->type($type);
+        $tag = (new Input())->type($type);
         if ($name !== null) {
             $tag = $tag->name($name);
         }
@@ -929,7 +929,7 @@ final class Html
      */
     public static function textarea(?string $name = null, string|Stringable|array|null $value = null, array $attributes = []): Textarea
     {
-        $tag = Textarea::tag();
+        $tag = new Textarea();
         if ($name !== null) {
             $tag = $tag->name($name);
         }
@@ -946,7 +946,7 @@ final class Html
      */
     public static function select(?string $name = null): Select
     {
-        $tag = Select::tag();
+        $tag = new Select();
         if ($name !== null) {
             $tag = $tag->name($name);
         }
@@ -958,7 +958,7 @@ final class Html
      */
     public static function optgroup(): Optgroup
     {
-        return Optgroup::tag();
+        return new Optgroup();
     }
 
     /**
@@ -971,7 +971,7 @@ final class Html
         string|Stringable $content = '',
         bool|float|int|string|Stringable|null $value = null,
     ): Option {
-        $tag = Option::tag();
+        $tag = new Option();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -988,7 +988,7 @@ final class Html
      */
     public static function checkboxList(string $name): CheckboxList
     {
-        return CheckboxList::create($name);
+        return new CheckboxList($name);
     }
 
     /**
@@ -998,7 +998,7 @@ final class Html
      */
     public static function radioList(string $name): RadioList
     {
-        return RadioList::create($name);
+        return new RadioList($name);
     }
 
     /**
@@ -1009,7 +1009,7 @@ final class Html
      */
     public static function div(string|Stringable $content = '', array $attributes = []): Div
     {
-        $tag = Div::tag();
+        $tag = new Div();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1026,7 +1026,7 @@ final class Html
      */
     public static function code(string|Stringable $content = '', array $attributes = []): Code
     {
-        $tag = Code::tag();
+        $tag = new Code();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1043,7 +1043,7 @@ final class Html
      */
     public static function pre(string|Stringable $content = '', array $attributes = []): Pre
     {
-        $tag = Pre::tag();
+        $tag = new Pre();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1058,7 +1058,7 @@ final class Html
      */
     public static function span(string|Stringable $content = '', array $attributes = []): Span
     {
-        $tag = Span::tag();
+        $tag = new Span();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1073,7 +1073,7 @@ final class Html
      */
     public static function em(string|Stringable $content = '', array $attributes = []): Em
     {
-        $tag = Em::tag();
+        $tag = new Em();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1088,7 +1088,7 @@ final class Html
      */
     public static function strong(string|Stringable $content = '', array $attributes = []): Strong
     {
-        $tag = Strong::tag();
+        $tag = new Strong();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1103,7 +1103,7 @@ final class Html
      */
     public static function small(string|Stringable $content = '', array $attributes = []): Small
     {
-        $tag = Small::tag();
+        $tag = new Small();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1118,7 +1118,7 @@ final class Html
      */
     public static function b(string|Stringable $content = '', array $attributes = []): B
     {
-        $tag = B::tag();
+        $tag = new B();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1133,7 +1133,7 @@ final class Html
      */
     public static function i(string|Stringable $content = '', array $attributes = []): I
     {
-        $tag = I::tag();
+        $tag = new I();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1148,7 +1148,7 @@ final class Html
      */
     public static function h1(string|Stringable $content = '', array $attributes = []): H1
     {
-        $tag = H1::tag();
+        $tag = new H1();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1163,7 +1163,7 @@ final class Html
      */
     public static function h2(string|Stringable $content = '', array $attributes = []): H2
     {
-        $tag = H2::tag();
+        $tag = new H2();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1178,7 +1178,7 @@ final class Html
      */
     public static function h3(string|Stringable $content = '', array $attributes = []): H3
     {
-        $tag = H3::tag();
+        $tag = new H3();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1193,7 +1193,7 @@ final class Html
      */
     public static function h4(string|Stringable $content = '', array $attributes = []): H4
     {
-        $tag = H4::tag();
+        $tag = new H4();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1208,7 +1208,7 @@ final class Html
      */
     public static function h5(string|Stringable $content = '', array $attributes = []): H5
     {
-        $tag = H5::tag();
+        $tag = new H5();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1223,7 +1223,7 @@ final class Html
      */
     public static function h6(string|Stringable $content = '', array $attributes = []): H6
     {
-        $tag = H6::tag();
+        $tag = new H6();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1238,7 +1238,7 @@ final class Html
      */
     public static function p(string|Stringable $content = '', array $attributes = []): P
     {
-        $tag = P::tag();
+        $tag = new P();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1252,7 +1252,7 @@ final class Html
      */
     public static function ul(array $attributes = []): Ul
     {
-        $tag = Ul::tag();
+        $tag = new Ul();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1266,7 +1266,7 @@ final class Html
      */
     public static function ol(array $attributes = []): Ol
     {
-        $tag = Ol::tag();
+        $tag = new Ol();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1281,7 +1281,7 @@ final class Html
      */
     public static function li(string|Stringable $content = '', array $attributes = []): Li
     {
-        $tag = Li::tag();
+        $tag = new Li();
 
         if ($attributes !== []) {
             $tag = $tag->attributes($attributes);
@@ -1297,7 +1297,7 @@ final class Html
      */
     public static function datalist(array $attributes = []): Datalist
     {
-        $tag = Datalist::tag();
+        $tag = new Datalist();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1312,7 +1312,7 @@ final class Html
      */
     public static function caption(string|Stringable $content = '', array $attributes = []): Caption
     {
-        $tag = Caption::tag();
+        $tag = new Caption();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -1329,7 +1329,7 @@ final class Html
      */
     public static function col(array $attributes = []): Col
     {
-        $tag = Col::tag();
+        $tag = new Col();
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
@@ -1340,7 +1340,7 @@ final class Html
      */
     public static function colgroup(array $attributes = []): Colgroup
     {
-        $tag = Colgroup::tag();
+        $tag = new Colgroup();
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
@@ -1351,7 +1351,7 @@ final class Html
      */
     public static function table(array $attributes = []): Table
     {
-        $tag = Table::tag();
+        $tag = new Table();
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
@@ -1362,7 +1362,7 @@ final class Html
      */
     public static function thead(array $attributes = []): Thead
     {
-        $tag = Thead::tag();
+        $tag = new Thead();
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
@@ -1373,7 +1373,7 @@ final class Html
      */
     public static function tbody(array $attributes = []): Tbody
     {
-        $tag = Tbody::tag();
+        $tag = new Tbody();
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
@@ -1384,7 +1384,7 @@ final class Html
      */
     public static function tfoot(array $attributes = []): Tfoot
     {
-        $tag = Tfoot::tag();
+        $tag = new Tfoot();
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
@@ -1395,7 +1395,7 @@ final class Html
      */
     public static function tr(array $attributes = []): Tr
     {
-        $tag = Tr::tag();
+        $tag = new Tr();
         return $attributes === [] ? $tag : $tag->attributes($attributes);
     }
 
@@ -1407,7 +1407,7 @@ final class Html
      */
     public static function td(string|Stringable $content = '', array $attributes = []): Td
     {
-        $tag = Td::tag();
+        $tag = new Td();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -1425,7 +1425,7 @@ final class Html
      */
     public static function th(string|Stringable $content = '', array $attributes = []): Th
     {
-        $tag = Th::tag();
+        $tag = new Th();
         if ($content !== '') {
             $tag = $tag->content($content);
         }
@@ -1440,7 +1440,7 @@ final class Html
      */
     public static function br(): Br
     {
-        return Br::tag();
+        return new Br();
     }
 
     /**
@@ -1448,7 +1448,7 @@ final class Html
      */
     public static function video(): Video
     {
-        return Video::tag();
+        return new Video();
     }
 
     /**
@@ -1456,7 +1456,7 @@ final class Html
      */
     public static function audio(): Audio
     {
-        return Audio::tag();
+        return new Audio();
     }
 
     /**
@@ -1464,7 +1464,7 @@ final class Html
      */
     public static function track(?string $src = null): Track
     {
-        $tag = Track::tag();
+        $tag = new Track();
         return $src === null ? $tag : $tag->src($src);
     }
 
@@ -1473,7 +1473,7 @@ final class Html
      */
     public static function picture(): Picture
     {
-        return Picture::tag();
+        return new Picture();
     }
 
     /**
@@ -1481,7 +1481,7 @@ final class Html
      */
     public static function source(): Source
     {
-        return Source::tag();
+        return new Source();
     }
 
     /**
@@ -1493,7 +1493,7 @@ final class Html
      */
     public static function html(string|Stringable $content = '', ?string $lang = null, array $attributes = []): Tag\Html
     {
-        $tag = Tag\Html::tag();
+        $tag = new Tag\Html();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1514,7 +1514,7 @@ final class Html
      */
     public static function body(string|Stringable $content = '', array $attributes = []): Body
     {
-        $tag = Body::tag();
+        $tag = new Body();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1529,7 +1529,7 @@ final class Html
      */
     public static function article(string|Stringable $content = '', array $attributes = []): Article
     {
-        $tag = Article::tag();
+        $tag = new Article();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1544,7 +1544,7 @@ final class Html
      */
     public static function section(string|Stringable $content = '', array $attributes = []): Section
     {
-        $tag = Section::tag();
+        $tag = new Section();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1559,7 +1559,7 @@ final class Html
      */
     public static function nav(string|Stringable $content = '', array $attributes = []): Nav
     {
-        $tag = Nav::tag();
+        $tag = new Nav();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1574,7 +1574,7 @@ final class Html
      */
     public static function aside(string|Stringable $content = '', array $attributes = []): Aside
     {
-        $tag = Aside::tag();
+        $tag = new Aside();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1589,7 +1589,7 @@ final class Html
      */
     public static function hgroup(string|Stringable $content = '', array $attributes = []): Hgroup
     {
-        $tag = Hgroup::tag();
+        $tag = new Hgroup();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1604,7 +1604,7 @@ final class Html
      */
     public static function header(string|Stringable $content = '', array $attributes = []): Header
     {
-        $tag = Header::tag();
+        $tag = new Header();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1616,7 +1616,7 @@ final class Html
      */
     public static function hr(array $attributes = []): Hr
     {
-        $tag = Hr::tag();
+        $tag = new Hr();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1631,7 +1631,7 @@ final class Html
      */
     public static function footer(string|Stringable $content = '', array $attributes = []): Footer
     {
-        $tag = Footer::tag();
+        $tag = new Footer();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -1646,7 +1646,7 @@ final class Html
      */
     public static function address(string|Stringable $content = '', array $attributes = []): Address
     {
-        $tag = Address::tag();
+        $tag = new Address();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }

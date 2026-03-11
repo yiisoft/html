@@ -15,7 +15,7 @@ final class FormTest extends TestCase
 {
     public function testBase(): void
     {
-        $tag = Form::tag();
+        $tag = new Form();
 
         $this->assertSame(
             '<form action="https://example.com/send" method="GET">'
@@ -37,7 +37,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form action="https://example.com/send" method="GET"></form>',
-            Form::tag()
+            (new Form())
                 ->get('https://example.com/send')
                 ->render(),
         );
@@ -47,7 +47,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form method="GET"></form>',
-            Form::tag()
+            (new Form())
                 ->get()
                 ->render(),
         );
@@ -57,7 +57,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form action="https://example.com/send" method="POST"></form>',
-            Form::tag()
+            (new Form())
                 ->post('https://example.com/send')
                 ->render(),
         );
@@ -67,7 +67,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form method="POST"></form>',
-            Form::tag()
+            (new Form())
                 ->post()
                 ->render(),
         );
@@ -75,7 +75,7 @@ final class FormTest extends TestCase
 
     public function testCsrf(): void
     {
-        $tag = Form::tag()->csrf('abc', 'csrf-token');
+        $tag = (new Form())->csrf('abc', 'csrf-token');
 
         $this->assertSame(
             '<form>' . "\n"
@@ -95,7 +95,7 @@ final class FormTest extends TestCase
         $this->assertSame(
             '<form>' . "\n"
             . '<input type="hidden" name="_csrf" value="abc"></form>',
-            Form::tag()
+            (new Form())
                 ->csrf('abc')
                 ->render(),
         );
@@ -106,7 +106,7 @@ final class FormTest extends TestCase
         $this->assertSame(
             '<form>' . "\n"
             . '<input type="hidden" name="_csrf" value="abc"></form>',
-            Form::tag()
+            (new Form())
                 ->csrf(new StringableObject('abc'))
                 ->render(),
         );
@@ -125,7 +125,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()
+            (new Form())
                 ->acceptCharset($charset)
                 ->render(),
         );
@@ -144,7 +144,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()
+            (new Form())
                 ->action($action)
                 ->render(),
         );
@@ -163,7 +163,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()
+            (new Form())
                 ->autocomplete($value)
                 ->render(),
         );
@@ -173,7 +173,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form autocomplete="on"></form>',
-            Form::tag()
+            (new Form())
                 ->autocomplete()
                 ->render(),
         );
@@ -192,7 +192,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()
+            (new Form())
                 ->enctype($enctype)
                 ->render(),
         );
@@ -202,7 +202,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form enctype="application/x-www-form-urlencoded"></form>',
-            Form::tag()
+            (new Form())
                 ->enctypeApplicationXWwwFormUrlencoded()
                 ->render(),
         );
@@ -212,7 +212,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form enctype="multipart/form-data"></form>',
-            Form::tag()
+            (new Form())
                 ->enctypeMultipartFormData()
                 ->render(),
         );
@@ -222,7 +222,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form enctype="text/plain"></form>',
-            Form::tag()
+            (new Form())
                 ->enctypeTextPlain()
                 ->render(),
         );
@@ -241,7 +241,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()
+            (new Form())
                 ->method($method)
                 ->render(),
         );
@@ -260,7 +260,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()
+            (new Form())
                 ->noValidate($noValidate)
                 ->render(),
         );
@@ -270,7 +270,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             '<form novalidate></form>',
-            Form::tag()
+            (new Form())
                 ->noValidate()
                 ->render(),
         );
@@ -289,7 +289,7 @@ final class FormTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            Form::tag()
+            (new Form())
                 ->target($target)
                 ->render(),
         );
@@ -297,7 +297,7 @@ final class FormTest extends TestCase
 
     public function testImmutability(): void
     {
-        $tag = Form::tag();
+        $tag = new Form();
 
         $this->assertNotSame($tag, $tag->get());
         $this->assertNotSame($tag, $tag->post());

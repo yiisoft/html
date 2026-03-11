@@ -22,10 +22,10 @@ final class MediaTagTest extends TestCase
             . '<track src="c.mp3">' . "\n"
             . 'Your browser does not support media.' . "\n"
             . '</test>',
-            (string) TestMediaTag::tag()
+            (string) (new TestMediaTag())
                 ->controls()
-                ->sources(Source::tag()->src('a.mp3'), Source::tag()->src('b.ogg'))
-                ->tracks(Track::tag()->src('c.mp3'))
+                ->sources((new Source())->src('a.mp3'), (new Source())->src('b.ogg'))
+                ->tracks((new Track())->src('c.mp3'))
                 ->fallback('Your browser does not support media.'),
         );
     }
@@ -43,15 +43,15 @@ final class MediaTagTest extends TestCase
     #[DataProvider('dataFallback')]
     public function testFallback($fallback): void
     {
-        $tag = TestMediaTag::tag()->fallback($fallback);
+        $tag = (new TestMediaTag())->fallback($fallback);
         $this->assertSame('<test>' . "\n" . $fallback . "\n" . '</test>', (string) $tag);
     }
 
     public function testTracks(): void
     {
-        $tag = TestMediaTag::tag()->tracks(
-            Track::tag()->src('a.mp4'),
-            Track::tag()->src('b.mp4'),
+        $tag = (new TestMediaTag())->tracks(
+            (new Track())->src('a.mp4'),
+            (new Track())->src('b.mp4'),
         );
 
         $this->assertSame("<test>\n<track src=\"a.mp4\">\n<track src=\"b.mp4\">\n</test>", (string) $tag);
@@ -59,10 +59,10 @@ final class MediaTagTest extends TestCase
 
     public function testAddTrack(): void
     {
-        $tag = TestMediaTag::tag()
-            ->tracks(Track::tag()->src('a.mp4'))
-            ->addTrack(Track::tag()->src('b.mp4'))
-            ->addTrack(Track::tag()->src('c.mp4'));
+        $tag = (new TestMediaTag())
+            ->tracks((new Track())->src('a.mp4'))
+            ->addTrack((new Track())->src('b.mp4'))
+            ->addTrack((new Track())->src('c.mp4'));
 
         $this->assertSame(
             "<test>\n<track src=\"a.mp4\">\n<track src=\"b.mp4\">\n<track src=\"c.mp4\">\n</test>",
@@ -81,7 +81,7 @@ final class MediaTagTest extends TestCase
     #[DataProvider('dataSrc')]
     public function testSrc(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string) TestMediaTag::tag()->src($url));
+        $this->assertSame($expected, (string) (new TestMediaTag())->src($url));
     }
 
     public static function dataCrossOrigin(): array
@@ -95,7 +95,7 @@ final class MediaTagTest extends TestCase
     #[DataProvider('dataCrossOrigin')]
     public function testCrossOrigin(string $expected, ?string $crossOrigin): void
     {
-        $this->assertSame($expected, (string) TestMediaTag::tag()->crossOrigin($crossOrigin));
+        $this->assertSame($expected, (string) (new TestMediaTag())->crossOrigin($crossOrigin));
     }
 
     public static function dataPreload(): array
@@ -109,58 +109,58 @@ final class MediaTagTest extends TestCase
     #[DataProvider('dataPreload')]
     public function testPreload(string $expected, ?string $preload): void
     {
-        $this->assertSame($expected, (string) TestMediaTag::tag()->preload($preload));
+        $this->assertSame($expected, (string) (new TestMediaTag())->preload($preload));
     }
 
     public function testMuted(): void
     {
-        $this->assertSame('<test muted></test>', (string) TestMediaTag::tag()->muted());
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()->muted(false));
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()
+        $this->assertSame('<test muted></test>', (string) (new TestMediaTag())->muted());
+        $this->assertSame('<test></test>', (string) (new TestMediaTag())->muted(false));
+        $this->assertSame('<test></test>', (string) (new TestMediaTag())
             ->muted(true)
             ->muted(false));
     }
 
     public function testLoop(): void
     {
-        $this->assertSame('<test loop></test>', (string) TestMediaTag::tag()->loop());
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()->loop(false));
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()
+        $this->assertSame('<test loop></test>', (string) (new TestMediaTag())->loop());
+        $this->assertSame('<test></test>', (string) (new TestMediaTag())->loop(false));
+        $this->assertSame('<test></test>', (string) (new TestMediaTag())
             ->loop(true)
             ->loop(false));
     }
 
     public function testAutoplay(): void
     {
-        $this->assertSame('<test autoplay></test>', (string) TestMediaTag::tag()->autoplay());
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()->autoplay(false));
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()
+        $this->assertSame('<test autoplay></test>', (string) (new TestMediaTag())->autoplay());
+        $this->assertSame('<test></test>', (string) (new TestMediaTag())->autoplay(false));
+        $this->assertSame('<test></test>', (string) (new TestMediaTag())
             ->autoplay(true)
             ->autoplay(false));
     }
 
     public function testControls(): void
     {
-        $this->assertSame('<test controls></test>', (string) TestMediaTag::tag()->controls());
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()->controls(false));
-        $this->assertSame('<test></test>', (string) TestMediaTag::tag()
+        $this->assertSame('<test controls></test>', (string) (new TestMediaTag())->controls());
+        $this->assertSame('<test></test>', (string) (new TestMediaTag())->controls(false));
+        $this->assertSame('<test></test>', (string) (new TestMediaTag())
             ->controls(true)
             ->controls(false));
     }
 
     public function testWrongTrackDefault(): void
     {
-        $tag = TestMediaTag::tag()->tracks(
-            Track::tag()
+        $tag = (new TestMediaTag())->tracks(
+            (new Track())
                 ->kind('captions')
                 ->src('sampleCaptions.vtt')
                 ->srclang('en')
                 ->default(),
-            Track::tag()
+            (new Track())
                 ->kind('descriptions')
                 ->src('sampleDescriptions.vtt')
                 ->srclang('de'),
-            Track::tag()
+            (new Track())
                 ->kind('chapters')
                 ->src('sampleChapters.vtt')
                 ->srclang('ja')
@@ -179,10 +179,10 @@ final class MediaTagTest extends TestCase
 
     public function testImmutability(): void
     {
-        $tag = TestMediaTag::tag();
+        $tag = new TestMediaTag();
         $this->assertNotSame($tag, $tag->fallback(null));
         $this->assertNotSame($tag, $tag->tracks());
-        $this->assertNotSame($tag, $tag->addTrack(Track::tag()));
+        $this->assertNotSame($tag, $tag->addTrack(new Track()));
         $this->assertNotSame($tag, $tag->src(null));
         $this->assertNotSame($tag, $tag->crossOrigin(null));
         $this->assertNotSame($tag, $tag->preload(null));

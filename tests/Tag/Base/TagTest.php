@@ -62,15 +62,15 @@ final class TagTest extends TestCase
     #[DataProvider('dataAttributes')]
     public function testAttributes(string $expected, array $attributes): void
     {
-        $this->assertSame($expected, (string) TestTag::tag()->addAttributes($attributes));
-        $this->assertSame($expected, (string) TestTag::tag()->attributes($attributes));
+        $this->assertSame($expected, (string) (new TestTag())->addAttributes($attributes));
+        $this->assertSame($expected, (string) (new TestTag())->attributes($attributes));
     }
 
     public function testAttributesMerge(): void
     {
         $this->assertSame(
             '<test id="color" class="green">',
-            TestTag::tag()
+            (new TestTag())
                 ->id('color')
                 ->class('red')
                 ->addAttributes(['class' => 'green'])
@@ -82,7 +82,7 @@ final class TagTest extends TestCase
     {
         $this->assertSame(
             '<test class="green">',
-            TestTag::tag()
+            (new TestTag())
                 ->id('color')
                 ->class('red')
                 ->attributes(['class' => 'green'])
@@ -94,7 +94,7 @@ final class TagTest extends TestCase
     {
         $this->assertSame(
             '<test id="color" class="red">',
-            TestTag::tag()
+            (new TestTag())
                 ->class('red')
                 ->unionAttributes(['class' => 'green', 'id' => 'color'])
                 ->render(),
@@ -113,7 +113,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataAttribute')]
     public function testAttribute(string $expected, $value): void
     {
-        $this->assertSame($expected, TestTag::tag()
+        $this->assertSame($expected, (new TestTag())
             ->attribute('key', $value)
             ->render());
     }
@@ -129,7 +129,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataId')]
     public function testId(string $expected, ?string $id): void
     {
-        $this->assertSame($expected, (string) TestTag::tag()->id($id));
+        $this->assertSame($expected, (string) (new TestTag())->id($id));
     }
 
     public static function dataAddClass(): array
@@ -151,7 +151,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataAddClass')]
     public function testAddClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string) TestTag::tag()
+        $this->assertSame($expected, (string) (new TestTag())
             ->addClass('main')
             ->addClass(...$class));
     }
@@ -168,7 +168,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataNewClass')]
     public function testNewClass(string $expected, ?string $class): void
     {
-        $this->assertSame($expected, (string) TestTag::tag()->addClass($class));
+        $this->assertSame($expected, (string) (new TestTag())->addClass($class));
     }
 
     public static function dataClass(): array
@@ -191,7 +191,7 @@ final class TagTest extends TestCase
     #[DataProvider('dataClass')]
     public function testClass(string $expected, array $class): void
     {
-        $this->assertSame($expected, (string) TestTag::tag()
+        $this->assertSame($expected, (string) (new TestTag())
             ->class('red')
             ->class(...$class));
     }
@@ -206,13 +206,13 @@ final class TagTest extends TestCase
     #[DataProvider('dataAddStyle')]
     public function testAddStyle(string $expected, array|string $style): void
     {
-        $result = (string) TestTag::tag()->addStyle($style);
+        $result = (string) (new TestTag())->addStyle($style);
         $this->assertSame($expected, $result);
     }
 
     public function testAddStyleMerging(): void
     {
-        $tag = TestTag::tag()->addStyle('width: 100px;');
+        $tag = (new TestTag())->addStyle('width: 100px;');
 
         $result = (string) $tag->addStyle(['width' => '200px', 'height' => '300px']);
 
@@ -224,7 +224,7 @@ final class TagTest extends TestCase
 
     public function testAddStyleMergingWithoutOverwrite(): void
     {
-        $tag = TestTag::tag()->addStyle('width: 100px;');
+        $tag = (new TestTag())->addStyle('width: 100px;');
 
         $result = (string) $tag->addStyle(['width' => '200px', 'height' => '300px'], false);
 
@@ -236,7 +236,7 @@ final class TagTest extends TestCase
 
     public function testAddStyleWithExistingAttribute(): void
     {
-        $tag = TestTag::tag()->attribute('style', 'color: red;');
+        $tag = (new TestTag())->attribute('style', 'color: red;');
 
         $result = (string) $tag->addStyle('width: 100px;');
 
@@ -250,22 +250,22 @@ final class TagTest extends TestCase
     {
         yield [
             '<test>',
-            TestTag::tag(),
+            new TestTag(),
             'width',
         ];
         yield [
             '<test>',
-            TestTag::tag()->addStyle('width: 100px;'),
+            (new TestTag())->addStyle('width: 100px;'),
             'width',
         ];
         yield [
             '<test style="height: 100px;">',
-            TestTag::tag()->addStyle('height: 100px; width: 100px;'),
+            (new TestTag())->addStyle('height: 100px; width: 100px;'),
             'width',
         ];
         yield [
             '<test style="color: red;">',
-            TestTag::tag()->addStyle('height: 100px; width: 100px; color: red;'),
+            (new TestTag())->addStyle('height: 100px; width: 100px; color: red;'),
             ['width', 'height'],
         ];
     }
@@ -280,7 +280,7 @@ final class TagTest extends TestCase
 
     public function testImmutability(): void
     {
-        $tag = TestTag::tag();
+        $tag = new TestTag();
         $this->assertNotSame($tag, $tag->addAttributes([]));
         $this->assertNotSame($tag, $tag->attributes([]));
         $this->assertNotSame($tag, $tag->unionAttributes([]));

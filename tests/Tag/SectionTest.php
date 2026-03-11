@@ -15,10 +15,10 @@ final class SectionTest extends TestCase
     {
         $this->assertSame(
             '<section><h1>Section Heading</h1><p>Section Content</p></section>',
-            (string) Section::tag()
+            (string) (new Section())
                 ->content(
-                    H1::tag()->content('Section Heading')
-                    . P::tag()->content('Section Content'),
+                    (new H1())->content('Section Heading')
+                    . (new P())->content('Section Content'),
                 )
                 ->encode(false),
         );
