@@ -136,6 +136,7 @@ final class TagTest extends TestCase
     public function testIdEmptyString(): void
     {
         $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('The tag id cannot be an empty string.');
         (new TestTag())->id('');
     }
 
