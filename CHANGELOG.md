@@ -10,7 +10,6 @@
 - Chg #243: Deprecate static constructors such as `TagName::tag()` in favor of `new TagName()` (@razvbir)
 - Enh #261: Enhance `RadioList::addRadioWrapClass()` method for cleaner class addition (@vjik)
 - Enh #263: Explicitly import classes and constants in "use" section (@mspirkov)
-- Chg #243: Deprecate static constructors such as `TagName::tag()` in favor of `new TagName()` (@razvbir)
 
 ## 3.12.0 December 13, 2025
 
