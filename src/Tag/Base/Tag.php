@@ -74,9 +74,9 @@ abstract class Tag implements NoEncodeStringableInterface
     /**
      * Set tag ID.
      *
-     * @param string|null $id Tag ID.
+     * @param string|null $id Non-empty tag ID.
      *
-     * @throws LogicException
+     * @psalm-param non-empty-string|null $id
      */
     final public function id(?string $id): static
     {
