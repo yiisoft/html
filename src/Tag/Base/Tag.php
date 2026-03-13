@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tag\Base;
 
 use BackedEnum;
+use LogicException;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 
@@ -75,10 +76,14 @@ abstract class Tag implements NoEncodeStringableInterface
      *
      * @param string|null $id Tag ID.
      *
-     * @psalm-param non-empty-string|null $id
+     * @throws LogicException
      */
     final public function id(?string $id): static
     {
+        if ($id === '') {
+            throw new LogicException('The tag id cannot be an empty string.');
+        }
+
         $new = clone $this;
         $new->attributes['id'] = $id;
         return $new;
