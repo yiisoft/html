@@ -9,5 +9,7 @@ application when you upgrade the package from one version to another.
 
 ## Upgrade from 3.x
 
-- `Tag::id()` now throws `LogicException` when an empty string is passed. Check your code for places where you call 
+- `Tag::id()` now throws `LogicException` when an empty string is passed. Check your code for places where you call
   `Tag::id()` and make sure you are not passing an empty string.
+- All `CheckboxItem` and `RadioItem` properties are now required. If you create instances of these classes directly,
+  make sure to pass `$labelAttributes` and `$labelWrap` arguments explicitly.

@@ -16,7 +16,7 @@ final class CheckboxItem
         public array $checkboxAttributes,
         public string $label,
         public bool $encodeLabel,
-        public array $labelAttributes = [],
-        public bool $labelWrap = true,
+        public array $labelAttributes,
+        public bool $labelWrap,
     ) {}
 }
