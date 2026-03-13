@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 3.13.1 under development
+## 4.0.0 under development
 
 - Chg #221: Throw `LogicException` in `Tag::id()` when id is empty string (@razvbir)
 
