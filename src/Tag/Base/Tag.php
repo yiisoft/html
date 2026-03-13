@@ -80,6 +80,7 @@ abstract class Tag implements NoEncodeStringableInterface
      */
     final public function id(?string $id): static
     {
+        /** @psalm-suppress TypeDoesNotContainType */
         if ($id === '') {
             throw new LogicException('The tag id cannot be an empty string.');
         }
