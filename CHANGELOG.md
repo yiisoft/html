@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 3.13.1 under development
+
+- no changes in this release.
+
 ## 3.13.0 March 13, 2026
 
 - New #260: Add `$attributes` parameter to `Html::li()` method (@gauravkumar2525)
