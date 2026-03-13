@@ -1,8 +1,13 @@
 # Yii HTML Change Log
 
-## 3.12.1 under development
+## 3.13.1 under development
+
+- no changes in this release.
+
+## 3.13.0 March 13, 2026
 
 - New #260: Add `$attributes` parameter to `Html::li()` method (@gauravkumar2525)
+- Chg #243: Deprecate static constructors such as `TagName::tag()` in favor of `new TagName()` (@razvbir)
 - Enh #261: Enhance `RadioList::addRadioWrapClass()` method for cleaner class addition (@vjik)
 - Enh #263: Explicitly import classes and constants in "use" section (@mspirkov)
 - Chg #243: Deprecate static constructors such as `TagName::tag()` in favor of `new TagName()` (@razvbir)
