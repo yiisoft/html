@@ -1,8 +1,8 @@
 # Yii HTML Change Log
 
-## 3.13.1 under development
+## 4.0.0 under development
 
-- no changes in this release.
+- Chg #221: Throw `LogicException` in `Tag::id()` when id is empty string (@razvbir)
 
 ## 3.13.0 March 13, 2026
 
