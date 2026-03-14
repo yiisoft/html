@@ -48,7 +48,7 @@ final class InputTest extends TestCase
     public function testFile(): void
     {
         $this->assertSame(
-            '<input type="file" name="photo" value="c:\path\">',
+            '<input name="photo" value="c:\path\" type="file">',
             (string) Input::file('photo', 'c:\\path\\'),
         );
     }
@@ -56,7 +56,7 @@ final class InputTest extends TestCase
     public function testCheckbox(): void
     {
         $this->assertSame(
-            '<input type="checkbox" name="subscribe" checked>',
+            '<input name="subscribe" checked type="checkbox">',
             (string) Input::checkbox('subscribe')->checked(),
         );
     }
@@ -64,7 +64,7 @@ final class InputTest extends TestCase
     public function testRadio(): void
     {
         $this->assertSame(
-            '<input type="radio" name="count" value="one">',
+            '<input name="count" value="one" type="radio">',
             (string) Input::radio('count', 'one'),
         );
     }
@@ -72,7 +72,7 @@ final class InputTest extends TestCase
     public function testRange(): void
     {
         $this->assertSame(
-            '<input type="range" name="count" value="10">',
+            '<input name="count" value="10" type="range">',
             (string) Input::range('count', 10),
         );
     }
@@ -80,7 +80,7 @@ final class InputTest extends TestCase
     public function testColor(): void
     {
         $this->assertSame(
-            '<input type="color" name="color" value="#ff0000">',
+            '<input name="color" value="#ff0000" type="color">',
             (string) Input::color('color', '#ff0000'),
         );
     }
