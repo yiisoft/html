@@ -14,7 +14,7 @@ final class InputTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="id" value="42">',
-            (string) Input::tag()
+            (string) (new Input())
                 ->type('hidden')
                 ->name('id')
                 ->value('42'),
@@ -120,12 +120,12 @@ final class InputTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string) Input::tag()->type($type));
+        $this->assertSame($expected, (string) (new Input())->type($type));
     }
 
     public function testImmutability(): void
     {
-        $input = Input::tag();
+        $input = new Input();
         $this->assertNotSame($input, $input->type(null));
     }
 }

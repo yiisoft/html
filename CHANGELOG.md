@@ -1,10 +1,16 @@
 # Yii HTML Change Log
 
-## 3.12.1 under development
+## 4.0.0 under development
+
+- Chg #221: Throw `LogicException` in `Tag::id()` when id is empty string (@razvbir)
+
+## 3.13.0 March 13, 2026
 
 - New #260: Add `$attributes` parameter to `Html::li()` method (@gauravkumar2525)
 - Chg #234: Remove tag attributes sorting (@FrankiFixx)
+- Chg #243: Deprecate static constructors such as `TagName::tag()` in favor of `new TagName()` (@razvbir)
 - Enh #261: Enhance `RadioList::addRadioWrapClass()` method for cleaner class addition (@vjik)
+- Enh #263: Explicitly import classes and constants in "use" section (@mspirkov)
 
 ## 3.12.0 December 13, 2025
 

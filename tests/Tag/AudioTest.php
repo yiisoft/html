@@ -20,10 +20,10 @@ final class AudioTest extends TestCase
             . '<track src="c.mp3">' . "\n"
             . 'Your browser does not support audio.' . "\n"
             . '</audio>',
-            (string) Audio::tag()
+            (string) (new Audio())
                 ->controls()
-                ->sources(Source::tag()->src('a.mp3'), Source::tag()->src('b.ogg'))
-                ->tracks(Track::tag()->src('c.mp3'))
+                ->sources((new Source())->src('a.mp3'), (new Source())->src('b.ogg'))
+                ->tracks((new Track())->src('c.mp3'))
                 ->fallback('Your browser does not support audio.'),
         );
     }

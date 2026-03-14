@@ -46,7 +46,7 @@ final class Table extends NormalTag
 
     public function captionString(string $content, bool $encode = true): self
     {
-        $caption = Caption::tag()->content($content);
+        $caption = (new Caption())->content($content);
         if (!$encode) {
             $caption = $caption->encode(false);
         }

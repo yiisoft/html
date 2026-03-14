@@ -13,7 +13,7 @@ final class CheckboxTest extends TestCase
     {
         $this->assertSame(
             '<input name="number" value="42" type="checkbox">',
-            Checkbox::tag()
+            (new Checkbox())
                 ->name('number')
                 ->value(42)
                 ->render(),

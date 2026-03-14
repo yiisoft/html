@@ -12,9 +12,9 @@ final class TableRowsContainerTagTest extends TestCase
 {
     public function testRows(): void
     {
-        $tag = TestTableRowsContainerTag::tag()->rows(
-            Tr::tag()->dataStrings(['A', 'B']),
-            Tr::tag()->dataStrings(['C', 'D']),
+        $tag = (new TestTableRowsContainerTag())->rows(
+            (new Tr())->dataStrings(['A', 'B']),
+            (new Tr())->dataStrings(['C', 'D']),
         );
 
         $this->assertSame(
@@ -34,13 +34,13 @@ final class TableRowsContainerTagTest extends TestCase
 
     public function testAddRows(): void
     {
-        $tag = TestTableRowsContainerTag::tag()
+        $tag = (new TestTableRowsContainerTag())
             ->rows(
-                Tr::tag()->dataStrings(['A', 'B']),
+                (new Tr())->dataStrings(['A', 'B']),
             )
             ->addRows(
-                Tr::tag()->dataStrings(['C', 'D']),
-                Tr::tag()->dataStrings(['E', 'F']),
+                (new Tr())->dataStrings(['C', 'D']),
+                (new Tr())->dataStrings(['E', 'F']),
             );
 
         $this->assertSame(
@@ -64,7 +64,7 @@ final class TableRowsContainerTagTest extends TestCase
 
     public function testImmutability(): void
     {
-        $tag = TestTableRowsContainerTag::tag();
+        $tag = new TestTableRowsContainerTag();
         $this->assertNotSame($tag, $tag->rows());
         $this->assertNotSame($tag, $tag->addRows());
     }

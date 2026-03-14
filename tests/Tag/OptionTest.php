@@ -14,7 +14,7 @@ final class OptionTest extends TestCase
     {
         $this->assertSame(
             '<option value="1">One</option>',
-            (string) Option::tag()
+            (string) (new Option())
                 ->value('1')
                 ->content('One'),
         );
@@ -31,21 +31,21 @@ final class OptionTest extends TestCase
     #[DataProvider('dataValue')]
     public function testValue(string $expected, ?string $value): void
     {
-        $this->assertSame($expected, (string) Option::tag()->value($value));
+        $this->assertSame($expected, (string) (new Option())->value($value));
     }
 
     public function testSelected(): void
     {
-        $this->assertSame('<option selected></option>', (string) Option::tag()->selected());
-        $this->assertSame('<option></option>', (string) Option::tag()->selected(false));
-        $this->assertSame('<option></option>', (string) Option::tag()->selected(true)->selected(false));
+        $this->assertSame('<option selected></option>', (string) (new Option())->selected());
+        $this->assertSame('<option></option>', (string) (new Option())->selected(false));
+        $this->assertSame('<option></option>', (string) (new Option())->selected(true)->selected(false));
     }
 
     public function testDisabled(): void
     {
-        $this->assertSame('<option disabled></option>', (string) Option::tag()->disabled());
-        $this->assertSame('<option></option>', (string) Option::tag()->disabled(false));
-        $this->assertSame('<option></option>', (string) Option::tag()
+        $this->assertSame('<option disabled></option>', (string) (new Option())->disabled());
+        $this->assertSame('<option></option>', (string) (new Option())->disabled(false));
+        $this->assertSame('<option></option>', (string) (new Option())
             ->disabled(true)
             ->disabled(false));
     }
@@ -53,10 +53,10 @@ final class OptionTest extends TestCase
     public static function dataGetValue(): array
     {
         return [
-            [null, Option::tag()],
-            [null, Option::tag()->value(null)],
-            ['', Option::tag()->value('')],
-            ['one', Option::tag()->value('one')],
+            [null, new Option()],
+            [null, (new Option())->value(null)],
+            ['', (new Option())->value('')],
+            ['one', (new Option())->value('one')],
         ];
     }
 
@@ -68,7 +68,7 @@ final class OptionTest extends TestCase
 
     public function testImmutability(): void
     {
-        $option = Option::tag();
+        $option = new Option();
         $this->assertNotSame($option, $option->value(null));
         $this->assertNotSame($option, $option->selected());
         $this->assertNotSame($option, $option->disabled());

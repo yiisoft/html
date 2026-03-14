@@ -15,6 +15,8 @@ use Yiisoft\Html\Tests\Support\IntegerEnum;
 
 use function array_key_exists;
 
+require __DIR__ . '/mocks/hrtime.php';
+
 final class HtmlTest extends TestCase
 {
     /**
@@ -120,7 +122,7 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<noscript></noscript>', Html::noscript()->render());
         $this->assertSame('<noscript>hello</noscript>', Html::noscript('hello')->render());
-        $this->assertSame('<noscript><div></div></noscript>', Html::noscript(Div::tag())->render());
+        $this->assertSame('<noscript><div></div></noscript>', Html::noscript(new Div())->render());
     }
 
     public function testTitle(): void
@@ -531,11 +533,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="test" value="0">' . "\n"
-            . '<div id="main">' . "\n"
-            . '<label><input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
-            . '<label><input name="test[]" value="2" checked type="checkbox"> Two</label>' . "\n"
-            . '<label><input name="test[]" value="5" checked type="checkbox"> Five</label>' . "\n"
-            . '</div>',
+                . '<div id="main">' . "\n"
+                . '<label><input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
+                . '<label><input name="test[]" value="2" checked type="checkbox"> Two</label>' . "\n"
+                . '<label><input name="test[]" value="5" checked type="checkbox"> Five</label>' . "\n"
+                . '</div>',
             Html::checkboxList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
                 ->uncheckValue(0)
@@ -549,11 +551,11 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame(
             '<input type="hidden" name="test" value="0">' . "\n"
-            . '<div id="main">' . "\n"
-            . '<label><input name="test" value="1" type="radio"> One</label>' . "\n"
-            . '<label><input name="test" value="2" checked type="radio"> Two</label>' . "\n"
-            . '<label><input name="test" value="5" type="radio"> Five</label>' . "\n"
-            . '</div>',
+                . '<div id="main">' . "\n"
+                . '<label><input name="test" value="1" type="radio"> One</label>' . "\n"
+                . '<label><input name="test" value="2" checked type="radio"> Two</label>' . "\n"
+                . '<label><input name="test" value="5" type="radio"> Five</label>' . "\n"
+                . '</div>',
             Html::radioList('test')
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
                 ->uncheckValue(0)
@@ -941,8 +943,7 @@ final class HtmlTest extends TestCase
 
     public static function dataRenderTagAttributesWithForbiddenSymbols(): iterable
     {
-        return
-        [
+        return [
             [' '],
             ['"'],
             ["'"],
@@ -1363,13 +1364,4 @@ final class HtmlTest extends TestCase
             Html::address('Street 111, Mount View Town.', ['class' => 'red'])->render(),
         );
     }
-}
-
-namespace Yiisoft\Html;
-
-use Yiisoft\Html\Tests\HtmlTest;
-
-function hrtime(bool $getAsNumber = false)
-{
-    return HtmlTest::$hrtimeResult ?? \hrtime($getAsNumber);
 }

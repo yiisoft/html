@@ -13,7 +13,7 @@ final class PreTest extends TestCase
     {
         $this->assertSame(
             '<pre class="red">Hello</pre>',
-            (string) Pre::tag()
+            (string) (new Pre())
                 ->class('red')
                 ->content('Hello'),
         );

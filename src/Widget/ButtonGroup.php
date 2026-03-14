@@ -27,13 +27,16 @@ final class ButtonGroup implements NoEncodeStringableInterface
     private array $buttonAttributes = [];
     private string $separator = "\n";
 
-    private function __construct() {}
+    public function __construct() {}
 
     public function __toString(): string
     {
         return $this->render();
     }
 
+    /**
+     * @deprecated Use the constructor instead.
+     */
     public static function create(): self
     {
         return new self();

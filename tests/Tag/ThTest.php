@@ -13,7 +13,7 @@ class ThTest extends TestCase
     {
         $this->assertSame(
             '<th>hello</th>',
-            Th::tag()
+            (new Th())
                 ->content('hello')
                 ->render(),
         );

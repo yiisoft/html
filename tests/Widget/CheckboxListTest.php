@@ -25,7 +25,7 @@ final class CheckboxListTest extends TestCase
             . '<label><input name="test[]" value="2" checked type="checkbox"> Two</label>' . "\n"
             . '<label><input name="test[]" value="5" checked type="checkbox"> Five</label>' . "\n"
             . '</div>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([1 => 'One', 2 => 'Two', 5 => 'Five'])
                 ->uncheckValue(0)
                 ->value(2, 5)
@@ -36,7 +36,7 @@ final class CheckboxListTest extends TestCase
 
     public function testName(): void
     {
-        $widget = CheckboxList::create('a')
+        $widget = (new CheckboxList('a'))
             ->items([1 => 'One'])
             ->name('b');
 
@@ -48,11 +48,24 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testCreate(): void
+    {
+        $widget = CheckboxList::create('b')
+            ->items([1 => 'One']);
+
+        $this->assertSame(
+            '<div>' . "\n"
+            . '<label><input type="checkbox" name="b[]" value="1"> One</label>' . "\n"
+            . '</div>',
+            $widget->render(),
+        );
+    }
+
     public function testWithoutContainer(): void
     {
         $this->assertSame(
             '<label><input name="test[]" value="1" type="checkbox"> One</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([1 => 'One'])
                 ->withoutContainer()
                 ->render(),
@@ -84,7 +97,7 @@ final class CheckboxListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([1 => 'One'])
                 ->containerTag($name)
                 ->render(),
@@ -97,7 +110,7 @@ final class CheckboxListTest extends TestCase
             '<div id="main">' . "\n"
             . '<label><input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
             . '</div>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([1 => 'One'])
                 ->containerAttributes(['id' => 'main'])
                 ->render(),
@@ -109,7 +122,7 @@ final class CheckboxListTest extends TestCase
         $this->assertSame(
             '<label><input name="test[]" value="1" class="red" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" class="red" type="checkbox"> Two</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -125,7 +138,7 @@ final class CheckboxListTest extends TestCase
         $this->assertSame(
             '<label><input name="test[]" value="1" readonly class="red" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" readonly class="red" type="checkbox"> Two</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -142,7 +155,7 @@ final class CheckboxListTest extends TestCase
         $this->assertSame(
             '<label><input name="test[]" value="1" class="red" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" class="red" type="checkbox"> Two</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -159,7 +172,7 @@ final class CheckboxListTest extends TestCase
         $this->assertSame(
             '<label class="red"><input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
             . '<label class="red"><input name="test[]" value="2" type="checkbox"> Two</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([1 => 'One', 2 => 'Two'])
                 ->checkboxLabelAttributes(['class' => 'red'])
                 ->withoutContainer()
@@ -172,7 +185,7 @@ final class CheckboxListTest extends TestCase
         $this->assertSame(
             '<label class="red" data-type="label"><input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
             . '<label class="red" data-type="label"><input name="test[]" value="2" type="checkbox"> Two</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([1 => 'One', 2 => 'Two'])
                 ->checkboxLabelAttributes(['class' => 'red'])
                 ->addCheckboxLabelAttributes(['data-type' => 'label'])
@@ -187,7 +200,7 @@ final class CheckboxListTest extends TestCase
             '<label><input name="test[]" value="1" class="red" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" class="blue" type="checkbox"> Two</label>' . "\n"
             . '<label><input name="test[]" value="3" class="green" type="checkbox"> Three</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -209,7 +222,7 @@ final class CheckboxListTest extends TestCase
             '<input type="hidden" name="test" value="0" class="blue">' . "\n"
             . '<label><input name="test[]" value="1" class="red" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" class="red" type="checkbox"> Two</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -230,7 +243,7 @@ final class CheckboxListTest extends TestCase
             '<label><input name="test[]" value="1" class="yellow" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" class="cyan" type="checkbox"> Two</label>' . "\n"
             . '<label><input name="test[]" value="3" class="green" type="checkbox"> Three</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -256,7 +269,7 @@ final class CheckboxListTest extends TestCase
             '<label><input name="test[]" value="1" class="yellow" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" class="red" type="checkbox"> Two</label>' . "\n"
             . '<label><input name="test[]" value="3" class="red" type="checkbox"> Three</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -280,7 +293,7 @@ final class CheckboxListTest extends TestCase
         $this->assertSame(
             '<label><input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" type="checkbox"> &lt;b&gt;Two&lt;/b&gt;</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => '<b>Two</b>',
@@ -295,7 +308,7 @@ final class CheckboxListTest extends TestCase
         $this->assertSame(
             '<label><input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" type="checkbox"> <b>Two</b></label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => '<b>Two</b>',
@@ -331,7 +344,7 @@ final class CheckboxListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->itemsFromValues($values)
                 ->withoutContainer()
                 ->render(),
@@ -343,7 +356,7 @@ final class CheckboxListTest extends TestCase
         $this->assertSame(
             '<label><input name="test[]" value="One" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="&lt;b&gt;Two&lt;/b&gt;" type="checkbox"> <b>Two</b></label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->itemsFromValues([
                     'One',
                     '<b>Two</b>',
@@ -459,28 +472,28 @@ final class CheckboxListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items($items)
                 ->value(...$value)
                 ->render(),
         );
         $this->assertSame(
             $expected,
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items($items)
                 ->values($value)
                 ->render(),
         );
         $this->assertSame(
             $expected,
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items($items)
                 ->values(new ArrayObject($value))
                 ->render(),
         );
         $this->assertSame(
             $expected,
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items($items)
                 ->values(new IterableObject($value))
                 ->render(),
@@ -519,7 +532,7 @@ final class CheckboxListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -531,7 +544,7 @@ final class CheckboxListTest extends TestCase
 
     public function testReadonly(): void
     {
-        $checkbox = CheckboxList::create('test')
+        $checkbox = (new CheckboxList('test'))
             ->items([
                 1 => 'One',
                 2 => 'Two',
@@ -570,7 +583,7 @@ final class CheckboxListTest extends TestCase
 
     public function testDisabled(): void
     {
-        $checkbox = CheckboxList::create('test')
+        $checkbox = (new CheckboxList('test'))
             ->items([
                 1 => 'One',
                 2 => 'Two',
@@ -652,7 +665,7 @@ final class CheckboxListTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            CheckboxList::create($name)
+            (new CheckboxList($name))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -668,7 +681,7 @@ final class CheckboxListTest extends TestCase
             '<input type="hidden" name="test" value="7" disabled>' . "\n"
             . '<label><input name="test[]" value="1" disabled type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" disabled type="checkbox"> Two</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -686,7 +699,7 @@ final class CheckboxListTest extends TestCase
             '<input type="hidden" name="test" value="7" form="post">' . "\n"
             . '<label><input name="test[]" value="1" form="post" type="checkbox"> One</label>' . "\n"
             . '<label><input name="test[]" value="2" form="post" type="checkbox"> Two</label>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([
                     1 => 'One',
                     2 => 'Two',
@@ -705,7 +718,7 @@ final class CheckboxListTest extends TestCase
             . '<label><input name="test[]" value="1" type="checkbox"> One</label><br>'
             . '<label><input name="test[]" value="2" type="checkbox"> Two</label>' . "\n"
             . '</div>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([1 => 'One', 2 => 'Two'])
                 ->separator('<br>')
                 ->render(),
@@ -719,7 +732,7 @@ final class CheckboxListTest extends TestCase
             . '<div>0) <label><input name="test[]" value="1" type="checkbox"> One</label></div>'
             . '<div>1) <label><input name="test[]" value="2" type="checkbox"> Two</label></div>' . "\n"
             . '</div>',
-            CheckboxList::create('test')
+            (new CheckboxList('test'))
                 ->items([1 => 'One', 2 => 'Two'])
                 ->itemFormatter(fn(CheckboxItem $item): string => '<div>'
                     . $item->index . ') '
@@ -738,7 +751,7 @@ final class CheckboxListTest extends TestCase
 
     public function testDisableCheckboxLabelWrap(): void
     {
-        $html = CheckboxList::create('test')
+        $html = (new CheckboxList('test'))
             ->items([1 => 'One', 2 => 'Two'])
             ->addIndividualInputAttributes([
                 1 => ['id' => 'id1'],
@@ -760,7 +773,7 @@ final class CheckboxListTest extends TestCase
 
     public function testCheckboxWrap(): void
     {
-        $html = CheckboxList::create('test')
+        $html = (new CheckboxList('test'))
             ->items([1 => 'One', 2 => 'Two'])
             ->checkboxWrapTag('div')
             ->checkboxWrapAttributes(['class' => 'form-check'])
@@ -796,7 +809,7 @@ final class CheckboxListTest extends TestCase
     #[DataProvider('dataCheckboxWrapClass')]
     public function testCheckboxWrapClass(string $expected, array $class): void
     {
-        $html = CheckboxList::create('test')
+        $html = (new CheckboxList('test'))
             ->items([1 => 'One', 2 => 'Two'])
             ->checkboxWrapTag('div')
             ->checkboxWrapAttributes(['class' => 'form-check'])
@@ -832,7 +845,7 @@ final class CheckboxListTest extends TestCase
     #[DataProvider('dataAddCheckboxWrapClass')]
     public function testAddCheckboxWrapClass(string $expected, array $class): void
     {
-        $html = CheckboxList::create('test')
+        $html = (new CheckboxList('test'))
             ->items([1 => 'One', 2 => 'Two'])
             ->checkboxWrapTag('div')
             ->checkboxWrapAttributes(['class' => 'form-check'])
@@ -858,13 +871,13 @@ final class CheckboxListTest extends TestCase
     {
         $this->assertSame(
             "<div>\n</div>",
-            (string) CheckboxList::create('test'),
+            (string) new CheckboxList('test'),
         );
     }
 
     public function testImmutability(): void
     {
-        $widget = CheckboxList::create('test');
+        $widget = new CheckboxList('test');
         $this->assertNotSame($widget, $widget->name('test'));
         $this->assertNotSame($widget, $widget->withoutContainer());
         $this->assertNotSame($widget, $widget->containerTag(''));

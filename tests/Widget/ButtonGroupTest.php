@@ -14,6 +14,25 @@ final class ButtonGroupTest extends TestCase
 {
     public function testBase(): void
     {
+        $widget = (new ButtonGroup())
+            ->buttons(
+                Html::resetButton('Reset Data'),
+                Html::submitButton('Send'),
+            );
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            <<<HTML
+            <div>
+            <button type="reset">Reset Data</button>
+            <button type="submit">Send</button>
+            </div>
+            HTML,
+            $widget->render(),
+        );
+    }
+
+    public function testCreate(): void
+    {
         $widget = ButtonGroup::create()
             ->buttons(
                 Html::resetButton('Reset Data'),
@@ -33,12 +52,12 @@ final class ButtonGroupTest extends TestCase
 
     public function testWithoutButtons(): void
     {
-        $this->assertSame('', ButtonGroup::create()->render());
+        $this->assertSame('', (new ButtonGroup())->render());
     }
 
     public function testButtonsData(): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttonsData([
                 ['Reset Data', 'type' => 'reset'],
                 ['Send >', 'type' => 'submit', 'class' => 'primary'],
@@ -74,7 +93,7 @@ final class ButtonGroupTest extends TestCase
     #[DataProvider('dataButtonsDataEncode')]
     public function testButtonsDataEncode(string $expected, string $label, ?bool $encode): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttonsData(
                 [
                     [$label],
@@ -88,7 +107,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testInvalidButtonsData(): void
     {
-        $widget = ButtonGroup::create();
+        $widget = new ButtonGroup();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -100,7 +119,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testWithoutContainer(): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::resetButton('Reset Data'),
                 Html::submitButton('Send'),
@@ -141,7 +160,7 @@ final class ButtonGroupTest extends TestCase
     #[DataProvider('dataContainerTag')]
     public function testContainerTag(string $expected, ?string $tagName): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(Html::button('Show'))
             ->containerTag($tagName);
 
@@ -150,7 +169,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testBaseContainerAttributes(): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(Html::button('Show'))
             ->containerAttributes(['id' => 'actions']);
 
@@ -166,7 +185,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testAddNewButtonAttributes(): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -186,7 +205,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testMergeButtonAttributes(): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -208,7 +227,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testUnionButtonAttributes(): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show')->class('red'),
                 Html::button('Hide'),
@@ -228,7 +247,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testReplaceButtonAttributes(): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -277,7 +296,7 @@ final class ButtonGroupTest extends TestCase
     #[DataProvider('dataDisabled')]
     public function testDisabled(string $expected, ?bool $disabled): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -311,7 +330,7 @@ final class ButtonGroupTest extends TestCase
     #[DataProvider('dataForm')]
     public function testForm($expected, ?string $id): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -324,7 +343,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testSeparator(): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::button('Show'),
                 Html::button('Hide'),
@@ -343,7 +362,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testStringable(): void
     {
-        $widget = ButtonGroup::create()
+        $widget = (new ButtonGroup())
             ->buttons(
                 Html::resetButton('Reset Data'),
                 Html::submitButton('Send'),
@@ -354,7 +373,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testImmutability(): void
     {
-        $widget = ButtonGroup::create();
+        $widget = new ButtonGroup();
 
         $this->assertNotSame($widget, $widget->withoutContainer());
         $this->assertNotSame($widget, $widget->containerTag(null));

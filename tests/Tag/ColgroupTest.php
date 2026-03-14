@@ -19,13 +19,13 @@ final class ColgroupTest extends TestCase
             . '<col span="2" class="red">' . "\n"
             . '<col span="2" class="blue">' . "\n"
             . '</colgroup>',
-            Colgroup::tag()
+            (new Colgroup())
                 ->columns(
-                    Col::tag(),
-                    Col::tag()
+                    new Col(),
+                    (new Col())
                         ->span(2)
                         ->class('red'),
-                    Col::tag()
+                    (new Col())
                         ->span(2)
                         ->class('blue'),
                 )
@@ -35,9 +35,9 @@ final class ColgroupTest extends TestCase
 
     public function testColumns(): void
     {
-        $tag = Colgroup::tag()->columns(
-            Col::tag(),
-            Col::tag()->span(2),
+        $tag = (new Colgroup())->columns(
+            new Col(),
+            (new Col())->span(2),
         );
 
         $this->assertSame(
@@ -51,14 +51,14 @@ final class ColgroupTest extends TestCase
 
     public function testAddColumns(): void
     {
-        $tag = Colgroup::tag()
+        $tag = (new Colgroup())
             ->columns(
-                Col::tag(),
-                Col::tag()->span(2),
+                new Col(),
+                (new Col())->span(2),
             )
             ->addColumns(
-                Col::tag()->span(3),
-                Col::tag()->span(4),
+                (new Col())->span(3),
+                (new Col())->span(4),
             );
 
         $this->assertSame(
@@ -83,14 +83,14 @@ final class ColgroupTest extends TestCase
     #[DataProvider('dataSpan')]
     public function testSpan(string $expected, ?int $span): void
     {
-        $this->assertSame($expected, Colgroup::tag()
+        $this->assertSame($expected, (new Colgroup())
             ->span($span)
             ->render());
     }
 
     public function testImmutability(): void
     {
-        $tag = Colgroup::tag();
+        $tag = new Colgroup();
         $this->assertNotSame($tag, $tag->columns());
         $this->assertNotSame($tag, $tag->addColumns());
         $this->assertNotSame($tag, $tag->span(null));

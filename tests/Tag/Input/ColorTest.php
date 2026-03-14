@@ -13,7 +13,7 @@ final class ColorTest extends TestCase
     {
         $this->assertSame(
             '<input name="color" value="#ff0000" type="color">',
-            Color::tag()
+            (new Color())
                 ->name('color')
                 ->value('#ff0000')
                 ->render(),

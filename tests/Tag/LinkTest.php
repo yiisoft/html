@@ -14,7 +14,7 @@ final class LinkTest extends TestCase
     {
         $this->assertSame(
             '<link href="/rss" type="application/rss+xml" rel="alternate" title="Новости компании">',
-            (string) Link::tag()
+            (string) (new Link())
                 ->url('/rss')
                 ->type('application/rss+xml')
                 ->rel('alternate')
@@ -41,8 +41,8 @@ final class LinkTest extends TestCase
     #[DataProvider('dataUrl')]
     public function testUrl(string $expected, ?string $url): void
     {
-        $this->assertSame($expected, (string) Link::tag()->url($url));
-        $this->assertSame($expected, (string) Link::tag()->href($url));
+        $this->assertSame($expected, (string) (new Link())->url($url));
+        $this->assertSame($expected, (string) (new Link())->href($url));
     }
 
     public static function dataRel(): array
@@ -56,7 +56,7 @@ final class LinkTest extends TestCase
     #[DataProvider('dataRel')]
     public function testRel(string $expected, ?string $rel): void
     {
-        $this->assertSame($expected, (string) Link::tag()->rel($rel));
+        $this->assertSame($expected, (string) (new Link())->rel($rel));
     }
 
     public static function dataType(): array
@@ -70,7 +70,7 @@ final class LinkTest extends TestCase
     #[DataProvider('dataType')]
     public function testType(string $expected, ?string $type): void
     {
-        $this->assertSame($expected, (string) Link::tag()->type($type));
+        $this->assertSame($expected, (string) (new Link())->type($type));
     }
 
     public static function dataTitle(): array
@@ -84,7 +84,7 @@ final class LinkTest extends TestCase
     #[DataProvider('dataTitle')]
     public function testTitle(string $expected, ?string $title): void
     {
-        $this->assertSame($expected, (string) Link::tag()->title($title));
+        $this->assertSame($expected, (string) (new Link())->title($title));
     }
 
     public static function dataCrossOrigin(): array
@@ -98,7 +98,7 @@ final class LinkTest extends TestCase
     #[DataProvider('dataCrossOrigin')]
     public function testCrossOrigin(string $expected, ?string $crossOrigin): void
     {
-        $this->assertSame($expected, (string) Link::tag()->crossOrigin($crossOrigin));
+        $this->assertSame($expected, (string) (new Link())->crossOrigin($crossOrigin));
     }
 
     public static function dataTestAs(): array
@@ -113,7 +113,7 @@ final class LinkTest extends TestCase
     #[DataProvider('dataTestAs')]
     public function testAs(string $expected, ?string $as): void
     {
-        $this->assertSame($expected, (string) Link::tag()->as($as));
+        $this->assertSame($expected, (string) (new Link())->as($as));
     }
 
     public static function dataPreload(): array
@@ -128,15 +128,15 @@ final class LinkTest extends TestCase
     public function testPreload(string $expected, string $url, ?string $as = null): void
     {
         $tag = $as === null
-            ? Link::tag()->preload($url)
-            : Link::tag()->preload($url, $as);
+            ? (new Link())->preload($url)
+            : (new Link())->preload($url, $as);
 
         $this->assertSame($expected, $tag->render());
     }
 
     public function testImmutability(): void
     {
-        $link = Link::tag();
+        $link = new Link();
         $this->assertNotSame($link, $link->url(null));
         $this->assertNotSame($link, $link->href(null));
         $this->assertNotSame($link, $link->rel(null));
