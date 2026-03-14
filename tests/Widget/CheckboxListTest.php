@@ -55,7 +55,7 @@ final class CheckboxListTest extends TestCase
 
         $this->assertSame(
             '<div>' . "\n"
-            . '<label><input type="checkbox" name="b[]" value="1"> One</label>' . "\n"
+            . '<label><input name="b[]" value="1" type="checkbox"> One</label>' . "\n"
             . '</div>',
             $widget->render(),
         );
