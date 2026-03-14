@@ -4,6 +4,7 @@
 
 - Chg #221: Throw `LogicException` in `Tag::id()` when id is empty string (@razvbir)
 - Chg #267: Make all `CheckboxItem` and `RadioItem` properties required (@vjik)
+- Chg #234: Remove tag attributes sorting (@FrankiFixx)
 
 ## 3.13.0 March 13, 2026
 

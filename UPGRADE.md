@@ -13,3 +13,7 @@ application when you upgrade the package from one version to another.
   `Tag::id()` and make sure you are not passing an empty string.
 - All `CheckboxItem` and `RadioItem` properties are now required. If you create instances of these classes directly,
   make sure to pass `$labelAttributes` and `$labelWrap` arguments explicitly.
+- HTML tag attributes are no longer sorted by `Html::renderTagAttributes()`. Previously, attributes were reordered
+  according to a predefined priority list (`type`, `id`, `class`, `name`, `value`, etc.). Now attributes are rendered
+  in the order they are set. If your code or tests depend on a specific attribute order in the rendered HTML, you need
+  to update them.
