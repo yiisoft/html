@@ -17,3 +17,6 @@ application when you upgrade the package from one version to another.
   according to a predefined priority list (`type`, `id`, `class`, `name`, `value`, etc.). Now attributes are rendered
   in the order they are set. If your code or tests depend on a specific attribute order in the rendered HTML, you need
   to update them.
+- The `$options` parameter has been renamed to `$attributes` in the following methods: `Html::addCssClass()`,
+  `Html::removeCssClass()`, `Html::addCssStyle()` and `Html::removeCssStyle()`. If you use named arguments when
+  calling these methods, update them accordingly.

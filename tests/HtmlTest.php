@@ -1003,26 +1003,26 @@ final class HtmlTest extends TestCase
     }
 
     #[DataProvider('dataAddCssClass')]
-    public function testAddCssClass(array $expected, array $options, array|string|null $class): void
+    public function testAddCssClass(array $expected, array $attributes, array|string|null $class): void
     {
-        Html::addCssClass($options, $class);
-        $this->assertSame($expected, $options);
+        Html::addCssClass($attributes, $class);
+        $this->assertSame($expected, $attributes);
     }
 
     public function testAddCssClassWithBackedEnum(): void
     {
-        $options = ['class' => 'test'];
-        Html::addCssClass($options, ClassEnum::TEST_CLASS_2);
-        $this->assertSame(['class' => 'test test-class-2'], $options);
+        $attributes = ['class' => 'test'];
+        Html::addCssClass($attributes, ClassEnum::TEST_CLASS_2);
+        $this->assertSame(['class' => 'test test-class-2'], $attributes);
 
-        Html::addCssClass($options, IntegerEnum::A);
-        $this->assertSame(['class' => 'test test-class-2'], $options);
+        Html::addCssClass($attributes, IntegerEnum::A);
+        $this->assertSame(['class' => 'test test-class-2'], $attributes);
 
-        Html::addCssClass($options, ClassEnum::TEST_CLASS_1);
-        $this->assertSame(['class' => 'test test-class-2 test-class-1'], $options);
+        Html::addCssClass($attributes, ClassEnum::TEST_CLASS_1);
+        $this->assertSame(['class' => 'test test-class-2 test-class-1'], $attributes);
 
-        Html::addCssClass($options, IntegerEnum::B);
-        $this->assertSame(['class' => 'test test-class-2 test-class-1'], $options);
+        Html::addCssClass($attributes, IntegerEnum::B);
+        $this->assertSame(['class' => 'test test-class-2 test-class-1'], $attributes);
     }
 
     /**
@@ -1030,37 +1030,37 @@ final class HtmlTest extends TestCase
      */
     public function testMergeCssClass(): void
     {
-        $options = [
+        $attributes = [
             'class' => [
                 'persistent' => 'test1',
             ],
         ];
-        Html::addCssClass($options, ['persistent' => 'test2']);
-        $this->assertSame(['persistent' => 'test1'], $options['class']);
-        Html::addCssClass($options, ['additional' => 'test2']);
-        $this->assertSame(['persistent' => 'test1', 'additional' => 'test2'], $options['class']);
+        Html::addCssClass($attributes, ['persistent' => 'test2']);
+        $this->assertSame(['persistent' => 'test1'], $attributes['class']);
+        Html::addCssClass($attributes, ['additional' => 'test2']);
+        $this->assertSame(['persistent' => 'test1', 'additional' => 'test2'], $attributes['class']);
     }
 
     public function testAddCssClassArrayToString(): void
     {
-        $options = ['class' => 'test'];
+        $attributes = ['class' => 'test'];
 
-        Html::addCssClass($options, ['test1', 'test2']);
+        Html::addCssClass($attributes, ['test1', 'test2']);
 
         $this->assertSame(
             [
                 'class' => ['test', 'test1', 'test2'],
             ],
-            $options,
+            $attributes,
         );
     }
 
     public function testAddCssClassWithKeyToString(): void
     {
-        $options = ['class' => 'test_class'];
+        $attributes = ['class' => 'test_class'];
 
-        Html::addCssClass($options, ['widget' => 'some_widget_class']);
-        Html::addCssClass($options, ['widget' => 'some_other_widget_class_2']);
+        Html::addCssClass($attributes, ['widget' => 'some_widget_class']);
+        Html::addCssClass($attributes, ['widget' => 'some_other_widget_class_2']);
 
         $this->assertSame(
             [
@@ -1069,16 +1069,16 @@ final class HtmlTest extends TestCase
                     'widget' => 'some_widget_class',
                 ],
             ],
-            $options,
+            $attributes,
         );
     }
 
     public function testAddCssClassWithKeyToArray(): void
     {
-        $options = ['class' => ['test_class']];
+        $attributes = ['class' => ['test_class']];
 
-        Html::addCssClass($options, ['widget' => 'some_widget_class']);
-        Html::addCssClass($options, ['widget' => 'some_other_widget_class_2']);
+        Html::addCssClass($attributes, ['widget' => 'some_widget_class']);
+        Html::addCssClass($attributes, ['widget' => 'some_other_widget_class_2']);
 
         $this->assertSame(
             [
@@ -1087,16 +1087,16 @@ final class HtmlTest extends TestCase
                     'widget' => 'some_widget_class',
                 ],
             ],
-            $options,
+            $attributes,
         );
     }
 
     public function testAddCssClassWithKeyToKeyArray(): void
     {
-        $options = ['class' => ['widget' => 'test_class']];
+        $attributes = ['class' => ['widget' => 'test_class']];
 
-        Html::addCssClass($options, ['widget' => 'some_widget_class']);
-        Html::addCssClass($options, ['widget' => 'some_other_widget_class_2']);
+        Html::addCssClass($attributes, ['widget' => 'some_widget_class']);
+        Html::addCssClass($attributes, ['widget' => 'some_other_widget_class_2']);
 
         $this->assertSame(
             [
@@ -1104,34 +1104,34 @@ final class HtmlTest extends TestCase
                     'widget' => 'test_class',
                 ],
             ],
-            $options,
+            $attributes,
         );
     }
 
     public function testRemoveCssClass(): void
     {
-        $options = ['class' => 'test test2 test3'];
-        Html::removeCssClass($options, 'test2');
-        $this->assertSame(['class' => 'test test3'], $options);
-        Html::removeCssClass($options, 'test2');
-        $this->assertSame(['class' => 'test test3'], $options);
-        Html::removeCssClass($options, 'test');
-        $this->assertSame(['class' => 'test3'], $options);
-        Html::removeCssClass($options, 'test3');
-        $this->assertSame([], $options);
+        $attributes = ['class' => 'test test2 test3'];
+        Html::removeCssClass($attributes, 'test2');
+        $this->assertSame(['class' => 'test test3'], $attributes);
+        Html::removeCssClass($attributes, 'test2');
+        $this->assertSame(['class' => 'test test3'], $attributes);
+        Html::removeCssClass($attributes, 'test');
+        $this->assertSame(['class' => 'test3'], $attributes);
+        Html::removeCssClass($attributes, 'test3');
+        $this->assertSame([], $attributes);
 
-        $options = ['class' => ['test', 'test2', 'test3']];
-        Html::removeCssClass($options, 'test2');
-        $this->assertSame(['class' => ['test', 2 => 'test3']], $options);
-        Html::removeCssClass($options, 'test');
-        Html::removeCssClass($options, 'test3');
-        $this->assertSame([], $options);
+        $attributes = ['class' => ['test', 'test2', 'test3']];
+        Html::removeCssClass($attributes, 'test2');
+        $this->assertSame(['class' => ['test', 2 => 'test3']], $attributes);
+        Html::removeCssClass($attributes, 'test');
+        Html::removeCssClass($attributes, 'test3');
+        $this->assertSame([], $attributes);
 
-        $options = [
+        $attributes = [
             'class' => 'test test1 test2',
         ];
-        Html::removeCssClass($options, ['test1', 'test2']);
-        $this->assertSame(['class' => 'test'], $options);
+        Html::removeCssClass($attributes, ['test1', 'test2']);
+        $this->assertSame(['class' => 'test'], $attributes);
     }
 
     public function testCssStyleFromArray(): void
@@ -1154,56 +1154,56 @@ final class HtmlTest extends TestCase
 
     public function testAddCssStyle(): void
     {
-        $options = ['style' => 'width: 100px; height: 200px;'];
-        Html::addCssStyle($options, 'width: 110px; color: red;');
-        $this->assertSame('width: 110px; height: 200px; color: red;', $options['style']);
+        $attributes = ['style' => 'width: 100px; height: 200px;'];
+        Html::addCssStyle($attributes, 'width: 110px; color: red;');
+        $this->assertSame('width: 110px; height: 200px; color: red;', $attributes['style']);
 
-        $options = ['style' => 'width: 100px; height: 200px;'];
-        Html::addCssStyle($options, ['width' => '110px', 'color' => 'red']);
-        $this->assertSame('width: 110px; height: 200px; color: red;', $options['style']);
+        $attributes = ['style' => 'width: 100px; height: 200px;'];
+        Html::addCssStyle($attributes, ['width' => '110px', 'color' => 'red']);
+        $this->assertSame('width: 110px; height: 200px; color: red;', $attributes['style']);
 
-        $options = ['style' => 'width: 100px; height: 200px;'];
-        Html::addCssStyle($options, 'width: 110px; color: red;', false);
-        $this->assertSame('width: 100px; height: 200px; color: red;', $options['style']);
+        $attributes = ['style' => 'width: 100px; height: 200px;'];
+        Html::addCssStyle($attributes, 'width: 110px; color: red;', false);
+        $this->assertSame('width: 100px; height: 200px; color: red;', $attributes['style']);
 
-        $options = [];
-        Html::addCssStyle($options, 'width: 110px; color: red;');
-        $this->assertSame('width: 110px; color: red;', $options['style']);
+        $attributes = [];
+        Html::addCssStyle($attributes, 'width: 110px; color: red;');
+        $this->assertSame('width: 110px; color: red;', $attributes['style']);
 
-        $options = [];
-        Html::addCssStyle($options, 'width: 110px; color: red;', false);
-        $this->assertSame('width: 110px; color: red;', $options['style']);
+        $attributes = [];
+        Html::addCssStyle($attributes, 'width: 110px; color: red;', false);
+        $this->assertSame('width: 110px; color: red;', $attributes['style']);
 
-        $options = [
+        $attributes = [
             'style' => [
                 'width' => '100px',
             ],
         ];
-        Html::addCssStyle($options, ['color' => 'red'], false);
-        $this->assertSame('width: 100px; color: red;', $options['style']);
+        Html::addCssStyle($attributes, ['color' => 'red'], false);
+        $this->assertSame('width: 100px; color: red;', $attributes['style']);
     }
 
     public function testRemoveCssStyle(): void
     {
-        $options = ['style' => 'width: 110px; height: 200px; color: red;'];
-        Html::removeCssStyle($options, 'width');
-        $this->assertSame('height: 200px; color: red;', $options['style']);
-        Html::removeCssStyle($options, ['height']);
-        $this->assertSame('color: red;', $options['style']);
-        Html::removeCssStyle($options, ['color', 'background']);
-        $this->assertNull($options['style']);
+        $attributes = ['style' => 'width: 110px; height: 200px; color: red;'];
+        Html::removeCssStyle($attributes, 'width');
+        $this->assertSame('height: 200px; color: red;', $attributes['style']);
+        Html::removeCssStyle($attributes, ['height']);
+        $this->assertSame('color: red;', $attributes['style']);
+        Html::removeCssStyle($attributes, ['color', 'background']);
+        $this->assertNull($attributes['style']);
 
-        $options = [];
-        Html::removeCssStyle($options, ['color', 'background']);
-        $this->assertNotTrue(array_key_exists('style', $options));
-        $options = [
+        $attributes = [];
+        Html::removeCssStyle($attributes, ['color', 'background']);
+        $this->assertNotTrue(array_key_exists('style', $attributes));
+        $attributes = [
             'style' => [
                 'color' => 'red',
                 'width' => '100px',
             ],
         ];
-        Html::removeCssStyle($options, ['color']);
-        $this->assertSame('width: 100px;', $options['style']);
+        Html::removeCssStyle($attributes, ['color']);
+        $this->assertSame('width: 100px;', $attributes['style']);
     }
 
     public static function dataNormalizeRegexpPattern(): array
