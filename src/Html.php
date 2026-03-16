@@ -100,7 +100,7 @@ use const PREG_SPLIT_NO_EMPTY;
  * Html provides a set of static methods for generating commonly used HTML tags.
  *
  * Nearly all the methods in this class allow setting additional HTML attributes for the HTML tags they generate.
- * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$options` parameter. See the
+ * You can specify, for example, `class`, `style` or `id` for an HTML element using the `$attributes` parameter. See the
  * documentation of the {@see tag()} method for more details.
  */
 final class Html
@@ -1695,28 +1695,29 @@ final class Html
     }
 
     /**
-     * Adds a CSS class (or several classes) to the specified options.
+     * Adds a CSS class (or several classes) to the specified attributes.
      *
-     * If the CSS class is already in the options, it will not be added again. If class specification at given options
-     * is an array, and some class placed there with the named (string) key, overriding of such key will have no
-     * effect. For example:
+     * If the CSS class is already in the attributes, it will not be added again. If class specification at given
+     * attributes is an array, and some class placed there with the named (string) key, overriding of such key will have
+     * no effect. For example:
      *
      * ```php
-     * $options = ['class' => ['persistent' => 'initial']];
+     * $attributes = ['class' => ['persistent' => 'initial']];
      *
      * // ['class' => ['persistent' => 'initial']];
-     * Html::addCssClass($options, ['persistent' => 'override']);
+     * Html::addCssClass($attributes, ['persistent' => 'override']);
      * ```
      *
      * @see removeCssClass()
      *
-     * @param array $options The options to be modified. All string values in the array must be valid UTF-8 strings.
+     * @param array $attributes The attributes to be modified. All string values in the array must be valid UTF-8
+     * strings.
      * @param BackedEnum|BackedEnum[]|null[]|string|string[]|null $class The CSS class(es) to be added. Null values will
      * be ignored.
      *
      * @psalm-param BackedEnum|string|array<array-key,BackedEnum|string|null>|null $class
      */
-    public static function addCssClass(array &$options, BackedEnum|array|string|null $class): void
+    public static function addCssClass(array &$attributes, BackedEnum|array|string|null $class): void
     {
         if ($class === null) {
             return;
@@ -1746,83 +1747,83 @@ final class Html
             $class = $filteredClass;
         }
 
-        if (isset($options['class'])) {
-            if (is_array($options['class'])) {
-                /** @psalm-var string[] $options['class'] */
-                $options['class'] = self::mergeCssClasses($options['class'], (array) $class);
+        if (isset($attributes['class'])) {
+            if (is_array($attributes['class'])) {
+                /** @psalm-var string[] $attributes['class'] */
+                $attributes['class'] = self::mergeCssClasses($attributes['class'], (array) $class);
             } else {
                 /**
-                 * @psalm-var string $options['class']
-                 * @var string[] $classes We assume that `$options['class']` is valid UTF-8 string, so `preg_split()`
+                 * @psalm-var string $attributes['class']
+                 * @var string[] $classes We assume that `$attributes['class']` is valid UTF-8 string, so `preg_split()`
                  * never returns `false`.
                  */
-                $classes = preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+                $classes = preg_split('/\s+/', $attributes['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $classes = self::mergeCssClasses($classes, (array) $class);
-                $options['class'] = is_array($class) ? $classes : implode(' ', $classes);
+                $attributes['class'] = is_array($class) ? $classes : implode(' ', $classes);
             }
         } else {
-            $options['class'] = $class;
+            $attributes['class'] = $class;
         }
     }
 
     /**
-     * Removes a CSS class from the specified options.
+     * Removes a CSS class from the specified attributes.
      *
      * @see addCssClass()
      *
-     * @param array $options The options to be modified.
+     * @param array $attributes The attributes to be modified.
      * @param string|string[] $class The CSS class(es) to be removed.
      */
-    public static function removeCssClass(array &$options, string|array $class): void
+    public static function removeCssClass(array &$attributes, string|array $class): void
     {
-        if (isset($options['class'])) {
-            if (is_array($options['class'])) {
-                $classes = array_diff($options['class'], (array) $class);
+        if (isset($attributes['class'])) {
+            if (is_array($attributes['class'])) {
+                $classes = array_diff($attributes['class'], (array) $class);
                 if (empty($classes)) {
-                    unset($options['class']);
+                    unset($attributes['class']);
                 } else {
-                    $options['class'] = $classes;
+                    $attributes['class'] = $classes;
                 }
             } else {
                 /** @var string[] */
-                $classes = preg_split('/\s+/', (string) $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+                $classes = preg_split('/\s+/', (string) $attributes['class'], -1, PREG_SPLIT_NO_EMPTY);
                 $classes = array_diff($classes, (array) $class);
                 if (empty($classes)) {
-                    unset($options['class']);
+                    unset($attributes['class']);
                 } else {
-                    $options['class'] = implode(' ', $classes);
+                    $attributes['class'] = implode(' ', $classes);
                 }
             }
         }
     }
 
     /**
-     * Adds the specified CSS styles to the HTML options.
+     * Adds the specified CSS styles to the HTML attributes.
      *
-     * If the options already contain a `style` element, the new style will be merged
+     * If the attributes already contain a `style` element, the new style will be merged
      * with the existing one. If a CSS property exists in both the new and the old styles,
      * the old one may be overwritten if `$overwrite` is true.
      *
      * For example,
      *
      * ```php
-     * Html::addCssStyle($options, 'width: 100px; height: 200px');
+     * Html::addCssStyle($attributes, 'width: 100px; height: 200px');
      * ```
      *
      * @see removeCssStyle()
      *
-     * @param array $options The HTML options to be modified.
+     * @param array $attributes The HTML attributes to be modified.
      * @param string|string[] $style The new style string (e.g. `'width: 100px; height: 200px'`) or array
      * (e.g. `['width' => '100px', 'height' => '200px']`).
-     * @param bool $overwrite Whether to overwrite existing CSS properties if the new style contain them too.
+     * @param bool $overwrite Whether to overwrite existing CSS properties if the new style contains them too.
      *
      * @psalm-param array<string, string>|string $style
      */
-    public static function addCssStyle(array &$options, array|string $style, bool $overwrite = true): void
+    public static function addCssStyle(array &$attributes, array|string $style, bool $overwrite = true): void
     {
-        if (!empty($options['style'])) {
-            /** @psalm-var array<string,string>|string $options['style'] */
-            $oldStyle = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
+        if (!empty($attributes['style'])) {
+            /** @psalm-var array<string,string>|string $attributes['style'] */
+            $oldStyle = is_array($attributes['style']) ? $attributes['style'] : self::cssStyleToArray($attributes['style']);
             $newStyle = is_array($style) ? $style : self::cssStyleToArray($style);
             if (!$overwrite) {
                 foreach ($newStyle as $property => $_value) {
@@ -1833,33 +1834,33 @@ final class Html
             }
             $style = array_merge($oldStyle, $newStyle);
         }
-        $options['style'] = is_array($style) ? self::cssStyleFromArray($style) : $style;
+        $attributes['style'] = is_array($style) ? self::cssStyleFromArray($style) : $style;
     }
 
     /**
-     * Removes the specified CSS styles from the HTML options.
+     * Removes the specified CSS styles from the HTML attributes.
      *
      * For example,
      *
      * ```php
-     * Html::removeCssStyle($options, ['width', 'height']);
+     * Html::removeCssStyle($attributes, ['width', 'height']);
      * ```
      *
      * @see addCssStyle()
      *
-     * @param array $options The HTML options to be modified.
+     * @param array $attributes The HTML attributes to be modified.
      * @param string|string[] $properties The CSS properties to be removed. You may use a string if you are removing a
      * single property.
      */
-    public static function removeCssStyle(array &$options, string|array $properties): void
+    public static function removeCssStyle(array &$attributes, string|array $properties): void
     {
-        if (!empty($options['style'])) {
-            /** @psalm-var array<string,string>|string $options['style'] */
-            $style = is_array($options['style']) ? $options['style'] : self::cssStyleToArray($options['style']);
+        if (!empty($attributes['style'])) {
+            /** @psalm-var array<string,string>|string $attributes['style'] */
+            $style = is_array($attributes['style']) ? $attributes['style'] : self::cssStyleToArray($attributes['style']);
             foreach ((array) $properties as $property) {
                 unset($style[$property]);
             }
-            $options['style'] = self::cssStyleFromArray($style);
+            $attributes['style'] = self::cssStyleFromArray($style);
         }
     }
 
