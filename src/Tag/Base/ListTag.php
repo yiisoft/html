@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag\Base;
 
+use Stringable;
 use Yiisoft\Html\Tag\Li;
 
 /**
@@ -27,14 +28,14 @@ abstract class ListTag extends NormalTag
     }
 
     /**
-     * @param string[] $strings Array of list items as strings.
+     * @param (string|Stringable|int|float|null)[] $strings Array of list items as strings.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */
     public function strings(array $strings, array $attributes = [], bool $encode = true): static
     {
         $items = array_map(
-            static fn(string $string) => (new Li())
+            static fn(string|Stringable|int|float|null $string) => (new Li())
                 ->content($string)
                 ->attributes($attributes)
                 ->encode($encode),

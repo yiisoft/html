@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TableCellTag;
 
@@ -90,14 +91,14 @@ final class Tr extends NormalTag
     }
 
     /**
-     * @param string[] $strings
+     * @param (string|Stringable|int|float|null)[] $strings
      *
      * @return Td[]
      */
     private function makeDataCells(array $strings, array $attributes, bool $encode): array
     {
         return array_map(
-            static fn(string $string) => (new Td())
+            static fn(string|Stringable|int|float|null $string) => (new Td())
                 ->content($string)
                 ->attributes($attributes)
                 ->encode($encode),
@@ -106,14 +107,14 @@ final class Tr extends NormalTag
     }
 
     /**
-     * @param string[] $strings
+     * @param (string|Stringable|int|float|null)[] $strings
      *
      * @return Th[]
      */
     private function makeHeaderCells(array $strings, array $attributes, bool $encode): array
     {
         return array_map(
-            static fn(string $string) => (new Th())
+            static fn(string|Stringable|int|float|null $string) => (new Th())
                 ->content($string)
                 ->attributes($attributes)
                 ->encode($encode),

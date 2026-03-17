@@ -261,12 +261,12 @@ final class Html
      * @see CustomTag
      *
      * @param string $name The tag name.
-     * @param string|Stringable $content The tag content.
+     * @param string|Stringable|int|float|null $content The tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param non-empty-string $name
      */
-    public static function tag(string $name, string|Stringable $content = '', array $attributes = []): CustomTag
+    public static function tag(string $name, string|Stringable|int|float|null $content = '', array $attributes = []): CustomTag
     {
         $tag = new CustomTag($name);
         if ($content !== '') {
@@ -284,12 +284,12 @@ final class Html
      * @see CustomTag
      *
      * @param string $name The tag name.
-     * @param string|Stringable $content The tag content.
+     * @param string|Stringable|int|float|null $content The tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @psalm-param non-empty-string $name
      */
-    public static function normalTag(string $name, string|Stringable $content = '', array $attributes = []): CustomTag
+    public static function normalTag(string $name, string|Stringable|int|float|null $content = '', array $attributes = []): CustomTag
     {
         $tag = (new CustomTag($name))->normal();
         if ($content !== '') {
@@ -348,10 +348,10 @@ final class Html
     /**
      * Generates a {@see Style} tag.
      *
-     * @param string $content The style content.
+     * @param string|Stringable $content The style content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function style(string $content = '', array $attributes = []): Style
+    public static function style(string|Stringable $content = '', array $attributes = []): Style
     {
         $tag = new Style();
         if ($content !== '') {
@@ -366,10 +366,10 @@ final class Html
     /**
      * Generates a {@see Script} tag.
      *
-     * @param string $content The script content.
+     * @param string|Stringable $content The script content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function script(string $content = '', array $attributes = []): Script
+    public static function script(string|Stringable $content = '', array $attributes = []): Script
     {
         $tag = new Script();
         if ($content !== '') {
@@ -384,9 +384,9 @@ final class Html
     /**
      * Generates a {@see Noscript} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      */
-    public static function noscript(string|Stringable $content = ''): Noscript
+    public static function noscript(string|Stringable|int|float|null $content = ''): Noscript
     {
         $tag = new Noscript();
         return $content === '' ? $tag : $tag->content($content);
@@ -395,10 +395,10 @@ final class Html
     /**
      * Generates a {@see Title} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function title(string|Stringable $content = '', array $attributes = []): Title
+    public static function title(string|Stringable|int|float|null $content = '', array $attributes = []): Title
     {
         $tag = new Title();
         if (!empty($attributes)) {
@@ -472,12 +472,12 @@ final class Html
     /**
      * Generates a hyperlink tag.
      *
-     * @param string|Stringable $content The tag content.
+     * @param string|Stringable|int|float|null $content The tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      *
      * @see A
      */
-    public static function a(string|Stringable $content = '', ?string $url = null, array $attributes = []): A
+    public static function a(string|Stringable|int|float|null $content = '', ?string $url = null, array $attributes = []): A
     {
         $tag = new A();
         if (!empty($attributes)) {
@@ -499,11 +499,11 @@ final class Html
      *
      * @see A
      */
-    public static function mailto(string $content, ?string $mail = null, array $attributes = []): A
+    public static function mailto(string|Stringable|int|float|null $content, ?string $mail = null, array $attributes = []): A
     {
         $tag = (new A())
             ->content($content)
-            ->mailto($mail ?? $content);
+            ->mailto($mail ?? ($content === null ? null : (string) $content));
         if (!empty($attributes)) {
             $tag = $tag->addAttributes($attributes);
         }
@@ -571,11 +571,11 @@ final class Html
     /**
      * Generates a {@see Label} tag.
      *
-     * @param string|Stringable $content Label text.
+     * @param string|Stringable|int|float|null $content Label text.
      * @param string|null $for The ID of the HTML element that this label is associated with.
      * If this is null, the "for" attribute will not be generated.
      */
-    public static function label(string|Stringable $content = '', ?string $for = null): Label
+    public static function label(string|Stringable|int|float|null $content = '', ?string $for = null): Label
     {
         $tag = new Label();
         if ($for !== null) {
@@ -590,10 +590,10 @@ final class Html
     /**
      * Generates a {@see Legend} tag.
      *
-     * @param string|Stringable $content The tag content.
+     * @param string|Stringable|int|float|null $content The tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function legend(string|Stringable $content = '', array $attributes = []): Legend
+    public static function legend(string|Stringable|int|float|null $content = '', array $attributes = []): Legend
     {
         $tag = new Legend();
         if ($content !== '') {
@@ -610,10 +610,10 @@ final class Html
      *
      * @see Button::button()
      *
-     * @param string $content The content enclosed within the button tag.
+     * @param string|Stringable|int|float|null $content The content enclosed within the button tag.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function button(string $content = 'Button', array $attributes = []): Button
+    public static function button(string|Stringable|int|float|null $content = 'Button', array $attributes = []): Button
     {
         $tag = Button::button($content);
         if (!empty($attributes)) {
@@ -627,10 +627,10 @@ final class Html
      *
      * @see Button::submit()
      *
-     * @param string $content The content enclosed within the button tag.
+     * @param string|Stringable|int|float|null $content The content enclosed within the button tag.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function submitButton(string $content = 'Submit', array $attributes = []): Button
+    public static function submitButton(string|Stringable|int|float|null $content = 'Submit', array $attributes = []): Button
     {
         $tag = Button::submit($content);
         if (!empty($attributes)) {
@@ -644,10 +644,10 @@ final class Html
      *
      * @see Button::reset()
      *
-     * @param string $content The content enclosed within the button tag.
+     * @param string|Stringable|int|float|null $content The content enclosed within the button tag.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function resetButton(string $content = 'Reset', array $attributes = []): Button
+    public static function resetButton(string|Stringable|int|float|null $content = 'Reset', array $attributes = []): Button
     {
         $tag = Button::reset($content);
         if (!empty($attributes)) {
@@ -925,11 +925,11 @@ final class Html
     /**
      * Generates a {@see Option} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param bool|float|int|string|Stringable|null $value The value attribute.
      */
     public static function option(
-        string|Stringable $content = '',
+        string|Stringable|int|float|null $content = '',
         bool|float|int|string|Stringable|null $value = null,
     ): Option {
         $tag = new Option();
@@ -965,10 +965,10 @@ final class Html
     /**
      * Generates a {@see Div} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function div(string|Stringable $content = '', array $attributes = []): Div
+    public static function div(string|Stringable|int|float|null $content = '', array $attributes = []): Div
     {
         $tag = new Div();
         if (!empty($attributes)) {
@@ -980,12 +980,12 @@ final class Html
     /**
      * Generates a {@see Code} tag.
      *
-     * @param string|Stringable $content Tag content. If content includes HTML tags or special characters like `<`, `>`,
+     * @param string|Stringable|int|float|null $content Tag content. If content includes HTML tags or special characters like `<`, `>`,
      * or `&`, and you want them to be displayed as plain text, you need to enable encoding by calling `->encode(true)`.
      * This ensures they are not interpreted as actual HTML.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function code(string|Stringable $content = '', array $attributes = []): Code
+    public static function code(string|Stringable|int|float|null $content = '', array $attributes = []): Code
     {
         $tag = new Code();
         if (!empty($attributes)) {
@@ -997,12 +997,12 @@ final class Html
     /**
      * Generates a {@see Pre} tag.
      *
-     * @param string|Stringable $content Tag content. If content includes HTML tags or special characters like `<`, `>`,
+     * @param string|Stringable|int|float|null $content Tag content. If content includes HTML tags or special characters like `<`, `>`,
      * or `&`, and you want them to be displayed as plain text, you need to enable encoding by calling `->encode(true)`.
      * This ensures they are not interpreted as actual HTML.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function pre(string|Stringable $content = '', array $attributes = []): Pre
+    public static function pre(string|Stringable|int|float|null $content = '', array $attributes = []): Pre
     {
         $tag = new Pre();
         if (!empty($attributes)) {
@@ -1014,10 +1014,10 @@ final class Html
     /**
      * Generates a {@see Span} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function span(string|Stringable $content = '', array $attributes = []): Span
+    public static function span(string|Stringable|int|float|null $content = '', array $attributes = []): Span
     {
         $tag = new Span();
         if (!empty($attributes)) {
@@ -1029,10 +1029,10 @@ final class Html
     /**
      * Generates a {@see Em} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function em(string|Stringable $content = '', array $attributes = []): Em
+    public static function em(string|Stringable|int|float|null $content = '', array $attributes = []): Em
     {
         $tag = new Em();
         if (!empty($attributes)) {
@@ -1044,10 +1044,10 @@ final class Html
     /**
      * Generates a {@see Strong} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function strong(string|Stringable $content = '', array $attributes = []): Strong
+    public static function strong(string|Stringable|int|float|null $content = '', array $attributes = []): Strong
     {
         $tag = new Strong();
         if (!empty($attributes)) {
@@ -1059,10 +1059,10 @@ final class Html
     /**
      * Generates a {@see Small} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function small(string|Stringable $content = '', array $attributes = []): Small
+    public static function small(string|Stringable|int|float|null $content = '', array $attributes = []): Small
     {
         $tag = new Small();
         if (!empty($attributes)) {
@@ -1074,10 +1074,10 @@ final class Html
     /**
      * Generates a {@see B} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function b(string|Stringable $content = '', array $attributes = []): B
+    public static function b(string|Stringable|int|float|null $content = '', array $attributes = []): B
     {
         $tag = new B();
         if (!empty($attributes)) {
@@ -1089,10 +1089,10 @@ final class Html
     /**
      * Generates a {@see I} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function i(string|Stringable $content = '', array $attributes = []): I
+    public static function i(string|Stringable|int|float|null $content = '', array $attributes = []): I
     {
         $tag = new I();
         if (!empty($attributes)) {
@@ -1104,10 +1104,10 @@ final class Html
     /**
      * Generates a {@see H1} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function h1(string|Stringable $content = '', array $attributes = []): H1
+    public static function h1(string|Stringable|int|float|null $content = '', array $attributes = []): H1
     {
         $tag = new H1();
         if (!empty($attributes)) {
@@ -1119,10 +1119,10 @@ final class Html
     /**
      * Generates a {@see H2} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function h2(string|Stringable $content = '', array $attributes = []): H2
+    public static function h2(string|Stringable|int|float|null $content = '', array $attributes = []): H2
     {
         $tag = new H2();
         if (!empty($attributes)) {
@@ -1134,10 +1134,10 @@ final class Html
     /**
      * Generates a {@see H3} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function h3(string|Stringable $content = '', array $attributes = []): H3
+    public static function h3(string|Stringable|int|float|null $content = '', array $attributes = []): H3
     {
         $tag = new H3();
         if (!empty($attributes)) {
@@ -1149,10 +1149,10 @@ final class Html
     /**
      * Generates a {@see H4} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function h4(string|Stringable $content = '', array $attributes = []): H4
+    public static function h4(string|Stringable|int|float|null $content = '', array $attributes = []): H4
     {
         $tag = new H4();
         if (!empty($attributes)) {
@@ -1164,10 +1164,10 @@ final class Html
     /**
      * Generates a {@see H5} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function h5(string|Stringable $content = '', array $attributes = []): H5
+    public static function h5(string|Stringable|int|float|null $content = '', array $attributes = []): H5
     {
         $tag = new H5();
         if (!empty($attributes)) {
@@ -1179,10 +1179,10 @@ final class Html
     /**
      * Generates a {@see H6} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function h6(string|Stringable $content = '', array $attributes = []): H6
+    public static function h6(string|Stringable|int|float|null $content = '', array $attributes = []): H6
     {
         $tag = new H6();
         if (!empty($attributes)) {
@@ -1194,10 +1194,10 @@ final class Html
     /**
      * Generates a {@see P} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function p(string|Stringable $content = '', array $attributes = []): P
+    public static function p(string|Stringable|int|float|null $content = '', array $attributes = []): P
     {
         $tag = new P();
         if (!empty($attributes)) {
@@ -1237,10 +1237,10 @@ final class Html
     /**
      * Generates a {@see Li} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function li(string|Stringable $content = '', array $attributes = []): Li
+    public static function li(string|Stringable|int|float|null $content = '', array $attributes = []): Li
     {
         $tag = new Li();
 
@@ -1268,10 +1268,10 @@ final class Html
     /**
      * Generates a {@see Caption} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function caption(string|Stringable $content = '', array $attributes = []): Caption
+    public static function caption(string|Stringable|int|float|null $content = '', array $attributes = []): Caption
     {
         $tag = new Caption();
         if ($content !== '') {
@@ -1363,10 +1363,10 @@ final class Html
     /**
      * Generates a {@see Td} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function td(string|Stringable $content = '', array $attributes = []): Td
+    public static function td(string|Stringable|int|float|null $content = '', array $attributes = []): Td
     {
         $tag = new Td();
         if ($content !== '') {
@@ -1381,10 +1381,10 @@ final class Html
     /**
      * Generates a {@see Th} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function th(string|Stringable $content = '', array $attributes = []): Th
+    public static function th(string|Stringable|int|float|null $content = '', array $attributes = []): Th
     {
         $tag = new Th();
         if ($content !== '') {
@@ -1448,11 +1448,11 @@ final class Html
     /**
      * Generates a {@see Html} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param string|null $lang The document language.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function html(string|Stringable $content = '', ?string $lang = null, array $attributes = []): Tag\Html
+    public static function html(string|Stringable|int|float|null $content = '', ?string $lang = null, array $attributes = []): Tag\Html
     {
         $tag = new Tag\Html();
         if (!empty($attributes)) {
@@ -1470,10 +1470,10 @@ final class Html
     /**
      * Generates a {@see Body} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function body(string|Stringable $content = '', array $attributes = []): Body
+    public static function body(string|Stringable|int|float|null $content = '', array $attributes = []): Body
     {
         $tag = new Body();
         if (!empty($attributes)) {
@@ -1485,10 +1485,10 @@ final class Html
     /**
      * Generates a {@see Article} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function article(string|Stringable $content = '', array $attributes = []): Article
+    public static function article(string|Stringable|int|float|null $content = '', array $attributes = []): Article
     {
         $tag = new Article();
         if (!empty($attributes)) {
@@ -1500,10 +1500,10 @@ final class Html
     /**
      * Generates a {@see Section} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function section(string|Stringable $content = '', array $attributes = []): Section
+    public static function section(string|Stringable|int|float|null $content = '', array $attributes = []): Section
     {
         $tag = new Section();
         if (!empty($attributes)) {
@@ -1515,10 +1515,10 @@ final class Html
     /**
      * Generates a {@see Nav} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function nav(string|Stringable $content = '', array $attributes = []): Nav
+    public static function nav(string|Stringable|int|float|null $content = '', array $attributes = []): Nav
     {
         $tag = new Nav();
         if (!empty($attributes)) {
@@ -1530,10 +1530,10 @@ final class Html
     /**
      * Generates a {@see Aside} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function aside(string|Stringable $content = '', array $attributes = []): Aside
+    public static function aside(string|Stringable|int|float|null $content = '', array $attributes = []): Aside
     {
         $tag = new Aside();
         if (!empty($attributes)) {
@@ -1545,10 +1545,10 @@ final class Html
     /**
      * Generates a {@see Hgroup} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function hgroup(string|Stringable $content = '', array $attributes = []): Hgroup
+    public static function hgroup(string|Stringable|int|float|null $content = '', array $attributes = []): Hgroup
     {
         $tag = new Hgroup();
         if (!empty($attributes)) {
@@ -1560,10 +1560,10 @@ final class Html
     /**
      * Generates a {@see Header} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function header(string|Stringable $content = '', array $attributes = []): Header
+    public static function header(string|Stringable|int|float|null $content = '', array $attributes = []): Header
     {
         $tag = new Header();
         if (!empty($attributes)) {
@@ -1587,10 +1587,10 @@ final class Html
     /**
      * Generates a {@see Footer} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function footer(string|Stringable $content = '', array $attributes = []): Footer
+    public static function footer(string|Stringable|int|float|null $content = '', array $attributes = []): Footer
     {
         $tag = new Footer();
         if (!empty($attributes)) {
@@ -1602,10 +1602,10 @@ final class Html
     /**
      * Generates a {@see Address} tag.
      *
-     * @param string|Stringable $content Tag content.
+     * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function address(string|Stringable $content = '', array $attributes = []): Address
+    public static function address(string|Stringable|int|float|null $content = '', array $attributes = []): Address
     {
         $tag = new Address();
         if (!empty($attributes)) {

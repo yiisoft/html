@@ -40,9 +40,9 @@ final class Textarea extends NormalTag
     }
 
     /**
-     * @param string|string[]|Stringable|null $value
+     * @param string|string[]|Stringable|int|float|null $value
      */
-    public function value(string|Stringable|array|null $value): self
+    public function value(string|Stringable|int|float|array|null $value): self
     {
         $content = is_array($value)
             ? implode("\n", $value)
