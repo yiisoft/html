@@ -297,6 +297,10 @@ final class SelectTest extends TestCase
             "<select>\n<option value=\"1\">42</option>\n<option value=\"2\">3.14</option>\n</select>",
             (string) (new Select())->optionsData(['1' => 42, '2' => 3.14]),
         );
+        $this->assertSame(
+            "<select>\n<option value=\"1\"></option>\n</select>",
+            (string) (new Select())->optionsData(['1' => null]),
+        );
     }
 
     public function testOptionsDataEncode(): void
@@ -323,6 +327,9 @@ final class SelectTest extends TestCase
                 'Test Group' => [
                     2 => 'Two',
                     3 => 'Three',
+                    4 => 42,
+                    5 => 3.14,
+                    6 => null,
                 ],
             ]);
 
@@ -333,6 +340,9 @@ final class SelectTest extends TestCase
             <optgroup label="Test Group">
             <option value="2">Two</option>
             <option value="3">Three</option>
+            <option value="4">42</option>
+            <option value="5">3.14</option>
+            <option value="6"></option>
             </optgroup>
             </select>
             HTML,
@@ -406,11 +416,25 @@ final class SelectTest extends TestCase
                 . '</select>',
                 new StringableObject('Choose an option'),
             ],
+            [
+                '<select>' . "\n"
+                . '<option value>42</option>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '</select>',
+                42,
+            ],
+            [
+                '<select>' . "\n"
+                . '<option value>3.14</option>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '</select>',
+                3.14,
+            ],
         ];
     }
 
     #[DataProvider('dataPrompt')]
-    public function testPrompt(string $expected, string|Stringable|null $text): void
+    public function testPrompt(string $expected, string|Stringable|int|float|null $text): void
     {
         $this->assertSame(
             $expected,

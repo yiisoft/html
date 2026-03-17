@@ -59,7 +59,7 @@ final class Tr extends NormalTag
     }
 
     /**
-     * @param string[] $strings Array of header cells ({@see Th}) as strings.
+     * @param (string|Stringable|int|float|null)[] $strings Array of header cells ({@see Th}) contents.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */
@@ -69,7 +69,7 @@ final class Tr extends NormalTag
     }
 
     /**
-     * @param string[] $strings Array of header cells ({@see Th}) as strings.
+     * @param (string|Stringable|int|float|null)[] $strings Array of header cells ({@see Th}) contents.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */

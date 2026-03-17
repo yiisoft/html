@@ -28,9 +28,9 @@ abstract class ListTag extends NormalTag
     }
 
     /**
-     * @param (string|Stringable|int|float|null)[] $strings Array of list items as strings.
+     * @param (string|Stringable|int|float|null)[] $strings Array of list item contents.
      * @param array $attributes The tag attributes in terms of name-value pairs.
-     * @param bool $encode Whether to encode strings passed.
+     * @param bool $encode Whether to encode the item contents when rendering.
      */
     public function strings(array $strings, array $attributes = [], bool $encode = true): static
     {

@@ -7,7 +7,7 @@
 - Chg #234: Remove tag attributes sorting (@FrankiFixx)
 - Chg #269: Rename `$options` parameter to `$attributes` in `Html::addCssClass()`, `Html::removeCssClass()`,
   `Html::addCssStyle()` and `Html::removeCssStyle()` methods (@vjik)
-- New #270: Allow pass `int`, `float` and `null` as tag content (@vjik)
+- New #270: Allow passing `int`, `float` and `null` as tag content (@vjik)
 
 ## 3.13.0 March 13, 2026
 

@@ -149,9 +149,12 @@ class TrTest extends TestCase
     {
         $tr = (new Tr())
             ->headerStrings(['A'])
-            ->addHeaderStrings(['B', 'C']);
+            ->addHeaderStrings(['B', 'C', 1, 2.5, null]);
 
-        $this->assertSame("<tr>\n<th>A</th>\n<th>B</th>\n<th>C</th>\n</tr>", (string) $tr);
+        $this->assertSame(
+            "<tr>\n<th>A</th>\n<th>B</th>\n<th>C</th>\n<th>1</th>\n<th>2.5</th>\n<th></th>\n</tr>",
+            (string) $tr,
+        );
     }
 
     public function testAddHeaderStringsAttributes(): void
