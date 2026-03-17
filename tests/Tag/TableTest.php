@@ -38,12 +38,23 @@ class TableTest extends TestCase
             ->render());
     }
 
-    public function testCaptionString(): void
+    public static function dataCaptionString(): array
+    {
+        return [
+            'string' => ['Hello', 'Hello'],
+            'int' => ['42', 42],
+            'float' => ['3.14', 3.14],
+            'null' => ['', null],
+        ];
+    }
+
+    #[DataProvider('dataCaptionString')]
+    public function testCaptionString(string $expectedContent, string|int|float|null $content): void
     {
         $this->assertSame(
-            "<table>\n<caption>Hello</caption>\n</table>",
+            "<table>\n<caption>$expectedContent</caption>\n</table>",
             (new Table())
-                ->captionString('Hello')
+                ->captionString($content)
                 ->render(),
         );
     }

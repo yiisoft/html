@@ -53,6 +53,10 @@ final class OptgroupTest extends TestCase
             "<optgroup>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</optgroup>",
             (string) (new Optgroup())->optionsData(['1' => 'One', '2' => 'Two']),
         );
+        $this->assertSame(
+            "<optgroup>\n<option value=\"1\">42</option>\n<option value=\"2\">3.14</option>\n</optgroup>",
+            (string) (new Optgroup())->optionsData(['1' => 42, '2' => 3.14]),
+        );
     }
 
     public function testOptionsDataEncode(): void

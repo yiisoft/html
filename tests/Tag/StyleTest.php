@@ -7,6 +7,7 @@ namespace Yiisoft\Html\Tests\Tag;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Style;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 
 final class StyleTest extends TestCase
 {
@@ -25,6 +26,15 @@ final class StyleTest extends TestCase
 
         $this->assertSame($content, $tag->getContent());
         $this->assertSame('<style>' . $content . '</style>', $tag->render());
+    }
+
+    public function testContentWithStringable(): void
+    {
+        $content = new StringableObject('body { color: red }');
+        $tag = (new Style())->content($content);
+
+        $this->assertSame('body { color: red }', $tag->getContent());
+        $this->assertSame('<style>body { color: red }</style>', $tag->render());
     }
 
     public static function dataMedia(): array

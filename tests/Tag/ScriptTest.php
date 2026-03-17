@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Noscript;
 use Yiisoft\Html\Tag\Script;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 
 final class ScriptTest extends TestCase
 {
@@ -28,6 +29,15 @@ final class ScriptTest extends TestCase
 
         $this->assertSame($content, $tag->getContent());
         $this->assertSame('<script>' . $content . '</script>', $tag->render());
+    }
+
+    public function testContentWithStringable(): void
+    {
+        $content = new StringableObject('alert("hello");');
+        $tag = (new Script())->content($content);
+
+        $this->assertSame('alert("hello");', $tag->getContent());
+        $this->assertSame('<script>alert("hello");</script>', $tag->render());
     }
 
     public static function dataUrl(): array

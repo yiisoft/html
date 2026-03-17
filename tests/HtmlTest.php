@@ -67,6 +67,9 @@ final class HtmlTest extends TestCase
         $this->assertSame('<h1>hello</h1>', Html::tag('h1', 'hello')->render());
         $this->assertSame('<h1 id="main">hello</h1>', Html::tag('h1', 'hello', ['id' => 'main'])->render());
         $this->assertSame('<div><p>Hello</p></div>', Html::tag('div', Html::p('Hello'))->render());
+        $this->assertSame('<h1>42</h1>', Html::tag('h1', 42)->render());
+        $this->assertSame('<h1>3.14</h1>', Html::tag('h1', 3.14)->render());
+        $this->assertSame('<h1></h1>', Html::tag('h1', null)->render());
     }
 
     public function testNormalTag(): void
@@ -76,6 +79,9 @@ final class HtmlTest extends TestCase
         $this->assertSame('<h1>hello</h1>', Html::normalTag('h1', 'hello')->render());
         $this->assertSame('<h1 id="main">hello</h1>', Html::normalTag('h1', 'hello', ['id' => 'main'])->render());
         $this->assertSame('<div><p>Hello</p></div>', Html::normalTag('div', Html::p('Hello'))->render());
+        $this->assertSame('<h1>42</h1>', Html::normalTag('h1', 42)->render());
+        $this->assertSame('<h1>3.14</h1>', Html::normalTag('h1', 3.14)->render());
+        $this->assertSame('<h1></h1>', Html::normalTag('h1', null)->render());
     }
 
     public function testVoidTag(): void
@@ -106,6 +112,10 @@ final class HtmlTest extends TestCase
             '<style id="main">.red{color:#f00}</style>',
             Html::style('.red{color:#f00}', ['id' => 'main'])->render(),
         );
+        $this->assertSame(
+            '<style>body{}</style>',
+            Html::style(new StringableObject('body{}'))->render(),
+        );
     }
 
     public function testScript(): void
@@ -116,6 +126,10 @@ final class HtmlTest extends TestCase
             '<script id="main">alert(15)</script>',
             Html::script('alert(15)', ['id' => 'main'])->render(),
         );
+        $this->assertSame(
+            '<script>alert(1)</script>',
+            Html::script(new StringableObject('alert(1)'))->render(),
+        );
     }
 
     public function testNoscript(): void
@@ -123,6 +137,9 @@ final class HtmlTest extends TestCase
         $this->assertSame('<noscript></noscript>', Html::noscript()->render());
         $this->assertSame('<noscript>hello</noscript>', Html::noscript('hello')->render());
         $this->assertSame('<noscript><div></div></noscript>', Html::noscript(new Div())->render());
+        $this->assertSame('<noscript>42</noscript>', Html::noscript(42)->render());
+        $this->assertSame('<noscript>3.14</noscript>', Html::noscript(3.14)->render());
+        $this->assertSame('<noscript></noscript>', Html::noscript(null)->render());
     }
 
     public function testTitle(): void
@@ -131,6 +148,9 @@ final class HtmlTest extends TestCase
         $this->assertSame('<title>hello</title>', Html::title('hello')->render());
         $this->assertSame('<title id="main">hello</title>', Html::title('hello', ['id' => 'main'])->render());
         $this->assertSame('<title>hello</title>', Html::title(new StringableObject('hello'))->render());
+        $this->assertSame('<title>42</title>', Html::title(42)->render());
+        $this->assertSame('<title>3.14</title>', Html::title(3.14)->render());
+        $this->assertSame('<title></title>', Html::title(null)->render());
     }
 
     public function testMeta(): void
@@ -195,6 +215,9 @@ final class HtmlTest extends TestCase
             Html::a('link', 'https://example.com', ['id' => 'home'])->render(),
         );
         $this->assertSame('<a><span>Hello</span></a>', Html::a(Html::span('Hello'))->render());
+        $this->assertSame('<a>42</a>', Html::a(42)->render());
+        $this->assertSame('<a>3.14</a>', Html::a(3.14)->render());
+        $this->assertSame('<a></a>', Html::a(null)->render());
     }
 
     public function testMailto(): void
@@ -210,6 +233,18 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<a href="mailto:info@example.com" id="contact">contact me</a>',
             Html::mailto('contact me', 'info@example.com', ['id' => 'contact'])->render(),
+        );
+        $this->assertSame(
+            '<a href="mailto:42">42</a>',
+            Html::mailto(42)->render(),
+        );
+        $this->assertSame(
+            '<a href="mailto:info@example.com">42</a>',
+            Html::mailto(42, 'info@example.com')->render(),
+        );
+        $this->assertSame(
+            '<a></a>',
+            Html::mailto(null)->render(),
         );
     }
 
@@ -261,6 +296,8 @@ final class HtmlTest extends TestCase
         $this->assertSame('<label for>Name</label>', Html::label('Name', '')->render());
         $this->assertSame('<label for="fieldName">Name</label>', Html::label('Name', 'fieldName')->render());
         $this->assertSame('<label><span>Hello</span></label>', Html::label(Html::span('Hello'))->render());
+        $this->assertSame('<label>42</label>', Html::label(42)->render());
+        $this->assertSame('<label></label>', Html::label(null)->render());
     }
 
     public function testLegend(): void
@@ -277,6 +314,8 @@ final class HtmlTest extends TestCase
             '<legend id="MyLegend">Your data</legend>',
             Html::legend('Your data', ['id' => 'MyLegend'])->render(),
         );
+        $this->assertSame('<legend>42</legend>', Html::legend(42)->render());
+        $this->assertSame('<legend></legend>', Html::legend(null)->render());
     }
 
     public function testButton(): void
@@ -288,6 +327,14 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<button type="button" id="main">Button</button>',
             Html::button('Button', ['id' => 'main'])->render(),
+        );
+        $this->assertSame(
+            '<button type="button">42</button>',
+            Html::button(42)->render(),
+        );
+        $this->assertSame(
+            '<button type="button"></button>',
+            Html::button(null)->render(),
         );
     }
 
@@ -301,6 +348,10 @@ final class HtmlTest extends TestCase
             '<button type="submit" id="main">Submit</button>',
             Html::submitButton('Submit', ['id' => 'main'])->render(),
         );
+        $this->assertSame(
+            '<button type="submit">42</button>',
+            Html::submitButton(42)->render(),
+        );
     }
 
     public function testResetButton(): void
@@ -312,6 +363,10 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<button type="reset" id="main">Reset</button>',
             Html::resetButton('Reset', ['id' => 'main'])->render(),
+        );
+        $this->assertSame(
+            '<button type="reset">42</button>',
+            Html::resetButton(42)->render(),
         );
     }
 
@@ -515,6 +570,9 @@ final class HtmlTest extends TestCase
         $this->assertSame('<option>test</option>', Html::option('test')->render());
         $this->assertSame('<option value="42">test</option>', Html::option('test', 42)->render());
         $this->assertSame('<option><span>Hello</span></option>', Html::option(Html::span('Hello'))->render());
+        $this->assertSame('<option>42</option>', Html::option(42)->render());
+        $this->assertSame('<option>3.14</option>', Html::option(3.14)->render());
+        $this->assertSame('<option></option>', Html::option(null)->render());
     }
 
     public function testTextarea(): void
@@ -571,6 +629,9 @@ final class HtmlTest extends TestCase
         $this->assertSame('<div>hello</div>', Html::div('hello')->render());
         $this->assertSame('<div id="main">hello</div>', Html::div('hello', ['id' => 'main'])->render());
         $this->assertSame('<div><span>Hello</span></div>', Html::div(Html::span('Hello'))->render());
+        $this->assertSame('<div>42</div>', Html::div(42)->render());
+        $this->assertSame('<div>3.14</div>', Html::div(3.14)->render());
+        $this->assertSame('<div></div>', Html::div(null)->render());
     }
 
     public function testSpan(): void
@@ -579,6 +640,8 @@ final class HtmlTest extends TestCase
         $this->assertSame('<span>hello</span>', Html::span('hello')->render());
         $this->assertSame('<span id="main">hello</span>', Html::span('hello', ['id' => 'main'])->render());
         $this->assertSame('<span><span>Hello</span></span>', Html::span(Html::span('Hello'))->render());
+        $this->assertSame('<span>42</span>', Html::span(42)->render());
+        $this->assertSame('<span></span>', Html::span(null)->render());
     }
 
     public function testEm(): void
@@ -627,6 +690,8 @@ final class HtmlTest extends TestCase
         $this->assertSame('<h1>hello</h1>', Html::h1('hello')->render());
         $this->assertSame('<h1 id="main">hello</h1>', Html::h1('hello', ['id' => 'main'])->render());
         $this->assertSame('<h1><span>Hello</span></h1>', Html::h1(Html::span('Hello'))->render());
+        $this->assertSame('<h1>42</h1>', Html::h1(42)->render());
+        $this->assertSame('<h1></h1>', Html::h1(null)->render());
     }
 
     public function testH2(): void
@@ -675,6 +740,8 @@ final class HtmlTest extends TestCase
         $this->assertSame('<p>hello</p>', Html::p('hello')->render());
         $this->assertSame('<p id="main">hello</p>', Html::p('hello', ['id' => 'main'])->render());
         $this->assertSame('<p><span>Hello</span></p>', Html::p(Html::span('Hello'))->render());
+        $this->assertSame('<p>42</p>', Html::p(42)->render());
+        $this->assertSame('<p></p>', Html::p(null)->render());
     }
 
     public function testUl(): void
@@ -712,6 +779,9 @@ final class HtmlTest extends TestCase
             Html::li('Content', ['class' => 'item', 'id' => 'item-1'])->render(),
         );
         $this->assertSame('<li class="empty"></li>', Html::li(attributes: ['class' => 'empty'])->render());
+        $this->assertSame('<li>42</li>', Html::li(42)->render());
+        $this->assertSame('<li>3.14</li>', Html::li(3.14)->render());
+        $this->assertSame('<li></li>', Html::li(null)->render());
     }
 
     public function testDatalist(): void
@@ -729,6 +799,8 @@ final class HtmlTest extends TestCase
             Html::caption('Hello', ['class' => 'red'])->render(),
         );
         $this->assertSame('<caption><span>Hello</span></caption>', Html::caption(Html::span('Hello'))->render());
+        $this->assertSame('<caption>42</caption>', Html::caption(42)->render());
+        $this->assertSame('<caption></caption>', Html::caption(null)->render());
     }
 
     public function testCol(): void
@@ -779,6 +851,9 @@ final class HtmlTest extends TestCase
         $this->assertSame('<td>Hello</td>', Html::td('Hello')->render());
         $this->assertSame('<td class="red">Hello</td>', Html::td('Hello', ['class' => 'red'])->render());
         $this->assertSame('<td><span>Hello</span></td>', Html::td(Html::span('Hello'))->render());
+        $this->assertSame('<td>42</td>', Html::td(42)->render());
+        $this->assertSame('<td>3.14</td>', Html::td(3.14)->render());
+        $this->assertSame('<td></td>', Html::td(null)->render());
     }
 
     public function testTh(): void
@@ -787,6 +862,8 @@ final class HtmlTest extends TestCase
         $this->assertSame('<th>Hello</th>', Html::th('Hello')->render());
         $this->assertSame('<th class="red">Hello</th>', Html::th('Hello', ['class' => 'red'])->render());
         $this->assertSame('<th><span>Hello</span></th>', Html::th(Html::span('Hello'))->render());
+        $this->assertSame('<th>42</th>', Html::th(42)->render());
+        $this->assertSame('<th></th>', Html::th(null)->render());
     }
 
     public function testBr(): void

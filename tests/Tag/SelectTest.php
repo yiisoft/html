@@ -6,9 +6,11 @@ namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
 use Yiisoft\Html\Tag\Select;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
 use Yiisoft\Html\Tests\Support\StringEnum;
 
@@ -291,6 +293,10 @@ final class SelectTest extends TestCase
             "<select>\n<option value=\"1\">One</option>\n<option value=\"2\">Two</option>\n</select>",
             (string) (new Select())->optionsData(['1' => 'One', '2' => 'Two']),
         );
+        $this->assertSame(
+            "<select>\n<option value=\"1\">42</option>\n<option value=\"2\">3.14</option>\n</select>",
+            (string) (new Select())->optionsData(['1' => 42, '2' => 3.14]),
+        );
     }
 
     public function testOptionsDataEncode(): void
@@ -393,11 +399,18 @@ final class SelectTest extends TestCase
                 . '</select>',
                 'Please select...',
             ],
+            [
+                '<select>' . "\n"
+                . '<option value>Choose an option</option>' . "\n"
+                . '<option value="1">One</option>' . "\n"
+                . '</select>',
+                new StringableObject('Choose an option'),
+            ],
         ];
     }
 
     #[DataProvider('dataPrompt')]
-    public function testPrompt(string $expected, ?string $text): void
+    public function testPrompt(string $expected, string|Stringable|null $text): void
     {
         $this->assertSame(
             $expected,

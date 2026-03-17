@@ -22,9 +22,9 @@ final class ListTagTest extends TestCase
 
     public function testStrings(): void
     {
-        $tag = (new TestListTag())->strings(['A', 'B']);
+        $tag = (new TestListTag())->strings(['A', 'B', 1, 2.5, null]);
 
-        $this->assertSame("<test>\n<li>A</li>\n<li>B</li>\n</test>", (string) $tag);
+        $this->assertSame("<test>\n<li>A</li>\n<li>B</li>\n<li>1</li>\n<li>2.5</li>\n<li></li>\n</test>", (string) $tag);
     }
 
     public function testStringsAttributes(): void

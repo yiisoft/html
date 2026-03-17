@@ -48,9 +48,9 @@ class TrTest extends TestCase
     public function testDataStrings(): void
     {
         $tr = (new Tr())
-            ->dataStrings(['A', 'B']);
+            ->dataStrings(['A', 'B', null, 1, 2.5]);
 
-        $this->assertSame("<tr>\n<td>A</td>\n<td>B</td>\n</tr>", (string) $tr);
+        $this->assertSame("<tr>\n<td>A</td>\n<td>B</td>\n<td></td>\n<td>1</td>\n<td>2.5</td>\n</tr>", (string) $tr);
     }
 
     public function testDataStringsAttributes(): void
@@ -116,9 +116,9 @@ class TrTest extends TestCase
     public function testHeaderStrings(): void
     {
         $tr = (new Tr())
-            ->headerStrings(['A', 'B']);
+            ->headerStrings(['A', 'B', 1, 2.5, null]);
 
-        $this->assertSame("<tr>\n<th>A</th>\n<th>B</th>\n</tr>", (string) $tr);
+        $this->assertSame("<tr>\n<th>A</th>\n<th>B</th>\n<th>1</th>\n<th>2.5</th>\n<th></th>\n</tr>", (string) $tr);
     }
 
     public function testHeaderStringsAttributes(): void
