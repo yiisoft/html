@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TagContentTrait;
 
@@ -14,21 +15,21 @@ final class Button extends NormalTag
 {
     use TagContentTrait;
 
-    public static function button(string $content = ''): self
+    public static function button(string|Stringable|int|float|null $content = ''): self
     {
         $button = (new self())->content($content);
         $button->attributes['type'] = 'button';
         return $button;
     }
 
-    public static function submit(string $content = ''): self
+    public static function submit(string|Stringable|int|float|null $content = ''): self
     {
         $button = (new self())->content($content);
         $button->attributes['type'] = 'submit';
         return $button;
     }
 
-    public static function reset(string $content = ''): self
+    public static function reset(string|Stringable|int|float|null $content = ''): self
     {
         $button = (new self())->content($content);
         $button->attributes['type'] = 'reset';

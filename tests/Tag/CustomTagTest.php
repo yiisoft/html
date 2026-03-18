@@ -121,11 +121,14 @@ final class CustomTagTest extends TestCase
                 '<test>Hello &gt; <span>World</span>!</test>',
                 ['Hello', ' > ', (new Span())->content('World'), '!'],
             ],
+            'int' => ['<test>42</test>', 42],
+            'float' => ['<test>3.14</test>', 3.14],
+            'null' => ['<test></test>', null],
         ];
     }
 
     #[DataProvider('dataContent')]
-    public function testContent(string $expected, string|array|Stringable $content): void
+    public function testContent(string $expected, string|int|float|array|Stringable|null $content): void
     {
         $tag = new CustomTag('test');
         $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);

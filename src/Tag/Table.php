@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
 
 /**
@@ -44,7 +45,7 @@ final class Table extends NormalTag
         return $new;
     }
 
-    public function captionString(string $content, bool $encode = true): self
+    public function captionString(string|Stringable|int|float|null $content, bool $encode = true): self
     {
         $caption = (new Caption())->content($content);
         if (!$encode) {

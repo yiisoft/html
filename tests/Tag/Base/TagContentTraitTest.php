@@ -57,11 +57,14 @@ final class TagContentTraitTest extends TestCase
                 '<test>Hello &gt; <span>World</span>!</test>',
                 ['Hello', ' > ', (new Span())->content('World'), '!'],
             ],
+            'int' => ['<test>42</test>', 42],
+            'float' => ['<test>3.14</test>', 3.14],
+            'null' => ['<test></test>', null],
         ];
     }
 
     #[DataProvider('dataContent')]
-    public function testContent(string $expected, string|array|Stringable $content): void
+    public function testContent(string $expected, string|int|float|array|Stringable|null $content): void
     {
         $tag = new TestTagContentTrait();
         $tag = is_array($content) ? $tag->content(...$content) : $tag->content($content);
@@ -80,16 +83,36 @@ final class TagContentTraitTest extends TestCase
         );
     }
 
-    public function testAddContent(): void
+    public static function dataAddContent(): array
     {
-        $this->assertSame(
-            '<test>Hello World</test>',
-            (new TestTagContentTrait())
-                ->content('Hello')
-                ->addContent(' ')
-                ->addContent(new StringableObject('World'))
-                ->render(),
-        );
+        return [
+            'stringable' => [
+                '<test>Hello World</test>',
+                'Hello',
+                [' ', new StringableObject('World')],
+            ],
+            'int' => [
+                '<test>Value: 42</test>',
+                'Value: ',
+                [42],
+            ],
+            'float' => [
+                '<test>Value: 3.14</test>',
+                'Value: ',
+                [3.14],
+            ],
+        ];
+    }
+
+    #[DataProvider('dataAddContent')]
+    public function testAddContent(string $expected, string $initial, array $additions): void
+    {
+        $tag = (new TestTagContentTrait())->content($initial);
+        foreach ($additions as $addition) {
+            $tag = $tag->addContent($addition);
+        }
+
+        $this->assertSame($expected, $tag->render());
     }
 
     public function testAddContentVariadic(): void
@@ -115,11 +138,20 @@ final class TagContentTraitTest extends TestCase
         );
     }
 
-    public function testContentArray(): void
+    public static function dataContentArray(): array
     {
-        $tag = (new TestTagContentTrait())->content(a: '1', b: '2');
+        return [
+            'strings' => [['1', '2'], ['a' => '1', 'b' => '2']],
+            'int-float-null' => [[42, 3.14, null], ['a' => 42, 'b' => 3.14, 'c' => null]],
+        ];
+    }
 
-        $this->assertSame(['1', '2'], $tag->getContentArray());
+    #[DataProvider('dataContentArray')]
+    public function testContentArray(array $expected, array $args): void
+    {
+        $tag = (new TestTagContentTrait())->content(...$args);
+
+        $this->assertSame($expected, $tag->getContentArray());
     }
 
     public function testImmutability(): void

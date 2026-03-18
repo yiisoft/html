@@ -17,7 +17,7 @@ trait TagContentTrait
     private bool $doubleEncode = true;
 
     /**
-     * @psalm-var list<string|Stringable>
+     * @psalm-var list<string|Stringable|int|float|null>
      */
     private array $content = [];
 
@@ -48,9 +48,9 @@ trait TagContentTrait
     }
 
     /**
-     * @param string|Stringable ...$content Tag content.
+     * @param string|Stringable|int|float|null ...$content Tag content.
      */
-    final public function content(string|Stringable ...$content): static
+    final public function content(string|Stringable|int|float|null ...$content): static
     {
         $new = clone $this;
         $new->content = array_values($content);
@@ -58,9 +58,9 @@ trait TagContentTrait
     }
 
     /**
-     * @param string|Stringable ...$content Tag content.
+     * @param string|Stringable|int|float|null ...$content Tag content.
      */
-    final public function addContent(string|Stringable ...$content): static
+    final public function addContent(string|Stringable|int|float|null ...$content): static
     {
         $new = clone $this;
         $new->content = array_merge($new->content, array_values($content));
@@ -79,7 +79,7 @@ trait TagContentTrait
                 $item = Html::encode($item, $this->doubleEncode);
             }
 
-            $content .= $item;
+            $content .= (string) $item;
         }
 
         return $content;

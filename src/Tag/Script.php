@@ -23,12 +23,12 @@ final class Script extends NormalTag
     /**
      * @link https://www.w3.org/TR/html52/semantics-scripting.html#script-content-restrictions
      *
-     * @param string $content Tag content.
+     * @param string|Stringable $content Tag content.
      */
-    public function content(string $content): self
+    public function content(string|Stringable $content): self
     {
         $new = clone $this;
-        $new->content = $content;
+        $new->content = (string) $content;
         return $new;
     }
 

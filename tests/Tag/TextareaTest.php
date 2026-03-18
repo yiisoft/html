@@ -71,6 +71,8 @@ final class TextareaTest extends TestCase
             ['<textarea></textarea>', new StringableObject('')],
             ['<textarea>content</textarea>', 'content'],
             ['<textarea>content</textarea>', new StringableObject('content')],
+            ['<textarea>42</textarea>', 42],
+            ['<textarea>3.14</textarea>', 3.14],
             [
                 <<<HTML
                 <textarea>a

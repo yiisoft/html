@@ -20,11 +20,22 @@ final class ButtonTest extends TestCase
         );
     }
 
-    public function testButton(): void
+    public static function dataButton(): array
+    {
+        return [
+            'string' => ['Agree', 'Agree'],
+            'int' => ['42', 42],
+            'float' => ['3.14', 3.14],
+            'null' => ['', null],
+        ];
+    }
+
+    #[DataProvider('dataButton')]
+    public function testButton(string $expectedContent, string|int|float|null $content): void
     {
         $this->assertSame(
-            '<button type="button">Agree</button>',
-            (string) Button::button('Agree'),
+            "<button type=\"button\">$expectedContent</button>",
+            (string) Button::button($content),
         );
     }
 
@@ -36,6 +47,25 @@ final class ButtonTest extends TestCase
         );
     }
 
+    public static function dataSubmit(): array
+    {
+        return [
+            'string' => ['Send', 'Send'],
+            'int' => ['1', 1],
+            'float' => ['3.14', 3.14],
+            'null' => ['', null],
+        ];
+    }
+
+    #[DataProvider('dataSubmit')]
+    public function testSubmit(string $expectedContent, string|int|float|null $content): void
+    {
+        $this->assertSame(
+            "<button type=\"submit\">$expectedContent</button>",
+            (string) Button::submit($content),
+        );
+    }
+
     public function testSubmitWithoutContent(): void
     {
         $this->assertSame(
@@ -44,27 +74,30 @@ final class ButtonTest extends TestCase
         );
     }
 
+    public static function dataReset(): array
+    {
+        return [
+            'string' => ['Reset form', 'Reset form'],
+            'int' => ['1', 1],
+            'float' => ['3.14', 3.14],
+            'null' => ['', null],
+        ];
+    }
+
+    #[DataProvider('dataReset')]
+    public function testReset(string $expectedContent, string|int|float|null $content): void
+    {
+        $this->assertSame(
+            "<button type=\"reset\">$expectedContent</button>",
+            (string) Button::reset($content),
+        );
+    }
+
     public function testResetWithoutContent(): void
     {
         $this->assertSame(
             '<button type="reset"></button>',
             (string) Button::reset(),
-        );
-    }
-
-    public function testSubmit(): void
-    {
-        $this->assertSame(
-            '<button type="submit">Send</button>',
-            (string) Button::submit('Send'),
-        );
-    }
-
-    public function testReset(): void
-    {
-        $this->assertSame(
-            '<button type="reset">Reset form</button>',
-            (string) Button::reset('Reset form'),
         );
     }
 

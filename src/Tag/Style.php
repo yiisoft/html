@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
 
 /**
@@ -14,12 +15,12 @@ final class Style extends NormalTag
     private string $content = '';
 
     /**
-     * @param string $content Tag content.
+     * @param string|Stringable $content Tag content.
      */
-    public function content(string $content): self
+    public function content(string|Stringable $content): self
     {
         $new = clone $this;
-        $new->content = $content;
+        $new->content = (string) $content;
         return $new;
     }
 

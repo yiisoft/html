@@ -17,7 +17,7 @@ use function is_array;
  *
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-select-element
  *
- * @psalm-type OptionsData = array<array-key, string|array<array-key,string>>
+ * @psalm-type OptionsData = array<array-key, string|Stringable|int|float|null|array<array-key,string|Stringable|int|float|null>>
  */
 final class Select extends NormalTag
 {
@@ -168,10 +168,10 @@ final class Select extends NormalTag
     }
 
     /**
-     * @param string|null $text Text of the option that has dummy value and is rendered
+     * @param string|Stringable|int|float|null $text Text of the option that has dummy value and is rendered
      * as an invitation to select a value.
      */
-    public function prompt(?string $text): self
+    public function prompt(string|Stringable|int|float|null $text): self
     {
         $new = clone $this;
         $new->prompt = $text === null ? null : (new Option())
