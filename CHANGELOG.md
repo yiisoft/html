@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 4.0.1 under development
+
+- no changes in this release.
+
 ## 4.0.0 March 18, 2026
 
 - New #270: Allow passing `int`, `float` and `null` as tag content (@vjik)
