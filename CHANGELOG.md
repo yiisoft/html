@@ -1,13 +1,13 @@
 # Yii HTML Change Log
 
-## 4.0.0 under development
+## 4.0.0 March 18, 2026
 
+- New #270: Allow passing `int`, `float` and `null` as tag content (@vjik)
 - Chg #221: Throw `LogicException` in `Tag::id()` when id is empty string (@razvbir)
-- Chg #267: Make all `CheckboxItem` and `RadioItem` properties required (@vjik)
 - Chg #234: Remove tag attributes sorting (@FrankiFixx)
+- Chg #267: Make all `CheckboxItem` and `RadioItem` properties required (@vjik)
 - Chg #269: Rename `$options` parameter to `$attributes` in `Html::addCssClass()`, `Html::removeCssClass()`,
   `Html::addCssStyle()` and `Html::removeCssStyle()` methods (@vjik)
-- New #270: Allow passing `int`, `float` and `null` as tag content (@vjik)
 
 ## 3.13.0 March 13, 2026
 
