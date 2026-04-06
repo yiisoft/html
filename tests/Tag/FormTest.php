@@ -13,6 +13,19 @@ use Yiisoft\Html\Tests\Objects\StringableObject;
 
 final class FormTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        // Drain any Form::begin() calls that were not matched with Form::end()
+        // to ensure a clean static stack between tests.
+        try {
+            while (true) {
+                Form::end();
+            }
+        } catch (\RuntimeException) {
+            // Stack is now empty.
+        }
+    }
+
     public function testBase(): void
     {
         $tag = new Form();
