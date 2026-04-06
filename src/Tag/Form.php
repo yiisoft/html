@@ -22,6 +22,11 @@ final class Form extends NormalTag
 
     /**
      * @var static[]
+     *
+     * @note This static stack is process-scoped. In long-running PHP runtimes
+     * (e.g. Swoole, RoadRunner) each coroutine or request shares the same
+     * static property. Ensure {@see begin()} and {@see end()} are always
+     * paired within the same request/coroutine context.
      */
     private static array $stack = [];
 

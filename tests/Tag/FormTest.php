@@ -15,15 +15,10 @@ final class FormTest extends TestCase
 {
     protected function tearDown(): void
     {
-        // Drain any Form::begin() calls that were not matched with Form::end()
-        // to ensure a clean static stack between tests.
-        try {
-            while (true) {
-                Form::end();
-            }
-        } catch (\RuntimeException) {
-            // Stack is now empty.
-        }
+        // Reset the static stack to ensure test isolation.
+        $ref = new \ReflectionProperty(Form::class, 'stack');
+        $ref->setAccessible(true);
+        $ref->setValue(null, []);
     }
 
     public function testBase(): void
