@@ -312,4 +312,40 @@ final class FormTest extends TestCase
         $this->assertNotSame($tag, $tag->noValidate());
         $this->assertNotSame($tag, $tag->target(null));
     }
+
+    public function testBeginEnd(): void
+    {
+        $form = (new Form())->post('https://example.com/send');
+
+        $this->assertSame(
+            '<form method="POST" action="https://example.com/send">',
+            $form->begin(),
+        );
+        $this->assertSame(
+            '</form>',
+            Form::end(),
+        );
+    }
+
+    public function testBeginEndWithCsrf(): void
+    {
+        $form = (new Form())->csrf('abc', 'csrf-token');
+
+        $this->assertSame(
+            '<form>' . "\n"
+            . '<input type="hidden" name="csrf-token" value="abc">',
+            $form->begin(),
+        );
+        $this->assertSame(
+            '</form>',
+            Form::end(),
+        );
+    }
+
+    public function testEndWithoutBeginThrowsException(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unexpected Yiisoft\Html\Tag\Form::end() call. A matching begin() is not found.');
+        Form::end();
+    }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Html\Tag;
 
+use RuntimeException;
 use Stringable;
 use Yiisoft\Html\Tag\Base\NormalTag;
 use Yiisoft\Html\Tag\Base\TagContentTrait;
@@ -18,6 +19,11 @@ final class Form extends NormalTag
     public const ENCTYPE_APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
     public const ENCTYPE_MULTIPART_FORM_DATA = 'multipart/form-data';
     public const ENCTYPE_TEXT_PLAIN = 'text/plain';
+
+    /**
+     * @var static[]
+     */
+    private static array $stack = [];
 
     private ?string $csrfToken = null;
     private ?string $csrfName = null;
@@ -167,6 +173,45 @@ final class Form extends NormalTag
         $new = clone $this;
         $new->attributes['target'] = $target;
         return $new;
+    }
+
+    /**
+     * Opens the form tag, outputs the opening HTML, and registers this form on an internal stack so that the
+     * corresponding {@see end()} call can close it safely.
+     *
+     * Recommended for use in templates where the opening and closing tags are in separate places:
+     *
+     * ```php
+     * $form = Html::form()->post('/my-action')->csrf($csrf);
+     * echo $form->begin();
+     * // ... form fields ...
+     * echo Form::end();
+     * ```
+     *
+     * @return string The opening form tag (and any prepended content such as a CSRF hidden input).
+     */
+    public function begin(): string
+    {
+        static::$stack[] = $this;
+        return $this->open();
+    }
+
+    /**
+     * Closes the most recently opened form and removes it from the internal stack.
+     *
+     * @throws RuntimeException When called without a prior matching {@see begin()} call.
+     *
+     * @return string The closing form tag.
+     */
+    public static function end(): string
+    {
+        if (empty(static::$stack)) {
+            throw new RuntimeException(
+                sprintf('Unexpected %s::end() call. A matching begin() is not found.', static::class)
+            );
+        }
+        $form = array_pop(static::$stack);
+        return $form->close();
     }
 
     protected function prepend(): string
