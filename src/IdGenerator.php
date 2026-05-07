@@ -28,7 +28,11 @@ final class IdGenerator
             $count = ++self::$counter[$prefix];
         } else {
             $count = 1;
-            self::$counter = [$prefix => $count];
+            if (self::$useSeed) {
+                self::$counter = [$prefix => $count];
+            } else {
+                self::$counter[$prefix] = $count;
+            }
         }
         return $prefix . $count;
     }
