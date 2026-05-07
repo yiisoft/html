@@ -44,7 +44,10 @@ In `phpunit.xml`:
 In `tests/bootstrap.php`:
 
 ```php
+// ...
+require_once 'vendor/autoload.php';
 require_once 'vendor/yiisoft/html/src/test-functions.php';
+// ...
 ```
 
 ### Global disableSeed with per-test reset
