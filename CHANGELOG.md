@@ -2,7 +2,7 @@
 
 ## 4.0.1 under development
 
-- no changes in this release.
+- New #274: Add test helper functions for controlling HTML ID generation (@vjik)
 
 ## 4.0.0 March 18, 2026
 
