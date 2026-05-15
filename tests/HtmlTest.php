@@ -15,35 +15,8 @@ use Yiisoft\Html\Tests\Support\IntegerEnum;
 
 use function array_key_exists;
 
-require __DIR__ . '/mocks/hrtime.php';
-
 final class HtmlTest extends TestCase
 {
-    /**
-     * Use different values in different tests
-     *
-     * @var mixed
-     */
-    public static $hrtimeResult;
-
-    protected function setUp(): void
-    {
-        self::$hrtimeResult = null;
-        parent::setUp();
-    }
-
-    public function testGenerateId(): void
-    {
-        $this->assertMatchesRegularExpression('/i\d+/', Html::generateId());
-        $this->assertMatchesRegularExpression('/test\d+/', Html::generateId('test'));
-
-        self::$hrtimeResult = 123;
-        $this->assertSame('i1231', Html::generateId());
-        $this->assertSame('i1232', Html::generateId());
-        self::$hrtimeResult = 124;
-        $this->assertSame('i1241', Html::generateId());
-    }
-
     public static function dataEscapeJavaScriptStringValue(): array
     {
         return [

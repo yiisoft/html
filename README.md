@@ -392,6 +392,7 @@ Overall the helper has the following method groups.
 ## Documentation
 
 - [Internals](docs/internals.md)
+- [Testing ID generation](docs/testing-id-generation.md)
 
 If you need help or have a question, the [Yii Forum](https://forum.yiiframework.com/c/yii-3-0/63) is a good place for
 that. You may also check out other [Yii Community Resources](https://www.yiiframework.com/community).
