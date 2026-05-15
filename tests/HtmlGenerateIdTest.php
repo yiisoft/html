@@ -11,7 +11,10 @@ final class HtmlGenerateIdTest extends TestCase
 {
     protected function tearDown(): void
     {
+        \Yiisoft\Html\IdGenerator\reset();
         \Yiisoft\Html\IdGenerator\enableSeed();
+
+        parent::tearDown();
     }
 
     public function testGenerateIdWithSeedEnabled(): void
