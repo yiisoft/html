@@ -66,11 +66,13 @@ require_once 'vendor/yiisoft/html/src/test-functions.php';
 In the test class:
 
 ```php
+use Yiisoft\Html\IdGenerator;
+
 final class MyTest extends TestCase
 {
     public function testRendersLabel(): void
     {
-        \Yiisoft\Html\IdGenerator\reset();
+        IdGenerator\reset();
 
         $this->assertSame('<label for="i1">Name</label>', ...);
     }
@@ -88,17 +90,19 @@ from `i1`. Add `enableSeed()` in `tearDown()` to restore the default behaviour a
 finishes:
 
 ```php
+use Yiisoft\Html\IdGenerator;
+
 final class MyTest extends TestCase
 {
     protected function setUp(): void
     {
-        \Yiisoft\Html\IdGenerator\disableSeed();
-        \Yiisoft\Html\IdGenerator\reset();
+        IdGenerator\disableSeed();
+        IdGenerator\reset();
     }
 
     protected function tearDown(): void
     {
-        \Yiisoft\Html\IdGenerator\enableSeed();
+        IdGenerator\enableSeed();
     }
 
     public function testRendersLabel(): void
