@@ -6,13 +6,14 @@ namespace Yiisoft\Html\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
+use Yiisoft\Html\IdGenerator;
 
 final class HtmlGenerateIdTest extends TestCase
 {
     protected function tearDown(): void
     {
-        \Yiisoft\Html\IdGenerator\reset();
-        \Yiisoft\Html\IdGenerator\enableSeed();
+        IdGenerator\reset();
+        IdGenerator\enableSeed();
 
         parent::tearDown();
     }
@@ -25,8 +26,8 @@ final class HtmlGenerateIdTest extends TestCase
 
     public function testGenerateIdWithSeedDisabled(): void
     {
-        \Yiisoft\Html\IdGenerator\disableSeed();
-        \Yiisoft\Html\IdGenerator\reset();
+        IdGenerator\disableSeed();
+        IdGenerator\reset();
 
         $this->assertSame('i1', Html::generateId());
         $this->assertSame('i2', Html::generateId());
@@ -35,8 +36,8 @@ final class HtmlGenerateIdTest extends TestCase
 
     public function testGenerateIdWithSeedDisabledCustomPrefix(): void
     {
-        \Yiisoft\Html\IdGenerator\disableSeed();
-        \Yiisoft\Html\IdGenerator\reset();
+        IdGenerator\disableSeed();
+        IdGenerator\reset();
 
         $this->assertSame('test1', Html::generateId('test'));
         $this->assertSame('test2', Html::generateId('test'));
@@ -44,8 +45,8 @@ final class HtmlGenerateIdTest extends TestCase
 
     public function testGenerateIdWithSeedDisabledMixedPrefixesDoNotResetEachOther(): void
     {
-        \Yiisoft\Html\IdGenerator\disableSeed();
-        \Yiisoft\Html\IdGenerator\reset();
+        IdGenerator\disableSeed();
+        IdGenerator\reset();
 
         $this->assertSame('i1', Html::generateId());
         $this->assertSame('test1', Html::generateId('test'));
@@ -55,24 +56,24 @@ final class HtmlGenerateIdTest extends TestCase
 
     public function testResetClearsCounterWithoutChangingSeedMode(): void
     {
-        \Yiisoft\Html\IdGenerator\disableSeed();
-        \Yiisoft\Html\IdGenerator\reset();
+        IdGenerator\disableSeed();
+        IdGenerator\reset();
 
         $this->assertSame('i1', Html::generateId());
         $this->assertSame('i2', Html::generateId());
 
-        \Yiisoft\Html\IdGenerator\reset();
+        IdGenerator\reset();
 
         $this->assertSame('i1', Html::generateId());
     }
 
     public function testEnableSeedRestoresTimestampBehavior(): void
     {
-        \Yiisoft\Html\IdGenerator\disableSeed();
-        \Yiisoft\Html\IdGenerator\reset();
+        IdGenerator\disableSeed();
+        IdGenerator\reset();
         $this->assertSame('i1', Html::generateId());
 
-        \Yiisoft\Html\IdGenerator\enableSeed();
+        IdGenerator\enableSeed();
 
         $this->assertMatchesRegularExpression('/^i\d{10,}/', Html::generateId());
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\IdGenerator;
 
 use Yiisoft\Html\IdGenerator;
+use Yiisoft\Html\Html;
 
 /**
  * Resets the internal ID counter used by {@see Html::generateId()}.
