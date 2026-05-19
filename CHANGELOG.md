@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 4.1.1 under development
+
+- no changes in this release.
+
 ## 4.1.0 May 19, 2026
 
 - New #274: Add test helper functions for controlling HTML ID generation (@vjik)
