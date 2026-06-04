@@ -2,7 +2,8 @@
 
 ## 4.1.1 under development
 
-- no changes in this release.
+- New #276: Add `beforeInput()` and `afterInput()` methods to abstract `BooleanInputTag`, extended by `Radio`
+  and `Checkbox` (@vjik)
 
 ## 4.1.0 May 19, 2026
 

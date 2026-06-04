@@ -6,6 +6,9 @@ namespace Yiisoft\Html\Tests\Tag\Base;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Stringable;
+use Yiisoft\Html\IdGenerator;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 use Yiisoft\Html\Tests\Objects\TestBooleanInputTag;
 
 final class BooleanInputTagTest extends TestCase
@@ -226,6 +229,128 @@ final class BooleanInputTagTest extends TestCase
         );
     }
 
+    public static function dataBeforeInput(): iterable
+    {
+        yield [
+            'Before',
+            'Before',
+        ];
+        yield [
+            '<span>Before</span>',
+            '<span>Before</span>',
+        ];
+        yield [
+            'Before',
+            new StringableObject('Before'),
+        ];
+        yield [
+            '<span>Before</span>',
+            new StringableObject('<span>Before</span>'),
+        ];
+    }
+
+    #[DataProvider('dataBeforeInput')]
+    public function testBeforeInput(string $expectedBefore, string|Stringable $content): void
+    {
+        $input = (new TestBooleanInputTag())->beforeInput($content);
+        $this->assertSame(
+            $expectedBefore . '<input type="test">',
+            (string) $input,
+        );
+    }
+
+    public function testBeforeInputWithLabel(): void
+    {
+        $input = (new TestBooleanInputTag())
+            ->label('One')
+            ->beforeInput('Before');
+        $this->assertSame(
+            '<label>Before<input type="test"> One</label>',
+            (string) $input,
+        );
+    }
+
+    public function testBeforeInputWithSideLabel(): void
+    {
+        IdGenerator\disableSeed();
+        IdGenerator\reset();
+
+        try {
+            $result = (new TestBooleanInputTag())
+                ->sideLabel('One')
+                ->beforeInput('Before')
+                ->render();
+        } finally {
+            IdGenerator\enableSeed();
+        }
+
+        $this->assertSame(
+            'Before<input id="i1" type="test"> <label for="i1">One</label>',
+            $result,
+        );
+    }
+
+    public static function dataAfterInput(): iterable
+    {
+        yield [
+            'After',
+            'After',
+        ];
+        yield [
+            '<span>After</span>',
+            '<span>After</span>',
+        ];
+        yield [
+            'After',
+            new StringableObject('After'),
+        ];
+        yield [
+            '<span>After</span>',
+            new StringableObject('<span>After</span>'),
+        ];
+    }
+
+    #[DataProvider('dataAfterInput')]
+    public function testAfterInput(string $expectedAfter, string|Stringable $content): void
+    {
+        $input = (new TestBooleanInputTag())->AfterInput($content);
+        $this->assertSame(
+            '<input type="test">' . $expectedAfter,
+            (string) $input,
+        );
+    }
+
+    public function testAfterInputWithLabel(): void
+    {
+        $input = (new TestBooleanInputTag())
+            ->label('One')
+            ->afterInput('After');
+        $this->assertSame(
+            '<label><input type="test">After One</label>',
+            (string) $input,
+        );
+    }
+
+    public function testAfterInputWithSideLabel(): void
+    {
+        IdGenerator\disableSeed();
+        IdGenerator\reset();
+
+        try {
+            $result = (new TestBooleanInputTag())
+                ->sideLabel('One')
+                ->afterInput('After')
+                ->render();
+        } finally {
+            IdGenerator\enableSeed();
+        }
+
+        $this->assertSame(
+            '<input id="i1" type="test">After <label for="i1">One</label>',
+            $result,
+        );
+    }
+
     public function testImmutability(): void
     {
         $input = new TestBooleanInputTag();
@@ -234,5 +359,7 @@ final class BooleanInputTagTest extends TestCase
         $this->assertNotSame($input, $input->sideLabel(''));
         $this->assertNotSame($input, $input->labelEncode(true));
         $this->assertNotSame($input, $input->uncheckValue(null));
+        $this->assertNotSame($input, $input->beforeInput(''));
+        $this->assertNotSame($input, $input->afterInput(''));
     }
 }
