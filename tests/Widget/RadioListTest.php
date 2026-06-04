@@ -6,7 +6,9 @@ namespace Yiisoft\Html\Tests\Widget;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use Yiisoft\Html\Html;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
 use Yiisoft\Html\Tests\Support\StringEnum;
 use Yiisoft\Html\Widget\RadioList\RadioItem;
@@ -832,6 +834,46 @@ final class RadioListTest extends TestCase
         );
     }
 
+    public static function dataBeforeRadio(): iterable
+    {
+        yield ['<b>*</b>', '<b>*</b>'];
+        yield ['<b>*</b>', new StringableObject('<b>*</b>')];
+    }
+
+    #[DataProvider('dataBeforeRadio')]
+    public function testBeforeRadio(string $expected, string|Stringable $content): void
+    {
+        $this->assertSame(
+            '<label>' . $expected . '<input name="test" value="1" type="radio"> One</label>' . "\n"
+            . '<label>' . $expected . '<input name="test" value="2" type="radio"> Two</label>',
+            (new RadioList('test'))
+                ->items([1 => 'One', 2 => 'Two'])
+                ->beforeRadio($content)
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
+    public static function dataAfterRadio(): iterable
+    {
+        yield ['<b>!</b>', '<b>!</b>'];
+        yield ['<b>!</b>', new StringableObject('<b>!</b>')];
+    }
+
+    #[DataProvider('dataAfterRadio')]
+    public function testAfterRadio(string $expected, string|Stringable $content): void
+    {
+        $this->assertSame(
+            '<label><input name="test" value="1" type="radio">' . $expected . ' One</label>' . "\n"
+            . '<label><input name="test" value="2" type="radio">' . $expected . ' Two</label>',
+            (new RadioList('test'))
+                ->items([1 => 'One', 2 => 'Two'])
+                ->afterRadio($content)
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
     public function testImmutability(): void
     {
         $widget = new RadioList('test');
@@ -859,5 +901,7 @@ final class RadioListTest extends TestCase
         $this->assertNotSame($widget, $widget->uncheckValue(null));
         $this->assertNotSame($widget, $widget->separator(''));
         $this->assertNotSame($widget, $widget->itemFormatter(null));
+        $this->assertNotSame($widget, $widget->beforeRadio(''));
+        $this->assertNotSame($widget, $widget->afterRadio(''));
     }
 }
