@@ -18,6 +18,8 @@ abstract class BooleanInputTag extends InputTag
     private array $labelAttributes = [];
     private bool $labelWrap = true;
     private bool $labelEncode = true;
+    private string|Stringable $beforeInput = '';
+    private string|Stringable $afterInput = '';
 
     /**
      * @link https://www.w3.org/TR/html52/sec-forms.html#element-attrdef-input-checked
@@ -86,6 +88,26 @@ abstract class BooleanInputTag extends InputTag
         return $new;
     }
 
+    /**
+     * @param string|Stringable $content Content to be rendered before the input.
+     */
+    final public function beforeInput(string|Stringable $content): static
+    {
+        $new = clone $this;
+        $new->beforeInput = $content;
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable $content Content to be rendered after the input.
+     */
+    final public function afterInput(string|Stringable $content): static
+    {
+        $new = clone $this;
+        $new->afterInput = $content;
+        return $new;
+    }
+
     final protected function prepareAttributes(): void
     {
         $this->attributes['type'] = $this->getType();
@@ -97,23 +119,32 @@ abstract class BooleanInputTag extends InputTag
             ? null
             : Html::generateId();
 
-        return $this->renderUncheckInput()
-            . ($this->labelWrap ? $this->renderLabelOpenTag($this->labelAttributes) : '');
+        $html = $this->renderUncheckInput();
+
+        if ($this->labelWrap) {
+            $html .= $this->renderLabelOpenTag($this->labelAttributes);
+        }
+
+        $html .= $this->beforeInput;
+
+        return $html;
     }
 
     final protected function after(): string
     {
+        $html = (string) $this->afterInput;
+
         if ($this->label === null) {
-            return '';
+            return $html;
         }
 
         if ($this->labelWrap) {
-            $html = $this->label === '' ? '' : ' ';
+            $html .= $this->label === '' ? '' : ' ';
         } else {
             $labelAttributes = array_merge($this->labelAttributes, [
                 'for' => $this->attributes['id'],
             ]);
-            $html = ' ' . $this->renderLabelOpenTag($labelAttributes);
+            $html .= ' ' . $this->renderLabelOpenTag($labelAttributes);
         }
 
         $html .= $this->labelEncode ? Html::encode($this->label) : $this->label;
