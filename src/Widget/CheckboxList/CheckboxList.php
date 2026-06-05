@@ -28,6 +28,8 @@ final class CheckboxList implements NoEncodeStringableInterface
     private array $checkboxAttributes = [];
     private array $checkboxLabelAttributes = [];
     private bool $checkboxLabelWrap = true;
+    private string|Stringable $beforeCheckbox = '';
+    private string|Stringable $afterCheckbox = '';
 
     /**
      * @var array[]
@@ -161,6 +163,26 @@ final class CheckboxList implements NoEncodeStringableInterface
     {
         $new = clone $this;
         $new->checkboxLabelWrap = $wrap;
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable $content Content to be rendered before each checkbox input.
+     */
+    public function beforeCheckbox(string|Stringable $content): self
+    {
+        $new = clone $this;
+        $new->beforeCheckbox = $content;
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable $content Content to be rendered after each checkbox input.
+     */
+    public function afterCheckbox(string|Stringable $content): self
+    {
+        $new = clone $this;
+        $new->afterCheckbox = $content;
         return $new;
     }
 
@@ -365,7 +387,9 @@ final class CheckboxList implements NoEncodeStringableInterface
         $checkbox = Html::checkbox($item->name, $item->value, $item->checkboxAttributes)
             ->checked($item->checked)
             ->label($item->label, $item->labelAttributes, $item->labelWrap)
-            ->labelEncode($item->encodeLabel);
+            ->labelEncode($item->encodeLabel)
+            ->beforeInput($this->beforeCheckbox)
+            ->afterInput($this->afterCheckbox);
 
         return $checkbox->render();
     }

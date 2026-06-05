@@ -25,6 +25,8 @@ final class RadioList implements NoEncodeStringableInterface
     private array $radioAttributes = [];
     private array $radioLabelAttributes = [];
     private bool $radioLabelWrap = true;
+    private string|Stringable $beforeRadio = '';
+    private string|Stringable $afterRadio = '';
 
     /**
      * @var array[]
@@ -152,6 +154,26 @@ final class RadioList implements NoEncodeStringableInterface
     {
         $new = clone $this;
         $new->radioLabelWrap = $wrap;
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable $content Content to be rendered before each radio input.
+     */
+    public function beforeRadio(string|Stringable $content): self
+    {
+        $new = clone $this;
+        $new->beforeRadio = $content;
+        return $new;
+    }
+
+    /**
+     * @param string|Stringable $content Content to be rendered after each radio input.
+     */
+    public function afterRadio(string|Stringable $content): self
+    {
+        $new = clone $this;
+        $new->afterRadio = $content;
         return $new;
     }
 
@@ -344,7 +366,9 @@ final class RadioList implements NoEncodeStringableInterface
         $radio = Html::radio($item->name, $item->value, $item->radioAttributes)
             ->checked($item->checked)
             ->label($item->label, $item->labelAttributes, $item->labelWrap)
-            ->labelEncode($item->encodeLabel);
+            ->labelEncode($item->encodeLabel)
+            ->beforeInput($this->beforeRadio)
+            ->afterInput($this->afterRadio);
 
         return $radio->render();
     }

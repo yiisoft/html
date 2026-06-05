@@ -7,8 +7,10 @@ namespace Yiisoft\Html\Tests\Widget;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tests\Objects\IterableObject;
+use Yiisoft\Html\Tests\Objects\StringableObject;
 use Yiisoft\Html\Tests\Support\IntegerEnum;
 use Yiisoft\Html\Tests\Support\StringEnum;
 use Yiisoft\Html\Widget\CheckboxList\CheckboxList;
@@ -189,6 +191,46 @@ final class CheckboxListTest extends TestCase
                 ->items([1 => 'One', 2 => 'Two'])
                 ->checkboxLabelAttributes(['class' => 'red'])
                 ->addCheckboxLabelAttributes(['data-type' => 'label'])
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
+    public static function dataBeforeCheckbox(): iterable
+    {
+        yield ['<b>*</b>', '<b>*</b>'];
+        yield ['<b>*</b>', new StringableObject('<b>*</b>')];
+    }
+
+    #[DataProvider('dataBeforeCheckbox')]
+    public function testBeforeCheckbox(string $expected, string|Stringable $content): void
+    {
+        $this->assertSame(
+            '<label>' . $expected . '<input name="test[]" value="1" type="checkbox"> One</label>' . "\n"
+            . '<label>' . $expected . '<input name="test[]" value="2" type="checkbox"> Two</label>',
+            (new CheckboxList('test'))
+                ->items([1 => 'One', 2 => 'Two'])
+                ->beforeCheckbox($content)
+                ->withoutContainer()
+                ->render(),
+        );
+    }
+
+    public static function dataAfterCheckbox(): iterable
+    {
+        yield ['<b>!</b>', '<b>!</b>'];
+        yield ['<b>!</b>', new StringableObject('<b>!</b>')];
+    }
+
+    #[DataProvider('dataAfterCheckbox')]
+    public function testAfterCheckbox(string $expected, string|Stringable $content): void
+    {
+        $this->assertSame(
+            '<label><input name="test[]" value="1" type="checkbox">' . $expected . ' One</label>' . "\n"
+            . '<label><input name="test[]" value="2" type="checkbox">' . $expected . ' Two</label>',
+            (new CheckboxList('test'))
+                ->items([1 => 'One', 2 => 'Two'])
+                ->afterCheckbox($content)
                 ->withoutContainer()
                 ->render(),
         );
@@ -903,5 +945,7 @@ final class CheckboxListTest extends TestCase
         $this->assertNotSame($widget, $widget->uncheckValue(null));
         $this->assertNotSame($widget, $widget->separator(''));
         $this->assertNotSame($widget, $widget->itemFormatter(null));
+        $this->assertNotSame($widget, $widget->beforeCheckbox(''));
+        $this->assertNotSame($widget, $widget->afterCheckbox(''));
     }
 }
