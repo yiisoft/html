@@ -1,11 +1,11 @@
 # Yii HTML Change Log
 
-## 4.1.1 under development
+## 4.2.0 June 05, 2026
 
-- New #277: Add `beforeCheckbox()` and `afterCheckbox()` methods to `CheckboxList`, and `beforeRadio()` and
-  `afterRadio()` methods to `RadioList` (@vjik)
 - New #276: Add `beforeInput()` and `afterInput()` methods to abstract `BooleanInputTag`, extended by `Radio`
   and `Checkbox` (@vjik)
+- New #277: Add `beforeCheckbox()` and `afterCheckbox()` methods to `CheckboxList`, and `beforeRadio()` and
+  `afterRadio()` methods to `RadioList` (@vjik)
 
 ## 4.1.0 May 19, 2026
 
