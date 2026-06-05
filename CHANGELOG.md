@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 4.2.1 under development
+
+- no changes in this release.
+
 ## 4.2.0 June 05, 2026
 
 - New #276: Add `beforeInput()` and `afterInput()` methods to abstract `BooleanInputTag`, extended by `Radio`
