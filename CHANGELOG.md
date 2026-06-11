@@ -2,7 +2,7 @@
 
 ## 4.2.1 under development
 
-- New #268: Add dedicated classes for missing HTML tags, including `area`, `base`, `embed`, `object`, and `wbr` (@Mister-42)
+- New #278: Add dedicated classes for missing HTML tags (@Mister-42)
 
 ## 4.2.0 June 05, 2026
 
