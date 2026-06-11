@@ -1643,6 +1643,10 @@ final class HtmlTest extends TestCase
             '<iframe>Fallback</iframe>',
             Html::iframe('Fallback')->render(),
         );
+        $this->assertSame(
+            '<iframe class="red">Fallback</iframe>',
+            Html::iframe('Fallback', ['class' => 'red'])->render(),
+        );
     }
 
     public function testIns(): void
