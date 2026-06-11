@@ -1428,6 +1428,32 @@ final class HtmlTest extends TestCase
         );
     }
 
+    public function testArea(): void
+    {
+        $this->assertSame('<area>', Html::area()->render());
+        $this->assertSame(
+            '<area alt="Example">',
+            Html::area('Example')->render(),
+        );
+        $this->assertSame(
+            '<area class="red" alt="Example">',
+            Html::area('Example', ['class' => 'red'])->render(),
+        );
+    }
+
+    public function testBase(): void
+    {
+        $this->assertSame('<base>', Html::base()->render());
+        $this->assertSame(
+            '<base href="https://example.com">',
+            Html::base('https://example.com')->render(),
+        );
+        $this->assertSame(
+            '<base class="red" href="https://example.com">',
+            Html::base('https://example.com', ['class' => 'red'])->render(),
+        );
+    }
+
     public function testBdi(): void
     {
         $this->assertSame('<bdi></bdi>', Html::bdi()->render());
@@ -1597,6 +1623,19 @@ final class HtmlTest extends TestCase
         );
     }
 
+    public function testEmbed(): void
+    {
+        $this->assertSame('<embed>', Html::embed()->render());
+        $this->assertSame(
+            '<embed src="https://example.com/video.mp4">',
+            Html::embed('https://example.com/video.mp4')->render(),
+        );
+        $this->assertSame(
+            '<embed class="red" src="https://example.com/video.mp4">',
+            Html::embed('https://example.com/video.mp4', ['class' => 'red'])->render(),
+        );
+    }
+
     public function testFigcaption(): void
     {
         $this->assertSame('<figcaption></figcaption>', Html::figcaption()->render());
@@ -1733,6 +1772,19 @@ final class HtmlTest extends TestCase
         $this->assertSame(
             '<meter class="red">Value</meter>',
             Html::meter('Value', ['class' => 'red'])->render(),
+        );
+    }
+
+    public function testObject(): void
+    {
+        $this->assertSame('<object></object>', Html::object()->render());
+        $this->assertSame(
+            '<object>Applet</object>',
+            Html::object('Applet')->render(),
+        );
+        $this->assertSame(
+            '<object class="red">Applet</object>',
+            Html::object('Applet', ['class' => 'red'])->render(),
         );
     }
 
@@ -1955,5 +2007,10 @@ final class HtmlTest extends TestCase
             '<var class="red">x</var>',
             Html::var('x', ['class' => 'red'])->render(),
         );
+    }
+
+    public function testWbr(): void
+    {
+        $this->assertSame('<wbr>', Html::wbr()->render());
     }
 }

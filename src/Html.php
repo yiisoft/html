@@ -11,10 +11,12 @@ use Stringable;
 use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Abbr;
 use Yiisoft\Html\Tag\Address;
+use Yiisoft\Html\Tag\Area;
 use Yiisoft\Html\Tag\Article;
 use Yiisoft\Html\Tag\Aside;
 use Yiisoft\Html\Tag\Audio;
 use Yiisoft\Html\Tag\B;
+use Yiisoft\Html\Tag\Base;
 use Yiisoft\Html\Tag\Bdi;
 use Yiisoft\Html\Tag\Bdo;
 use Yiisoft\Html\Tag\Blockquote;
@@ -39,6 +41,7 @@ use Yiisoft\Html\Tag\Div;
 use Yiisoft\Html\Tag\Dl;
 use Yiisoft\Html\Tag\Dt;
 use Yiisoft\Html\Tag\Em;
+use Yiisoft\Html\Tag\Embed;
 use Yiisoft\Html\Tag\Fieldset;
 use Yiisoft\Html\Tag\Figcaption;
 use Yiisoft\Html\Tag\Figure;
@@ -77,6 +80,7 @@ use Yiisoft\Html\Tag\Meta;
 use Yiisoft\Html\Tag\Meter;
 use Yiisoft\Html\Tag\Nav;
 use Yiisoft\Html\Tag\Noscript;
+use Yiisoft\Html\Tag\Object_;
 use Yiisoft\Html\Tag\Ol;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
@@ -120,6 +124,7 @@ use Yiisoft\Html\Tag\U;
 use Yiisoft\Html\Tag\Ul;
 use Yiisoft\Html\Tag\Var_;
 use Yiisoft\Html\Tag\Video;
+use Yiisoft\Html\Tag\Wbr;
 use Yiisoft\Html\Widget\CheckboxList\CheckboxList;
 use Yiisoft\Html\Widget\RadioList\RadioList;
 use Yiisoft\Json\Json;
@@ -1666,6 +1671,42 @@ final class Html
     }
 
     /**
+     * Generates a {@see Area} tag.
+     *
+     * @param string|null $alt The alternate text for the area.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function area(?string $alt = null, array $attributes = []): Area
+    {
+        $tag = new Area();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        if ($alt !== null) {
+            $tag = $tag->alt($alt);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Base} tag.
+     *
+     * @param string|null $url The base URL for the document.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function base(?string $url = null, array $attributes = []): Base
+    {
+        $tag = new Base();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        if ($url !== null) {
+            $tag = $tag->href($url);
+        }
+        return $tag;
+    }
+
+    /**
      * Generates a {@see Bdi} tag.
      *
      * @param string|Stringable|int|float|null $content Tag content.
@@ -1861,6 +1902,24 @@ final class Html
     }
 
     /**
+     * Generates a {@see Embed} tag.
+     *
+     * @param string|null $src The URL of the embedded resource.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function embed(?string $src = null, array $attributes = []): Embed
+    {
+        $tag = new Embed();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        if ($src !== null) {
+            $tag = $tag->src($src);
+        }
+        return $tag;
+    }
+
+    /**
      * Generates a {@see Figcaption} tag.
      *
      * @param string|Stringable|int|float|null $content Tag content.
@@ -2018,6 +2077,21 @@ final class Html
     public static function meter(string|Stringable|int|float|null $content = '', array $attributes = []): Meter
     {
         $tag = new Meter();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Object_} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function object(string|Stringable|int|float|null $content = '', array $attributes = []): Object_
+    {
+        $tag = new Object_();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -2277,6 +2351,14 @@ final class Html
             $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Wbr} tag.
+     */
+    public static function wbr(): Wbr
+    {
+        return new Wbr();
     }
 
     /**

@@ -254,7 +254,9 @@ Overall the helper has the following method groups.
 #### Base tags
 
 - abbr
+- area
 - b
+- base
 - bdi
 - bdo
 - br
@@ -265,6 +267,7 @@ Overall the helper has the following method groups.
 - dfn
 - div
 - em
+- embed
 - hr
 - i
 - ins
@@ -291,6 +294,7 @@ Overall the helper has the following method groups.
 - title
 - u
 - var
+- wbr
 
 #### Media tags
 
@@ -386,6 +390,7 @@ Overall the helper has the following method groups.
 - canvas
 - iframe
 - map
+- object
 - slot
 - template
 
