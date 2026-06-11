@@ -1731,6 +1731,7 @@ final class Html
                     $value = is_string($value->value) ? $value->value : null;
                 }
 
+                /** @psalm-suppress DocblockTypeContradiction */
                 if (is_bool($value)) {
                     if ($value && is_string($key)) {
                         $filteredClass[] = $key;
