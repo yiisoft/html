@@ -2,7 +2,7 @@
 
 ## 4.2.1 under development
 
-- no changes in this release.
+- New #279: Add support for conditional CSS classes in `Html::addCssClass()` (@Mister-42)
 
 ## 4.2.0 June 05, 2026
 

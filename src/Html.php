@@ -1731,6 +1731,13 @@ final class Html
                     $value = is_string($value->value) ? $value->value : null;
                 }
 
+                if (is_bool($value)) {
+                    if ($value && is_string($key)) {
+                        $filteredClass[] = $key;
+                    }
+                    continue;
+                }
+
                 if ($value !== null) {
                     $filteredClass[$key] = $value;
                 }
