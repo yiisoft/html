@@ -1054,7 +1054,10 @@ final class HtmlTest extends TestCase
             21 => [['class' => ['btn', 'btn-active']], [], ['btn', 'btn-active' => true]],
             22 => [['class' => ['btn']], [], ['btn', 'btn-active' => false]],
             23 => [['class' => ['btn', 'btn-active']], ['class' => 'btn'], ['btn-active' => true]],
-            24 => [['class' => 'btn'], ['class' => 'btn'], ['btn-active' => false]],
+             24 => [['class' => 'btn'], ['class' => 'btn'], ['btn-active' => false]],
+             25 => [['class' => ['btn', 'btn-active']], ['class' => 'btn'], ['btn-active' => true, 'hidden' => false]],
+             26 => [['class' => ['btn']], ['class' => 'btn'], ['btn' => true]],
+             27 => [['class' => ['persistent' => 'widget', 'btn', 'btn-active']], ['class' => ['persistent' => 'widget']], ['btn', 'btn-active' => true]],
         ];
     }
 
@@ -1095,20 +1098,6 @@ final class HtmlTest extends TestCase
         $this->assertSame(['persistent' => 'test1'], $attributes['class']);
         Html::addCssClass($attributes, ['additional' => 'test2']);
         $this->assertSame(['persistent' => 'test1', 'additional' => 'test2'], $attributes['class']);
-    }
-
-    public function testAddCssClassConditional(): void
-    {
-        $attributes = ['class' => 'btn'];
-        Html::addCssClass($attributes, ['btn-active' => true, 'hidden' => false]);
-        $this->assertSame(['class' => ['btn', 'btn-active']], $attributes);
-
-        Html::addCssClass($attributes, ['btn' => true]);
-        $this->assertSame(['class' => ['btn', 'btn-active']], $attributes);
-
-        $attributes = ['class' => ['persistent' => 'widget']];
-        Html::addCssClass($attributes, ['btn', 'btn-active' => true]);
-        $this->assertSame(['class' => ['persistent' => 'widget', 'btn', 'btn-active']], $attributes);
     }
 
     public function testAddCssClassArrayToString(): void
