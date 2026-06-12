@@ -1054,10 +1054,10 @@ final class HtmlTest extends TestCase
             21 => [['class' => ['btn', 'btn-active']], [], ['btn', 'btn-active' => true]],
             22 => [['class' => ['btn']], [], ['btn', 'btn-active' => false]],
             23 => [['class' => ['btn', 'btn-active']], ['class' => 'btn'], ['btn-active' => true]],
-             24 => [['class' => 'btn'], ['class' => 'btn'], ['btn-active' => false]],
-             25 => [['class' => ['btn', 'btn-active']], ['class' => 'btn'], ['btn-active' => true, 'hidden' => false]],
-             26 => [['class' => ['btn']], ['class' => 'btn'], ['btn' => true]],
-             27 => [['class' => ['persistent' => 'widget', 'btn', 'btn-active']], ['class' => ['persistent' => 'widget']], ['btn', 'btn-active' => true]],
+            24 => [['class' => 'btn'], ['class' => 'btn'], ['btn-active' => false]],
+            25 => [['class' => ['btn', 'btn-active']], ['class' => 'btn'], ['btn-active' => true, 'hidden' => false]],
+            26 => [['class' => ['btn']], ['class' => 'btn'], ['btn' => true]],
+            27 => [['class' => ['persistent' => 'widget', 'btn', 'btn-active']], ['class' => ['persistent' => 'widget']], ['btn', 'btn-active' => true]],
         ];
     }
 
