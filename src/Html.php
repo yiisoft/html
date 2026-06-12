@@ -9,21 +9,43 @@ use InvalidArgumentException;
 use JsonException;
 use Stringable;
 use Yiisoft\Html\Tag\A;
+use Yiisoft\Html\Tag\Abbr;
 use Yiisoft\Html\Tag\Address;
+use Yiisoft\Html\Tag\Area;
 use Yiisoft\Html\Tag\Article;
 use Yiisoft\Html\Tag\Aside;
+use Yiisoft\Html\Tag\Audio;
 use Yiisoft\Html\Tag\B;
+use Yiisoft\Html\Tag\Base;
+use Yiisoft\Html\Tag\Bdi;
+use Yiisoft\Html\Tag\Bdo;
+use Yiisoft\Html\Tag\Blockquote;
+use Yiisoft\Html\Tag\Body;
 use Yiisoft\Html\Tag\Br;
 use Yiisoft\Html\Tag\Button;
+use Yiisoft\Html\Tag\Canvas;
 use Yiisoft\Html\Tag\Caption;
+use Yiisoft\Html\Tag\Cite;
 use Yiisoft\Html\Tag\Code;
 use Yiisoft\Html\Tag\Col;
 use Yiisoft\Html\Tag\Colgroup;
 use Yiisoft\Html\Tag\CustomTag;
+use Yiisoft\Html\Tag\Data;
 use Yiisoft\Html\Tag\Datalist;
+use Yiisoft\Html\Tag\Dd;
+use Yiisoft\Html\Tag\Del;
+use Yiisoft\Html\Tag\Details;
+use Yiisoft\Html\Tag\Dfn;
+use Yiisoft\Html\Tag\Dialog;
 use Yiisoft\Html\Tag\Div;
+use Yiisoft\Html\Tag\Dl;
+use Yiisoft\Html\Tag\Dt;
 use Yiisoft\Html\Tag\Em;
+use Yiisoft\Html\Tag\Embed;
 use Yiisoft\Html\Tag\Fieldset;
+use Yiisoft\Html\Tag\Figcaption;
+use Yiisoft\Html\Tag\Figure;
+use Yiisoft\Html\Tag\Footer;
 use Yiisoft\Html\Tag\Form;
 use Yiisoft\Html\Tag\H1;
 use Yiisoft\Html\Tag\H2;
@@ -31,7 +53,12 @@ use Yiisoft\Html\Tag\H3;
 use Yiisoft\Html\Tag\H4;
 use Yiisoft\Html\Tag\H5;
 use Yiisoft\Html\Tag\H6;
+use Yiisoft\Html\Tag\Head;
+use Yiisoft\Html\Tag\Header;
+use Yiisoft\Html\Tag\Hgroup;
+use Yiisoft\Html\Tag\Hr;
 use Yiisoft\Html\Tag\I;
+use Yiisoft\Html\Tag\Iframe;
 use Yiisoft\Html\Tag\Img;
 use Yiisoft\Html\Tag\Input;
 use Yiisoft\Html\Tag\Input\Checkbox;
@@ -39,45 +66,65 @@ use Yiisoft\Html\Tag\Input\Color;
 use Yiisoft\Html\Tag\Input\File;
 use Yiisoft\Html\Tag\Input\Radio;
 use Yiisoft\Html\Tag\Input\Range;
+use Yiisoft\Html\Tag\Ins;
+use Yiisoft\Html\Tag\Kbd;
 use Yiisoft\Html\Tag\Label;
 use Yiisoft\Html\Tag\Legend;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Link;
-use Yiisoft\Html\Tag\Audio;
-use Yiisoft\Html\Tag\Body;
-use Yiisoft\Html\Tag\Footer;
-use Yiisoft\Html\Tag\Header;
-use Yiisoft\Html\Tag\Hgroup;
-use Yiisoft\Html\Tag\Hr;
-use Yiisoft\Html\Tag\Pre;
-use Yiisoft\Html\Tag\Small;
-use Yiisoft\Html\Tag\Track;
-use Yiisoft\Html\Tag\Video;
+use Yiisoft\Html\Tag\Main;
+use Yiisoft\Html\Tag\Map;
+use Yiisoft\Html\Tag\Mark;
+use Yiisoft\Html\Tag\Menu;
 use Yiisoft\Html\Tag\Meta;
+use Yiisoft\Html\Tag\Meter;
 use Yiisoft\Html\Tag\Nav;
 use Yiisoft\Html\Tag\Noscript;
+use Yiisoft\Html\Tag\ObjectTag;
 use Yiisoft\Html\Tag\Ol;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
+use Yiisoft\Html\Tag\Output;
 use Yiisoft\Html\Tag\P;
 use Yiisoft\Html\Tag\Picture;
+use Yiisoft\Html\Tag\Pre;
+use Yiisoft\Html\Tag\Progress;
+use Yiisoft\Html\Tag\Q;
+use Yiisoft\Html\Tag\Rp;
+use Yiisoft\Html\Tag\Rt;
+use Yiisoft\Html\Tag\Ruby;
+use Yiisoft\Html\Tag\S;
+use Yiisoft\Html\Tag\Samp;
 use Yiisoft\Html\Tag\Script;
+use Yiisoft\Html\Tag\Search;
 use Yiisoft\Html\Tag\Section;
 use Yiisoft\Html\Tag\Select;
+use Yiisoft\Html\Tag\Slot;
+use Yiisoft\Html\Tag\Small;
 use Yiisoft\Html\Tag\Source;
 use Yiisoft\Html\Tag\Span;
 use Yiisoft\Html\Tag\Strong;
 use Yiisoft\Html\Tag\Style;
+use Yiisoft\Html\Tag\Sub;
+use Yiisoft\Html\Tag\Summary;
+use Yiisoft\Html\Tag\Sup;
 use Yiisoft\Html\Tag\Table;
 use Yiisoft\Html\Tag\Tbody;
 use Yiisoft\Html\Tag\Td;
+use Yiisoft\Html\Tag\Template;
 use Yiisoft\Html\Tag\Textarea;
 use Yiisoft\Html\Tag\Tfoot;
 use Yiisoft\Html\Tag\Th;
 use Yiisoft\Html\Tag\Thead;
+use Yiisoft\Html\Tag\Time;
 use Yiisoft\Html\Tag\Title;
 use Yiisoft\Html\Tag\Tr;
+use Yiisoft\Html\Tag\Track;
+use Yiisoft\Html\Tag\U;
 use Yiisoft\Html\Tag\Ul;
+use Yiisoft\Html\Tag\VarTag;
+use Yiisoft\Html\Tag\Video;
+use Yiisoft\Html\Tag\Wbr;
 use Yiisoft\Html\Widget\CheckboxList\CheckboxList;
 use Yiisoft\Html\Widget\RadioList\RadioList;
 use Yiisoft\Json\Json;
@@ -1606,6 +1653,715 @@ final class Html
             $tag = $tag->attributes($attributes);
         }
         return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Abbr} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function abbr(string|Stringable|int|float|null $content = '', array $attributes = []): Abbr
+    {
+        $tag = new Abbr();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Area} tag.
+     *
+     * @param string|null $alt The alternate text for the area.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function area(?string $alt = null, array $attributes = []): Area
+    {
+        $tag = new Area();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        if ($alt !== null) {
+            $tag = $tag->alt($alt);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Base} tag.
+     *
+     * @param string|null $url The base URL for the document.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function base(?string $url = null, array $attributes = []): Base
+    {
+        $tag = new Base();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        if ($url !== null) {
+            $tag = $tag->href($url);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Bdi} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function bdi(string|Stringable|int|float|null $content = '', array $attributes = []): Bdi
+    {
+        $tag = new Bdi();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Bdo} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function bdo(string|Stringable|int|float|null $content = '', array $attributes = []): Bdo
+    {
+        $tag = new Bdo();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Blockquote} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function blockquote(string|Stringable|int|float|null $content = '', array $attributes = []): Blockquote
+    {
+        $tag = new Blockquote();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Canvas} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function canvas(string|Stringable|int|float|null $content = '', array $attributes = []): Canvas
+    {
+        $tag = new Canvas();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Cite} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function cite(string|Stringable|int|float|null $content = '', array $attributes = []): Cite
+    {
+        $tag = new Cite();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Data} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function data(string|Stringable|int|float|null $content = '', array $attributes = []): Data
+    {
+        $tag = new Data();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Dd} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function dd(string|Stringable|int|float|null $content = '', array $attributes = []): Dd
+    {
+        $tag = new Dd();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Del} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function del(string|Stringable|int|float|null $content = '', array $attributes = []): Del
+    {
+        $tag = new Del();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Details} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function details(string|Stringable|int|float|null $content = '', array $attributes = []): Details
+    {
+        $tag = new Details();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Dfn} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function dfn(string|Stringable|int|float|null $content = '', array $attributes = []): Dfn
+    {
+        $tag = new Dfn();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Dialog} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function dialog(string|Stringable|int|float|null $content = '', array $attributes = []): Dialog
+    {
+        $tag = new Dialog();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Dl} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function dl(string|Stringable|int|float|null $content = '', array $attributes = []): Dl
+    {
+        $tag = new Dl();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Dt} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function dt(string|Stringable|int|float|null $content = '', array $attributes = []): Dt
+    {
+        $tag = new Dt();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Embed} tag.
+     *
+     * @param string|null $src The URL of the embedded resource.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function embed(?string $src = null, array $attributes = []): Embed
+    {
+        $tag = new Embed();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        if ($src !== null) {
+            $tag = $tag->src($src);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Figcaption} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function figcaption(string|Stringable|int|float|null $content = '', array $attributes = []): Figcaption
+    {
+        $tag = new Figcaption();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Figure} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function figure(string|Stringable|int|float|null $content = '', array $attributes = []): Figure
+    {
+        $tag = new Figure();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Head} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function head(string|Stringable|int|float|null $content = '', array $attributes = []): Head
+    {
+        $tag = new Head();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Iframe} tag.
+     *
+     * @param string|null $src The src attribute value.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function iframe(?string $src = null, array $attributes = []): Iframe
+    {
+        $tag = new Iframe();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        if ($src !== null) {
+            $tag = $tag->src($src);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Ins} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function ins(string|Stringable|int|float|null $content = '', array $attributes = []): Ins
+    {
+        $tag = new Ins();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Kbd} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function kbd(string|Stringable|int|float|null $content = '', array $attributes = []): Kbd
+    {
+        $tag = new Kbd();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Main} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function main(string|Stringable|int|float|null $content = '', array $attributes = []): Main
+    {
+        $tag = new Main();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Map} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function map(string|Stringable|int|float|null $content = '', array $attributes = []): Map
+    {
+        $tag = new Map();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Mark} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function mark(string|Stringable|int|float|null $content = '', array $attributes = []): Mark
+    {
+        $tag = new Mark();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Menu} tag.
+     *
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function menu(array $attributes = []): Menu
+    {
+        $tag = new Menu();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $tag;
+    }
+
+    /**
+     * Generates a {@see Meter} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function meter(string|Stringable|int|float|null $content = '', array $attributes = []): Meter
+    {
+        $tag = new Meter();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see ObjectTag} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function object(string|Stringable|int|float|null $content = '', array $attributes = []): ObjectTag
+    {
+        $tag = new ObjectTag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Output} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function output(string|Stringable|int|float|null $content = '', array $attributes = []): Output
+    {
+        $tag = new Output();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Progress} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function progress(string|Stringable|int|float|null $content = '', array $attributes = []): Progress
+    {
+        $tag = new Progress();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Q} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function q(string|Stringable|int|float|null $content = '', array $attributes = []): Q
+    {
+        $tag = new Q();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Rp} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function rp(string|Stringable|int|float|null $content = '', array $attributes = []): Rp
+    {
+        $tag = new Rp();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Rt} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function rt(string|Stringable|int|float|null $content = '', array $attributes = []): Rt
+    {
+        $tag = new Rt();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Ruby} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function ruby(string|Stringable|int|float|null $content = '', array $attributes = []): Ruby
+    {
+        $tag = new Ruby();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see S} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function s(string|Stringable|int|float|null $content = '', array $attributes = []): S
+    {
+        $tag = new S();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Samp} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function samp(string|Stringable|int|float|null $content = '', array $attributes = []): Samp
+    {
+        $tag = new Samp();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Search} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function search(string|Stringable|int|float|null $content = '', array $attributes = []): Search
+    {
+        $tag = new Search();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Slot} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function slot(string|Stringable|int|float|null $content = '', array $attributes = []): Slot
+    {
+        $tag = new Slot();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Sub} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function sub(string|Stringable|int|float|null $content = '', array $attributes = []): Sub
+    {
+        $tag = new Sub();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Summary} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function summary(string|Stringable|int|float|null $content = '', array $attributes = []): Summary
+    {
+        $tag = new Summary();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Sup} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function sup(string|Stringable|int|float|null $content = '', array $attributes = []): Sup
+    {
+        $tag = new Sup();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Template} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function template(string|Stringable|int|float|null $content = '', array $attributes = []): Template
+    {
+        $tag = new Template();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Time} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function time(string|Stringable|int|float|null $content = '', array $attributes = []): Time
+    {
+        $tag = new Time();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see U} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function u(string|Stringable|int|float|null $content = '', array $attributes = []): U
+    {
+        $tag = new U();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see VarTag} tag.
+     *
+     * @param string|Stringable|int|float|null $content Tag content.
+     * @param array $attributes The tag attributes in terms of name-value pairs.
+     */
+    public static function var(string|Stringable|int|float|null $content = '', array $attributes = []): VarTag
+    {
+        $tag = new VarTag();
+        if (!empty($attributes)) {
+            $tag = $tag->attributes($attributes);
+        }
+        return $content === '' ? $tag : $tag->content($content);
+    }
+
+    /**
+     * Generates a {@see Wbr} tag.
+     */
+    public static function wbr(): Wbr
+    {
+        return new Wbr();
     }
 
     /**

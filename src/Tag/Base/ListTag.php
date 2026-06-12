@@ -8,7 +8,7 @@ use Stringable;
 use Yiisoft\Html\Tag\Li;
 
 /**
- * Base for list tags such as "ul" and "ol".
+ * Base for list tags such as "ul", "ol", and "menu".
  */
 abstract class ListTag extends NormalTag
 {
