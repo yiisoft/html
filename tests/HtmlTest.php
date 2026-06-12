@@ -1049,6 +1049,15 @@ final class HtmlTest extends TestCase
             16 => [['id' => 'w2', 'class' => 't1'], ['id' => 'w2'], 't1'],
             17 => [['id' => 'w2', 'class' => ['t3', 2 => 't4']], ['id' => 'w2'], ['t3', null, 't4']],
             18 => [['id' => 'w2', 'class' => ['t3', 2 => 't4']], ['id' => 'w2'], ['t3', null, 't4', null]],
+            19 => [['class' => ['btn-active']], [], ['btn-active' => true]],
+            20 => [[], [], ['btn-active' => false]],
+            21 => [['class' => ['btn', 'btn-active']], [], ['btn', 'btn-active' => true]],
+            22 => [['class' => ['btn']], [], ['btn', 'btn-active' => false]],
+            23 => [['class' => ['btn', 'btn-active']], ['class' => 'btn'], ['btn-active' => true]],
+            24 => [['class' => 'btn'], ['class' => 'btn'], ['btn-active' => false]],
+            25 => [['class' => ['btn', 'btn-active']], ['class' => 'btn'], ['btn-active' => true, 'hidden' => false]],
+            26 => [['class' => ['btn']], ['class' => 'btn'], ['btn' => true]],
+            27 => [['class' => ['persistent' => 'widget', 'btn', 'btn-active']], ['class' => ['persistent' => 'widget']], ['btn', 'btn-active' => true]],
         ];
     }
 
