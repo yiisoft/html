@@ -1706,7 +1706,7 @@ final class Html
      *
      * @param array $attributes The attributes to be modified. All string values in the array must be valid UTF-8
      * strings.
-     * @param BackedEnum|BackedEnum[]|null[]|string|string[]|null $class The CSS class(es) to be added. Null values will
+     * @param (BackedEnum|null|bool|string)[]|BackedEnum|string|null $class The CSS class(es) to be added. Null values will
      * be ignored. When passing an array, use a boolean value to conditionally include/exclude a class by its key.
      *
      * @psalm-param BackedEnum|string|array<array-key,BackedEnum|bool|string|null>|null $class
