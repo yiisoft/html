@@ -80,7 +80,7 @@ use Yiisoft\Html\Tag\Meta;
 use Yiisoft\Html\Tag\Meter;
 use Yiisoft\Html\Tag\Nav;
 use Yiisoft\Html\Tag\Noscript;
-use Yiisoft\Html\Tag\Object_;
+use Yiisoft\Html\Tag\ObjectTag;
 use Yiisoft\Html\Tag\Ol;
 use Yiisoft\Html\Tag\Optgroup;
 use Yiisoft\Html\Tag\Option;
@@ -122,7 +122,7 @@ use Yiisoft\Html\Tag\Tr;
 use Yiisoft\Html\Tag\Track;
 use Yiisoft\Html\Tag\U;
 use Yiisoft\Html\Tag\Ul;
-use Yiisoft\Html\Tag\Var_;
+use Yiisoft\Html\Tag\VarTag;
 use Yiisoft\Html\Tag\Video;
 use Yiisoft\Html\Tag\Wbr;
 use Yiisoft\Html\Widget\CheckboxList\CheckboxList;
@@ -1967,16 +1967,19 @@ final class Html
     /**
      * Generates a {@see Iframe} tag.
      *
-     * @param string|Stringable|int|float|null $content Tag content.
+     * @param string|null $src The src attribute value.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function iframe(string|Stringable|int|float|null $content = '', array $attributes = []): Iframe
+    public static function iframe(?string $src = null, array $attributes = []): Iframe
     {
         $tag = new Iframe();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
-        return $content === '' ? $tag : $tag->content($content);
+        if ($src !== null) {
+            $tag = $tag->src($src);
+        }
+        return $tag;
     }
 
     /**
@@ -2084,14 +2087,14 @@ final class Html
     }
 
     /**
-     * Generates a {@see Object_} tag.
+     * Generates a {@see ObjectTag} tag.
      *
      * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function object(string|Stringable|int|float|null $content = '', array $attributes = []): Object_
+    public static function object(string|Stringable|int|float|null $content = '', array $attributes = []): ObjectTag
     {
-        $tag = new Object_();
+        $tag = new ObjectTag();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }
@@ -2339,14 +2342,14 @@ final class Html
     }
 
     /**
-     * Generates a {@see Var_} tag.
+     * Generates a {@see VarTag} tag.
      *
      * @param string|Stringable|int|float|null $content Tag content.
      * @param array $attributes The tag attributes in terms of name-value pairs.
      */
-    public static function var(string|Stringable|int|float|null $content = '', array $attributes = []): Var_
+    public static function var(string|Stringable|int|float|null $content = '', array $attributes = []): VarTag
     {
-        $tag = new Var_();
+        $tag = new VarTag();
         if (!empty($attributes)) {
             $tag = $tag->attributes($attributes);
         }

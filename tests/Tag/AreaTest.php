@@ -57,14 +57,6 @@ final class AreaTest extends TestCase
         );
     }
 
-    public function testMedia(): void
-    {
-        $this->assertSame(
-            '<area media="screen">',
-            (string) (new Area())->media('screen'),
-        );
-    }
-
     public function testReferrerpolicy(): void
     {
         $this->assertSame(
@@ -103,5 +95,20 @@ final class AreaTest extends TestCase
             '<area type="text/html">',
             (string) (new Area())->type('text/html'),
         );
+    }
+
+    public function testImmutability(): void
+    {
+        $area = new Area();
+        $this->assertNotSame($area, $area->alt(null));
+        $this->assertNotSame($area, $area->coords(null));
+        $this->assertNotSame($area, $area->download(null));
+        $this->assertNotSame($area, $area->href(null));
+        $this->assertNotSame($area, $area->hreflang(null));
+        $this->assertNotSame($area, $area->referrerpolicy(null));
+        $this->assertNotSame($area, $area->rel(null));
+        $this->assertNotSame($area, $area->shape(null));
+        $this->assertNotSame($area, $area->target(null));
+        $this->assertNotSame($area, $area->type(null));
     }
 }

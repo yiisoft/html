@@ -10,7 +10,7 @@ use Yiisoft\Html\Tag\Base\TagContentTrait;
 /**
  * @link https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-var-element
  */
-final class Var_ extends NormalTag
+final class VarTag extends NormalTag
 {
     use TagContentTrait;
 

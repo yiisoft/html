@@ -44,4 +44,11 @@ final class DelTest extends TestCase
                 ),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $tag = new Del();
+        $this->assertNotSame($tag, $tag->cite(null));
+        $this->assertNotSame($tag, $tag->datetime(null));
+    }
 }

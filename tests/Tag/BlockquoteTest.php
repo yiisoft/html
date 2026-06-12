@@ -32,4 +32,10 @@ final class BlockquoteTest extends TestCase
                 ),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $tag = new Blockquote();
+        $this->assertNotSame($tag, $tag->cite(null));
+    }
 }

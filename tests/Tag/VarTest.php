@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\TestCase;
-use Yiisoft\Html\Tag\Var_;
+use Yiisoft\Html\Tag\VarTag;
 
 final class VarTest extends TestCase
 {
@@ -13,9 +13,15 @@ final class VarTest extends TestCase
     {
         $this->assertSame(
             '<var class="red">Hello</var>',
-            (string) (new Var_())
+            (string) (new VarTag())
                 ->class('red')
                 ->content('Hello'),
         );
+    }
+
+    public function testImmutability(): void
+    {
+        $tag = new VarTag();
+        $this->assertNotSame($tag, $tag->content(''));
     }
 }

@@ -66,4 +66,15 @@ final class MeterTest extends TestCase
             (string) (new Meter())->optimum(50)->content('Hello'),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $tag = new Meter();
+        $this->assertNotSame($tag, $tag->min(null));
+        $this->assertNotSame($tag, $tag->max(null));
+        $this->assertNotSame($tag, $tag->value(null));
+        $this->assertNotSame($tag, $tag->low(null));
+        $this->assertNotSame($tag, $tag->high(null));
+        $this->assertNotSame($tag, $tag->optimum(null));
+    }
 }

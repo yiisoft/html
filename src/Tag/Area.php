@@ -46,13 +46,6 @@ final class Area extends VoidTag
         return $new;
     }
 
-    public function media(?string $media): self
-    {
-        $new = clone $this;
-        $new->attributes['media'] = $media;
-        return $new;
-    }
-
     public function referrerpolicy(?string $policy): self
     {
         $new = clone $this;

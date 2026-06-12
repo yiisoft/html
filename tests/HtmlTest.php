@@ -1679,12 +1679,12 @@ final class HtmlTest extends TestCase
     {
         $this->assertSame('<iframe></iframe>', Html::iframe()->render());
         $this->assertSame(
-            '<iframe>Fallback</iframe>',
-            Html::iframe('Fallback')->render(),
+            '<iframe src="https://example.com"></iframe>',
+            Html::iframe('https://example.com')->render(),
         );
         $this->assertSame(
-            '<iframe class="red">Fallback</iframe>',
-            Html::iframe('Fallback', ['class' => 'red'])->render(),
+            '<iframe class="red" src="https://example.com"></iframe>',
+            Html::iframe('https://example.com', ['class' => 'red'])->render(),
         );
     }
 

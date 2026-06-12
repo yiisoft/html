@@ -32,4 +32,11 @@ final class BaseTest extends TestCase
             (string) (new Base())->target('_blank'),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $base = new Base();
+        $this->assertNotSame($base, $base->href(null));
+        $this->assertNotSame($base, $base->target(null));
+    }
 }

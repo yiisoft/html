@@ -28,4 +28,10 @@ final class DataTest extends TestCase
                 ->content('Hello'),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $tag = new Data();
+        $this->assertNotSame($tag, $tag->value(null));
+    }
 }

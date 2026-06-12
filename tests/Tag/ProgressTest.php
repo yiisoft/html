@@ -34,4 +34,11 @@ final class ProgressTest extends TestCase
             (string) (new Progress())->value(50)->content('Hello'),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $tag = new Progress();
+        $this->assertNotSame($tag, $tag->max(null));
+        $this->assertNotSame($tag, $tag->value(null));
+    }
 }

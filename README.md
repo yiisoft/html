@@ -17,15 +17,7 @@
 
 The package provides various tools to help with dynamic server-side generation of HTML:
 
-- Tag classes `A`, `Abbr`, `Address`, `Article`, `Aside`, `Audio`, `B`, `Bdi`, `Bdo`, `Blockquote`, `Body`, `Br`,
- `Button`, `Canvas`, `Caption`, `Cite`, `Code`, `Col`, `Colgroup`, `CustomTag`, `Data`, `Datalist`, `Dd`, `Del`,
- `Details`, `Dfn`, `Dialog`, `Div`, `Dl`, `Dt`, `Em`, `Fieldset`, `Figcaption`, `Figure`, `Footer`, `Form`,
- `H1`, `H2`, `H3`, `H4`, `H5`, `H6`, `Head`, `Header`, `Hgroup`, `Hr`, `Html`, `I`, `Iframe`, `Img`,
- `Input` (and specialized `Checkbox`, `Radio`, `Range`, `File`, `Color`), `Ins`, `Kbd`, `Label`, `Legend`, `Li`, `Link`,
- `Main`, `Map`, `Mark`, `Menu`, `Meta`, `Meter`, `Nav`, `Noscript`, `Ol`, `Optgroup`, `Option`, `Output`, `P`,
- `Picture`, `Pre`, `Progress`, `Q`, `Rp`, `Rt`, `Ruby`, `S`, `Samp`, `Script`, `Search`, `Section`, `Select`,
- `Slot`, `Small`, `Source`, `Span`, `Strong`, `Style`, `Sub`, `Summary`, `Sup`, `Table`, `Tbody`, `Td`, `Template`,
- `Textarea`, `Tfoot`, `Th`, `Thead`, `Time`, `Title`, `Tr`, `Track`, `U`, `Ul`, `Var_`, `Video`.
+- A dedicated class per HTML tag (`A`, `Code`, `Form`, `Img`, `P`, `Select`, …).
 - `CustomTag` class that helps to generate custom tag with any attributes.
 - HTML widgets `ButtonGroup`, `CheckboxList` and `RadioList`.
 - All tags content is automatically HTML-encoded. There is `NoEncode` class designed to wrap content that should not be encoded.
@@ -259,6 +251,7 @@ Overall the helper has the following method groups.
 - base
 - bdi
 - bdo
+- blockquote
 - br
 - cite
 - code
@@ -268,15 +261,20 @@ Overall the helper has the following method groups.
 - div
 - em
 - embed
+- figcaption
+- figure
 - hr
 - i
 - ins
 - kbd
 - mark
 - meta
+- meter
 - noscript
+- output
 - p
 - pre
+- progress
 - q
 - rp
 - rt

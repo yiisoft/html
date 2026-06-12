@@ -10,7 +10,7 @@ use Yiisoft\Html\Tag\Base\TagContentTrait;
 /**
  * @link https://html.spec.whatwg.org/multipage/embedded-content.html#the-object-element
  */
-final class Object_ extends NormalTag
+final class ObjectTag extends NormalTag
 {
     use TagContentTrait;
 

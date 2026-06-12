@@ -28,4 +28,10 @@ final class TimeTest extends TestCase
                 ->content('Hello'),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $tag = new Time();
+        $this->assertNotSame($tag, $tag->datetime(null));
+    }
 }

@@ -48,4 +48,13 @@ final class EmbedTest extends TestCase
             (string) (new Embed())->height(480),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $embed = new Embed();
+        $this->assertNotSame($embed, $embed->src(null));
+        $this->assertNotSame($embed, $embed->type(null));
+        $this->assertNotSame($embed, $embed->width(null));
+        $this->assertNotSame($embed, $embed->height(null));
+    }
 }

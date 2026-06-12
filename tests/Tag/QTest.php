@@ -28,4 +28,10 @@ final class QTest extends TestCase
                 ->content('Hello'),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $tag = new Q();
+        $this->assertNotSame($tag, $tag->cite(null));
+    }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\Html\Tests\Tag;
 
 use PHPUnit\Framework\TestCase;
-use Yiisoft\Html\Tag\Object_;
+use Yiisoft\Html\Tag\ObjectTag;
 
 final class ObjectTest extends TestCase
 {
@@ -13,7 +13,7 @@ final class ObjectTest extends TestCase
     {
         $this->assertSame(
             '<object class="red">Content</object>',
-            (string) (new Object_())
+            (string) (new ObjectTag())
                 ->class('red')
                 ->content('Content'),
         );
@@ -23,7 +23,7 @@ final class ObjectTest extends TestCase
     {
         $this->assertSame(
             '<object data="https://example.com/app">Content</object>',
-            (string) (new Object_())->data('https://example.com/app')->content('Content'),
+            (string) (new ObjectTag())->data('https://example.com/app')->content('Content'),
         );
     }
 
@@ -31,7 +31,7 @@ final class ObjectTest extends TestCase
     {
         $this->assertSame(
             '<object form="form1">Content</object>',
-            (string) (new Object_())->form('form1')->content('Content'),
+            (string) (new ObjectTag())->form('form1')->content('Content'),
         );
     }
 
@@ -39,7 +39,7 @@ final class ObjectTest extends TestCase
     {
         $this->assertSame(
             '<object name="app">Content</object>',
-            (string) (new Object_())->name('app')->content('Content'),
+            (string) (new ObjectTag())->name('app')->content('Content'),
         );
     }
 
@@ -47,7 +47,7 @@ final class ObjectTest extends TestCase
     {
         $this->assertSame(
             '<object type="application/pdf">Content</object>',
-            (string) (new Object_())->type('application/pdf')->content('Content'),
+            (string) (new ObjectTag())->type('application/pdf')->content('Content'),
         );
     }
 
@@ -55,7 +55,7 @@ final class ObjectTest extends TestCase
     {
         $this->assertSame(
             '<object width="640">Content</object>',
-            (string) (new Object_())->width(640)->content('Content'),
+            (string) (new ObjectTag())->width(640)->content('Content'),
         );
     }
 
@@ -63,7 +63,18 @@ final class ObjectTest extends TestCase
     {
         $this->assertSame(
             '<object height="480">Content</object>',
-            (string) (new Object_())->height(480)->content('Content'),
+            (string) (new ObjectTag())->height(480)->content('Content'),
         );
+    }
+
+    public function testImmutability(): void
+    {
+        $object = new ObjectTag();
+        $this->assertNotSame($object, $object->data(null));
+        $this->assertNotSame($object, $object->form(null));
+        $this->assertNotSame($object, $object->name(null));
+        $this->assertNotSame($object, $object->type(null));
+        $this->assertNotSame($object, $object->width(null));
+        $this->assertNotSame($object, $object->height(null));
     }
 }

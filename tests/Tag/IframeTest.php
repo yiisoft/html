@@ -24,4 +24,10 @@ final class IframeTest extends TestCase
             (string) (new Iframe())->src('https://example.com'),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $iframe = new Iframe();
+        $this->assertNotSame($iframe, $iframe->src(null));
+    }
 }

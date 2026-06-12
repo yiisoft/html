@@ -44,4 +44,11 @@ final class InsTest extends TestCase
                 ),
         );
     }
+
+    public function testImmutability(): void
+    {
+        $tag = new Ins();
+        $this->assertNotSame($tag, $tag->cite(null));
+        $this->assertNotSame($tag, $tag->datetime(null));
+    }
 }
