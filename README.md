@@ -17,12 +17,7 @@
 
 The package provides various tools to help with dynamic server-side generation of HTML:
 
-- Tag classes `A`, `Address`, `Article`, `Aside`, `Audio`, `B`, `Body`, `Br`, `Button`, `Caption`, `Col`, `Colgroup`,
- `Datalist`, `Div`, `Em`, `Fieldset`, `Footer`, `Form`, `H1`, `H2`, `H3`, `H4`, `H5`, `H6`, `Header`, `Hr`, `Hgroup`,
- `Html`, `I`, `Img`, `Input` (and specialized `Checkbox`, `Radio`, `Range`, `File`, `Color`), `Label`, `Legend`, `Li`, `Link`,
- `Meta`, `Nav`, `Noscript`, `Ol`, `Optgroup`, `Option`, `P`, `Picture`, `Script`, `Section`, `Select`, `Small`,
- `Source`, `Span`, `Strong`, `Style`, `Table`, `Tbody`, `Td`, `Textarea`, `Tfoot`, `Th`, `Thead`, `Title`, `Tr`,
- `Track`, `Ul`, `Video`.
+- A dedicated class per HTML tag (`A`, `Code`, `Form`, `Img`, `P`, `Select`, …).
 - `CustomTag` class that helps to generate custom tag with any attributes.
 - HTML widgets `ButtonGroup`, `CheckboxList` and `RadioList`.
 - All tags content is automatically HTML-encoded. There is `NoEncode` class designed to wrap content that should not be encoded.
@@ -250,21 +245,54 @@ Overall the helper has the following method groups.
 
 #### Base tags
 
+- abbr
+- area
 - b
+- base
+- bdi
+- bdo
+- blockquote
+- br
+- cite
+- code
+- data
+- del
+- dfn
 - div
 - em
-- i
+- embed
+- figcaption
+- figure
 - hr
+- i
+- ins
+- kbd
+- mark
 - meta
-- p
-- br
-- script
+- meter
 - noscript
+- output
+- p
+- pre
+- progress
+- q
+- rp
+- rt
+- ruby
+- s
+- samp
+- script
+- small
 - span
 - strong
-- small
 - style
+- sub
+- sup
+- time
 - title
+- u
+- var
+- wbr
 
 #### Media tags
 
@@ -287,6 +315,7 @@ Overall the helper has the following method groups.
 #### Section tags
 
 - html
+- head
 - body
 - article
 - section
@@ -296,12 +325,18 @@ Overall the helper has the following method groups.
 - header
 - footer
 - address
+- main
+- search
 
 #### List tags
 
 - ul
 - ol
 - li
+- dl
+- dt
+- dd
+- menu
 
 #### Hyperlink tags
 
@@ -341,6 +376,21 @@ Overall the helper has the following method groups.
 - submitInput
 - textarea
 - textInput
+
+#### Interactive tags
+
+- details
+- dialog
+- summary
+
+#### Embedded content tags
+
+- canvas
+- iframe
+- map
+- object
+- slot
+- template
 
 #### Table tags
 
