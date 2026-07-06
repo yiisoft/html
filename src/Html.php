@@ -1739,7 +1739,11 @@ final class Html
                 }
 
                 if ($value !== null) {
-                    $filteredClass[$key] = $value;
+                    if (is_int($key) && array_key_exists($key, $filteredClass)) {
+                        $filteredClass[] = $value;
+                    } else {
+                        $filteredClass[$key] = $value;
+                    }
                 }
             }
             if (empty($filteredClass)) {
