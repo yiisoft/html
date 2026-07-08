@@ -2462,10 +2462,10 @@ final class Html
      *
      * @param array $attributes The attributes to be modified. All string values in the array must be valid UTF-8
      * strings.
-     * @param BackedEnum|BackedEnum[]|null[]|string|string[]|null $class The CSS class(es) to be added. Null values will
-     * be ignored.
+     * @param (BackedEnum|null|bool|string)[]|BackedEnum|string|null $class The CSS class(es) to be added. Null values will
+     * be ignored. When passing an array, use a boolean value to conditionally include/exclude a class by its key.
      *
-     * @psalm-param BackedEnum|string|array<array-key,BackedEnum|string|null>|null $class
+     * @psalm-param BackedEnum|string|array<array-key,BackedEnum|bool|string|null>|null $class
      */
     public static function addCssClass(array &$attributes, BackedEnum|array|string|null $class): void
     {
@@ -2483,12 +2483,23 @@ final class Html
         if (is_array($class)) {
             $filteredClass = [];
             foreach ($class as $key => $value) {
+                if (is_bool($value)) {
+                    if ($value && is_string($key)) {
+                        $filteredClass[] = $key;
+                    }
+                    continue;
+                }
+
                 if ($value instanceof BackedEnum) {
                     $value = is_string($value->value) ? $value->value : null;
                 }
 
                 if ($value !== null) {
-                    $filteredClass[$key] = $value;
+                    if (is_int($key) && array_key_exists($key, $filteredClass)) {
+                        $filteredClass[] = $value;
+                    } else {
+                        $filteredClass[$key] = $value;
+                    }
                 }
             }
             if (empty($filteredClass)) {
