@@ -136,6 +136,7 @@ use function is_bool;
 use function is_int;
 use function is_string;
 use function strlen;
+use function array_key_exists;
 
 use const ENT_HTML5;
 use const ENT_NOQUOTES;
