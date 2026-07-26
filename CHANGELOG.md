@@ -4,6 +4,7 @@
 
 - New #278: Add dedicated classes for missing HTML tags (@Mister-42)
 - New #279: Add support for conditional CSS classes in `Html::addCssClass()` (@Mister-42)
+- Enh #285: Add optional `$buttonFactory` parameter to `ButtonGroup::buttonsData()` (@Mister-42)
 
 ## 4.2.0 June 05, 2026
 

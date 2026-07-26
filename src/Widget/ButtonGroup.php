@@ -80,11 +80,20 @@ final class ButtonGroup implements NoEncodeStringableInterface
      * ]
      * ```
      * @param bool $encode Whether button content should be HTML-encoded.
+     * @param callable|null $buttonFactory Optional callback to create a Button from each data row.
+     * Signature: `function(array $item, bool $encode): Button`. When provided, the default
+     * label/type validation is skipped and the factory is fully responsible for building buttons.
      */
-    public function buttonsData(array $data, bool $encode = true): self
+    public function buttonsData(array $data, bool $encode = true, ?callable $buttonFactory = null): self
     {
         $buttons = [];
         foreach ($data as $row) {
+            if ($buttonFactory !== null) {
+                $button = $buttonFactory($row, $encode);
+                assert($button instanceof Button);
+                $buttons[] = $button;
+                continue;
+            }
             if (!is_array($row) || !isset($row[0]) || !is_string($row[0])) {
                 throw new InvalidArgumentException(
                     'Invalid buttons data. A data row must be array with label as first element '

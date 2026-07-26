@@ -371,6 +371,82 @@ final class ButtonGroupTest extends TestCase
         $this->assertStringContainsStringIgnoringLineEndings($widget->render(), (string) $widget);
     }
 
+    public function testButtonsDataWithFactory(): void
+    {
+        $factory = static function (array $item, bool $encode): \Yiisoft\Html\Tag\Button {
+            $label = $item[0] ?? null;
+            unset($item[0]);
+            return Html::button((string) $label, $item)->encode($encode);
+        };
+
+        $widget = (new ButtonGroup())
+            ->buttonsData([
+                ['Reset Data', 'type' => 'reset'],
+                ['Send >', 'type' => 'submit', 'class' => 'primary'],
+            ], buttonFactory: $factory);
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            <<<HTML
+            <div>
+            <button type="reset">Reset Data</button>
+            <button type="submit" class="primary">Send &gt;</button>
+            </div>
+            HTML,
+            $widget->render(),
+        );
+    }
+
+    public function testButtonsDataWithFactorySkipsValidation(): void
+    {
+        $factory = static function (array $item, bool $encode): \Yiisoft\Html\Tag\Button {
+            $label = $item[0] ?? null;
+            unset($item[0]);
+            return Html::button((string) $label, $item)->encode($encode);
+        };
+
+        $widget = (new ButtonGroup())
+            ->buttonsData([[42]], buttonFactory: $factory);
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            '<button type="button">42</button>',
+            $widget->render(),
+        );
+    }
+
+    public function testButtonsDataWithFactoryNullLabel(): void
+    {
+        $factory = static function (array $item, bool $encode): \Yiisoft\Html\Tag\Button {
+            $label = $item[0] ?? null;
+            unset($item[0]);
+            return Html::button((string) $label, $item)->encode($encode);
+        };
+
+        $widget = (new ButtonGroup())
+            ->buttonsData([[null, 'type' => 'submit']], buttonFactory: $factory);
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            '<button type="submit"></button>',
+            $widget->render(),
+        );
+    }
+
+    public function testButtonsDataWithFactoryEncodeFalse(): void
+    {
+        $factory = static function (array $item, bool $encode): \Yiisoft\Html\Tag\Button {
+            $label = $item[0] ?? null;
+            unset($item[0]);
+            return Html::button((string) $label, $item)->encode($encode);
+        };
+
+        $widget = (new ButtonGroup())
+            ->buttonsData([['<b>Bold</b>']], false, buttonFactory: $factory);
+
+        $this->assertStringContainsStringIgnoringLineEndings(
+            '<button type="button"><b>Bold</b></button>',
+            $widget->render(),
+        );
+    }
+
     public function testImmutability(): void
     {
         $widget = new ButtonGroup();
