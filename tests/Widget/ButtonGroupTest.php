@@ -8,8 +8,8 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Widget\ButtonGroup;
 use Yiisoft\Html\Tag\Button;
+use Yiisoft\Html\Widget\ButtonGroup;
 
 final class ButtonGroupTest extends TestCase
 {
