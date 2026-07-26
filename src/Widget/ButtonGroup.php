@@ -9,6 +9,7 @@ use Yiisoft\Html\Html;
 use Yiisoft\Html\NoEncodeStringableInterface;
 use Yiisoft\Html\Tag\Button;
 
+use function assert;
 use function is_array;
 use function is_string;
 

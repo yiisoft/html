@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Widget\ButtonGroup;
+use Yiisoft\Html\Tag\Button;
 
 final class ButtonGroupTest extends TestCase
 {
@@ -373,7 +374,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testButtonsDataWithFactory(): void
     {
-        $factory = static function (array $item, bool $encode): \Yiisoft\Html\Tag\Button {
+        $factory = static function (array $item, bool $encode): Button {
             $label = $item[0] ?? null;
             unset($item[0]);
             return Html::button((string) $label, $item)->encode($encode);
@@ -398,7 +399,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testButtonsDataWithFactorySkipsValidation(): void
     {
-        $factory = static function (array $item, bool $encode): \Yiisoft\Html\Tag\Button {
+        $factory = static function (array $item, bool $encode): Button {
             $label = $item[0] ?? null;
             unset($item[0]);
             return Html::button((string) $label, $item)->encode($encode);
@@ -415,7 +416,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testButtonsDataWithFactoryNullLabel(): void
     {
-        $factory = static function (array $item, bool $encode): \Yiisoft\Html\Tag\Button {
+        $factory = static function (array $item, bool $encode): Button {
             $label = $item[0] ?? null;
             unset($item[0]);
             return Html::button((string) $label, $item)->encode($encode);
@@ -432,7 +433,7 @@ final class ButtonGroupTest extends TestCase
 
     public function testButtonsDataWithFactoryEncodeFalse(): void
     {
-        $factory = static function (array $item, bool $encode): \Yiisoft\Html\Tag\Button {
+        $factory = static function (array $item, bool $encode): Button {
             $label = $item[0] ?? null;
             unset($item[0]);
             return Html::button((string) $label, $item)->encode($encode);
