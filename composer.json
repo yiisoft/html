@@ -33,9 +33,9 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.90",
         "infection/infection": "^0.27.11 || ^0.32",
-        "maglnet/composer-require-checker": "^4.7.1",
         "phpunit/phpunit": "^10.5.46",
         "rector/rector": "^2.0.17",
+        "shipmonk/composer-dependency-analyser": "^1.8",
         "spatie/phpunit-watcher": "^1.24",
         "vimeo/psalm": "^5.26.1 || ^6.12"
     },
@@ -57,6 +57,7 @@
         }
     },
     "scripts": {
+        "dependency-analyser": "composer-dependency-analyser",
         "test": "phpunit --testdox --no-interaction",
         "test-watch": "phpunit-watcher watch",
         "cs-fix": "php-cs-fixer fix",
