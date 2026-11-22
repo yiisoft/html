@@ -25,7 +25,7 @@ Note that for simple static-HTML cases, it is preferred to use HTML directly.
 
 ## Requirements
 
-- PHP 8.1 - 8.5.
+- PHP 8.1 - 8.6.
 
 ## Installation
 
