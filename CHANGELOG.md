@@ -1,5 +1,9 @@
 # Yii HTML Change Log
 
+## 4.3.1 under development
+
+- no changes in this release.
+
 ## 4.3.0 November 22, 2026
 
 - New #278: Add dedicated classes for missing HTML tags (@Mister-42)
