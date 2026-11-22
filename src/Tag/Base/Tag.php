@@ -14,6 +14,9 @@ use Yiisoft\Html\NoEncodeStringableInterface;
  */
 abstract class Tag implements NoEncodeStringableInterface
 {
+    /**
+     * @var array<string, mixed>
+     */
     protected array $attributes = [];
 
     final public function __toString(): string
@@ -25,7 +28,7 @@ abstract class Tag implements NoEncodeStringableInterface
      * Add a set of attributes to existing tag attributes.
      * Same named attributes are replaced.
      *
-     * @param array $attributes Name-value set of attributes.
+     * @param array<string, mixed> $attributes Name-value set of attributes.
      */
     final public function addAttributes(array $attributes): static
     {
@@ -37,7 +40,7 @@ abstract class Tag implements NoEncodeStringableInterface
     /**
      * Replace attributes with a new set.
      *
-     * @param array $attributes Name-value set of attributes.
+     * @param array<string, mixed> $attributes Name-value set of attributes.
      */
     final public function attributes(array $attributes): static
     {
@@ -49,7 +52,7 @@ abstract class Tag implements NoEncodeStringableInterface
     /**
      * Union attributes with a new set.
      *
-     * @param array $attributes Name-value set of attributes.
+     * @param array<string, mixed> $attributes Name-value set of attributes.
      */
     final public function unionAttributes(array $attributes): static
     {
@@ -74,13 +77,10 @@ abstract class Tag implements NoEncodeStringableInterface
     /**
      * Set tag ID.
      *
-     * @param string|null $id Non-empty tag ID.
-     *
-     * @psalm-param non-empty-string|null $id
+     * @param non-empty-string|null $id Non-empty tag ID.
      */
     final public function id(?string $id): static
     {
-        /** @psalm-suppress TypeDoesNotContainType */
         if ($id === '') {
             throw new LogicException('The tag id cannot be an empty string.');
         }
@@ -120,11 +120,9 @@ abstract class Tag implements NoEncodeStringableInterface
      *
      * @see Html::addCssStyle()
      *
-     * @param string|string[] $style The new style string (e.g. `'width: 100px; height: 200px'`) or array
+     * @param array<string, string>|string $style The new style string (e.g. `'width: 100px; height: 200px'`) or array
      * (e.g. `['width' => '100px', 'height' => '200px']`).
      * @param bool $overwrite Whether to overwrite existing CSS properties if the new style contain them too.
-     *
-     * @psalm-param array<string, string>|string $style
      */
     final public function addStyle(array|string $style, bool $overwrite = true): static
     {

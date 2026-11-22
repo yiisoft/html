@@ -40,7 +40,7 @@ final class Tr extends NormalTag
 
     /**
      * @param string[] $strings Array of data cells ({@see Td}) as strings.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
+     * @param array<string, mixed> $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */
     public function dataStrings(array $strings, array $attributes = [], bool $encode = true): self
@@ -50,7 +50,7 @@ final class Tr extends NormalTag
 
     /**
      * @param string[] $strings Array of data cells ({@see Td}) as strings.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
+     * @param array<string, mixed> $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */
     public function addDataStrings(array $strings, array $attributes = [], bool $encode = true): self
@@ -60,7 +60,7 @@ final class Tr extends NormalTag
 
     /**
      * @param (string|Stringable|int|float|null)[] $strings Array of header cells ({@see Th}) contents.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
+     * @param array<string, mixed> $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */
     public function headerStrings(array $strings, array $attributes = [], bool $encode = true): self
@@ -70,7 +70,7 @@ final class Tr extends NormalTag
 
     /**
      * @param (string|Stringable|int|float|null)[] $strings Array of header cells ({@see Th}) contents.
-     * @param array $attributes The tag attributes in terms of name-value pairs.
+     * @param array<string, mixed> $attributes The tag attributes in terms of name-value pairs.
      * @param bool $encode Whether to encode strings passed.
      */
     public function addHeaderStrings(array $strings, array $attributes = [], bool $encode = true): self
@@ -92,6 +92,7 @@ final class Tr extends NormalTag
 
     /**
      * @param (string|Stringable|int|float|null)[] $strings
+     * @param array<string, mixed> $attributes
      *
      * @return Td[]
      */
@@ -108,6 +109,7 @@ final class Tr extends NormalTag
 
     /**
      * @param (string|Stringable|int|float|null)[] $strings
+     * @param array<string, mixed> $attributes
      *
      * @return Th[]
      */

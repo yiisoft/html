@@ -20,19 +20,31 @@ use function is_array;
 final class CheckboxList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
+    /**
+     * @var array<string, mixed>
+     */
     private array $containerAttributes = [];
 
     private ?string $checkboxWrapTag = null;
+    /**
+     * @var array<string, mixed>
+     */
     private array $checkboxWrapAttributes = [];
 
+    /**
+     * @var array<string, mixed>
+     */
     private array $checkboxAttributes = [];
+    /**
+     * @var array<string, mixed>
+     */
     private array $checkboxLabelAttributes = [];
     private bool $checkboxLabelWrap = true;
     private string|Stringable $beforeCheckbox = '';
     private string|Stringable $afterCheckbox = '';
 
     /**
-     * @var array[]
+     * @var array<string, mixed>[]
      */
     private array $individualInputAttributes = [];
 
@@ -46,12 +58,12 @@ final class CheckboxList implements NoEncodeStringableInterface
     private array $items = [];
 
     /**
-     * @psalm-var list<string>
+     * @var list<string>
      */
     private array $values = [];
 
     /**
-     * @psalm-var Closure(CheckboxItem):string|null
+     * @var Closure(CheckboxItem):string|null
      */
     private ?Closure $itemFormatter = null;
 
@@ -93,6 +105,9 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function containerAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -107,6 +122,9 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function checkboxWrapAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -131,6 +149,9 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function addCheckboxAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -138,6 +159,9 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function checkboxAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -145,6 +169,9 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function addCheckboxLabelAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -152,6 +179,9 @@ final class CheckboxList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function checkboxLabelAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -189,6 +219,9 @@ final class CheckboxList implements NoEncodeStringableInterface
     /**
      * @param array[] $attributes
      */
+    /**
+     * @param array<string, mixed>[] $attributes
+     */
     public function addIndividualInputAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -198,6 +231,9 @@ final class CheckboxList implements NoEncodeStringableInterface
 
     /**
      * @param array[] $attributes
+     */
+    /**
+     * @param array<string, mixed>[] $attributes
      */
     public function individualInputAttributes(array $attributes): self
     {
@@ -245,7 +281,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @psalm-param iterable<int, Stringable|scalar|BackedEnum> $values
+     * @param iterable<int, Stringable|scalar|BackedEnum> $values
      */
     public function values(iterable $values): self
     {
@@ -298,7 +334,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @psalm-param Closure(CheckboxItem):string|null $formatter
+     * @param Closure(CheckboxItem):string|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self
     {

@@ -51,9 +51,7 @@ final class CustomTag extends Tag
     /**
      * Create a tag instance with the name provided.
      *
-     * @param string $name Name of the tag.
-     *
-     * @psalm-param non-empty-string $name
+     * @param non-empty-string $name Name of the tag.
      *
      * @deprecated Use the constructor instead.
      */

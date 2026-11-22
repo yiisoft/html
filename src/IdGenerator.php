@@ -17,7 +17,7 @@ final class IdGenerator
     public static bool $useSeed = true;
 
     /**
-     * @psalm-return non-empty-string
+     * @return non-empty-string
      */
     public static function generate(string $prefix): string
     {

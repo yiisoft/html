@@ -6,7 +6,7 @@ on:
       - 'CHANGELOG.md'
       - '.gitignore'
       - '.gitattributes'
-      - 'psalm.xml'
+      - 'phpstan.neon'
 
   push:
     branches: [ 'master' ]
@@ -16,7 +16,7 @@ on:
       - 'CHANGELOG.md'
       - '.gitignore'
       - '.gitattributes'
-      - 'psalm.xml'
+      - 'phpstan.neon'
 
 name: mutation test
 

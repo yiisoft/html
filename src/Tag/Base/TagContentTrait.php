@@ -17,7 +17,7 @@ trait TagContentTrait
     private bool $doubleEncode = true;
 
     /**
-     * @psalm-var list<string|Stringable|int|float|null>
+     * @var list<string|Stringable|int|float|null>
      */
     private array $content = [];
 
