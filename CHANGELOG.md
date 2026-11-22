@@ -1,6 +1,6 @@
 # Yii HTML Change Log
 
-## 4.2.1 under development
+## 4.3.0 November 22, 2026
 
 - New #278: Add dedicated classes for missing HTML tags (@Mister-42)
 - New #279: Add support for conditional CSS classes in `Html::addCssClass()` (@Mister-42)
