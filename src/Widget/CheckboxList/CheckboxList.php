@@ -63,7 +63,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     private array $values = [];
 
     /**
-     * @var Closure(CheckboxItem):string|null
+     * @var (Closure(CheckboxItem): string)|null
      */
     private ?Closure $itemFormatter = null;
 
@@ -334,7 +334,7 @@ final class CheckboxList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param Closure(CheckboxItem):string|null $formatter
+     * @param (Closure(CheckboxItem): string)|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self
     {

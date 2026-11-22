@@ -57,7 +57,7 @@ final class RadioList implements NoEncodeStringableInterface
     private ?string $value = null;
 
     /**
-     * @var Closure(RadioItem):string|null
+     * @var (Closure(RadioItem): string)|null
      */
     private ?Closure $itemFormatter = null;
 
@@ -315,7 +315,7 @@ final class RadioList implements NoEncodeStringableInterface
     }
 
     /**
-     * @param Closure(RadioItem):string|null $formatter
+     * @param (Closure(RadioItem): string)|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self
     {
