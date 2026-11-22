@@ -8,7 +8,7 @@ on:
       - '.gitattributes'
       - 'infection.json.dist'
       - 'phpunit.xml.dist'
-      - 'psalm.xml'
+      - 'phpstan.neon'
   push:
     branches: ['master']
     paths-ignore:
@@ -19,7 +19,7 @@ on:
       - '.gitattributes'
       - 'infection.json.dist'
       - 'phpunit.xml.dist'
-      - 'psalm.xml'
+      - 'phpstan.neon'
 
 name: backwards compatibility
 

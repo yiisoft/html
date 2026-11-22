@@ -18,12 +18,18 @@ use function is_string;
 final class ButtonGroup implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
+    /**
+     * @var array<string, mixed>
+     */
     private array $containerAttributes = [];
 
     /**
      * @var Button[]
      */
     private array $buttons = [];
+    /**
+     * @var array<string, mixed>
+     */
     private array $buttonAttributes = [];
     private string $separator = "\n";
 
@@ -54,6 +60,9 @@ final class ButtonGroup implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function containerAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -69,7 +78,7 @@ final class ButtonGroup implements NoEncodeStringableInterface
     }
 
     /**
-     * @param array $data Array of buttons. Each button is an array with label as first element and additional
+     * @param mixed[] $data Array of buttons. Each button is an array with label as first element and additional
      * name-value pairs as attributes of button.
      *
      * Example:
@@ -93,11 +102,15 @@ final class ButtonGroup implements NoEncodeStringableInterface
             }
             $label = $row[0];
             unset($row[0]);
+            // @phpstan-ignore-next-line argument.type (The row is validated above, so remaining keys are button attributes)
             $buttons[] = Html::button($label, $row)->encode($encode);
         }
         return $this->buttons(...$buttons);
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function addButtonAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -105,6 +118,9 @@ final class ButtonGroup implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function buttonAttributes(array $attributes): self
     {
         $new = clone $this;

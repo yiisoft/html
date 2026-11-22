@@ -8,6 +8,10 @@ use Stringable;
 
 final class CheckboxItem
 {
+    /**
+     * @param array<string, mixed> $checkboxAttributes
+     * @param array<string, mixed> $labelAttributes
+     */
     public function __construct(
         public int $index,
         public string $name,

@@ -17,7 +17,7 @@ use function is_array;
  *
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-select-element
  *
- * @psalm-type OptionsData = array<array-key, string|Stringable|int|float|null|array<array-key,string|Stringable|int|float|null>>
+ * @phpstan-type OptionsData = (string|Stringable|int|float|null|(string|Stringable|int|float|null)[])[]
  */
 final class Select extends NormalTag
 {
@@ -46,7 +46,7 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-param Stringable|scalar|BackedEnum|null ...$value One or more string values.
+     * @param Stringable|scalar|BackedEnum|null ...$value One or more string values.
      */
     public function value(Stringable|bool|float|int|string|BackedEnum|null ...$value): self
     {
@@ -67,7 +67,7 @@ final class Select extends NormalTag
     }
 
     /**
-     * @psalm-param iterable<int, Stringable|scalar|BackedEnum> $values A set of values.
+     * @param iterable<int, Stringable|scalar|BackedEnum> $values A set of values.
      */
     public function values(iterable $values): self
     {
@@ -104,7 +104,7 @@ final class Select extends NormalTag
     }
 
     /**
-     * @param array $data Options data. The array keys are option values, and the array values are the corresponding
+     * @param OptionsData $data Options data. The array keys are option values, and the array values are the corresponding
      * option labels. The array can also be nested (i.e. some array values are arrays too). For each sub-array,
      * an option group will be generated whose label is the key associated with the sub-array.
      *
@@ -138,10 +138,8 @@ final class Select extends NormalTag
      * ];
      * ```
      * @param bool $encode Whether option content should be HTML-encoded.
-     * @param array[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
-     * @param array[] $groupsAttributes Array of group attribute sets indexed by group labels from {@see $data}.
-     *
-     * @psalm-param OptionsData $data
+     * @param array<string, mixed>[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
+     * @param array<string, mixed>[] $groupsAttributes Array of group attribute sets indexed by group labels from {@see $data}.
      */
     public function optionsData(
         array $data,
@@ -248,6 +246,7 @@ final class Select extends NormalTag
     protected function prepareAttributes(): void
     {
         if (!empty($this->attributes['multiple']) && !empty($this->attributes['name'])) {
+            // @phpstan-ignore-next-line cast.string (The name attribute is checked to be non-empty in the condition above)
             $this->attributes['name'] = Html::getArrayableName((string) $this->attributes['name']);
         }
     }
@@ -273,6 +272,7 @@ final class Select extends NormalTag
 
     protected function before(): string
     {
+        // @phpstan-ignore-next-line cast.string (The name attribute is expected to be a scalar or null)
         $name = (string) ($this->attributes['name'] ?? '');
         if (
             empty($name)

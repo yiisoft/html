@@ -17,19 +17,31 @@ use Yiisoft\Html\Tag\Input;
 final class RadioList implements NoEncodeStringableInterface
 {
     private ?string $containerTag = 'div';
+    /**
+     * @var array<string, mixed>
+     */
     private array $containerAttributes = [];
 
     private ?string $radioWrapTag = null;
+    /**
+     * @var array<string, mixed>
+     */
     private array $radioWrapAttributes = [];
 
+    /**
+     * @var array<string, mixed>
+     */
     private array $radioAttributes = [];
+    /**
+     * @var array<string, mixed>
+     */
     private array $radioLabelAttributes = [];
     private bool $radioLabelWrap = true;
     private string|Stringable $beforeRadio = '';
     private string|Stringable $afterRadio = '';
 
     /**
-     * @var array[]
+     * @var array<string, mixed>[]
      */
     private array $individualInputAttributes = [];
 
@@ -45,7 +57,7 @@ final class RadioList implements NoEncodeStringableInterface
     private ?string $value = null;
 
     /**
-     * @psalm-var Closure(RadioItem):string|null
+     * @var (Closure(RadioItem): string)|null
      */
     private ?Closure $itemFormatter = null;
 
@@ -87,6 +99,9 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function containerAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -101,6 +116,9 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function radioWrapAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -122,6 +140,9 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function addRadioAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -129,6 +150,9 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function radioAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -136,6 +160,9 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function addRadioLabelAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -143,6 +170,9 @@ final class RadioList implements NoEncodeStringableInterface
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function radioLabelAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -180,6 +210,9 @@ final class RadioList implements NoEncodeStringableInterface
     /**
      * @param array[] $attributes
      */
+    /**
+     * @param array<string, mixed>[] $attributes
+     */
     public function addIndividualInputAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -189,6 +222,9 @@ final class RadioList implements NoEncodeStringableInterface
 
     /**
      * @param array[] $attributes
+     */
+    /**
+     * @param array<string, mixed>[] $attributes
      */
     public function individualInputAttributes(array $attributes): self
     {
@@ -279,7 +315,7 @@ final class RadioList implements NoEncodeStringableInterface
     }
 
     /**
-     * @psalm-param Closure(RadioItem):string|null $formatter
+     * @param (Closure(RadioItem): string)|null $formatter
      */
     public function itemFormatter(?Closure $formatter): self
     {

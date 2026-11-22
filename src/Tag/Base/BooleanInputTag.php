@@ -15,6 +15,9 @@ abstract class BooleanInputTag extends InputTag
 {
     private ?string $uncheckValue = null;
     private ?string $label = null;
+    /**
+     * @var array<string, mixed>
+     */
     private array $labelAttributes = [];
     private bool $labelWrap = true;
     private bool $labelEncode = true;
@@ -37,7 +40,7 @@ abstract class BooleanInputTag extends InputTag
      * Label that is wraps around attribute when rendered.
      *
      * @param string|null $label Input label.
-     * @param array $attributes Name-value set of label attributes.
+     * @param array<string, mixed> $attributes Name-value set of label attributes.
      * @param bool $wrap Whether to wrap input with label tag. If set to `false`, label will be rendered aside with
      * input.
      */
@@ -57,7 +60,7 @@ abstract class BooleanInputTag extends InputTag
      * Label that is rendered separately and is referring input by ID.
      *
      * @param string|null $label Input label.
-     * @param array $attributes Name-value set of label attributes.
+     * @param array<string, mixed> $attributes Name-value set of label attributes.
      */
     final public function sideLabel(?string $label, array $attributes = []): static
     {
@@ -158,6 +161,7 @@ abstract class BooleanInputTag extends InputTag
 
     private function renderUncheckInput(): string
     {
+        // @phpstan-ignore-next-line cast.string (The name attribute is expected to be a scalar or null)
         $name = (string) ($this->attributes['name'] ?? '');
         if (empty($name) || $this->uncheckValue === null) {
             return '';
@@ -180,6 +184,9 @@ abstract class BooleanInputTag extends InputTag
         return $input->render();
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     private function renderLabelOpenTag(array $attributes): string
     {
         if ($this->label === null) {

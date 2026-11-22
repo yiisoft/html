@@ -14,6 +14,9 @@ use Yiisoft\Html\Tag\Base\InputTag;
 final class File extends InputTag
 {
     private ?string $uncheckValue = null;
+    /**
+     * @var array<string, mixed>
+     */
     private array $uncheckInputAttributes = [];
 
     public function uncheckValue(bool|float|int|string|Stringable|null $value): self
@@ -23,6 +26,9 @@ final class File extends InputTag
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function addUncheckInputAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -30,6 +36,9 @@ final class File extends InputTag
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function uncheckInputAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -79,6 +88,7 @@ final class File extends InputTag
             return '';
         }
 
+        // @phpstan-ignore-next-line cast.string (The name attribute is expected to be a scalar or null)
         $name = (string) ($this->attributes['name'] ?? '');
         if (empty($name)) {
             return '';

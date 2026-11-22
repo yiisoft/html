@@ -8,6 +8,10 @@ use Stringable;
 
 final class RadioItem
 {
+    /**
+     * @param array<string, mixed> $radioAttributes
+     * @param array<string, mixed> $labelAttributes
+     */
     public function __construct(
         public int $index,
         public string $name,

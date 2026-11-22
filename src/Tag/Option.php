@@ -58,6 +58,7 @@ final class Option extends NormalTag
     public function getValue(): ?string
     {
         $value = ArrayHelper::getValue($this->attributes, 'value');
+        // @phpstan-ignore-next-line cast.string (The value attribute is expected to be a scalar, Stringable or null)
         return $value === null ? null : (string) $value;
     }
 

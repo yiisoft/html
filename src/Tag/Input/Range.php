@@ -20,13 +20,16 @@ final class Range extends InputTag
     private bool $showOutput = false;
 
     /**
-     * @psalm-var non-empty-string
+     * @var non-empty-string
      */
     private string $outputTag = 'span';
+    /**
+     * @var array<string, mixed>
+     */
     private array $outputAttributes = [];
 
     /**
-     * @psalm-var non-empty-string|null
+     * @var non-empty-string|null
      */
     private ?string $outputId = null;
 
@@ -96,6 +99,9 @@ final class Range extends InputTag
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function addOutputAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -103,6 +109,9 @@ final class Range extends InputTag
         return $new;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function outputAttributes(array $attributes): self
     {
         $new = clone $this;
@@ -128,16 +137,18 @@ final class Range extends InputTag
 
         return "\n" . (new CustomTag($this->outputTag))
                 ->attributes($this->outputAttributes)
+                // @phpstan-ignore-next-line cast.string (The value attribute is expected to be a scalar or null)
                 ->content((string) ($this->attributes['value'] ?? '-'))
                 ->id($this->outputId)
                 ->render();
     }
 
     /**
-     * @psalm-assert non-empty-string $this->outputId
+     * @phpstan-assert non-empty-string $this->outputId
      */
     private function fillOutputId(): void
     {
+        // @phpstan-ignore-next-line cast.string (The id attribute is expected to be a scalar or null)
         $id = (string) ($this->outputAttributes['id'] ?? '');
         $this->outputId = $id === '' ? Html::generateId('rangeOutput') : $id;
     }

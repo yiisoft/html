@@ -14,7 +14,13 @@ use function in_array;
  */
 final class Optgroup extends NormalTag
 {
+    /**
+     * @var Option[]
+     */
     private array $options = [];
+    /**
+     * @var string[]
+     */
     private array $selection = [];
 
     public function options(Option ...$options): self
@@ -29,7 +35,7 @@ final class Optgroup extends NormalTag
      *
      * @param (string|Stringable|int|float|null)[] $data Value-content set of options.
      * @param bool $encode Whether to encode option content.
-     * @param array[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
+     * @param array<string, mixed>[] $optionsAttributes Array of option attribute sets indexed by option values from {@see $data}.
      */
     public function optionsData(array $data, bool $encode = true, array $optionsAttributes = []): self
     {

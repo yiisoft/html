@@ -26,10 +26,10 @@ permissions:
   contents: read
 
 jobs:
-  psalm:
-    uses: yiisoft/actions/.github/workflows/psalm.yml@master
+  phpstan:
+    uses: yiisoft/actions/.github/workflows/phpstan.yml@master
     with:
       os: >-
         ['ubuntu-latest']
       php: >-
-        ['8.1', '8.2', '8.3', '8.4']
+        ['8.1', '8.2', '8.3', '8.4', '8.5']
